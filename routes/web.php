@@ -14,9 +14,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('/user/welcome');
+    return view('user/welcome');
 });
 
-Auth::routes();
+
+
+
+Route::namespace('User')->group(function () {
+
+Route::get('/register', 'UserController@showRegister')->name('register');
+
+});
+
+
+
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+//Auth::routes();

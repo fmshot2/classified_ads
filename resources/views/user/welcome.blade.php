@@ -9,7 +9,7 @@
 
 @section('content')
 
-@include('layouts.user_partials.carousel')
+@include('user.carousel')
 
 @include('user/search')
 
@@ -18,7 +18,5 @@
 @include('user/advert')
 
 @include('user/popular')
-
-
 
 @endsection

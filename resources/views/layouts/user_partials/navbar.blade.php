@@ -15,7 +15,7 @@
                         <a href="login.html" class="sign-in"><i class="fa fa-sign-in"></i> Login</a>
                     </li>
                     <li>
-                        <a href="signup.html" class="sign-in"><i class="fa fa-user"></i> Register</a>
+                        <a href="/register" class="sign-in"><i class="fa fa-user"></i> Register</a>
                     </li>
                 </ul>
             </div>
