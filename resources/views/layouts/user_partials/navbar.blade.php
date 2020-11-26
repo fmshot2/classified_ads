@@ -1,6 +1,6 @@
 
 <!-- Top header start -->
-<header class="top-header top-header-bg none-992" id="top-header-2">
+<header class="top-header bg-warning  none-992" id="top-header-2">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-8 col-sm-7">
@@ -12,7 +12,7 @@
             <div class="col-lg-6 col-md-4 col-sm-5">
                 <ul class="top-social-media pull-right">
                     <li>
-                        <a href="login.html" class="sign-in"><i class="fa fa-sign-in"></i> Login</a>
+                        <a href="/login" class="sign-in"><i class="fa fa-sign-in"></i> Login</a>
                     </li>
                     <li>
                         <a href="/register" class="sign-in"><i class="fa fa-user"></i> Register</a>
@@ -26,8 +26,8 @@
 <header class="main-header">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand logos" href="index.html">
-                <img src="img/logos/logo.png" alt="logo">
+            <a class="navbar-brand logos" href="/">
+                <img src="logos/Logo.png" alt="logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -189,7 +189,7 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href="submit-property.html" class="nav-link link-btn">Submit Property</a>
+                        <a href="submit-property.html" class="nav-link link-btn btn-warning font-weight-bold ">Submit Property</a>
                     </li>
                 </ul>
             </div>

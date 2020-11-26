@@ -113,7 +113,7 @@
                                 <input type="text" class="form-contact" name="email" placeholder="Enter Address">
                             </p>
                             <p>
-                                <button type="submit" name="submitNewsletter" class="btn btn-block button-theme">
+                                <button type="submit" name="submitNewsletter" class="btn btn-block text-white bg-warning">
                                     Subscribe
                                 </button>
                             </p>

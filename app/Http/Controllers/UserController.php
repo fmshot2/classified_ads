@@ -11,7 +11,7 @@ class UserController extends Controller
 
 
 
-	public function createUser ()
+	public function createUser (Request $request)
 	{
 
 
@@ -19,15 +19,19 @@ class UserController extends Controller
 			'name' => ['required', 'string', 'max:255'],
 			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
 			'password' => ['required', 'string', 'min:8', 'confirmed'],
+			'captcha' => ['required','captcha'],
 		]);
+
+		return "Yuppy";
 
 
 	}
 
 
-
-
-
+	public function refreshCaptcha()
+	{
+		return response()->json(['captcha'=> captcha_img('math')]);
+	}
 
 
 
@@ -38,17 +42,16 @@ class UserController extends Controller
 
 
 
-
-
-
-
 	public function showRegister ()
 	{
 		return view ('user.auth.register');
 	}
 
 
-
+	public function showLogin ()
+	{
+		return view ('user.auth.login');
+	}
 
 
 

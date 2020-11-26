@@ -37,7 +37,7 @@
 
 
 <div class="col-sm">
-  <button type="submit" class="btn btn-primary mb-2"> Search </button>
+  <button type="submit" class="btn btn-warning mb-2 font-weight-bold"> Search </button>
 </div>
 
 

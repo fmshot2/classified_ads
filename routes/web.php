@@ -14,18 +14,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('user/welcome');
+    return view('welcome');
 });
 
 
+Auth::routes();
 
 
-Route::namespace('User')->group(function () {
 
-Route::get('/register', 'UserController@showRegister')->name('register');
+Route::get('/register', 'AuthController@showRegister')->name('register');
+Route::post('/register', 'AuthController@createUser')->name('register');
+Route::get('/login', 'AuthController@showLogin')->name('login');
+Route::get('/refreshcaptcha', 'AuthController@refreshCaptcha')->name('refreshcaptcha');
 
-});
 
+Route::get('/terms', 'PageController@terms')->name('terms');
+Route::get('/privacy', 'PageController@privacy')->name('privacy');
 
 
 
@@ -33,4 +37,3 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 
-//Auth::routes();

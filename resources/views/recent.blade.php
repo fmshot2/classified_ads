@@ -9,7 +9,7 @@
                     <div class="property-box-5">
                         <div class="property-photo">
                             <img class="img-fluid" src="img/properties/properties-1.jpg" alt="properties">
-                            <div class="date-box">For Sale</div>
+                            <div class="date-box ">For Sale</div>
                         </div>
                         <div class="detail">
                             <div class="heading">
