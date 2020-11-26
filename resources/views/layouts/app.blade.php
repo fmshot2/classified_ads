@@ -1,14 +1,14 @@
 
-@include('layouts.user_partials.head')
+@include('layouts.partials.head')
 
 <body>
 
 
-	@include('layouts.user_partials.navbar')
+	@include('layouts.partials.navbar')
 
 		@yield('content')
 
-	@include('layouts.user_partials.footer')
+	@include('layouts.partials.footer')
 
 </body>
 

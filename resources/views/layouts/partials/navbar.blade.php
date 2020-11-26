@@ -6,7 +6,7 @@
             <div class="col-lg-6 col-md-8 col-sm-7">
                 <div class="list-inline">
                     <a href="tel:1-8X0-666-8X88"><i class="fa fa-phone"></i>Need Support? 1-8X0-666-8X88</a>
-                    <a href="tel:info@themevessel.com"><i class="fa fa-envelope"></i>info@themevessel.com</a>
+                    <a href="tel:info@themevessel.com"><i class="fa fa-envelope"></i>info@yellowpage.com</a>
                 </div>
             </div>
             <div class="col-lg-6 col-md-4 col-sm-5">
@@ -189,7 +189,7 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href="submit-property.html" class="nav-link link-btn btn-warning font-weight-bold ">Submit Property</a>
+                        <a href="submit-property.html" class="nav-link link-btn btn-warning font-weight-bold "> Post Property</a>
                     </li>
                 </ul>
             </div>

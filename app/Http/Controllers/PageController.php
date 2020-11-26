@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-
+    
 	public function terms()
 	{
 		return view ('terms');
@@ -18,7 +17,5 @@ class PageController extends Controller
 	{
 		return view ('privacy');
 	}
-
-
 
 }
