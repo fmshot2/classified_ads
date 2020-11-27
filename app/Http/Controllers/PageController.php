@@ -18,4 +18,11 @@ class PageController extends Controller
 		return view ('privacy');
 	}
 
+	public function test()
+	{
+		return view ('seller.index');
+	}
+
+
+
 }

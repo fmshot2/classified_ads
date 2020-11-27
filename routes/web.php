@@ -21,6 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 
+Route::get('/test', 'PageController@test')->name('test');
 
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register', 'AuthController@createUser')->name('register');

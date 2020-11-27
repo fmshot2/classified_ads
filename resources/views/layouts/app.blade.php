@@ -1,14 +1,17 @@
 
-@include('layouts.partials.head')
+<!DOCTYPE html>
+<html lang="en">
+
+
+@include('layouts.frontend_partials.head')
 
 <body>
 
-
-	@include('layouts.partials.navbar')
+	@include('layouts.frontend_partials.navbar')
 
 		@yield('content')
 
-	@include('layouts.partials.footer')
+	@include('layouts.frontend_partials.footer')
 
 </body>
 

@@ -24,15 +24,8 @@
             @endguest
 
 
-
-
-
             @auth
             <div class="col-lg-6 col-md-4 col-sm-5">
-
-
-
-
                 <ul class="top-social-media pull-right">
 
                     <div class="dropdown">
@@ -41,27 +34,14 @@
                     </button>
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" {{--  Auth::user()->role == 'seller' ?  route('seller.dashboard') : route('buyer.dashboard') --}} > Dashboard </a>
                         <a class="dropdown-item" href="/logout"> Logout </a>
                     </div>
 
                 </div>
-
-
-
             </ul>
-
-
-
-
         </div>
         @endauth
-
-
-
-
-
     </div>
 </div>
 </header>
@@ -238,11 +218,9 @@
 
                 @auth
                 @if(Auth::user()->role == 'seller')
-
-
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href="submit-property.html" class="nav-link link-btn btn-warning font-weight-bold "> Post Property</a>
+                        <a href="submit-property.html" class="btn btn-outline-warning font-weight-bold text-warning"> Post Property</a>
                     </li>
                 </ul>
 
