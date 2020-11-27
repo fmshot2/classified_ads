@@ -2,14 +2,14 @@
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
-            <h1> Popular Item </h1>
+            <h1> Recent Post </h1>
         </div>
         <div class="slick-slider-area">
             <div class="row slick-carousel slick-initialized slick-slider" data-slick="{&quot;slidesToShow&quot;: 4, &quot;responsive&quot;:[{&quot;breakpoint&quot;: 1024,&quot;settings&quot;:{&quot;slidesToShow&quot;: 2}}, {&quot;breakpoint&quot;: 768,&quot;settings&quot;:{&quot;slidesToShow&quot;: 1}}]}"><div class="slick-list draggable" style="padding: 0px;"><div class="slick-track" style="opacity: 1; width: 4275px; transform: translate3d(-855px, 0px, 0px);"><div class="slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style="width: 285px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
                     <div class="property-box-5">
                         <div class="property-photo">
                             <img class="img-fluid" src="img/properties/properties-1.jpg" alt="properties">
-                            <div class="date-box">For Sale</div>
+                            <div class="date-box ">For Sale</div>
                         </div>
                         <div class="detail">
                             <div class="heading">

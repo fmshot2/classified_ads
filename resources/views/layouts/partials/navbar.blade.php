@@ -9,6 +9,8 @@
                     <a href="tel:info@themevessel.com"><i class="fa fa-envelope"></i>info@yellowpage.com</a>
                 </div>
             </div>
+
+            @guest
             <div class="col-lg-6 col-md-4 col-sm-5">
                 <ul class="top-social-media pull-right">
                     <li>
@@ -19,9 +21,55 @@
                     </li>
                 </ul>
             </div>
+            @endguest
+
+
+
+
+
+            @auth
+            <div class="col-lg-6 col-md-4 col-sm-5">
+
+
+
+
+                <ul class="top-social-media pull-right">
+
+                    <div class="dropdown">
+                      <button class="btn btn-warning dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ Str::limit(Auth::user()->name, 8 ) }}
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="/logout"> Logout </a>
+                    </div>
+
+                </div>
+
+
+
+            </ul>
+
+
+
+
         </div>
+        @endauth
+
+
+
+
+
     </div>
+</div>
 </header>
+
+
+
+
+
 <!-- Main header start -->
 <header class="main-header">
     <div class="container">
@@ -187,12 +235,23 @@
                         </ul>
                     </li>
                 </ul>
+
+                @auth
+                @if(Auth::user()->role == 'seller')
+
+
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a href="submit-property.html" class="nav-link link-btn btn-warning font-weight-bold "> Post Property</a>
                     </li>
                 </ul>
+
+                @endif 
+                @endauth
+
+
             </div>
         </nav>
     </div>
 </header>
+

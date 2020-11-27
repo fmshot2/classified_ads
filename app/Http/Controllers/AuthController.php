@@ -23,14 +23,14 @@ class AuthController extends Controller
 			'captcha' => 'required|captcha',
 		]);
 
-        $user = new User;
+		$user = new User;
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->role = $request->role;
-        $user->save();
-        return view('auth/login');
+		$user->name = $request->name;
+		$user->email = $request->email;
+		$user->password = Hash::make($request->password);
+		$user->role = $request->role;
+		$user->save();
+		return view('auth/login');
 
 	}
 
@@ -45,23 +45,23 @@ class AuthController extends Controller
 	public function login (Request $request)
 	{
 
-        $credentials = $request->only('email', 'password');
+		$credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            
-            $check_role = Auth::user()->role;
+		if (Auth::attempt($credentials)) {
 
-            if ($check_role == 'seller') 
-            {
-            	return view ('welcome');
-            } else if ($check_role == 'buyer') 
-            {
-            	return view ('welcome');
-            } else {
-            	return view ('welcome');
-            }
+			$check_role = Auth::user()->role;
+
+			if ($check_role == 'seller') 
+			{
+				return view ('welcome');
+			} else if ($check_role == 'buyer') 
+			{
+				return view ('welcome');
+			} else {
+				return view ('welcome');
+			}
             //return redirect()->intended('dashboard');
-        }
+		}
 
 	}
 
@@ -77,5 +77,13 @@ class AuthController extends Controller
 	{
 		return view ('auth/login');
 	}
+
+	public function logout ()
+	{
+		Auth::logout();
+		return view ('welcome');
+	}
+
+
 
 }

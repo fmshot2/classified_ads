@@ -2,21 +2,22 @@
 @extends('layouts.app')
 
 @section('title')
- {{ env('APP_NAME') }} 
+ Home | 
 @endsection
-
-
 
 @section('content')
 
-@include('carousel')
+@include('section/carousel')
 
-@include('search')
+@include('section/search')
 
-@include('recent')
+@include('section/feature')
 
-@include('advert')
+@include('section/popular')
 
-@include('popular')
+@include('section/recent')
+
+@include('section/advert')
+
 
 @endsection
