@@ -48,13 +48,6 @@ methods: {
 			console.log(response)
 		})
 	},
-
-
 },//Method calibrace closes
-
-
-
-
-
 
 });

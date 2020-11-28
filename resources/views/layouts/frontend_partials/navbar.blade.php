@@ -34,7 +34,7 @@
                     </button>
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" {{--  Auth::user()->role == 'seller' ?  route('seller.dashboard') : route('buyer.dashboard') --}} > Dashboard </a>
+                        <a class="dropdown-item" href="{{  Auth::user()->role == 'seller' ?  route('seller.dashboard') : route('buyer.dashboard') }}"> Dashboard </a>
                         <a class="dropdown-item" href="/logout"> Logout </a>
                     </div>
 
