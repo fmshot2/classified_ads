@@ -34,7 +34,11 @@
                     </button>
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{{  Auth::user()->role == 'seller' ?  route('seller.dashboard') : route('home') }}"> Dashboard </a>
+                        @auth
+                        @if(Auth::user()->role == 'seller')
+                        <a class="dropdown-item" href="{{ route('seller.dashboard') }}"> Dashboard </a>
+                        @endif 
+                        @endauth
                         <a class="dropdown-item" href="/logout"> Logout </a>
                     </div>
 
@@ -54,7 +58,7 @@
 <header class="main-header">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand logos" href="/">
+            <a class="navbar-brand logos" href="/home">
                 <img src="logos/Logo.png" alt="logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

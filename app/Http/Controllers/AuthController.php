@@ -17,7 +17,7 @@ class AuthController extends Controller
 		$validatedData = $request->validate([
 			'name' => ['required', 'string', 'max:255'],
 			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-			'password' => ['required', 'string', 'min:8', 'confirmed'],
+			'password' => ['required', 'string', 'min:6', 'confirmed'],
 			'captcha' => 'required|captcha',
 			'role' => 'required'
 		]);
@@ -29,7 +29,15 @@ class AuthController extends Controller
 		$user->password = Hash::make($request->password);
 		$user->role = $request->role;
 		$user->save();
-		return view('auth/login');
+
+		$credentials = $request->only('email', 'password');
+
+		if (Auth::attempt($credentials)) {
+			if ( $request->role == 'seller' )
+				return view ('seller/dashboard');
+		} else {
+			return view('/home');
+		}
 
 	}
 
@@ -42,12 +50,31 @@ class AuthController extends Controller
 
 	public function showRegister ()
 	{
+		if (Auth::check()) {
+			return redirect()->intended('home');
+		}
+
 		return view ('auth/register');
 	}
 
 
+	public function login(Request $request)
+	{
+		$credentials = $request->only('email', 'password');
+
+		if (Auth::attempt($credentials)) {
+			if (Auth::user()->role == 'seller' )
+				return redirect()->intended('seller/dashboard');
+		} else {
+			return view('/home');
+		}
+	}
+
 	public function showLogin ()
 	{
+		if (Auth::check()) {
+			return redirect()->intended('home');
+		}
 		return view ('auth/login');
 	}
 

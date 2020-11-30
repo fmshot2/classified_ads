@@ -27,7 +27,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view ('seller/service.create');
     }
 
     /**
@@ -99,7 +99,7 @@ class ServiceController extends Controller
     {
 
         $service = Service::find($id);
-        return 'success';
+        return response()->json($service);
 
     }
 
@@ -126,8 +126,6 @@ class ServiceController extends Controller
         ]); 
 
         $image = $request->file('image');
-
-        $slug = Str::of($request->name)->slug('-');
 
         // Image set up
         if ( $request->hasFile('file') ) {
