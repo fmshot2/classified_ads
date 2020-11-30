@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Service;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
+use App\Category;
 
 class ServiceController extends Controller
 {
@@ -16,7 +17,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $service = Service::orderBy('id', 'desc')->paginate(5);
     }
 
     /**
@@ -57,10 +58,9 @@ class ServiceController extends Controller
 
         // Image set up
         if ( $request->hasFile('file') ) {
-            $path = Storage::disk('public')->putFile('services',$request->file('file'));
+            $path = Storage::disk('public')->putFile('service',$request->file('file'));
             $service->image = $path;
         }
-
 
         $service->user_id = Auth::id();
         $service->category_id = $request->category_id;
@@ -85,7 +85,8 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $service = Service::find($id);
+        return response()->json($service);
     }
 
     /**
@@ -96,7 +97,10 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $service = Service::find($id);
+        return 'success';
+
     }
 
     /**
@@ -108,7 +112,44 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+       $service = Service::find($id);
+
+       $this->validate($request,[
+            'name' => 'required',
+            'image' => 'required',
+            'category_id' => 'required',
+            'address' => 'required',
+            'description' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+        ]); 
+
+        $image = $request->file('image');
+
+        $slug = Str::of($request->name)->slug('-');
+
+        // Image set up
+        if ( $request->hasFile('file') ) {
+            Storage::disk('public')->delete($service->image);
+            $path = Storage::disk('public')->putFile('service',$request->file('file'));
+            $driver->image = $path;
+        }
+
+        $service->user_id = Auth::id();
+        $service->category_id = $request->category_id;
+        $service->name = $request->name;
+        $service->slug = $slug;
+        $service->image = $image;
+        $service->description = $request->description;
+        $service->state = $request->state;
+
+        $service->save();
+
+        $request->session()->flash('success', 'Task was successful!');
+        return 'success';
+
+
     }
 
     /**
@@ -119,6 +160,10 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $service = Service::findOrFail($id);
+        Storage::disk('public')->delete($service->image);
+        $service->delete();
+
     }
 }
