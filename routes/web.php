@@ -36,8 +36,12 @@ Route::get('/privacy', 'PageController@privacy')->name('privacy');
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
 Route::get('/buyer/dashboard', 'DashboardController@buyer')->name('buyer.dashboard');
 
-Route::post('/seller/dashboard/create', 'ProductController@store')->name('seller.create');
-Route::get('/seller/dashboard/create', 'ProductController@create')->name('seller.show');
+Route::middleware(['auth'])->group(function () {
+
+Route::post('/seller/dashboard/create', 'ProductController@store')->name('product.create');
+Route::get('/seller/dashboard/create', 'ProductController@create')->name('product.show');
+
+});
 
 
 

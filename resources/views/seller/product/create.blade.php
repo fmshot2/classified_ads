@@ -9,82 +9,70 @@ Create |
 @section('content')
 
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
+
+<div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4"> Post Product </h3></div>
+                                    <div class="card-body">
+
+                                        <form>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputFirstName">First Name</label>
+                                                        <input class="form-control py-4" id="inputFirstName" type="text" placeholder="Enter first name">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputLastName">Last Name</label>
+                                                        <input class="form-control py-4" id="inputLastName" type="text" placeholder="Enter last name">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputEmailAddress">Email</label>
+                                                <input class="form-control py-4" id="inputEmailAddress" type="email" aria-describedby="emailHelp" placeholder="Enter email address">
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputPassword">Password</label>
+                                                        <input class="form-control py-4" id="inputPassword" type="password" placeholder="Enter password">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="inputConfirmPassword">Confirm Password</label>
+                                                        <input class="form-control py-4" id="inputConfirmPassword" type="password" placeholder="Confirm password">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group mt-4 mb-0"><a class="btn btn-primary btn-block" href="login.html">Create Account</a></div>
+                                        </form>
+
+                                    </div>
+
+                                    <div class="card-footer text-center">
+                                        <div class="small"> <a href="login.html">Have an account? Go to login</a> </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
 
 
-
-
-<h2 class="font-weight-bold mt-2 text-center"> Post Product </h2>
-<hr>
-<h3 class="font-weight-normal mt-4"> Basic Information </h3>
-
-
-<form class="mt-3">
-
-	<div class="form-row"> <!-- Form row tag open -->
-
-		<div class="col-md-4 mb-3">
-			<label for="validationServer01"> Product Title</label>
-			<input type="text" class="form-control " id="validationServer01" placeholder=" Name "  required>
-			@if ($errors->has('name'))
-			<div class="invalid-feedback">
-				{{ $errors->first('name') }}
-			</div>
-			@endif
-		</div>
-
-		<div class="col-md-4 mb-3">
-			<label for="validationServer02"> Status </label>
-			<select id="inputState" class="form-control" name="status">
-				<option value="for_sale" selected> For Sale</option>
-				<option value="for_rent"> For Rent </option>
-			</select>
-			@if ($errors->has('status'))
-			<div class="invalid-feedback">
-				{{ $errors->first('status') }}
-			</div>
-			@endif
-		</div>
-
-		<div class="col-md-4 mb-3">
-			<label for="validationServer02"> Product Categories </label>
-
-			<select id="tags" multiple="multiple" class="form-control" required>
-
-			</select>
-
-			<div class="valid-feedback">
-				Looks good!
-			</div>
-		</div>
-
-	</div>  <!-- Form row tag close -->
-
-
-
-	<button class="btn btn-primary" type="submit">Submit form</button>
-</form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-  </div>
-</div>
 
 @endsection

@@ -15,7 +15,7 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link "{{-- href="{{ route('seller.show') }} --}}" data-toggle="modal" data-target=".bd-example-modal-lg"> Create </a>
+                                    <a class="nav-link " href="{{ route('product.show') }} "> Create </a>
                                     <a class="nav-link" href="layout-sidenav-light.html"> Table </a>
                                 </nav>
                             </div>
