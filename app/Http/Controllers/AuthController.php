@@ -7,7 +7,6 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-
 class AuthController extends Controller
 {
 
@@ -30,13 +29,15 @@ class AuthController extends Controller
 		$user->role = $request->role;
 		$user->save();
 
+		session()->flash('success', ' Succesfull');
+
 		$credentials = $request->only('email', 'password');
 
 		if (Auth::attempt($credentials)) {
 			if ( $request->role == 'seller' )
-				return view ('seller/dashboard');
+				return view ('seller.index');
 		} else {
-			return view('/home');
+			return view('welcome');
 		}
 
 	}
@@ -51,7 +52,7 @@ class AuthController extends Controller
 	public function showRegister ()
 	{
 		if (Auth::check()) {
-			return redirect()->intended('home');
+			return redirect()->intended('welcome');
 		}
 
 		return view ('auth/register');
@@ -60,20 +61,30 @@ class AuthController extends Controller
 
 	public function login(Request $request)
 	{
+
 		$credentials = $request->only('email', 'password');
 
 		if (Auth::attempt($credentials)) {
-			if (Auth::user()->role == 'seller' )
+
+			if (Auth::user()->role == 'seller' ) 
+			{
+				session()->flash('success', ' Login Succesfull');
 				return redirect()->intended('seller/dashboard');
-		} else {
-			return view('/home');
+			} else {
+				session()->flash('success', ' Login Succesfull');
+				return redirect()->intended('welcome');
+			}
 		}
+
+		session()->flash('fail', ' Credential Incorect');
+		return view ('auth/login');
+
 	}
 
 	public function showLogin ()
 	{
 		if (Auth::check()) {
-			return redirect()->intended('home');
+			return view ('welcome');
 		}
 		return view ('auth/login');
 	}

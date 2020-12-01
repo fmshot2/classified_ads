@@ -20,10 +20,14 @@ class CreateServicesTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('address');
-            $table->string('image');
+            $table->string('image_1');
+            $table->string('image_2')->nullable();
+            $table->string('image_3')->nullable();
+            $table->string('image_4')->nullable();
+            $table->string('image_5')->nullable();
             $table->string('city');
             $table->string('state');
-            $table->boolean('is_featured')->nullable();
+            $table->boolean('is_featured')->default(true);
             $table->string('slug')->unique();
 
             $table->unsignedInteger('user_id');

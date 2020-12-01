@@ -7,6 +7,8 @@
 
 @section('content')
 
+@include('layouts.frontend_partials.status')
+
 @include('section/carousel')
 
 @include('section/search')

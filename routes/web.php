@@ -27,22 +27,14 @@ Route::get('/login', 'AuthController@showLogin')->name('login');
 Route::post('/login', 'AuthController@login')->name('login');
 Route::get('/logout', 'AuthController@logout')->name('logout');
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-
-
 Route::get('/refreshcaptcha', 'AuthController@refreshCaptcha')->name('refreshcaptcha');
-
 
 Route::get('/terms', 'PageController@terms')->name('terms');
 Route::get('/privacy', 'PageController@privacy')->name('privacy');
 
 Route::middleware(['auth'])->group(function () {
-
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
-
 Route::get('/service/create', 'ServiceController@create')->name('service.create');
-
-
-
 });
 
 
