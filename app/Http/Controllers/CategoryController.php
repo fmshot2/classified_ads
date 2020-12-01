@@ -17,6 +17,11 @@ class CategoryController extends Controller
         $category = Category::orderBy('id', 'desc')->paginate(5);
     }
 
+
+public function adminDashboard()
+    {
+        return view ('seller.adminDashboard');
+    }
     /**
      * Show the form for creating a new resource.
      *

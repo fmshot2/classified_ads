@@ -30,12 +30,52 @@ class ServiceController extends Controller
         return view ('seller/service.create');
     }
 
+
+
+    public function createService()
+    {
+        return view ('seller.addService');
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
+     public function storeTeacher(Request $request)
+    {
+
+
+       
+        $service->category_id = $request->category_id;
+        $service->name = $request->name;
+        //$service->slug = $slug;
+        $service->image = $image;
+        $service->description = $request->description;
+        $service->state = $request->state;
+
+        $name = $request->name;
+        $image = $request->file('file');
+        $imageName = time().'.'.$image->extension();
+        //$destinationPath = 'public/image/'; // upload path
+        $image->move(public_path('images'),$imageName);
+        //$image->move($destinationPath,$imageName);
+        $teacher = new Teacher();
+        $teacher->name = $name;
+        $teacher->profileimage = $imageName;
+
+         
+
+        $teacher->save();
+        return redirect('/teachers');
+    }
+
+
+
     public function store(Request $request)
     {
         
@@ -45,9 +85,9 @@ class ServiceController extends Controller
             'category_id' => 'required',
             'address' => 'required',
             'description' => 'required',
-            'slug' => 'unique:services,slug',
-            'city' => 'required',
-            'state' => 'required',
+            //'slug' => 'unique:services,slug',
+            //'city' => 'required',
+            //'state' => 'required',
         ]); 
 
         $image = $request->file('image');
@@ -61,7 +101,7 @@ class ServiceController extends Controller
             $path = Storage::disk('public')->putFile('service',$request->file('file'));
             $service->image = $path;
         }
-
+       
         $service->user_id = Auth::id();
         $service->category_id = $request->category_id;
         $service->name = $request->name;

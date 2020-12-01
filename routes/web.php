@@ -21,6 +21,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::get('/test', 'PageController@test')->name('test');
 
+Route::get('/createService', 'ServiceController@createService')->name('createService');
+
+
+
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register', 'AuthController@createUser')->name('register');
 Route::get('/login', 'AuthController@showLogin')->name('login');
@@ -35,6 +39,8 @@ Route::get('/privacy', 'PageController@privacy')->name('privacy');
 Route::middleware(['auth'])->group(function () {
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
 Route::get('/service/create', 'ServiceController@create')->name('service.create');
+Route::get('/adminDashboard', 'CategoryController@adminDashboard')->name('adminDashboard');
+
 });
 
 
