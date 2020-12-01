@@ -51,26 +51,26 @@ class ServiceController extends Controller
 
 
        
-        $service->category_id = $request->category_id;
-        $service->name = $request->name;
-        //$service->slug = $slug;
-        $service->image = $image;
-        $service->description = $request->description;
-        $service->state = $request->state;
-
+        $category_id = $request->category_id;
         $name = $request->name;
+        //$service->slug = $slug;
+        //$service->image = $image;
+        $description = $request->description;
+        $service->address = $request->address;
+
+       // $name = $request->name;
         $image = $request->file('file');
         $imageName = time().'.'.$image->extension();
-        //$destinationPath = 'public/image/'; // upload path
         $image->move(public_path('images'),$imageName);
-        //$image->move($destinationPath,$imageName);
-        $teacher = new Teacher();
-        $teacher->name = $name;
-        $teacher->profileimage = $imageName;
+        $service = new Service();
+        $service->name = $name;
+        $service->image = $imageName;
+        $service->description = $description;
+        $service->address = $address;
 
          
 
-        $teacher->save();
+        $service->save();
         return redirect('/teachers');
     }
 
