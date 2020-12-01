@@ -2,20 +2,18 @@
 @extends('layouts.app')
 
 @section('title')
- Home | 
+ Create Service | 
 @endsection
 
 @section('content')
 
 
-<!-- Sub banner start -->
 <div class="sub-banner">
     <div class="container">
         <div class="page-name">
-            <h1>Submit Property</h1>
+            <h1>Submit Service</h1>
             <ul>
-                <li><a href="index.html">Index</a></li>
-                <li><span>/</span>Submit Property</li>
+                <li><span>/</span>Service Offer</li>
             </ul>
         </div>
     </div>
@@ -23,67 +21,97 @@
 
 
 
+
 <div class="submit-property content-area">
     <div class="container">
         <div class="row">
+
             <div class="col-md-12">
-                <div class="notification-box">
+                <div class="notification-box bg-warning">
                     <h3>Don't Have an Account?</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tortor at tellus feugiat congue quis ut nunc. Semper ac dolor vitae accumsan.</p>
                 </div>
             </div>
+
             <div class="col-md-12">
                 <div class="submit-address">
                     <form method="GET">
                         <h3 class="heading-2">Basic Information</h3>
                         <div class="search-contents-sidebar mb-30">
                             <div class="row">
-                                <div class="col-lg-4 col-md-6">
-                                      <div class="form-group">
-                                        <label>Service Name</label>
-                                        <input type="text" class="input-text" name="your name" placeholder="What Do Yo Do?">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                     <div class="form-group">
-                                        <label>Years of Experience</label>
-                                        <input type="text" class="input-text" name="Experience" placeholder="Enter A Number">
-                                    </div>
-                                </div>
+
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-group">
-                                        <label>Type</label>
-                                        <select class="selectpicker search-fields" name="apartment">
+                                        <label>Property Title</label>
+                                        <input type="text" class="input-text" name="your name" placeholder="John dae">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6">
+
+  <div class="form-group">
+    <label for="exampleFormControlSelect1"> Status </label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option> For S</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+  </div>
+
+                                </div>
+
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="form-group">
+                                        <label>Category Type</label>
+                                        <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="apartment" tabindex="-98">
                                             <option>Apartment</option>
                                             <option>House</option>
                                             <option>Commercial</option>
                                             <option>Garage</option>
                                             <option>Lot</option>
-                                        </select>
+                                        </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="Apartment"><div class="filter-option"><div class="filter-option-inner">Apartment</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-group">
                                         <label>Area/Location</label>
                                         <input type="text" class="input-text" name="your name" placeholder="SqFt">
                                     </div>
                                 </div>
+
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-group">
-                                        <label>LGA</label>
-                                        <input type="text" class="input-text" name="your name" placeholder="Enter Your Local Government Area">
+                                        <label>Rooms</label>
+                                        <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="1" tabindex="-98">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="1"><div class="filter-option"><div class="filter-option-inner">1</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-4 col-md-6">
                                     <div class="form-group">
-                                        <label>LGA</label>
-                                        <input type="text" class="input-text" name="your name" placeholder="Enter State Where Your Business is Located">
+                                        <label>Bathroom</label>
+                                        <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="1" tabindex="-98">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="1"><div class="filter-option"><div class="filter-option-inner">1</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <h3 class="heading-2">Property Gallery</h3>
-                        <div id="myDropZone" class="dropzone dropzone-design mb-50">
+                        <div id="myDropZone" class="dropzone dropzone-design mb-50 dz-clickable">
                             <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
                         </div>
                         <h3 class="heading-2">Location</h3>
@@ -91,31 +119,31 @@
                             <div class="col-lg-4 col-md-4">
                                 <div class="form-group">
                                     <label>Address</label>
-                                    <input type="text" class="input-text" name="address"  placeholder="Address">
+                                    <input type="text" class="input-text" name="address" placeholder="Address">
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="form-group">
                                     <label>City</label>
-                                    <select class="selectpicker search-fields" name="choose-citys">
+                                    <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="choose-citys" tabindex="-98">
                                         <option>Choose Citys</option>
                                         <option>New York</option>
                                         <option>Los Angeles</option>
                                         <option>Chicago</option>
                                         <option>Brooklyn</option>
-                                    </select>
+                                    </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="Choose Citys"><div class="filter-option"><div class="filter-option-inner">Choose Citys</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="form-group">
                                     <label>State</label>
-                                    <select class="selectpicker search-fields" name="choose-state">
+                                    <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="choose-state" tabindex="-98">
                                         <option>Choose State</option>
                                         <option>Alabama</option>
                                         <option>Alaska</option>
                                         <option>California</option>
                                         <option>Colorado</option>
-                                    </select>
+                                    </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="Choose State"><div class="filter-option"><div class="filter-option-inner">Choose State</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
                                 </div>
                             </div>
                         </div>
@@ -132,37 +160,37 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Building Age <span>(optional)</span></label>
-                                    <select class="selectpicker search-fields" name="years">
+                                    <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="years" tabindex="-98">
                                         <option>0-1 Years</option>
                                         <option>0-5 Years</option>
                                         <option>0-10 Years</option>
                                         <option>0-20 Years</option>
                                         <option>0-40 Years</option>
-                                    </select>
+                                    </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="0-1 Years"><div class="filter-option"><div class="filter-option-inner">0-1 Years</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Bedrooms (optional)</label>
-                                    <select class="selectpicker search-fields" name="1">
+                                    <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="1" tabindex="-98">
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
                                         <option>4</option>
                                         <option>5</option>
-                                    </select>
+                                    </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="1"><div class="filter-option"><div class="filter-option-inner">1</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Bathrooms (optional)</label>
-                                    <select class="selectpicker search-fields" name="1">
+                                    <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="1" tabindex="-98">
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
                                         <option>4</option>
                                         <option>5</option>
-                                    </select>
+                                    </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="1"><div class="filter-option"><div class="filter-option-inner">1</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
                                 </div>
                             </div>
                         </div>
@@ -244,11 +272,11 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Phone (optional)</label>
-                                    <input type="text" class="input-text" name="phone"  placeholder="Phone">
+                                    <input type="text" class="input-text" name="phone" placeholder="Phone">
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <a href="#" class="btn btn-md button-theme mb-30">Preview</a>
+                                <a href="#" class="btn btn-md btn-warning mb-30"> Submit </a>
                             </div>
                         </div>
                     </form>
@@ -257,5 +285,7 @@
         </div>
     </div>
 </div>
+
+
 
 @endsection

@@ -20,6 +20,7 @@ class CreateServicesTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('address');
+            $table->string('phone')->nullable();
             $table->string('image_1');
             $table->string('image_2')->nullable();
             $table->string('image_3')->nullable();

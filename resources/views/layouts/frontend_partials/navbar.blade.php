@@ -36,6 +36,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         @auth
                         @if(Auth::user()->role == 'seller')
+                        <a class="dropdown-item" href="{{ route('service.create') }}"> Post Service </a>
                         <a class="dropdown-item" href="{{ route('seller.dashboard') }}"> Dashboard </a>
                         @endif 
                         @endauth

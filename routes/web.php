@@ -38,9 +38,8 @@ Route::get('/privacy', 'PageController@privacy')->name('privacy');
 
 Route::middleware(['auth'])->group(function () {
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
-Route::get('/service/create', 'ServiceController@create')->name('service.create');
+Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
 Route::get('/adminDashboard', 'CategoryController@adminDashboard')->name('adminDashboard');
-
 });
 
 
