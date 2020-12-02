@@ -41,8 +41,13 @@ Route::get('/privacy', 'PageController@privacy')->name('privacy');
 Route::middleware(['auth'])->group(function () {
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
 Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
+Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name('service.delete');
+
 Route::get('/adminDashboard', 'DashboardController@adminDashboard')->name('adminDashboard');
 Route::get('/adminDashboard2', 'DashboardController@adminDashboard')->name('adminDashboard2');
+
+
+
 
 });
 
@@ -53,3 +58,4 @@ Route::get('/adminDashboard2', 'DashboardController@adminDashboard')->name('admi
 
 
 //Auth::routes();
+ 

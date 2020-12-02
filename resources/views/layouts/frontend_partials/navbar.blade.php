@@ -36,8 +36,8 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         @auth
                         @if(Auth::user()->role == 'seller')
-                        <a class="dropdown-item" href="{{ route('service.create') }}"> Post A Service </a>
-                        <a class="dropdown-item" href="{{ route('seller.dashboard') }}"> Dashboard </a>
+                        <a class="dropdown-item" href="{{ route('createService') }}"> Post A Service </a>
+                        <a class="dropdown-item" href="{{ route('adminDashboard') }}"> Dashboard </a>
                         @endif 
                         @endauth
                         <a class="dropdown-item" href="/logout"> Logout </a>
@@ -114,7 +114,7 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link" id="navbarDropdownMenuLink2" href="{{ route('createService') }}">
                             Post A Service
                         </a>
                        
