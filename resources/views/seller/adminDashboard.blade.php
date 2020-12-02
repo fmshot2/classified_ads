@@ -65,7 +65,7 @@
       <span class="logo-lg"><b>Cross</b>Admin</span>
     </a>
     <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top">
+    <nav class="navbar navbar-static-top navbar-dark" style="color: green;">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -405,9 +405,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard 1</a></li>
+           <!-- <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard 1</a></li>
             <li class="active"><a href="index-2.html"><i class="fa fa-circle-o"></i> Dashboard 2</a></li>
-            <li><a href="index-3.html"><i class="fa fa-circle-o"></i> Dashboard 3</a></li>
+            <li><a href="index-3.html"><i class="fa fa-circle-o"></i> Dashboard 3</a></li>-->
           </ul>
         </li>
         <li class="treeview">
@@ -600,8 +600,8 @@
             <span class="info-box-icon push-bottom bg-blue"><i class="ion ion-ios-pricetag-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">New Clients</span>
-              <span class="info-box-number">450</span>
+              <span class="info-box-text">All Services</span>
+              <span class="info-box-number">{{ $serviceNu  }}</span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-blue" style="width: 45%"></div>

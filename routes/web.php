@@ -22,6 +22,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/test', 'PageController@test')->name('test');
 
 Route::get('/createService', 'ServiceController@createService')->name('createService');
+Route::post('/storeService', 'ServiceController@storeService')->name('service.store');
+
 
 
 
@@ -39,7 +41,8 @@ Route::get('/privacy', 'PageController@privacy')->name('privacy');
 Route::middleware(['auth'])->group(function () {
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
 Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
-Route::get('/adminDashboard', 'CategoryController@adminDashboard')->name('adminDashboard');
+Route::get('/adminDashboard', 'DashboardController@adminDashboard')->name('adminDashboard');
+
 });
 
 

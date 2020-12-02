@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Service;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\File;
 use App\Category;
 
@@ -46,32 +48,33 @@ class ServiceController extends Controller
      */
 
 
-     public function storeTeacher(Request $request)
+     public function storeService(Request $request)
     {
 
 
        
-        $category_id = $request->category_id;
+        $category = $request->category;
         $name = $request->name;
-        //$service->slug = $slug;
+        $experience = $request->experience;
         //$service->image = $image;
         $description = $request->description;
-        $service->address = $request->address;
+        $address = $request->address;
 
        // $name = $request->name;
         $image = $request->file('file');
         $imageName = time().'.'.$image->extension();
         $image->move(public_path('images'),$imageName);
         $service = new Service();
+        $service->category = $category;
         $service->name = $name;
-        $service->image = $imageName;
+        $service->experience = $experience;
         $service->description = $description;
+        $service->image = $imageName;
         $service->address = $address;
-
-         
+        $service->user_id = Auth::id();      
 
         $service->save();
-        return redirect('/teachers');
+        return redirect('/adminDashboard');
     }
 
 

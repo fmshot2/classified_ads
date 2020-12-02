@@ -18,10 +18,7 @@ class CategoryController extends Controller
     }
 
 
-public function adminDashboard()
-    {
-        return view ('seller.adminDashboard');
-    }
+
     /**
      * Show the form for creating a new resource.
      *

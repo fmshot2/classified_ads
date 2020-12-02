@@ -35,7 +35,7 @@ class AuthController extends Controller
 
 		if (Auth::attempt($credentials)) {
 			if ( $request->role == 'seller' )
-				return view ('seller.index');
+        return redirect('/adminDashboard');
 		} else {
 			return view('welcome');
 		}
