@@ -30,7 +30,6 @@
                         </div>
                     </div>
                 </div></div></div>
-                @foreach($staff as $item)
                 <div class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" style="width: 285px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
                     <div class="property-box-5">
                         <div class="property-photo">
@@ -88,7 +87,7 @@
                         <div class="detail">
                             <div class="heading">
                                 <h3>
-                                    <a href="properties-details.html" tabindex="-1">{{$item->name}}</a>
+                                    <a href="properties-details.html" tabindex="-1"></a>
                                 </h3>
                                 <div class="location">
                                     <a href="properties-details.html" tabindex="-1">
