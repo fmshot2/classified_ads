@@ -15,6 +15,8 @@ Login
                         <a href="{{route('register')}}" class="link-btn btn-2 default-bg">Register</a>
                     </div>
                     <div class="clearfix"></div>
+
+{{--
                     @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -24,7 +26,12 @@ Login
                         </ul>
                     </div><br />
                     @endif
-                    <form action="{{route('login')}}" method="post">
+
+                    --}}
+
+                    @include('layouts.frontend_partials.status')
+
+                    <form action="{{route('login')}}" method="POST">
                         @csrf
                         <div class="form-group form-box">
                             <input type="email" name="email" class="input-text" placeholder="Email Address">
@@ -32,7 +39,7 @@ Login
                             <span class="helper-text" data-error="wrong" data-success="right">
                                 <strong>{{ $errors->first('email') }}</strong>
                             </span>
-                        @endif
+                            @endif
                         </div>
                         <div class="form-group form-box clearfix">
                             <input type="password" name="password" class="input-text" placeholder="Password">
@@ -40,7 +47,7 @@ Login
                             <span class="helper-text" data-error="wrong" data-success="right">
                                 <strong>{{ $errors->first('password') }}</strong>
                             </span>
-                        @endif
+                            @endif
                         </div>
                         <p>
                             <label>
@@ -49,7 +56,7 @@ Login
                             </label>
                         </p>
                         <div class="form-group clearfix mb-0">
-                            <button type="submit" class="btn-md btn-theme float-left">Login</button>
+                            <button type="submit" class="btn-md btn-warning float-left">Login</button>
                             <a href="{{ route('password.request') }}" class="forgot-password">Forgot Password</a>
                         </div>
                     </form>

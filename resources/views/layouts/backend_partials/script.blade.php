@@ -13,25 +13,6 @@
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-<script type="text/javascript">	
-
-	$('#tags').select2({
-		tags: true,
-    //data: ["Apartment", "Commercial", "Accessories", "Others" ],
-    tokenSeparators: [','], 
-    placeholder: "Add your tags here",
-    /* the next 2 lines make sure the user can click away after typing and not lose the new tag */
-    selectOnClose: true, 
-    closeOnSelect: false
-});
-
-</script>
-
-
-
-
-
 
 
 

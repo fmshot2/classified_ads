@@ -34,7 +34,12 @@
                     </button>
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{{  Auth::user()->role == 'seller' ?  route('seller.dashboard') : route('buyer.dashboard') }}"> Dashboard </a>
+                        @auth
+                        @if(Auth::user()->role == 'seller')
+                        <a class="dropdown-item" href="{{ route('service.create') }}"> Post A Service </a>
+                        <a class="dropdown-item" href="{{ route('seller.dashboard') }}"> Dashboard </a>
+                        @endif 
+                        @endauth
                         <a class="dropdown-item" href="/logout"> Logout </a>
                     </div>
 
@@ -54,7 +59,7 @@
 <header class="main-header">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand logos" href="/">
+            <a class="navbar-brand logos" href="/home">
                 <img src="logos/Logo.png" alt="logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,20 +72,16 @@
                             Index
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="index.html">Index 1</a></li>
-                            <li><a class="dropdown-item" href="index-2.html">Index 2</a></li>
-                            <li><a class="dropdown-item" href="index-3.html">Index 3</a></li>
-                            <li><a class="dropdown-item" href="index-4.html">Index 4</a></li>
-                            <li><a class="dropdown-item" href="index-5.html">Index 5</a></li>
-                            <li><a class="dropdown-item" href="index-6.html">Index 6</a></li>
+                            <li><a class="dropdown-item" href="#">Home</a></li>
+                           
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Properties
+                            Finde A Service
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">List Layout</a>
+                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Find A Service</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="properties-list-rightside.html">Right Sidebar</a></li>
                                     <li><a class="dropdown-item" href="properties-list-leftsidebar.html">Left Sidebar</a></li>
@@ -114,105 +115,23 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Agents
+                            Post A Service
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="agent-list.html">Agent List 1</a></li>
-                            <li><a class="dropdown-item" href="agent-list-2.html">Agent List 2</a></li>
-                            <li><a class="dropdown-item" href="agent-grid.html">Agent Grid 1</a></li>
-                            <li><a class="dropdown-item" href="agent-grid-2.html">Agent Grid 2</a></li>
-                            <li><a class="dropdown-item" href="agent-detail.html">Agent Detail</a></li>
-                        </ul>
+                       
                     </li>
                     <li class="nav-item dropdown megamenu-li">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Find A User</a>
                         <div class="dropdown-menu megamenu" aria-labelledby="navbarDropdownMenuLink4">
                             <div class="megamenu-area">
-                                <div class="row">
-                                    <div class="col-sm-6 col-lg-3">
-                                        <div class="megamenu-section">
-                                            <h6 class="megamenu-title">Pages</h6>
-                                            <a class="dropdown-item" href="about.html">About 1</a>
-                                            <a class="dropdown-item" href="about-2.html">About 2</a>
-                                            <a class="dropdown-item" href="services.html">Services 1</a>
-                                            <a class="dropdown-item" href="services-2.html">Services 2</a>
-                                            <a class="dropdown-item" href="properties-list-rightside.html">Properties List</a>
-                                            <a class="dropdown-item" href="properties-grid-rightside.html">Properties Grid</a>
-                                            <a class="dropdown-item" href="properties-map-full.html">Properties Map</a>
-                                            <a class="dropdown-item" href="properties-comparison.html">Properties Comparison</a>
-                                            <a class="dropdown-item" href="search-brand.html">Properties Brands</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-3">
-                                        <div class="megamenu-section">
-                                            <h6 class="megamenu-title">Pages</h6>
-                                            <a class="dropdown-item" href="pricing-tables.html">Pricing Tables 1</a>
-                                            <a class="dropdown-item" href="pricing-tables-2.html">Pricing Tables 2</a>
-                                            <a class="dropdown-item" href="pricing-tables-3.html">Pricing Tables 3</a>
-                                            <a class="dropdown-item" href="gallery.html">Gallery 1</a>
-                                            <a class="dropdown-item" href="gallery-2.html">Gallery 2</a>
-                                            <a class="dropdown-item" href="typography.html">Typography 1</a>
-                                            <a class="dropdown-item" href="typography-2.html">Typography 2</a>
-                                            <a class="dropdown-item" href="coming-soon.html">Coming Soon</a>
-                                            <a class="dropdown-item" href="elements.html">Elements</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-3">
-                                        <div class="megamenu-section">
-                                            <h6 class="megamenu-title">Pages</h6>
-                                            <a class="dropdown-item" href="contact.html">Contact 1</a>
-                                            <a class="dropdown-item" href="contact-2.html">Contact 2</a>
-                                            <a class="dropdown-item" href="contact-3.html">Contact 3</a>
-                                            <a class="dropdown-item" href="faq.html">Faq 1</a>
-                                            <a class="dropdown-item" href="faq-2.html">Faq 2</a>
-                                            <a class="dropdown-item" href="icon.html">Icon</a>
-                                            <a class="dropdown-item" href="404.html">Error Page</a>
-                                            <a class="dropdown-item" href="404-2.html">Error Page 2</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-3">
-                                        <div class="megamenu-section">
-                                            <h6 class="megamenu-title">Pages</h6>
-                                            <a class="dropdown-item" href="my-profile.html">My profile</a>
-                                            <a class="dropdown-item" href="my-properties.html">My Properties</a>
-                                            <a class="dropdown-item" href="favorited-properties.html">Favorited Properties</a>
-                                            <a class="dropdown-item" href="submit-property.html">Submit Property</a>
-                                            <a class="dropdown-item" href="login.html">Login</a>
-                                            <a class="dropdown-item" href="signup.html">Register</a>
-                                            <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-                                            <a class="dropdown-item" href="change-password.html">Change Password</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Blog
+                            Report
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Classic</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="blog-classic-sidebar-right.html">Right Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="blog-classic-sidebar-left.html">Left Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="blog-classic-fullwidth.html">FullWidth</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Columns</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="blog-columns-2col.html">2 Columns</a></li>
-                                    <li><a class="dropdown-item" href="blog-columns-3col.html">3 Columns</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Blog Details</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="blog-single-sidebar-right.html">Right Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="blog-single-sidebar-left.html">Left Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="blog-single-fullwidth.html">Fullwidth</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                     
                     </li>
                 </ul>
 
@@ -220,7 +139,7 @@
                 @if(Auth::user()->role == 'seller')
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href="submit-property.html" class="btn btn-outline-warning font-weight-bold text-warning"> Post Property</a>
+                        <a href="{{route('createService')}}" class="btn btn-outline-warning font-weight-bold text-warning"> Post A Service</a>
                     </li>
                 </ul>
 
