@@ -44,10 +44,7 @@ Route::get('/seller/service/create', 'ServiceController@create')->name('service.
 Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name('service.delete');
 
 Route::get('/adminDashboard', 'DashboardController@adminDashboard')->name('adminDashboard');
-Route::get('/adminDashboard2', 'DashboardController@adminDashboard')->name('adminDashboard2');
-
-
-
+Route::get('/adminDashboard3', 'DashboardController@adminDashboard')->name('adminDashboard3');
 
 });
 
