@@ -587,7 +587,7 @@
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
       </ol>
     </section>
@@ -601,13 +601,12 @@
 
             <div class="info-box-content">
               <span class="info-box-text">All Services</span>
-              <span class="info-box-number">{{ $serviceNu  }}</span>
+              <span class="info-box-number">{{ $serviceNu }}</span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-blue" style="width: 45%"></div>
               </div>
               <span class="progress-description">
-                    45% Increase in 28 Days
                   </span>
             </div>
             <!-- /.info-box-content -->
@@ -620,14 +619,13 @@
             <span class="info-box-icon push-bottom bg-success"><i class="ion ion-ios-eye-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Total Visits</span>
-              <span class="info-box-number">15,489</span>
+              <span class="info-box-text">Total Views</span>
+              <span class="info-box-number">5</span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-success" style="width: 40%"></div>
               </div>
               <span class="progress-description">
-                    40% Increase in 28 Days
                   </span>
             </div>
             <!-- /.info-box-content -->
@@ -640,8 +638,8 @@
             <span class="info-box-icon push-bottom bg-purple"><i class="ion ion-ios-cloud-download-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Downloads</span>
-              <span class="info-box-number">55,005</span>
+              <span class="info-box-text">Last Viewed</span>
+              <span class="info-box-number"></span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-primary" style="width: 85%"></div>
@@ -676,10 +674,75 @@
         </div>
         <!-- /.col -->
       </div>
+
+
+       <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">All Services</h3>
+
+              <div class="box-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-primary"><a href="{{ route('createService') }}">Create New Service</a></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tbody><tr>
+                  <th>Service Name</th>
+                  <th>Experience</th>
+                  <th>Address</th>
+                  <th>Category</th>
+                  <th>Created Date</th>
+                  <th>Last Updated Date</th>
+                  <th>Action</th>
+                </tr>
+
+                @foreach($services as $service)
+                <tr>
+          <td><a href="javascript:void(0)">{{$service->name}}</a></td>
+          <td><span class="text-muted"><i class="fa fa-clock-o"></i>{{$service->experience}}</span> </td>
+          <td>{{$service->category}}</td>
+          <td>{{$service->address}}</td>
+          <td>{{$service->created_at->diffForHumans()}}</td>
+          <td>{{ $service->updated_at->diffForHumans() }}</td>
+           <td>
+        <div class="btn-group " role="group">
+    <button id="btnGroupDrop1" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Delete
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+       <form action=" {{ route('service.delete', $service->id) }}" method="POST" class="dropdown-item" >
+       @csrf
+       @method('DELETE')
+        <button class="btn btn-primary" type="submit"> Delete </button>
+       </form>
+     </div>
+   </div>
+ </td>
+
+         
+        </tr>
+              @endforeach
+              </tbody></table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
 		
 	  <div class="row">
 		<div class="col-md-6 connectedSortable">
-		  <!-- solid sales graph -->
+		 
+
+
+      <!-- solid sales graph -->
           <div class="box box-solid bg-teal-gradient">
             <div class="box-header">
               <i class="fa fa-th"></i>
