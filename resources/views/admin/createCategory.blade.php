@@ -15,14 +15,14 @@ Category |
   <!-- /.box-header -->
   <!-- form start -->
   <form class="form-horizontal form-element" method="POST" action="{{route('admin.category.store')}}" >
-    {{ csrf_field() }}
+    @csrf
 
     <div class="box-body">
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label"> Name </label>
 
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="name" id="inputEmail3" placeholder="Enter Category Name Here" required>
+          <input type="text" class="form-control" id="inputEmail3" placeholder="Enter Category Name Here" required>
         </div>
       </div>
     <!-- /.box-body -->

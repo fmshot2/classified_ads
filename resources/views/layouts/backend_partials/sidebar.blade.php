@@ -45,7 +45,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=" {{ route ('admin.category.create') }} "><i class="fa fa-circle-o"></i> Create </a></li>
+            <li><a href=" {{ route ('admin.category.show') }} "><i class="fa fa-circle-o"></i> Create </a></li>
             <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Table </a></li>
           </ul>
         </li>

@@ -51,8 +51,6 @@ class ServiceController extends Controller
      public function storeService(Request $request)
     {
 
-
-       
         $category = $request->category;
         $name = $request->name;
         $experience = $request->experience;
@@ -75,6 +73,7 @@ class ServiceController extends Controller
 
         $service->save();
         return redirect('/adminDashboard');
+        
     }
 
 
