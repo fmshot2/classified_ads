@@ -210,11 +210,13 @@ class ServiceController extends Controller
 
     public function saveLike(request $request)
     {
-        $like = new Like;
+        $like = new Like();
 
         $like->user_id = Auth::id();
 
         $like->service_id = $request->id;
-        $like = save();
+        $like->save();
+        return redirect('/home');
+
     }
 }

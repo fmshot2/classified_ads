@@ -26,4 +26,8 @@ public function user()
   //  return $this->belongsTo('App\Category');
 //}
 
+
+public function likes(){
+        return $this->hasMany('\App\Like', 'like'); //Product Model Name
+    }
 }

@@ -390,9 +390,19 @@
                                 </div>
                             </div>
                             <div class="properties-listing">
-                              <a href="{{ route('adminDashboard') }}"><span> <i class="fa fa-thumbs-up"></i> 3 &nbsp;
+                              <span> 
+ <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
+                            {{ csrf_field() }}
 
-Like</span></a>
+                            2 &nbsp;&nbsp;&nbsp; <input type="hidden" value="{{$featuredService->id}}" class="input-text" name="id"><button class="fa fa-thumbs-up" type="submit">Like</button>
+                        </form> 
+
+
+  
+
+
+                    </span>
+
                                 <span> <i class="fa fa-thumbs-down"></i> 2 &nbsp;&nbsp;&nbsp;
 
 Unlike</span>

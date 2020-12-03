@@ -36,6 +36,8 @@ Route::get('/privacy', 'PageController@privacy')->name('privacy');
 Route::middleware(['auth'])->group(function () {
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
 Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
+Route::post('/admin/like', 'ServiceController@saveLike')->name('admin.like');
+
 Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name('service.delete');
 
 Route::get('/adminDashboard', 'DashboardController@adminDashboard')->name('adminDashboard');
@@ -45,6 +47,7 @@ Route::get('/adminDashboard', 'DashboardController@adminDashboard')->name('admin
 Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
 Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
 Route::get('/admin/dashboard/category/show', 'CategoryController@create')->name('admin.category.show');
+
 Route::delete('/admin/dashboard/category/', 'CategoryController@destroy')->name('admin.category.destroy');
 
 
