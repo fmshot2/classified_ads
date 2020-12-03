@@ -45,6 +45,9 @@ Route::get('/adminDashboard', 'DashboardController@adminDashboard')->name('admin
 Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
 Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
 Route::get('/admin/dashboard/category/show', 'CategoryController@create')->name('admin.category.show');
+Route::delete('/admin/dashboard/category/', 'CategoryController@destroy')->name('admin.category.destroy');
+
+
 
 
 
