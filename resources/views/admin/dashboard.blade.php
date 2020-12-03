@@ -11,8 +11,6 @@
 
 <div class="wrapper">
 
-
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -32,11 +30,11 @@
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon push-bottom bg-blue"><i class="ion ion-ios-pricetag-outline"></i></span>
+            <span class="info-box-icon push-bottom bg-blue"> <i class="fa fa-briefcase" aria-hidden="true"></i>  </span>
 
             <div class="info-box-content">
-              <span class="info-box-text"> Total Service </span>
-              <span class="info-box-number"> {{ $all_service->count() }} </span>
+              <span class="info-box-text"> All Service </span>
+              <span class="info-box-number"> {{ $all_service }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-blue" style="width: 45%"></div>
@@ -52,11 +50,11 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon push-bottom bg-success"><i class="ion ion-ios-eye-outline"></i></span>
+            <span class="info-box-icon push-bottom bg-success"> <i class="fa fa-tags" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
-              <span class="info-box-text"> Total Categories </span>
-              <span class="info-box-number"> {{ $all_categories->count() }} </span>
+              <span class="info-box-text"> All Categories </span>
+              <span class="info-box-number"> {{ $all_categories }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-success" style="width: 40%"></div>
@@ -72,11 +70,11 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon push-bottom bg-purple"><i class="ion ion-ios-cloud-download-outline"></i></span>
+            <span class="info-box-icon push-bottom bg-purple"> <i class="fa fa-sellsy" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
-              <span class="info-box-text"> Total Sellers </span>
-              <span class="info-box-number"> {{ $all_sellers->count() }} </span>
+              <span class="info-box-text"> All Sellers </span>
+              <span class="info-box-number"> {{ $all_sellers }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-primary" style="width: 85%"></div>
@@ -92,11 +90,11 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon push-bottom bg-danger"><i class="ion-ios-chatbubble-outline"></i></span>
+            <span class="info-box-icon push-bottom bg-danger">  <i class="fa fa-money" aria-hidden="true"></i>  </span>
 
             <div class="info-box-content">
               <span class="info-box-text"> All Buyer </span>
-              <span class="info-box-number"> {{ $all_buyers->count() }} </span>
+              <span class="info-box-number"> {{ $all_buyers }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
@@ -113,11 +111,11 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon push-bottom bg-blue"><i class="ion ion-ios-pricetag-outline"></i></span>
+            <span class="info-box-icon push-bottom bg-blue">  <i class="fa fa-check" aria-hidden="true"></i>  </span>
 
             <div class="info-box-content">
               <span class="info-box-text"> Active Service </span>
-              <span class="info-box-number"> {{ $all_service->count() }} </span>
+              <span class="info-box-number"> {{ $all_service }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-blue" style="width: 45%"></div>
@@ -135,11 +133,11 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon push-bottom bg-blue"><i class="ion ion-ios-pricetag-outline"></i></span>
+            <span class="info-box-icon push-bottom bg-blue">  <i class="fa fa-ban" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
               <span class="info-box-text"> Pending Service </span>
-              <span class="info-box-number"> {{ $all_service->count() }} </span>
+              <span class="info-box-number"> {{ $all_service }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-blue" style="width: 45%"></div>

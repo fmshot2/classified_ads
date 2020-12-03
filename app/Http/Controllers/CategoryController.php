@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use Illuminate\Support\Str;
+
 
 class CategoryController extends Controller
 {
@@ -26,7 +28,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $category = Category::orderBy('id', 'desc')->paginate(10);
+        return view ('admin/category/create', compact('category') );
     }
 
     /**
@@ -42,16 +45,21 @@ class CategoryController extends Controller
             'name' => 'required',
         ]); 
 
-        $category = new Category();
+
         $slug = Str::of($request->name)->slug('-');
+
+        $category = new Category();
 
         $category->name = $request->name;
         $category->slug = $slug;
 
         $category->save();
 
+
         $request->session()->flash('success', 'Task was successful!');
-        return 'success';
+
+        return $this->create();
+
 
     }
 
