@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Service;
 
 class HomeController extends Controller
 {
@@ -19,6 +22,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+          //$user_id = Auth::id();
+
+        $featuredServices = Service::where('is_featured', 1)->with('user')->get();
+
+        return view('welcome', compact(['featuredServices']));
+
+         // $products = Product::with('user')->get();
+ // return view('shop.index', compact(['products']));
+
+     //   Product::where('user_id', Auth::user()->id)->with('product.purchases')
+
+
+     //   $results = User::where('this', '=', 1)
+    //->get();
+
     }
+
+    // ,'recentService', 'categories', 'highestRated'
 }

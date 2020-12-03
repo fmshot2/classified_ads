@@ -49,6 +49,7 @@
                             </div>
                         </div>
                     </div>
+                     
                 </div>
             </div>
             <div class="col-lg-5 col-md-12 col-sm-12 col-pad d-none d-xl-block d-lg-block">

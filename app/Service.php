@@ -7,13 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
         protected $fillable = [
-        	'category',
+        'category',
         'name',
-      'experience',
+      	'experience',
         'description',
         'image',
         'address',
     ];
 
+
+public function user()
+{
+    return $this->belongsTo('App\User');
+}
+
+//public function category()
+//{
+  //  return $this->belongsTo('App\Category');
+//}
 
 }

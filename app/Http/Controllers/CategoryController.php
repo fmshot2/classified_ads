@@ -42,7 +42,7 @@ class CategoryController extends Controller
     {
 
        $this->validate($request,[
-            'name' => 'required',
+            'name' => ['required', 'unique:categories'],
         ]); 
 
 
@@ -56,7 +56,7 @@ class CategoryController extends Controller
         $category->save();
 
 
-        session()->flash('success', 'Task was successful!');
+        $request->session()->flash('status', 'Task was successful!');
 
         return $this->create();
 

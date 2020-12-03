@@ -47,6 +47,13 @@ public function admin()
   return view ('admin.dashboard', compact('all_service', 'all_categories', 'all_sellers', 'all_buyers'));
 }
 
+public function adminService()
+{
+    $active_service = Service::where('status', 1);
+    $pending_service = Service::where('status', 0);
+    return view ('admin.dashboard.index', compact('active_service', 'pending_service') );
+}
+
 
 
 
