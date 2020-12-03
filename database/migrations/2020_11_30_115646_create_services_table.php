@@ -26,7 +26,8 @@ class CreateServicesTable extends Migration
             $table->string('experience');
             //$table->string('state');
             $table->boolean('is_featured')->nullable()->default(true);
-            //$table->string('slug')->unique();
+            $table->string('slug')->unique();
+            $table->boolean('status')->default(false);
 
             $table->unsignedInteger('user_id');
             //$table->unsignedInteger('category_id');

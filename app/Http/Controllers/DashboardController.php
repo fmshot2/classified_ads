@@ -38,10 +38,12 @@ class DashboardController extends Controller
 
 public function admin()
 {
-  $all_service = Service::all();
-  $all_categories = Category::all();
-  $all_sellers = User::where('role', 'seller');
-  $all_buyers = User::where('role', 'buyer');
+  $all_service = Service::all()->count();
+  $all_categories = Category::all()->count();
+  $all_sellers = User::where('role', 'seller')->count();
+  $all_buyers = User::where('role', 'buyer')->count();
+  $active_service = Service::where('status', 1)->count();
+  $pending_service = Service::where('status', 0)->count();
   return view ('admin.dashboard', compact('all_service', 'all_categories', 'all_sellers', 'all_buyers'));
 }
 
