@@ -5,36 +5,17 @@
 
 @include('layouts.backend_partials.head')
 
-<body class="sb-nav-fixed">
-
-	<div id="layoutSidenav">
-
-		@include('layouts.backend_partials.navbar')
-		@include('layouts.backend_partials.sidebar')
+<body class="skin-blue sidebar-mini wysihtml5-supported" style="height: auto; min-height: 100%;">
 
 
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid">
+	@include('layouts.backend_partials.navbar')
+	@include('layouts.backend_partials.sidebar')
 
+	@yield('content')
 
-
-		@yield('content')
-
-</main>
-</div>
-
-
-
-
-
-
-
-		@include('layouts.backend_partials.footer')
-		@include('layouts.backend_partials.script')
-
-	</div>
-
+	@include('layouts.backend_partials.footer')
+	@include('layouts.backend_partials.script')
 
 </body>
+
 </html>

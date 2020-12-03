@@ -7,19 +7,20 @@
 
 @section('content')
 
+
 @include('layouts.frontend_partials.status')
 
-@include('section/carousel')
+@include('frontend_section/carousel')
 
-@include('section/search')
+@include('frontend_section/search')
 
-@include('section/feature')
+@include('frontend_section/feature')
 
-@include('section/popular')
+@include('frontend_section/popular')
 
-@include('section/recent')
+@include('frontend_section/recent')
 
-@include('section/advert')
+@include('frontend_section/advert')
 
 
 @endsection
