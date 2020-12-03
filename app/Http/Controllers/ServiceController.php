@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Service;
+use App\Like;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
@@ -205,5 +206,15 @@ class ServiceController extends Controller
         Storage::disk('public')->delete($service->image);
         $service->delete();
 
+    }
+
+    public function saveLike(request $request)
+    {
+        $like = new Like;
+
+        $like->user_id = Auth::id();
+
+        $like->service_id = $request->id;
+        $like = save();
     }
 }

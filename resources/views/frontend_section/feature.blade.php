@@ -390,9 +390,9 @@
                                 </div>
                             </div>
                             <div class="properties-listing">
-                                <span> <i class="fa fa-thumbs-up"></i> 3 &nbsp;
+                              <a href="{{ route('adminDashboard') }}"><span> <i class="fa fa-thumbs-up"></i> 3 &nbsp;
 
-Like</span>
+Like</span></a>
                                 <span> <i class="fa fa-thumbs-down"></i> 2 &nbsp;&nbsp;&nbsp;
 
 Unlike</span>

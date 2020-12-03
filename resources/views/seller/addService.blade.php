@@ -20,8 +20,6 @@
 </div>
 
 
-
-
 <div class="submit-property content-area">
     <div class="container">
         <div class="row">
