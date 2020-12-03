@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Category | 
+Edit Category | 
 @endsection
 
 @section('content')
@@ -17,8 +17,12 @@ Category |
   <!-- /.box-header -->
   <!-- form start -->
   <form class="form-horizontal form-element" method="POST" action="{{route('admin.category.store')}}" >
-    {{ csrf_field() }}
 
+
+  @method('PATCH')
+ @csrf
+
+ 
     <div class="box-body">
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label"> Name </label>
