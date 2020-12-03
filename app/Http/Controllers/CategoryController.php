@@ -56,7 +56,7 @@ class CategoryController extends Controller
         $category->save();
 
 
-        $request->session()->flash('success', 'Task was successful!');
+        session()->flash('success', 'Task was successful!');
 
         return $this->create();
 
@@ -83,10 +83,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        $category = Category::find($id);
-        return response()->json($category);        
+        $category = Category::find($slug);
+        return view ('admin/dashboard/category/edit', compact('category') );        
     }
 
     /**
