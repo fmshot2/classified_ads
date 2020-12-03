@@ -5,6 +5,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="http://html-templates.multipurposethemes.com/bootstrap-3/admin/cross-admin/images/favicon.ico">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <title> @yield('title') Nigeria Yellow Page </title>
     

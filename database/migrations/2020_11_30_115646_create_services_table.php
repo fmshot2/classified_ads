@@ -29,7 +29,7 @@ class CreateServicesTable extends Migration
             $table->string('slug')->unique();
             $table->boolean('status')->default(false);
 
-            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('user_id');
             //$table->unsignedInteger('category_id');
 
             $table->timestamps();

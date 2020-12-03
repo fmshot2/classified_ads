@@ -20,8 +20,6 @@
 </div>
 
 
-
-
 <div class="submit-property content-area">
     <div class="container">
         <div class="row">
@@ -41,7 +39,13 @@
                         <h3 class="heading-2">Basic Information</h3>
                         <div class="search-contents-sidebar mb-30">
                             <div class="row">
-
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                       
+                                        <input type="hidden" value="{{Auth::id()}}
+" class="input-text" name="user_id">
+                                    </div>
+                                </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <label>Service Name</label>
