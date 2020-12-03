@@ -19,13 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-//Route::get('/test', 'PageController@test')->name('test');
-
 Route::get('/createService', 'ServiceController@createService')->name('createService');
 Route::post('/storeService', 'ServiceController@storeService')->name('service.store');
-
-
-
 
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register', 'AuthController@createUser')->name('register');
@@ -44,15 +39,11 @@ Route::get('/seller/service/create', 'ServiceController@create')->name('service.
 Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name('service.delete');
 
 Route::get('/adminDashboard', 'DashboardController@adminDashboard')->name('adminDashboard');
-Route::get('/adminDashboard2', 'DashboardController@adminDashboard')->name('adminDashboard2');
-
-
-
+Route::get('/adminDashboard3', 'DashboardController@adminDashboard')->name('adminDashboard3');
 
 });
 
-
-
+Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
 
 
 
