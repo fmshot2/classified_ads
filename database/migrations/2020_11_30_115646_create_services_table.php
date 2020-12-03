@@ -28,7 +28,7 @@ class CreateServicesTable extends Migration
             $table->boolean('is_featured')->nullable()->default(true);
             //$table->string('slug')->unique();
 
-            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('user_id');
             //$table->unsignedInteger('category_id');
 
             $table->timestamps();

@@ -4,7 +4,7 @@
         <div class="main-title">
             <h1> Featured Services </h1>
         </div>
-        <div class="slick-slider-area">
+<!--        <div class="slick-slider-area">
             <div class="row slick-carousel slick-initialized slick-slider" data-slick="{&quot;slidesToShow&quot;: 4, &quot;responsive&quot;:[{&quot;breakpoint&quot;: 1024,&quot;settings&quot;:{&quot;slidesToShow&quot;: 2}}, {&quot;breakpoint&quot;: 768,&quot;settings&quot;:{&quot;slidesToShow&quot;: 1}}]}"><div class="slick-list draggable" style="padding: 0px;"><div class="slick-track" style="opacity: 1; width: 4275px; transform: translate3d(-855px, 0px, 0px);"><div class="slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style="width: 285px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
                     <div class="property-box-5">
                         <div class="property-photo">
@@ -370,6 +370,37 @@
                 <div class="slick-prev slick-arrow-buton-2"></div>
                 <div class="slick-next slick-arrow-buton-2"></div>
             </div>
-        </div>
+        </div> -->
+<div class="row">
+    @foreach($featuredServices as $featuredService)
+        <div class="property-box-5 col-sm-3 col-pad mr-5">
+                        <div class="property-photo">
+                            <img class="img-fluid" src="{{asset('images')}}/{{$featuredService->image}}" alt="properties" style="height:180px;">
+                            <div class="date-box ">For Sale</div>
+                        </div>
+                        <div class="detail">
+                            <div class="heading">
+                                <h3>
+                                    <a href="properties-details.html" tabindex="-1">{{$featuredService->user->name}}</a>
+                                </h3>
+                                <div class="location">
+                                    <a href="properties-details.html" tabindex="-1">
+                                        <i class="fa fa-map-marker"></i>{{$featuredService->address}}
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="properties-listing">
+                                <span> <i class="fa fa-thumbs-up"></i> 3 &nbsp;
+
+Like</span>
+                                <span> <i class="fa fa-thumbs-down"></i> 2 &nbsp;&nbsp;&nbsp;
+
+Unlike</span>
+                                <span>980 sqft</span>
+                            </div>
+                        </div>
+                    </div>
+    @endforeach
     </div>
+</div>
 </div>
