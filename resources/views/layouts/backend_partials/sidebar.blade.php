@@ -27,32 +27,26 @@
       <!-- sidebar menu-->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="treeview active">
-          <a href="#">
+        <li class="treeview ">
+          <a href="/admin/dashboard">
             <i class="fa fa-dashboard"></i>
             <span>Dashboard</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+             <!-- <i class="fa fa-angle-left pull-right"></i> -->
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard 1</a></li>
-            <li class="active"><a href="index-2.html"><i class="fa fa-circle-o"></i> Dashboard 2</a></li>
-            <li><a href="index-3.html"><i class="fa fa-circle-o"></i> Dashboard 3</a></li>
-          </ul>
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-files-o"></i>
-            <span>Layout Options</span>
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <span> Category </span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+            <li><a href=" {{ route ('admin.category.create') }} "><i class="fa fa-circle-o"></i> Create </a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Table </a></li>
           </ul>
         </li>
         <li>

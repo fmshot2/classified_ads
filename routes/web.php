@@ -39,11 +39,12 @@ Route::get('/seller/service/create', 'ServiceController@create')->name('service.
 Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name('service.delete');
 
 Route::get('/adminDashboard', 'DashboardController@adminDashboard')->name('adminDashboard');
-Route::get('/adminDashboard3', 'DashboardController@adminDashboard')->name('adminDashboard3');
 
 });
 
 Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
+Route::post('/admin/dashboard/category/create', 'CategoryController@store')->name('admin.category.create');
+Route::get('/admin/dashboard/category/create', 'CategoryController@create')->name('admin.category.create');
 
 
 
