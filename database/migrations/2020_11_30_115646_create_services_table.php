@@ -19,17 +19,22 @@ class CreateServicesTable extends Migration
 
             $table->string('name');
             $table->text('description');
-            $table->string('address');
+            $table->string('city');
+            $table->string('state');
+            $table->string('streetAddress');
+            $table->string('closestBusstop');
             $table->string('category');
             //$table->string('phone')->nullable();
             $table->string('image');
             $table->string('experience');
             //$table->string('state');
             $table->boolean('is_featured')->nullable()->default(true);
-            $table->string('slug')->unique();
+            $table->boolean('is_approved')->nullable()->default(true);
+            $table->string('slug')->unique()->nullable();
             $table->boolean('status')->default(false);
 
             $table->unsignedInteger('user_id');
+            //$table->unsignedInteger('like_id');
             //$table->unsignedInteger('category_id');
 
             $table->timestamps();

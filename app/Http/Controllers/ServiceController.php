@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Service;
-use App\Like;
+use App\User;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,6 +19,34 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+public function index2()
+    {
+
+        $featuredServices = Service::where('is_featured', 1)->with('user')->get();
+         $recentServices = Service::orderBy('id', 'desc')->paginate(10);
+         $user11 = session()->get('user11');
+
+         if($user11){
+            $user111 = $user11;
+         }else{
+            $user111 = null;
+         }
+
+            return view('welcome', compact(['featuredServices', 'recentServices', 'user111']));
+
+         // $products = Product::with('user')->get();
+ // return view('shop.index', compact(['products']));
+
+     //   Product::where('user_id', Auth::user()->id)->with('product.purchases')
+
+
+     //   $results = User::where('this', '=', 1)
+    //->get();
+
+    }
+
     public function index()
     {
         $service = Service::orderBy('id', 'desc')->paginate(5);
@@ -57,7 +86,10 @@ class ServiceController extends Controller
         $experience = $request->experience;
         //$service->image = $image;
         $description = $request->description;
-        $address = $request->address;
+        $streetAddress = $request->streetAddress;
+        $city = $request->city;
+        $state = $request->state;
+        $closestBusstop = $request->closestBusstop;
 
        // $name = $request->name;
         $image = $request->file('file');
@@ -69,16 +101,61 @@ class ServiceController extends Controller
         $service->experience = $experience;
         $service->description = $description;
         $service->image = $imageName;
-        $service->address = $address;
+        $service->streetAddress = $streetAddress;
+        $service->city = $city;
+        $service->state = $state;
+        $service->closestBusstop = $closestBusstop;
+
+        
         $service->user_id = Auth::id();      
 
         $service->save();
+        $likecount = Like::where(['service_id'=>$request->id])->count();
         return redirect('/adminDashboard');
         
     }
 
 
 
+
+   public function search(Request $request) {
+            //return redirect('/login');
+
+    $q = $request->q;
+    //$q = Input::get ( 'q' );
+    $user11 = User::where ( 'name', 'LIKE', '%' . $q . '%' )->orWhere ( 'email', 'LIKE', '%' . $q . '%' )->get ();
+    if (count ( $user11 ) > 0){
+        //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
+        return redirect()->to('home')->with('user11', $user11);
+
+    }
+    else
+        return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );
+}
+
+
+public function search2(Request $request){
+    $category = $request->input('category');
+
+    //now get all user and services in one go without looping using eager loading
+    //In your foreach() loop, if you have 1000 users you will make 1000 queries
+
+    $users = User::with('services', function($query) use ($category) {
+         $query->where('name', 'LIKE', '%' . $category . '%');
+    })->get();
+
+        return 'yes';
+}
+
+/*Route::any('/search',function(){
+    $q = Input::get ( 'q' );
+    $user = User::where('name','LIKE','%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->get();
+    if(count($user) > 0)
+        return view('welcome')->withDetails($user)->withQuery ( $q );
+    else return view ('welcome')->withMessage('No Details found. Try to search again !');
+});
+
+*/
     public function store(Request $request)
     {
         
@@ -210,11 +287,26 @@ class ServiceController extends Controller
 
     public function saveLike(request $request)
     {
-        $like = new Like;
+       
+        $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->first();
+        if ($likecheck) {
+            Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->delete();
+            $likecount = Like::where(['service_id'=>$request->id])->count();
+        return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
+//                    return redirect('/home');    
+        }else{
+
+        $like = new Like();
 
         $like->user_id = Auth::id();
 
         $like->service_id = $request->id;
-        $like = save();
+        $like->save();
+        $likecount = Like::where(['service_id'=>$request->id])->count();
+        return response()->json(['success'=>$likecount, 'success2'=>'downvote']);
+        //return redirect('/home');    
+        }
+        
+
     }
 }

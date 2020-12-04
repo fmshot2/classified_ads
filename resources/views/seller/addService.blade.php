@@ -103,7 +103,22 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="input-text" name="address" placeholder="Address">
+                                    <input type="text" class="input-text" name="streetAddress" placeholder="Enter Your House No And Street Address">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="input-text" name="city" placeholder="Enter Your City Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="input-text" name="state" placeholder="Enter Your State">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="input-text" name="closestBusstop" placeholder="Enter Your Closest Busstop">
                                 </div>
                             </div>
                             
