@@ -29,7 +29,7 @@ class CategoryController extends Controller
     public function create()
     {
         $category = Category::orderBy('id', 'desc')->paginate(10);
-        return view ('admin/category/create', compact('category') );
+        return view ('admin/category/index', compact('category') );
     }
 
     /**

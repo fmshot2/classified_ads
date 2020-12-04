@@ -1,7 +1,13 @@
+@extends('layouts.admin')
+
+@section('title')
+Service | 
+@endsection
+
+@section('content')
 
 
 <div class="box">
-	
             <div class="box-header">
               <h3 class="box-title">Responsive Hover Table</h3>
 
@@ -70,3 +76,7 @@
             </div>
             <!-- /.box-body -->
           </div>
+
+
+
+@endsection
