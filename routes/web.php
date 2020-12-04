@@ -56,7 +56,7 @@ Route::get('/admin/dashboard/service/active', 'ServiceController@activeService')
 Route::get('/admin/dashboard/service/pending', 'ServiceController@pendingService')->name('admin.service.pending');
 
 
-Route::any ( '/search2',  'ServiceController@search')->name('search2');
+Route::any ( '/search',  'ServiceController@search3')->name('search2');
 
 
 

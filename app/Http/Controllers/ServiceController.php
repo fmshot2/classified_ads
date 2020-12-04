@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Service;
 use App\User;
+use App\Like;
+use DB;
+
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+
 
 use Illuminate\Http\File;
 use App\Category;
@@ -21,20 +25,20 @@ class ServiceController extends Controller
      */
 
 
-    public function index2()
+public function index2()
     {
 
         $featuredServices = Service::where('is_featured', 1)->with('user')->get();
-        $recentServices = Service::orderBy('id', 'desc')->paginate(10);
-        $user11 = session()->get('user11');
+         $recentServices = Service::orderBy('id', 'desc')->paginate(10);
+         $user11 = session()->get('user11');
 
-        if($user11){
+         if($user11){
             $user111 = $user11;
-        }else{
+         }else{
             $user111 = null;
-        }
+         }
 
-        return view('welcome', compact(['featuredServices', 'recentServices', 'user111']));
+            return view('welcome', compact(['featuredServices', 'recentServices', 'user111']));
 
          // $products = Product::with('user')->get();
  // return view('shop.index', compact(['products']));
@@ -78,7 +82,7 @@ class ServiceController extends Controller
      */
 
 
-    public function storeService(Request $request)
+     public function storeService(Request $request)
     {
 
         $category = $request->category;
@@ -106,96 +110,159 @@ class ServiceController extends Controller
         $service->state = $state;
         $service->closestBusstop = $closestBusstop;
 
-        
+       
         $service->user_id = Auth::id();      
 
         $service->save();
         $likecount = Like::where(['service_id'=>$request->id])->count();
         return redirect('/adminDashboard');
-        
+       
     }
 
 
-
-
-    public function search(Request $request) {
+   public function search2(Request $request) {
             //return redirect('/login');
-
-        $q = $request->q;
+    $q = $request->q;
     //$q = Input::get ( 'q' );
-        $user11 = User::where ( 'name', 'LIKE', '%' . $q . '%' )->orWhere ( 'email', 'LIKE', '%' . $q . '%' )->get ();
-        if (count ( $user11 ) > 0){
+    $user11 = Service::where( 'name', 'LIKE', '%' . $q . '%' )->orWhere('state', 'LIKE', '%' . $q . '%' )->get ();
+    if (count ( $user11 ) > 0){
         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
-            return redirect()->to('home')->with('user11', $user11);
+        return redirect()->to('home')->with('user11', $user11);
 
-        }
-        else
-            return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );
     }
+    else
+        return 'ddd';
+}
+
+ public function search20(Request $request) {
+            //return redirect('/login');
+    $q = $request->q;
+    $user11= DB::table('services')->where('name',  '=', $q)
+->orderBy('created_at', 'desc')->paginate(10);
+        return $user11;
 
 
-    public function search2(Request $request){
-        $category = $request->input('category');
 
-    //now get all user and services in one go without looping using eager loading
-    //In your foreach() loop, if you have 1000 users you will make 1000 queries
+}
 
-        $users = User::with('services', function($query) use ($category) {
-           $query->where('name', 'LIKE', '%' . $category . '%');
-       })->get();
 
-        return 'yes';
+public function search(Request $request){
+    $category = $request->input('name');
+    //$state = $request->input('category');
+
+
+
+    $users = User::with('services', function($query) use ($category) {
+        $query->where('name', 'LIKE', '%' . $category . '%');
+    })->get();
+
+
+//$user11 = Service::where(function ($query) use ($category) {
+
+      //  $query->where('name', 'like', '%' . $category . '%');
+          //->orWhere('state', 'like', '%' . $state . '%');
+     // })->get();
+
+if (count ( $user11 ) > 0){
+        //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
+        return redirect()->to('home')->with('user11', $user11);
+
     }
+    else
+        return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );}
 
-/*Route::any('/search',function(){
-    $q = Input::get ( 'q' );
-    $user = User::where('name','LIKE','%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->get();
-    if(count($user) > 0)
-        return view('welcome')->withDetails($user)->withQuery ( $q );
-    else return view ('welcome')->withMessage('No Details found. Try to search again !');
-});
+public function search3(Request $request)
+    {      
+        // return $request;    
+        $request->validate([
+            "name"     => 'string',
+            "state"       => 'string',
+            "city"       => 'string',              
+        ]);
+        if ($request->name && $request->state && $request->city) {
+   $user11 = Service::searchName($request->name)->
+                           searchState($request->state)->
+                           searchCity($request->city)->get();
+       
+        if($user11){
+            $user11->each(function ($item, $key) {
+                $item->name;
+                $item->state;
+                $item->city;
+        });
+        return redirect()->to('home')->with('user11', $user11);
+    }        
+}
+//if ($user11 = '' && $user11 = null  && $user11 = "null") {
+    # code...
+//}
 
-*/
-public function store(Request $request)
-{
+ if ($request->name && $request->state && ($request->city = '')) {
+   $user11 = Service::searchName($request->name)->
+                           searchState($request->state)->get();
+       
+        if($user11){
+            $user11->each(function ($item, $key) {
+                $item->name;
+                $item->state;
+        });
+        return redirect()->to('home')->with('user11', $user11);
+    }        
+}
+ if ($request->name && !$request->state && !$request->city) {
+   $user11 = Service::searchName($request->name)->get();      
+        if($user11){
+            $user11->each(function ($item, $key) {
+                $item->name;
+               
+        });
+        return redirect()->to('home')->with('user11', $user11);
+    }        
+}
+ 
+}
 
- $this->validate($request,[
-    'name' => 'required',
-    'image' => 'required',
-    'category_id' => 'required',
-    'address' => 'required',
-    'description' => 'required',
+
+    public function store(Request $request)
+    {
+       
+       $this->validate($request,[
+            'name' => 'required',
+            'image' => 'required',
+            'category_id' => 'required',
+            'address' => 'required',
+            'description' => 'required',
             //'slug' => 'unique:services,slug',
             //'city' => 'required',
             //'state' => 'required',
-]); 
+        ]);
 
- $image = $request->file('image');
+        $image = $request->file('image');
 
- $slug = Str::of($request->name)->slug('-');
+        $slug = Str::of($request->name)->slug('-');
 
- $service = new Service();
+        $service = new Service();
 
         // Image set up
- if ( $request->hasFile('file') ) {
-    $path = Storage::disk('public')->putFile('service',$request->file('file'));
-    $service->image = $path;
-}
+        if ( $request->hasFile('file') ) {
+            $path = Storage::disk('public')->putFile('service',$request->file('file'));
+            $service->image = $path;
+        }
+       
+        $service->user_id = Auth::id();
+        $service->category_id = $request->category_id;
+        $service->name = $request->name;
+        $service->slug = $slug;
+        $service->image = $image;
+        $service->description = $request->description;
+        $service->state = $request->state;
 
-$service->user_id = Auth::id();
-$service->category_id = $request->category_id;
-$service->name = $request->name;
-$service->slug = $slug;
-$service->image = $image;
-$service->description = $request->description;
-$service->state = $request->state;
+        $service->save();
 
-$service->save();
+        $request->session()->flash('success', 'Task was successful!');
+        return 'success';
 
-$request->session()->flash('success', 'Task was successful!');
-return 'success';
-
-}
+    }
 
     /**
      * Display the specified resource.
@@ -232,63 +299,43 @@ return 'success';
      */
     public function update(Request $request, $id)
     {
+       
+       $service = Service::find($id);
 
-     $service = Service::find($id);
+       $this->validate($request,[
+            'name' => 'required',
+            'image' => 'required',
+            'category_id' => 'required',
+            'address' => 'required',
+            'description' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+        ]);
 
-     $this->validate($request,[
-        'name' => 'required',
-        'image' => 'required',
-        'category_id' => 'required',
-        'address' => 'required',
-        'description' => 'required',
-        'city' => 'required',
-        'state' => 'required',
-    ]); 
-
-     $image = $request->file('image');
+        $image = $request->file('image');
 
         // Image set up
-     if ( $request->hasFile('file') ) {
-        Storage::disk('public')->delete($service->image);
-        $path = Storage::disk('public')->putFile('service',$request->file('file'));
-        $driver->image = $path;
+        if ( $request->hasFile('file') ) {
+            Storage::disk('public')->delete($service->image);
+            $path = Storage::disk('public')->putFile('service',$request->file('file'));
+            $driver->image = $path;
+        }
+
+        $service->user_id = Auth::id();
+        $service->category_id = $request->category_id;
+        $service->name = $request->name;
+        $service->slug = $slug;
+        $service->image = $image;
+        $service->description = $request->description;
+        $service->state = $request->state;
+
+        $service->save();
+
+        $request->session()->flash('success', 'Task was successful!');
+        return 'success';
+
+
     }
-
-    $service->user_id = Auth::id();
-    $service->category_id = $request->category_id;
-    $service->name = $request->name;
-    $service->slug = $slug;
-    $service->image = $image;
-    $service->description = $request->description;
-    $service->state = $request->state;
-
-    $service->save();
-
-    $request->session()->flash('success', 'Task was successful!');
-    return 'success';
-
-
-}
-
-
-public function allService()
-{
-    $all_service = Service::all()->paginate(20);
-    return view ('admin.service.index', compact('all_service') );
-}
-
-public function activeService()
-{
-    $active_service = Service::where('status', 1)->paginate(20);
-    return view ('admin.service.active', compact('active_service') );
-}
-
-public function pendingService()
-{
-    $pending_service = Service::where('status', 0)->paginate(20);
-    return view ('admin.service.pending', compact('pending_service') );
-}
-
 
     /**
      * Remove the specified resource from storage.
@@ -298,7 +345,7 @@ public function pendingService()
      */
     public function destroy($id)
     {
-
+       
         $service = Service::findOrFail($id);
         Storage::disk('public')->delete($service->image);
         $service->delete();
@@ -307,26 +354,27 @@ public function pendingService()
 
     public function saveLike(request $request)
     {
-
+       
         $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->first();
         if ($likecheck) {
             Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->delete();
             $likecount = Like::where(['service_id'=>$request->id])->count();
-            return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
+        return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
 //                    return redirect('/home');    
         }else{
 
-            $like = new Like();
+        $like = new Like();
 
-            $like->user_id = Auth::id();
+        $like->user_id = Auth::id();
 
-            $like->service_id = $request->id;
-            $like->save();
-            $likecount = Like::where(['service_id'=>$request->id])->count();
-            return response()->json(['success'=>$likecount, 'success2'=>'downvote']);
+        $like->service_id = $request->id;
+        $like->save();
+        $likecount = Like::where(['service_id'=>$request->id])->count();
+        return response()->json(['success'=>$likecount, 'success2'=>'downvote']);
         //return redirect('/home');    
         }
-        
+       
 
     }
 }
+
