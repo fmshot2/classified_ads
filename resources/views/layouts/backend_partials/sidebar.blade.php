@@ -54,9 +54,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Active Service</a></li>
-            <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Pending Service </a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> All Service </a></li>
+            <li><a href=" {{ route('admin.service.active') }} "><i class="fa fa-circle-o"></i> Active Service</a></li>
+            <li><a href=" {{ route('admin.service.pending') }} "><i class="fa fa-circle-o"></i> Pending Service </a></li>
+            <li><a href=" {{ route('admin.service.all') }} "><i class="fa fa-circle-o"></i> All Service </a></li>
           </ul>
         </li>
 

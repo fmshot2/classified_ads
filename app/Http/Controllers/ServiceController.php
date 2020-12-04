@@ -273,20 +273,20 @@ return 'success';
 
 public function allService()
 {
-    $all_service = Service::all();
-    return view ('admin.dashboard.index', compact('all_service') );
+    $all_service = Service::all()->paginate(20);
+    return view ('admin.service.index', compact('all_service') );
 }
 
 public function activeService()
 {
-    $active_service = Service::where('status', 1);
-    return view ('admin.dashboard.active', compact('active_service') );
+    $active_service = Service::where('status', 1)->paginate(20);
+    return view ('admin.service.active', compact('active_service') );
 }
 
 public function pendingService()
 {
-    $pending_service = Service::where('status', 0);
-    return view ('admin.dashboard.pending', compact('pending_service') );
+    $pending_service = Service::where('status', 0)->paginate(20);
+    return view ('admin.service.pending', compact('pending_service') );
 }
 
 

@@ -35,7 +35,7 @@
             <li><a href="#" class="font-weight-bold"> Update </a></li>
 
 
-<form action=" {{ route('admin.category.destroy',$categories->id) }}" method="POST" >
+<form action=" " method="POST" >
 @csrf
 @method('DELETE')
 <li> <a href="" type="submit" class="font-weight-bold"> Delete </a> </li>
