@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'ServiceController@index2')->name('home');
 
 
 Route::get('/createService', 'ServiceController@createService')->name('createService');
@@ -51,6 +51,7 @@ Route::get('/admin/dashboard/category/show', 'CategoryController@create')->name(
 Route::delete('/admin/dashboard/category/', 'CategoryController@destroy')->name('admin.category.destroy');
 
 
+Route::any ( '/search2',  'ServiceController@search')->name('search2');
 
 
 
