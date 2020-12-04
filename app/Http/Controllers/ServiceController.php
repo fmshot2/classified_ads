@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Service;
 use App\User;
+use App\Like;
+
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+
 
 use Illuminate\Http\File;
 use App\Category;
@@ -116,11 +119,8 @@ public function index2()
     }
 
 
-
-
    public function search(Request $request) {
             //return redirect('/login');
-
     $q = $request->q;
     //$q = Input::get ( 'q' );
     $user11 = User::where ( 'name', 'LIKE', '%' . $q . '%' )->orWhere ( 'email', 'LIKE', '%' . $q . '%' )->get ();
@@ -147,15 +147,31 @@ public function search2(Request $request){
         return 'yes';
 }
 
-/*Route::any('/search',function(){
-    $q = Input::get ( 'q' );
-    $user = User::where('name','LIKE','%'.$q.'%')->orWhere('email','LIKE','%'.$q.'%')->get();
-    if(count($user) > 0)
-        return view('welcome')->withDetails($user)->withQuery ( $q );
-    else return view ('welcome')->withMessage('No Details found. Try to search again !');
-});
+public function search3(Request $request)
+    {       
+        // return $request;    
+        $request->validate([
+            "name"     => 'string',
+            "state"       => 'string',            
+        ]);
+        $user11 = Service::
+                                        searchName($request->name)->
+                                        searchState($request->state)
+                                        ->get();
+        
+        if($user11){
+            $user11->each(function ($item, $key) {
+                $item->name;
+                $item->state;
+        });
+        return redirect()->to('home')->with('user11', $user11);
+        //return response()->json($result);       
+    }else{
+                return redirect()->to('home');
+    }
+}
 
-*/
+
     public function store(Request $request)
     {
         

@@ -51,7 +51,7 @@ Route::get('/admin/dashboard/category/show', 'CategoryController@create')->name(
 Route::delete('/admin/dashboard/category/', 'CategoryController@destroy')->name('admin.category.destroy');
 
 
-Route::any ( '/search2',  'ServiceController@search')->name('search2');
+Route::any ( '/search',  'ServiceController@search3')->name('search2');
 
 
 

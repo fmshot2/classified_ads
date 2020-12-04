@@ -27,6 +27,34 @@ public function user()
 //}
 
 
+
+/**
+     * Scope a query to only include given state.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearchName($query, $name)
+    {
+        if ($name != '' && $name != null  && $name != "null") {
+            return $query->where('name', '=', $name);
+        } else {
+            return $query;
+        }
+    }
+
+
+public function scopeSearchState($query, $state)
+    {
+        if ($state != '' && $state != null  && $state != "null") {
+            return $query->where('state', '=', $state);
+        } else {
+            return $query;
+        }
+    }
+
+
+
 public function likes(){
         return $this->hasMany('\App\Like', 'like'); //Product Model Name
     }
