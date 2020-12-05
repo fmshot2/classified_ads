@@ -3,6 +3,7 @@
 
 
     <!-- Content Header (Page header) -->
+	@if (url()->current() == route('admin.seller') )
     <section class="content-header p-3 box">
       <h1>
         Dashboard
@@ -13,6 +14,7 @@
         <li class="active">Dashboard</li>
       </ol>
     </section>
+    @endif
 
 	
 
@@ -21,6 +23,7 @@
 		<div class="box-header">
 			<h3 class="box-title"> Seller Table</h3>
 
+@if (url()->current() == route('admin.seller') )
 			<div class="box-tools">
 				<div class="input-group input-group-sm" style="width: 150px;">
 					<input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -30,6 +33,7 @@
 					</div>
 				</div>
 			</div>
+			@endif
 		</div>
 
 		<!-- /.box-header -->

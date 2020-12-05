@@ -40,7 +40,7 @@
                         <a class="dropdown-item" href="{{ route('adminDashboard') }}"> Dashboard </a>
                         @endif 
                         @endauth
-                        <a class="dropdown-item" href="/logout"> Logout </a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"/> Logout </a>
                     </div>
 
                 </div>

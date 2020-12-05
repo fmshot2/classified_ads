@@ -27,7 +27,6 @@ class ServiceController extends Controller
 
     public function index2()
     {
-
       $featuredServices = Service::where('is_featured', 1)->with('user')->get();
       $recentServices = Service::orderBy('id', 'desc')->paginate(10);
       $user11 = session()->get('user11');
@@ -39,6 +38,20 @@ class ServiceController extends Controller
       }
 
       return view('welcome', compact(['featuredServices', 'recentServices', 'user111']));
+        $featuredServices = Service::where('is_featured', 1)->with('user')->get();
+         $recentServices = Service::orderBy('id', 'desc')->paginate(10);
+         $user11 = session()->get('user11');
+         //$userSer = session()->get('userSer');
+         $serviceName = session()->get('serviceName');
+         $serviceState = session()->get('serviceState');
+          
+         if($user11){
+            $user111 = $user11;
+         }else{
+            $user111 = null; 
+         }
+
+            return view('welcome', compact(['featuredServices', 'recentServices', 'user111' ]));
 
          // $products = Product::with('user')->get();
  // return view('shop.index', compact(['products']));
@@ -121,11 +134,15 @@ class ServiceController extends Controller
 
 
     public function search2(Request $request) {
+
+   /*public function search2(Request $request) {
             //return redirect('/login');
       $q = $request->q;
     //$q = Input::get ( 'q' );
       $user11 = Service::where( 'name', 'LIKE', '%' . $q . '%' )->orWhere('state', 'LIKE', '%' . $q . '%' )->get ();
       if (count ( $user11 ) > 0){
+    $user11 = Service::where( 'name', 'LIKE', '%' . $q . '%' )->orWhere('state', 'LIKE', '%' . $q . '%' )->get ();
+    if (count ( $user11 ) > 0){
         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
         return redirect()->to('home')->with('user11', $user11);
 
@@ -140,9 +157,15 @@ class ServiceController extends Controller
       $user11= DB::table('services')->where('name',  '=', $q)
       ->orderBy('created_at', 'desc')->paginate(10);
       return $user11;
+    else
+        return 'ddd';
+}
+*/
+ 
 
-
-
+public function search(Request $request){
+    $category = $request->input('name');
+    $state = $request->input('state');
     }
 
 
@@ -169,7 +192,9 @@ class ServiceController extends Controller
 
       }
       else
-        return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );}
+        return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );
+    }
+    
 
       public function search3(Request $request)
       {      
@@ -219,6 +244,49 @@ class ServiceController extends Controller
       return redirect()->to('home')->with('user11', $user11);
     }        
   }
+
+$userSer = Service::where(function ($query) use ($category, $state) {
+
+        $query->where('name', 'like', '%' . $category . '%')
+          ->orWhere('state', 'like', '%' . $state . '%');
+      })->get();
+
+if (count ( $userSer ) > 0){
+        //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
+        return redirect()->to('home')->with('user11', $userSer);
+
+    }
+    else
+        return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );}
+
+public function search3(Request $request)
+    {       
+        $serviceName = $request->name;
+              $serviceState =   $request->state;
+        // return $request;    
+        $request->validate([
+            "name"     => 'string',
+            "state"       => 'string',
+            "city"       => 'string',              
+        ]);
+  if( $user11 = Service::searchName($request->name)->
+                           searchState($request->state)->
+                           searchCity($request->city)->get()) {
+        
+        
+            $user11->each(function ($item, $key) {
+                $item->name;
+                $item->state;
+                $item->city;
+
+        });
+}
+ 
+    //return response()->json($user11);
+    return redirect()->to('home')->with('user11', $user11)
+    ->with('serviceName', $serviceName)
+    ->with('serviceState', $serviceState);
+                //return 'jjj';
 
 }
 

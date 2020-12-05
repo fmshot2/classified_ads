@@ -47,15 +47,15 @@ public function admin()
 
   $all_service = Service::take(5)->get();
   $category = Category::orderBy('id', 'desc')->take(5)->get();
-  $all_sellers = User::where('role', 'seller')->take(5);
+  $seller = User::orderBy('id', 'desc')->take(5)->get();
   $all_buyers = User::where('role', 'buyer')->take(5);
-  $active_service = Service::where('status', 1)->take(5);
+  $active_service = Service::where('status', 1)->take(5)->get();
   $pending_service = Service::where('status', 0)->take(5);
 
 
 
 
-  return view ('admin.dashboard', compact('all_service_count', 'all_categories_count', 'all_sellers_count', 'all_buyers_count', 'active_service_count', 'pending_service_count', 'category', 'active_service', 'all_sellers'));
+  return view ('admin.dashboard', compact('all_service_count', 'all_categories_count', 'all_sellers_count', 'all_buyers_count', 'active_service_count', 'pending_service_count', 'category', 'active_service', 'seller'));
 
 
 

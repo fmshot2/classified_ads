@@ -58,7 +58,7 @@ Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer'
 
 
 
-Route::any ( '/search',  'ServiceController@search3')->name('search2');
+Route::any ( '/search2',  'ServiceController@search3')->name('search3');
 
 
 
