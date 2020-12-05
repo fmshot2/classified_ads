@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Service;
 use App\User;
 use App\Like;
+use DB;
 
 
 use Illuminate\Support\Facades\Storage;
@@ -30,14 +31,17 @@ public function index2()
         $featuredServices = Service::where('is_featured', 1)->with('user')->get();
          $recentServices = Service::orderBy('id', 'desc')->paginate(10);
          $user11 = session()->get('user11');
-
+         //$userSer = session()->get('userSer');
+         $serviceName = session()->get('serviceName');
+         $serviceState = session()->get('serviceState');
+          
          if($user11){
             $user111 = $user11;
          }else{
-            $user111 = null;
+            $user111 = null; 
          }
 
-            return view('welcome', compact(['featuredServices', 'recentServices', 'user111']));
+            return view('welcome', compact(['featuredServices', 'recentServices', 'user111' ]));
 
          // $products = Product::with('user')->get();
  // return view('shop.index', compact(['products']));
@@ -119,56 +123,69 @@ public function index2()
     }
 
 
-   public function search(Request $request) {
+   /*public function search2(Request $request) {
             //return redirect('/login');
     $q = $request->q;
     //$q = Input::get ( 'q' );
-    $user11 = User::where ( 'name', 'LIKE', '%' . $q . '%' )->orWhere ( 'email', 'LIKE', '%' . $q . '%' )->get ();
+    $user11 = Service::where( 'name', 'LIKE', '%' . $q . '%' )->orWhere('state', 'LIKE', '%' . $q . '%' )->get ();
     if (count ( $user11 ) > 0){
         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
         return redirect()->to('home')->with('user11', $user11);
 
     }
     else
-        return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );
+        return 'ddd';
 }
+*/
+ 
 
+public function search(Request $request){
+    $category = $request->input('name');
+    $state = $request->input('state');
 
-public function search2(Request $request){
-    $category = $request->input('category');
+$userSer = Service::where(function ($query) use ($category, $state) {
 
-    //now get all user and services in one go without looping using eager loading
-    //In your foreach() loop, if you have 1000 users you will make 1000 queries
+        $query->where('name', 'like', '%' . $category . '%')
+          ->orWhere('state', 'like', '%' . $state . '%');
+      })->get();
 
-    $users = User::with('services', function($query) use ($category) {
-         $query->where('name', 'LIKE', '%' . $category . '%');
-    })->get();
+if (count ( $userSer ) > 0){
+        //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
+        return redirect()->to('home')->with('user11', $userSer);
 
-        return 'yes';
-}
+    }
+    else
+        return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );}
 
 public function search3(Request $request)
     {       
+        $serviceName = $request->name;
+              $serviceState =   $request->state;
         // return $request;    
         $request->validate([
             "name"     => 'string',
-            "state"       => 'string',            
+            "state"       => 'string',
+            "city"       => 'string',              
         ]);
-        $user11 = Service::
-                                        searchName($request->name)->
-                                        searchState($request->state)
-                                        ->get();
+  if( $user11 = Service::searchName($request->name)->
+                           searchState($request->state)->
+                           searchCity($request->city)->get()) {
         
-        if($user11){
+        
             $user11->each(function ($item, $key) {
                 $item->name;
                 $item->state;
+                $item->city;
+
         });
-        return redirect()->to('home')->with('user11', $user11);
-        //return response()->json($result);       
-    }else{
-                return redirect()->to('home');
-    }
+}
+ 
+    //return response()->json($user11);
+    return redirect()->to('home')->with('user11', $user11)
+    ->with('serviceName', $serviceName)
+    ->with('serviceState', $serviceState);
+                //return 'jjj';
+
 }
 
 

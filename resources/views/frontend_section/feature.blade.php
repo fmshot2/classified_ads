@@ -27,35 +27,7 @@
     @endif
 </div>
 
-
-
-
-<div class="container">
-    
-        <p> The Search results for your query <b>  </b> are :</p>
-    <h2>Sample User details</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>tunde</td>
-                <td>tunde</td>
-            </tr>
-        </tbody>
-    </table>
-    
-</div>
-
-
-
-
-
-<!--        <div class="slick-slider-area">
+<!--<div class="slick-slider-area">
             <div class="row slick-carousel slick-initialized slick-slider" data-slick="{&quot;slidesToShow&quot;: 4, &quot;responsive&quot;:[{&quot;breakpoint&quot;: 1024,&quot;settings&quot;:{&quot;slidesToShow&quot;: 2}}, {&quot;breakpoint&quot;: 768,&quot;settings&quot;:{&quot;slidesToShow&quot;: 1}}]}"><div class="slick-list draggable" style="padding: 0px;"><div class="slick-track" style="opacity: 1; width: 4275px; transform: translate3d(-855px, 0px, 0px);"><div class="slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style="width: 285px;" tabindex="-1"><div><div class="slick-slide-item" style="width: 100%; display: inline-block;">
                     <div class="property-box-5">
                         <div class="property-photo">
@@ -426,7 +398,7 @@
     @foreach($featuredServices as $featuredService)
 
     <div class="col-sm-3 card service-box">
-                        <img class="card-img-top image-fluid" src="{{asset('images')}}/{{$featuredService->image}}" alt="service">
+                        <img class="card-img-top" src="{{asset('images')}}/{{$featuredService->image}}" alt="service" style="min-width: 150px;">
                         <div class="card-body detail">
                             <div class="title">
                                 <h4><a href="#">{{$featuredService->user->name}} </a></h4>

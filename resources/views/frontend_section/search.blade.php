@@ -13,7 +13,7 @@
   <div class="row justify-content-center bg-dark">
 
 
-<form class="form-inline" action="{{route('search2')}}" method="POST" role="search">
+<form class="form-inline" action="{{route('search3')}}" method="POST" role="search">
     {{ csrf_field() }}
 <div class="form-group mr-4"> 
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Service">
@@ -27,10 +27,6 @@
       <button type="submit" class="btn btn-warning mb-2 font-weight-bold btn-block bg-warning text-white"> Search  <i class="fa fa-search ml-2" aria-hidden="true"></i>  </button>
     </div>
     </div>
-
-
-
-
  <!--   <div class="col-sm">
       <div class="form-group">
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=" Location ">
@@ -50,16 +46,6 @@
     </div>
   -->
 
-
-
-
-
-    
-
-
-
-
-
   </div>
 
 </form>
@@ -67,16 +53,13 @@
 
 
 
-<form action="{{route('search2')}}" method="GET">
-    <input type="text" name="name" required/>
-    <input type="text" name="state" required/>
+<form action="{{route('search3')}}" method="GET">
+    <input type="text" name="name" />
+    <input type="text" name="state" />
+    <input type="text" name="city" />
 
     <button type="submit">Submit</button>
 </form>
-
-
-
-
 <div class="search-section search-area-2 bg-grea">
     <div class="container">
         <div class="search-section-area">
