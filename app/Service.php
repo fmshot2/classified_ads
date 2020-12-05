@@ -54,6 +54,16 @@ public function scopeSearchState($query, $state)
     }
 
 
+public function scopeSearchCity($query, $city)
+    {
+        if ($city != '' && $city != null  && $city != "null") {
+            return $query->where('city', '=', $city);
+        } else {
+            return $query;
+        }
+    }
+
+
 
 public function likes(){
         return $this->hasMany('\App\Like', 'like'); //Product Model Name

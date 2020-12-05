@@ -2,7 +2,7 @@
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
-            <h1>Most Popular Places</h1>
+            <h1>Approved Businesses</h1>
         </div>
         <div class="row wow animated" style="visibility: visible;">
             <div class="col-lg-7 col-md-12 col-sm-12">
