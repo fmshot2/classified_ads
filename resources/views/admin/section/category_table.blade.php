@@ -32,33 +32,32 @@
             <span class="sr-only">Toggle Dropdown</span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#" class="font-weight-bold"> Update </a></li>
 
-
-<form action=" " method="POST" >
-@csrf
-@method('DELETE')
-<li> <a href="" type="submit" class="font-weight-bold"> Delete </a> </li>
-</form>
-</ul>
+            <form method="post" class="delete_form" action="{{route('admin.category.delete',$categories->id)}}">
+              @method('DELETE')
+              @csrf
+              <li>  <button class="btn" type="submit" style="margin-left: 8px;">Delete</button> </li>
+            </form>
 
           </ul>
-        </div>
-      </td>
+
+        </ul>
+      </div>
+    </td>
 
 
-    </tr>
+  </tr>
 
-    @endforeach
+  @endforeach
 
 
-  </tbody></table>
+</tbody></table>
 </div>
 <!-- /.box-body -->
 <div class="box-footer clearfix">
 
 
-{{ $category->links() }} 
+  {{ $category->links() }} 
 
 
 

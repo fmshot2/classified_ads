@@ -44,7 +44,7 @@ public function admin()
   $all_buyers = User::where('role', 'buyer')->count();
   $active_service = Service::where('status', 1)->count();
   $pending_service = Service::where('status', 0)->count();
-  return view ('admin.dashboard', compact('all_service', 'all_categories', 'all_sellers', 'all_buyers'));
+  return view ('admin.dashboard', compact('all_service', 'all_categories', 'all_sellers', 'all_buyers', 'active_service', 'pending_service'));
 }
 
 }

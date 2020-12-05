@@ -115,7 +115,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text"> Active Service </span>
-              <span class="info-box-number"> {{ $all_service }} </span>
+              <span class="info-box-number"> {{ $active_service }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-blue" style="width: 45%"></div>
@@ -137,7 +137,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text"> Pending Service </span>
-              <span class="info-box-number"> {{ $all_service }} </span>
+              <span class="info-box-number"> {{ $pending_service }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-blue" style="width: 45%"></div>

@@ -2,11 +2,11 @@
 @extends('layouts.admin')
 
 @section('title')
-All Service | 
+Buyer Table | 
 @endsection
 
 @section('content')
 
-@include('admin/section/all_service_table') 
+@include('admin/section/buyer_table') 
 
 @endsection

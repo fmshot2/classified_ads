@@ -17,6 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         $category = Category::orderBy('id', 'desc')->paginate(5);
+        return view ('admin/category/index', compact('category') );
     }
 
 
@@ -28,8 +29,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $category = Category::orderBy('id', 'desc')->paginate(10);
-        return view ('admin/category/index', compact('category') );
+        //
     }
 
     /**
@@ -58,7 +58,7 @@ class CategoryController extends Controller
 
         $request->session()->flash('status', 'Task was successful!');
 
-        return $this->create();
+        return $this->index();
 
 
     }
@@ -123,6 +123,8 @@ class CategoryController extends Controller
         
         $category = Category::findOrFail($id);
         $category->delete();
+        session()->flash('success', 'Task was successful!');
+        return $this->index();
 
     }
 }

@@ -46,14 +46,16 @@ Route::get('/adminDashboard', 'DashboardController@adminDashboard')->name('admin
 
 Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
 Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
-Route::get('/admin/dashboard/category/show', 'CategoryController@create')->name('admin.category.show');
-
-Route::get('/admin/dashboard/service/active', 'DashboardController@adminA')->name('admin.category.show');
-
+Route::get('/admin/dashboard/category/show', 'CategoryController@index')->name('admin.category.show');
+Route::delete('/admin/category/{id}', 'CategoryController@destroy')->name('admin.category.delete');
 
 Route::get('/admin/dashboard/service/all', 'ServiceController@allService')->name('admin.service.all');
 Route::get('/admin/dashboard/service/active', 'ServiceController@activeService')->name('admin.service.active');
 Route::get('/admin/dashboard/service/pending', 'ServiceController@pendingService')->name('admin.service.pending');
+
+Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.seller');
+Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer');
+
 
 
 Route::any ( '/search',  'ServiceController@search3')->name('search2');
