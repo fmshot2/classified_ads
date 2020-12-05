@@ -398,7 +398,7 @@
     @foreach($featuredServices as $featuredService)
 
     <div class="col-sm-3 card service-box">
-                        <img class="card-img-top" src="{{asset('images')}}/{{$featuredService->image}}" alt="service" style="min-width: 150px;">
+                        <img class="card-img-top" src="{{asset('images')}}/{{$featuredService->image}}" alt="service" style="width: 100%; height: 15vw; object-fit: cover;">
                         <div class="card-body detail">
                             <div class="title">
                                 <h4><a href="#">{{$featuredService->user->name}} </a></h4>
@@ -412,6 +412,8 @@
                             <a href="#" class="read-more">More...</a>
                         </div>
                     </div>
+                        @endforeach
+
 
        <!-- <div class="property-box-5 col-sm-3 col-pad mr-5">
                         <div class="property-photo">
@@ -446,13 +448,9 @@ Unlike</span>
                             </div>
                         </div>
                     </div>-->
-    @endforeach
     </div>
 </div>
-</div>
-
-
-  
+</div> 
 
 <script type="text/javascript">
         $(document).ready(function() {
