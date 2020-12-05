@@ -39,7 +39,9 @@ class ServiceController extends Controller
 
       return view('welcome', compact(['featuredServices', 'recentServices', 'user111']));
         $featuredServices = Service::where('is_featured', 1)->with('user')->get();
-         $recentServices = Service::orderBy('id', 'desc')->paginate(10);
+        $approvedServices = Service::where('status', 1)->with('user')->get();
+        $advertServices = Service::where('is_approved', 1)->with('user')->get();
+         $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
          $user11 = session()->get('user11');
          //$userSer = session()->get('userSer');
          $serviceName = session()->get('serviceName');
@@ -51,7 +53,7 @@ class ServiceController extends Controller
             $user111 = null; 
          }
 
-            return view('welcome', compact(['featuredServices', 'recentServices', 'user111' ]));
+            return view('welcome', compact(['featuredServices', 'recentServices', 'approvedServices', 'user111' ]));
 
          // $products = Product::with('user')->get();
  // return view('shop.index', compact(['products']));
