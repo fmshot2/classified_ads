@@ -2,17 +2,17 @@
 
 <div class="container">
 
-    <!-- Content Header (Page header) -->
-    <section class="content-header p-3 box">
-      <h1>
-        Dashboard
-        <small>Control panel</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Service </a></li>
-        <li class="active">Dashboard</li>
-      </ol>
-    </section>
+	<!-- Content Header (Page header) -->
+	<section class="content-header p-3 box">
+		<h1>
+			Dashboard
+			<small>Control panel</small>
+		</h1>
+		<ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Service </a></li>
+			<li class="active">Dashboard</li>
+		</ol>
+	</section>
 
 
 	<div class="box">
@@ -31,7 +31,7 @@
 			</div>
 		</div>
 		<!-- /.box-header -->
-		<div class="box-body table-responsive no-padding">
+		<div class="box-body ">
 			<table class="table table-hover">
 
 				<tbody>
@@ -43,6 +43,7 @@
 						<th> is_featured </th>
 						<th> Status </th>
 						<th> Date </th>
+						<th> Action </th>
 					</tr>
 
 					<tr>
@@ -50,16 +51,42 @@
 						<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 						<td> {{ $active_service->name }} </td>
 						<td><span class="text-muted"><i class="fa fa-clock-o"></i> {{ $active_service->experience }} </span> </td>
-						<td> {{ $active_service->status }} </td>
-						<td><span class="label label-danger"> {{ $active_service->created_at->diffForHumans() }} </span></td>
-						<td>CH</td>
-					</tr>
-					@endforeach
+						<td> {{ $active_service->is_featured == 1 ? 'Yes' : 'No' }} </td>
+						<td> {{ $active_service->status == 1 ? 'Active' : 'Pending' }} </td>
+						<td> {{ $active_service->created_at->diffForHumans() }} </td>
 
-				</tbody>
-			</table>
-		</div>
-		<!-- /.box-body -->
+
+
+<td>
+						<div class="btn-group">
+							<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+								<span class="caret"></span>
+								<span class="sr-only">Toggle Dropdown</span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+
+								<form method="post" class="delete_form" action="">
+									@method('DELETE')
+									@csrf
+									<li>  <button class="btn btn-block" type="submit" style="margin-left: 8px;">Delete</button> </li>
+								</form>
+
+							</ul>
+
+						</ul>
+					</div>
+				</td>
+
+
+
+				</tr>
+
+				@endforeach
+
+			</tbody>
+		</table>
 	</div>
+	<!-- /.box-body -->
+</div>
 
 </div>

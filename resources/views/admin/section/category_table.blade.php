@@ -36,7 +36,7 @@
             <form method="post" class="delete_form" action="{{route('admin.category.delete',$categories->id)}}">
               @method('DELETE')
               @csrf
-              <li>  <button class="btn" type="submit" style="margin-left: 8px;">Delete</button> </li>
+              <li>  <button class="btn btn-block" type="submit" style="margin-left: 8px;">Delete</button> </li>
             </form>
 
           </ul>
