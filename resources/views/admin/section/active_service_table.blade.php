@@ -1,6 +1,5 @@
 
 
-
 	<!-- Content Header (Page header) -->
 	@if (url()->current() == route('admin.service.active') )
 	<section class="content-header p-3 box">
@@ -54,13 +53,13 @@
 					</tr>
 
 					<tr>
-						@foreach($active_service as $key => $active_service)
+						@foreach($active_service as $key => $active_services)
 						<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-						<td> {{ $active_service->name }} </td>
-						<td><span class="text-muted"><i class="fa fa-clock-o"></i> {{ $active_service->experience }} </span> </td>
-						<td> {{ $active_service->is_featured == 1 ? 'Yes' : 'No' }} </td>
-						<td> {{ $active_service->status == 1 ? 'Active' : 'Pending' }} </td>
-						<td> {{ $active_service->created_at->diffForHumans() }} </td>
+						<td> {{ $active_services->name }} </td>
+						<td><span class="text-muted"><i class="fa fa-clock-o"></i> {{ $active_services->experience }} </span> </td>
+						<td> {{ $active_services->is_featured == 1 ? 'Yes' : 'No' }} </td>
+						<td> {{ $active_services->status == 1 ? 'Active' : 'Pending' }} </td>
+						<td> {{ $active_services->created_at->diffForHumans() }} </td>
 
 
 						@if (url()->current() == route('admin.service.active') )
@@ -98,4 +97,13 @@
 		</table>
 	</div>
 	<!-- /.box-body -->
+
+@if (url()->current() == route('admin.service.active') )
+<div class="box-footer clearfix">
+
+  {{ $active_service->links() }} 
+
+</div>
+@endif
+
 </div>

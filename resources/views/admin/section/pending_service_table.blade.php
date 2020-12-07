@@ -66,4 +66,13 @@
 		<!-- /.box-body -->
 	</div>
 
+
+<div class="box-footer clearfix">
+
+  {{ $pending_service->links() }} 
+
+</div>
+
+
+
 </div>

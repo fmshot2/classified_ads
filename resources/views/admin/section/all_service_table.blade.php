@@ -63,4 +63,11 @@
 		<!-- /.box-body -->
 	</div>
 
+<div class="box-footer clearfix">
+
+  {{ $all_service->links() }} 
+
+</div>
+
+
 </div>

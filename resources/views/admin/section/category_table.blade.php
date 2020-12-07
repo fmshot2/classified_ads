@@ -1,6 +1,4 @@
 
-
-
 <div class="box">
   <div class="box-header with-border">
     <h3 class="box-title">Category Table</h3>
@@ -56,16 +54,16 @@
 </tbody></table>
 </div>
 <!-- /.box-body -->
-<div class="box-footer clearfix">
 
 @if (url()->current() == route('admin.category.show') )
+<div class="box-footer clearfix">
 
   {{ $category->links() }} 
 
+</div>
 @endif
 
 
-</div>
 </div>
 <!-- /.box -->
 

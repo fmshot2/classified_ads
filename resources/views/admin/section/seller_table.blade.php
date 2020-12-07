@@ -1,5 +1,4 @@
 
-<div class="container">
 
 
     <!-- Content Header (Page header) -->
@@ -20,7 +19,7 @@
 
 	<div class="box">
 
-		<div class="box-header">
+		<div class="box-header with-border">
 			<h3 class="box-title"> Seller Table</h3>
 
 @if (url()->current() == route('admin.seller') )
@@ -37,7 +36,7 @@
 		</div>
 
 		<!-- /.box-header -->
-		<div class="box-body table-responsive no-padding ">
+		<div class="box-body">
 			<table class="table table-hover">
 
 				<tbody>
@@ -64,6 +63,12 @@
 			</table>
 		</div>
 		<!-- /.box-body -->
-	</div>
+
+@if (url()->current() == route('admin.seller') )
+<div class="box-footer clearfix">
+  {{ $seller->links() }} 
+</div>
+@endif
+
 
 </div>

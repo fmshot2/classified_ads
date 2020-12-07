@@ -159,12 +159,36 @@
       <!-- Category Table -->
       @include('admin/section/category_table')
     </div>
-
-
     <div class="col-md-6 connectedSortable">
       @include('admin/section/active_service_table')
     </div>
+</div>
 
+
+
+    <div class="row">
+    <div class="col-md-6 connectedSortable">
+      <!-- Category Table -->
+      @include('admin/section/seller_table')
+    </div>
+    <div class="col-md-6 connectedSortable">
+      @include('admin/section/buyer_table')
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
     <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">

@@ -1,8 +1,7 @@
 
-<div class="container">
-
 
     <!-- Content Header (Page header) -->
+    @if (url()->current() == route('admin.buyer') )
     <section class="content-header p-3 box">
       <h1>
         Dashboard
@@ -13,6 +12,7 @@
         <li class="active">Dashboard</li>
       </ol>
     </section>
+    @endif
 
 	
 
@@ -21,6 +21,7 @@
 		<div class="box-header">
 			<h3 class="box-title"> Buyer Table</h3>
 
+@if (url()->current() == route('admin.buyer') )
 			<div class="box-tools">
 				<div class="input-group input-group-sm" style="width: 150px;">
 					<input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -30,6 +31,7 @@
 					</div>
 				</div>
 			</div>
+			 @endif
 		</div>
 
 		<!-- /.box-header -->
@@ -60,6 +62,12 @@
 			</table>
 		</div>
 		<!-- /.box-body -->
-	</div>
+
+@if (url()->current() == route('admin.buyer') )
+<div class="box-footer clearfix">
+  {{ $buyer->links() }} 
+</div>
+@endif
+
 
 </div>
