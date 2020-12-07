@@ -17,6 +17,13 @@ Route::get('/home', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{id}', 'ServiceController@serviceDetail')->name('serviceDetail');
 
 
+// add comment routes
+//Route::get('ajaxRequest', [AjaxController::class, 'ajaxRequest']);
+//Route::post('ajaxRequest', 'ServiceController@ajaxRequestPost')->name('ajaxRequest.post');
+
+// add comment routes
+
+
 
 //add service Routes
 Route::get('/createService', 'ServiceController@createService')->name('createService');
@@ -58,7 +65,7 @@ Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.sell
 Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer');
 
 Route::any ( '/search',  'ServiceController@search3')->name('search3');
-Route::any ( '/searchforuser',  'ServiceController@searchSeller')->name('searchUser');
+//Route::any ( '/searchforuser',  'ServiceController@searchSeller')->name('searchUser');
 
 Route::any ( '/searchOnServiceDetail',  'ServiceController@searchOnServiceDetail')->name('searchOnServiceDetail');
 

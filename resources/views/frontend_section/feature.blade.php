@@ -128,36 +128,7 @@
                     </div>
                 </div> 
                         @endforeach
-       <!-- <div class="property-box-5 col-sm-3 col-pad mr-5">
-                        <div class="property-photo">
-                            <img class="img-fluid" src="{{asset('images')}}/{{$featuredService->image}}" alt="properties" style="height:180px;">
-                            <div class="date-box ">For Sale</div>
-                        </div>
-                        <div class="detail">
-                            <div class="heading">
-                                <h3>
-                                    <a href="properties-details.html" tabindex="-1">{{$featuredService->user->name}}</a>
-                                </h3>
-                                <div class="location">
-                                    <a href="properties-details.html" tabindex="-1">
-                                        <i class="fa fa-map-marker"></i>{{$featuredService->streetAddress}}
-                                    </a><span>, {{$featuredService->city}} &nbsp;, {{$featuredService->state}}</span>
-                                </div>
-                            </div>
-                            <div class="properties-listing">
-                              <span> 
- <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
-                            {{ csrf_field() }}
-
-             <span id="alert-block"></span>                &nbsp;&nbsp;&nbsp; <input id="id" type="hidden" value="{{$featuredService->id}}" class="input-text" name="id"><button id="alert-block2" class="fa fa-thumbs-up btn-submit" type="submit">Like</button>
-                        </form>
-                    </span>
-                                <span> <i class="fa fa-thumbs-down"></i> 2 &nbsp;&nbsp;&nbsp;
-Unlike</span>
-                                <span>980 sqft</span>
-                            </div>
-                        </div>
-                    </div>-->
+       
     </div>
 </div>
 </div> 
