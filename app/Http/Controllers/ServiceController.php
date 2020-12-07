@@ -56,6 +56,29 @@ public function index2()
 
     }
 
+
+public function serviceDetail($id)
+    {
+
+        $featuredServices = Service::where('is_featured', 1)->with('user')->get();
+        $approvedServices = Service::where('status', 1)->with('user')->get();
+        $advertServices = Service::where('is_approved', 1)->with('user')->get();
+        $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
+        $serviceDetail = Service::find($id);
+        $serviceDetailId = $id;
+        $user11 = session()->get('user11');
+         if($user11){
+            $user111 = $user11;
+         }else{
+            $user111 = null; 
+         }
+
+
+        //return view('edit-teacher',compact('teacher'));
+
+            return view('serviceDetail', compact(['serviceDetail', 'serviceDetailId', 'approvedServices', 'user111' ]));
+    }
+
     public function index()
     {
         $service = Service::orderBy('id', 'desc')->paginate(5);
@@ -139,7 +162,6 @@ public function index2()
         return 'ddddd';
 }
 */
- 
 
 public function search(Request $request){
     $category = $request->input('name');
@@ -167,23 +189,55 @@ public function search3(Request $request)
         $request->validate([
             "name"     => 'string',
             "state"       => 'string',
-            "city"       => 'string',              
         ]);
   if( $user11 = Service::searchName($request->name)->
-                           searchState($request->state)->
-                           searchCity($request->city)->get()) {
+                           searchState($request->state)->get()) {
         
         
             $user11->each(function ($item, $key) {
                 $item->name;
                 $item->state;
-                $item->city;
 
         });
 }
  
+                //return 'jjj';}
     //return response()->json($user11);
     return redirect()->to('home')->with('user11', $user11)
+    ->with('serviceName', $serviceName)
+    ->with('serviceState', $serviceState);
+                //return 'jjj';
+
+}
+
+
+public function searchOnServiceDetail(Request $request)
+    {       
+        $serviceName = $request->name;
+        $serviceState =   $request->state;
+        $serviceDetailId =   $request->id;
+
+        // return $request;    
+        $request->validate([
+            "name"     => 'string',
+            "state"       => 'string',
+        ]);
+  if( $user11 = Service::searchName($request->name)->
+                           searchState($request->state)->get()) {
+        
+        
+            $user11->each(function ($item, $key) {
+                $item->name;
+                $item->state;
+
+        });
+}
+ 
+                //return 'jjj';}
+    //return response()->json($user11);
+//return redirect()->to('job_view/'.$id);
+
+    return redirect()->to('serviceDetail/'.$serviceDetailId)->with('user11', $user11)
     ->with('serviceName', $serviceName)
     ->with('serviceState', $serviceState);
                 //return 'jjj';
