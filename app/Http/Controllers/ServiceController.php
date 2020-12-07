@@ -25,19 +25,9 @@ class ServiceController extends Controller
      */
 
 
-    public function index2()
+public function index2()
     {
-      $featuredServices = Service::where('is_featured', 1)->with('user')->get();
-      $recentServices = Service::orderBy('id', 'desc')->paginate(10);
-      $user11 = session()->get('user11');
 
-      if($user11){
-        $user111 = $user11;
-      }else{
-        $user111 = null;
-      }
-
-      return view('welcome', compact(['featuredServices', 'recentServices', 'user111']));
         $featuredServices = Service::where('is_featured', 1)->with('user')->get();
         $approvedServices = Service::where('status', 1)->with('user')->get();
         $advertServices = Service::where('is_approved', 1)->with('user')->get();
@@ -66,9 +56,32 @@ class ServiceController extends Controller
 
     }
 
+
+public function serviceDetail($id)
+    {
+
+        $featuredServices = Service::where('is_featured', 1)->with('user')->get();
+        $approvedServices = Service::where('status', 1)->with('user')->get();
+        $advertServices = Service::where('is_approved', 1)->with('user')->get();
+        $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
+        $serviceDetail = Service::find($id);
+        $serviceDetailId = $id;
+        $user11 = session()->get('user11');
+         if($user11){
+            $user111 = $user11;
+         }else{
+            $user111 = null; 
+         }
+
+
+        //return view('edit-teacher',compact('teacher'));
+
+            return view('serviceDetail', compact(['serviceDetail', 'serviceDetailId', 'approvedServices', 'user111' ]));
+    }
+
     public function index()
     {
-      $service = Service::orderBy('id', 'desc')->paginate(5);
+        $service = Service::orderBy('id', 'desc')->paginate(5);
     }
 
     /**
@@ -78,14 +91,14 @@ class ServiceController extends Controller
      */
     public function create()
     {
-      return view ('seller/service.create');
+        return view ('seller/service.create');
     }
 
 
 
     public function createService()
     {
-      return view ('seller.addService');
+        return view ('seller.addService');
     }
 
 
@@ -97,155 +110,62 @@ class ServiceController extends Controller
      */
 
 
-    public function storeService(Request $request)
+     public function storeService(Request $request)
     {
 
-      $category = $request->category;
-      $name = $request->name;
-      $experience = $request->experience;
+        $category = $request->category;
+        $name = $request->name;
+        $experience = $request->experience;
         //$service->image = $image;
-      $description = $request->description;
-      $streetAddress = $request->streetAddress;
-      $city = $request->city;
-      $state = $request->state;
-      $closestBusstop = $request->closestBusstop;
+        $description = $request->description;
+        $streetAddress = $request->streetAddress;
+        $city = $request->city;
+        $state = $request->state;
+        $closestBusstop = $request->closestBusstop;
 
        // $name = $request->name;
-      $image = $request->file('file');
-      $imageName = time().'.'.$image->extension();
-      $image->move(public_path('images'),$imageName);
-      $service = new Service();
-      $service->category = $category;
-      $service->name = $name;
-      $service->experience = $experience;
-      $service->description = $description;
-      $service->image = $imageName;
-      $service->streetAddress = $streetAddress;
-      $service->city = $city;
-      $service->state = $state;
-      $service->closestBusstop = $closestBusstop;
+        $image = $request->file('file');
+        $imageName = time().'.'.$image->extension();
+        $image->move(public_path('images'),$imageName);
+        $service = new Service();
+        $service->category = $category;
+        $service->name = $name;
+        $service->experience = $experience;
+        $service->description = $description;
+        $service->image = $imageName;
+        $service->streetAddress = $streetAddress;
+        $service->city = $city;
+        $service->state = $state;
+        $service->closestBusstop = $closestBusstop;
 
-      
-      $service->user_id = Auth::id();      
+        
+        $service->user_id = Auth::id();      
 
-      $service->save();
-      $likecount = Like::where(['service_id'=>$request->id])->count();
-      return redirect('/adminDashboard');
-      
+        $service->save();
+        $likecount = Like::where(['service_id'=>$request->id])->count();
+        return redirect('/adminDashboard');
+        
     }
 
 
-    public function search2(Request $request) {
-
    /*public function search2(Request $request) {
             //return redirect('/login');
-      $q = $request->q;
+    $q = $request->q;
     //$q = Input::get ( 'q' );
-      $user11 = Service::where( 'name', 'LIKE', '%' . $q . '%' )->orWhere('state', 'LIKE', '%' . $q . '%' )->get ();
-      if (count ( $user11 ) > 0){
     $user11 = Service::where( 'name', 'LIKE', '%' . $q . '%' )->orWhere('state', 'LIKE', '%' . $q . '%' )->get ();
     if (count ( $user11 ) > 0){
         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
         return redirect()->to('home')->with('user11', $user11);
 
-      }
-      else
-        return 'ddd';
     }
-
-    public function search20(Request $request) {
-            //return redirect('/login');
-      $q = $request->q;
-      $user11= DB::table('services')->where('name',  '=', $q)
-      ->orderBy('created_at', 'desc')->paginate(10);
-      return $user11;
     else
-        return 'ddd';
+        return 'ddddd';
 }
 */
- 
 
 public function search(Request $request){
     $category = $request->input('name');
     $state = $request->input('state');
-    }
-
-
-    public function search(Request $request){
-      $category = $request->input('name');
-    //$state = $request->input('category');
-
-
-
-      $users = User::with('services', function($query) use ($category) {
-        $query->where('name', 'LIKE', '%' . $category . '%');
-      })->get();
-
-
-//$user11 = Service::where(function ($query) use ($category) {
-
-      //  $query->where('name', 'like', '%' . $category . '%');
-          //->orWhere('state', 'like', '%' . $state . '%');
-     // })->get();
-
-      if (count ( $user11 ) > 0){
-        //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
-        return redirect()->to('home')->with('user11', $user11);
-
-      }
-      else
-        return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );
-    }
-    
-
-      public function search3(Request $request)
-      {      
-        // return $request;    
-        $request->validate([
-          "name"     => 'string',
-          "state"       => 'string',
-          "city"       => 'string',              
-        ]);
-        if ($request->name && $request->state && $request->city) {
-         $user11 = Service::searchName($request->name)->
-         searchState($request->state)->
-         searchCity($request->city)->get();
-         
-         if($user11){
-          $user11->each(function ($item, $key) {
-            $item->name;
-            $item->state;
-            $item->city;
-          });
-          return redirect()->to('home')->with('user11', $user11);
-        }        
-      }
-//if ($user11 = '' && $user11 = null  && $user11 = "null") {
-    # code...
-//}
-
-      if ($request->name && $request->state && ($request->city = '')) {
-       $user11 = Service::searchName($request->name)->
-       searchState($request->state)->get();
-       
-       if($user11){
-        $user11->each(function ($item, $key) {
-          $item->name;
-          $item->state;
-        });
-        return redirect()->to('home')->with('user11', $user11);
-      }        
-    }
-    if ($request->name && !$request->state && !$request->city) {
-     $user11 = Service::searchName($request->name)->get();      
-     if($user11){
-      $user11->each(function ($item, $key) {
-        $item->name;
-        
-      });
-      return redirect()->to('home')->with('user11', $user11);
-    }        
-  }
 
 $userSer = Service::where(function ($query) use ($category, $state) {
 
@@ -261,6 +181,28 @@ if (count ( $userSer ) > 0){
     else
         return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );}
 
+
+public function searchSeller(Request $request){
+    $seller = $request->input('seller');
+    $state = $request->input('state');
+
+$seller = User::where(function ($query) use ($seller, $state) {
+
+        $query->where('seller', 'like', '%' . $seller . '%')
+          ->orWhere('state', 'like', '%' . $state . '%');
+      })->get();
+
+if (count ( $seller ) > 0){
+        //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
+        return redirect()->to('home')->with('seller', $seller);
+
+    }
+    else
+        return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );}
+
+
+
+
 public function search3(Request $request)
     {       
         $serviceName = $request->name;
@@ -269,21 +211,19 @@ public function search3(Request $request)
         $request->validate([
             "name"     => 'string',
             "state"       => 'string',
-            "city"       => 'string',              
         ]);
   if( $user11 = Service::searchName($request->name)->
-                           searchState($request->state)->
-                           searchCity($request->city)->get()) {
+                           searchState($request->state)->get()) {
         
         
             $user11->each(function ($item, $key) {
                 $item->name;
                 $item->state;
-                $item->city;
 
         });
 }
  
+                //return 'jjj';}
     //return response()->json($user11);
     return redirect()->to('home')->with('user11', $user11)
     ->with('serviceName', $serviceName)
@@ -293,46 +233,80 @@ public function search3(Request $request)
 }
 
 
-public function store(Request $request)
-{
+public function searchOnServiceDetail(Request $request)
+    {       
+        $serviceName = $request->name;
+        $serviceState =   $request->state;
+        $serviceDetailId =   $request->id;
+
+        // return $request;    
+        $request->validate([
+            "name"     => 'string',
+            "state"       => 'string',
+        ]);
+  if( $user11 = Service::searchName($request->name)->
+                           searchState($request->state)->get()) {
+        
+        
+            $user11->each(function ($item, $key) {
+                $item->name;
+                $item->state;
+
+        });
+}
  
- $this->validate($request,[
-  'name' => 'required',
-  'image' => 'required',
-  'category_id' => 'required',
-  'address' => 'required',
-  'description' => 'required',
+                //return 'jjj';}
+    //return response()->json($user11);
+//return redirect()->to('job_view/'.$id);
+
+    return redirect()->to('serviceDetail/'.$serviceDetailId)->with('user11', $user11)
+    ->with('serviceName', $serviceName)
+    ->with('serviceState', $serviceState);
+                //return 'jjj';
+
+}
+
+
+    public function store(Request $request)
+    {
+        
+       $this->validate($request,[
+            'name' => 'required',
+            'image' => 'required',
+            'category_id' => 'required',
+            'address' => 'required',
+            'description' => 'required',
             //'slug' => 'unique:services,slug',
             //'city' => 'required',
             //'state' => 'required',
-]);
+        ]); 
 
- $image = $request->file('image');
+        $image = $request->file('image');
 
- $slug = Str::of($request->name)->slug('-');
+        $slug = Str::of($request->name)->slug('-');
 
- $service = new Service();
+        $service = new Service();
 
         // Image set up
- if ( $request->hasFile('file') ) {
-  $path = Storage::disk('public')->putFile('service',$request->file('file'));
-  $service->image = $path;
-}
+        if ( $request->hasFile('file') ) {
+            $path = Storage::disk('public')->putFile('service',$request->file('file'));
+            $service->image = $path;
+        }
+       
+        $service->user_id = Auth::id();
+        $service->category_id = $request->category_id;
+        $service->name = $request->name;
+        $service->slug = $slug;
+        $service->image = $image;
+        $service->description = $request->description;
+        $service->state = $request->state;
 
-$service->user_id = Auth::id();
-$service->category_id = $request->category_id;
-$service->name = $request->name;
-$service->slug = $slug;
-$service->image = $image;
-$service->description = $request->description;
-$service->state = $request->state;
+        $service->save();
 
-$service->save();
+        $request->session()->flash('success', 'Task was successful!');
+        return 'success';
 
-$request->session()->flash('success', 'Task was successful!');
-return 'success';
-
-}
+    }
 
     /**
      * Display the specified resource.
@@ -342,8 +316,8 @@ return 'success';
      */
     public function show($id)
     {
-      $service = Service::find($id);
-      return response()->json($service);
+        $service = Service::find($id);
+        return response()->json($service);
     }
 
     /**
@@ -355,8 +329,8 @@ return 'success';
     public function edit($id)
     {
 
-      $service = Service::find($id);
-      return response()->json($service);
+        $service = Service::find($id);
+        return response()->json($service);
 
     }
 
@@ -369,43 +343,43 @@ return 'success';
      */
     public function update(Request $request, $id)
     {
-     
-     $service = Service::find($id);
+        
+       $service = Service::find($id);
 
-     $this->validate($request,[
-      'name' => 'required',
-      'image' => 'required',
-      'category_id' => 'required',
-      'address' => 'required',
-      'description' => 'required',
-      'city' => 'required',
-      'state' => 'required',
-    ]);
+       $this->validate($request,[
+            'name' => 'required',
+            'image' => 'required',
+            'category_id' => 'required',
+            'address' => 'required',
+            'description' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+        ]); 
 
-     $image = $request->file('image');
+        $image = $request->file('image');
 
         // Image set up
-     if ( $request->hasFile('file') ) {
-      Storage::disk('public')->delete($service->image);
-      $path = Storage::disk('public')->putFile('service',$request->file('file'));
-      $driver->image = $path;
+        if ( $request->hasFile('file') ) {
+            Storage::disk('public')->delete($service->image);
+            $path = Storage::disk('public')->putFile('service',$request->file('file'));
+            $driver->image = $path;
+        }
+
+        $service->user_id = Auth::id();
+        $service->category_id = $request->category_id;
+        $service->name = $request->name;
+        $service->slug = $slug;
+        $service->image = $image;
+        $service->description = $request->description;
+        $service->state = $request->state;
+
+        $service->save();
+
+        $request->session()->flash('success', 'Task was successful!');
+        return 'success';
+
+
     }
-
-    $service->user_id = Auth::id();
-    $service->category_id = $request->category_id;
-    $service->name = $request->name;
-    $service->slug = $slug;
-    $service->image = $image;
-    $service->description = $request->description;
-    $service->state = $request->state;
-
-    $service->save();
-
-    $request->session()->flash('success', 'Task was successful!');
-    return 'success';
-
-
-  }
 
     /**
      * Remove the specified resource from storage.
@@ -415,45 +389,23 @@ return 'success';
      */
     public function destroy($id)
     {
-     
-      $service = Service::findOrFail($id);
-      Storage::disk('public')->delete($service->image);
-      $service->delete();
+        
+        $service = Service::findOrFail($id);
+        Storage::disk('public')->delete($service->image);
+        $service->delete();
 
     }
-
-
-
-    public function allService()
-    {
-      $all_service = Service::paginate(20);
-      return view ('admin.service.index', compact('all_service') );
-    }
-
-    public function activeService()
-    {
-      $active_service = Service::where('status', 1)->paginate(20);
-      return view ('admin.service.active', compact('active_service') );
-    }
-
-    public function pendingService()
-    {
-      $pending_service = Service::where('status', 0)->paginate(20);
-      return view ('admin.service.pending', compact('pending_service') );
-    }
-
-    
 
     public function saveLike(request $request)
     {
-     
-      $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->first();
-      if ($likecheck) {
-        Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->delete();
-        $likecount = Like::where(['service_id'=>$request->id])->count();
+       
+        $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->first();
+        if ($likecheck) {
+            Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->delete();
+            $likecount = Like::where(['service_id'=>$request->id])->count();
         return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
 //                    return redirect('/home');    
-      }else{
+        }else{
 
         $like = new Like();
 
@@ -464,9 +416,8 @@ return 'success';
         $likecount = Like::where(['service_id'=>$request->id])->count();
         return response()->json(['success'=>$likecount, 'success2'=>'downvote']);
         //return redirect('/home');    
-      }
-      
+        }
+        
 
     }
-  }
-
+}
