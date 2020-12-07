@@ -14,7 +14,7 @@
 	</section>
 	@endif
 
-
+  @include('layouts.backend_partials.status')
 
 	<div class="box">
 
@@ -63,7 +63,6 @@
 
 
 						@if (url()->current() == route('admin.service.active') )
-
 						<td>
 
 							<div class="btn-group">
@@ -73,10 +72,21 @@
 								</button>
 								<ul class="dropdown-menu" role="menu">
 
-									<form method="post" class="delete_form" action="">
+
+
+									<!-- Edit -->
+									<form method="post" class="update_form" action=" {{ route('admin.service.status',$active_services->id) }} ">
+										@method('PATCH')
+										@csrf
+										<li>  <button class="btn btn-block" type="submit" style="margin-left: 8px;"> Deactivate </button> </li>
+									</form>
+
+
+									<!-- Delete -->
+									<form method="post" class="delete_form" action=" {{ route('admin.service.destroy',$active_services->id) }} ">
 										@method('DELETE')
 										@csrf
-										<li>  <button class="btn btn-block" type="submit" style="margin-left: 8px;">Delete</button> </li>
+										<li>  <button class="btn btn-block" type="submit" style="margin-left: 8px;"> Delete </button> </li>
 									</form>
 
 								</ul>
@@ -85,9 +95,6 @@
 						</div>
 					</td>
 					@endif
-
-
-
 
 				</tr>
 
@@ -107,3 +114,4 @@
 @endif
 
 </div>
+

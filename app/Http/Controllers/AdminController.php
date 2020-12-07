@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Service;
+use Illuminate\Support\Facades\Storage;
+
 
 class AdminController extends Controller
 {
@@ -11,7 +13,7 @@ class AdminController extends Controller
 
     public function allService()
     {
-      $all_service = Service::paginate(20);
+      $all_service = Service::paginate(10);
       return view ('admin.service.index', compact('all_service') );
     }
 
@@ -23,9 +25,45 @@ class AdminController extends Controller
 
     public function pendingService()
     {
-      $pending_service = Service::where('status', 0)->paginate(20);
+      $pending_service = Service::where('status', 0)->paginate(10);
       return view ('admin.service.pending', compact('pending_service') );
     }
+
+    public function destroy($id)
+    {
+        $service = Service::findOrFail($id);
+        Storage::disk('public')->delete($service->image);
+        $service->delete();
+        session()->flash('status', 'Task was successful!');
+        return back();
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateServiceStatus(Request $request, $id)
+    {
+        
+       $service = Service::find($id);
+
+       $status = $service->status == 1 ? 0 : 1;
+
+        $service->status = $status;
+
+        $service->save();
+        $request->session()->flash('status', 'Task was successful!');
+        return back();
+
+    }
+
+
+
+
 
 
 }

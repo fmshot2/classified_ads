@@ -49,6 +49,12 @@ Route::delete('/admin/category/{id}', 'CategoryController@destroy')->name('admin
 Route::get('/admin/dashboard/service/all', 'AdminController@allService')->name('admin.service.all');
 Route::get('/admin/dashboard/service/active', 'AdminController@activeService')->name('admin.service.active');
 Route::get('/admin/dashboard/service/pending', 'AdminController@pendingService')->name('admin.service.pending');
+Route::get('/admin/dashboard/service/pending', 'AdminController@pendingService')->name('admin.service.pending');
+Route::patch('/admin/dashboard/service/status/{id}', 'AdminController@updateServiceStatus')->name('admin.service.status');
+Route::delete('/admin/dashboard/service/destroy/{id}', 'AdminController@destroy')->name('admin.service.destroy');
+
+
+
 
 Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.seller');
 Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer');

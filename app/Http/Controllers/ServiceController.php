@@ -378,8 +378,8 @@ public function searchOnServiceDetail(Request $request)
         $request->session()->flash('success', 'Task was successful!');
         return 'success';
 
-
     }
+
 
     /**
      * Remove the specified resource from storage.
