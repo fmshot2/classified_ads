@@ -113,20 +113,166 @@
                             </li>
                         </ul>
                     </li>
+                    
                     <li class="nav-item dropdown">
-                        <a class="nav-link" id="navbarDropdownMenuLink2" href="{{ route('createService') }}">
+                        <a class="nav-link" data-toggle="modal" data-target="#postAService" href="">
                             Post A Service
                         </a>
                        
                     </li>
-                    <li class="nav-item dropdown megamenu-li">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Find A User</a>
-                        <div class="dropdown-menu megamenu" aria-labelledby="navbarDropdownMenuLink4">
-                            <div class="megamenu-area">
-                                
+<!-- Modal -->
+<div class="modal fade" id="postAService" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+<div class="container border border-warning">
+
+
+
+            <div class="col-md-12 text-center">
+                <div class="submit-address">
+                    <form method="POST" action="{{route('service.store')}}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <!--<h3 class="heading-2 text-center">Basic Information</h3>-->
+                        <button type="button" class="btn btn-outline-warning mt-3 mb-4">Basic Information</button>
+<div class="border border-warning">
+                        <div class="search-contents-sidebar mb-30">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                       
+                                        <input type="hidden" value="{{Auth::id()}}
+" class="input-text" name="user_id">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>SERVICE NAME</label>
+                                        <input type="text" class="input-text" name="name" placeholder="Enter your service">
+                                    </div>
+                                </div>
+
+                                 <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>YEARS OF EXPERIENCE</label>
+                                        <input type="text" class="input-text" name="experience" placeholder="Years of Experience?">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6" style="margin-bottom: -30px;">
+  <div class="form-group">
+    <label for="exampleFormControlSelect1"> CHOOSE CATEGORY </label>
+    <select class="form-control" id="exampleFormControlSelect1" name="category">
+      <option>Medical</option>
+      <option>Building</option>
+      <option>Beauty/Cosmetics</option>
+      <option>Food</option>
+      <option>Transportation</option>
+    </select>
+  </div>
+                                </div>                         
+                                <div class="col-lg-6 col-md-6 mt-4" style="margin-bottom: -30px;">
+                                    <div class="form-group">
+                                       <input type="file" class="input-text" onChange="previewFile(this)" name="file" class="form-control" />
+                <img id="previewImg" alt="Service Image" style="max-width:130px; 
+                margin-top:20px"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                                     
+                        <h3 class="heading-2">DETAILED INFORMATION</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <textarea class="input-text" name="description" placeholder="Add More Info about your service"></textarea>
+                                </div>
+                            </div>
+                        </div>                      
+                        <h3 class="heading-2">CONTACT DETAILS</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="input-text" name="streetAddress" placeholder="Enter Your House No And Street Address">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="input-text" name="city" placeholder="Enter Your City Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="input-text" name="state" placeholder="Enter Your State">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="input-text" name="closestBusstop" placeholder="Enter Your Closest Busstop">
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <input type="submit"class="btn btn-md btn-warning mb-30" value="Submit" />
                             </div>
                         </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+ </div>
+</div>
+  </div>
+</div>          
+
+
+
+
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="modal" data-target="#findAUser" href="#">Find A User</a>                       
                     </li>
+
+
+<!-- Modal -->
+<div class="modal fade" id="findAUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Find A User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <form class="" action="{{route('searchUser')}}" method="POST" role="search">
+      <div class="modal-body">
+    {{ csrf_field() }}
+<div class="form-group"> 
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="User's Name">
+      </div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=" Location">
+      </div>
+    <div class="form-group">
+      <button type="submit" class="pull-right btn btn-warning mb-2 font-weight-bold bg-warning text-white"> Search  <i class="fa fa-search ml-2" aria-hidden="true"></i>  </button>
+    </div>
+      </div>
+    <form>
+    </div>
+  </div>
+</div>          
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Report
@@ -151,4 +297,18 @@
         </nav>
     </div>
 </header>
+
+<script>
+function previewFile(input){
+    var file = $("input[type=file]").get(0).files[0];
+    if(file)
+    {
+        var reader = new FileReader();
+        reader.onload = function(){
+            $("#previewImg").attr("src",reader.result);
+        }
+            reader.readAsDataURL(file);     
+    }
+}
+</script>
 

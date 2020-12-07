@@ -21,9 +21,10 @@ Route::get('/serviceDetail/{id}', 'ServiceController@serviceDetail')->name('serv
 
 
 
-
+//add service Routes
 Route::get('/createService', 'ServiceController@createService')->name('createService');
 Route::post('/storeService', 'ServiceController@storeService')->name('service.store');
+
 
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register', 'AuthController@createUser')->name('register');
@@ -55,6 +56,8 @@ Route::delete('/admin/dashboard/category/', 'CategoryController@destroy')->name(
 
 
 Route::any ( '/search',  'ServiceController@search3')->name('search3');
+Route::any ( '/searchforuser',  'ServiceController@searchSeller')->name('searchUser');
+
 Route::any ( '/searchOnServiceDetail',  'ServiceController@searchOnServiceDetail')->name('searchOnServiceDetail');
 
 

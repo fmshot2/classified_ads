@@ -27,6 +27,39 @@
     @endif
 </div>
 
+
+
+ @if(isset($seller))
+        <p> The Search results for your query <b> query</b> are :</p>
+    <h2>Sample User details</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Seller</th>
+                <th>Service</th>
+                <th>Phone</th>
+                <th>More</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($seller as $user)
+            <a href="{{route('serviceDetail', $user->id)}}"><tr>
+                <td>{{$user->user->name}}</td>
+                <td>{{$user->name}}</td>
+                <td>{{$user->user->phone}}</td>
+                <td>
+                    <a href="{{route('serviceDetail', $user->id)}}">view</a>
+                </td>
+                
+
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    @endif
+
+
+
 <div class="row">
     @foreach($featuredServices as $featuredService)
 

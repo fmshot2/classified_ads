@@ -464,8 +464,6 @@
       
         </div>
                       @endif
-
-
                 </div>
             </div>
             <div class="col-lg-4 col-md-12">
@@ -572,10 +570,7 @@
         </tbody>
     </table>
     @endif
-
-
     @if(isset($user111))
-
 
 <div class="row">
     @foreach($user111 as $user)
