@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use Illuminate\Support\Str;
+use Illuminate\Http\File;
 
 
 class CategoryController extends Controller
@@ -45,16 +46,19 @@ class CategoryController extends Controller
             'name' => ['required', 'unique:categories'],
         ]); 
 
-
         $slug = Str::of($request->name)->slug('-');
 
         $category = new Category();
+                // Image set up
+        if ( $request->hasFile('file') ) {
+        $image_name = time().'.'.$request->file->extension();
+        $request->file->move(public_path('category_image'),$image_name);
+        $category->image = $image_name;
+        }
 
         $category->name = $request->name;
         $category->slug = $slug;
-
         $category->save();
-
 
         $request->session()->flash('status', 'Task was successful!');
 

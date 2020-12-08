@@ -26,7 +26,7 @@
                 <img src="../images/user2-280x90.jpg" class="img-responsive" alt="User Image">
 
                 <p>
-                  MultiPurpose Themes
+                  Yellow Page 
                   <small>Member since April . 2016</small>
                 </p>
               </li>

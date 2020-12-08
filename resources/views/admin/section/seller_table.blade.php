@@ -22,7 +22,7 @@
 		<div class="box-header with-border">
 			<h3 class="box-title"> Seller Table</h3>
 
-@if (url()->current() == route('admin.seller') )
+@if ( true == false )
 			<div class="box-tools">
 				<div class="input-group input-group-sm" style="width: 150px;">
 					<input type="text" name="table_search" class="form-control pull-right" placeholder="Search">

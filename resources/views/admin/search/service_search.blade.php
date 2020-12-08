@@ -5,6 +5,8 @@
 Search | 
 @endsection
 
+@section('content')
+
 <div class="container">
 
 	<!-- Content Header (Page header) -->
@@ -22,12 +24,12 @@ Search |
 	<div class="box">
 
 		<div class="box-header with-border">
-			<h3 class="box-title">  Service Search Table</h3>
+			<h3 class="box-title">  {{ $services->count() }} {{$query}} Found </h3>
 
 			<div class="box-tools">
 				<form class="" method="GET" action="{{ route('admin.service.search') }}">
 				<div class="input-group input-group-sm" style="width: 150px;">
-					<input type="search" class="form-control pull-right" placeholder="Search" name="query"  value=" " required>
+					<input type="search" class="form-control pull-right" placeholder="Search" name="query"  value="{{ isset($query) ? $query : '' }}" required>
 
 					<div class="input-group-btn">
 						<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -111,6 +113,5 @@ Search |
 
 </div>
 
-</div>
 
 @endsection
