@@ -66,7 +66,7 @@ public function serviceDetail($id)
         $approvedServices = Service::where('status', 1)->with('user')->get();
         $advertServices = Service::where('is_approved', 1)->with('user')->get();
         $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
-        $categories = Category::all()->orderBy('id', 'desc')->paginate(8);
+        $categories = Category::paginate(8);
         $serviceDetail = Service::find($id);
         $serviceDetail_id = $serviceDetail->id;
         $user11 = session()->get('user11');
