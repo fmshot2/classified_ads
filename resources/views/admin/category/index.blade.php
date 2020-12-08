@@ -36,7 +36,7 @@ Category |
   </div>
   <!-- /.box-header -->
   <!-- form start -->
-  <form class="form-horizontal form-element" method="POST" action="{{route('admin.category.store')}}" >
+  <form class="form-horizontal form-element" method="POST" action="{{route('admin.category.store')}}" enctype="multipart/form-data">
     
     {{ csrf_field() }}
 
@@ -46,6 +46,14 @@ Category |
 
         <div class="col-sm-10">
           <input type="text" class="form-control" name="name" id="inputEmail3" placeholder="Enter Category Name Here" required>
+
+
+                <div class="form-group">
+                  <label for="exampleInputFile">File input</label>
+                  <input type="file" id="exampleInputFile" name="file">
+                </div>
+
+
         </div>
       </div>
     <!-- /.box-body -->

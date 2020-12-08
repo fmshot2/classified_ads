@@ -37,7 +37,7 @@ class AuthController extends Controller
 			if ( $request->role == 'seller' )
         return redirect('/adminDashboard');
 		} else {
-			return view('welcome');
+			return view('/');
 		}
 
 	}
@@ -52,7 +52,7 @@ class AuthController extends Controller
 	public function showRegister ()
 	{
 		if (Auth::check()) {
-			return redirect()->intended('welcome');
+			return redirect()->intended('/');
 		}
 
 		return view ('auth/register');
@@ -84,15 +84,9 @@ class AuthController extends Controller
 	public function showLogin ()
 	{
 		if (Auth::check()) {
-			return view ('welcome');
+			return view ('/');
 		}
 		return view ('auth/login');
-	}
-
-	public function logout ()
-	{
-		Auth::logout();
-		return view ('welcome');
 	}
 
 	public function buyer()

@@ -1,9 +1,7 @@
-
-
 @extends('layouts.admin')
 
 @section('title')
- Admin | 
+Admin | 
 @endsection
 
 @section('content')
@@ -27,7 +25,7 @@
 
     <!-- Main content -->
     <section class="content">
-    <div class="row">
+      <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon push-bottom bg-blue"> <i class="fa fa-briefcase" aria-hidden="true"></i>  </span>
@@ -40,8 +38,8 @@
                 <div class="progress-bar progress-bar-blue" style="width: 45%"></div>
               </div>
               <span class="progress-description">
-                    <!-- Extra content can go here -->
-                  </span>
+                <!-- Extra content can go here -->
+              </span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -60,8 +58,8 @@
                 <div class="progress-bar progress-bar-success" style="width: 40%"></div>
               </div>
               <span class="progress-description">
-                    <!-- Extra content can go here -->
-                  </span>
+                <!-- Extra content can go here -->
+              </span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -80,81 +78,81 @@
                 <div class="progress-bar progress-bar-primary" style="width: 85%"></div>
               </div>
               <span class="progress-description">
-                   <!-- 85% Increase in 28 Days -->
-                  </span>
+               <!-- 85% Increase in 28 Days -->
+             </span>
+           </div>
+           <!-- /.info-box-content -->
+         </div>
+         <!-- /.info-box -->
+       </div>
+       <!-- /.col -->
+       <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon push-bottom bg-danger">  <i class="fa fa-money" aria-hidden="true"></i>  </span>
+
+          <div class="info-box-content">
+            <span class="info-box-text"> All Buyer </span>
+            <span class="info-box-number"> {{ $all_buyers_count }} </span>
+
+            <div class="progress">
+              <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
             </div>
-            <!-- /.info-box-content -->
+            <span class="progress-description">
+             <!-- 50% Increase in 28 Days -->
+           </span>
+         </div>
+         <!-- /.info-box-content -->
+       </div>
+       <!-- /.info-box -->
+     </div>
+     <!-- /.col -->
+
+     <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon push-bottom bg-blue">  <i class="fa fa-check" aria-hidden="true"></i>  </span>
+
+        <div class="info-box-content">
+          <span class="info-box-text"> Active Service </span>
+          <span class="info-box-number"> {{ $active_service_count }} </span>
+
+          <div class="progress">
+            <div class="progress-bar progress-bar-blue" style="width: 45%"></div>
           </div>
-          <!-- /.info-box -->
+          <span class="progress-description">
+            <!-- Extra content can go here -->
+          </span>
         </div>
-        <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon push-bottom bg-danger">  <i class="fa fa-money" aria-hidden="true"></i>  </span>
-
-            <div class="info-box-content">
-              <span class="info-box-text"> All Buyer </span>
-              <span class="info-box-number"> {{ $all_buyers_count }} </span>
-
-              <div class="progress">
-                <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
-              </div>
-              <span class="progress-description">
-                   <!-- 50% Increase in 28 Days -->
-                  </span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon push-bottom bg-blue">  <i class="fa fa-check" aria-hidden="true"></i>  </span>
-
-            <div class="info-box-content">
-              <span class="info-box-text"> Active Service </span>
-              <span class="info-box-number"> {{ $active_service_count }} </span>
-
-              <div class="progress">
-                <div class="progress-bar progress-bar-blue" style="width: 45%"></div>
-              </div>
-              <span class="progress-description">
-                    <!-- Extra content can go here -->
-                  </span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-
-
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon push-bottom bg-blue">  <i class="fa fa-ban" aria-hidden="true"></i> </span>
-
-            <div class="info-box-content">
-              <span class="info-box-text"> Pending Service </span>
-              <span class="info-box-number"> {{ $pending_service_count }} </span>
-
-              <div class="progress">
-                <div class="progress-bar progress-bar-blue" style="width: 45%"></div>
-              </div>
-              <span class="progress-description">
-                    <!-- Extra content can go here -->
-                  </span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-
+        <!-- /.info-box-content -->
       </div>
-    
-    <div class="row">
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon push-bottom bg-blue">  <i class="fa fa-ban" aria-hidden="true"></i> </span>
+
+        <div class="info-box-content">
+          <span class="info-box-text"> Pending Service </span>
+          <span class="info-box-number"> {{ $pending_service_count }} </span>
+
+          <div class="progress">
+            <div class="progress-bar progress-bar-blue" style="width: 45%"></div>
+          </div>
+          <span class="progress-description">
+            <!-- Extra content can go here -->
+          </span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+
+  </div>
+
+  <div class="row">
     <div class="col-md-6 connectedSortable">
       <!-- Category Table -->
       @include('admin/section/category_table')
@@ -162,11 +160,9 @@
     <div class="col-md-6 connectedSortable">
       @include('admin/section/active_service_table')
     </div>
-</div>
+  </div>
 
-
-
-    <div class="row">
+  <div class="row">
     <div class="col-md-6 connectedSortable">
       <!-- Category Table -->
       @include('admin/section/seller_table')
@@ -176,13 +172,11 @@
     </div>
   </div>
 
-
-  
   <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
   
 </div>
 <!-- ./wrapper -->
-    
+
 
 @endsection

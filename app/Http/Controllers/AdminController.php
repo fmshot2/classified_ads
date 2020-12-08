@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Service;
-use Illuminate\Support\Facades\Storage;
 use App\User;
 
 
@@ -63,8 +62,8 @@ class AdminController extends Controller
     return view('admin/search/service_search', compact('services', 'query'));
   }
 
-   public function userSearch(Request $request)
-   {   
+  public function userSearch(Request $request)
+  {   
     $query = $request->input('query');
     $users = User::where('name','LIKE',"%$query%")->paginate(8);
     return view('admin/search/index', compact('users', 'query'));
