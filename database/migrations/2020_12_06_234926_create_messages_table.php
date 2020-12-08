@@ -14,7 +14,10 @@ class CreateMessagesTable extends Migration
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->integer('service_id');
+            $table->string('description');
+            $table->unsignedInteger('buyer_id')->nullable();
             $table->timestamps();
         });
     }

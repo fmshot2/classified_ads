@@ -86,6 +86,16 @@
                         </ul>
                         <!-- main slider carousel items -->
                     </div>
+
+
+
+
+
+
+                    <!--comments section-->
+
+
+
                     <!-- Advanced search start -->
                     <div class="widget-2 sidebar advanced-search-2">
                         <h3 class="sidebar-title">Advanced Search</h3>
@@ -393,47 +403,48 @@
                             </div>
                         </div>
                     </div>
+
                    
                     <!-- Contact 1 start -->
                     <div class="contact-1 mtb-50">
                         <h3 class="heading">Contact Seller</h3>
-                        <form action="#" method="GET" enctype="multipart/form-data">
+                        <form id="myform" action="{{ route('createcomment')}}" method="POST" enctype="multipart/form-data">
                             <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                {{ csrf_field() }}
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group name">
-                                        <input type="text" name="name" class="form-control" placeholder="Name">
+                                        <input type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <div class="form-group email">
-                                        <input type="email" name="email" class="form-control" placeholder="Email">
+                                    <div class="form-group email"> 
+
+                                        <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="form-control" placeholder="Email">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <div class="form-group subject">
-                                        <input type="text" name="subject" class="form-control" placeholder="Subject">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <div class="form-group number">
-                                        <input type="text" name="phone" class="form-control" placeholder="Number">
-                                    </div>
-                                </div>
+                                                             
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group message">
-                                        <textarea class="form-control" name="message" placeholder="Write message"></textarea>
+                                        <textarea class="form-control" id="description" name="description" placeholder="Write message"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <div class="send-btn">
-                                        <button type="submit" class="btn btn-md button-theme">Send Message</button>
+                                        <button type="submit" class="btn btn-md button-theme btn-submit">Send Message</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
 
-    @if(isset($approvedService))
+
+<div id="alert-block" class="alert alert-primary" role="alert">
+  This is a primary alert—check it out!
+</div>
+
+
+
+ /*   @if(isset($approvedService))
 
 
                     <div class="row wow animated" style="visibility: visible;">
@@ -643,13 +654,6 @@
 
 
 
-
-
-
-
-
-
-
     @endif
 
 
@@ -666,3 +670,45 @@
 @endsection
 
 
+
+
+
+<script type="text/javascript">
+        $(document).ready(function() {
+            $(".btn-submit").click(function(e){
+                e.preventDefault();
+
+                var _token = $("input[name='_token']").val();
+                var buyer_id = $("#buyer_id").val();
+                var service_id = $("#service_id").val();
+                var description = $("#description").val();
+                
+
+                $.ajax({
+                    url: "{{ route('createcomment') }}",
+                    type:'POST',
+                    data: $('#myform').serialize(),
+                    //data: {_token:_token, buyer_id:buyer_id, service_id:service_id, description:description},
+                    success: function(data) {
+                      printMsg(data);
+                    }
+                });
+            }); 
+
+            function printMsg (msg) {
+              if($.isEmptyObject(msg.error)){
+                  console.log(msg.success);
+                  $('#alert-block').empty().append(msg.success);
+                  //$('#alert-block2').empty().append(msg.success2);
+
+                  //$('.alert-block').empty().('display','block').append('<strong>'+msg.success+'</strong>');
+              }else{
+                $.each( msg.error, function( key, value ) {
+                  $('.'+key+'_err').text(value);
+                });
+                $('#alert-block').empty().append(msg.error);
+              }
+
+            }
+        });
+    </script>

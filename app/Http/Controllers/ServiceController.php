@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Service;
 use App\User;
 use App\Like;
+use App\Message;
 use DB;
 
 
@@ -392,10 +393,31 @@ public function searchOnServiceDetail(Request $request)
         $like->service_id = $request->id;
         $like->save();
         $likecount = Like::where(['service_id'=>$request->id])->count();
-        return response()->json(['success'=>$likecount, 'success2'=>'downvote']);
-        //return redirect('/home');    
+         //return redirect('/home');    
         }
         
+
+    }
+
+
+    public function storeComment(Request $request)
+    {
+        //$data = $request->all();
+        #create or update your data here
+           //$request->photo_id; // array of all selected photo id's
+        $message = new Message();  
+        $message->buyer_id = $request->buyer_id;
+        $message->service_id = $request->service_id;
+        $message->description = $request->description;
+
+                /*//$message->service_id = $data->id; 
+                $message->buyer_id = $data['buyer_id']; 
+                $message->service_id = $data['service_id'];
+                $message->description = $data['description'];
+                */
+                $message->save();
+        return response()->json(['success'=>'Ajax request submitted successfully']);
+
 
     }
 }

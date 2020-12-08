@@ -27,6 +27,39 @@
     @endif
 </div>
 
+
+
+ @if(isset($seller))
+        <p> The Search results for your query <b> query</b> are :</p>
+    <h2>Sample User details</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Seller</th>
+                <th>Service</th>
+                <th>Phone</th>
+                <th>More</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($seller as $user)
+            <a href="{{route('serviceDetail', $user->id)}}"><tr>
+                <td>{{$user->user->name}}</td>
+                <td>{{$user->name}}</td>
+                <td>{{$user->user->phone}}</td>
+                <td>
+                    <a href="{{route('serviceDetail', $user->id)}}">view</a>
+                </td>
+                
+
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    @endif
+
+
+ @if(isset($featuredServices))
 <div class="row">
     @foreach($featuredServices as $featuredService)
 
@@ -95,40 +128,11 @@
                     </div>
                 </div> 
                         @endforeach
-       <!-- <div class="property-box-5 col-sm-3 col-pad mr-5">
-                        <div class="property-photo">
-                            <img class="img-fluid" src="{{asset('images')}}/{{$featuredService->image}}" alt="properties" style="height:180px;">
-                            <div class="date-box ">For Sale</div>
-                        </div>
-                        <div class="detail">
-                            <div class="heading">
-                                <h3>
-                                    <a href="properties-details.html" tabindex="-1">{{$featuredService->user->name}}</a>
-                                </h3>
-                                <div class="location">
-                                    <a href="properties-details.html" tabindex="-1">
-                                        <i class="fa fa-map-marker"></i>{{$featuredService->streetAddress}}
-                                    </a><span>, {{$featuredService->city}} &nbsp;, {{$featuredService->state}}</span>
-                                </div>
-                            </div>
-                            <div class="properties-listing">
-                              <span> 
- <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
-                            {{ csrf_field() }}
-
-             <span id="alert-block"></span>                &nbsp;&nbsp;&nbsp; <input id="id" type="hidden" value="{{$featuredService->id}}" class="input-text" name="id"><button id="alert-block2" class="fa fa-thumbs-up btn-submit" type="submit">Like</button>
-                        </form>
-                    </span>
-                                <span> <i class="fa fa-thumbs-down"></i> 2 &nbsp;&nbsp;&nbsp;
-Unlike</span>
-                                <span>980 sqft</span>
-                            </div>
-                        </div>
-                    </div>-->
+       
     </div>
 </div>
 </div> 
-
+@endif
 <script type="text/javascript">
         $(document).ready(function() {
             $(".btn-submit").click(function(e){
