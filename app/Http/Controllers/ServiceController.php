@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Service;
 use App\User;
 use App\Like;
+use App\Message;
 use DB;
 
 
@@ -31,7 +32,8 @@ public function index2()
         $featuredServices = Service::where('is_featured', 1)->with('user')->get();
         $approvedServices = Service::where('status', 1)->with('user')->get();
         $advertServices = Service::where('is_approved', 1)->with('user')->get();
-         $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
+        $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
+        $categories = Category::paginate(8);
          $user11 = session()->get('user11');
          //$userSer = session()->get('userSer');
          $serviceName = session()->get('serviceName');
@@ -43,7 +45,7 @@ public function index2()
             $user111 = null; 
          }
 
-            return view('welcome', compact(['featuredServices', 'recentServices', 'approvedServices', 'user111' ]));
+            return view('welcome', compact(['featuredServices', 'recentServices', 'approvedServices', 'user111', 'categories' ]));
 
          // $products = Product::with('user')->get();
  // return view('shop.index', compact(['products']));
@@ -64,7 +66,9 @@ public function serviceDetail($id)
         $approvedServices = Service::where('status', 1)->with('user')->get();
         $advertServices = Service::where('is_approved', 1)->with('user')->get();
         $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
+        $categories = Category::all()->orderBy('id', 'desc')->paginate(8);
         $serviceDetail = Service::find($id);
+        $serviceDetail_id = $serviceDetail->id;
         $user11 = session()->get('user11');
          if($user11){
             $user111 = $user11;
@@ -75,7 +79,7 @@ public function serviceDetail($id)
 
         //return view('edit-teacher',compact('teacher'));
 
-            return view('serviceDetail', compact(['serviceDetail', 'serviceDetailId', 'approvedServices', 'user111' ]));
+            return view('serviceDetail', compact(['serviceDetail', 'serviceDetail_id', 'approvedServices', 'user111' ]));
     }
 
     public function index()
@@ -407,18 +411,36 @@ public function searchOnServiceDetail(Request $request)
         return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
 //                    return redirect('/home');    
         }else{
-
         $like = new Like();
-
         $like->user_id = Auth::id();
-
         $like->service_id = $request->id;
         $like->save();
         $likecount = Like::where(['service_id'=>$request->id])->count();
-        return response()->json(['success'=>$likecount, 'success2'=>'downvote']);
-        //return redirect('/home');    
-        }
-        
+         //return redirect('/home');    
+        }      
+    }
+    public function storeComment(Request $request)
+    {
+        $data = $request->all();
+        #create or update your data here
+        //$request->photo_id; // array of all selected photo id's
+        $message = new Message();  
+        /*$message->buyer_id = $request->buyer_id;
+        $message->service_id = $request->service_id;
+        $message->description = $request->description;*/
+        $success = 'succccccccs';
+                //$message->service_id = $data['id']; 
+                $message->buyer_id = $data['buyer_id']; 
+                $message->service_id = $data['service_id'];
+                $message->description = $data['description'];
+                $serviceDetailId = $message->service_id;
+                
+                if ($message->save()) {
+        //return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
+                return redirect()->to('serviceDetail/'.$serviceDetailId);
+                }
+
+
 
     }
 }

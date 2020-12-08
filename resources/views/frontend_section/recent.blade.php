@@ -5,6 +5,7 @@
             <h1> Recent Services </h1>
         </div>
 
+        @if(isset($recentServices))
 
 <div class="row">
     @foreach($recentServices as $recentService)
@@ -25,6 +26,7 @@
                         </div>
                     </div>
                         @endforeach
+                        @endif
     </div>
 </div>
 </div> 

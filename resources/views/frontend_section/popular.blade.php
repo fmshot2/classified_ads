@@ -4,6 +4,8 @@
         <div class="main-title">
             <h1>Verified Businesses</h1>
         </div>
+        @if(isset($approvedServices))
+
         <div class="row wow animated" style="visibility: visible;">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="row">
@@ -24,7 +26,7 @@
                         </div>
                     </div>
                         @endforeach
-
+@endif
                
                  <!--   <div class="col-sm-12 col-pad">
                         <div class="category">

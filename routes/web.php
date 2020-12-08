@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/home', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{id}', 'ServiceController@serviceDetail')->name('serviceDetail');
+Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
+
 
 
 // add comment routes
@@ -72,7 +74,7 @@ Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.sell
 Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer');
 
 Route::any ( '/search',  'ServiceController@search3')->name('search3');
-//Route::any ( '/searchforuser',  'ServiceController@searchSeller')->name('searchUser');
+Route::any ( '/searchforuser',  'ServiceController@searchSeller')->name('searchUser');
 
 Route::any ( '/searchOnServiceDetail',  'ServiceController@searchOnServiceDetail')->name('searchOnServiceDetail');
 
