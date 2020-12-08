@@ -438,7 +438,7 @@
                     </div>
 
 
-<div id="alert-block" class="alert alert-primary" role="alert">
+<div id="alert-block" class="alert alert-primary alert-block" role="alert">
   This is a primary alert—check it out!
 </div>
 
@@ -685,7 +685,7 @@
                 
 
                 $.ajax({
-                    url: "{{ route('createcomment') }}",
+                    url: "{{ route('user.message') }}",
                     type:'POST',
                     data: $('#myform').serialize(),
                     //data: {_token:_token, buyer_id:buyer_id, service_id:service_id, description:description},
@@ -698,10 +698,10 @@
             function printMsg (msg) {
               if($.isEmptyObject(msg.error)){
                   console.log(msg.success);
-                  $('#alert-block').empty().append(msg.success);
+                  //$('#alert-block').empty().append(msg.success);
                   //$('#alert-block2').empty().append(msg.success2);
 
-                  //$('.alert-block').empty().('display','block').append('<strong>'+msg.success+'</strong>');
+                  $('.alert-block').empty().('display','block').append('<strong>'+msg.success+'</strong>');
               }else{
                 $.each( msg.error, function( key, value ) {
                   $('.'+key+'_err').text(value);

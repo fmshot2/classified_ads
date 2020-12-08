@@ -104,6 +104,11 @@
                                     <i class="flaticon-time"></i> 5 Upvotes
                                 </li>
                                 </div>
+                                <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
+                            {{ csrf_field() }}
+
+             <span id="alert-block"></span>                &nbsp;&nbsp;&nbsp; <input id="id" type="hidden" value="{{$featuredService->id}}" class="input-text" name="id"><button id="alert-block2" class="fa fa-thumbs-up btn-submit" type="submit">Like</button>
+                        </form>
                                 
                                 <!--<li>
                                     <i class="flaticon-monitor"></i> TV
