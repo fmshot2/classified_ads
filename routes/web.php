@@ -53,7 +53,8 @@ Route::get('/admin/dashboard/service/pending', 'AdminController@pendingService')
 Route::patch('/admin/dashboard/service/status/{id}', 'AdminController@updateServiceStatus')->name('admin.service.status');
 Route::delete('/admin/dashboard/service/destroy/{id}', 'AdminController@destroy')->name('admin.service.destroy');
 
-
+Route::get('/admin/dashboard/service/search', 'AdminController@serviceSearch')->name('admin.service.search');
+Route::get('/admin/dashboard/user/search', 'AdminController@userSearch')->name('admin.user.search');
 
 
 Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.seller');
