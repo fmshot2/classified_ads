@@ -146,7 +146,7 @@ public function serviceDetail($id)
 
         $service->save();
         $likecount = Like::where(['service_id'=>$request->id])->count();
-        return redirect('/adminDashboard');
+        return redirect('seller/dashboard');
         
     }
 
