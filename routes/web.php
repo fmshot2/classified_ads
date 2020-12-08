@@ -13,19 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
-
 Route::get('/home', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{id}', 'ServiceController@serviceDetail')->name('serviceDetail');
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
 
 
 
+// add comment routes
+//Route::get('ajaxRequest', [AjaxController::class, 'ajaxRequest']);
+//Route::post('ajaxRequest', 'ServiceController@ajaxRequestPost')->name('ajaxRequest.post');
+
+// add comment routes
 
 
+
+//add service Routes
 Route::get('/createService', 'ServiceController@createService')->name('createService');
 Route::post('/storeService', 'ServiceController@storeService')->name('service.store');
+
 
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register', 'AuthController@createUser')->name('register');
@@ -51,12 +56,26 @@ Route::get('/adminDashboard', 'DashboardController@adminDashboard')->name('admin
 
 Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
 Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
-Route::get('/admin/dashboard/category/show', 'CategoryController@create')->name('admin.category.show');
+Route::get('/admin/dashboard/category/show', 'CategoryController@index')->name('admin.category.show');
+Route::delete('/admin/category/{id}', 'CategoryController@destroy')->name('admin.category.delete');
 
-Route::delete('/admin/dashboard/category/', 'CategoryController@destroy')->name('admin.category.destroy');
+Route::get('/admin/dashboard/service/all', 'AdminController@allService')->name('admin.service.all');
+Route::get('/admin/dashboard/service/active', 'AdminController@activeService')->name('admin.service.active');
+Route::get('/admin/dashboard/service/pending', 'AdminController@pendingService')->name('admin.service.pending');
+Route::get('/admin/dashboard/service/pending', 'AdminController@pendingService')->name('admin.service.pending');
+Route::patch('/admin/dashboard/service/status/{id}', 'AdminController@updateServiceStatus')->name('admin.service.status');
+Route::delete('/admin/dashboard/service/destroy/{id}', 'AdminController@destroy')->name('admin.service.destroy');
 
+Route::get('/admin/dashboard/service/search', 'AdminController@serviceSearch')->name('admin.service.search');
+Route::get('/admin/dashboard/user/search', 'AdminController@userSearch')->name('admin.user.search');
+
+
+Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.seller');
+Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer');
 
 Route::any ( '/search',  'ServiceController@search3')->name('search3');
+//Route::any ( '/searchforuser',  'ServiceController@searchSeller')->name('searchUser');
+
 Route::any ( '/searchOnServiceDetail',  'ServiceController@searchOnServiceDetail')->name('searchOnServiceDetail');
 
 

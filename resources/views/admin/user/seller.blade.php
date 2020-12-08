@@ -2,11 +2,15 @@
 @extends('layouts.admin')
 
 @section('title')
-All Service | 
+Seller Table | 
 @endsection
 
 @section('content')
 
-@include('admin/section/all_service_table') 
+<div class="container">
+
+@include('admin/section/seller_table') 
+
+</div>
 
 @endsection

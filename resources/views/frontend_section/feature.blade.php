@@ -59,7 +59,11 @@
     @endif
 
 
+<<<<<<< HEAD
  @if(isset($featuredServices))
+=======
+
+>>>>>>> d52b3cacfc0719ef01ead77ecc8f5ad582b204a7
 <div class="row">
     @foreach($featuredServices as $featuredService)
 

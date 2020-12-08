@@ -95,6 +95,17 @@ class AuthController extends Controller
 		return view ('welcome');
 	}
 
+	public function buyer()
+	{
+		$buyer = User::where('role', 'buyer')->paginate(20);
+		return view ('admin.user.buyer', compact('buyer') );
+	}
+
+	public function seller()
+	{
+		$seller = User::where('role', 'seller')->paginate(20);
+		return view ('admin.user.seller', compact('seller') );
+	}
 
 
 }
