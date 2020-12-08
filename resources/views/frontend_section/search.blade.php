@@ -11,8 +11,6 @@
 </form>
 -->
   <div class="row justify-content-center bg-dark">
-
-
 <form class="form-inline" action="{{route('search3')}}" method="POST" role="search">
     {{ csrf_field() }}
 <div class="form-group mr-4"> 

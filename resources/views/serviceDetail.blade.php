@@ -393,7 +393,98 @@
                             </div>
                         </div>
                     </div>
-                   
+<!-- comments section  -->
+                
+<h3 class="heading-2">Comments Section</h3>
+<ul class="comments">
+                        <li>
+                            <div class="comment">
+                                <div class="comment-author">
+                                    <a><i class="fa fa-user fa-3x"></i>
+                                        <!--<img src="{{asset('img/avatar/avatar-1.jpg')}}" alt="comments-user">-->
+                                    </a>
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-meta">
+                                        <h3>
+                                            Maikel Alisa
+                                        </h3>
+                                        <div class="comment-meta">
+                                            6:42 PM 6/28/2019<a>Reply</a>
+                                        </div>
+                                    </div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros. Maecenas eros enim.</p>
+                                </div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="comment">
+                                        <div class="comment-author">
+                                    <a><i class="fa fa-user-circle fa-3x"></i>
+                                               <!-- <img src="{{asset('img/avatar/avatar-2.jpg')}}" alt="comments-user">-->
+                                            </a>
+                                        </div>
+                                        <div class="comment-content">
+                                            <div class="comment-meta">
+                                                <h3>
+                                                    Karen Paran
+                                                </h3>
+                                                <div class="comment-meta">
+                                                    6:42 PM 6/28/2019<a href="#">Reply</a>
+                                                </div>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="comment">
+                                <div class="comment-author">
+                                    <a><i class="fa fa-user-circle fa-3x"></i>
+                                        <!--<img src="{{asset('img/avatar/avatar-3.jpg')}}" alt="comments-user">-->
+                                    </a>
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-meta">
+                                        <h3>
+                                            Anne Brady
+                                        </h3>
+                                        <div class="comment-meta">
+                                            6:42 PM 6/28/2019<a>Reply</a>
+                                        </div>
+                                    </div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros. Maecenas eros enim.</p>
+                                </div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="comment mb-0 mp-heden">
+                                        <div class="comment-author">
+                                    <a><i class="fa fa-user-circle fa-3x"></i>
+                                                <!--<img src="{{asset('img/avatar/avatar-4.jpg')}}" alt="comments-user">-->
+                                            </a>
+                                        </div>
+                                        <div class="comment-content mpb-0 mrg-bdr">
+                                            <div class="comment-meta">
+                                                <h3>
+                                                    Jane Doe
+                                                </h3>
+                                                <div class="comment-meta">
+                                                    6:42 PM 6/28/2019<a href="#">Reply</a>
+                                                </div>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+<!-- End comments section  -->
+
                     <!-- Contact 1 start -->
                     <div class="contact-1 mtb-50">
                         <h3 class="heading">Contact Seller</h3>
@@ -434,8 +525,6 @@
                     </div>
 
     @if(isset($approvedService))
-
-
                     <div class="row wow animated" style="visibility: visible;">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="row">
@@ -464,8 +553,6 @@
       
         </div>
                       @endif
-
-
                 </div>
             </div>
             <div class="col-lg-4 col-md-12">
@@ -510,27 +597,27 @@
                         <div class="m-border"></div>
                         <ul class="social-list">
                             <li>
-                                <a href="#" class="facebook-bg">
+                                <a class="facebook-bg">
                                     <i class="fa fa-facebook"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="twitter-bg">
+                                <a class="twitter-bg">
                                     <i class="fa fa-twitter"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="google-bg">
+                                <a class="google-bg">
                                     <i class="fa fa-google"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="linkedin-bg">
+                                <a class="linkedin-bg">
                                     <i class="fa fa-linkedin"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="pinterest-bg">
+                                <a class="pinterest-bg">
                                     <i class="fa fa-pinterest"></i>
                                 </a>
                             </li>
@@ -572,10 +659,7 @@
         </tbody>
     </table>
     @endif
-
-
     @if(isset($user111))
-
 
 <div class="row">
     @foreach($user111 as $user)

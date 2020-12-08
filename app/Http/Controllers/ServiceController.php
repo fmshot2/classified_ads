@@ -65,7 +65,6 @@ public function serviceDetail($id)
         $advertServices = Service::where('is_approved', 1)->with('user')->get();
         $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
         $serviceDetail = Service::find($id);
-        $serviceDetailId = $id;
         $user11 = session()->get('user11');
          if($user11){
             $user111 = $user11;
@@ -182,7 +181,7 @@ if (count ( $userSer ) > 0){
         return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );}
 
 
-public function searchSeller(Request $request){
+/*public function searchSeller(Request $request){
     $seller = $request->input('seller');
     $state = $request->input('state');
 
@@ -199,6 +198,8 @@ if (count ( $seller ) > 0){
     }
     else
         return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );}
+
+        */
 
 
 
