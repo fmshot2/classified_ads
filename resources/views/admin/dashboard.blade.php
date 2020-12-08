@@ -34,7 +34,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text"> All Service </span>
-              <span class="info-box-number"> {{ $all_service }} </span>
+              <span class="info-box-number"> {{ $all_service_count }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-blue" style="width: 45%"></div>
@@ -54,7 +54,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text"> All Categories </span>
-              <span class="info-box-number"> {{ $all_categories }} </span>
+              <span class="info-box-number"> {{ $all_categories_count }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-success" style="width: 40%"></div>
@@ -74,7 +74,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text"> All Sellers </span>
-              <span class="info-box-number"> {{ $all_sellers }} </span>
+              <span class="info-box-number"> {{ $all_sellers_count }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-primary" style="width: 85%"></div>
@@ -94,7 +94,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text"> All Buyer </span>
-              <span class="info-box-number"> {{ $all_buyers }} </span>
+              <span class="info-box-number"> {{ $all_buyers_count }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
@@ -115,7 +115,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text"> Active Service </span>
-              <span class="info-box-number"> {{ $all_service }} </span>
+              <span class="info-box-number"> {{ $active_service_count }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-blue" style="width: 45%"></div>
@@ -137,7 +137,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text"> Pending Service </span>
-              <span class="info-box-number"> {{ $all_service }} </span>
+              <span class="info-box-number"> {{ $pending_service_count }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-blue" style="width: 45%"></div>
@@ -156,134 +156,39 @@
     
     <div class="row">
     <div class="col-md-6 connectedSortable">
-      <!-- solid sales graph -->
-          <div class="box box-solid bg-teal-gradient">
-            <div class="box-header">
-              <i class="fa fa-th"></i>
-
-              <h3 class="box-title">Sales Graph</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i>
-                </button>
-              </div>
-            </div>
-            <div class="box-body border-radius-none">
-              <div class="chart" id="line-chart" style="height: 220px;"></div>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer no-border">
-              <div class="row">
-                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                  <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60"
-                         data-fgColor="#10CFBD">
-
-                  <div class="knob-label">Mail-Orders</div>
-                </div>
-                <!-- ./col -->
-                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                  <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
-                         data-fgColor="#10CFBD">
-
-                  <div class="knob-label">Online</div>
-                </div>
-                <!-- ./col -->
-                <div class="col-xs-4 text-center">
-                  <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
-                         data-fgColor="#10CFBD">
-
-                  <div class="knob-label">In-Store</div>
-                </div>
-                <!-- ./col -->
-              </div>
-              <!-- /.row -->
-            </div>
-            <!-- /.box-footer -->
-          </div>
-          <!-- /.box -->
+      <!-- Category Table -->
+      @include('admin/section/category_table')
     </div>
     <div class="col-md-6 connectedSortable">
-
-          <!-- Calendar -->
-          <div class="box box-solid bg-blue-gradient">
-            <div class="box-header">
-              <i class="fa fa-calendar"></i>
-
-              <h3 class="box-title">Calendar</h3>
-              <!-- tools box -->
-              <div class="pull-right box-tools">
-                <!-- button with a dropdown -->
-                <div class="btn-group">
-                  <button type="button" class="btn btn-blue btn-sm dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-bars"></i></button>
-                  <ul class="dropdown-menu pull-right" role="menu">
-                    <li><a href="#">Add new event</a></li>
-                    <li><a href="#">Clear events</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">View calendar</a></li>
-                  </ul>
-                </div>
-                <button type="button" class="btn btn-blue btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-blue btn-sm" data-widget="remove"><i class="fa fa-times"></i>
-                </button>
-              </div>
-              <!-- /. tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding">
-              <!--The calendar -->
-              <div id="calendar" style="width: 100%"></div>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer text-black">
-              <div class="row">
-                <div class="col-sm-6">
-                  <!-- Progress bars -->
-                  <div class="clearfix">
-                    <span class="pull-left">Task #1</span>
-                    <small class="pull-right">20%</small>
-                  </div>
-                  <div class="progress xs">
-                    <div class="progress-bar progress-bar-blue" style="width: 90%;"></div>
-                  </div>
-
-                  <div class="clearfix">
-                    <span class="pull-left">Task #2</span>
-                    <small class="pull-right">50%</small>
-                  </div>
-                  <div class="progress xs">
-                    <div class="progress-bar progress-bar-blue" style="width: 50%;"></div>
-                  </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-6">
-                  <div class="clearfix">
-                    <span class="pull-left">Task #3</span>
-                    <small class="pull-right">80%</small>
-                  </div>
-                  <div class="progress xs">
-                    <div class="progress-bar progress-bar-blue" style="width: 80%;"></div>
-                  </div>
-
-                  <div class="clearfix">
-                    <span class="pull-left">Task #4</span>
-                    <small class="pull-right">30%</small>
-                  </div>
-                  <div class="progress xs">
-                    <div class="progress-bar progress-bar-blue" style="width: 30%;"></div>
-                  </div>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
-          </div>
-          <!-- /.box -->
-      
+      @include('admin/section/active_service_table')
     </div>
+</div>
+
+
+
+    <div class="row">
+    <div class="col-md-6 connectedSortable">
+      <!-- Category Table -->
+      @include('admin/section/seller_table')
+    </div>
+    <div class="col-md-6 connectedSortable">
+      @include('admin/section/buyer_table')
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
     <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">

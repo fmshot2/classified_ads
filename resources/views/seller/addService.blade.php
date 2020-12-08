@@ -7,7 +7,6 @@
 
 @section('content')
 
-
 <div class="sub-banner">
     <div class="container">
         <div class="page-name">
@@ -18,7 +17,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="submit-property content-area">
     <div class="container">
@@ -72,10 +70,7 @@
       <option>Transportation</option>
     </select>
   </div>
-
-                                </div>
-
-                               
+                                </div>                         
 
                                 <div class="col-lg-6 col-md-6 mt-4">
                                     <div class="form-group">
@@ -85,9 +80,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                     
+                        </div>              
                         
                         <h3 class="heading-2">Detailed Information</h3>
                         <div class="row mb-50">
