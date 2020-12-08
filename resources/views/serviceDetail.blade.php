@@ -499,7 +499,7 @@
                     <!-- Contact 1 start -->
                     <div class="contact-1 mtb-50">
                         <h3 class="heading">Contact Seller</h3>
-                        <form id="myform" action="{{ route('createcomment')}}" method="POST" enctype="multipart/form-data">
+                        <form id="myform" action="{{ route('user.message')}}" method="POST">
                             <div class="row">
                                 {{ csrf_field() }}
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -533,9 +533,6 @@
   This is a primary alert—check it out!
 </div>
 
-
-
- /*   @if(isset($approvedService))
 
 
     @if(isset($approvedService))
@@ -590,7 +587,7 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group subject">
-                                        <input type="hidden" name="id" value={{$serviceDetailId}} class="form-control">
+                                        <input type="hidden" name="id" value={{$serviceDetail_id}} class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12">
@@ -673,79 +670,7 @@
         </tbody>
     </table>
     @endif
-    @if(isset($user111))
-
-<div class="row">
-    @foreach($user111 as $user)
-
-<div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
-                    <div class="property-box">
-                        <div class="property-thumbnail">
-                            <a href="{{route('serviceDetail', $user->id)}}" class="property-img">
-                                <div class="listing-badges">
-                                    <span class="featured bg-warning">featured</span>
-                                </div>
-                                <div class="price-ratings-box">
-                                    <p class="price">
-                                        $178,000
-                                    </p>
-                                </div>
-                                <div class="listing-time opening">For Rent</div>
-                                <img class="d-block w-100" src="{{asset('images')}}/{{$user->image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
-                            </a>
-                        </div>
-                        <div class="detail">
-                            <h1 class="title">
-                                <a href="properties-details.html">{{$user->name}}</a>
-                            </h1>
-                            <div class="location">
-                                <a href="properties-details.html">
-                                    <i class="fa fa-map-marker"></i>{{$user->city}}&nbsp;, {{$user->state}}
-                                </a>
-                            </div>
-                            <ul class="facilities-list clearfix">
-                                <li>
-                                    <i class="flaticon-square"></i>Experience:{{$user->experience}} Yrs
-                                </li>
-                                <div class="pull-right">
-                                <li>
-                                    <i class="flaticon-time"></i> 5 Upvotes
-                                </li>
-                                </div>
-                                
-                            </ul>
-                        </div>
-                        <div class="footer clearfix">
-                            <div class="pull-left days">
-                                <a><i class="fa fa-user"></i> {{$user->user->name}}</a>
-                            </div>
-                            <div class="pull-right">
-                                <ul class="facilities-list clearfix">
-                                <li>
-                                   <i class="fa fa-thumbs-up"></i>Upvote
-                                </li>
-                                <li>
-                                    <i class="fa fa-thumbs-down"></i> Downvote
-                                </li>
-                                 </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-                        @endforeach
-      
-    </div>
-
-
-
-
-
-
-    @endif
-
-
-
-
+   
 
 </div>
                 </div>
@@ -774,8 +699,8 @@
                 $.ajax({
                     url: "{{ route('user.message') }}",
                     type:'POST',
-                    data: $('#myform').serialize(),
-                    //data: {_token:_token, buyer_id:buyer_id, service_id:service_id, description:description},
+                    //data: $('#myform').serialize(),
+                    data: {_token:_token, buyer_id:buyer_id, service_id:service_id, description:description},
                     success: function(data) {
                       printMsg(data);
                     }
@@ -783,13 +708,14 @@
             }); 
 
             function printMsg (msg) {
-              if($.isEmptyObject(msg.error)){
+                if((msg.success)){
                   console.log(msg.success);
                   //$('#alert-block').empty().append(msg.success);
                   //$('#alert-block2').empty().append(msg.success2);
 
                   $('.alert-block').empty().('display','block').append('<strong>'+msg.success+'</strong>');
-              }else{
+              }
+              else{
                 $.each( msg.error, function( key, value ) {
                   $('.'+key+'_err').text(value);
                 });
@@ -799,3 +725,11 @@
             }
         });
     </script>
+<!--if($.isEmptyObject(msg.error)){
+                  console.log(msg.success);
+                  //$('#alert-block').empty().append(msg.success);
+                  //$('#alert-block2').empty().append(msg.success2);
+
+                  $('.alert-block').empty().('display','block').append('<strong>'+msg.success+'</strong>');
+              }
+              -->

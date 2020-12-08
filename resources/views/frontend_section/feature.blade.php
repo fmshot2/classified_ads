@@ -118,7 +118,7 @@
                         </div>
                         <div class="footer clearfix">
                             <div class="pull-left days">
-                                <a><i class="fa fa-user"></i> {{$featuredService->user->name}}</a>
+                                <a><i class="fa fa-user"></i>{{$featuredService->user->name}}</a>
                             </div>
                             <div class="pull-right">
                                 <ul class="facilities-list clearfix">
@@ -126,7 +126,7 @@
                                    <i class="fa fa-thumbs-up"></i>Upvote
                                 </li>
                                 <li>
-                                    <i class="fa fa-thumbs-down"></i> Downvote
+                                    <i class="fa fa-thumbs-down"></i>Downvote
                                 </li>
                                  </ul>
                             </div>
@@ -136,7 +136,44 @@
                         @endforeach
        
     </div>
+
+
+
+
+
+
+
+
+
 </div>
+
+
+<div class="services-2 content-area-5 bg-grea-3">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>What are you looking for?</h1>
+        </div>
+        <div class="row wow animated" style="visibility: visible;">
+                @foreach($categories as $category)
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="service-info-5">
+                    <i class="flaticon-apartment"></i>
+                    <h4>{{$category->name}}</h4>
+                    <p>Lorem ipsum dolor sit amet, consectur adipisicing elit, sed do eiusmod tempor incididunt</p>
+                </div>
+            </div>
+                                    @endforeach
+
+            
+        </div>
+        <div class="text-center read-more-2">
+            <a href="services-1.html" class="btn-white">Read More</a>
+        </div>
+    </div>
+</div>
+
 </div> 
 @endif
 <script type="text/javascript">
