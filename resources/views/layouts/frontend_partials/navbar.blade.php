@@ -40,18 +40,24 @@
                         <a class="dropdown-item" href="{{ route('adminDashboard') }}"> Dashboard </a>
                         @endif 
                         @endauth
-                        <a class="dropdown-item" href="{{ route('logout') }}"/> Logout </a>
-                    </div>
 
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
-            </ul>
-        </div>
-        @endauth
+
+            </div>
+        </ul>
     </div>
+    @endauth
+</div>
 </div>
 </header>
-
-
 
 
 
@@ -59,7 +65,7 @@
 <header class="main-header">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand logos" href="/home">
+            <a class="navbar-brand logos" href="/">
                 <img src="logos/Logo.png" alt="logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -169,15 +175,15 @@
                                                   </div>                         
                                                   <div class="col-lg-6 col-md-6 mt-4" style="margin-bottom: -30px;">
                                                     <div class="form-group">
-                                                     <input type="file" class="input-text" onChange="previewFile(this)" name="file" class="form-control" />
-                                                     <img id="previewImg" alt="Service Image" style="max-width:130px; 
-                                                     margin-top:20px"/>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>                                     
-                                     <h3 class="heading-2">DETAILED INFORMATION</h3>
-                                     <div class="row">
+                                                       <input type="file" class="input-text" onChange="previewFile(this)" name="file" class="form-control" />
+                                                       <img id="previewImg" alt="Service Image" style="max-width:130px; 
+                                                       margin-top:20px"/>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>                                     
+                                       <h3 class="heading-2">DETAILED INFORMATION</h3>
+                                       <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group mb-0">
                                                 <textarea class="input-text" name="description" placeholder="Add More Info about your service"></textarea>
@@ -240,7 +246,7 @@
               <span aria-hidden="true">&times;</span>
           </button>
       </div>
-      <form class="" action="{{route('searchUser')}}" method="POST" role="search">
+      <form class="" action="{{-- route('searchUser') --}}" method="POST" role="search">
           <div class="modal-body">
             {{ csrf_field() }}
             <div class="form-group"> 

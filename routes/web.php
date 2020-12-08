@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', 'ServiceController@index2')->name('home');
+Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{id}', 'ServiceController@serviceDetail')->name('serviceDetail');
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
 
@@ -36,7 +36,7 @@ Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register', 'AuthController@createUser')->name('register');
 Route::get('/login', 'AuthController@showLogin')->name('login');
 Route::post('/login', 'AuthController@login')->name('login');
-Route::get('/logout', 'AuthController@logout')->name('logout');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::get('/refreshcaptcha', 'AuthController@refreshCaptcha')->name('refreshcaptcha');
 
@@ -50,7 +50,7 @@ Route::post('/admin/like', 'ServiceController@saveLike')->name('admin.like');
 
 Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name('service.delete');
 
-Route::get('/adminDashboard', 'DashboardController@adminDashboard')->name('adminDashboard');
+Route::get('/seller/dashboard', 'DashboardController@adminDashboard')->name('adminDashboard');
 
 });
 
@@ -74,7 +74,7 @@ Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.sell
 Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer');
 
 Route::any ( '/search',  'ServiceController@search3')->name('search3');
-Route::any ( '/searchforuser',  'ServiceController@searchSeller')->name('searchUser');
+//Route::any ( '/searchforuser',  'ServiceController@searchSeller')->name('searchUser');
 
 Route::any ( '/searchOnServiceDetail',  'ServiceController@searchOnServiceDetail')->name('searchOnServiceDetail');
 

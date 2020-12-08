@@ -26,7 +26,7 @@ class HomeController extends Controller
 
         $featuredServices = Service::where('is_featured', 1)->with('user')->get();
 
-        return view('welcome', compact(['featuredServices']));
+        return view('/', compact(['featuredServices']));
 
          // $products = Product::with('user')->get();
  // return view('shop.index', compact(['products']));
