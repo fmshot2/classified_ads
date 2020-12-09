@@ -440,6 +440,7 @@ public function searchOnServiceDetail(Request $request)
                 //$message->service_id = $data['id']; 
                 $message->buyer_id = $data['buyer_id']; 
                 $message->service_id = $data['service_id'];
+                $message->service_user_id = $data['service_user_id'];
                 $message->description = $data['description'];
                 $serviceDetailId = $message->service_id;
                 

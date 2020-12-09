@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{id}', 'ServiceController@serviceDetail')->name('serviceDetail');
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
+Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard');
+
 
 
 
