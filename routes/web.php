@@ -30,6 +30,12 @@ Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('use
 //add service Routes
 Route::get('/createService', 'ServiceController@createService')->name('createService');
 Route::post('/storeService', 'ServiceController@storeService')->name('service.store');
+Route::get('/catdet/{id}', 'CategoryController@show')->name('catdet');
+Route::get('/allCategories/', 'CategoryController@allCategories')->name('allCategories');
+Route::get('/categoryDetail/{id}', 'CategoryController@categoryDetail')->name('categoryDetail');
+
+
+
 
 
 Route::get('/register', 'AuthController@showRegister')->name('register');

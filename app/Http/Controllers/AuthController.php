@@ -72,7 +72,7 @@ class AuthController extends Controller
 				return redirect()->intended('seller/dashboard');
 			} else {
 				session()->flash('success', ' Login Succesfull');
-				return redirect()->intended('welcome');
+				return redirect()->intended('/');
 			}
 		}
 
