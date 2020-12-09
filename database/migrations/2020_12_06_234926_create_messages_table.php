@@ -17,6 +17,10 @@ class CreateMessagesTable extends Migration
             $table->increments('id');
             $table->integer('service_id');
             $table->integer('service_user_id');
+            $table->integer('buyer_name');
+            $table->integer('buyer_email');
+            $table->integer('subject');
+            $table->integer('phone');
             $table->unsignedInteger('buyer_id')->nullable();
             $table->text('description');
             $table->timestamps();
