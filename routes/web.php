@@ -85,6 +85,11 @@ Route::any ( '/search',  'ServiceController@search3')->name('search3');
 Route::any ( '/searchOnServiceDetail',  'ServiceController@searchOnServiceDetail')->name('searchOnServiceDetail');
 
 
+//Views Composer 
+View::composer(['layouts.frontend_partials.navbar'], function ($view) {
+    $categories = App\Category::all();
+   $view->with('categories',$categories);
+});
 
 
 

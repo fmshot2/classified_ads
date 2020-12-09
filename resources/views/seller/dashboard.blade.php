@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('title')
- Seller | 
+ Seller Dashboard | 
 @endsection
 
 

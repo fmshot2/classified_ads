@@ -165,25 +165,25 @@
                                                           <div class="form-group">
                                                             <label for="exampleFormControlSelect1"> CHOOSE CATEGORY </label>
                                                             <select class="form-control" id="exampleFormControlSelect1" name="category">
-                                                              <option>Medical</option>
-                                                              <option>Building</option>
-                                                              <option>Beauty/Cosmetics</option>
-                                                              <option>Food</option>
-                                                              <option>Transportation</option>
+
+                                                              @foreach($categories as $categories)
+                                                              <option value="{{ $categories->id }}"> {{ $categories->name }} </option> 
+                                                              @endforeach
+
                                                           </select>
                                                       </div>
                                                   </div>                         
                                                   <div class="col-lg-6 col-md-6 mt-4" style="margin-bottom: -30px;">
                                                     <div class="form-group">
-                                                       <input type="file" class="input-text" onChange="previewFile(this)" name="file" class="form-control" />
-                                                       <img id="previewImg" alt="Service Image" style="max-width:130px; 
-                                                       margin-top:20px"/>
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>                                     
-                                       <h3 class="heading-2">DETAILED INFORMATION</h3>
-                                       <div class="row">
+                                                     <input type="file" class="input-text" onChange="previewFile(this)" name="file" class="form-control" />
+                                                     <img id="previewImg" alt="Service Image" style="max-width:130px; 
+                                                     margin-top:20px"/>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>                                     
+                                     <h3 class="heading-2">DETAILED INFORMATION</h3>
+                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group mb-0">
                                                 <textarea class="input-text" name="description" placeholder="Add More Info about your service"></textarea>
