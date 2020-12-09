@@ -287,7 +287,7 @@
 @if(Auth::user()->role == 'buyer')
 <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-        <a href="{{route('createService')}}" class="btn btn-outline-warning font-weight-bold text-warning">My Dashboard</a>
+        <a href="{{route('buyer.dashboard')}}" class="btn btn-outline-warning font-weight-bold text-warning">My Dashboard</a>
     </li>
 </ul>
 

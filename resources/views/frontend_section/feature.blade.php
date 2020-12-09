@@ -149,7 +149,9 @@
         <div class="main-title">
             <h1>What service are you looking for?</h1>
         </div>
+ @if(isset($featuredServices))
 
+    @foreach($featuredServices as $featuredService)
 
 
              <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
@@ -169,6 +171,8 @@
             </div>
             </form>
                                     @endforeach
+                                    @endforeach
+                                    @endif
 
             
         </div>

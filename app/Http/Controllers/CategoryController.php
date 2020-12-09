@@ -23,7 +23,7 @@ class CategoryController extends Controller
         return view ('admin/category/index', compact('category') );
     }
 
-public function allCategories()
+    public function allCategories()
     {
         $categories = Category::orderBy('id', 'desc')->paginate(12);
         return view ('allCategories', compact('categories') );

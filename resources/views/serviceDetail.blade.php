@@ -507,6 +507,11 @@
                                         <input type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
                                     </div>
                                 </div>
+                                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group name">
+                                        <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">
+                                    </div>
+                                </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="form-group email"> 
 
@@ -693,6 +698,7 @@
                 var _token = $("input[name='_token']").val();
                 var buyer_id = $("#buyer_id").val();
                 var service_id = $("#service_id").val();
+                var service_user_id = $("#service_user_id").val();
                 var description = $("#description").val();
                 
 
@@ -700,7 +706,7 @@
                     url: "{{ route('user.message') }}",
                     type:'POST',
                     //data: $('#myform').serialize(),
-                    data: {_token:_token, buyer_id:buyer_id, service_id:service_id, description:description},
+                    data: {_token:_token, buyer_id:buyer_id, service_id:service_id, service_user_id:service_user_id, description:description},
                     success: function(data) {
                       printMsg(data);
                     }
