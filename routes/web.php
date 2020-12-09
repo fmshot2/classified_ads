@@ -52,12 +52,10 @@ Route::get('/privacy', 'PageController@privacy')->name('privacy');
 Route::middleware(['auth'])->group(function () {
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
 Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
+
 Route::post('/admin/like', 'ServiceController@saveLike')->name('admin.like');
 
 Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name('service.delete');
-
-Route::get('/seller/dashboard', 'DashboardController@adminDashboard')->name('adminDashboard');
-
 });
 
 Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');

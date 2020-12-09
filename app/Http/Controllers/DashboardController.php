@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Service;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Category;
 use App\User;
+use App\Message;
+use App\Service;
 
 
 class DashboardController extends Controller
@@ -14,26 +15,14 @@ class DashboardController extends Controller
 
   public function seller()
   {
-   return view ('seller.dashboard');
- }
+    $service_count = Service::where('user_id', Auth::id() )->count();
+    
 
- public function buyer()
- {
-   return view ('buyer.index');
- }
+    $service = Service::where('user_id', Auth::id() );
 
- public function adminDashboard()
- {
-  $user_id = Auth::id();
-  $services = Service::where( 'user_id', $user_id)->get();
-  if($serviceNo = Service::where( 'user_id', $user_id)->get()->count()){
-    $serviceNu = $serviceNo;
-  } else {
-    $serviceNu = 0;
+    $service_count = Service::where('user_id',  )->count();
+    return view ('seller.dashboard', compact('service_count') );
   }
-    		//$properties = property::where('isPublished',1)->get();
-  return view('seller.adminDashboard', compact('serviceNu', 'services'));   	
-}
 
 
 public function admin()
