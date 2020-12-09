@@ -38,8 +38,8 @@ public function allCategories()
         return view ('categoryDetails', compact('category') ); 
 
         
-        $categories = Category::orderBy('id', 'desc')->paginate(12);
-        return view ('allCategories', compact('categories') );
+        //$categories = Category::orderBy('id', 'desc')->paginate(12);
+        //return view ('allCategories', compact('categories') );
     }
 
 
