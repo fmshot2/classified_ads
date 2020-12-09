@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="price-ratings-box">
                                     <p class="price">
-                                        $178,000
+                                        {{$featuredService->experience}} Yrs Experience
                                     </p>
                                    <!-- <div class="ratings">
                                         <i class="fa fa-star"></i>
@@ -83,40 +83,35 @@
                                         <i class="fa fa-star-o"></i>
                                     </div> -->
                                 </div>
-                                <div class="listing-time opening">For Rent</div>
+                                <div class="listing-time opening">{{$featuredService->user->name}}</div>
                                 <img class="d-block w-100" src="{{asset('images')}}/{{$featuredService->image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                             </a>
                         </div>
                         <div class="detail">
-                            <h1 class="title">
-                                <a href="properties-details.html">{{$featuredService->name}}</a>
-                            </h1>
-                            <div class="location">
-                                <a href="properties-details.html">
-                                    <i class="fa fa-map-marker"></i>{{$featuredService->city}}&nbsp;, {{$featuredService->state}}
-                                </a>
-                            </div>
+                            <span><a class="title " href="properties-details.html">{{$featuredService->name}}</a>
+                            <a class="pull-right" href="properties-details.html">
+                                    <i class="fa fa-map-marker"></i>&nbsp; &nbsp;{{$featuredService->city}}&nbsp;, {{$featuredService->state}}
+                                </a></span>
+                           
                             <ul class="facilities-list clearfix">
                                 <li>
-                                    <i class="flaticon-square"></i>Experience:{{$featuredService->experience}} Yrs
+                                    <i class="flaticon-square block"></i>&nbsp; &nbsp; 5 likes
                                 </li>
-                                <div class="pull-right">
-                                <li>
-                                    <i class="flaticon-time"></i> 5 Upvotes
+                                <li class="" style="float: right;">
+                                    <i class="flaticon-time"></i>&nbsp; &nbsp;<a href="{{route('serviceDetail', $featuredService->id)}}">See Details</a>
                                 </li>
-                                </div>
-                                <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
+                               <!-- <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
                             {{ csrf_field() }}
 
              <span id="alert-block"></span>                &nbsp;&nbsp;&nbsp; <input id="id" type="hidden" value="{{$featuredService->id}}" class="input-text" name="id"><button id="alert-block2" class="fa fa-thumbs-up btn-submit" type="submit">Like</button>
-                        </form>
+                        </form>-->
                                 
                                 <!--<li>
                                     <i class="flaticon-monitor"></i> TV
                                 </li>-->
                             </ul>
                         </div>
-                        <div class="footer clearfix">
+                    <!--    <div class="footer clearfix">
                             <div class="pull-left days">
                                 <a><i class="fa fa-user"></i>{{$featuredService->user->name}}</a>
                             </div>
@@ -130,7 +125,7 @@
                                 </li>
                                  </ul>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div> 
                         @endforeach
@@ -152,8 +147,15 @@
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
-            <h1>What are you looking for?</h1>
+            <h1>What service are you looking for?</h1>
         </div>
+
+
+
+             <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
+                            {{ csrf_field() }}
+
+             <span id="alert-block"></span>   &nbsp;&nbsp;&nbsp; <input id="id" type="hidden" value="{{$featuredService->id}}" class="input-text" name="id"><button id="alert-block2" class="fa fa-thumbs-up btn-submit" type="submit">Like</button>
         <div class="row wow animated" style="visibility: visible;">
                 @foreach($categories as $category)
 
@@ -162,8 +164,10 @@
                     <i class="flaticon-apartment"></i>
                     <h4>{{$category->name}}</h4>
                     <p>Lorem ipsum dolor sit amet, consectur adipisicing elit, sed do eiusmod tempor incididunt</p>
+                    <a href="{{ route('catdet', $category->id)}}">See Products</a>
                 </div>
             </div>
+            </form>
                                     @endforeach
 
             

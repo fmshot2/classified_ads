@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Service;
+
 use Illuminate\Support\Str;
 use Illuminate\Http\File;
 
@@ -19,6 +21,25 @@ class CategoryController extends Controller
     {
         $category = Category::orderBy('id', 'desc')->paginate(5);
         return view ('admin/category/index', compact('category') );
+    }
+
+public function allCategories()
+    {
+        $categories = Category::orderBy('id', 'desc')->paginate(12);
+        return view ('allCategories', compact('categories') );
+    }
+
+    public function categoryDetail($id)
+    {
+
+
+         $category = Category::find($id);
+        $category = Service::where('id', $id)->get();
+        return view ('categoryDetails', compact('category') ); 
+
+        
+        $categories = Category::orderBy('id', 'desc')->paginate(12);
+        return view ('allCategories', compact('categories') );
     }
 
 
@@ -77,9 +98,11 @@ class CategoryController extends Controller
     {
         
         $category = Category::find($id);
-        return response()->json($category);
-
+        $category = Service::where('id', $id)->get();
+        return view ('categoryDetails', compact('category') );        
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

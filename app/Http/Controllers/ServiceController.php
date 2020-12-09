@@ -101,7 +101,9 @@ public function serviceDetail($id)
 
     public function createService()
     {
-        return view ('seller.addService');
+              $categories = Category::all();
+
+        return view ('seller.addService', compact(['categories']));
     }
 
 
@@ -146,10 +148,15 @@ public function serviceDetail($id)
 
         $service->save();
         $likecount = Like::where(['service_id'=>$request->id])->count();
-        return redirect('/adminDashboard');
+        return redirect('/seller/dashboard');
         
     }
 
+
+    public function catdet()
+    {
+        return view ('categoryDetails');
+    }
 
    /*public function search2(Request $request) {
             //return redirect('/login');
@@ -230,7 +237,7 @@ public function search3(Request $request)
  
                 //return 'jjj';}
     //return response()->json($user11);
-    return redirect()->to('home')->with('user11', $user11)
+    return redirect()->to('/')->with('user11', $user11)
     ->with('serviceName', $serviceName)
     ->with('serviceState', $serviceState);
                 //return 'jjj';

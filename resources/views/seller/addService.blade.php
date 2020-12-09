@@ -59,7 +59,6 @@
                                 </div>
 
                                 <div class="col-lg-6 col-md-6">
-
   <div class="form-group">
     <label for="exampleFormControlSelect1"> Choose Category </label>
     <select class="form-control" id="exampleFormControlSelect1" name="category">
@@ -75,7 +74,7 @@
                                 <div class="col-lg-6 col-md-6 mt-4">
                                     <div class="form-group">
                                        <input type="file" class="input-text" onChange="previewFile(this)" name="file" class="form-control" />
-                <img id="previewImg" alt="Service Image" style="max-width:130px; 
+                <img id="previewImg2" alt="Service Image" style="max-width:130px; 
                 margin-top:20px"/>
                                     </div>
                                 </div>
@@ -125,6 +124,112 @@
         </div>
     </div>
 </div>
+
+
+<div class="col-md-12 container">
+                <div class="submit-address">
+                    <form method="POST" action="{{route('service.store')}}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+
+                        <h3 class="heading-2">Srevice Information</h3>
+                        <div class="search-contents-sidebar mb-30">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Service Name</label>
+                                        <input type="text" class="input-text" name="name" placeholder="What Do Yo Do?">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                     <div class="form-group">
+                                        <label>Years of Experience</label>
+                                        <input type="text" class="input-text" name="experience" placeholder="Enter A Number?">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Type</label>
+                                        <div class="dropdown bootstrap-select search-fields">
+  <select class="form-control" id="exampleFormControlSelect1" name="category">
+                                                                 @if(isset($featuredServices))
+                                                            @foreach($categories as $category)
+                                                              <option  value="{{ $category->id }}">{{ $category->name }}></option>
+                                                             @foreach
+                                                             @endif
+                                                          </select>
+
+
+
+                                        <button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="Apartment"><div class="filter-option"><div class="filter-option-inner">Apartment</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button>
+                                        <div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Area/Location</label>
+ <input type="file" class="input-text" onChange="previewFile(this)" name="file" class="form-control" />
+                <img id="previewImg" alt="Service Image" style="max-width:130px; 
+                margin-top:20px"/>                                    
+            </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                       
+                        <h3 class="heading-2">Location</h3>
+                        <div class="row mb-30">
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" class="input-text" name="streetAddress" placeholder="Address">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <input type="text" class="input-text" name="city" placeholder="Address">
+
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label>State</label>
+                                    <input type="text" class="input-text" name="state" placeholder="Address">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label>Closest Busstop</label>
+                                    <input type="text" class="input-text" name="closestBusstop" placeholder="Address">
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="heading-2">Detailed Information</h3>
+                        <div class="row mb-50">
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label>Detailed Information</label>
+                                    <textarea class="input-text" name="description" placeholder="Detailed Information"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                                <input type="submit"class="btn btn-md btn-warning mb-30" value="Submit" />
+                            </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
 function previewFile(input){
