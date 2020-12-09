@@ -14,7 +14,7 @@ class DashboardController extends Controller
 
   public function seller()
   {
-   return view ('seller.index');
+   return view ('seller.dashboard');
  }
 
  public function buyer()
