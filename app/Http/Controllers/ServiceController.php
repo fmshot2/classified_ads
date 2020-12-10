@@ -128,7 +128,7 @@ public function serviceDetail($id)
         $state = $request->state;
         $closestBusstop = $request->closestBusstop;
 
-       // $name = $request->name;
+        $name = $request->name;
         $image = $request->file('file');
         $imageName = time().'.'.$image->extension();
         $image->move(public_path('images'),$imageName);

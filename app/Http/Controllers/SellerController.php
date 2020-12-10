@@ -8,5 +8,12 @@ use App\User;
 
 class SellerController extends Controller
 {
-    //
+
+
+    public function createService()
+    {
+    	return view ('seller.service.create');
+    }
+
+
 }
