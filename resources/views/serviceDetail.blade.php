@@ -504,7 +504,7 @@
                                 {{ csrf_field() }}
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group name">
-                                        <input type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
+                                        <input type="text" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
                                     </div>
                                 </div>
                                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
