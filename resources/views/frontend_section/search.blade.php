@@ -58,7 +58,7 @@
 
     <button type="submit">Submit</button>
 </form>-->
-<div class="search-section search-area-2 bg-grea">
+<div id="" class="search-section search-area-2 bg-grea">
     <div class="container">
         <div class="search-section-area">
             <div class="search-area-inner">
