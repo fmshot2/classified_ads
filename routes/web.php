@@ -53,6 +53,8 @@ Route::get('/privacy', 'PageController@privacy')->name('privacy');
 
 Route::middleware(['auth'])->group(function () {
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
+Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
+
 Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
 
 Route::post('/admin/like', 'ServiceController@saveLike')->name('admin.like');

@@ -6,20 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-        protected $fillable = [
-        'category',
-        'name',
-      	'experience',
-        'description',
-        'image',
-        'address',
-    ];
 
-
-public function user()
-{
-    return $this->belongsTo('App\User');
-}
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
 //public function category()
 //{
@@ -34,34 +25,34 @@ public function user()
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeSearchName($query, $name)
-    {
-        if ($name != '' && $name != null  && $name != "null") {
-            return $query->where('name', '=', $name);
-        } else {
-            return $query;
-        }
+public function scopeSearchName($query, $name)
+{
+    if ($name != '' && $name != null  && $name != "null") {
+        return $query->where('name', '=', $name);
+    } else {
+        return $query;
     }
+}
 
 
 public function scopeSearchState($query, $state)
-    {
-        if ($state != '' && $state != null  && $state != "null") {
-            return $query->where('state', '=', $state);
-        } else {
-            return $query;
-        }
+{
+    if ($state != '' && $state != null  && $state != "null") {
+        return $query->where('state', '=', $state);
+    } else {
+        return $query;
     }
+}
 
 
 public function scopeSearchCity($query, $city)
-    {
-        if ($city != '' && $city != null  && $city != "null") {
-            return $query->where('city', '=', $city);
-        } else {
-            return $query;
-        }
+{
+    if ($city != '' && $city != null  && $city != "null") {
+        return $query->where('city', '=', $city);
+    } else {
+        return $query;
     }
+}
 
 
 

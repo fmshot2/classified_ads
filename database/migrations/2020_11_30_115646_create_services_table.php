@@ -27,7 +27,11 @@ class CreateServicesTable extends Migration
             //$table->string('phone')->nullable();
             $table->string('image');
             $table->string('experience');
-            $table->integer('phone');
+            $table->string('phone');
+            $table->unsignedInteger('price');
+            $table->unsignedInteger('bedroom');
+            $table->unsignedInteger('bathroom');
+            $table->integer('price');
             //$table->string('state');
             $table->boolean('is_featured')->nullable()->default(true);
             $table->boolean('is_approved')->nullable()->default(true);

@@ -178,8 +178,9 @@ Seller Dashboard |
   <div class="row">
     <div class="col-md-6 connectedSortable">
       <!-- Category Table -->
-      {{--  @include('admin/section/category_table') --}}
+        @include('seller/section/message') 
     </div>
+    
     <div class="col-md-6 connectedSortable">
       {{--  @include('admin/section/active_service_table') --}}
     </div>
