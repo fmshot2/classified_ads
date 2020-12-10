@@ -26,11 +26,12 @@
                 <img src="../images/user2-280x90.jpg" class="img-responsive" alt="User Image">
 
                 <p>
-                  Yellow Page 
-                  <small>Member since April . 2016</small>
+                  {{ Auth::user()->name }}
+                  <small>Member since {{ Auth::user()->created_at->format('M') }} . {{ Auth::user()->created_at->format('Y') }} </small>
                 </p>
               </li>
               <!-- Menu Body -->
+              {{--
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
@@ -45,19 +46,12 @@
                 </div>
                 <!-- /.row -->
               </li>
+              --}}
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
-
-
-
-
-
-
-
-
 
                 <div class="pull-right">
                   <a class="btn btn-default btn-flat" href="{{ route('logout') }}"
@@ -69,103 +63,42 @@
                   @csrf
                 </form>
               </div>
-
-
-
-
-
-
-
-
-
-
-
-
             </li>
           </ul>
         </li>
+
+
+
+
         <!-- Messages-->
         <li class="dropdown messages-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-envelope"></i>
-            <span class="label label-success">5</span>
+            <span class="label label-danger"> {{ $unread_message_count }}  </span>
           </a>
           <ul class="dropdown-menu scale-up">
-            <li class="header">You have 5 messages</li>
+            <li class="header">You have {{ $unread_message_count }} unread message</li>
             <li>
               <!-- inner menu: contains the actual data -->
               <ul class="menu inner-content-div">
+
                 <li><!-- start message -->
                   <a href="#">
+                    @foreach($unread_message as $unread_messages)
                     <div class="pull-left">
                       <img src="../images/user2-160x160.jpg" class="img-circle" alt="User Image">
                     </div>
                     <div class="mail-contnet">
                      <h4>
-                      Lorem Ipsum
-                      <small><i class="fa fa-clock-o"></i> 15 mins</small>
+                      {{ Str::limit($unread_messages->description, 12)  }}
+                      <small><i class="fa fa-clock-o"></i> {{ $unread_messages->created_at->diffForHumans() }} </small>
                     </h4>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                    <span>   </span>
                   </div>
+                  @endforeach
                 </a>
               </li>
               <!-- end message -->
-              <li>
-                <a href="#">
-                  <div class="pull-left">
-                    <img src="../images/user3-128x128.jpg" class="img-circle" alt="User Image">
-                  </div>
-                  <div class="mail-contnet">
-                   <h4>
-                    Nullam tempor
-                    <small><i class="fa fa-clock-o"></i> 4 hours</small>
-                  </h4>
-                  <span>Curabitur facilisis erat quis metus congue viverra.</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div class="pull-left">
-                  <img src="../images/user4-128x128.jpg" class="img-circle" alt="User Image">
-                </div>
-                <div class="mail-contnet">
-                 <h4>
-                  Proin venenatis
-                  <small><i class="fa fa-clock-o"></i> Today</small>
-                </h4>
-                <span>Vestibulum nec ligula nec quam sodales rutrum sed luctus.</span>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <div class="pull-left">
-                <img src="../images/user3-128x128.jpg" class="img-circle" alt="User Image">
-              </div>
-              <div class="mail-contnet">
-               <h4>
-                Praesent suscipit
-                <small><i class="fa fa-clock-o"></i> Yesterday</small>
-              </h4>
-              <span>Curabitur quis risus aliquet, luctus arcu nec, venenatis neque.</span>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <div class="pull-left">
-              <img src="../images/user4-128x128.jpg" class="img-circle" alt="User Image">
-            </div>
-            <div class="mail-contnet">
-             <h4>
-              Donec tempor
-              <small><i class="fa fa-clock-o"></i> 2 days</small>
-            </h4>
-            <span>Praesent vitae tellus eget nibh lacinia pretium.</span>
-          </div>
-        </a>
-      </li>
     </ul>
   </li>
   <li class="footer"><a href="#">See all e-Mails</a></li>
@@ -178,6 +111,7 @@
     <span class="label label-warning">7</span>
   </a>
   <ul class="dropdown-menu scale-up">
+    {{--
     <li class="header">You have 7 notifications</li>
     <li>
       <!-- inner menu: contains the actual data -->
@@ -222,6 +156,11 @@
     <li class="footer"><a href="#">View all</a></li>
   </ul>
 </li>
+
+--}}
+
+
+
 <!-- Tasks-->
 <li class="dropdown tasks-menu">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown">

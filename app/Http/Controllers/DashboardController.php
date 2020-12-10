@@ -29,7 +29,23 @@ class DashboardController extends Controller
     $pending_service_count = $check_pending_service_table == true ? 0 : $pending_service->count();
     $pending_service = $check_pending_service_table == true ? 0 : $pending_service->take(5)->get();
 
-    return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count') );
+    $message_count = Message::where('service_user_id', Auth::id())->count();
+
+
+    $all_message = Message::where('service_user_id', Auth::id() );
+    $unread_message =  $all_message->Where('status', 0);
+    $check_unread_message_table = collect($unread_message)->isEmpty();
+    $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
+    $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
+
+    $message = Message::where('service_user_id', Auth::id() );
+    $read_message =  $message->Where('status', 1);
+    $check_read_message_table = collect($read_message)->isEmpty();
+    $read_message_count = $check_read_message_table == true ? 0 : $read_message->count();
+    $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();
+
+
+    return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count') );
 
   }
 

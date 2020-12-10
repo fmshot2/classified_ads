@@ -53,8 +53,8 @@ Seller Dashboard |
             <span class="info-box-icon push-bottom bg-success"> <i class="fa fa-commenting" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
-              <span class="info-box-text"> Message </span>
-              <span class="info-box-number"> 0 </span>
+              <span class="info-box-text"> All Message </span>
+              <span class="info-box-number"> {{ $message_count }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-success" style="width: 40%"></div>
@@ -74,7 +74,7 @@ Seller Dashboard |
 
             <div class="info-box-content">
               <span class="info-box-text"> Read Message </span>
-              <span class="info-box-number"> o </span>
+              <span class="info-box-number"> {{ $read_message_count }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-primary" style="width: 85%"></div>
@@ -94,7 +94,7 @@ Seller Dashboard |
 
           <div class="info-box-content">
             <span class="info-box-text"> Unread Message </span>
-            <span class="info-box-number"> 0 </span>
+            <span class="info-box-number"> {{ $unread_message_count }} </span>
 
             <div class="progress">
               <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
@@ -111,14 +111,14 @@ Seller Dashboard |
 
      <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
-        <span class="info-box-icon push-bottom bg-blue"> <i class="fa fa-bell" aria-hidden="true"></i>  </span>
+        <span class="info-box-icon push-bottom bg-primary"> <i class="fa fa-bell" aria-hidden="true"></i>  </span>
 
         <div class="info-box-content">
           <span class="info-box-text"> General Notice </span>
           <span class="info-box-number"> 0 </span>
 
           <div class="progress">
-            <div class="progress-bar progress-bar-blue" style="width: 45%"></div>
+            <div class="progress-bar progress-bar-primary" style="width: 45%"></div>
           </div>
           <span class="progress-description">
             <!-- Extra content can go here -->
@@ -154,14 +154,14 @@ Seller Dashboard |
 
     <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
-        <span class="info-box-icon push-bottom bg-blue">  <i class="fa fa-check" aria-hidden="true"></i> </span>
+        <span class="info-box-icon push-bottom bg-success">  <i class="fa fa-check" aria-hidden="true"></i> </span>
 
         <div class="info-box-content">
           <span class="info-box-text"> Active Service </span>
           <span class="info-box-number"> {{ $active_service_count }} </span>
 
           <div class="progress">
-            <div class="progress-bar progress-bar-blue" style="width: 45%"></div>
+            <div class="progress-bar progress-bar-success" style="width: 45%"></div>
           </div>
           <span class="progress-description">
             <!-- Extra content can go here -->
@@ -178,7 +178,7 @@ Seller Dashboard |
   <div class="row">
     <div class="col-md-6 connectedSortable">
       <!-- Category Table -->
-        @include('seller/section/message') 
+        @include('seller/section/unread_message') 
     </div>
     
     <div class="col-md-6 connectedSortable">
