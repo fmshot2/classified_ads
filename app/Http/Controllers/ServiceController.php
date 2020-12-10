@@ -118,6 +118,19 @@ public function serviceDetail($id)
      public function storeService(Request $request)
     {
 
+        $validatedData = $request->validate([
+      'name' => ['required', 'string', 'max:255'],
+      'category' => ['string', 'max:255'],
+            'experience' => ['required', 'max:255'],
+      'description' => ['required', 'string'],
+      'streetAddress' => ['required', 'string'],
+      'city' => ['required', 'string'],
+      'state' => ['required', 'string'],
+      'phone' => ['required'],
+
+    ]);
+
+
         $category = $request->category;
         $name = $request->name;
         $experience = $request->experience;
@@ -126,7 +139,9 @@ public function serviceDetail($id)
         $streetAddress = $request->streetAddress;
         $city = $request->city;
         $state = $request->state;
-        $closestBusstop = $request->closestBusstop;
+        $closestBusstop = $request->closestBusstop;  
+        $phone = $request->phone;
+
 
        // $name = $request->name;
         $image = $request->file('file');
@@ -142,6 +157,8 @@ public function serviceDetail($id)
         $service->city = $city;
         $service->state = $state;
         $service->closestBusstop = $closestBusstop;
+        $service->phone = $phone;
+
 
         
         $service->user_id = Auth::id();      

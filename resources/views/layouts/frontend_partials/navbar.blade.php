@@ -111,12 +111,22 @@
 
                                                                 <input type="hidden" value="{{Auth::id()}}
                                                                 " class="input-text" name="user_id">
+                                                                @if ($errors->has('user_id'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('user_id') }}</strong>
+                            </span>
+                            @endif
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6 col-md-6">
                                                             <div class="form-group">
                                                                 <label>SERVICE NAME</label>
                                                                 <input type="text" class="input-text" name="name" placeholder="Enter your service">
+                                                                   @if ($errors->has('name'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                            @endif
                                                             </div>
                                                         </div>
 
@@ -124,6 +134,12 @@
                                                             <div class="form-group">
                                                                 <label>YEARS OF EXPERIENCE</label>
                                                                 <input type="text" class="input-text" name="experience" placeholder="Years of Experience?">
+                                                                 @if ($errors->has('experience'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('experience') }}</strong>
+                            </span>
+                            @endif
+                                      
                                                             </div>
                                                         </div>
 
@@ -137,6 +153,11 @@
                                                               @endforeach
 
                                                           </select>
+                                                           @if ($errors->has('category'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('category') }}</strong>
+                            </span>
+                            @endif
                                                       </div>
                                                   </div>                         
                                                   <div class="col-lg-6 col-md-6 mt-4" style="margin-bottom: -30px;">
@@ -144,6 +165,12 @@
                                                      <input type="file" class="input-text" onChange="previewFile(this)" name="file" class="form-control" />
                                                      <img id="previewImg" alt="Service Image" style="max-width:130px; 
                                                      margin-top:20px"/>
+                                                          @if ($errors->has('file'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('file') }}</strong>
+                            </span>
+                            @endif
+                                      
                                                  </div>
                                              </div>
                                          </div>
@@ -153,6 +180,12 @@
                                         <div class="col-md-12">
                                             <div class="form-group mb-0">
                                                 <textarea class="input-text" name="description" placeholder="Add More Info about your service"></textarea>
+                                                 @if ($errors->has('description'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('description') }}</strong>
+                            </span>
+                            @endif
+                                    
                                             </div>
                                         </div>
                                     </div>                      
@@ -161,21 +194,51 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" class="input-text" name="streetAddress" placeholder="Enter Your House No And Street Address">
+                                                 @if ($errors->has('streetAddress'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('streetAddress') }}</strong>
+                            </span>
+                            @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" class="input-text" name="city" placeholder="Enter Your City Name">
+                                                @if ($errors->has('city'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('city') }}</strong>
+                            </span>
+                            @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" class="input-text" name="state" placeholder="Enter Your State">
+                                                @if ($errors->has('state'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('state') }}</strong>
+                            </span>
+                            @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" class="input-text" name="closestBusstop" placeholder="Enter Your Closest Busstop">
+                                                @if ($errors->has('closestBusstop'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('closestBusstop') }}</strong>
+                            </span>
+                            @endif
+                                            </div>
+                                        </div>
+                                         <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input type="number" class="input-text" name="phone" placeholder="Enter Your Contact Number">
+                                                 @if ($errors->has('phone'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('phone') }}</strong>
+                            </span>
+                            @endif
                                             </div>
                                         </div>
 
