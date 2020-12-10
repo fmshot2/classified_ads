@@ -20,7 +20,7 @@ class CreateMessagesTable extends Migration
             $table->integer('buyer_name');
             $table->integer('buyer_email')->nullable();
             $table->integer('subject')->nullable();
-            $table->integer('phone');
+            $table->string('phone');
             $table->boolean('status')->default(0);
             $table->unsignedInteger('buyer_id')->nullable();
             $table->text('description');
