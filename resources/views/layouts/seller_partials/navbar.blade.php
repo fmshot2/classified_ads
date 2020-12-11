@@ -69,210 +69,39 @@
 
 
 
-
-        <!-- Messages-->
         <li class="dropdown messages-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-envelope"></i>
             <span class="label label-danger"> {{ $unread_message_count }}  </span>
           </a>
           <ul class="dropdown-menu scale-up">
-            <li class="header">You have {{ $unread_message_count }} unread message</li>
+            <li class="header">You have {{ $unread_message_count }} unread messages</li>
             <li>
               <!-- inner menu: contains the actual data -->
-              <ul class="menu inner-content-div">
+              <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu inner-content-div" style="overflow: hidden; width: auto; height: 200px;">
+                @foreach($unread_message as $unread_messages)
 
                 <li><!-- start message -->
                   <a href="#">
-                    @foreach($unread_message as $unread_messages)
-                    <div class="pull-left">
-                      <img src="../images/user2-160x160.jpg" class="img-circle" alt="User Image">
-                    </div>
+
                     <div class="mail-contnet">
                      <h4>
-                      {{ Str::limit($unread_messages->description, 12)  }}
+
                       <small><i class="fa fa-clock-o"></i> {{ $unread_messages->created_at->diffForHumans() }} </small>
                     </h4>
-                    <span>   </span>
+                    <span style="font-weight: bold;"> {{ Str::limit($unread_messages->description, 25)  }} </span>
                   </div>
-                  @endforeach
                 </a>
               </li>
+              @endforeach
+
               <!-- end message -->
-    </ul>
-  </li>
-  <li class="footer"><a href="#">See all e-Mails</a></li>
-</ul>
-</li>
-<!-- Notifications -->
-<li class="dropdown notifications-menu">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-    <i class="fa fa-bell"></i>
-    <span class="label label-warning">7</span>
-  </a>
-  <ul class="dropdown-menu scale-up">
-    {{--
-    <li class="header">You have 7 notifications</li>
-    <li>
-      <!-- inner menu: contains the actual data -->
-      <ul class="menu inner-content-div">
-        <li>
-          <a href="#">
-            <i class="fa fa-users text-aqua"></i> Curabitur id eros quis nunc suscipit blandit.
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-warning text-yellow"></i> Duis malesuada justo eu sapien elementum, in semper diam posuere.
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-users text-red"></i> Donec at nisi sit amet tortor commodo porttitor pretium a erat.
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-shopping-cart text-success"></i> In gravida mauris et nisi
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-user text-red"></i> Praesent eu lacus in libero dictum fermentum.
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-user text-red"></i> Nunc fringilla lorem 
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <i class="fa fa-user text-red"></i> Nullam euismod dolor ut quam interdum, at scelerisque ipsum imperdiet.
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li class="footer"><a href="#">View all</a></li>
-  </ul>
-</li>
 
---}}
-
-
-
-<!-- Tasks-->
-<li class="dropdown tasks-menu">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-    <i class="fa fa-flag"></i>
-    <span class="label label-danger">6</span>
-  </a>
-  <ul class="dropdown-menu scale-up">
-    <li class="header">You have 6 tasks</li>
-    <li>
-      <!-- inner menu: contains the actual data -->
-      <ul class="menu inner-content-div">
-        <li><!-- Task item -->
-          <a href="#">
-            <h3>
-              Lorem ipsum dolor sit amet
-              <small class="pull-right">30%</small>
-            </h3>
-            <div class="progress xs">
-              <div class="progress-bar progress-bar-aqua" style="width: 30%" role="progressbar"
-              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-              <span class="sr-only">30% Complete</span>
-            </div>
-          </div>
-        </a>
+            </ul><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 112.676px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+          </li>
+          <li class="footer"> <a href="#" class="text-warning" style="font-weight: bold;"> See all unread message </a> </li>
+        </ul>
       </li>
-      <!-- end task item -->
-      <li><!-- Task item -->
-        <a href="#">
-          <h3>
-            Vestibulum nec ligula
-            <small class="pull-right">20%</small>
-          </h3>
-          <div class="progress xs">
-            <div class="progress-bar progress-bar-danger" style="width: 20%" role="progressbar"
-            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-            <span class="sr-only">20% Complete</span>
-          </div>
-        </div>
-      </a>
-    </li>
-    <!-- end task item -->
-    <li><!-- Task item -->
-      <a href="#">
-        <h3>
-          Donec id leo ut ipsum
-          <small class="pull-right">70%</small>
-        </h3>
-        <div class="progress xs">
-          <div class="progress-bar progress-bar-light-blue" style="width: 70%" role="progressbar"
-          aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-          <span class="sr-only">70% Complete</span>
-        </div>
-      </div>
-    </a>
-  </li>
-  <!-- end task item -->
-  <li><!-- Task item -->
-    <a href="#">
-      <h3>
-        Praesent vitae tellus
-        <small class="pull-right">40%</small>
-      </h3>
-      <div class="progress xs">
-        <div class="progress-bar progress-bar-yellow" style="width: 40%" role="progressbar"
-        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-        <span class="sr-only">40% Complete</span>
-      </div>
-    </div>
-  </a>
-</li>
-<!-- end task item -->
-<li><!-- Task item -->
-  <a href="#">
-    <h3>
-      Nam varius sapien
-      <small class="pull-right">80%</small>
-    </h3>
-    <div class="progress xs">
-      <div class="progress-bar progress-bar-red" style="width: 80%" role="progressbar"
-      aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-      <span class="sr-only">80% Complete</span>
-    </div>
-  </div>
-</a>
-</li>
-<!-- end task item -->
-<li><!-- Task item -->
-  <a href="#">
-    <h3>
-      Nunc fringilla
-      <small class="pull-right">90%</small>
-    </h3>
-    <div class="progress xs">
-      <div class="progress-bar progress-bar-primary" style="width: 90%" role="progressbar"
-      aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-      <span class="sr-only">90% Complete</span>
-    </div>
-  </div>
-</a>
-</li>
-<!-- end task item -->
-</ul>
-</li>
-<li class="footer">
-  <a href="#">View all tasks</a>
-</li>
-</ul>
-</li>          
-<!-- Control Sidebar Toggle Button -->
-<li>
-  <a href="#" data-toggle="control-sidebar"><i class="fa fa-cog fa-spin"></i></a>
-</li>
 </ul>
 </div>
 </nav>

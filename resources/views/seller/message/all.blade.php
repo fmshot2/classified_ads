@@ -1,6 +1,3 @@
-
-
-
 @extends('layouts.seller')
 
 @section('title')

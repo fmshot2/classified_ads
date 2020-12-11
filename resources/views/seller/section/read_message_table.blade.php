@@ -13,6 +13,8 @@
 
     </div>
 
+    <hr>
+
     <!-- /.box-header -->
     <div class="box-body">
       <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->

@@ -67,6 +67,8 @@ Route::get('/seller/message/unread', 'SellerController@unreadMessage')->name('se
 Route::get('/seller/message/read', 'SellerController@readMessage')->name('seller.message.read');
 Route::get('/seller/message/all', 'SellerController@allMessage')->name('seller.message.all');
 Route::delete('/seller/message/{id}', 'SellerController@destroyMessage')->name('seller.message.delete');
+Route::get('/seller/message/{id}', 'SellerController@viewMessage')->name('seller.message.view');
+
 
 
 Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');

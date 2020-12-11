@@ -53,6 +53,12 @@ class SellerController extends Controller
         return back();
     }
 
+    public function viewMessage($id)
+    {
+        $message = Message::find($id);
+        return view ('seller.message.view_message', compact('message') );
+    }
+
 
 
 }

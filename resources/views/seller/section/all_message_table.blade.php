@@ -15,6 +15,9 @@
 
     </div>
 
+<hr>
+
+
     <!-- /.box-header -->
     <div class="box-body">
       <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
@@ -39,7 +42,12 @@
          <!-- todo text -->
          <span class="text"> {{ Str::limit( $all_messages->description, 100) }}</span>
 
-         <small class="label label-success">  {{ $all_messages->status == 1 ? 'Read' : 'Unread' }} </small>
+         @if($all_messages->status == 1)
+          <small class="label label-success"> Read </small>
+         @else 
+          <small class="label label-danger"> Unread </small>
+         @endif
+
 
 
          <!-- Emphasis label -->
@@ -54,7 +62,7 @@
             @if($all_messages->status == 1)
             <button type="button" class="btn btn-success"> <i class="fa fa-reply"> </i> </button>
             @endif
-            <button type="button" class="btn btn-success"> <i class="fa fa-eye"> </i> </button>
+            <a href=" {{ route('seller.message.view',$all_messages->id) }}"  class="btn btn-success"> <i class="fa fa-eye"> </i> </a>
             <button type="submit" class="btn btn-danger"> <i class="fa fa-trash-o"> </i> </button>
           </form>
 
