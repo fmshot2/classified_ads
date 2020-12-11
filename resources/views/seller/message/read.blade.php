@@ -1,8 +1,8 @@
 
-@extends('layouts.admin')
+@extends('layouts.seller')
 
 @section('title')
-Seller Table | 
+Read Message Table | 
 @endsection
 
 @section('content')
@@ -10,10 +10,9 @@ Seller Table |
 <br>
 <hr>
 
-
 <div class="container">
 
-@include('admin/section/seller_table') 
+@include('seller/section/read_message_table') 
 
 </div>
 

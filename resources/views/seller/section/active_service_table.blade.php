@@ -1,18 +1,7 @@
 
-@extends('layouts.admin')
-
-@section('title')
-Search | 
-@endsection
-
-@section('content')
-
-<br>
-<hr>
-
-<div class="container">
 
 	<!-- Content Header (Page header) -->
+	@if (url()->current() == route('admin.service.active') )
 	<section class="content-header p-3 box">
 		<h1>
 			Dashboard
@@ -23,12 +12,16 @@ Search |
 			<li class="active">Dashboard</li>
 		</ol>
 	</section>
+	@endif
+
+  @include('layouts.backend_partials.status')
 
 	<div class="box">
 
 		<div class="box-header with-border">
-			<h3 class="box-title">  {{ $services->count() }} {{$query}} Found </h3>
+			<h3 class="box-title"> Active Service Table</h3>
 
+			@if (url()->current() == route('admin.service.active') )
 			<div class="box-tools">
 				<form class="" method="GET" action="{{ route('admin.service.search') }}">
 				<div class="input-group input-group-sm" style="width: 150px;">
@@ -40,6 +33,7 @@ Search |
 				</div>
 			</form>
 			</div>
+			@endif
 
 		</div>
 		<!-- /.box-header -->
@@ -55,19 +49,22 @@ Search |
 						<th> is_featured </th>
 						<th> Status </th>
 						<th> Date </th>
+						@if (url()->current() == route('admin.service.active') )
 						<th> Action </th>
+						@endif
 					</tr>
 
 					<tr>
-						@foreach($services as $key => $service)
+						@foreach($active_service as $key => $active_services)
 						<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-						<td> {{ $service->name }} </td>
-						<td><span class="text-muted"><i class="fa fa-clock-o"></i> {{ $service->experience }} </span> </td>
-						<td> {{ $service->is_featured == 1 ? 'Yes' : 'No' }} </td>
-						<td> {{ $service->status == 1 ? 'Active' : 'Pending' }} </td>
-						<td> {{ $service->created_at->diffForHumans() }} </td>
+						<td> {{ $active_services->name }} </td>
+						<td><span class="text-muted"><i class="fa fa-clock-o"></i> {{ $active_services->experience }} </span> </td>
+						<td> {{ $active_services->is_featured == 1 ? 'Yes' : 'No' }} </td>
+						<td> {{ $active_services->status == 1 ? 'Active' : 'Pending' }} </td>
+						<td> {{ $active_services->created_at->diffForHumans() }} </td>
 
 
+						@if (url()->current() == route('admin.service.active') )
 						<td>
 
 							<div class="btn-group">
@@ -80,7 +77,7 @@ Search |
 
 
 									<!-- Edit -->
-									<form method="post" class="update_form" action=" {{ route('admin.service.status',$service->id) }} ">
+									<form method="post" class="update_form" action=" {{ route('admin.service.status',$active_services->id) }} ">
 										@method('PATCH')
 										@csrf
 										<li>  <button class="btn btn-block" type="submit" style="margin-left: 8px;"> Deactivate </button> </li>
@@ -88,7 +85,7 @@ Search |
 
 
 									<!-- Delete -->
-									<form method="post" class="delete_form" action=" {{ route('admin.service.destroy',$service->id) }} ">
+									<form method="post" class="delete_form" action=" {{ route('admin.service.destroy',$active_services->id) }} ">
 										@method('DELETE')
 										@csrf
 										<li>  <button class="btn btn-block" type="submit" style="margin-left: 8px;"> Delete </button> </li>
@@ -99,6 +96,8 @@ Search |
 							</ul>
 						</div>
 					</td>
+					@endif
+
 				</tr>
 
 				@endforeach
@@ -108,13 +107,13 @@ Search |
 	</div>
 	<!-- /.box-body -->
 
+@if (url()->current() == route('admin.service.active') )
 <div class="box-footer clearfix">
 
-  {{ $services->links() }} 
+  {{ $active_service->links() }} 
+
+</div>
+@endif
 
 </div>
 
-</div>
-
-
-@endsection

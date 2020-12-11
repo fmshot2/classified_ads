@@ -8,6 +8,8 @@ use App\User;
 use App\Like;
 use App\Message;
 use DB;
+use Illuminate\Support\Str;
+
 
 
 use Illuminate\Support\Facades\Storage;
@@ -164,7 +166,7 @@ public function serviceDetail($id)
         $phone = $request->phone;
 
 
-       // $name = $request->name;
+        $name = $request->name;
         $image = $request->file('file');
         $imageName = time().'.'.$image->extension();
         $image->move(public_path('images'),$imageName);

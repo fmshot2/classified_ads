@@ -37,7 +37,7 @@
                         @auth
                         @if(Auth::user()->role == 'seller')
                         <a class="dropdown-item" href="{{ route('createService') }}"> Post A Service </a>
-                        <a class="dropdown-item" href="{{ route('adminDashboard') }}"> Dashboard </a>
+                        <a class="dropdown-item" href="{{ route('seller.dashboard') }}"> Dashboard </a>
                         @endif 
                         @endauth
 
