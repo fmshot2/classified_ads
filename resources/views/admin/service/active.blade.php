@@ -7,6 +7,9 @@ Active Service |
 
 @section('content')
 
+<br>
+<hr>
+
 <div class="container">
 
 @include('admin/section/active_service_table') 

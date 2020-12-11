@@ -7,6 +7,9 @@ Search |
 
 @section('content')
 
+<br>
+<hr>
+
 <div class="container">
 
 	<!-- Content Header (Page header) -->

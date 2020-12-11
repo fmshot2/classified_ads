@@ -17,8 +17,8 @@ class CreateMessagesTable extends Migration
             $table->increments('id');
             $table->integer('service_id');
             $table->integer('service_user_id');
-            $table->integer('buyer_name');
-            $table->integer('buyer_email')->nullable();
+            $table->string('buyer_name')->nullable();
+            $table->string('buyer_email')->nullable();
             $table->integer('subject')->nullable();
             $table->string('phone');
             $table->boolean('status')->default(0);

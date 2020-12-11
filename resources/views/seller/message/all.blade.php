@@ -6,6 +6,9 @@ All Message Table |
 
 @section('content')
 
+<br>
+<hr>
+
 <div class="container">
 
 @include('layouts.seller_partials.status')

@@ -7,6 +7,10 @@ Seller Table |
 
 @section('content')
 
+<br>
+<hr>
+
+
 <div class="container">
 
 @include('admin/section/seller_table') 

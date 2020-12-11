@@ -7,6 +7,9 @@ Read Message Table |
 
 @section('content')
 
+<br>
+<hr>
+
 <div class="container">
 
 @include('seller/section/read_message_table') 
