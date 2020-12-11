@@ -32,12 +32,21 @@ class ServiceController extends Controller
 
 public function index2()
     {
+      if (Auth::check()) {
         $my_state =  Auth::user()->state;
+}else{
+  $my_state = null;
+}
         $featuredServices = Service::where('is_featured', 1)->with('user')->get();
         $approvedServices = Service::where('status', 1)->with('user')->get();
         $advertServices = Service::where('is_approved', 1)->with('user')->get();
         $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
+          if ($my_state) {
         $closerServices = Service::where('state', $my_state)->get();
+}else{
+  $closerServices = null;
+}
+
         $categories = Category::paginate(8);
         $states = State::all(); 
         $local_governments = Local_government::all();               

@@ -16,10 +16,10 @@ class CreateMessagesTable extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('service_id');
-            $table->integer('service_user_id');
+            $table->unsignedInteger('service_user_id');
             $table->string('buyer_name')->nullable();
             $table->string('buyer_email')->nullable();
-            $table->integer('subject')->nullable();
+            $table->string('subject')->nullable();
             $table->string('phone');
             $table->boolean('status')->default(0);
             $table->unsignedInteger('buyer_id')->nullable();

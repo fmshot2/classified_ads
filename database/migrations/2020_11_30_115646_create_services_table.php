@@ -32,7 +32,7 @@ class CreateServicesTable extends Migration
             $table->unsignedInteger('price');
             $table->unsignedInteger('bedroom');
             $table->unsignedInteger('bathroom');
-            $table->integer('price');
+            //$table->unsignedInteger('price');
 
 
             $table->boolean('is_featured')->nullable()->default(true);
