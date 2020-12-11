@@ -17,9 +17,9 @@
                                 <div class="category-overlay">
                                     <div class="category-content">
                                         <h3 class="category-title">
-                                            <a href="#">{{$approvedService->user->name}},  {{$approvedService->name}}</a>
+                                            <a href="{{route('serviceDetail', $approvedService->id)}}">{{$approvedService->user->name}},  {{$approvedService->name}}</a>
                                         </h3>
-                                        <a href="properties-list-rightside.html d-flex" class="category-subtitle" style="float: left;"><i class="fa fa-map-marker"></i> {{$approvedService->state}}</a>
+                                        <a href="{{route('serviceDetail', $approvedService->id)}}" class="category-subtitle" style="float: left;"><i class="fa fa-map-marker"></i> {{$approvedService->state}}</a>
                                     </div>
                                 </div>
                             </div>

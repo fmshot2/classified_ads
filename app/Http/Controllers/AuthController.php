@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\State;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,6 +17,7 @@ class AuthController extends Controller
 		$validatedData = $request->validate([
 			'name' => ['required', 'string', 'max:255'],
 			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+			'state' => ['required', 'string'],			
 			'password' => ['required', 'string', 'min:6', 'confirmed'],
 			'captcha' => 'required|captcha',
 			'role' => 'required'
@@ -27,6 +29,7 @@ class AuthController extends Controller
 		$user->email = $request->email;
 		$user->password = Hash::make($request->password);
 		$user->role = $request->role;
+		$user->state = $request->state;
 		$user->save();
 
 		session()->flash('success', ' Succesfull');
@@ -53,11 +56,13 @@ class AuthController extends Controller
 
 	public function showRegister ()
 	{
+		        $states = State::all(); 
+
 		if (Auth::check()) {
 			return redirect()->intended('/');
 		}
 
-		return view ('auth/register');
+		return view ('auth/register', compact('states'));
 	}
 
 

@@ -20,6 +20,32 @@
 <div class="properties-details-page content-area-7">
     <div class="container">
         <div class="row">
+
+
+   <div class="container">
+            @if(isset($closerServices))
+            <p> The Search results for your query <b> query</b> are :</p>
+            <h2>Sample User details</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($closerServices as $closerService)
+                    <tr>
+                        <td>{{$closerService->name}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @endif
+        </div>
+
+
+
             <div class="col-lg-8 col-md-12 col-xs-12">
                 <div class="properties-details-section">
                     <div id="propertiesDetailsSlider" class="carousel properties-details-sliders slide mb-40">
@@ -46,19 +72,9 @@
                           
                         </div>
                       
-                    </div>  <!-- main slider carousel nav controls -->
-                 
+                    </div>  <!-- main slider carousel nav controls -->                
                         <!-- main slider carousel items -->
-
-
-
-
-
-
                     <!--comments section-->
-
-
-
                     <!-- Advanced search start -->
                     <div class="widget-2 sidebar advanced-search-2">
                         <h3 class="sidebar-title">Advanced Search</h3>
@@ -108,16 +124,17 @@
                             </li>
                            
                             <li class="nav-item">
-                                <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Details</a>
+                                <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Likes</a>
+                            </li>
+                             
+                            <li class="nav-item">
+                                <a class="nav-link" id="four-tab" data-toggle="tab" href="#four" role="tab" aria-controls="four" aria-selected="true">Video</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="4-tab" data-toggle="tab" href="#4" role="tab" aria-controls="4" aria-selected="true">Video</a>
+                                <a class="nav-link" id="five-tab" data-toggle="tab" href="#five" role="tab" aria-controls="five" aria-selected="true">Location</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="5-tab" data-toggle="tab" href="#5" role="tab" aria-controls="5" aria-selected="true">Location</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="6-tab" data-toggle="tab" href="#6" role="tab" aria-controls="6" aria-selected="true">Similar Properties</a>
+                                <a class="nav-link" id="six-tab" data-toggle="tab" href="#six" role="tab" aria-controls="six" aria-selected="true">Similar Properties</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="carTabContent">
@@ -129,28 +146,7 @@
                                     <p>{{$serviceDetail->description}}</p>
                                     
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
-                                <div class="floor-plans mb-50">
-                                    <h3 class="heading-2">Floor Plans</h3>
-                                    <table>
-                                        <tbody><tr>
-                                            <td><strong>Size</strong></td>
-                                            <td><strong>Rooms</strong></td>
-                                            <td><strong>Bathrooms</strong></td>
-                                            <td><strong>Garage</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td>1600</td>
-                                            <td>3</td>
-                                            <td>2</td>
-                                            <td>1</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <img src="img/floor-plans.png" alt="floor-plans" class="img-fluid">
-                                </div>
-                            </div>
+                            </div>                     
                             <div class="tab-pane fade " id="three" role="tabpanel" aria-labelledby="three-tab">
                                 <div class="property-details mb-40">
                                     <h3 class="heading-2">Property Details</h3>
@@ -215,7 +211,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade " id="4" role="tabpanel" aria-labelledby="4-tab">
+                            <div class="tab-pane fade " id="four" role="tabpanel" aria-labelledby="four-tab">
                                 <div class="inside-properties mb-50">
                                     <h3 class="heading-2">
                                         Property Video
@@ -223,147 +219,61 @@
                                     <iframe src="https://www.youtube.com/embed/5e0LxrLSzok" allowfullscreen=""></iframe>
                                 </div>
                             </div>
-                            <div class="tab-pane fade " id="5" role="tabpanel" aria-labelledby="5-tab">
-                                <div class="location mb-50">
-                                    <div class="map">
-                                        <h3 class="heading-2">Property Location</h3>
-                                        <div id="contactMap" class="contact-map"></div>
-                                    </div>
+                            <div class="tab-pane fade " id="five" role="tabpanel" aria-labelledby="five-tab">
+                                 <div class="properties-description mb-50">
+                                    <h3 class="heading-2">
+                                        Address
+                                    </h3>
+                                    <p>{{$serviceDetail->city}}, &nbsp; {{$serviceDetail->state}}</p>
+                                    
                                 </div>
                             </div>
-                            <div class="tab-pane fade " id="6" role="tabpanel" aria-labelledby="6-tab">
-                                <div class="similar-properties mb-30">
-                                    <h3 class="heading-2">Similar Properties</h3>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="property-box">
-                                                <div class="property-thumbnail">
-                                                    <a href="properties-details.html" class="property-img">
-                                                        <div class="listing-badges">
-                                                            <span class="featured">Featured</span>
-                                                        </div>
-                                                        <div class="price-ratings-box">
-                                                            <p class="price">
-                                                                $178,000
-                                                            </p>
-                                                            <div class="ratings">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="listing-time opening">For Sale</div>
-                                                        <img class="d-block w-100" src="img/properties/properties-1.jpg" alt="properties">
-                                                    </a>
-                                                </div>
-                                                <div class="detail">
-                                                    <h1 class="title">
-                                                        <a href="properties-details.html">Modern Family Home</a>
-                                                    </h1>
-                                                    <div class="location">
-                                                        <a href="properties-details.html">
-                                                            <i class="fa fa-map-marker"></i>123 Kathal St. Tampa City
-                                                        </a>
-                                                    </div>
-                                                    <ul class="facilities-list clearfix">
-                                                        <li>
-                                                            <i class="flaticon-square"></i> 4800 sq ft
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-furniture"></i> 3 Beds
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-holidays"></i> 2 Baths
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-vehicle"></i> 1 Garage
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-window"></i> 3 Balcony
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-monitor"></i> TV
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="footer clearfix">
-                                                    <div class="pull-left days">
-                                                        <a><i class="fa fa-user"></i> Jhon Doe</a>
-                                                    </div>
-                                                    <div class="pull-right">
-                                                        <a><i class="flaticon-time"></i> 5 Days ago</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="property-box">
-                                                <div class="property-thumbnail">
-                                                    <a href="properties-details.html" class="property-img">
-                                                        <div class="listing-badges">
-                                                            <span class="featured">Featured</span>
-                                                        </div>
-                                                        <div class="price-ratings-box">
-                                                            <p class="price">
-                                                                $178,000
-                                                            </p>
-                                                            <div class="ratings">
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star"></i>
-                                                                <i class="fa fa-star-o"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="listing-time opening">For Rent</div>
-                                                        <img class="d-block w-100" src="img/properties/properties-2.jpg" alt="properties">
-                                                    </a>
-                                                </div>
-                                                <div class="detail">
-                                                    <h1 class="title">
-                                                        <a href="properties-details.html">Relaxing Apartment</a>
-                                                    </h1>
-                                                    <div class="location">
-                                                        <a href="properties-details.html">
-                                                            <i class="fa fa-map-marker"></i>123 Kathal St. Tampa City
-                                                        </a>
-                                                    </div>
-                                                    <ul class="facilities-list clearfix">
-                                                        <li>
-                                                            <i class="flaticon-square"></i> 4800 sq ft
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-furniture"></i> 3 Beds
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-holidays"></i> 2 Baths
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-vehicle"></i> 1 Garage
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-window"></i> 3 Balcony
-                                                        </li>
-                                                        <li>
-                                                            <i class="flaticon-monitor"></i> TV
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="footer clearfix">
-                                                    <div class="pull-left days">
-                                                        <a><i class="fa fa-user"></i> Jhon Doe</a>
-                                                    </div>
-                                                    <div class="pull-right">
-                                                        <a><i class="flaticon-time"></i> 5 Days ago</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="tab-pane fade" id="six" role="tabpanel" aria-labelledby="six-tab">
+                                <div class="properties-description mb-50">                              
+                                    
+<div class="col-lg-12 col-md-12 col-sm-12">
+                <!-- Heading -->
+                <h3 class="heading-2">Similar Services</h3>
+                 <div class="my-properties">
+                     <table class="table brd-none">
+                         <thead>
+                         <tr>
+                             <th>Service</th>
+                             <th>Name</th>
+                             <th class="hedin-div">Address</th>
+                             <th><span class="hedin-div">Likes</span></th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                                        @if(isset($similarProducts))
+                            @foreach($similarProducts as $similarProduct)
+                         <tr>
+                             <td class="image">
+                                 <a href="properties-details.html"><img alt="properties-small" src="{{asset('images')}}/{{$similarProduct->image}}" class="img-fluid"></a>
+                             </td>
+                             <td>
+                                 <div class="inner">
+                                     <h5><a href="properties-details.html">{{$similarProduct->name}}</a></h5>
+                                     <figure class="hedin-div"><i class="fa fa-map-marker"></i> {{$similarProduct->state}}, &nbsp; {{$similarProduct->city}}</figure>
+                                     <!--<div class="price-month">$ 27,000</div>-->
+                                 </div>
+                             </td>
+                             <td class="hedin-div">  <figure class="hedin-div"><i class="fa fa-map-marker"></i> {{$similarProduct->state}}, &nbsp; {{$similarProduct->city}}</figure></td>
+                             <td> <span class="hedin-div">4</span></td>
+                           
+                         </tr>
+                         @endforeach
+                         @endif
+                         </tbody>
+                     </table>
+                 </div>
+            </div>
+
+
+
                                 </div>
                             </div>
+                         
                         </div>
                     </div>
 
@@ -376,7 +286,7 @@
                                 {{ csrf_field() }}
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group name">
-                                        <input type="text" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
+                                        <input type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
                                     </div>
                                 </div>
                                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -384,10 +294,31 @@
                                         <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
                                     <div class="form-group email"> 
 
                                         <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="form-control" placeholder="Email">
+                                    </div>
+                                </div>
+
+                                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group name">
+                                        <input type="text" name="buyer_name" class="form-control" placeholder=" Your Name">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group email">
+                                        <input type="email" name="buyer_email" class="form-control" placeholder="Your Email">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group subject">
+                                        <input type="text" name="subject" class="form-control" placeholder="Subject">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group number">
+                                        <input type="text" name="buyer_phone" class="form-control" placeholder="Your Phone Number">
                                     </div>
                                 </div>
                                                              
@@ -403,6 +334,8 @@
                                 </div>
                             </div>
                         </form>
+
+
                     </div>
 
                 </div>
