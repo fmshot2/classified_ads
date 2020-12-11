@@ -9,7 +9,7 @@
                         <div class="col-lg-2 col-md-12" style="">
                 <div class="blog-3">
                     <div class="blog-photo">
-                                                <img src="http://127.0.0.1:8000/img/advert.jpg" alt="advert" class="img-fluid">
+                                                <img src="{{asset('img/advert.jpg')}}" alt="advert" class="img-fluid">
                                             </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
              <div class="col-lg-2 col-md-12" style="">
                 <div class="blog-3">
                     <div class="blog-photo">
-                                                <img src="http://127.0.0.1:8000/img/verified-account.png" alt="advert" class="img-fluid">
+                                                <img src="{{asset('img/advert.jpg')}}" alt="advert" class="img-fluid">
                                             </div>
                 </div>
             </div>
@@ -25,12 +25,12 @@
              <div class="col-lg-2 col-md-12" style="">
                 <div class="blog-3">
                     <div class="blog-photo">
-                                                <img src="http://127.0.0.1:8000/img/check_mark.png" alt="advert" class="img-fluid">
+                                                <img src="{{asset('img/advert.jpg')}}" alt="advert" class="img-fluid">
                                             </div>
                 </div>
             </div>
 
                     </div>
-        <p>got a content and need an <strong>ADVERT? </strong>click<strong> <a href="http://127.0.0.1:8000/advertisement"> HERE</a></strong></p>
+        <p>got a content and need an <strong>ADVERT? </strong>click<strong> <a href="{{asset('img/advert.jpg')}}"> HERE</a></strong></p>
     </div>
 </div>

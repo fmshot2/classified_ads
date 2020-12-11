@@ -1,5 +1,64 @@
 <div class="recently-properties content-area-12">
     <div class="container">
+
+
+
+ <div class="main-title">
+            <h1> Sellers Closest To You </h1>
+        </div>
+
+
+
+        @if(isset($closerServices))
+
+
+
+<div class="row">
+    @foreach($closerServices as $closerService)
+
+    <div class="col-sm-3 card service-box mr-3">
+                        <img class="card-img-top" src="{{asset('images')}}/{{$closerService->image}}" alt="service" style="min-width: 150px;">
+                        <div class="card-body detail">
+                            <div class="title">
+                                <h4><a href="#">{{$closerService->user->name}}, &nbsp; {{$closerService->name}}</a></h4>
+                            </div>
+                             <div class="location">
+                                    <a href="properties-details.html" tabindex="-1">
+                                        
+                                    </a><i class="fa fa-map-marker"></i><span>{{$closerService->state}}</span>
+                                </div>
+                         
+                            <!--<a href="#" class="read-more">More...</a>-->
+                        </div>
+                    </div>
+                        @endforeach
+    </div>
+
+
+@endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!-- Main title -->
         <div class="main-title">
             <h1> Featured Services </h1>
