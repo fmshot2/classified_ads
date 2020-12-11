@@ -17,6 +17,10 @@ Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{id}', 'ServiceController@serviceDetail')->name('serviceDetail');
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
 Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard');
+Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile');
+Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messages');
+
+
 
 
 
