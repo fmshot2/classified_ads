@@ -27,6 +27,7 @@ class CreateServicesTable extends Migration
             //$table->string('phone')->nullable();
             $table->string('image');
             $table->string('experience');
+            $table->string('phone');
             //$table->string('state');
             $table->boolean('is_featured')->nullable()->default(true);
             $table->boolean('is_approved')->nullable()->default(true);

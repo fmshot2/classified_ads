@@ -5,76 +5,112 @@
             <h1> Featured Services </h1>
         </div>
 
-<div class="container">
-    @if(isset($user111))
+        <div class="container">
+            @if(isset($user111))
+            <p> The Search results for your query <b> query</b> are :</p>
+            <h2>Sample User details</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($user111 as $user)
+                    <tr>
+                        <td>{{$user->name}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @endif
+        </div>
+
+
+
+        @if(isset($seller))
         <p> The Search results for your query <b> query</b> are :</p>
-    <h2>Sample User details</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($user111 as $user)
-            <tr>
-                <td>{{$user->name}}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    @endif
-</div>
+        <h2>Sample User details</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Seller</th>
+                    <th>Service</th>
+                    <th>Phone</th>
+                    <th>More</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($seller as $user)
+                <a href="{{route('serviceDetail', $user->id)}}"><tr>
+                    <td>{{$user->user->name}}</td>
+                    <td>{{$user->name}}</td>
+                    <td>{{$user->user->phone}}</td>
+                    <td>
+                        <a href="{{route('serviceDetail', $user->id)}}">view</a>
+                    </td>
+
+
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
 
 
 
- @if(isset($seller))
-        <p> The Search results for your query <b> query</b> are :</p>
-    <h2>Sample User details</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Seller</th>
-                <th>Service</th>
-                <th>Phone</th>
-                <th>More</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($seller as $user)
-            <a href="{{route('serviceDetail', $user->id)}}"><tr>
-                <td>{{$user->user->name}}</td>
-                <td>{{$user->name}}</td>
-                <td>{{$user->user->phone}}</td>
-                <td>
-                    <a href="{{route('serviceDetail', $user->id)}}">view</a>
-                </td>
-                
 
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    @endif
+        <div class="our-team-2 content-area">
+            <div class="container">
+                <!-- Main title -->
+                <div class="main-title">
+                    <h1>Our Agent</h1>
+                </div>
+                <div class="row">
+                    @foreach($seller as $user)
+
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="team-1">
+                            <div class="team-photo">
+                                <a href="#">
+                                    <img src="img/avatar/avatar-7.jpg" alt="agent-2" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="team-details">
+
+                                <h5><a href="agent-detail.html">{{$user->user->name}}</a></h5>
+                                <h6>{{$user->name}}</h6>
+                                <ul class="social-list clearfix">
+                                    <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a>{{$user->user->phone}}</li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+
+                </div>
+            </div>
+        </div>
+        @endif
 
 
- @if(isset($featuredServices))
+        @if(isset($featuredServices))
 
-<div class="row">
-    @foreach($featuredServices as $featuredService)
+        <div class="row">
+            @foreach($featuredServices as $featuredService)
 
-<div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
-                    <div class="property-box">
-                        <div class="property-thumbnail">
-                            <a href="{{route('serviceDetail', $featuredService->id)}}" class="property-img">
-                                <div class="listing-badges">
-                                    <span class="featured bg-warning">featured</span>
-                                </div>
-                                <div class="price-ratings-box">
-                                    <p class="price">
-                                        {{$featuredService->experience}} Yrs Experience
-                                    </p>
+            <div class="col-lg-3 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
+                <div class="property-box">
+                    <div class="property-thumbnail">
+                        <a href="{{route('serviceDetail', $featuredService->id)}}" class="property-img">
+                            <div class="listing-badges">
+                                <span class="featured bg-warning">featured</span>
+                            </div>
+                            <div class="price-ratings-box">
+                                <p class="price">
+                                    {{$featuredService->experience}} Yrs Experience
+                                </p>
                                    <!-- <div class="ratings">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -88,24 +124,24 @@
                             </a>
                         </div>
                         <div class="detail">
-                            <span><a class="title " href="properties-details.html">{{$featuredService->name}}</a>
-                            <a class="pull-right" href="properties-details.html">
-                                    <i class="fa fa-map-marker"></i>&nbsp; &nbsp;{{$featuredService->city}}&nbsp;, {{$featuredService->state}}
+                            <span class="d-flex justify-content-around"><a class="title " href="properties-details.html">{{$featuredService->name}}</a>
+                                <a class="pull-right" href="properties-details.html">
+                                    <i class="fa fa-map-marker text-warning"></i> {{$featuredService->state}}
                                 </a></span>
-                           
-                            <ul class="facilities-list clearfix">
-                                <li>
-                                    <i class="flaticon-square block"></i>&nbsp; &nbsp; 5 likes
-                                </li>
-                                <li class="" style="float: right;">
-                                    <i class="flaticon-time"></i>&nbsp; &nbsp;<a href="{{route('serviceDetail', $featuredService->id)}}">See Details</a>
-                                </li>
+
+                                <ul class="facilities-list clearfix">
+                                    <li>
+                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; 5 likes
+                                    </li>
+                                    <li class="" style="float: right;">
+                                        <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="{{route('serviceDetail', $featuredService->id)}}">Verified</a>
+                                        </li>
                                <!-- <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
                             {{ csrf_field() }}
 
              <span id="alert-block"></span>                &nbsp;&nbsp;&nbsp; <input id="id" type="hidden" value="{{$featuredService->id}}" class="input-text" name="id"><button id="alert-block2" class="fa fa-thumbs-up btn-submit" type="submit">Like</button>
-                        </form>-->
-                                
+         </form>-->
+
                                 <!--<li>
                                     <i class="flaticon-monitor"></i> TV
                                 </li>-->
@@ -128,59 +164,54 @@
                         </div>-->
                     </div>
                 </div> 
-                        @endforeach
-       
-    </div>
+                @endforeach
 
-
-
-
-
-
-
-
-
-</div>
-
-
-<div class="services-2 content-area-5 bg-grea-3">
-    <div class="container">
-        <!-- Main title -->
-        <div class="main-title">
-            <h1>What service are you looking for?</h1>
+            </div>
         </div>
 
 
+        <div class="services-2 content-area-5 bg-grea-3">
+            <div class="container">
+                <!-- Main title -->
+                <div class="main-title">
+                    <h1>What service are you looking for?</h1>
+                </div>
+                @if(isset($featuredServices))
 
-             <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
-                            {{ csrf_field() }}
+                @foreach($featuredServices as $featuredService)
 
-             <span id="alert-block"></span>   &nbsp;&nbsp;&nbsp; <input id="id" type="hidden" value="{{$featuredService->id}}" class="input-text" name="id"><button id="alert-block2" class="fa fa-thumbs-up btn-submit" type="submit">Like</button>
-        <div class="row wow animated" style="visibility: visible;">
-                @foreach($categories as $category)
 
-            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                <div class="service-info-5">
-                    <i class="flaticon-apartment"></i>
-                    <h4>{{$category->name}}</h4>
-                    <p>Lorem ipsum dolor sit amet, consectur adipisicing elit, sed do eiusmod tempor incididunt</p>
-                    <a href="{{ route('catdet', $category->id)}}">See Products</a>
+                <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
+                    {{ csrf_field() }}
+
+
+                    <div class="row wow animated" style="visibility: visible;">
+                        @foreach($categories as $category)
+
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                            <div class="service-info-5 animate__animated animate__fadeInUp">
+                                <i class="flaticon-apartment text-warning"></i>
+                                <h4>{{$category->name}}</h4>
+                                <p>Lorem ipsum dolor sit amet, consectur adipisicing elit, sed do eiusmod tempor incididunt</p>
+                                <a href="{{ route('catdet', $category->id)}}">See Products</a>
+                            </div>
+                        </div>
+                    </form>
+                    @endforeach
+                    @endforeach
+                    @endif
+
+
+                </div>
+                <div class="text-center read-more-2">
+                    <a href="{{ route('allCategories')}}" class="btn-white">Read More</a>
                 </div>
             </div>
-            </form>
-                                    @endforeach
-
-            
         </div>
-        <div class="text-center read-more-2">
-            <a href="services-1.html" class="btn-white">Read More</a>
-        </div>
-    </div>
-</div>
 
-</div> 
-@endif
-<script type="text/javascript">
+    </div> 
+    @endif
+    <script type="text/javascript">
         $(document).ready(function() {
             $(".btn-submit").click(function(e){
                 e.preventDefault();
@@ -194,8 +225,8 @@
                     data: {_token:_token, id:id},
                     success: function(data) {
                       printMsg(data);
-                    }
-                });
+                  }
+              });
             }); 
 
             function printMsg (msg) {
@@ -208,9 +239,9 @@
               }else{
                 $.each( msg.error, function( key, value ) {
                   $('.'+key+'_err').text(value);
-                });
-              }
-
+              });
             }
-        });
-    </script>
+
+        }
+    });
+</script>

@@ -73,51 +73,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav header-ml">
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Index
+                    <li class="nav-item">
+                        <a href="{{ route('home') }}"  class="nav-link" >
+                            Home
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Home</a></li>
 
-                        </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Finde A Service
+<li class="nav-item dropdown">
+                        <a class="nav-link" href="" >
+                            Find A Service
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Find A Service</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="properties-list-rightside.html">Right Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="properties-list-leftsidebar.html">Left Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="properties-list-fullwidth.html">Fullwidth</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Grid Layout</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="properties-grid-rightside.html">Right Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="properties-grid-leftside.html">Left Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="properties-grid-fullwidth.html">Fullwidth</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Map View</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="properties-map-rightside-list.html">Map List 1</a></li>
-                                    <li><a class="dropdown-item" href="properties-map-leftside-list.html">Map List 2</a></li>
-                                    <li><a class="dropdown-item" href="properties-map-rightside-grid.html">Map Grid 1</a></li>
-                                    <li><a class="dropdown-item" href="properties-map-leftside-grid.html">Map Grid 2</a></li>
-                                    <li><a class="dropdown-item" href="properties-map-full.html">Map FullWidth</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Property Detail</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="properties-details.html">Property Detail 1</a></li>
-                                    <li><a class="dropdown-item" href="properties-details-2.html">Property Detail 2</a></li>
-                                    <li><a class="dropdown-item" href="properties-details-3.html">Property Detail 3</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+
                     </li>
                     
                     <li class="nav-item dropdown">
@@ -145,12 +111,22 @@
 
                                                                 <input type="hidden" value="{{Auth::id()}}
                                                                 " class="input-text" name="user_id">
+                                                                @if ($errors->has('user_id'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('user_id') }}</strong>
+                            </span>
+                            @endif
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6 col-md-6">
                                                             <div class="form-group">
                                                                 <label>SERVICE NAME</label>
                                                                 <input type="text" class="input-text" name="name" placeholder="Enter your service">
+                                                                   @if ($errors->has('name'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                            @endif
                                                             </div>
                                                         </div>
 
@@ -158,6 +134,12 @@
                                                             <div class="form-group">
                                                                 <label>YEARS OF EXPERIENCE</label>
                                                                 <input type="text" class="input-text" name="experience" placeholder="Years of Experience?">
+                                                                 @if ($errors->has('experience'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('experience') }}</strong>
+                            </span>
+                            @endif
+                                      
                                                             </div>
                                                         </div>
 
@@ -171,6 +153,11 @@
                                                               @endforeach
 
                                                           </select>
+                                                           @if ($errors->has('category'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('category') }}</strong>
+                            </span>
+                            @endif
                                                       </div>
                                                   </div>                         
                                                   <div class="col-lg-6 col-md-6 mt-4" style="margin-bottom: -30px;">
@@ -178,6 +165,12 @@
                                                      <input type="file" class="input-text" onChange="previewFile(this)" name="file" class="form-control" />
                                                      <img id="previewImg" alt="Service Image" style="max-width:130px; 
                                                      margin-top:20px"/>
+                                                          @if ($errors->has('file'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('file') }}</strong>
+                            </span>
+                            @endif
+                                      
                                                  </div>
                                              </div>
                                          </div>
@@ -187,6 +180,12 @@
                                         <div class="col-md-12">
                                             <div class="form-group mb-0">
                                                 <textarea class="input-text" name="description" placeholder="Add More Info about your service"></textarea>
+                                                 @if ($errors->has('description'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('description') }}</strong>
+                            </span>
+                            @endif
+                                    
                                             </div>
                                         </div>
                                     </div>                      
@@ -195,21 +194,51 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" class="input-text" name="streetAddress" placeholder="Enter Your House No And Street Address">
+                                                 @if ($errors->has('streetAddress'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('streetAddress') }}</strong>
+                            </span>
+                            @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" class="input-text" name="city" placeholder="Enter Your City Name">
+                                                @if ($errors->has('city'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('city') }}</strong>
+                            </span>
+                            @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" class="input-text" name="state" placeholder="Enter Your State">
+                                                @if ($errors->has('state'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('state') }}</strong>
+                            </span>
+                            @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" class="input-text" name="closestBusstop" placeholder="Enter Your Closest Busstop">
+                                                @if ($errors->has('closestBusstop'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('closestBusstop') }}</strong>
+                            </span>
+                            @endif
+                                            </div>
+                                        </div>
+                                         <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input type="text" class="input-text" name="phone" placeholder="Enter Your Contact Number">
+                                                 @if ($errors->has('phone'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('phone') }}</strong>
+                            </span>
+                            @endif
                                             </div>
                                         </div>
 
@@ -275,7 +304,7 @@
 @if(Auth::user()->role == 'seller')
 <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-        <a href="{{route('createService')}}" class="btn btn-outline-warning font-weight-bold text-warning"> Post A Service</a>
+        <a href="{{route('createService')}}" class="btn btn-outline-warning font-weight-bold text-warning"> Seller Dashboard</a>
     </li>
 </ul>
 
@@ -287,7 +316,7 @@
 @if(Auth::user()->role == 'buyer')
 <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-        <a href="{{route('createService')}}" class="btn btn-outline-warning font-weight-bold text-warning">My Dashboard</a>
+        <a href="{{route('buyer.dashboard')}}" class="btn btn-outline-warning font-weight-bold text-warning">Buyer Dashboard</a>
     </li>
 </ul>
 

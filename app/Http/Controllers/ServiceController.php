@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\File;
 use App\Category;
+use App\Local_government;
+use App\State;
 
 class ServiceController extends Controller
 {
@@ -34,6 +36,8 @@ public function index2()
         $advertServices = Service::where('is_approved', 1)->with('user')->get();
         $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
         $categories = Category::paginate(8);
+        $states = State::all(); 
+        $local_governments = Local_government::all();               
          $user11 = session()->get('user11');
          //$userSer = session()->get('userSer');
          $serviceName = session()->get('serviceName');
@@ -45,7 +49,7 @@ public function index2()
             $user111 = null; 
          }
 
-            return view('welcome', compact(['featuredServices', 'recentServices', 'approvedServices', 'user111', 'categories' ]));
+            return view('welcome', compact(['featuredServices', 'recentServices', 'approvedServices', 'user111', 'categories', 'states', 'local_governments' ]));
 
          // $products = Product::with('user')->get();
  // return view('shop.index', compact(['products']));
@@ -118,6 +122,19 @@ public function serviceDetail($id)
      public function storeService(Request $request)
     {
 
+        $validatedData = $request->validate([
+      'name' => ['required', 'string', 'max:255'],
+      'category' => ['string', 'max:255'],
+            'experience' => ['required', 'max:255'],
+      'description' => ['required', 'string'],
+      'streetAddress' => ['required', 'string'],
+      'city' => ['required', 'string'],
+      'state' => ['required', 'string'],
+      'phone' => ['required'],
+
+    ]);
+
+
         $category = $request->category;
         $name = $request->name;
         $experience = $request->experience;
@@ -126,7 +143,9 @@ public function serviceDetail($id)
         $streetAddress = $request->streetAddress;
         $city = $request->city;
         $state = $request->state;
-        $closestBusstop = $request->closestBusstop;
+        $closestBusstop = $request->closestBusstop;  
+        $phone = $request->phone;
+
 
        // $name = $request->name;
         $image = $request->file('file');
@@ -142,6 +161,8 @@ public function serviceDetail($id)
         $service->city = $city;
         $service->state = $state;
         $service->closestBusstop = $closestBusstop;
+        $service->phone = $phone;
+
 
         
         $service->user_id = Auth::id();      
@@ -440,6 +461,7 @@ public function searchOnServiceDetail(Request $request)
                 //$message->service_id = $data['id']; 
                 $message->buyer_id = $data['buyer_id']; 
                 $message->service_id = $data['service_id'];
+                $message->service_user_id = $data['service_user_id'];
                 $message->description = $data['description'];
                 $serviceDetailId = $message->service_id;
                 

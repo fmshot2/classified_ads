@@ -14,6 +14,14 @@
     }
 
 
+
+
+ <span id="alert-block"></span>   &nbsp;&nbsp;&nbsp; <input id="id" type="hidden" value="{{$featuredService->id}}" class="input-text" name="id"><button id="alert-block2" class="fa fa-thumbs-up btn-submit" type="submit">Like</button>
+
+
+
+
+
 /**
      * Show the form for creating a new resource.
      *
