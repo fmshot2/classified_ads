@@ -51,7 +51,22 @@ Register
                             </span>
                             @endif
                         </div>
-                        <div class="form-group form-box clearfix">
+                                                          <div class="form-group form-box">
+                                                            <label for="state"> Choose Your State </label>
+                                                            <select class="form-control" id="state" name="state">
+
+                                                              @foreach($states as $state)
+                                                              <option value="{{ $state->name }}"> {{ $state->name }} </option> 
+                                                              @endforeach
+
+                                                          </select>
+                                                           @if ($errors->has('state'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong>{{ $errors->first('state') }}</strong>
+                            </span>
+                            @endif
+                                                      </div>
+                         <div class="form-group form-box clearfix">
                             <input id="password" type="password" class="input-text" name="password" placeholder="Password" required>
                             @if ($errors->has('password'))
                             <span class="helper-text" data-error="wrong" data-success="right">

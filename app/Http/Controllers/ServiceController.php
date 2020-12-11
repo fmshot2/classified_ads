@@ -32,11 +32,12 @@ class ServiceController extends Controller
 
 public function index2()
     {
-
+        $my_state =  Auth::user()->state;
         $featuredServices = Service::where('is_featured', 1)->with('user')->get();
         $approvedServices = Service::where('status', 1)->with('user')->get();
         $advertServices = Service::where('is_approved', 1)->with('user')->get();
         $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
+        $closerServices = Service::where('state', $my_state)->get();
         $categories = Category::paginate(8);
         $states = State::all(); 
         $local_governments = Local_government::all();               
@@ -51,7 +52,12 @@ public function index2()
             $user111 = null; 
          }
 
-            return view('welcome', compact(['featuredServices', 'recentServices', 'approvedServices', 'user111', 'categories', 'states', 'local_governments' ]));
+
+          //return $closerServices;
+
+
+            return view('welcome', compact(['featuredServices', 'recentServices', 
+              'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'closerServices' ]));
 
          // $products = Product::with('user')->get();
  // return view('shop.index', compact(['products']));
@@ -67,7 +73,6 @@ public function index2()
 
 public function serviceDetail($id)
     {
-
         $featuredServices = Service::where('is_featured', 1)->with('user')->get();
         $approvedServices = Service::where('status', 1)->with('user')->get();
         $advertServices = Service::where('is_approved', 1)->with('user')->get();
@@ -75,6 +80,9 @@ public function serviceDetail($id)
         $categories = Category::paginate(8);
         $serviceDetail = Service::find($id);
         $serviceDetail_id = $serviceDetail->id;
+        $service_category_id = $serviceDetail->category;
+        $similarProducts = Service::where('category', $service_category_id)->get();
+
         $user11 = session()->get('user11');
          if($user11){
             $user111 = $user11;
@@ -83,9 +91,9 @@ public function serviceDetail($id)
          }
 
 
-        //return view('edit-teacher',compact('teacher'));
+       // return $similarProducts;
 
-            return view('serviceDetail', compact(['serviceDetail', 'serviceDetail_id', 'approvedServices', 'user111' ]));
+            return view('serviceDetail', compact(['serviceDetail', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts']));
     }
 
     public function index()
@@ -462,6 +470,10 @@ public function searchOnServiceDetail(Request $request)
         $success = 'succccccccs';
                 //$message->service_id = $data['id']; 
                 $message->buyer_id = $data['buyer_id']; 
+                $message->buyer_id = $data['buyer_name']; 
+                $message->buyer_id = $data['buyer_email']; 
+                $message->buyer_id = $data['subject']; 
+                $message->buyer_id = $data['buyer_phone']; 
                 $message->service_id = $data['service_id'];
                 $message->service_user_id = $data['service_user_id'];
                 $message->description = $data['description'];
