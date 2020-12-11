@@ -8,6 +8,8 @@ use App\Service;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\File;
+use DB;
+
 
 
 class CategoryController extends Controller
@@ -34,8 +36,10 @@ class CategoryController extends Controller
 
 
          $category = Category::find($id);
-        $category = Service::where('id', $id)->get();
-        return view ('categoryDetails', compact('category') ); 
+        $categories = Service::where('id', $id)->get();
+                return 'categories'; 
+
+       // return view ('categoryDetails', compact('categories') ); 
 
         
         //$categories = Category::orderBy('id', 'desc')->paginate(12);
@@ -97,9 +101,9 @@ class CategoryController extends Controller
     public function show($id)
     {
         
-        $category = Category::find($id);
-        $category = Service::where('id', $id)->get();
-        return view ('categoryDetails', compact('category') );        
+        $one_category = Category::find($id);
+        $categories = Service::where('id', $id)->get();
+        return view ('categoryDetails', compact('categories', 'one_category') );        
     }
 
 
@@ -154,4 +158,37 @@ class CategoryController extends Controller
         return $this->index();
 
     }
+
+
+
+
+  //For fetching all countries
+public function getStates()
+{
+    $states = DB::table("states")->get();
+    return view('index')->with('states',$states);
+}
+
+
+
+
+//For fetching cities
+public function getlocal_governments($id)
+{
+    $local_governments= DB::table("local_governments")
+                ->where("state_id",$id)
+                ->pluck("name","id");
+    return response()->json($local_governments);
+}
+
+
+
+  public function getCityList($id)
+    {
+        $cities = DB::table("local_governments")
+                    ->where("state_id",$id)
+                    ->pluck("name","id");
+        return response()->json($cities);
+    }
+
 }

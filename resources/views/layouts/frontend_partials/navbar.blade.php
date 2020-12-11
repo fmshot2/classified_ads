@@ -233,7 +233,7 @@
                                         </div>
                                          <div class="col-md-12">
                                             <div class="form-group">
-                                                <input type="number" class="input-text" name="phone" placeholder="Enter Your Contact Number">
+                                                <input type="text" class="input-text" name="phone" placeholder="Enter Your Contact Number">
                                                  @if ($errors->has('phone'))
                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                 <strong>{{ $errors->first('phone') }}</strong>
