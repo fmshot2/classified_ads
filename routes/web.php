@@ -36,6 +36,13 @@ Route::post('/storeService', 'ServiceController@storeService')->name('service.st
 Route::get('/catdet/{id}', 'CategoryController@show')->name('catdet');
 Route::get('/allCategories/', 'CategoryController@allCategories')->name('allCategories');
 Route::get('/categoryDetail/{id}', 'CategoryController@categoryDetail')->name('categoryDetail');
+    //dynamic dropdown country and states
+Route::get('/admin/user_register/ajax/{state_id}',array('as'=>'user_register.ajax','uses'=>'CategoryController@stateForCountryAjax'));
+Route::get('/getlocal_governments/{id}','CategoryController@getlocal_governments');
+Route::get('api/get-city-list/{id}','CategoryController@getCityList');
+;
+
+
 
 
 

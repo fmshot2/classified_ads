@@ -73,51 +73,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav header-ml">
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Index
+                    <li class="nav-item">
+                        <a href="{{ route('home') }}"  class="nav-link" >
+                            Home
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Home</a></li>
 
-                        </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Finde A Service
+<li class="nav-item dropdown">
+                        <a class="nav-link" href="" >
+                            Find A Service
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Find A Service</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="properties-list-rightside.html">Right Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="properties-list-leftsidebar.html">Left Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="properties-list-fullwidth.html">Fullwidth</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Grid Layout</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="properties-grid-rightside.html">Right Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="properties-grid-leftside.html">Left Sidebar</a></li>
-                                    <li><a class="dropdown-item" href="properties-grid-fullwidth.html">Fullwidth</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Map View</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="properties-map-rightside-list.html">Map List 1</a></li>
-                                    <li><a class="dropdown-item" href="properties-map-leftside-list.html">Map List 2</a></li>
-                                    <li><a class="dropdown-item" href="properties-map-rightside-grid.html">Map Grid 1</a></li>
-                                    <li><a class="dropdown-item" href="properties-map-leftside-grid.html">Map Grid 2</a></li>
-                                    <li><a class="dropdown-item" href="properties-map-full.html">Map FullWidth</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Property Detail</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="properties-details.html">Property Detail 1</a></li>
-                                    <li><a class="dropdown-item" href="properties-details-2.html">Property Detail 2</a></li>
-                                    <li><a class="dropdown-item" href="properties-details-3.html">Property Detail 3</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+
                     </li>
                     
                     <li class="nav-item dropdown">
@@ -267,7 +233,7 @@
                                         </div>
                                          <div class="col-md-12">
                                             <div class="form-group">
-                                                <input type="number" class="input-text" name="phone" placeholder="Enter Your Contact Number">
+                                                <input type="text" class="input-text" name="phone" placeholder="Enter Your Contact Number">
                                                  @if ($errors->has('phone'))
                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                 <strong>{{ $errors->first('phone') }}</strong>

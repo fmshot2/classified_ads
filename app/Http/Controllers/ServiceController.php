@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\File;
 use App\Category;
+use App\Local_government;
+use App\State;
 
 class ServiceController extends Controller
 {
@@ -34,6 +36,8 @@ public function index2()
         $advertServices = Service::where('is_approved', 1)->with('user')->get();
         $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
         $categories = Category::paginate(8);
+        $states = State::all(); 
+        $local_governments = Local_government::all();               
          $user11 = session()->get('user11');
          //$userSer = session()->get('userSer');
          $serviceName = session()->get('serviceName');
@@ -45,7 +49,7 @@ public function index2()
             $user111 = null; 
          }
 
-            return view('welcome', compact(['featuredServices', 'recentServices', 'approvedServices', 'user111', 'categories' ]));
+            return view('welcome', compact(['featuredServices', 'recentServices', 'approvedServices', 'user111', 'categories', 'states', 'local_governments' ]));
 
          // $products = Product::with('user')->get();
  // return view('shop.index', compact(['products']));

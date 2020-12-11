@@ -38,6 +38,10 @@
          </label>
          <!-- todo text -->
          <span class="text"> {{ Str::limit( $all_messages->description, 100) }}</span>
+
+         <small class="label label-success">  {{ $all_messages->status == 1 ? 'Read' : 'Unread' }} </small>
+
+
          <!-- Emphasis label -->
          <small class="label label-success"><i class="fa fa-clock-o"></i>  {{ $all_messages->created_at->diffForHumans() }} </small>
          <!-- General tools such as edit or delete-->
@@ -47,7 +51,9 @@
           <form method="post" class="form-inline" action="{{route('seller.message.delete',$all_messages->id)}}">
             @method('DELETE')
             @csrf
+            @if($all_messages->status == 1)
             <button type="button" class="btn btn-success"> <i class="fa fa-reply"> </i> </button>
+            @endif
             <button type="button" class="btn btn-success"> <i class="fa fa-eye"> </i> </button>
             <button type="submit" class="btn btn-danger"> <i class="fa fa-trash-o"> </i> </button>
           </form>

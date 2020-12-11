@@ -43,49 +43,12 @@
                             <div class="active item carousel-item" data-slide-number="0">
                                 <img src="{{asset('images')}}/{{$serviceDetail->image}}" class="img-fluid" alt="slider-properties">
                             </div>
-                            <div class="item carousel-item" data-slide-number="1">
-                                <img src="img/properties/properties-2.jpg" class="img-fluid" alt="slider-properties">
-                            </div>
-                            <div class="item carousel-item" data-slide-number="2">
-                                <img src="img/properties/properties-3.jpg" class="img-fluid" alt="slider-properties">
-                            </div>
-                            <div class="item carousel-item" data-slide-number="4">
-                                <img src="img/properties/properties-4.jpg" class="img-fluid" alt="slider-properties">
-                            </div>
-                            <div class="item carousel-item" data-slide-number="5">
-                                <img src="img/properties/properties-5.jpg" class="img-fluid" alt="slider-properties">
-                            </div>
+                          
                         </div>
-                        <!-- main slider carousel nav controls -->
-                        <ul class="carousel-indicators smail-properties list-inline nav nav-justified">
-                            <li class="list-inline-item active">
-                                <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#propertiesDetailsSlider">
-                                    <img src="{{asset('images')}}/{{$serviceDetail->image}}" class="img-fluid" alt="properties-small">
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a id="carousel-selector-1" data-slide-to="1" data-target="#propertiesDetailsSlider">
-                                    <img src="img/properties/properties-2.jpg" class="img-fluid" alt="properties-small">
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a id="carousel-selector-2" data-slide-to="2" data-target="#propertiesDetailsSlider">
-                                    <img src="img/properties/properties-3.jpg" class="img-fluid" alt="properties-small">
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a id="carousel-selector-3" data-slide-to="3" data-target="#propertiesDetailsSlider">
-                                    <img src="img/properties/properties-4.jpg" class="img-fluid" alt="properties-small">
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a id="carousel-selector-4" data-slide-to="4" data-target="#propertiesDetailsSlider">
-                                    <img src="img/properties/properties-5.jpg" class="img-fluid" alt="properties-small">
-                                </a>
-                            </li>
-                        </ul>
+                      
+                    </div>  <!-- main slider carousel nav controls -->
+                 
                         <!-- main slider carousel items -->
-                    </div>
 
 
 
@@ -404,97 +367,6 @@
                         </div>
                     </div>
 
-<!-- comments section  -->
-                
-<h3 class="heading-2">Comments Section</h3>
-<ul class="comments">
-                        <li>
-                            <div class="comment">
-                                <div class="comment-author">
-                                    <a><i class="fa fa-user fa-3x"></i>
-                                        <!--<img src="{{asset('img/avatar/avatar-1.jpg')}}" alt="comments-user">-->
-                                    </a>
-                                </div>
-                                <div class="comment-content">
-                                    <div class="comment-meta">
-                                        <h3>
-                                            Maikel Alisa
-                                        </h3>
-                                        <div class="comment-meta">
-                                            6:42 PM 6/28/2019<a>Reply</a>
-                                        </div>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros. Maecenas eros enim.</p>
-                                </div>
-                            </div>
-                            <ul>
-                                <li>
-                                    <div class="comment">
-                                        <div class="comment-author">
-                                    <a><i class="fa fa-user-circle fa-3x"></i>
-                                               <!-- <img src="{{asset('img/avatar/avatar-2.jpg')}}" alt="comments-user">-->
-                                            </a>
-                                        </div>
-                                        <div class="comment-content">
-                                            <div class="comment-meta">
-                                                <h3>
-                                                    Karen Paran
-                                                </h3>
-                                                <div class="comment-meta">
-                                                    6:42 PM 6/28/2019<a href="#">Reply</a>
-                                                </div>
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="comment">
-                                <div class="comment-author">
-                                    <a><i class="fa fa-user-circle fa-3x"></i>
-                                        <!--<img src="{{asset('img/avatar/avatar-3.jpg')}}" alt="comments-user">-->
-                                    </a>
-                                </div>
-                                <div class="comment-content">
-                                    <div class="comment-meta">
-                                        <h3>
-                                            Anne Brady
-                                        </h3>
-                                        <div class="comment-meta">
-                                            6:42 PM 6/28/2019<a>Reply</a>
-                                        </div>
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros. Maecenas eros enim.</p>
-                                </div>
-                            </div>
-                            <ul>
-                                <li>
-                                    <div class="comment mb-0 mp-heden">
-                                        <div class="comment-author">
-                                    <a><i class="fa fa-user-circle fa-3x"></i>
-                                                <!--<img src="{{asset('img/avatar/avatar-4.jpg')}}" alt="comments-user">-->
-                                            </a>
-                                        </div>
-                                        <div class="comment-content mpb-0 mrg-bdr">
-                                            <div class="comment-meta">
-                                                <h3>
-                                                    Jane Doe
-                                                </h3>
-                                                <div class="comment-meta">
-                                                    6:42 PM 6/28/2019<a href="#">Reply</a>
-                                                </div>
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-
-<!-- End comments section  -->
 
                     <!-- Contact 1 start -->
                     <div class="contact-1 mtb-50">
@@ -533,42 +405,6 @@
                         </form>
                     </div>
 
-
-<div id="alert-block" class="alert alert-primary alert-block" role="alert">
-  This is a primary alert—check it out!
-</div>
-
-
-
-    @if(isset($approvedService))
-                    <div class="row wow animated" style="visibility: visible;">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="row">
-                        @foreach($approvedServices as $approvedService)
-
-                    <div class="col-sm-3 col-pad">
-                        <div class="category">
-                            <div class="category_bg_box cat-2-bg" style="background-image: url({{asset('images')}}/{{$approvedService->image}})">
-                                <div class="category-overlay">
-                                    <div class="category-content">
-                                        <h3 class="category-title">
-                                            <a href="#">{{$approvedService->user->name}},  {{$approvedService->name}}</a>
-                                        </h3>
-                                        <a href="properties-list-rightside.html d-flex" class="category-subtitle" style="float: left;"><i class="fa fa-map-marker"></i> {{$approvedService->state}}</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                        @endforeach
-
-               
-                     
-                </div>
-            </div>
-      
-        </div>
-                      @endif
                 </div>
             </div>
             <div class="col-lg-4 col-md-12">
@@ -604,80 +440,7 @@
                         </form>
                        
                     </div>
-                    <!-- Posts by category start -->
-                   
-                    <!-- Social media box start -->
-                    <div class="social-media-box widget clearfix">
-                        <h3 class="sidebar-title">Social Media</h3>
-                        <div class="s-border"></div>
-                        <div class="m-border"></div>
-                        <ul class="social-list">
-                            <li>
-                                <a class="facebook-bg">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="twitter-bg">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="google-bg">
-                                    <i class="fa fa-google"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="linkedin-bg">
-                                    <i class="fa fa-linkedin"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="pinterest-bg">
-                                    <i class="fa fa-pinterest"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- Financing calculator start -->
                  
-                    </div>
-
-
-
-
-                    <div class="container">
-    @if(isset($user111))
-        <p> The Search results for your query <b> query</b> are :</p>
-    <h2>Sample User details</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Seller</th>
-                <th>Service</th>
-                <th>Phone</th>
-                <th>More</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($user111 as $user)
-            <a href="{{route('serviceDetail', $user->id)}}"><tr>
-                <td>{{$user->user->name}}</td>
-                <td>{{$user->name}}</td>
-                <td>{{$user->user->phone}}</td>
-                <td>
-                    <a href="{{route('serviceDetail', $user->id)}}">view</a>
-                </td>
-                
-
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    @endif
-   
-
-</div>
                 </div>
             </div>
         </div>

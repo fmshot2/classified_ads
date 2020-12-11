@@ -22,5 +22,8 @@
 
 @include('frontend_section/advert')
 
+@include('frontend_section/brands')
+
+
 
 @endsection
