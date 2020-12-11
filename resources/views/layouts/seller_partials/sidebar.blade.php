@@ -46,7 +46,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="/seller/service/add"><i class="fa fa-circle-o"></i> Create service </a></li>
+          <li><a href=" {{ route('seller.service.create') }} "><i class="fa fa-circle-o"></i> Create service </a></li>
           <li><a href=" {{-- route('admin.service.active') --}} "><i class="fa fa-circle-o"></i> Active Service</a></li>
           <li><a href=" {{-- route('admin.service.pending') --}} "><i class="fa fa-circle-o"></i> Pending Service </a></li>
           <li><a href=" {{-- route('admin.service.all') --}} "><i class="fa fa-circle-o"></i> All Service </a></li>
@@ -55,7 +55,7 @@
 
 
       <li class="treeview">
-        <a href="pages/mailbox/mailbox.html">
+        <a href="#">
           <i class="fa fa-envelope"></i> <span> Message </span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
@@ -63,9 +63,9 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="/seller/service/add"><i class="fa fa-circle-o"></i> Unread </a></li>
-          <li><a href=" {{-- route('admin.service.active') --}} "><i class="fa fa-circle-o"></i>  Read </a></li>
-          <li><a href=" {{-- route('admin.service.pending') --}} "><i class="fa fa-circle-o"></i> All Message </a></li>
+          <li><a href=" {{ route('seller.message.unread') }} "><i class="fa fa-circle-o"></i> Unread </a></li>
+          <li><a href=" {{ route('seller.message.read') }} "><i class="fa fa-circle-o"></i>  Read </a></li>
+          <li><a href=" {{ route('seller.message.all') }} "><i class="fa fa-circle-o"></i> All Message </a></li>
         </ul>
       </li>
 

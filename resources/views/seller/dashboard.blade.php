@@ -178,7 +178,7 @@ Seller Dashboard |
   <div class="row">
     <div class="col-md-6 connectedSortable">
       <!-- Category Table -->
-        @include('seller/section/unread_message') 
+        @include('seller/section/unread_message_table') 
     </div>
     
     <div class="col-md-6 connectedSortable">

@@ -1,15 +1,18 @@
 
+
+
 @extends('layouts.seller')
 
 @section('title')
-Unread Message Table | 
+All Message Table | 
 @endsection
 
 @section('content')
 
 <div class="container">
 
-@include('seller/section/unread_message_table') 
+@include('layouts.seller_partials.status')
+@include('seller/section/all_message_table') 
 
 </div>
 

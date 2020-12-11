@@ -5,17 +5,13 @@
   <div class="box-header ui-sortable-handle" style="cursor: move;">
     <i class="fa fa-commenting"></i>
 
-    <h3 class="box-title"> Recent Unread Message  </h3>
+    <h3 class="box-title"> {{ url()->current() == route('seller.message.unread') ?  'Unread Message' : 'Recent Unread Message' }} {{ $unread_message->count() }} </h3>
 
-    @if (url()->current() == route('admin.message.unread') )
+    @if (url()->current() == route('seller.message.unread') )
     <div class="box-tools pull-right">
-      <ul class="pagination pagination-sm inline">
-        <li><a href="#">«</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">»</a></li>
-      </ul>
+
+      {{ $unread_message->links() }} 
+
     </div>
     @endif
 
@@ -55,8 +51,10 @@
 
   </div>
   <!-- /.box-body -->
+  @if (url()->current() == route('seller.dashboard') )
   <div class="box-footer clearfix no-border">
-   <button type="button" class="btn btn-blue pull-right"><i class="fa fa-list"></i> See All</button>        
+   <button type="button" class="btn btn-blue pull-right"><i class="fa fa-list"></i>   See All</button>        
  </div>
 </div>
+@endif
 <!-- /.box -->

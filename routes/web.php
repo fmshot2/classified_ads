@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Message;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,9 @@ Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dash
 Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
 
 Route::get('/seller/message/unread', 'SellerController@unreadMessage')->name('seller.message.unread');
+Route::get('/seller/message/read', 'SellerController@readMessage')->name('seller.message.read');
+Route::get('/seller/message/all', 'SellerController@allMessage')->name('seller.message.all');
+Route::delete('/seller/message/{id}', 'SellerController@destroyMessage')->name('seller.message.delete');
 
 
 Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
@@ -91,12 +95,22 @@ Route::any ( '/searchOnServiceDetail',  'ServiceController@searchOnServiceDetail
 
 
 //Views Composer 
-View::composer(['layouts.frontend_partials.navbar'], function ($view) {
+View::composer(['layouts.frontend_partials.navbar', ], function ($view) {
     $categories = App\Category::all();
    $view->with('categories',$categories);
 });
 
+View::composer(['layouts.seller_partials.navbar', 'layouts.seller_partials.sidebar'], function ($view) {
 
+    $all_message = Message::where('service_user_id', Auth::id() );
+    $unread_message =  $all_message->Where('status', 0);
+    $check_unread_message_table = collect($unread_message)->isEmpty();
+    $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
+    $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
+
+   $view->with( compact( 'unread_message_count', 'unread_message') );
+
+});
 
 //Auth::routes();
  
