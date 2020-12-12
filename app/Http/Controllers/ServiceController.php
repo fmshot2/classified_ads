@@ -226,7 +226,7 @@ $userSer = Service::where(function ($query) use ($category, $state) {
 
 if (count ( $userSer ) > 0){
         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
-        return redirect()->to('home')->with('user11', $userSer);
+        return redirect()->to('/')->with('user11', $userSer);
 
     }
     else
