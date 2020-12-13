@@ -40,27 +40,7 @@
             <h1> Featured Services </h1>
         </div>
 
-        <div class="container">
-            @if(isset($user111))
-            <p> The Search results for your query <b> query</b> are :</p>
-            <h2>Sample User details</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($user111 as $user)
-                    <tr>
-                        <td>{{$user->name}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            @endif
-        </div>
+        
 
 
 

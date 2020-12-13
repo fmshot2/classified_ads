@@ -13,7 +13,7 @@
             <div class="col-lg-4 col-md-12 col-sm-12">
                 <!-- Avatar start -->
                 <div class="edit-profile-photo">
-                    <!--<img src="img/avatar/avatar-11.jpg" alt="profile-photo" class="img-fluid">-->
+                    <img src="{{asset('img/avatar/avatar-11.jpg')}}" alt="profile-photo" class="img-fluid">
                     <div class="change-photo-btn text-center">
                     	                	<div><i class="fa fa-user fa-3x"></i></div>
 
@@ -29,25 +29,21 @@
                 <div class="my-account-box">
                     <ul>
                         <li>
-                            <a href="my-profile.html">
+                            <a href="{{route('buyer.profile')}}">
                                 <i class="flaticon-people"></i>My Profile
                             </a>
                         </li>
                         <li>
                             <a href="favorited-properties.html" class="active">
-                                <i class="flaticon-favorite"></i>Favorited Properties
+                                <i class="flaticon-favorite"></i>Favorited Services
                             </a>
                         </li>
                         <li>
-                            <a href="my-properties.html">
-                                <i class="flaticon-internet"></i>My Properties
+                            <a href="{{route('buyer.messages')}}">
+                                <i class="flaticon-internet"></i>My Messages
                             </a>
                         </li>
-                        <li>
-                            <a href="submit-property.html">
-                                <i class="flaticon-cross"></i>Submit New Property
-                            </a>
-                        </li>
+                      
                         <li>
                             <a href="change-password.html">
                                 <i class="flaticon-lock"></i>Change Password

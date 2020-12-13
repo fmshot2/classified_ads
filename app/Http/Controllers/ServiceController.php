@@ -54,7 +54,7 @@ public function index2()
               'approvedServices', 'user111', 'categories', 'states', 'local_governments' ]));
 
          // $products = Product::with('user')->get();
-        // return view('shop.index', compact(['products']));
+   // return view('shop.index', compact(['products']));
 
      //   Product::where('user_id', Auth::user()->id)->with('product.purchases')
      //   $results = User::where('this', '=', 1)

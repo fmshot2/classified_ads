@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Message;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,10 @@ Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{id}', 'ServiceController@serviceDetail')->name('serviceDetail');
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
 Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard');
+Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile');
+Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messages');
+
+
 
 
 
@@ -39,6 +44,8 @@ Route::get('/categoryDetail/{id}', 'CategoryController@categoryDetail')->name('c
 Route::get('/admin/user_register/ajax/{state_id}',array('as'=>'user_register.ajax','uses'=>'CategoryController@stateForCountryAjax'));
 Route::get('/getlocal_governments/{id}','CategoryController@getlocal_governments');
 Route::get('api/get-city-list/{id}','CategoryController@getCityList');
+Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
+
 ;
 
 
@@ -60,13 +67,21 @@ Route::get('/privacy', 'PageController@privacy')->name('privacy');
 
 Route::middleware(['auth'])->group(function () {
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
+Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
+
+Route::get('/seller/message/unread', 'SellerController@unreadMessage')->name('seller.message.unread');
+Route::get('/seller/message/read', 'SellerController@readMessage')->name('seller.message.read');
+Route::get('/seller/message/all', 'SellerController@allMessage')->name('seller.message.all');
+Route::delete('/seller/message/{id}', 'SellerController@destroyMessage')->name('seller.message.delete');
+Route::get('/seller/message/{id}', 'SellerController@viewMessage')->name('seller.message.view');
+
+
+
 Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
+
 Route::post('/admin/like', 'ServiceController@saveLike')->name('admin.like');
 
 Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name('service.delete');
-
-Route::get('/seller/dashboard', 'DashboardController@adminDashboard')->name('adminDashboard');
-
 });
 
 Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
@@ -88,19 +103,29 @@ Route::get('/admin/dashboard/user/search', 'AdminController@userSearch')->name('
 Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.seller');
 Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer');
 
-Route::any ( '/search',  'ServiceController@search3')->name('search3');
+Route::any ( '/search',  'ServiceController@search')->name('search3');
 //Route::any ( '/searchforuser',  'ServiceController@searchSeller')->name('searchUser');
 
 Route::any ( '/searchOnServiceDetail',  'ServiceController@searchOnServiceDetail')->name('searchOnServiceDetail');
 
 
 //Views Composer 
-View::composer(['layouts.frontend_partials.navbar'], function ($view) {
+View::composer(['layouts.frontend_partials.navbar', ], function ($view) {
     $categories = App\Category::all();
    $view->with('categories',$categories);
 });
 
+View::composer(['layouts.seller_partials.navbar', 'layouts.seller_partials.sidebar'], function ($view) {
 
+    $all_message = Message::where('service_user_id', Auth::id() );
+    $unread_message =  $all_message->Where('status', 0);
+    $check_unread_message_table = collect($unread_message)->isEmpty();
+    $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
+    $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
+
+   $view->with( compact( 'unread_message_count', 'unread_message') );
+
+});
 
 //Auth::routes();
  

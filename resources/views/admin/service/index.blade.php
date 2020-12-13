@@ -7,6 +7,9 @@ All Service |
 
 @section('content')
 
+<br>
+<hr>
+
 @include('admin/section/all_service_table') 
 
 @endsection

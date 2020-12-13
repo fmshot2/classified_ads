@@ -7,6 +7,9 @@ Pending Service |
 
 @section('content')
 
+<br>
+<hr>
+
 @include('admin/section/pending_service_table') 
 
 @endsection

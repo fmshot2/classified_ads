@@ -37,7 +37,7 @@
                         @auth
                         @if(Auth::user()->role == 'seller')
                         <a class="dropdown-item" href="{{ route('createService') }}"> Post A Service </a>
-                        <a class="dropdown-item" href="{{ route('adminDashboard') }}"> Dashboard </a>
+                        <a class="dropdown-item" href="{{ route('seller.dashboard') }}"> Dashboard </a>
                         @endif 
                         @endauth
 
@@ -79,19 +79,29 @@
                         </a>
 
                     </li>
+                       @auth
+                        @if(Auth::user()->role == 'buyer')
 <li class="nav-item dropdown">
-                        <a class="nav-link" href="" >
+                        <a class="nav-link" href="{{ route('home') }}" >
                             Find A Service
                         </a>
 
                     </li>
-                    
+       @endif 
+                        @endauth
+
+
+
+                      @auth
+                        @if(Auth::user()->role == 'seller')
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-toggle="modal" data-target="#postAService">
                             Post A Service
                         </a>
 
                     </li>
+                     @endif 
+                        @endauth
                     <!-- Modal -->
                     <div class="modal fade" id="postAService" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered" role="document">
