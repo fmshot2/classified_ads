@@ -46,9 +46,6 @@ Route::get('/getlocal_governments/{id}','CategoryController@getlocal_governments
 Route::get('api/get-city-list/{id}','CategoryController@getCityList');
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
 
-;
-
-
 
 
 
