@@ -79,12 +79,19 @@
                         </a>
 
                     </li>
+                       @auth
+                        @if(Auth::user()->role == 'buyer')
 <li class="nav-item dropdown">
                         <a class="nav-link" href="{{ route('home') }}" >
                             Find A Service
                         </a>
 
                     </li>
+       @endif 
+                        @endauth
+
+
+
                       @auth
                         @if(Auth::user()->role == 'seller')
                     <li class="nav-item dropdown">

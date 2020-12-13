@@ -44,6 +44,8 @@ Route::get('/categoryDetail/{id}', 'CategoryController@categoryDetail')->name('c
 Route::get('/admin/user_register/ajax/{state_id}',array('as'=>'user_register.ajax','uses'=>'CategoryController@stateForCountryAjax'));
 Route::get('/getlocal_governments/{id}','CategoryController@getlocal_governments');
 Route::get('api/get-city-list/{id}','CategoryController@getCityList');
+Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
+
 ;
 
 
@@ -101,7 +103,7 @@ Route::get('/admin/dashboard/user/search', 'AdminController@userSearch')->name('
 Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.seller');
 Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer');
 
-Route::any ( '/search',  'ServiceController@search3')->name('search3');
+Route::any ( '/search',  'ServiceController@search')->name('search3');
 //Route::any ( '/searchforuser',  'ServiceController@searchSeller')->name('searchUser');
 
 Route::any ( '/searchOnServiceDetail',  'ServiceController@searchOnServiceDetail')->name('searchOnServiceDetail');
