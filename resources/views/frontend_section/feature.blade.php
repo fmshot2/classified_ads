@@ -2,7 +2,7 @@
     <div class="container">
 
 
-
+<!--
  <div class="main-title">
             <h1> Sellers Closest To You </h1>
         </div>
@@ -27,36 +27,12 @@
                                         
                                     </a><i class="fa fa-map-marker"></i><span>{{$closerService->state}}</span>
                                 </div>
-                         
-                            <!--<a href="#" class="read-more">More...</a>-->
-                        </div>
+                            </div>
                     </div>
                         @endforeach
     </div>
-
-
 @endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-->
 
 
         <!-- Main title -->

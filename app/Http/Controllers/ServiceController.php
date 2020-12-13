@@ -12,8 +12,6 @@ use DB;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-
-
 use Illuminate\Http\File;
 use App\Category;
 use App\Local_government;
@@ -30,43 +28,37 @@ class ServiceController extends Controller
 
 public function index2()
     {
-        if (Auth::check()) {
-          $my_state =  Auth::user()->state;
-        }
-        $my_state =  Auth::user()->state;
+        //if (Auth::check()) {
+          //$my_state =  Auth::user()->state;
+        //}
+        //$my_state =  Auth::user()->state;
         $featuredServices = Service::where('is_featured', 1)->with('user')->get();
         $approvedServices = Service::where('status', 1)->with('user')->get();
         $advertServices = Service::where('is_approved', 1)->with('user')->get();
         $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
-        $closerServices = Service::where('state', $my_state)->get();
+        //$closerServices = Service::where('state', $my_state)->get();
         $categories = Category::paginate(8);
         $states = State::all(); 
         $local_governments = Local_government::all();               
          $user11 = session()->get('user11');
          //$userSer = session()->get('userSer');
          $serviceName = session()->get('serviceName');
-         $serviceState = session()->get('serviceState');
-          
+         $serviceState = session()->get('serviceState');          
          if($user11){
             $user111 = $user11;
          }else{
             $user111 = null; 
-         }
+         }         
           //return $closerServices;
-
-
             return view('welcome', compact(['featuredServices', 'recentServices', 
-              'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'closerServices' ]));
+              'approvedServices', 'user111', 'categories', 'states', 'local_governments' ]));
 
          // $products = Product::with('user')->get();
- // return view('shop.index', compact(['products']));
+        // return view('shop.index', compact(['products']));
 
      //   Product::where('user_id', Auth::user()->id)->with('product.purchases')
-
-
      //   $results = User::where('this', '=', 1)
     //->get();
-
     }
 
 
