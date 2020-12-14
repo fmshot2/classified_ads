@@ -3,7 +3,7 @@
 <!-- TO DO List -->
 <div class="box">
   <div class="box-header ui-sortable-handle" style="cursor: move;">
-    <i class="fa fa-commenting"></i>
+    <i class="fa fa-bell"></i>
 
     <h3 class="box-title"> {{ url()->current() == route('seller.notification.unread') ?  'Unread Notification' : 'Recent Unread Notification' }} {{ $unread_notification->count() }} </h3>
 

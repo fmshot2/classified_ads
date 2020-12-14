@@ -47,9 +47,9 @@
         </a>
         <ul class="treeview-menu">
           <li><a href=" {{ route('seller.service.create') }} "><i class="fa fa-circle-o"></i> Create service </a></li>
-          <li><a href=" {{-- route('admin.service.active') --}} "><i class="fa fa-circle-o"></i> Active Service</a></li>
-          <li><a href=" {{-- route('admin.service.pending') --}} "><i class="fa fa-circle-o"></i> Pending Service </a></li>
-          <li><a href=" {{-- route('admin.service.all') --}} "><i class="fa fa-circle-o"></i> All Service </a></li>
+          <li><a href=" {{ route('seller.service.active') }} "><i class="fa fa-circle-o"></i> Active Service</a></li>
+          <li><a href=" {{ route('seller.service.pending') }} "><i class="fa fa-circle-o"></i> Pending Service </a></li>
+          <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> All Service </a></li>
         </ul>
       </li>
 
@@ -84,3 +84,4 @@
     <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i class="fa fa-power-off"></i></a>
   </div>
 </aside>
+

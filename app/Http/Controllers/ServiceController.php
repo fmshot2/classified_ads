@@ -10,11 +10,8 @@ use App\Message;
 use DB;
 use Illuminate\Support\Str;
 
-
-
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-
 
 use Illuminate\Http\File;
 use App\Category;
@@ -140,7 +137,6 @@ public function serviceDetail($id)
 
      public function storeService(Request $request)
     {
-
         $validatedData = $request->validate([
       'name' => ['required', 'string', 'max:255'],
       'category' => ['string', 'max:255'],
@@ -181,9 +177,6 @@ public function serviceDetail($id)
         $service->state = $state;
         $service->closestBusstop = $closestBusstop;
         $service->phone = $phone;
-
-
-        
         $service->user_id = Auth::id();      
 
         $service->save();

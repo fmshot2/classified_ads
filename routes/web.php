@@ -22,10 +22,6 @@ Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile
 Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messages');
 
 
-
-
-
-
 // add comment routes
 //Route::get('ajaxRequest', [AjaxController::class, 'ajaxRequest']);
 //Route::post('ajaxRequest', 'ServiceController@ajaxRequestPost')->name('ajaxRequest.post');
@@ -44,11 +40,6 @@ Route::get('/categoryDetail/{id}', 'CategoryController@categoryDetail')->name('c
 Route::get('/admin/user_register/ajax/{state_id}',array('as'=>'user_register.ajax','uses'=>'CategoryController@stateForCountryAjax'));
 Route::get('/getlocal_governments/{id}','CategoryController@getlocal_governments');
 Route::get('api/get-city-list/{id}','CategoryController@getCityList');
-;
-
-
-
-
 
 
 
@@ -73,8 +64,10 @@ Route::get('/seller/message/all', 'SellerController@allMessage')->name('seller.m
 Route::delete('/seller/message/{id}', 'SellerController@destroyMessage')->name('seller.message.delete');
 Route::get('/seller/message/{id}', 'SellerController@viewMessage')->name('seller.message.view');
 
-Route::get('/seller/dashboard/service/active', 'ServiceController@activeService')->name('seller.service.active');
-
+Route::get('/seller/dashboard/service/active', 'SellerController@activeService')->name('seller.service.active');
+Route::get('/seller/dashboard/service/pending', 'SellerController@pendingService')->name('seller.service.pending');
+Route::get('/seller/dashboard/service/all', 'SellerController@allService')->name('seller.service.all');
+Route::post('/service/store/', 'SellerController@storeService')->name('service.save');
 
 Route::get('/seller/notification/unread', 'SellerController@unreadNotification')->name('seller.notification.unread');
 

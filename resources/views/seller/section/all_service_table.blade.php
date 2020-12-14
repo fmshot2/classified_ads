@@ -22,6 +22,10 @@
 		<h3 class="box-title"> {{ url()->current() == route('seller.dashboard') ? 'All Service' : 'Service Table' }} </h3>
 		<code>  {{ url()->current() == route('seller.dashboard') ? 'showing 5 recent services ' : '' }}</code>
 
+		@if (url()->current() == route('seller.service.active'))
+		<button alt="default" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-warning model_img img-responsive pull-right"> Add Aervice </button>
+		@endif
+
 		@if ( url()->current() == !route('seller.dashboard') )
 		<div class="box-tools">
 			<form class="" method="GET" action="{{-- route('admin.service.search') --}}">
@@ -103,3 +107,4 @@
 </div>
 @endif
 
+@include('seller/modal/create_service') 

@@ -16,12 +16,64 @@ class SellerController extends Controller
 
     public function createService()
     {
-    	return view ('seller.service.create');
+        $category = Category::all();
+    	return view ('seller.service.create', compact('category') );
     }
 
     public function storeService(Request $request)
     {
-    	return view ('seller.service.create');
+
+       $this->validate($request,[
+            'name' => 'required',
+            'image' => 'required',
+            'category_id' => 'required',
+            'address' => 'required',
+            'description' => 'required',
+            'slug' => 'unique:services,slug',
+            'city' => 'required',
+            'state' => 'required',
+        ]); 
+
+        $image = $request->file('image');
+
+        $slug = Str::of($request->name)->slug('-');
+
+        $service = new Service();
+
+        // Image set up
+        if($request->hasfile('filenames'))
+         {
+            foreach($request->file('filenames') as $file)
+            {
+                $name = time().'.'.$file->extension();
+                $file->move(public_path().'/files/', $name); 
+                //array_push($image_array[], $name) 
+            }
+         }
+
+        $service->user_id = Auth::id();
+        $service->category_id = $request->category_id;
+        $service->name = $request->name;
+        $service->city = $request->city;
+        $service->address = $request->address;
+        $service->min_price = $request->min_price;
+        $service->max_price = $request->max_price;
+        $service->slug = $slug;
+        $service->image_1 = $image_array[0];
+        $service->image_2 = $image_array[1];
+        $service->image_3 = $image_array[2];
+        $service->image_4 = $image_array[3];
+        $service->image_5 = $image_array[4];
+        $service->image_6 = $image_array[5];
+        $service->video_link = $request->video_link;
+        $service->description = $request->description;
+        $service->state = $request->state;
+
+        $service->save();
+
+        $request->session()->flash('success', 'Task was successful!');
+        return $this->allMessage();
+
     }
 
     public function unreadMessage()
@@ -69,11 +121,21 @@ class SellerController extends Controller
     public function activeService()
     {
         $all_service = Service::where('user_id', Auth::id() );
-        $active_service =  $all_service->Where('status', 1);
-        $check_active_service_table = collect($active_service)->isEmpty();
-        $active_service_count = $check_active_service_table == true ? 0 : $active_service->count();
-        $active_service = $check_active_service_table == true ? 0 : $active_service->take(5)->get();
-        return view ('admin.service.active', compact('active_service') );
+        $active_service =  $all_service->Where('status', 1)->paginate(5);
+        return view ('seller.service.active_service', compact('active_service') );
+    }
+
+    public function pendingService()
+    {
+        $all_service = Service::where('user_id', Auth::id() );
+        $pending_service =  $all_service->Where('status', 0)->paginate(5);
+        return view ('seller.service.pending_service', compact('pending_service') );
+    }
+
+    public function allService()
+    {
+        $all_service = Service::where('user_id', Auth::id() )->paginate(5);
+        return view ('seller.service.all_service', compact('all_service') );
     }
 
 }

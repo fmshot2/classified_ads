@@ -1,5 +1,4 @@
 
-
 	<!-- Content Header (Page header) -->
 	@if (url()->current() == !route('seller.dashboard') )
 	<section class="content-header p-3 box">
@@ -21,6 +20,10 @@
 		<div class="box-header with-border">
 			<h3 class="box-title">  Active Service </h3>
 			<code>  {{ url()->current() == route('seller.dashboard') ? 'showing 5 active services ' : '' }}</code>
+
+			@if (url()->current() == route('seller.service.active'))
+			<button alt="default" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-warning model_img img-responsive pull-right"> Add Aervice </button>
+			@endif
 
 			@if (url()->current() == !route('seller.dashboard') )
 			<div class="box-tools">
@@ -62,9 +65,7 @@
 						<td> {{ $active_services->status == 1 ? 'Active' : 'Pending' }} </td>
 						<td> {{ $active_services->created_at->diffForHumans() }} </td>
 
-
 						<td>
-
 							<div class="btn-group">
 								<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
 									<span class="caret"></span>
@@ -78,7 +79,7 @@
 										<li>  <button class="btn btn-block" type="submit" style="margin-left: 8px;"> Update </button> </li>
 
 									<!-- Delete -->
-									<form method="post" class="delete_form" action=" {{ route('admin.service.destroy',$active_services->id) }} ">
+									<form method="post" class="delete_form" action=" {{ route('admin.service.destroy',$active_services->id) }}">
 										@method('DELETE')
 										@csrf
 										<li>  <button class="btn btn-block" type="submit" style="margin-left: 8px;"> Delete </button> </li>
@@ -108,4 +109,7 @@
 @endif
 
 </div>
+
+@include('seller/modal/create_service') 
+
 
