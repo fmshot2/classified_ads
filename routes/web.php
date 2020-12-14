@@ -73,6 +73,10 @@ Route::get('/seller/message/all', 'SellerController@allMessage')->name('seller.m
 Route::delete('/seller/message/{id}', 'SellerController@destroyMessage')->name('seller.message.delete');
 Route::get('/seller/message/{id}', 'SellerController@viewMessage')->name('seller.message.view');
 
+Route::get('/seller/dashboard/service/active', 'ServiceController@activeService')->name('seller.service.active');
+
+
+Route::get('/seller/notification/unread', 'SellerController@unreadNotification')->name('seller.notification.unread');
 
 
 Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');

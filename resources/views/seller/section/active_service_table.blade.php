@@ -1,7 +1,7 @@
 
 
 	<!-- Content Header (Page header) -->
-	@if (url()->current() == route('admin.service.active') )
+	@if (url()->current() == !route('seller.dashboard') )
 	<section class="content-header p-3 box">
 		<h1>
 			Dashboard
@@ -19,9 +19,10 @@
 	<div class="box">
 
 		<div class="box-header with-border">
-			<h3 class="box-title"> Active Service Table</h3>
+			<h3 class="box-title">  Active Service </h3>
+			<code>  {{ url()->current() == route('seller.dashboard') ? 'showing 5 active services ' : '' }}</code>
 
-			@if (url()->current() == route('admin.service.active') )
+			@if (url()->current() == !route('seller.dashboard') )
 			<div class="box-tools">
 				<form class="" method="GET" action="{{ route('admin.service.search') }}">
 				<div class="input-group input-group-sm" style="width: 150px;">
@@ -49,9 +50,7 @@
 						<th> is_featured </th>
 						<th> Status </th>
 						<th> Date </th>
-						@if (url()->current() == route('admin.service.active') )
 						<th> Action </th>
-						@endif
 					</tr>
 
 					<tr>
@@ -64,7 +63,6 @@
 						<td> {{ $active_services->created_at->diffForHumans() }} </td>
 
 
-						@if (url()->current() == route('admin.service.active') )
 						<td>
 
 							<div class="btn-group">
@@ -77,12 +75,7 @@
 
 
 									<!-- Edit -->
-									<form method="post" class="update_form" action=" {{ route('admin.service.status',$active_services->id) }} ">
-										@method('PATCH')
-										@csrf
-										<li>  <button class="btn btn-block" type="submit" style="margin-left: 8px;"> Deactivate </button> </li>
-									</form>
-
+										<li>  <button class="btn btn-block" type="submit" style="margin-left: 8px;"> Update </button> </li>
 
 									<!-- Delete -->
 									<form method="post" class="delete_form" action=" {{ route('admin.service.destroy',$active_services->id) }} ">
@@ -96,7 +89,6 @@
 							</ul>
 						</div>
 					</td>
-					@endif
 
 				</tr>
 
@@ -107,7 +99,7 @@
 	</div>
 	<!-- /.box-body -->
 
-@if (url()->current() == route('admin.service.active') )
+@if (url()->current() == !route('seller.dashboard') )
 <div class="box-footer clearfix">
 
   {{ $active_service->links() }} 

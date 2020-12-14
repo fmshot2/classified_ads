@@ -1,4 +1,4 @@
-  <header class="main-header">
+  <header class="main-header ">
     <!-- Logo -->
     <a href="index.html" class="logo">
       <!-- mini logo-->
@@ -7,7 +7,7 @@
       <span class="logo-lg"><b>Cross</b>Admin</span>
     </a>
     <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top">
+    <nav class="navbar navbar-static-top" style="background-color: #f8d053">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>

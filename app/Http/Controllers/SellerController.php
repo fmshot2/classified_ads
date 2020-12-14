@@ -59,6 +59,21 @@ class SellerController extends Controller
         return view ('seller.message.view_message', compact('message') );
     }
 
+    public function unreadNotification()
+    {
+        $all_notification = Message::all();
+        $unread_notification =  $all_notification->Where('status', 0)->orderBy('id', 'desc')->paginate(10);
+        return view ('seller.notification.unread_notification_table', compact('unread_notification') );
+    }
 
+    public function activeService()
+    {
+        $all_service = Service::where('user_id', Auth::id() );
+        $active_service =  $all_service->Where('status', 1);
+        $check_active_service_table = collect($active_service)->isEmpty();
+        $active_service_count = $check_active_service_table == true ? 0 : $active_service->count();
+        $active_service = $check_active_service_table == true ? 0 : $active_service->take(5)->get();
+        return view ('admin.service.active', compact('active_service') );
+    }
 
 }

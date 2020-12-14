@@ -5,12 +5,12 @@
   <div class="box-header ui-sortable-handle" style="cursor: move;">
     <i class="fa fa-commenting"></i>
 
-    <h3 class="box-title"> {{ url()->current() == route('seller.message.unread') ?  'Unread Message' : 'Recent Unread Message' }} {{ $unread_message->count() }} </h3>
+    <h3 class="box-title"> {{ url()->current() == route('seller.notification.unread') ?  'Unread Notification' : 'Recent Unread Notification' }} {{ $unread_notification->count() }} </h3>
 
-    @if (url()->current() == route('seller.message.unread') )
+    @if (url()->current() == route('seller.notification.unread') )
     <div class="box-tools pull-right">
 
-      {{ $unread_message->links() }} 
+      {{ $unread_notification->links() }} 
 
     </div>
     @endif
@@ -22,10 +22,10 @@
   <div class="box-body">
     <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
     <ul class="todo-list ui-sortable">
-      @foreach($unread_message as $unread_messages)
+      @foreach($unread_notification as $unread_notifications)
 
-      @empty($unread_messages)
-      <div class="box"> No Message Found </div>
+      @empty($unread_notifications)
+      <div class="box"> No Notification Found </div>
       @endempty
 
       <li>
@@ -40,9 +40,9 @@
          <span class="control_indicator"></span>
        </label>
        <!-- todo text -->
-       <span class="text"> {{ Str::limit( $unread_messages->description, 100) }}</span>
+       <span class="text"> {{ Str::limit( $unread_notifications->description, 100) }}</span>
        <!-- Emphasis label -->
-       <small class="label label-danger"><i class="fa fa-clock-o"></i>  {{ $unread_messages->created_at->diffForHumans() }} </small>
+       <small class="label label-danger"><i class="fa fa-clock-o"></i>  {{ $unread_notifications->created_at->diffForHumans() }} </small>
        <!-- General tools such as edit or delete-->
        <div class="tools">
         <i class="fa fa-eye"></i>
@@ -55,7 +55,7 @@
 </div>
 <!-- /.box-body -->
 @if (url()->current() == route('seller.dashboard') )
-@if( $unread_message->count() == !0)
+@if( $unread_notification->count() == !0)
 <div class="box-footer clearfix no-border">
  <button type="button" class="btn btn-warning pull-right"><i class="fa fa-list"></i>   See All</button>        
 </div>
