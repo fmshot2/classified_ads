@@ -45,6 +45,9 @@ Route::get('/admin/user_register/ajax/{state_id}',array('as'=>'user_register.aja
 Route::get('/getlocal_governments/{id}','CategoryController@getlocal_governments');
 Route::get('api/get-city-list/{id}','CategoryController@getCityList');
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
+Route::get('contact-us','ContactController@contact_us')->name('contact');
+Route::get('services/{id}','CategoryController@show')->name('services');
+
 
 
 

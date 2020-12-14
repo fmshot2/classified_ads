@@ -30,8 +30,8 @@ class CreateServicesTable extends Migration
             $table->string('phone');
 
             $table->unsignedInteger('price');
-            $table->unsignedInteger('bedroom');
-            $table->unsignedInteger('bathroom');
+            $table->integer('min_price');
+            $table->interger('max_price');
             //$table->unsignedInteger('price');
 
 

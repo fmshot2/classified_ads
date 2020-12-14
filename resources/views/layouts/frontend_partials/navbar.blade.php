@@ -302,12 +302,21 @@
       </div>
   </div>
 </div>          
+
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Report
+    <a class="nav-link" href="{{route('faq')}}" id="">
+        FAQs
     </a>
 
 </li>
+
+<li class="nav-item dropdown">
+    <a class="nav-link" href="{{route('contact')}}" id="">
+        Contact Us
+    </a>
+
+</li>
+
 </ul>
 
 @auth

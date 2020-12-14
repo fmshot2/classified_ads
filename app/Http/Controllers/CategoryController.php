@@ -103,7 +103,12 @@ class CategoryController extends Controller
         
         $one_category = Category::find($id);
         $categories = Service::where('id', $id)->get();
-        return view ('categoryDetails', compact('categories', 'one_category') );        
+        //$category_city = Service::all()->pluck("city");
+        $category_city = Service::all()->random(4);
+        $all_categories = Category::all();
+        //return $category_city;
+
+        return view ('services', compact('categories', 'one_category', 'category_city', 'all_categories') );        
     }
 
 

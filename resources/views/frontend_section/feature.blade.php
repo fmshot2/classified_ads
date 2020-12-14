@@ -192,7 +192,6 @@
 
    <div class="row">
             @foreach($featuredServices as $featuredService)
-
             <div class="col-lg-3 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
                 <div class="property-box">
                     <div class="property-thumbnail">
@@ -204,13 +203,7 @@
                                 <p class="price">
                                     {{$featuredService->experience}} Yrs Experience
                                 </p>
-                                   <!-- <div class="ratings">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div> -->
+                           
                                 </div>
                                 <div class="listing-time opening">{{$featuredService->user->name}}</div>
                                 <img class="d-block w-100" src="{{asset('images')}}/{{$featuredService->image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
@@ -229,55 +222,15 @@
                                     <li class="" style="float: right;">
                                         <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="{{route('serviceDetail', $featuredService->id)}}">Verified</a>
                                         </li>
-                               <!-- <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
-                            {{ csrf_field() }}
-
-             <span id="alert-block"></span>                &nbsp;&nbsp;&nbsp; <input id="id" type="hidden" value="{{$featuredService->id}}" class="input-text" name="id"><button id="alert-block2" class="fa fa-thumbs-up btn-submit" type="submit">Like</button>
-         </form>-->
-
-                                <!--<li>
-                                    <i class="flaticon-monitor"></i> TV
-                                </li>-->
+                              
                             </ul>
                         </div>
-                    <!--    <div class="footer clearfix">
-                            <div class="pull-left days">
-                                <a><i class="fa fa-user"></i>{{$featuredService->user->name}}</a>
-                            </div>
-                            <div class="pull-right">
-                                <ul class="facilities-list clearfix">
-                                <li>
-                                   <i class="fa fa-thumbs-up"></i>Upvote
-                                </li>
-                                <li>
-                                    <i class="fa fa-thumbs-down"></i>Downvote
-                                </li>
-                                 </ul>
-                            </div>
-                        </div>-->
+            
                     </div>
                 </div> 
                 @endforeach
-
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </div>
+       </div>
 
 
         <div class="services-2 content-area-5 bg-grea-3">
@@ -303,7 +256,7 @@
                                 <i class="flaticon-apartment text-warning"></i>
                                 <h4>{{$category->name}}</h4>
                                 <p>Lorem ipsum dolor sit amet, consectur adipisicing elit, sed do eiusmod tempor incididunt</p>
-                                <a href="{{ route('catdet', $category->id)}}">See Products</a>
+                                <a href="{{ route('services', $category->id)}}">See Products</a>
                             </div>
                         </div>
                     </form>
