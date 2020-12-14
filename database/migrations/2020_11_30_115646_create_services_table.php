@@ -23,7 +23,7 @@ class CreateServicesTable extends Migration
             $table->string('state');
             $table->string('streetAddress');
             $table->string('closestBusstop');
-            $table->string('category');
+            //$table->string('category');
             //$table->string('phone')->nullable();
             $table->string('image');
             $table->string('experience');
@@ -42,7 +42,7 @@ class CreateServicesTable extends Migration
 
             $table->unsignedInteger('user_id');
             //$table->unsignedInteger('like_id');
-            //$table->unsignedInteger('category_id');
+            $table->unsignedInteger('category_id');
 
             $table->timestamps();
 

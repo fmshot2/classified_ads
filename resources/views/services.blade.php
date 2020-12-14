@@ -45,41 +45,41 @@
                 </div>
                 <!-- Property section start -->
 
-                        @if(isset($categories))
+                        @if(isset($category_services))
 
                 <div class="row property-section">
                            
-                            @foreach($categories as $category)
+                            @foreach($category_services as $category_service)
 
             <div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
                 <div class="property-box">
                     <div class="property-thumbnail">
-                        <a href="{{route('serviceDetail', $category->id)}}" class="property-img">
+                        <a href="{{route('serviceDetail', $category_service->id)}}" class="property-img">
                             <div class="listing-badges">
                                 <span class="featured bg-warning">featured</span>
                             </div>
                             <div class="price-ratings-box">
                                 <p class="price">
-                                    {{$category->experience}} Yrs Experience
+                                    {{$category_service->experience}} Yrs Experience
                                 </p>
                                 </div>
-                                <div class="listing-time opening">{{$category->user->name}}</div>
-                                <img class="d-block w-100" src="{{asset('images')}}/{{$category->image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                <div class="listing-time opening">{{$category_service->user->name}}</div>
+                                <img class="d-block w-100" src="{{asset('images')}}/{{$category_service->image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                             </a>
                         </div>
                         <div class="detail">
-                            <span class="d-flex justify-content-around"><a class="title " href="properties-details.html">{{$category->name}}</a>
+                            <span class="d-flex justify-content-around"><a class="title " href="properties-details.html">{{$category_service->name}}</a>
                                 <!--<a class="pull-right" href="properties-details.html">
-                                    <i class="fa fa-map-marker text-warning"></i> {{$category->state}}
+                                    <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
                                 </a>-->
                             </span>
 
                                 <ul class="facilities-list clearfix">
                                     <li>
-                                        <i class="fa fa-map-marker" aria-hidden="true"></i><span>{{$category->city}}, &nbsp; </span>
-{{$category->state}}                                    </li>
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i><span>{{$category_service->city}}, &nbsp; </span>
+{{$category_service->state}}                                    </li>
                                     <!--<li class="" style="float: right;">
-                                        <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="{{route('serviceDetail', $category->id)}}">Verified</a>
+                                        <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="{{route('serviceDetail', $category_service->id)}}">Verified</a>
                                         </li>-->
                             </ul>
                               <ul class="facilities-list clearfix">
@@ -87,7 +87,7 @@
                                         <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; 5 likes
                                     </li>
                                     <!--<li class="" style="float: right;">
-                                        <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="{{route('serviceDetail', $category->id)}}">Verified</a>
+                                        <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="{{route('serviceDetail', $category_service->id)}}">Verified</a>
                                         </li>-->
                             </ul>
                         </div>
@@ -110,33 +110,42 @@
                 <div class="sidebar-right">
                     <!-- Advanced search start -->
                     <div class="sidebar widget advanced-search">
-                        <h3 class="sidebar-title text-center"> Advanced Search</h3>
+                        <h3 class="sidebar-title text-center"> Advanceds Search</h3>
                         <div class="s-border"></div>
                         <div class="m-border"></div>
-                        <form action="https://efcontact.com/search" method="GET">
+                        <form method="post" action="{{route('service.search34')}}" enctype="multipart/form-data">
+                                            {{ csrf_field() }}
+                       
                             <div class="form-group">
-                                <input type="text" name="title" class="form-control" placeholder="Keyword" autocomplete="on">
+                                <input type="text" name="name" class="form-control" placeholder="What Service Are You Looking For?" autocomplete="on">
                             </div>
                             <div class="form-group">
                                 <input type="text" name="city" class="form-control" placeholder="City e.g Ikeja" autocomplete="off">
-                            </div>
+                            </div>  
+                              <div class="form-group">
+                            <select class="form-control" id="state" name="state">                                  <option> Select State  </option> 
+                               @if(isset($all_states))
+                               @foreach($all_states as $all_state)
+                               <option value="{{$all_state->id}}"> {{$all_state->name}}   </option> 
+                               @endforeach
+                               @endif                         
+
+                           </select>
+                       </div>                           
 
                           <div class="form-group">
-                            <select class="form-control" id="state" name="state">
+                            <select class="form-control" id="category" name="category">
                                           
                                
-                               <option value="1"> Select Category  </option> 
+                               <option> Select Category  </option> 
                                @if(isset($all_categories))
                                @foreach($all_categories as $all_category)
-                               <option value="{{$all_category->name}}"> {{$all_category->name}}   </option> 
+                               <option value="{{$all_category->id}}"> {{$all_category->name}}   </option> 
                                @endforeach
                                @endif                         
 
                            </select>
                        </div>
-
-
-
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -158,12 +167,9 @@
                                 </label>
                             </div>
                             </div>
-                            <a class="show-more-options" data-toggle="collapse" data-target="#options-content">
-                                <i class="fa fa-plus-circle"></i> Show More Options
-                            </a>
-                            <div class="form-group mb-0">
-                                <button class="search-button">Search <i class="fa fa-search" aria-hidden="true"></i></button>
-                            </div>
+                             <div class="col-md-12">
+                                            <input type="submit"class="btn btn-md btn-warning mb-30" value="Submit" />
+                                        </div>
                         </form>
                     </div>
                     <!-- Popular posts start -->

@@ -280,33 +280,53 @@ public function searchOnServiceDetail(Request $request)
         $serviceName = $request->name;
         $serviceState =   $request->state;
         $serviceDetailId =   $request->id;
-
         // return $request;    
         $request->validate([
             "name"     => 'string',
             "state"       => 'string',
         ]);
   if( $user11 = Service::searchName($request->name)->
-                           searchState($request->state)->get()) {
-        
+                           searchState($request->state)->get()) {      
         
             $user11->each(function ($item, $key) {
                 $item->name;
                 $item->state;
 
         });
-}
- 
+} 
+        $category_services = Service::where('id', $serviceDetailId)->get();
+
                 //return 'jjj';}
     //return response()->json($user11);
 //return redirect()->to('job_view/'.$id);
-
-    return redirect()->to('serviceDetail/'.$serviceDetailId)->with('user11', $user11)
+    return view ('search')->with($serviceDetailId)->with('user11', $user11)
     ->with('serviceName', $serviceName)
-    ->with('serviceState', $serviceState);
-                //return 'jjj';
-
+    ->with('serviceState', $serviceState)
+    ->with('category_services', $category_services);
 }
+
+
+
+/*
+public function show($id)
+    {
+        
+        $one_category = Category::find($id);
+        $category_services = Service::where('id', $id)->get();
+        //$category_city = Service::all()->pluck("city");
+        $category_city = Service::all()->random(4);
+        $all_states = State::all();
+        $all_categories = Category::all();
+        //$category_id = $id;
+        //return $category_city;
+
+        return view ('services', compact('category_services', 'one_category', 'category_city', 'all_categories', 'all_states') );        
+    }
+
+
+*/
+
+
 
 
     public function store(Request $request)

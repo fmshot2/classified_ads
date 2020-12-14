@@ -20,6 +20,8 @@ Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('use
 Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard');
 Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile');
 Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messages');
+Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service.search34');
+
 
 
 
@@ -37,6 +39,7 @@ Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messa
 //add service Routes
 Route::get('/createService', 'ServiceController@createService')->name('createService');
 Route::post('/storeService', 'ServiceController@storeService')->name('service.store');
+
 Route::get('/catdet/{id}', 'CategoryController@show')->name('catdet');
 Route::get('/allCategories/', 'CategoryController@allCategories')->name('allCategories');
 Route::get('/categoryDetail/{id}', 'CategoryController@categoryDetail')->name('categoryDetail');
@@ -47,6 +50,7 @@ Route::get('api/get-city-list/{id}','CategoryController@getCityList');
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
 Route::get('contact-us','ContactController@contact_us')->name('contact');
 Route::get('services/{id}','CategoryController@show')->name('services');
+
 
 
 
@@ -106,7 +110,6 @@ Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer'
 Route::any ( '/search',  'ServiceController@search')->name('search3');
 //Route::any ( '/searchforuser',  'ServiceController@searchSeller')->name('searchUser');
 
-Route::any ( '/searchOnServiceDetail',  'ServiceController@searchOnServiceDetail')->name('searchOnServiceDetail');
 
 
 //Views Composer 
