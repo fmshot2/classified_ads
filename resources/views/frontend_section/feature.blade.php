@@ -111,10 +111,8 @@
 
 
         @if(isset($featuredServices))
-
         <div class="row">
             @foreach($featuredServices as $featuredService)
-
             <div class="col-lg-3 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
                 <div class="property-box">
                     <div class="property-thumbnail">
@@ -184,87 +182,41 @@
             </div>
 
 
+    @endif
 
 
 
 
 
 
-   <div class="row">
-            @foreach($featuredServices as $featuredService)
-            <div class="col-lg-3 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
-                <div class="property-box">
-                    <div class="property-thumbnail">
-                        <a href="{{route('serviceDetail', $featuredService->id)}}" class="property-img">
-                            <div class="listing-badges">
-                                <span class="featured bg-warning">featured</span>
-                            </div>
-                            <div class="price-ratings-box">
-                                <p class="price">
-                                    {{$featuredService->experience}} Yrs Experience
-                                </p>
-                           
-                                </div>
-                                <div class="listing-time opening">{{$featuredService->user->name}}</div>
-                                <img class="d-block w-100" src="{{asset('images')}}/{{$featuredService->image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
-                            </a>
-                        </div>
-                        <div class="detail">
-                            <span class="d-flex justify-content-around"><a class="title " href="properties-details.html">{{$featuredService->name}}</a>
-                                <a class="pull-right" href="properties-details.html">
-                                    <i class="fa fa-map-marker text-warning"></i> {{$featuredService->state}}
-                                </a></span>
-
-                                <ul class="facilities-list clearfix">
-                                    <li>
-                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; 5 likes
-                                    </li>
-                                    <li class="" style="float: right;">
-                                        <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="{{route('serviceDetail', $featuredService->id)}}">Verified</a>
-                                        </li>
-                              
-                            </ul>
-                        </div>
-            
-                    </div>
-                </div> 
-                @endforeach
-            </div>
+  
        </div>
+               </div>
 
 
-        <div class="services-2 content-area-5 bg-grea-3">
+
+   <!--  <div class="services-2 content-area-5 bg-grea-3">
             <div class="container">
-                <!-- Main title -->
                 <div class="main-title">
                     <h1>What service are you looking for?</h1>
-                </div>
-                @if(isset($featuredServices))
-
-                @foreach($featuredServices as $featuredService)
-
-
-                <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
-                    {{ csrf_field() }}
-
-
+                </div>         
                     <div class="row wow animated" style="visibility: visible;">
-                        @foreach($categories as $category)
+                         
+                 <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
+                    {{ csrf_field() }}
+     @if(isset($categories))
 
+                @foreach($categories as $category)
                         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                             <div class="service-info-5 animate__animated animate__fadeInUp">
                                 <i class="flaticon-apartment text-warning"></i>
                                 <h4>{{$category->name}}</h4>
-                                <p>Lorem ipsum dolor sit amet, consectur adipisicing elit, sed do eiusmod tempor incididunt</p>
-                                <a href="{{ route('services', $category->id)}}">See Products</a>
+                                <p>See all services</p>
                             </div>
                         </div>
-                    </form>
-                    @endforeach
                     @endforeach
                     @endif
-
-
+                    </form>                
                 </div>
                 <div class="text-center read-more-2">
                     <a href="{{ route('allCategories')}}" class="btn-white">Read More</a>
@@ -272,8 +224,62 @@
             </div>
         </div>
 
-    </div> 
-    @endif
+-->
+
+
+
+    <div class="services-3 content-area bg-grea-3">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>What Service Are you Looking For?</h1>
+        </div>
+        <div class="row text-center">
+             @if(isset($categories))
+
+                @foreach($categories as $category)
+            <a href="{{route('serviceDetail', $category->id)}}"  class="col-lg-3 col-md-6 col-sm-6" style="cursor: pointer;">
+                <div class="service-info-2">
+                    <div class="s-info">
+                        <i class="flaticon-lock text-warning"></i>
+                        <span>{{$category->name}}</span>
+                    </div>
+                  
+                </div>
+            </a>
+            @endforeach
+            @endif
+           
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="service-info-5">
+                    <i class="fa fa-user"></i>
+                    <a href="https://efcontact.com/services/categories/jobs">
+                    <h4>Jobs</h4>
+                    </a>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <script type="text/javascript">
         $(document).ready(function() {
             $(".btn-submit").click(function(e){

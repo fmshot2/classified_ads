@@ -15,21 +15,17 @@
 <div class="sub-banner">
     <div class="container">
         <div class="page-name">
-            <h1>Properties </h1>
+            <h1>Search By City </h1>
             <ul>
                 <li><a href="https://efcontact.com">Home</a></li>
-                <li><span>/</span>Properties</li>
+                <li><span>/</span>Search By City</li>
             </ul>
         </div>
     </div>
 </div>
-<!-- Properties Details page start -->
-<div class="properties-details-page content-area-7">
-    <div class="container">
-        <div class="row">
 
 
-   <div class="container">
+  <!-- <div class="container">
             @if(isset($closerServices))
             <p> The Search results for your query <b> query</b> are :</p>
             <h2>Sample User details</h2>
@@ -49,12 +45,14 @@
                 </tbody>
             </table>
             @endif
-        </div>
+        </div>-->
 
-
+<!--<div class="row property-section">
 
             <div class="col-lg-8 col-md-12 col-xs-12">
-                <div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
+            	   @if(isset($services_in_city))
+                        @foreach($services_in_city as $service_in_city)
+                <div class="col-lg-3 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
                 <div class="property-box">
                     <div class="property-thumbnail">
                         <a href="http://localhost:8000/serviceDetail/2" class="property-img">
@@ -63,17 +61,17 @@
                             </div>
                             <div class="price-ratings-box">
                                 <p class="price">
-                                    4 Yrs Experience
+                                    {{$service_in_city->experience}} Yrs Experience
                                 </p>
                                 </div>
-                                <div class="listing-time opening">femi</div>
-                                <img class="d-block w-100" src="http://localhost:8000/images/1607874476.jpeg" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                <div class="listing-time opening">{{$service_in_city->user->name}},</div>
+                                <img class="d-block w-100" src="{{asset('images')}}/{{$service_in_city->image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                             </a>
                         </div>
                         <div class="detail">
-                            <span class="d-flex justify-content-around"><a class="title " href="properties-details.html">Music</a>
+                            <span class="d-flex justify-content-around"><a class="title " href="properties-details.html">{{$service_in_city->name}}</a>
                                 <a class="pull-right" href="properties-details.html">
-                                    <i class="fa fa-map-marker text-warning"></i> Lagos
+                                    <i class="fa fa-map-marker text-warning"></i> {{$service_in_city->city}}, {{$service_in_city->name}}
                                 </a></span>
 
                                 <ul class="facilities-list clearfix">
@@ -87,7 +85,92 @@
                         </div>
                     </div>
                 </div>
+                @endforeach
+                @endif
             </div>
+
+</div>-->
+<div class="container">
+
+<div class="row property-section mt-5">
+
+ <div class="col-lg-8 col-md-12 col-xs-12">
+<div class="row">
+
+
+
+		<div class="option-bar">
+                    <div class="float-left">
+                        <h4>
+                            <span class="heading-icon">
+                                <i class="fa fa-th-large"></i>
+                            </span>
+                            <span class="title-name">List of Services Available</span>
+                        </h4>
+                    </div>
+                    <div class="float-right cod-pad">
+                        <!-- Posts by category start -->
+                      
+                        <ul class="list-unstyled list-cat">
+                              @if(isset($featuredServices))
+                        @foreach($featuredServices as $featuredService)
+                                                        <a href="{{route('search_by_city', $featuredService->city)}}" class="change-view-btn"><i class="fa fa-home">{{$featuredService->city}}</i></a>
+                                                            @endforeach
+                        @endif
+                                                      
+                                                    </ul>
+                    </div>
+                </div>
+                @foreach($services_in_city as $service_in_city)
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="property-box">
+                            <div class="property-thumbnail">
+                                <a href="https://efcontact.com/services/milean-ventures" class="property-img">
+                                                                        <div class="price-ratings-box">
+                                        <p class="price">
+                                            ₦4,000,000
+                                        </p>
+                                     
+                                    </div>
+                                    <img class="d-block w-100" src="{{asset('images')}}/{{$service_in_city->image}}" alt="properties img">
+                                </a>
+                            </div>
+                            <div class="detail">
+                                <h1 class="title">
+                                    <a href="https://efcontact.com/services/milean-ventures">{{$service_in_city->name}}</a>
+                                </h1>
+                                                                login to contact  <strong>{{$service_in_city->name}}</strong>
+                            </div>
+                            <div class="footer clearfix">
+                                
+                                <div class="pull-right">
+                                    <a><i class="flaticon-time"></i> Jul 15, 2020</a>
+                                </div>
+                                <div class="pull-center">
+                                    <a><i class="fa fa-comments"></i> 0</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                                    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right">
                     <!-- Advanced search start -->
@@ -161,15 +244,15 @@
                         <h3 class="sidebar-title">Featured Services</h3>
                         <div class="s-border"></div>
                         <div class="m-border"></div>
-                        @if(isset($featuredServices))
-                        @foreach($featuredServices as $featuredService)
+                        @if(isset($services_in_city))
+                        @foreach($services_in_city as $service_in_city)
                                                 <div class="media">
                             <div class="media-left">
-                                <img class="media-object" src="{{asset('images')}}/{{$featuredService->image}}">
+                                <img class="media-object" src="{{asset('images')}}/{{$service_in_city->image}}">
                             </div>
                             <div class="media-body align-self-center">
                                 <h3 class="media-heading">
-                                    <a href="https://efcontact.com/services/emeka-auto-mechanic">{{$featuredService->user->name}}, {{$featuredService->name}}, {{$featuredService->city}}</a>
+                                    <a href="https://efcontact.com/services/emeka-auto-mechanic">{{$service_in_city->user->name}}, {{$service_in_city->name}}, {{$service_in_city->city}}</a>
                                 </h3>
                                                             </div>
                         </div>

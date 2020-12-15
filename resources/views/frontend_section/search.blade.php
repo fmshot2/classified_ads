@@ -188,7 +188,7 @@
 
 
 
-<!--<div class="container">
+<div class="container">
             @if(isset($user111))
             <p> The Search2 results for your query <b> query</b> are :</p>
             <h2>Sample User details</h2>
@@ -214,7 +214,7 @@
 
 
 @endif
-        </div>-->
+        </div>
 
 
 

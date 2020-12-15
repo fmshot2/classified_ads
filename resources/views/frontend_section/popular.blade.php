@@ -1,4 +1,4 @@
-<div class="categories content-area-8 bg-grea-3">
+<div class="categories content-area-8" style="background-color: #ffffe3">
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
