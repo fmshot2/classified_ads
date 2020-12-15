@@ -1,62 +1,62 @@
+    <!-- 
+        <!-- Top header start -->
+        <header class="top-header bg-warning  none-992" id="top-header-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-8 col-sm-7">
+                        <div class="list-inline">
+                            <a href="tel:1-8X0-666-8X88"><i class="fa fa-phone"></i>Need Support? 1-8X0-666-8X88</a>
+                            <a href="tel:info@themevessel.com"><i class="fa fa-envelope"></i>info@yellowpage.com</a>
+                        </div>
+                    </div>
 
-<!-- Top header start -->
-<header class="top-header bg-warning  none-992" id="top-header-2">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-8 col-sm-7">
-                <div class="list-inline">
-                    <a href="tel:1-8X0-666-8X88"><i class="fa fa-phone"></i>Need Support? 1-8X0-666-8X88</a>
-                    <a href="tel:info@themevessel.com"><i class="fa fa-envelope"></i>info@yellowpage.com</a>
-                </div>
-            </div>
+                    @guest
+                    <div class="col-lg-6 col-md-4 col-sm-5">
+                        <ul class="top-social-media pull-right">
+                            <li>
+                                <a href="/login" class="sign-in"><i class="fa fa-sign-in"></i> Login</a>
+                            </li>
+                            <li>
+                                <a href="/register" class="sign-in"><i class="fa fa-user"></i> Register</a>
+                            </li>
+                        </ul>
+                    </div>
+                    @endguest
 
-            @guest
-            <div class="col-lg-6 col-md-4 col-sm-5">
-                <ul class="top-social-media pull-right">
-                    <li>
-                        <a href="/login" class="sign-in"><i class="fa fa-sign-in"></i> Login</a>
-                    </li>
-                    <li>
-                        <a href="/register" class="sign-in"><i class="fa fa-user"></i> Register</a>
-                    </li>
+
+                    @auth
+                    <div class="col-lg-6 col-md-4 col-sm-5">
+                        <ul class="top-social-media pull-right">
+
+                            <div class="dropdown">
+                              <button class="btn btn-warning dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ Str::limit(Auth::user()->name, 8 ) }}
+                            </button>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @auth
+                                @if(Auth::user()->role == 'seller')
+                                <a class="dropdown-item" href="{{ route('createService') }}"> Post A Service </a>
+                                <a class="dropdown-item" href="{{ route('seller.dashboard') }}"> Dashboard </a>
+                                @endif 
+                                @endauth
+
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+
+                    </div>
                 </ul>
             </div>
-            @endguest
-
-
-            @auth
-            <div class="col-lg-6 col-md-4 col-sm-5">
-                <ul class="top-social-media pull-right">
-
-                    <div class="dropdown">
-                      <button class="btn btn-warning dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ Str::limit(Auth::user()->name, 8 ) }}
-                    </button>
-
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        @auth
-                        @if(Auth::user()->role == 'seller')
-                        <a class="dropdown-item" href="{{ route('createService') }}"> Post A Service </a>
-                        <a class="dropdown-item" href="{{ route('seller.dashboard') }}"> Dashboard </a>
-                        @endif 
-                        @endauth
-
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </div>
-
-            </div>
-        </ul>
+            @endauth
+        </div>
     </div>
-    @endauth
-</div>
-</div>
 </header>
 
 
@@ -79,29 +79,29 @@
                         </a>
 
                     </li>
-                       @auth
-                        @if(Auth::user()->role == 'buyer')
-<li class="nav-item dropdown">
+                    @auth
+                    @if(Auth::user()->role == 'buyer')
+                    <li class="nav-item dropdown">
                         <a class="nav-link" href="{{ route('home') }}" >
                             Find A Service
                         </a>
 
                     </li>
-       @endif 
-                        @endauth
+                    @endif 
+                    @endauth
 
 
 
-                      @auth
-                        @if(Auth::user()->role == 'seller')
+                    @auth
+                    @if(Auth::user()->role == 'seller')
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-toggle="modal" data-target="#postAService">
                             Post A Service
                         </a>
 
                     </li>
-                     @endif 
-                        @endauth
+                    @endif 
+                    @endauth
                     <!-- Modal -->
                     <div class="modal fade" id="postAService" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -122,21 +122,21 @@
                                                                 <input type="hidden" value="{{Auth::id()}}
                                                                 " class="input-text" name="user_id">
                                                                 @if ($errors->has('user_id'))
-                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('user_id') }}</strong>
-                            </span>
-                            @endif
+                                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                                    <strong>{{ $errors->first('user_id') }}</strong>
+                                                                </span>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6 col-md-6">
                                                             <div class="form-group">
                                                                 <label>SERVICE NAME</label>
                                                                 <input type="text" class="input-text" name="name" placeholder="Enter your service">
-                                                                   @if ($errors->has('name'))
-                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('name') }}</strong>
-                            </span>
-                            @endif
+                                                                @if ($errors->has('name'))
+                                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                                </span>
+                                                                @endif
                                                             </div>
                                                         </div>
 
@@ -144,12 +144,12 @@
                                                             <div class="form-group">
                                                                 <label>YEARS OF EXPERIENCE</label>
                                                                 <input type="text" class="input-text" name="experience" placeholder="Years of Experience?">
-                                                                 @if ($errors->has('experience'))
-                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('experience') }}</strong>
-                            </span>
-                            @endif
-                                      
+                                                                @if ($errors->has('experience'))
+                                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                                    <strong>{{ $errors->first('experience') }}</strong>
+                                                                </span>
+                                                                @endif
+                                                                
                                                             </div>
                                                         </div>
 
@@ -163,39 +163,39 @@
                                                               @endforeach
 
                                                           </select>
-                                                           @if ($errors->has('category'))
-                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('category') }}</strong>
-                            </span>
-                            @endif
-                                                      </div>
-                                                  </div>                         
-                                                  <div class="col-lg-6 col-md-6 mt-4" style="margin-bottom: -30px;">
+                                                          @if ($errors->has('category'))
+                                                          <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                            <strong>{{ $errors->first('category') }}</strong>
+                                                        </span>
+                                                        @endif
+                                                    </div>
+                                                </div>                         
+                                                <div class="col-lg-6 col-md-6 mt-4" style="margin-bottom: -30px;">
                                                     <div class="form-group">
                                                      <input type="file" class="input-text" onChange="previewFile(this)" name="file" class="form-control" />
                                                      <img id="previewImg" alt="Service Image" style="max-width:130px; 
                                                      margin-top:20px"/>
-                                                          @if ($errors->has('file'))
-                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('file') }}</strong>
-                            </span>
-                            @endif
-                                      
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>                                     
-                                     <h3 class="heading-2">DETAILED INFORMATION</h3>
-                                     <div class="row">
+                                                     @if ($errors->has('file'))
+                                                     <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                        <strong>{{ $errors->first('file') }}</strong>
+                                                    </span>
+                                                    @endif
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                     
+                                    <h3 class="heading-2">DETAILED INFORMATION</h3>
+                                    <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group mb-0">
                                                 <textarea class="input-text" name="description" placeholder="Add More Info about your service"></textarea>
-                                                 @if ($errors->has('description'))
-                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('description') }}</strong>
-                            </span>
-                            @endif
-                                    
+                                                @if ($errors->has('description'))
+                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                    <strong>{{ $errors->first('description') }}</strong>
+                                                </span>
+                                                @endif
+                                                
                                             </div>
                                         </div>
                                     </div>                      
@@ -204,51 +204,51 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" class="input-text" name="streetAddress" placeholder="Enter Your House No And Street Address">
-                                                 @if ($errors->has('streetAddress'))
-                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('streetAddress') }}</strong>
-                            </span>
-                            @endif
+                                                @if ($errors->has('streetAddress'))
+                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                    <strong>{{ $errors->first('streetAddress') }}</strong>
+                                                </span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" class="input-text" name="city" placeholder="Enter Your City Name">
                                                 @if ($errors->has('city'))
-                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('city') }}</strong>
-                            </span>
-                            @endif
+                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                    <strong>{{ $errors->first('city') }}</strong>
+                                                </span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" class="input-text" name="state" placeholder="Enter Your State">
                                                 @if ($errors->has('state'))
-                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('state') }}</strong>
-                            </span>
-                            @endif
+                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                    <strong>{{ $errors->first('state') }}</strong>
+                                                </span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" class="input-text" name="closestBusstop" placeholder="Enter Your Closest Busstop">
                                                 @if ($errors->has('closestBusstop'))
-                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('closestBusstop') }}</strong>
-                            </span>
-                            @endif
+                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                    <strong>{{ $errors->first('closestBusstop') }}</strong>
+                                                </span>
+                                                @endif
                                             </div>
                                         </div>
-                                         <div class="col-md-12">
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <input type="text" class="input-text" name="phone" placeholder="Enter Your Contact Number">
-                                                 @if ($errors->has('phone'))
-                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('phone') }}</strong>
-                            </span>
-                            @endif
+                                                @if ($errors->has('phone'))
+                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                    <strong>{{ $errors->first('phone') }}</strong>
+                                                </span>
+                                                @endif
                                             </div>
                                         </div>
 
@@ -302,12 +302,21 @@
       </div>
   </div>
 </div>          
+
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Report
+    <a class="nav-link" href="{{route('faq')}}" id="">
+        FAQs
     </a>
 
 </li>
+
+<li class="nav-item dropdown">
+    <a class="nav-link" href="{{route('contact')}}" id="">
+        Contact Us
+    </a>
+
+</li>
+
 </ul>
 
 @auth
@@ -354,3 +363,4 @@
     }
 </script>
 
+-->

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Service;
-
+use App\State;
 use Illuminate\Support\Str;
 use Illuminate\Http\File;
 use DB;
@@ -102,8 +102,16 @@ class CategoryController extends Controller
     {
         
         $one_category = Category::find($id);
-        $categories = Service::where('id', $id)->get();
-        return view ('categoryDetails', compact('categories', 'one_category') );        
+        $category_services = Service::where('id', $id)->get();
+        //$category_city = Service::all()->pluck("city");
+        $category_city = Service::all()->random(4);
+        $all_states = State::all();
+        $all_categories = Category::all();
+        $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+        //$category_id = $id;
+        //return $category_city;
+
+        return view ('services', compact('category_services', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices') );        
     }
 
 

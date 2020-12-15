@@ -16,6 +16,7 @@
         </div>
     </div>
 </div>
+
 <!-- Properties Details page start -->
 <div class="properties-details-page content-area-7">
     <div class="container">
@@ -64,6 +65,88 @@
                                 </div>
                             </div>
                         </div>
+
+@if(isset($userser3))
+<div class="row">
+    @foreach($userser3 as $userser33)
+
+<div class="col-lg-3 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
+                <div class="property-box">
+                    <div class="property-thumbnail">
+                        <a href="http://localhost:8000/serviceDetail/1" class="property-img">
+                            <div class="listing-badges">
+                                <span class="featured bg-warning">featured</span>
+                            </div>
+                            <div class="price-ratings-box">
+                                <p class="price">
+                                    4 Yrs Experience
+                                </p>
+                                 
+                                </div>
+                                <div class="listing-time opening">femi</div>
+                                <img class="d-block w-100" src="http://localhost:8000/images/1607874436.jpeg" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                            </a>
+                        </div>
+                        <div class="detail">
+                            <span class="d-flex justify-content-around"><a class="title " href="properties-details.html">{{$userser33->name}}r</a>
+                                <a class="pull-right" href="properties-details.html">
+                                    <i class="fa fa-map-marker text-warning"></i> Lagos
+                                </a></span>
+
+                                <ul class="facilities-list clearfix">
+                                    <li>
+                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; 5 likes
+                                    </li>
+                                    <li class="" style="float: right;">
+                                        <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="http://localhost:8000/serviceDetail/1">Verified</a>
+                                        </li>
+                         
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+                    @endforeach
+
+</div>
+<!--<div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
+                <div class="property-box">
+                    <div class="property-thumbnail">
+                        <a href="http://localhost:8000/serviceDetail/1" class="property-img">
+                            <div class="listing-badges">
+                                <span class="featured bg-warning">featured</span>
+                            </div>
+                            <div class="price-ratings-box">
+                                <p class="price">
+                                    4 Yrs Experience
+                                </p>
+                                
+                                </div>
+                                <div class="listing-time opening">femi</div>
+                                <img class="d-block w-100" src="http://localhost:8000/images/1607874436.jpeg" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                            </a>
+                        </div>
+                        <div class="detail">
+                            <span class="d-flex justify-content-around"><a class="title " href="properties-details.html">Home Lesson Teacher</a>
+                                <a class="pull-right" href="properties-details.html">
+                                    <i class="fa fa-map-marker text-warning"></i> Lagos
+                                </a></span>
+
+                                <ul class="facilities-list clearfix">
+                                    <li>
+                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; 5 likes
+                                    </li>
+                                    <li class="" style="float: right;">
+                                        <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="http://localhost:8000/serviceDetail/1">Verified</a>
+                                        </li>
+                            
+                            </ul>
+                        </div>
+                   
+                    </div>
+                </div>
+-->
+@endif
+
                         <!-- main slider carousel items -->
                         <div class="carousel-inner">
                             <div class="active item carousel-item" data-slide-number="0">
@@ -149,66 +232,8 @@
                             </div>                     
                             <div class="tab-pane fade " id="three" role="tabpanel" aria-labelledby="three-tab">
                                 <div class="property-details mb-40">
-                                    <h3 class="heading-2">Property Details</h3>
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-6">
-                                            <ul>
-                                                <li>
-                                                    <strong>Property Id:</strong>215
-                                                </li>
-                                                <li>
-                                                    <strong>Price:</strong>$1240/ Month
-                                                </li>
-                                                <li>
-                                                    <strong>Property Type:</strong>House
-                                                </li>
-                                                <li>
-                                                    <strong>Bathrooms:</strong>3
-                                                </li>
-                                                <li>
-                                                    <strong>Bathrooms:</strong>2
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-4 col-sm-6">
-                                            <ul>
-                                                <li>
-                                                    <strong>Property Lot Size:</strong>800 ft2
-                                                </li>
-                                                <li>
-                                                    <strong>Land area:</strong>230 ft2
-                                                </li>
-                                                <li>
-                                                    <strong>Year Built:</strong>2018
-                                                </li>
-                                                <li>
-                                                    <strong>Available From:</strong>2018
-                                                </li>
-                                                <li>
-                                                    <strong>Garages:</strong>2
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-4 col-sm-6">
-                                            <ul>
-                                                <li>
-                                                    <strong>Sold:</strong>Yes
-                                                </li>
-                                                <li>
-                                                    <strong>City:</strong>Usa
-                                                </li>
-                                                <li>
-                                                    <strong>Parking:</strong>Yes
-                                                </li>
-                                                <li>
-                                                    <strong>Property Owner:</strong>Sohel Rana
-                                                </li>
-                                                <li>
-                                                    <strong>Zip Code: </strong>2451
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    <h6 class="heading-2">This User has {{$service_likes}} likes</h6>
+                                  
                                 </div>
                             </div>
                             <div class="tab-pane fade " id="four" role="tabpanel" aria-labelledby="four-tab">
@@ -217,6 +242,8 @@
                                         Property Video
                                     </h3>
                                     <iframe src="https://www.youtube.com/embed/5e0LxrLSzok" allowfullscreen=""></iframe>
+                                    <iframe width="560" height="315" src="{{$serviceDetail->video_link}}" frameborder="0" allowfullscreen></iframe> 
+
                                 </div>
                             </div>
                             <div class="tab-pane fade " id="five" role="tabpanel" aria-labelledby="five-tab">
@@ -318,7 +345,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="form-group number">
-                                        <input type="text" name="buyer_phone" class="form-control" placeholder="Your Phone Number">
+                                        <input type="text" name="phone" class="form-control" placeholder="Your Phone Number">
                                     </div>
                                 </div>
                                                              
@@ -329,7 +356,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <div class="send-btn">
-                                        <button type="submit" class="btn btn-md button-theme btn-submit">Send Message</button>
+                                        <button type="submit" class="btn btn-md btn-submit btn-warning">Send Message</button>
                                     </div>
                                 </div>
                             </div>
@@ -346,7 +373,7 @@
                     <div class="sidebar widget advanced-search none-992">
                         <h3 class="sidebar-title">Advanced Search</h3>
 
-                         <form action="{{route('searchOnServiceDetail')}}" method="GET" enctype="multipart/form-data">
+                       <form action="{{route('search3')}}" method="GET" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group name">
@@ -361,9 +388,29 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group subject">
-                                        <input type="hidden" name="id" value={{$serviceDetail_id}} class="form-control">
+                                        <input type="text" name="serviceDetail_id" value={{$serviceDetail_id}} class="form-control">
                                     </div>
                                 </div>
+
+<!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
+                          <div class="form-group subject">
+                            <select class="form-control" id="state" name="state">
+                                          
+                                @if(isset($all_states))
+
+                               @foreach($all_states as $state)
+
+                               <option value="{{$state->id}}"> {{ $state->name }}  </option> 
+                               @endforeach
+                                @endif                         
+
+                           </select>
+                       </div>
+                   </div>-->
+
+
+
+
                                 <div class="col-lg-6 col-md-12">
                                     <div class="send-btn">
                                         <button type="submit" class="btn btn-md button-theme">Search</button>

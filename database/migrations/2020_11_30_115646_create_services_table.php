@@ -21,17 +21,18 @@ class CreateServicesTable extends Migration
             $table->text('description');
             $table->string('city');
             $table->string('state');
-            $table->string('streetAddress');
-            $table->string('closestBusstop');
-            $table->string('category');
+            $table->string('streetAddress')->nullable();
+            $table->string('closestBusstop')->nullable();
+            //$table->string('category');
             //$table->string('phone')->nullable();
             $table->string('image');
             $table->string('experience');
             $table->string('phone');
+            $table->string('video_link')->nullable();
 
-            $table->unsignedInteger('price');
-            $table->unsignedInteger('bedroom');
-            $table->unsignedInteger('bathroom');
+            $table->unsignedInteger('price')->nullable();
+            $table->integer('min_price')->nullable();
+            $table->interger('max_price')->nullable();
             //$table->unsignedInteger('price');
 
 
@@ -42,7 +43,7 @@ class CreateServicesTable extends Migration
 
             $table->unsignedInteger('user_id');
             //$table->unsignedInteger('like_id');
-            //$table->unsignedInteger('category_id');
+            $table->unsignedInteger('category_id');
 
             $table->timestamps();
 
