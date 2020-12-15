@@ -21,7 +21,7 @@ class CreateMessagesTable extends Migration
             $table->string('buyer_email')->nullable();
             $table->string('subject')->nullable();
             $table->string('phone');
-            $table->boolean('status')->default(0);
+            $table->boolean('status')->default(0)->nullable();
             $table->unsignedInteger('buyer_id')->nullable();
             $table->text('description');
             $table->timestamps();

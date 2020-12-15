@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Message;
+use App\Notification;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,7 +73,10 @@ Route::get('/seller/message/unread', 'SellerController@unreadMessage')->name('se
 Route::get('/seller/message/read', 'SellerController@readMessage')->name('seller.message.read');
 Route::get('/seller/message/all', 'SellerController@allMessage')->name('seller.message.all');
 Route::delete('/seller/message/{id}', 'SellerController@destroyMessage')->name('seller.message.delete');
-Route::get('/seller/message/{id}', 'SellerController@viewMessage')->name('seller.message.view');
+Route::get('/seller/message/{slug}', 'SellerController@viewMessage')->name('seller.message.view');
+Route::get('/seller/message/reply/{slug}', 'SellerController@replyMessage')->name('seller.message.reply');
+Route::post('/seller/message/reply/', 'SellerController@storeReplyMessage')->name('seller.message.reply.store');
+
 
 Route::get('/seller/dashboard/service/active', 'SellerController@activeService')->name('seller.service.active');
 Route::get('/seller/dashboard/service/pending', 'SellerController@pendingService')->name('seller.service.pending');
@@ -80,6 +84,9 @@ Route::get('/seller/dashboard/service/all', 'SellerController@allService')->name
 Route::post('/service/store/', 'SellerController@storeService')->name('service.save');
 
 Route::get('/seller/notification/unread', 'SellerController@unreadNotification')->name('seller.notification.unread');
+Route::get('/seller/notification/all', 'SellerController@allNotification')->name('seller.notification.all');
+Route::get('/seller/notification/{slug}', 'SellerController@viewNotification')->name('seller.notification.view');
+
 
 
 Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
@@ -129,7 +136,11 @@ View::composer(['layouts.seller_partials.navbar', 'layouts.seller_partials.sideb
     $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
     $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
 
-   $view->with( compact( 'unread_message_count', 'unread_message') );
+    $unread_notification_count = Notification::where('status', 0)->count();
+    $unread_notification = Notification::where('status', 0);
+    $check_unread_notification_table = collect($unread_notification)->isEmpty();
+    $unread_notification = $check_unread_notification_table == true ? 0 : $unread_notification->orderBy('id', 'desc')->take(5)->get();
+   $view->with( compact( 'unread_message_count', 'unread_message', 'unread_notification_count', 'unread_notification') );
 
 });
 

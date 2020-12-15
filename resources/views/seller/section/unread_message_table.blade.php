@@ -1,66 +1,108 @@
 
 
-<!-- TO DO List -->
-<div class="box">
-  <div class="box-header ui-sortable-handle" style="cursor: move;">
-    <i class="fa fa-commenting"></i>
+  <!-- Content Header (Page header) -->
+  @if (url()->current() == !route('seller.dashboard') )
+  <section class="content-header p-3 box">
+    <h1>
+      Dashboard
+      <small>Control panel</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Message </a></li>
+      <li class="active">Dashboard</li>
+    </ol>
+  </section>
+  @endif
 
-    <h3 class="box-title"> {{ url()->current() == route('seller.message.unread') ?  'Unread Message' : 'Recent Unread Message' }} {{ $unread_message->count() }} </h3>
+  @include('layouts.backend_partials.status')
 
-    @if (url()->current() == route('seller.message.unread') )
-    <div class="box-tools pull-right">
+  <div class="box">
 
-      {{ $unread_message->links() }} 
+    <div class="box-header with-border">
+      <h3 class="box-title"> {{ url()->current() == route('seller.message.unread') ?  'Unread Message' : 'Recent Unread Message' }} {{ $unread_message->count() }} </h3>
+
+
+      @if (url()->current() == route('seller.message.all') )
+      <div class="box-tools">
+        <form class="" method="GET" action="{{ route('admin.service.search') }}">
+        <div class="input-group input-group-sm" style="width: 150px;">
+          <input type="search" class="form-control pull-right" placeholder="Search" name="query"  value="{{ isset($query) ? $query : '' }}" required>
+
+          <div class="input-group-btn">
+            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+          </div>
+        </div>
+      </form>
+      </div>
+      @endif 
 
     </div>
-    @endif
+    <!-- /.box-header -->
+    <div class="box-body ">
+      <table class="table table-bordered">
+
+        <tbody>
+
+          <tr>
+            <th> # </th>
+            <th> From </th>
+            <th> Email </th>
+            <th> Message </th>
+            <th> Status </th>
+            <th> Date </th>
+            <th> Action </th>
+          </tr>
+
+          <tr>
+        @foreach($unread_message as $key => $unread_messages)
+            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+            <td> {{ $unread_messages->buyer_name }} </td>
+            <td> {{ $unread_messages->buyer_email }} </td>
+            <td> {{ Str::limit($unread_messages->description, 30) }} </td>
+            <td> {{ $unread_messages->status == 1 ? 'Active' : 'Pending' }} </td>
+            <td> {{ $unread_messages->created_at->diffForHumans() }} </td>
+
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+
+
+
+                  <!-- Edit -->
+                    <li> <a href="{{ route('seller.message.reply',$unread_messages->slug) }}" class="btn btn-block" type="submit" style="margin-left: 8px;"> Reply </a> </li>
+                    <!-- View -->
+                    <li>  <a href=" {{ route('seller.message.view',$unread_messages->slug) }}" class="btn btn-block" style="margin-left: 8px;"> View </a> </li>
+                    <!-- Delete -->
+
+                </ul>
+
+              </ul>
+            </div>
+          </td>
+
+        </tr>
+
+        @endforeach
+
+      </tbody>
+    </table>
   </div>
+  <!-- /.box-body -->
 
-  <hr>
+@if (url()->current() == route('seller.message.unread') )
+<div class="box-footer clearfix">
 
-  <!-- /.box-header -->
-  <div class="box-body">
-    <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-    <ul class="todo-list ui-sortable">
-      @foreach($unread_message as $unread_messages)
+{{ $unread_message->links() }}
 
-      @empty($unread_messages)
-      <div class="box"> No Message Found </div>
-      @endempty
-
-      <li>
-        <!-- drag handle -->
-        <span class="handle ui-sortable-handle">
-          <i class="fa fa-ellipsis-v"></i>
-          <i class="fa fa-ellipsis-v"></i>
-        </span>
-        <!-- checkbox -->
-        <label class="control control-checkbox">
-         <input type="checkbox">
-         <span class="control_indicator"></span>
-       </label>
-       <!-- todo text -->
-       <span class="text"> {{ Str::limit( $unread_messages->description, 100) }}</span>
-       <!-- Emphasis label -->
-       <small class="label label-danger"><i class="fa fa-clock-o"></i>  {{ $unread_messages->created_at->diffForHumans() }} </small>
-       <!-- General tools such as edit or delete-->
-       <div class="tools">
-        <i class="fa fa-eye"></i>
-        <i class="fa fa-trash-o"></i>
-      </div>
-    </li>
-    @endforeach
-  </ul>
-
-</div>
-<!-- /.box-body -->
-@if (url()->current() == route('seller.dashboard') )
-@if( $unread_message->count() == !0)
-<div class="box-footer clearfix no-border">
- <button type="button" class="btn btn-warning pull-right"><i class="fa fa-list"></i>   See All</button>        
 </div>
 @endif
-@endif
+
 </div>
 
-<!-- /.box -->
+@include('seller/modal/create_service') 
+
+

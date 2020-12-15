@@ -1,6 +1,4 @@
 
-
-
   <!-- Content Header (Page header) -->
   @if (url()->current() == !route('seller.dashboard') )
   <section class="content-header p-3 box">
@@ -47,6 +45,7 @@
           <tr>
             <th> # </th>
             <th> From </th>
+            <th> Email </th>
             <th> Message </th>
             <th> Status </th>
             <th> Date </th>
@@ -57,6 +56,7 @@
         @foreach($all_message as $key =>  $all_messages)
             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
             <td> {{ $all_messages->buyer_name }} </td>
+            <td> {{ $all_messages->buyer_email }} </td>
             <td> {{ Str::limit($all_messages->description, 30) }} </td>
             <td> {{ $all_messages->status == 1 ? 'Active' : 'Pending' }} </td>
             <td> {{ $all_messages->created_at->diffForHumans() }} </td>
@@ -72,10 +72,10 @@
 
 
                   <!-- Edit -->
-                    <li>  <a class="btn btn-block" type="submit" style="margin-left: 8px;"> Reply </a> </li>
-
-                  <!-- Delete -->
-                    <li>  <a href=" {{ route('seller.message.view',$all_messages->slug) }}" class="btn btn-block" style="margin-left: 8px;"> View </a> </li>  
+                    <li> <a href="{{ route('seller.message.reply',$all_messages->slug) }}" class="btn btn-block" type="submit" style="margin-left: 8px;"> Reply </a> </li>
+                    <!-- View -->
+                    <li>  <a href=" {{ route('seller.message.view',$all_messages->slug) }}" class="btn btn-block" style="margin-left: 8px;"> View </a> </li>
+                    <!-- Delete -->
 
                 </ul>
 

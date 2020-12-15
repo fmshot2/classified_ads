@@ -1,66 +1,88 @@
 
 
-<!-- TO DO List -->
-<div class="box">
-  <div class="box-header ui-sortable-handle" style="cursor: move;">
-    <i class="fa fa-bell"></i>
+  <!-- Content Header (Page header) -->
+  @if (url()->current() == !route('seller.dashboard') )
+  <section class="content-header p-3 box">
+    <h1>
+      Dashboard
+      <small>Control panel</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Message </a></li>
+      <li class="active">Dashboard</li>
+    </ol>
+  </section>
+  @endif
 
+  @include('layouts.backend_partials.status')
+
+  <div class="box">
+
+    <div class="box-header with-border">
     <h3 class="box-title"> {{ url()->current() == route('seller.notification.unread') ?  'Unread Notification' : 'Recent Unread Notification' }} {{ $unread_notification->count() }} </h3>
 
-    @if (url()->current() == route('seller.notification.unread') )
-    <div class="box-tools pull-right">
+      @if (url()->current() == route('seller.message.all') )
+      <div class="box-tools">
+        <form class="" method="GET" action="{{ route('admin.service.search') }}">
+        <div class="input-group input-group-sm" style="width: 150px;">
+          <input type="search" class="form-control pull-right" placeholder="Search" name="query"  value="{{ isset($query) ? $query : '' }}" required>
 
-      {{ $unread_notification->links() }} 
+          <div class="input-group-btn">
+            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+          </div>
+        </div>
+      </form>
+      </div>
+      @endif 
 
     </div>
-    @endif
+    <!-- /.box-header -->
+    <div class="box-body ">
+      <table class="table table-bordered">
+
+        <tbody>
+
+          <tr>
+            <th> # </th>
+            <th> Notification </th>
+            <th> Date </th>
+          </tr>
+
+          <tr>
+        @foreach($unread_notification as $key => $unread_notifications)
+
+            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+            <td> {{ Str::limit( $unread_notifications->description, 100) }} </td>
+            <td> {{ $unread_notifications->created_at->diffForHumans() }} </td>
+
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+
+              </ul>
+            </div>
+          </td>
+
+        </tr>
+
+        @endforeach
+
+      </tbody>
+    </table>
   </div>
+  <!-- /.box-body -->
 
-  <hr>
+@if (url()->current() == route('seller.notification.unread') )
+<div class="box-footer clearfix">
 
-  <!-- /.box-header -->
-  <div class="box-body">
-    <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-    <ul class="todo-list ui-sortable">
-      @foreach($unread_notification as $unread_notifications)
+{{ $unread_notification->links() }}
 
-      @empty($unread_notifications)
-      <div class="box"> No Notification Found </div>
-      @endempty
-
-      <li>
-        <!-- drag handle -->
-        <span class="handle ui-sortable-handle">
-          <i class="fa fa-ellipsis-v"></i>
-          <i class="fa fa-ellipsis-v"></i>
-        </span>
-        <!-- checkbox -->
-        <label class="control control-checkbox">
-         <input type="checkbox">
-         <span class="control_indicator"></span>
-       </label>
-       <!-- todo text -->
-       <span class="text"> {{ Str::limit( $unread_notifications->description, 100) }}</span>
-       <!-- Emphasis label -->
-       <small class="label label-danger"><i class="fa fa-clock-o"></i>  {{ $unread_notifications->created_at->diffForHumans() }} </small>
-       <!-- General tools such as edit or delete-->
-       <div class="tools">
-        <i class="fa fa-eye"></i>
-        <i class="fa fa-trash-o"></i>
-      </div>
-    </li>
-    @endforeach
-  </ul>
-
-</div>
-<!-- /.box-body -->
-@if (url()->current() == route('seller.dashboard') )
-@if( $unread_notification->count() == !0)
-<div class="box-footer clearfix no-border">
- <button type="button" class="btn btn-warning pull-right"><i class="fa fa-list"></i>   See All</button>        
 </div>
 @endif
-@endif
+
 </div>
 
-<!-- /.box -->
+

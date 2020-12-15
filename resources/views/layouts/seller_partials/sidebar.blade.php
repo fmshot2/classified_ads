@@ -6,7 +6,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="image">
-        <img src="../images/user2-160x160.jpg" class="img-circle" alt="User Image">
+        <img src="/images/user-icon.png" class="img-circle" alt="User Image">
       </div>
       <div class="info">
         <p>MultiPurpose Themes</p>
@@ -69,7 +69,14 @@
         </ul>
       </li>
 
-
+      <li class="treeview">
+        <a href=" {{route ('seller.notification.all') }} ">
+          <i class="fa fa-bell"></i> <span> General Notice </span>
+          <span class="pull-right-container">
+            <small class="label pull-right bg-danger"> {{ $unread_notification_count }}  </small> 
+          </span>
+        </a>
+      </li>
 
     </ul>
 
