@@ -16,10 +16,17 @@ use App\Message;
 
 Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{id}', 'ServiceController@serviceDetail')->name('serviceDetail');
+Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service.search');
+Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');
+
+
+
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
 Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard');
 Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile');
 Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messages');
+Route::get('services/{id}','CategoryController@show')->name('services');
+
 
 
 // add comment routes
@@ -33,6 +40,7 @@ Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messa
 //add service Routes
 Route::get('/createService', 'ServiceController@createService')->name('createService');
 Route::post('/storeService', 'ServiceController@storeService')->name('service.store');
+
 Route::get('/catdet/{id}', 'CategoryController@show')->name('catdet');
 Route::get('/allCategories/', 'CategoryController@allCategories')->name('allCategories');
 Route::get('/categoryDetail/{id}', 'CategoryController@categoryDetail')->name('categoryDetail');
@@ -41,6 +49,8 @@ Route::get('/admin/user_register/ajax/{state_id}',array('as'=>'user_register.aja
 Route::get('/getlocal_governments/{id}','CategoryController@getlocal_governments');
 Route::get('api/get-city-list/{id}','CategoryController@getCityList');
 
+Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
+Route::get('contact-us','ContactController@contact_us')->name('contact');
 
 
 Route::get('/register', 'AuthController@showRegister')->name('register');
@@ -98,10 +108,11 @@ Route::get('/admin/dashboard/user/search', 'AdminController@userSearch')->name('
 Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.seller');
 Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer');
 
-Route::any ( '/search',  'ServiceController@search3')->name('search3');
+Route::any ( '/search',  'ServiceController@search')->name('search3');
+Route::any ( '/search4',  'ServiceController@search3')->name('search4');
+
 //Route::any ( '/searchforuser',  'ServiceController@searchSeller')->name('searchUser');
 
-Route::any ( '/searchOnServiceDetail',  'ServiceController@searchOnServiceDetail')->name('searchOnServiceDetail');
 
 
 //Views Composer 

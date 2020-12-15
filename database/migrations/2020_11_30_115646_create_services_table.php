@@ -23,6 +23,8 @@ class CreateServicesTable extends Migration
             $table->string('state');
             $table->string('streetAddress');
             $table->string('closestBusstop');
+            $table->string('streetAddress')->nullable();
+            $table->string('closestBusstop')->nullable();
             //$table->string('category');
             //$table->string('phone')->nullable();
 
@@ -35,9 +37,14 @@ class CreateServicesTable extends Migration
 
             $table->string('experience');
             $table->string('phone');
+            $table->string('video_link')->nullable();
 
             $table->float('min_price', 10, 2);
             $table->float('max_price', 10, 2);
+            $table->unsignedInteger('price')->nullable();
+            $table->integer('min_price')->nullable();
+            $table->interger('max_price')->nullable();
+            //$table->unsignedInteger('price');
 
 
             $table->boolean('is_featured')->nullable()->default(true);

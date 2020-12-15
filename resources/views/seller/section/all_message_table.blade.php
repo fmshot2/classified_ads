@@ -75,7 +75,7 @@
                     <li>  <a class="btn btn-block" type="submit" style="margin-left: 8px;"> Reply </a> </li>
 
                   <!-- Delete -->
-                    <li>  <a href=" {{ route('seller.message.view',$all_messages->id) }}" class="btn btn-block" style="margin-left: 8px;"> View </a> </li>  
+                    <li>  <a href=" {{ route('seller.message.view',$all_messages->slug) }}" class="btn btn-block" style="margin-left: 8px;"> View </a> </li>  
 
                 </ul>
 

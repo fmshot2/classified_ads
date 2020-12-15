@@ -83,10 +83,13 @@
                             <div class="col-lg-2 col-md-3" style="">
                               <div class="form-group">
                                 <select class="form-control" id="exampleFormControlSelect1" name="category">
+                                          @if(isset($categories))
+
                                     @foreach($categories as $category)
 
                                     <option value="1"> {{ $category->name }}  </option> 
                                     @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -94,11 +97,14 @@
                         <div class="col-lg-2 col-md-3" style="">
                           <div class="form-group">
                             <select class="form-control" id="state" name="state">
+                                          @if(isset($categories))
 
                                @foreach($states as $state)
 
                                <option value="{{$state->id}}"> {{ $state->name }}  </option> 
                                @endforeach
+                                                                   @endif
+
 
                            </select>
                        </div>
@@ -129,6 +135,96 @@
 </div>
 </div>
 </div>
+
+
+
+
+
+
+
+
+ <div class="row">
+            @if(isset($user111))
+                                  @foreach($user111 as $user)
+            <div class="col-lg-3 col-md-6 col-sm-12 filtr-item" style="">
+                <div class="property-box">
+                    <div class="property-thumbnail">
+                        <a href="{{route('serviceDetail', $user->id)}}" class="property-img">
+                            <div class="listing-badges">
+                                <span class="featured bg-warning">featured</span>
+                            </div>
+                            <div class="price-ratings-box">
+                                <p class="price">
+                                    {{$user->experience}} Yrs Experience
+                                </p>
+                                  
+                                </div>
+                                <div class="listing-time opening">{{$user->user->name}}</div>
+                                <img class="d-block w-100" src="{{asset('images')}}/{{$user->image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                            </a>
+                        </div>
+                        <div class="detail">
+                            <span class="d-flex justify-content-around"><a class="title " href="properties-details.html">{{$user->name}}</a>
+                                <a class="pull-right" href="properties-details.html">
+                                    <i class="fa fa-map-marker text-warning"></i> {{$user->state}}
+                                </a></span>
+
+                                <ul class="facilities-list clearfix">
+                                    <li>
+                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; 5 likes
+                                    </li>
+                                    <li class="" style="float: right;">
+                                        <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="{{route('serviceDetail', $user->id)}}">Verified</a>
+                                        </li>
+                                     </ul>                         
+                        </div>                 
+                </div> 
+            </div>
+                            @endforeach
+                            @endif
+
+</div>
+
+
+
+
+<div class="container">
+            @if(isset($user111))
+            <p> The Search2 results for your query <b> query</b> are :</p>
+            <h2>Sample User details</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($user111 as $user)
+                    <tr>
+                        <td>{{$user->city}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+@endforeach
+       
+
+
+
+@endif
+        </div>
+
+
+
+
+
+
+
+
+
+          
 
 
 
