@@ -17,9 +17,10 @@ use App\Notification;
 
 Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{id}', 'ServiceController@serviceDetail')->name('serviceDetail');
+Route::get('/allservices', 'ServiceController@allServices')->name('allServices');
 Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service.search');
 Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');
-
+Route::get('/sellers', 'ServiceController@allSellers')->name('seller.sellers');
 
 
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
@@ -29,9 +30,6 @@ Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messa
 Route::get('services/{id}','CategoryController@show')->name('services');
 Route::get('/categoryDetail/{id}', 'CategoryController@categoryDetail')->name('categoryDetail');
 Route::get('/catdet/{id}', 'CategoryController@show')->name('catdet');
-
-
-
 
 
 // add comment routes

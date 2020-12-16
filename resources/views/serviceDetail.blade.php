@@ -88,7 +88,7 @@
                             </div>
                             <div class="location">
                                 <a href="properties-details.html" tabindex="-1">
-                                    
+
                                 </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>Lagos</span>
                             </div>
                             
@@ -286,7 +286,7 @@
         </div>
         <div class="tab-pane fade" id="six" role="tabpanel" aria-labelledby="six-tab">
             <div class="properties-description mb-50">                              
-                
+
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <!-- Heading -->
                     <h3 class="heading-2">Similar Services</h3>
@@ -316,7 +316,7 @@
                                </td>
                                <td class="hedin-div">  <figure class="hedin-div"><i class="fa fa-map-marker"></i> {{$similarProduct->state}}, &nbsp; {{$similarProduct->city}}</figure></td>
                                <td> <span class="hedin-div">{{$similarProduct->likes->count()}}</span></td>
-                               
+
                            </tr>
                            @endforeach
                            @endif
@@ -326,15 +326,14 @@
            </div>
        </div>
    </div>
-   
+
 </div>
 </div>
 
 
 
 
-
-
+@auth
 <ul class="comments">
     <li>
         @if(isset($userMessages))
@@ -388,6 +387,7 @@
                         
                     </ul>
 
+                    @endauth
 
 
 
@@ -410,27 +410,22 @@
 
 
                     <!-- Contact 1 start -->
-                    <div class="contact-1 mtb-50">
-                        <h3 class="heading">Contact Seller</h3>
+                    <div class="contact-1 mb-0">
+                        <h3 class="heading mb-0">Contact Seller</h3>
                         <form id="myform" action="{{ route('user.message')}}" method="POST">
                             <div class="row">
                                 {{ csrf_field() }}
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     <div class="form-group name">
-                                        <input type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
+                                        <input type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name" >
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                     <div class="form-group name">
                                         <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-                                    <div class="form-group email"> 
 
-                                        <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
 
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="form-group name">
@@ -442,6 +437,15 @@
                                         <input type="email" name="buyer_email" class="form-control" placeholder="Your Email">
                                     </div>
                                 </div>
+
+                                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                                    <div class="form-group email"> 
+
+                                        <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="form-control" placeholder="Email">
+                                    </div>
+                                </div>
+
+
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="form-group subject">
                                         <input type="text" name="subject" class="form-control" placeholder="Subject">
@@ -497,7 +501,7 @@
                                 </div>-->
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group subject">
-                                        <input type="text" name="serviceDetail_id" value={{$serviceDetail_id}} class="form-control">
+                                        <input type="hidden" name="serviceDetail_id" value={{$serviceDetail_id}} class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
@@ -514,8 +518,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-6">
+                            <div class="col-lg-6">
                                     <div class="form-group">
                                         <input type="number" name="minprice" id="minprice" class="form-control" placeholder="Min Price" autocomplete="off">
                                     </div>
@@ -525,7 +528,6 @@
                                         <input type="number" name="maxprice" id="maxprice" class="form-control" placeholder="Max Price" autocomplete="off">
                                     </div>
                                 </div>
-                            </div>
                             <div class="form-group">
                                 <div class="switch">
                                     <label>

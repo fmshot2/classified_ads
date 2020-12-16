@@ -79,18 +79,12 @@
                         </a>
 
                     </li>
-                    @auth
-                    @if(Auth::user()->role == 'buyer')
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="{{ route('home') }}" >
-                            Find A Service
+                      <li class="nav-item">
+                        <a href="{{ route('allServices') }}"  class="nav-link" >
+                            Explore
                         </a>
 
                     </li>
-                    @endif 
-                    @endauth
-
-
 
                     @auth
                     @if(Auth::user()->role == 'seller')
@@ -267,14 +261,6 @@
 
 
 
-
-
-
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="modal" data-target="#findAUser" href="#">Find A User</a>                       
-    </li>
-
-
     <!-- Modal -->
     <div class="modal fade" id="findAUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -302,6 +288,14 @@
       </div>
   </div>
 </div>          
+
+
+
+<li class="nav-item dropdown">
+    <a class="nav-link" href="{{route('seller.sellers')}}" id="">
+        Sellers
+    </a>
+
 
 <li class="nav-item dropdown">
     <a class="nav-link" href="{{route('faq')}}" id="">

@@ -31,8 +31,8 @@ Advertise Your Skills								</p>
 Advertise your skills								</p>
 							</div>
 							<div class="btn-sections">
-								<a href="#" class="btn btn-lg btn-warning text-white">Get Started Now</a>
-								<a href="#" class="btn btn-lg btn-white-lg-outline">Learn More</a>
+								<!--<a href="#" class="btn btn-lg btn-warning text-white">Get Started Now</a>-->
+								<a href="{{route('faq')}}" class="btn btn-lg btn-warning text-white">Learn More</a>
 							</div>
 						</div>
 					</div>
