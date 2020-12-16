@@ -137,18 +137,18 @@
                             </a>
                         </div>
                         <div class="detail">
-                            <span class="d-flex justify-content-around"><a class="title " href="properties-details.html">{{$featuredService->name}}</a>
-                                <a class="pull-right" href="properties-details.html">
-                                    <i class="fa fa-map-marker text-warning"></i> {{$featuredService->state}}
-                                </a></span>
+                            <div class="d-flex justify-content-between"><a class="title " href="properties-details.html" style="font-size: 14px;">{{$featuredService->name}}</a>
+                                <a class="pull-right" href="properties-details.html" style="font-size: 13px;">
+                                    <i class="fa fa-map-marker text-warning"></i> {{$featuredService->city}}, {{$featuredService->state}}                                   
+                                </a></div>
 
                                 <ul class="facilities-list clearfix">
                                     <li>
-                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; 5 likes
+                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i>                                    {{$featuredService->likes->count()}} likes
                                     </li>
-                                    <li class="" style="float: right;">
+                                   <!-- <li class="" style="float: right;">
                                         <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="{{route('serviceDetail', $featuredService->id)}}">Verified</a>
-                                        </li>
+                                        </li>-->
                                <!-- <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
                             {{ csrf_field() }}
 
@@ -184,12 +184,7 @@
 
     @endif
 
-
-
-
-
-
-  
+ 
        </div>
                </div>
 
@@ -228,44 +223,29 @@
 
 
 
-    <div class="services-3 content-area bg-grea-3">
+<div class="services-2 content-area-5 bg-grea-3">
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
-            <h1>What Service Are you Looking For?</h1>
+            <h1>What are you looking for?</h1>
         </div>
-        <div class="row text-center">
-             @if(isset($categories))
+        <div class="row wow animated" style="visibility: visible;">
+                @if(isset($categories))
 
                 @foreach($categories as $category)
-            <a href="{{route('serviceDetail', $category->id)}}"  class="col-lg-3 col-md-6 col-sm-6" style="cursor: pointer;">
-                <div class="service-info-2">
-                    <div class="s-info">
-                        <i class="flaticon-lock text-warning"></i>
-                        <span>{{$category->name}}</span>
-                    </div>
-                  
-                </div>
-            </a>
-            @endforeach
-            @endif
-           
-        </div>
-    </div>
-</div>
-
-
-
-
-
-<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div class="service-info-5">
-                    <i class="fa fa-user"></i>
-                    <a href="https://efcontact.com/services/categories/jobs">
-                    <h4>Jobs</h4>
+                    <i class="fa fa-user text-warning"></i>
+                    <a href="{{route('services', $category->id)}}" >
+                    <h4>{{$category->name}}</h4>
                     </a>
                 </div>
             </div>
+               @endforeach
+            @endif
+                    </div>
+    </div>
+</div>
 
 
 

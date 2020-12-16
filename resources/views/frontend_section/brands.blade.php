@@ -1,4 +1,4 @@
-<div class="partners">
+<!--<div class="partners">
     <div class="container">
         <h4>Brands and Partners</h4>
         <div class="slick-slider-area my-5">
@@ -11,4 +11,60 @@
             </div>
         </div>
     </div>
+</div>-->
+
+
+
+
+
+
+
+
+<div class="blog content-area bg-grea-3">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>Advertisement</h1>
+        </div>
+        <div class="row">
+                      
+                        <div class="col-lg-3 col-md-12">
+                <div class="blog-3">
+                    <div class="blog-photo">
+                                                <img src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid">
+                                            </div>
+                </div>
+            </div>
+                        <div class="col-lg-3 col-md-12">
+                <div class="blog-3">
+                    <div class="blog-photo">
+                                                <img src="{{asset('images')}}/{{'download.jpg'}}" alt="advert" class="img-fluid">
+                                            </div>
+                </div>
+            </div>
+             <div class="col-lg-3 col-md-12">
+                <div class="blog-3">
+                    <div class="blog-photo">
+                                                <img src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid">
+                                            </div>
+                </div>
+            </div>
+                        <div class="col-lg-3 col-md-12">
+                <div class="blog-3">
+                    <div class="blog-photo">
+                                                <img src="{{asset('images')}}/{{'download.jpg'}}" alt="advert" class="img-fluid">
+                                            </div>
+                </div>
+            </div>
+                    </div>
+        <p>got a content and need an <strong>ADVERT</strong> on this page? click<strong> <a href="https://efcontact.com/advertisement"> HERE</a></strong></p>
+    </div>
 </div>
+
+
+
+
+
+
+
+
