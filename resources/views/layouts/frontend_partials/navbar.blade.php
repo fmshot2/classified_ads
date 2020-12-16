@@ -89,7 +89,7 @@
                     @auth
                     @if(Auth::user()->role == 'seller')
                     <li class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="modal" data-target="#postAService">
+                        <a href="{{ route('seller.service.create') }}"  class="nav-link">
                             Post A Service
                         </a>
 
@@ -317,7 +317,7 @@
 @if(Auth::user()->role == 'seller')
 <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-        <a href="{{route('createService')}}" class="btn btn-outline-warning font-weight-bold text-warning"> Seller Dashboard</a>
+        <a href="{{route('seller.dashboard')}}" class="btn btn-outline-warning font-weight-bold text-warning"> Seller Dashboard</a>
     </li>
 </ul>
 
