@@ -113,10 +113,10 @@ Seller Dashboard |
 
         <div class="info-box-content">
           <span class="info-box-text"> General Notice </span>
-          <span class="info-box-number"> 0 </span>
+          <span class="info-box-number"> {{ $all_notification_count }} </span>
 
           <div class="progress">
-            <div class="progress-bar progress-bar-primary" style="width: 0%"></div>
+            <div class="progress-bar progress-bar-primary" style="width: {{ $all_notification_count }}%"></div>
           </div>
           <span class="progress-description">
             <!-- Extra content can go here -->

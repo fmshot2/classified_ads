@@ -19,6 +19,7 @@ class CreateNotificationsTable extends Migration
             $table->string('title');
             $table->boolean('status')->default(0);
             $table->text('description');
+            $table->string('slug')->nullable();
 
             $table->timestamps();
         });

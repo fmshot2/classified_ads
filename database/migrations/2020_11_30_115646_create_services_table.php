@@ -21,31 +21,29 @@ class CreateServicesTable extends Migration
             $table->text('description');
             $table->string('city');
             $table->string('state');
-            $table->string('streetAddress');
-            $table->string('closestBusstop');
             $table->string('streetAddress')->nullable();
             $table->string('closestBusstop')->nullable();
             //$table->string('category');
             //$table->string('phone')->nullable();
+            $table->string('image')->nullable();
+            $table->string('address');
 
-            $table->string('image_1');
-            $table->string('image_2');
-            $table->string('image_3');
-            $table->string('image_4');
-            $table->string('image_5');
-            $table->string('image_6');
+
+
+
+            $table->string('image_1')->nullable();
+            $table->string('image_2')->nullable();
+            $table->string('image_3')->nullable();
+            $table->string('image_4')->nullable();
+            $table->string('image_5')->nullable();
+            $table->string('image_6')->nullable();
 
             $table->string('experience');
             $table->string('phone');
             $table->string('video_link')->nullable();
 
-            $table->float('min_price', 10, 2);
-            $table->float('max_price', 10, 2);
-            $table->unsignedInteger('price')->nullable();
-            $table->integer('min_price')->nullable();
-            $table->interger('max_price')->nullable();
-            //$table->unsignedInteger('price');
-
+            $table->float('min_price', 10, 2)->nullable();
+            $table->float('max_price', 10, 2)->nullable();
 
             $table->boolean('is_featured')->nullable()->default(true);
             $table->boolean('is_approved')->nullable()->default(true);
@@ -54,7 +52,7 @@ class CreateServicesTable extends Migration
 
             $table->unsignedInteger('user_id');
             //$table->unsignedInteger('like_id');
-            $table->unsignedInteger('category_id');
+            $table->unsignedInteger('category_id')->nullable();
 
             $table->timestamps();
 

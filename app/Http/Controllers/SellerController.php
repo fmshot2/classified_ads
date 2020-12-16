@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Message;
 use App\Notification;
 use App\State;
-
-
+use Illuminate\Support\Str;
 
 class SellerController extends Controller
 {
@@ -27,64 +26,102 @@ class SellerController extends Controller
     public function storeService(Request $request)
     {
 
-       $this->validate($request,[
-        'name' => 'required',
-        'image' => 'required',
+     $this->validate($request,[
+        'description' => 'required',
         'category_id' => 'required',
         'address' => 'required',
         'description' => 'required',
         'slug' => 'unique:services,slug',
         'city' => 'required',
+        'name' => 'required',
         'state' => 'required',
+        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ]); 
 
-       $image = $request->file('image');
+     $image = $request->file('image');
 
-       $slug = Str::of($request->name)->slug('-');
+     $slug = $random = Str::random(40);
 
-       $service = new Service();
+     $service = new Service();
 
-        // Image set up
-       if($request->hasfile('filenames'))
-       {
-        foreach($request->file('filenames') as $file)
-        {
-            $name = time().'.'.$file->extension();
-            $file->move(public_path().'/files/', $name); 
-                //array_push($image_array[], $name) 
-        }
+                // Image set up
+     if ( $request->hasFile('file') ) {
+        $image_name = time().'.'.$request->file->extension();
+        $request->file->move(public_path('images'),$image_name);
+        $service->image = $image_name;
     }
 
     $service->user_id = Auth::id();
     $service->category_id = $request->category_id;
     $service->name = $request->name;
+    $service->phone = $request->phone;
     $service->city = $request->city;
+    $service->experience = $request->experience;
     $service->address = $request->address;
     $service->min_price = $request->min_price;
     $service->max_price = $request->max_price;
     $service->slug = $slug;
-    $service->image_1 = $image_array[0];
-    $service->image_2 = $image_array[1];
-    $service->image_3 = $image_array[2];
-    $service->image_4 = $image_array[3];
-    $service->image_5 = $image_array[4];
-    $service->image_6 = $image_array[5];
     $service->video_link = $request->video_link;
     $service->description = $request->description;
     $service->state = $request->state;
 
     $service->save();
 
-    $request->session()->flash('success', 'Task was successful!');
-    return $this->allMessage();
+    $request->session()->flash('status', 'Task was successful!');
+    return $this->allService();
 
 }
 
+    public function storeServiceUpdate(Request $request, $id)
+    {
+
+    $service = Service::findOrFail($id);
+
+     $this->validate($request,[
+        'description' => 'required',
+        'category_id' => 'required',
+        'address' => 'required',
+        'description' => 'required',
+        'city' => 'required',
+        'name' => 'required',
+        'state' => 'required',
+        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]); 
+
+     $image = $request->file('image');
+    // Image set up
+     if ( $request->hasFile('file') ) {
+        $image_name = time().'.'.$request->file->extension();
+        $request->file->move(public_path('images'),$image_name);
+        $service->image = $image_name;
+    }
+
+    $service->user_id = Auth::id();
+    $service->category_id = $request->category_id;
+    $service->name = $request->name;
+    $service->phone = $request->phone;
+    $service->city = $request->city;
+    $service->experience = $request->experience;
+    $service->address = $request->address;
+    $service->min_price = $request->min_price;
+    $service->max_price = $request->max_price;
+    $service->video_link = $request->video_link;
+    $service->description = $request->description;
+    $service->state = $request->state;
+
+    $service->save();
+
+    $request->session()->flash('status', 'Task was successful!');
+    return $this->allService();
+
+}
+
+
 public function unreadMessage()
 {
- $all_message = Message::where('service_user_id', Auth::id() );
- $unread_message =  $all_message->Where('status', 0)->orderBy('id', 'desc')->paginate(10);
- return view ('seller.message.unread', compact('unread_message') );
+   $all_message = Message::where('service_user_id', Auth::id() );
+   $unread_message =  $all_message->Where('status', 0)->orderBy('id', 'desc')->paginate(10);
+   return view ('seller.message.unread', compact('unread_message') );
 }
 
 public function readMessage()
@@ -149,6 +186,13 @@ public function allService()
     return view ('seller.service.all_service', compact('all_service') );
 }
 
+public function viewServiceUpdate($slug)
+{
+    $category = Category::all();
+    $service = Service::where('slug', $slug)->first();
+    return view ('seller.service.update_service', compact('service', 'category') );
+}
+
 public function storeReplyMessage(Request $request)
 {
     $validatedData = $request->validate([
@@ -171,8 +215,6 @@ public function storeReplyMessage(Request $request)
 public function viewNotification($slug)
 {
     $notification = Notification::where('slug', $slug)->first();
-    $notification->status = 1;
-    $notification->save();
     return view ('seller.notification.view_notification', compact('notification') );
 }
 
@@ -180,5 +222,14 @@ public function viewProfile()
 {
     return view ('seller.profile.update_profile');
 }
+
+  public function destroy($id)
+  {
+    $service = Service::findOrFail($id);
+    $service->delete();
+    session()->flash('status', 'Task was successful!');
+    return back();
+  }
+
 
 }

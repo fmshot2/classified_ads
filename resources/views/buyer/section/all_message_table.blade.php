@@ -1,5 +1,4 @@
 
-
   <!-- Content Header (Page header) -->
   @if (url()->current() == !route('seller.dashboard') )
   <section class="content-header p-3 box">
@@ -19,7 +18,8 @@
   <div class="box">
 
     <div class="box-header with-border">
-    <h3 class="box-title"> {{ url()->current() == route('seller.notification.unread') ?  'Notification' : 'Recent Notification' }} {{ $unread_notification->count() }} </h3>
+      <h3 class="box-title">  All Message {{ $all_message->count() }} </h3>
+
 
       @if (url()->current() == route('seller.message.all') )
       <div class="box-tools">
@@ -44,16 +44,22 @@
 
           <tr>
             <th> # </th>
-            <th> Notification </th>
+            <th> From </th>
+            <th> Email </th>
+            <th> Message </th>
+            <th> Status </th>
             <th> Date </th>
+            <th> Action </th>
           </tr>
 
           <tr>
-        @foreach($unread_notification as $key => $unread_notifications)
-
+        @foreach($all_message as $key =>  $all_messages)
             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-            <td> {{ Str::limit( $unread_notifications->description, 100) }} </td>
-            <td> {{ $unread_notifications->created_at->diffForHumans() }} </td>
+            <td> {{ $all_messages->buyer_name }} </td>
+            <td> {{ $all_messages->buyer_email }} </td>
+            <td> {{ Str::limit($all_messages->description, 30) }} </td>
+            <td> {{ $all_messages->status == 1 ? 'Active' : 'Pending' }} </td>
+            <td> {{ $all_messages->created_at->diffForHumans() }} </td>
 
             <td>
               <div class="btn-group">
@@ -61,6 +67,17 @@
                   <span class="caret"></span>
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>
+                <ul class="dropdown-menu" role="menu">
+
+
+
+                  <!-- Edit -->
+                    <li> <a href="{{ route('seller.message.reply',$all_messages->slug) }}" class="btn btn-block" type="submit" style="margin-left: 8px;"> Reply </a> </li>
+                    <!-- View -->
+                    <li>  <a href=" {{ route('seller.message.view',$all_messages->slug) }}" class="btn btn-block" style="margin-left: 8px;"> View </a> </li>
+                    <!-- Delete -->
+
+                </ul>
 
               </ul>
             </div>
@@ -75,14 +92,16 @@
   </div>
   <!-- /.box-body -->
 
-@if (url()->current() == route('seller.notification.unread') )
+@if (url()->current() == !route('seller.dashboard') )
 <div class="box-footer clearfix">
 
-{{ $unread_notification->links() }}
+  {{ $all_message->links() }} 
 
 </div>
 @endif
 
 </div>
+
+@include('seller/modal/create_service') 
 
 

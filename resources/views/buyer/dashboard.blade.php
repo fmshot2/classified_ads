@@ -1,128 +1,146 @@
 
-@extends('layouts.app')
+@extends('layouts.buyer')
 
 @section('title')
- Buyer Dashboard | 
+Buyer Dashboard | 
 @endsection
 
 @section('content')
 
-<div class="favorited-properties content-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-12 col-sm-12">
-                <!-- Avatar start -->
-                <div class="edit-profile-photo">
-                    <img src="{{asset('img/avatar/avatar-11.jpg')}}" alt="profile-photo" class="img-fluid">
-                    <div class="change-photo-btn text-center">
-                    	                	<div><i class="fa fa-user fa-3x"></i></div>
+<div class="wrapper">
 
-                        <div class="photoUpload">
-                            <span><i class="fa fa-upload"></i> Upload Photo</span>
-                            <input type="file" class="upload">
-                        </div>
-                    </div>
-                </div>
-                <!-- Avatar end -->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Dashboard
+        <small>Control panel</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href=" {{ route('buyer.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+      </ol>
+    </section>
 
-                <!-- My account box start -->
-                <div class="my-account-box">
-                    <ul>
-                        <li>
-                            <a href="{{route('buyer.profile')}}">
-                                <i class="flaticon-people"></i>My Profile
-                            </a>
-                        </li>
-                        <li>
-                            <a href="favorited-properties.html" class="active">
-                                <i class="flaticon-favorite"></i>Favorited Services
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('buyer.messages')}}">
-                                <i class="flaticon-internet"></i>My Messages
-                            </a>
-                        </li>
-                      
-                        <li>
-                            <a href="change-password.html">
-                                <i class="flaticon-lock"></i>Change Password
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index.html">
-                                <i class="flaticon-exit"></i>Log Out
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- My account box end -->
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-commenting text-white" aria-hidden="true"></i>  </span>
+
+            <div class="info-box-content">
+              <span class="info-box-text"> Messages </span>
+              <span class="info-box-number"> {{ $all_message_count }} </span>
+
+              <div class="progress">
+                <div class="progress-bar progress-bar-blue" style="width: {{ $all_message_count }} %"></div>
+              </div>
+              <span class="progress-description">
+                <!-- Extra content can go here -->
+              </span>
             </div>
-            <div class="col-lg-8 col-md-12 col-sm-12">
-                <!-- Heading -->
-                <h3 class="heading-2">Favorited Properties</h3>
-                <div class="my-properties">
-                    <table class="table brd-none">
-                        <thead>
-                        <tr>
-                            <th>Seller</th>
-                            <th>Message</th>
-                            <th class="hedin-div">Date</th>
-                            <th><span class="hedin-div">Status</span></th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        	                            @if(isset($buyerMessages))
-
-                        	            @foreach($buyerMessages as $buyerMessage)
-
-                        <tr>
-                            <td class="image">
-                                <a href="properties-details.html"><i class="fa fa-user fa-3x"></i>
-<!--<img alt="properties-small" src="img/properties/small-properties-1.jpg" class="img-fluid">-->
-</a>
-                            </td>
-                            <td>
-                                <div class="inner">
-              
-                                    <div class="price-month">{{Str::limit($buyerMessage->description, 15)
-}}</div>
-                                </div>
-                            </td>
-                            <td class="hedin-div">7.02.2018</td>
-                            <td> <span class="hedin-div">{{Str::limit($buyerMessage->description, 5)
-}}</span></td>
-                            <td class="actions">
-                                <a href="#" class="edit"><i class="fa fa-pencil"></i>Edit</a>
-                                <a href="#"><i class="delete fa fa-trash-o"></i></a>
-                            </td>
-                        </tr>
-                                   @endforeach
-
-                                   @elseif(!isset($buyerMessages))
-
-
-<tr>
-                            
-                            <td>
-                                <div class="inner">
-                                    <h5><a href="properties-details.html"></a>No Records Found Yet</h5>
-                                   
-                                </div>
-                            </td>
-                           
-                        </tr>
-@endif
-
-                        </tbody>
-
-                    </table>
-                </div>
-            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
         </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-commenting text-white" aria-hidden="true"></i> </span>
+
+            <div class="info-box-content">
+              <span class="info-box-text"> Unread Message </span>
+              <span class="info-box-number"> {{ $unread_message_count }} </span>
+
+              <div class="progress">
+                <div class="progress-bar progress-bar-success" style="width: {{ $unread_message_count }} %"></div>
+              </div>
+              <span class="progress-description">
+                <!-- Extra content can go here -->
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-commenting text-white" aria-hidden="true"></i> </span>
+
+            <div class="info-box-content">
+              <span class="info-box-text"> Read Message </span>
+              <span class="info-box-number"> {{ $read_message_count }} </span>
+
+              <div class="progress">
+                <div class="progress-bar progress-bar-primary" style="width: {{ $read_message_count }} %"></div>
+              </div>
+              <span class="progress-description">
+               <!-- 85% Increase in 28 Days -->
+             </span>
+           </div>
+           <!-- /.info-box-content -->
+         </div>
+         <!-- /.info-box -->
+       </div>
+       <!-- /.col -->
+       <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-bell text-white" aria-hidden="true"></i>  </span>
+
+          <div class="info-box-content">
+            <span class="info-box-text"> General Notice </span>
+            <span class="info-box-number"> {{ $all_notification_count }} </span>
+
+            <div class="progress">
+              <div class="progress-bar progress-bar-danger" style="width: {{ $all_notification_count }} %"></div>
+            </div>
+            <span class="progress-description">
+             <!-- 50% Increase in 28 Days -->
+           </span>
+         </div>
+         <!-- /.info-box-content -->
+       </div>
+       <!-- /.info-box -->
+     </div>
+     <!-- /.col -->
+
+
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-6 connectedSortable">
+     @include('buyer/section/unread_message_table')  
     </div>
+
+    <div class="col-md-6 connectedSortable">
+      @include('buyer/section/unread_notification_table')    
+   </div>
+ </div>
+
+
+
+
+ <div class="row">
+
+  <div class="col-md-6 connectedSortable">
+  {{-- @include('seller/section/all_service_table') --}}
+ </div>
+
+ <div class="col-md-6 connectedSortable">
+  {{-- @include('seller/section/active_service_table') --}}
+ </div>
+
 </div>
+
+<!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+<div class="control-sidebar-bg"></div>
+
+</div>
+<!-- ./wrapper -->
 
 
 @endsection
