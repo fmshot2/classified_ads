@@ -35,7 +35,7 @@ class SellerController extends Controller
         'city' => 'required',
         'name' => 'required',
         'state' => 'required',
-        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg', //|max:2048
     ]); 
 
      $image = $request->file('image');
