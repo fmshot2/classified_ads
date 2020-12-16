@@ -51,7 +51,7 @@ Register
                             </span>
                             @endif
                         </div>
-                                                          <div class="form-group form-box">
+                                                         <!-- <div class="form-group form-box">
                                                             <label for="state"> Choose Your State </label>
                                                             <select class="form-control" id="state" name="state">
 
@@ -65,7 +65,7 @@ Register
                                 <strong>{{ $errors->first('state') }}</strong>
                             </span>
                             @endif
-                                                      </div>
+                                                      </div>-->
                          <div class="form-group form-box clearfix">
                             <input id="password" type="password" class="input-text" name="password" placeholder="Password" required>
                             @if ($errors->has('password'))
