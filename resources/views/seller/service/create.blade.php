@@ -7,6 +7,10 @@ Create Service |
 
 @section('content')
 
+<br>
+<hr>
+
+
 <div class="container">
 
     <div class="row">
@@ -93,12 +97,10 @@ Create Service |
                 </div>
                 <div class="body">
 
-                    <br>
-
 
                     <div class="box box-default">
                         <div class="box-header with-border">
-                          <h3 class="box-title">Property Video</h3>
+                          <h3 class="box-title"> Service Video</h3>
                       </div>
                       <div class="body">
                         <div class="form-group form-float">
@@ -116,7 +118,7 @@ Create Service |
 
 
                 <div class="form-group">
-                    <label class="form-label"> Gallery Image </label>
+                    <label class="form-label"> Upload Image </label>
                     <input class="form-control" name="gallaryimage[]" type="file" multiple>
                     <span class="helper-text" data-error="wrong" data-success="right">Upload min </span>
                 </div>
@@ -155,6 +157,117 @@ Create Service |
 </div>
 <!-- /.row -->
 </div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+
+
+
+
+                        <div class="col-lg-2 col-md-3" style="">
+                          <div class="form-group">
+                            <select class="form-control" id="state" name="state">
+
+                               @foreach($states as $state)
+
+                               <option value="{{$state->id}}"> {{ $state->name }}  </option> 
+                               @endforeach
+
+
+                           </select>
+                       </div>
+                   </div>
+
+
+
+
+
+                   <div class="col-lg-2 col-md-3" style="">
+                      <div class="form-group">
+                        <select class="form-control" id="city" name="city">
+
+
+
+                        </select>
+                    </div>
+                </div>
+
+
+
+
+
+</div>
+
+
+
+<script type="text/javascript">
+
+
+
+
+   $('#state').on('change',function(){
+    var stateID = $(this).val();    
+    if(stateID){
+        $.ajax({
+         type:"GET",
+           //url:"{{url('qqq')}}"+stateID,
+           url: 'api/get-city-list/'+stateID,
+           success:function(res){               
+            if(res){
+             console.log(res);
+             console.log(stateID);
+             $("#city").empty();
+             $.each(res,function(key,value){
+                $("#city").append('<option value="'+key+'">'+value+'</option>');
+            });
+
+         }else{
+             $("#city").empty();
+         }
+     }
+ });
+    }else{
+        $("#city").empty();
+    }
+
+}); 
+
+</script>
+
+
+
+
+
+
+
+
+
 
 
 @endsection

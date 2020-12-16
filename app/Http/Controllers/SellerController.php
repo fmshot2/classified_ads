@@ -9,6 +9,8 @@ use App\Category;
 use Illuminate\Support\Facades\Auth;
 use App\Message;
 use App\Notification;
+use App\State;
+
 
 
 class SellerController extends Controller
@@ -18,7 +20,8 @@ class SellerController extends Controller
     public function createService()
     {
         $category = Category::all();
-        return view ('seller.service.create', compact('category') );
+        $states = State::all();
+        return view ('seller.service.create', compact('category', 'states') );
     }
 
     public function storeService(Request $request)
@@ -173,5 +176,9 @@ public function viewNotification($slug)
     return view ('seller.notification.view_notification', compact('notification') );
 }
 
+public function viewProfile()
+{
+    return view ('seller.profile.update_profile');
+}
 
 }

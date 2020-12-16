@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
->>>>>>> 1f8b2181a55be415f24c7161afe0c84f11a4df60
 use Illuminate\Http\File;
 use App\Category;
 use App\Local_government;
@@ -138,7 +137,7 @@ class ServiceController extends Controller
 
     public function storeService(Request $request)
     {
-        $validatedData = $request->validate([
+/*        $validatedData = $request->validate([
       'name' => ['required', 'string', 'max:255'],
       'category' => ['string', 'max:255'],
             'experience' => ['required', 'max:255'],
@@ -147,7 +146,7 @@ class ServiceController extends Controller
       'city' => ['required', 'string'],
       'state' => ['required', 'string'],
       'phone' => ['required'],
-
+*/
       $validatedData = $request->validate([
         'name' => ['required', 'string', 'max:255'],
         'category' => ['string', 'max:255'],

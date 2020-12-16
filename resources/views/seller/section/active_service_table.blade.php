@@ -19,7 +19,7 @@
 
 		<div class="box-header with-border">
 			<h3 class="box-title">  Active Service </h3>
-			<code>  {{ url()->current() == route('seller.dashboard') ? 'showing 5 active services ' : '' }}</code>
+			<code>  {{ url()->current() == route('seller.dashboard') ? 'showing 5 active services ' : '' }} </code>
 
 			@if (url()->current() == route('seller.service.active'))
 			<button alt="default" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-warning model_img img-responsive pull-right"> Add Aervice </button>

@@ -13,7 +13,6 @@ class AuthController extends Controller
 
 	public function createUser (Request $request)
 	{
-
 		$validatedData = $request->validate([
 			'name' => ['required', 'string', 'max:255'],
 			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -44,7 +43,6 @@ class AuthController extends Controller
 			return view('/');
 		}
 		return redirect()->intended('/');
-		
 	}
 
 
@@ -108,5 +106,52 @@ class AuthController extends Controller
 		return view ('admin.user.seller', compact('seller') );
 	}
 
+
+	public function updateProfile (Request $request, $id)
+	{
+
+		$user = User::find($id);
+		$validatedData = $request->validate([
+			'name' => ['required', 'string', 'max:255'],
+			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+			'state' => ['string'],			
+			'role' => 'required',
+			'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+		]);
+
+                // Image set up
+        if ( $request->hasFile('file') ) {
+        $image_name = time().'.'.$request->file->extension();
+        $request->file->move(public_path('images'),$image_name);
+        $user->image = $image_name;
+        }
+
+		$user->name = $request->name;
+		$user->email = $request->email;
+		$user->role = $request->role;
+		$user->state = $request->state;
+		$user->phone = $request->phone;
+		$user->address = $request->address;
+		$user->about = $request->about;
+		$user->save();
+	}
+
+	public function updatePassword (Request $request, $id)
+	{
+
+		$user = User::find($id);
+		$validatedData = $request->validate([
+			'password' => ['required', 'string', 'min:6', 'confirmed'],
+		]);
+
+		$user->name = $request->name;
+		$user->email = $request->email;
+		$user->role = $request->role;
+		$user->state = $request->state;
+		$user->phone = $request->phone;
+		$user->address = $request->address;
+		$user->about = $request->about;
+		$user->save();
+	}
 
 }

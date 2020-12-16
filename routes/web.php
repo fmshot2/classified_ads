@@ -87,6 +87,10 @@ Route::get('/seller/notification/unread', 'SellerController@unreadNotification')
 Route::get('/seller/notification/all', 'SellerController@allNotification')->name('seller.notification.all');
 Route::get('/seller/notification/{slug}', 'SellerController@viewNotification')->name('seller.notification.view');
 
+Route::get('/seller/profile/', 'SellerController@viewProfile')->name('seller.profile');
+Route::post('/seller/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
+
+
 
 
 Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
