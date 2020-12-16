@@ -29,7 +29,7 @@
         <div class="row">
 
 
-   <div class="container">
+   <!--<div class="container">
             @if(isset($closerServices))
             <p> The Search results for your query <b> query</b> are :</p>
             <h2>Sample User details</h2>
@@ -49,10 +49,11 @@
                 </tbody>
             </table>
             @endif
-        </div>
+        </div>-->
 
 
-
+@if(isset($category_services))
+@foreach($category_services as $category_service)
             <div class="col-lg-8 col-md-12 col-xs-12">
                 <div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
                 <div class="property-box">
@@ -63,7 +64,7 @@
                             </div>
                             <div class="price-ratings-box">
                                 <p class="price">
-                                    4 Yrs Experience
+                                    {{$category_service->experience}} Yrs Experience
                                 </p>
                                 </div>
                                 <div class="listing-time opening">femi</div>
@@ -71,60 +72,59 @@
                             </a>
                         </div>
                         <div class="detail">
-                            <span class="d-flex justify-content-around"><a class="title " href="properties-details.html">Music</a>
-                                <a class="pull-right" href="properties-details.html">
-                                    <i class="fa fa-map-marker text-warning"></i> Lagos
-                                </a></span>
+                            <span class="d-flex justify-content-between"><a class="title " href="properties-details.html" style="font-size: 12px;">{{$category_service->name}}</a>
+                                </span>
 
                                 <ul class="facilities-list clearfix">
-                                    <li>
-                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; 5 likes
+                                    <li><i class="fa fa-map-marker text-warning"></i>
+                                        {{$category_service->city}}
                                     </li>
                                     <li class="" style="float: right;">
-                                        <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="http://localhost:8000/serviceDetail/2">Verified</a>
+                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true"></i><a href="http://localhost:8000/serviceDetail/2" >{{$category_service->likes->count()}} like(s)</a>
                                         </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
+            @endif
           <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right">
                     <!-- Advanced search start -->
-                    <div class="sidebar widget advanced-search">
-                        <h3 class="sidebar-title text-center"> Advanced Search</h3>
-                        <div class="s-border"></div>
-                        <div class="m-border"></div>
-                        <form action="https://efcontact.com/search" method="GET">
-                            <div class="form-group">
-                                <input type="text" name="title" class="form-control" placeholder="Keyword" autocomplete="on">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="city" class="form-control" placeholder="City e.g Ikeja" autocomplete="off">
-                            </div>
-                            <div class="form-group">
-                                <div class="form-group">
-                                    <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="category" tabindex="-98">
-                                        <option value="" disabled="" selected="">Category</option>
-                                                                                <option value="Agriculture and food">Agriculture and food</option>
-                                                                                <option value="Animals and pets">Animals and pets</option>
-                                                                                <option value="Babies and kids">Babies and kids</option>
-                                                                                <option value="Business">Business</option>
-                                                                                <option value="Commercial equipment and tools">Commercial equipment and tools</option>
-                                                                                <option value="Electronics">Electronics</option>
-                                                                                <option value="Electronics">Electronics</option>
-                                                                                <option value="Fashion">Fashion</option>
-                                                                                <option value="Handy work">Handy work</option>
-                                                                                <option value="Health and beauty">Health and beauty</option>
-                                                                                <option value="Jobs">Jobs</option>
-                                                                                <option value="Medical">Medical</option>
-                                                                                <option value="Property">Property</option>
-                                                                                <option value="Repair and construction">Repair and construction</option>
-                                                                                <option value="Seeking work-cv">Seeking work-cv</option>
-                                                                                <option value="Services">Services</option>
-                                                                                <option value="Sport, art and outdoors">Sport, art and outdoors</option>
-                                                                                <option value="Vehicles">Vehicles</option>
-                                                                            </select><button type="button" class="btn dropdown-toggle bs-placeholder btn-light" data-toggle="dropdown" role="button" title="Category"><div class="filter-option"><div class="filter-option-inner">Category</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
+                   <div class="sidebar widget advanced-search none-992">
+                        <h3 class="sidebar-title">Advanced Search</h3>
+
+                        <form action="{{route('search3')}}" method="GET" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group name">
+                                        <input type="text" name="name" class="form-control" placeholder="What Service Are You Looking For?">
+                                    </div>
+                                </div>
+                                
+                               <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group subject">
+                                        <input type="text" name="state" class="form-control" placeholder="Enter Your State">
+                                    </div>
+                                </div>-->
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group subject">
+                                       <!--  <input type="text" name="serviceDetail_id" value= class="form-control"> -->
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
+                                  <div class="form-group subject">
+                                    <select class="form-control" id="state" name="state">                                
+                                        @if(isset($all_states))
+
+                                        @foreach($all_states as $state)
+
+                                        <option value="{{$state->id}}"> {{ $state->name }}  </option> 
+                                        @endforeach
+                                        @endif                         
+
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">
@@ -140,22 +140,22 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                            <div class="switch">
-                                <label>
-                                    <input type="checkbox" name="featured">
-                                    <span class="lever"></span>
-                                    Featured
-                                </label>
+                                <div class="switch">
+                                    <label>
+                                        <input type="checkbox" name="featured">
+                                        <span class="lever"></span>  
+                                        Featured
+                                    </label>
+                                </div>
                             </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="send-btn">
+                                    <button type="submit" class="btn btn-outline-warning btn-block bg-warning text-white">Search  <i class="fa fa-search" aria-hidden="true"></i></button>
+                                </div>
                             </div>
-                            <a class="show-more-options" data-toggle="collapse" data-target="#options-content">
-                                <i class="fa fa-plus-circle"></i> Show More Options
-                            </a>
-                            <div class="form-group mb-0">
-                                <button class="search-button">Search <i class="fa fa-search" aria-hidden="true"></i></button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
+                </div>
                     <!-- Popular posts start -->
                     <div class="widget popular-posts">
                         <h3 class="sidebar-title">Featured Services</h3>

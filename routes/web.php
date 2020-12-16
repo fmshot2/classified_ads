@@ -27,6 +27,10 @@ Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard')
 Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile');
 Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messages');
 Route::get('services/{id}','CategoryController@show')->name('services');
+Route::get('/categoryDetail/{id}', 'CategoryController@categoryDetail')->name('categoryDetail');
+Route::get('/catdet/{id}', 'CategoryController@show')->name('catdet');
+
+
 
 
 
@@ -42,9 +46,7 @@ Route::get('services/{id}','CategoryController@show')->name('services');
 Route::get('/createService', 'ServiceController@createService')->name('createService');
 Route::post('/storeService', 'ServiceController@storeService')->name('service.store');
 
-Route::get('/catdet/{id}', 'CategoryController@show')->name('catdet');
 Route::get('/allCategories/', 'CategoryController@allCategories')->name('allCategories');
-Route::get('/categoryDetail/{id}', 'CategoryController@categoryDetail')->name('categoryDetail');
     //dynamic dropdown country and states
 Route::get('/admin/user_register/ajax/{state_id}',array('as'=>'user_register.ajax','uses'=>'CategoryController@stateForCountryAjax'));
 Route::get('/getlocal_governments/{id}','CategoryController@getlocal_governments');
@@ -119,8 +121,10 @@ Route::get('/admin/dashboard/user/search', 'AdminController@userSearch')->name('
 Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.seller');
 Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer');
 
-Route::any ( '/search',  'ServiceController@search')->name('search3');
+//Route::any ( '/search',  'ServiceController@search')->name('search3');
 Route::any ( '/search4',  'ServiceController@search3')->name('search4');
+Route::any ( '/searchresults',  'ServiceController@search')->name('search3');
+
 
 //Route::any ( '/searchforuser',  'ServiceController@searchSeller')->name('searchUser');
 

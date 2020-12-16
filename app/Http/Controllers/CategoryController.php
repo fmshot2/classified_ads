@@ -37,13 +37,13 @@ class CategoryController extends Controller
 
          $category = Category::find($id);
         $categories = Service::where('id', $id)->get();
-                return 'categories'; 
+                //return 'categories'; 
 
-       // return view ('categoryDetails', compact('categories') ); 
+        //return view ('categoryDetails', compact('categories') ); 
 
         
-        //$categories = Category::orderBy('id', 'desc')->paginate(12);
-        //return view ('allCategories', compact('categories') );
+        $categories = Category::orderBy('id', 'desc')->paginate(12);
+        return view ('allCategories', compact('categories') );
     }
 
 

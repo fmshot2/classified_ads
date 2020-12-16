@@ -57,6 +57,6 @@ public function scopeSearchCity($query, $city)
 
 
 public function likes(){
-        return $this->hasMany('\App\Like', 'like'); //Product Model Name
+        return $this->hasMany('\App\Like'); //Product Model Name
     }
 }
