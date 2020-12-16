@@ -8,6 +8,7 @@ use App\Category;
 use App\User;
 use App\Message;
 use App\Service;
+use App\Notification;
 
 
 class DashboardController extends Controller
@@ -16,9 +17,12 @@ class DashboardController extends Controller
   public function seller()
   {
     $service_count = Service::where('user_id', Auth::id() )->count();
+    $message_count = Message::where('service_user_id', Auth::id())->count();
+    $all_service = Service::where('user_id', Auth::id() )->take(5)->get();
+    $unread_notification = Notification::where('status', 0)->orderBy('id', 'desc')->take(5)->get();
 
-    $all_service = Service::where('user_id', Auth::id() );
-    $active_service =  $all_service->Where('status', 1);
+    $all_service_active = Service::where('user_id', Auth::id() );
+    $active_service =  $all_service_active->Where('status', 1);
     $check_active_service_table = collect($active_service)->isEmpty();
     $active_service_count = $check_active_service_table == true ? 0 : $active_service->count();
     $active_service = $check_active_service_table == true ? 0 : $active_service->take(5)->get();
@@ -28,9 +32,6 @@ class DashboardController extends Controller
     $check_pending_service_table = collect($pending_service)->isEmpty();
     $pending_service_count = $check_pending_service_table == true ? 0 : $pending_service->count();
     $pending_service = $check_pending_service_table == true ? 0 : $pending_service->take(5)->get();
-
-    $message_count = Message::where('service_user_id', Auth::id())->count();
-
 
     $all_message = Message::where('service_user_id', Auth::id() );
     $unread_message =  $all_message->Where('status', 0);
@@ -45,7 +46,7 @@ class DashboardController extends Controller
     $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();
 
 
-    return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count') );
+    return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification') );
 
   }
 

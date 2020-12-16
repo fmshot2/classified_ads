@@ -38,7 +38,6 @@ Category |
   <!-- /.box-header -->
   <!-- form start -->
   <form class="form-horizontal form-element" method="POST" action="{{route('admin.category.store')}}" enctype="multipart/form-data">
-    
     {{ csrf_field() }}
 
     <div class="box-body">

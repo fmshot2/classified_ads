@@ -13,6 +13,8 @@
 	
 	<!-- Bootstrap 3.3.7 -->
 	<script src="{{asset('OurBackend/assets/vendor_components/bootstrap/dist/js/bootstrap.js')}}"></script>
+
+	<script src="{{asset('dropzone/dist/dropzone.js')}}"></script>
 	
 	<!-- Morris.js charts -->
 	<script src="{{asset('OurBackend/assets/vendor_components/raphael/raphael.js')}}"></script>
@@ -51,8 +53,6 @@
 	
 	<!-- Cross Admin for demo purposes -->
 	<script src="{{asset('OurBackend/js/demo.js')}}"></script>
-
-
 
 
 

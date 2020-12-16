@@ -77,7 +77,7 @@ class CategoryController extends Controller
                 // Image set up
         if ( $request->hasFile('file') ) {
         $image_name = time().'.'.$request->file->extension();
-        $request->file->move(public_path('category_image'),$image_name);
+        $request->file->move(public_path('images'),$image_name);
         $category->image = $image_name;
         }
 

@@ -8,7 +8,10 @@ use App\User;
 use App\Like;
 use App\Message;
 use DB;
+use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -138,7 +141,16 @@ class ServiceController extends Controller
 
     public function storeService(Request $request)
     {
-
+/*        $validatedData = $request->validate([
+      'name' => ['required', 'string', 'max:255'],
+      'category' => ['string', 'max:255'],
+            'experience' => ['required', 'max:255'],
+      'description' => ['required', 'string'],
+      'streetAddress' => ['required', 'string'],
+      'city' => ['required', 'string'],
+      'state' => ['required', 'string'],
+      'phone' => ['required'],
+*/
       $validatedData = $request->validate([
         'name' => ['required', 'string', 'max:255'],
         'category' => ['string', 'max:255'],
@@ -156,6 +168,30 @@ class ServiceController extends Controller
       $name = $request->name;
       $experience = $request->experience;
         //$service->image = $image;
+        $description = $request->description;
+        $streetAddress = $request->streetAddress;
+        $city = $request->city;
+        $state = $request->state;
+        $closestBusstop = $request->closestBusstop;  
+        $phone = $request->phone;
+
+
+        $name = $request->name;
+        $image = $request->file('file');
+        $imageName = time().'.'.$image->extension();
+        $image->move(public_path('images'),$imageName);
+        $service = new Service();
+        $service->category = $category;
+        $service->name = $name;
+        $service->experience = $experience;
+        $service->description = $description;
+        $service->image = $imageName;
+        $service->streetAddress = $streetAddress;
+        $service->city = $city;
+        $service->state = $state;
+        $service->closestBusstop = $closestBusstop;
+        $service->phone = $phone;
+        $service->user_id = Auth::id();      
       $description = $request->description;
       $streetAddress = $request->streetAddress;
       $city = $request->city;

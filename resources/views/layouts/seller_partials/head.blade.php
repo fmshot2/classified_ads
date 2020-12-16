@@ -4,8 +4,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="http://html-templates.multipurposethemes.com/bootstrap-3/admin/cross-admin/images/favicon.ico">
+	 <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" type="image/x-icon" >
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <title> @yield('title') Nigeria Yellow Page </title>
     
@@ -35,6 +38,8 @@
 	
 	<!-- bootstrap wysihtml5 - text editor -->
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css')}}">
+
+	<link rel="stylesheet" href="{{asset('dropzone/dist/dropzone.css')}}">
 	
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -46,7 +51,6 @@
 
 	<!-- google font -->
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-
 
 
 </head>

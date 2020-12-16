@@ -149,7 +149,6 @@ Admin |
       <!-- /.info-box -->
     </div>
     <!-- /.col -->
-
   </div>
 
   <div class="row">

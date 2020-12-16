@@ -1,79 +1,107 @@
 
+  <!-- Content Header (Page header) -->
+  @if (url()->current() == !route('seller.dashboard') )
+  <section class="content-header p-3 box">
+    <h1>
+      Dashboard
+      <small>Control panel</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Message </a></li>
+      <li class="active">Dashboard</li>
+    </ol>
+  </section>
+  @endif
+
+  @include('layouts.backend_partials.status')
+
+  <div class="box">
+
+    <div class="box-header with-border">
+      <h3 class="box-title">  All Message {{ $all_message->count() }} </h3>
 
 
+      @if (url()->current() == route('seller.message.all') )
+      <div class="box-tools">
+        <form class="" method="GET" action="{{ route('admin.service.search') }}">
+        <div class="input-group input-group-sm" style="width: 150px;">
+          <input type="search" class="form-control pull-right" placeholder="Search" name="query"  value="{{ isset($query) ? $query : '' }}" required>
 
-<!-- TO DO List -->
-<div class="box">
-  <div class="box-header ui-sortable-handle" style="cursor: move;">
-    <i class="fa fa-commenting"></i>
-
-    <h3 class="box-title"> All Message {{ $all_message->count() }}  </h3>
-
-    <div class="box-tools pull-right">
-
-      {{ $all_message->links() }} 
+          <div class="input-group-btn">
+            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+          </div>
+        </div>
+      </form>
+      </div>
+      @endif 
 
     </div>
-
-<hr>
-
-
     <!-- /.box-header -->
-    <div class="box-body">
-      <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-      <ul class="todo-list ui-sortable">
-        @foreach($all_message as $all_messages)
+    <div class="box-body ">
+      <table class="table table-bordered">
 
-        @empty($all_messages)
-        <div class="box"> No Message Found </div>
-        @endempty
+        <tbody>
 
-        <li>
-          <!-- drag handle -->
-          <span class="handle ui-sortable-handle">
-            <i class="fa fa-ellipsis-v"></i>
-            <i class="fa fa-ellipsis-v"></i>
-          </span>
-          <!-- checkbox -->
-          <label class="control control-checkbox">
-           <input type="checkbox">
-           <span class="control_indicator"></span>
-         </label>
-         <!-- todo text -->
-         <span class="text"> {{ Str::limit( $all_messages->description, 100) }}</span>
+          <tr>
+            <th> # </th>
+            <th> From </th>
+            <th> Email </th>
+            <th> Message </th>
+            <th> Status </th>
+            <th> Date </th>
+            <th> Action </th>
+          </tr>
 
-         @if($all_messages->status == 1)
-          <small class="label label-success"> Read </small>
-         @else 
-          <small class="label label-danger"> Unread </small>
-         @endif
+          <tr>
+        @foreach($all_message as $key =>  $all_messages)
+            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+            <td> {{ $all_messages->buyer_name }} </td>
+            <td> {{ $all_messages->buyer_email }} </td>
+            <td> {{ Str::limit($all_messages->description, 30) }} </td>
+            <td> {{ $all_messages->status == 1 ? 'Active' : 'Pending' }} </td>
+            <td> {{ $all_messages->created_at->diffForHumans() }} </td>
 
-
-
-         <!-- Emphasis label -->
-         <small class="label label-success"><i class="fa fa-clock-o"></i>  {{ $all_messages->created_at->diffForHumans() }} </small>
-         <!-- General tools such as edit or delete-->
-
-         <div class="tools">
-
-          <form method="post" class="form-inline" action="{{route('seller.message.delete',$all_messages->id)}}">
-            @method('DELETE')
-            @csrf
-            @if($all_messages->status == 1)
-            <button type="button" class="btn btn-success"> <i class="fa fa-reply"> </i> </button>
-            @endif
-            <a href=" {{ route('seller.message.view',$all_messages->id) }}"  class="btn btn-success"> <i class="fa fa-eye"> </i> </a>
-            <button type="submit" class="btn btn-danger"> <i class="fa fa-trash-o"> </i> </button>
-          </form>
-
-        </div>
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
 
 
-      </li>
-      @endforeach
-    </ul>
 
+                  <!-- Edit -->
+                    <li> <a href="{{ route('seller.message.reply',$all_messages->slug) }}" class="btn btn-block" type="submit" style="margin-left: 8px;"> Reply </a> </li>
+                    <!-- View -->
+                    <li>  <a href=" {{ route('seller.message.view',$all_messages->slug) }}" class="btn btn-block" style="margin-left: 8px;"> View </a> </li>
+                    <!-- Delete -->
+
+                </ul>
+
+              </ul>
+            </div>
+          </td>
+
+        </tr>
+
+        @endforeach
+
+      </tbody>
+    </table>
   </div>
   <!-- /.box-body -->
 
-  <!-- /.box -->
+@if (url()->current() == !route('seller.dashboard') )
+<div class="box-footer clearfix">
+
+  {{ $all_message->links() }} 
+
+</div>
+@endif
+
+</div>
+
+@include('seller/modal/create_service') 
+
+
