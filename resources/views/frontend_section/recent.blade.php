@@ -14,12 +14,12 @@
                         <img class="card-img-top" src="{{asset('images')}}/{{$recentService->image}}" alt="service" style="min-width: 150px;">
                         <div class="card-body detail">
                             <div class="title">
-                                <h4><a href="#">{{$recentService->user->name}}, &nbsp; {{$recentService->name}}</a></h4>
+                                <h4><a href="#" style="font-size: 15px;">{{$recentService->user->name}}, &nbsp; {{$recentService->name}}</a></h4>
                             </div>
                              <div class="location">
                                     <a href="properties-details.html" tabindex="-1">
                                         
-                                    </a><i class="fa fa-map-marker"></i><span>{{$recentService->state}}</span>
+                                    </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$recentService->state}}</span>
                                 </div>
                          
                             <!--<a href="#" class="read-more">More...</a>-->
