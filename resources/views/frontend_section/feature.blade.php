@@ -137,8 +137,8 @@
                             </a>
                         </div>
                         <div class="detail">
-                            <div class="d-flex justify-content-between"><a class="title " href="properties-details.html" style="font-size: 14px;">{{$featuredService->name}}</a>
-                                <a class="pull-right" href="properties-details.html" style="font-size: 13px;">
+                            <div class="d-flex justify-content-between"><a class="title " href="{{route('serviceDetail', $featuredService->id)}}"  style="font-size: 14px;">{{$featuredService->name}}</a>
+                                <a class="pull-right" href="{{route('serviceDetail', $featuredService->id)}}" style="font-size: 13px;">
                                     <i class="fa fa-map-marker text-warning"></i> {{$featuredService->city}}, {{$featuredService->state}}                                   
                                 </a></div>
 
@@ -235,6 +235,9 @@
                 @foreach($categories as $category)
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div class="service-info-5">
+
+ <!--<img class="" src="{{asset('images')}}/{{'adminteacher.png'}}" style="width: 50px;" alt="properties">-->
+
                     <i class="fa fa-user text-warning"></i>
                     <a href="{{route('services', $category->id)}}" >
                     <h4>{{$category->name}}</h4>
