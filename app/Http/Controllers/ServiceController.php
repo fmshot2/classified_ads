@@ -86,6 +86,7 @@ class ServiceController extends Controller
       $similarProducts = Service::where('category', $service_category_id)->get();
       $featuredServices2 = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
       $user_id = $serviceDetail->user_id;
+      //$userMessages = Message::where('service_id', $id && Auth::id())->get();
       $userMessages = Message::where('service_id', $id)->get();
       if($userser2 = session()->get('userSer')) {
         $userser3 = $userser2;
@@ -103,6 +104,87 @@ class ServiceController extends Controller
 
       return view('serviceDetail', compact(['serviceDetail', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages']));
     }
+
+
+
+
+     public function allServices()
+    {
+      $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+      $approvedServices = Service::with('user')->paginate(6);
+      $advertServices = Service::where('is_approved', 1)->with('user')->get();
+      $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
+      $categories = Category::paginate(8);
+      //$serviceDetail = Service::find($id);
+      $all_states = State::all();
+      //$serviceDetail_id = $serviceDetail->id;
+      //$service_likes = Like::where('service_id', $serviceDetail_id)->count();
+      //$service_category_id = $serviceDetail->category;
+      //$similarProducts = Service::where('category', $service_category_id)->get();
+      $featuredServices2 = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+      //$user_id = $serviceDetail->user_id;
+      //$userMessages = Message::where('service_id', $id)->get();
+      if($userser2 = session()->get('userSer')) {
+        $userser3 = $userser2;
+      }else{
+        $userser3 = null;
+      }
+
+      $user11 = session()->get('user11');
+      if($user11){
+        $user111 = $user11;
+      }else{
+        $user111 = null; 
+      }
+       //return $userMessages;
+
+      return view('allServices', compact(['approvedServices', 'user111', 'all_states', 'userser3', 'featuredServices', 'featuredServices2']));
+    }
+
+
+
+  public function allSellers()
+    {
+      $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+      $approvedServices = Service::with('user')->paginate(6);
+      $advertServices = Service::where('is_approved', 1)->with('user')->get();
+      $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
+      $categories = Category::paginate(8);
+      //$serviceDetail = Service::find($id);
+      $all_states = State::all();
+      //$serviceDetail_id = $serviceDetail->id;
+      //$service_likes = Like::where('service_id', $serviceDetail_id)->count();
+      //$service_category_id = $serviceDetail->category;
+      //$similarProducts = Service::where('category', $service_category_id)->get();
+      $featuredServices2 = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+      //$user_id = $serviceDetail->user_id;
+      //$userMessages = Message::where('service_id', $id)->get();
+      if($userser2 = session()->get('userSer')) {
+        $userser3 = $userser2;
+      }else{
+        $userser3 = null;
+      }
+
+      $user11 = session()->get('user11');
+      if($user11){
+        $user111 = $user11;
+      }else{
+        $user111 = null; 
+      }
+       //return $userMessages;
+
+      return view('seller.sellers', compact(['approvedServices', 'user111', 'all_states', 'userser3', 'featuredServices', 'featuredServices2']));
+    }
+
+
+
+
+
+
+
+
+
+
 
     public function index()
     {
@@ -249,8 +331,9 @@ class ServiceController extends Controller
 public function search(Request $request){
   $category = $request->input('name');
   $state = $request->input('state');
-      $serviceDetail_id = $request->input('serviceDetail_id');
-
+  $serviceDetail_id = $request->input('serviceDetail_id');
+  $all_states = State::all();
+  $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
 
   $userSer = Service::where(function ($query) use ($category, $state) {
 
@@ -261,12 +344,12 @@ public function search(Request $request){
   if (count ( $userSer ) > 0){
         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
     //return redirect()->to('/')->with('user11', $userSer);
-          return view('searchResult')->with('userSer', $userSer);
+    return view('searchResult')->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
 
 
   }
   else
-    return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );}
+    return view ( 'searchResult' )->withMessage ( 'No Details found. Try to search again !' );}
 
 
 
@@ -313,14 +396,14 @@ $state2[] = $state;
     $d_city = $city;
 
        $services_in_city = Service::where('city', $d_city)->with('user')->get();
-
+        $all_states = State::all();
 //return $services_in_city;
 
     $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
 
         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
   //return redirect()->to('serviceDetail/'.$serviceDetailId);
-      return view('city_services')->with('services_in_city', $services_in_city)->with('featuredServices', $featuredServices);;
+      return view('city_services')->with('services_in_city', $services_in_city)->with('featuredServices', $featuredServices)->with('all_states', $all_states);
 
   }
 
