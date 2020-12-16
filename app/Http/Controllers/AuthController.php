@@ -115,11 +115,10 @@ class AuthController extends Controller
 			'name' => ['required', 'string', 'max:255'],
 			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
 			'state' => ['string'],			
-			'role' => 'required',
 			'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 		]);
 
-                // Image set up
+        // Image set up
         if ( $request->hasFile('file') ) {
         $image_name = time().'.'.$request->file->extension();
         $request->file->move(public_path('images'),$image_name);
@@ -128,7 +127,6 @@ class AuthController extends Controller
 
 		$user->name = $request->name;
 		$user->email = $request->email;
-		$user->role = $request->role;
 		$user->state = $request->state;
 		$user->phone = $request->phone;
 		$user->address = $request->address;

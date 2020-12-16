@@ -12,6 +12,8 @@ All Service |
 
 <div class="container">
 
+@include('layouts.backend_partials.status')
+
 @include('seller/section/all_service_table') 
 
 @endsection

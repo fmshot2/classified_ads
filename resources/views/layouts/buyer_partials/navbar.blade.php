@@ -1,3 +1,4 @@
+
   <header class="main-header ">
     <!-- Logo -->
     <a href="index.html" class="logo">
@@ -105,7 +106,7 @@
             <span class="label label-danger"> {{ $unread_notification_count }}  </span>
           </a>
           <ul class="dropdown-menu scale-up">
-            <li class="header">You have {{ $unread_notification_count }} notification</li>
+            <li class="header">You have {{ $unread_notification_count }} unread notification</li>
             <li>
               <!-- inner menu: contains the actual data -->
               <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu inner-content-div" style="overflow: hidden; width: auto; height: 200px;">

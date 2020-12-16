@@ -2,7 +2,7 @@
 @extends('layouts.seller')
 
 @section('title')
-Create Service | 
+Update Service | 
 @endsection
 
 @section('content')
@@ -19,7 +19,7 @@ Create Service |
     <div class="col-xs-12">
 
       <div class="row clearfix">
-        <form class="" method="POST" action="{{route('service.save')}}" enctype="multipart/form-data">
+        <form class="" method="POST" action="{{route('service.update', $service->id )}}" enctype="multipart/form-data">
           {{ csrf_field() }}
 
           <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
@@ -27,7 +27,7 @@ Create Service |
               <br>
               <div class="box-header with-border">
                 <i class="fa fa-plus"></i>
-                <h2 class="box-title"><strong>Create Service </strong></h2>
+                <h2 class="box-title"><strong>Update Service </strong></h2>
               </div>
               <div class="body">
 
@@ -37,7 +37,7 @@ Create Service |
 
                   <div class="form-group">
                     <label class="form-label">Service Name </label>
-                    <input type="text" name="name" class="form-control" value="">
+                    <input type="text" name="name" class="form-control" value=" {{ $service->name }} ">
 
                   </div>
                 </div>
@@ -45,14 +45,14 @@ Create Service |
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="">Description</label>
-                    <textarea name="description" class="form-control"></textarea>
+                    <textarea name="description" class="form-control"> {{ $service->description }} </textarea>
                   </div>
                 </div>
 
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="form-label"> Experience </label>
-                    <input type="text" name="experience" class="form-control" value="">
+                    <input type="text" name="experience" class="form-control" value=" {{ $service->experience }} ">
                   </div>
                 </div>
 
@@ -66,7 +66,7 @@ Create Service |
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="form-label">Min Price</label>
-                    <input type="number" name="min_price" class="form-control">
+                    <input type="number" name="min_price" class="form-control" value="{{ $service->min_price }}">
 
                   </div>
                 </div>
@@ -74,7 +74,7 @@ Create Service |
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="form-label">Max Price</label>
-                    <input type="number" name="max_price" class="form-control">
+                    <input type="number" name="max_price" class="form-control" value="{{ $service->max_price }}">
 
                   </div>
                 </div>
@@ -82,7 +82,7 @@ Create Service |
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="form-label">State</label>
-                    <input type="text" class="form-control" name="state" autocomplete="" aria-autocomplete="" value="">
+                    <input type="text" class="form-control" name="state" autocomplete="" aria-autocomplete="" value=" {{ $service->state }} ">
 
                   </div>
                 </div>
@@ -90,14 +90,14 @@ Create Service |
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="form-label">City</label>
-                    <input type="text" class="form-control" name="city">
+                    <input type="text" class="form-control" name="city" value="{{ $service->city }}">
                   </div>
                 </div>
 
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="form-label">Address</label>
-                    <input type="text" class="form-control" name="address">
+                    <input type="text" class="form-control" name="address" value="{{ $service->address }}">
                   </div>
                 </div>
 
@@ -120,7 +120,7 @@ Create Service |
                   <div class="body">
                     <div class="form-group form-float">
                       <div class="form-line">
-                        <input type="text" class="form-control" name="video_link">
+                        <input type="text" class="form-control" name="video_link" value="{{ $service->video_link }}">
                         <label class="form-label">Video</label>
                       </div>
                       <div class="help-info">Youtube Link</div>
@@ -172,6 +172,10 @@ Create Service |
       </div>
       <!-- /.row -->
     </div></div>
+
+
+  </section>
+
 
 
   @endsection

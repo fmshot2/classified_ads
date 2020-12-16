@@ -22,7 +22,7 @@
     <!-- sidebar menu-->
     <ul class="sidebar-menu" data-widget="tree">
 
-      <li class="" style="{{ url()->current() == route('seller.dashboard') ? 'background-color: #f8d053' : '' }}">
+      <li class="" style="{{ url()->current() == route('buyer.dashboard') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('seller.dashboard') }}">
           <i class="fa fa-dashboard"></i> <span> Dashboard </span>
           <span class="pull-right-container">
@@ -31,23 +31,13 @@
       </li>
 
 
-
-      <li class="treeview " style="{{ url()->current() == route('seller.service.create') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.service.all') ? 'background-color: #f8d053' : '' }}">
-        <a href="#">
-          <i class="fa fa-briefcase"></i>
-          <span> Service </span>
+      <li class="" style=" {{ url()->current() == route('seller.service.all') ? 'background-color: #f8d053' : '' }} ">
+        <a href=" {{ route('seller.service.all') }} ">
+          <i class="fa fa-search"></i> <span> Find A Service </span>
           <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
-        <ul class="treeview-menu">
-          <li><a href=" {{ route('seller.service.create') }} "><i class="fa fa-circle-o"></i> Create service </a></li>
-          <li><a href=" {{ route('seller.service.active') }} "><i class="fa fa-circle-o"></i> Active Service</a></li>
-          <li><a href=" {{ route('seller.service.pending') }} "><i class="fa fa-circle-o"></i> Pending Service </a></li>
-          <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> All Service </a></li>
-        </ul>
       </li>
-
 
       <li class="treeview" class="" style="{{ url()->current() == route('seller.message.unread') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.message.read') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.message.all') ? 'background-color: #f8d053' : '' }}">
         <a href="#">

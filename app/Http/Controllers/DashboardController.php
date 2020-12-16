@@ -20,6 +20,7 @@ class DashboardController extends Controller
     $message_count = Message::where('service_user_id', Auth::id())->count();
     $all_service = Service::where('user_id', Auth::id() )->take(5)->get();
     $unread_notification = Notification::where('status', 0)->orderBy('id', 'desc')->take(5)->get();
+    $all_notification_count = Notification::count();
 
     $all_service_active = Service::where('user_id', Auth::id() );
     $active_service =  $all_service_active->Where('status', 1);
@@ -46,7 +47,31 @@ class DashboardController extends Controller
     $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();
 
 
-    return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification') );
+    return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count') );
+
+  }
+
+  public function buyer()
+  {
+
+    $all_message_count = Message::where('buyer_id', Auth::id() )->count();
+
+    $all_message = Message::where('buyer_id', Auth::id() );
+    $unread_message =  $all_message->Where('status', 0);
+    $check_unread_message_table = collect($unread_message)->isEmpty();
+    $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
+    $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
+
+    $all_message = Message::where('buyer_id', Auth::id() );
+    $read_message =  $all_message->Where('status', 1);
+    $check_read_message_table = collect($read_message)->isEmpty();
+    $read_message_count = $check_read_message_table == true ? 0 : $read_message->count();
+    $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();
+
+    $unread_notification = Notification::where('status', 0)->orderBy('id', 'desc')->take(5)->get();
+    $all_notification_count = Notification::count();
+
+    return view('buyer.dashboard', compact('unread_message', 'unread_notification', 'all_message_count', 'unread_message_count', 'read_message', 'read_message_count', 'all_notification_count' ));
 
   }
 

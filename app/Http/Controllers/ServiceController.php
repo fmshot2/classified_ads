@@ -17,6 +17,8 @@ use Illuminate\Http\File;
 use App\Category;
 use App\Local_government;
 use App\State;
+use Illuminate\Support\Str;
+
 
 class ServiceController extends Controller
 {
@@ -682,6 +684,9 @@ public function show($id)
         $message->service_user_id = $data['service_user_id'];
         $message->description = $data['description'];
         $serviceDetailId = $message->service_id;
+        $slug = $random = Str::random(40);
+        $message->slug = $slug;
+
 
         if ($message->save()) {
         //return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
