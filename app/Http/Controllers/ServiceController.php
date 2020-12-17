@@ -17,7 +17,7 @@ use Illuminate\Http\File;
 use App\Category;
 use App\Local_government;
 use App\State;
-use Illuminate\Support\Str;
+//use Illuminate\Support\Str;
 
 
 class ServiceController extends Controller
@@ -27,6 +27,12 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function termsOfUse()
+    {       
+      return view('terms-of-use');
+    }
 
 
     public function index2()
@@ -73,23 +79,24 @@ class ServiceController extends Controller
 
 
 
-    public function serviceDetail($id)
+    public function serviceDetail($slug)
     {
       $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
       $approvedServices = Service::where('status', 1)->with('user')->get();
       $advertServices = Service::where('is_approved', 1)->with('user')->get();
       $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
       $categories = Category::paginate(8);
-      $serviceDetail = Service::find($id);
+      $serviceDetail = Service::where('slug', $slug)->first();
       $all_states = State::all();
+      //return $serviceDetail;
       $serviceDetail_id = $serviceDetail->id;
       $service_likes = Like::where('service_id', $serviceDetail_id)->count();
       $service_category_id = $serviceDetail->category;
-      $similarProducts = Service::where('category', $service_category_id)->get();
+      $similarProducts = Service::where('category_id', $service_category_id)->get();
       $featuredServices2 = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
       $user_id = $serviceDetail->user_id;
       //$userMessages = Message::where('service_id', $id && Auth::id())->get();
-      $userMessages = Message::where('service_id', $id)->get();
+      $userMessages = Message::where('service_id', $serviceDetail_id)->get();
       if($userser2 = session()->get('userSer')) {
         $userser3 = $userser2;
       }else{
@@ -533,7 +540,7 @@ public function show($id)
 
      $image = $request->file('image');
 
-     $slug = Str::of($request->name)->slug('-');
+     //$slug = Str::of($request->name)->slug('-');
 
      $service = new Service();
 
@@ -546,7 +553,7 @@ public function show($id)
     $service->user_id = Auth::id();
     $service->category_id = $request->category_id;
     $service->name = $request->name;
-    $service->slug = $slug;
+    //$service->slug = $slug;
     $service->image = $image;
     $service->description = $request->description;
     $service->state = $request->state;
@@ -618,7 +625,7 @@ public function show($id)
     $service->user_id = Auth::id();
     $service->category_id = $request->category_id;
     $service->name = $request->name;
-    $service->slug = $slug;
+    //$service->slug = $slug;
     $service->image = $image;
     $service->description = $request->description;
     $service->state = $request->state;
@@ -648,12 +655,21 @@ public function show($id)
 
     public function saveLike(request $request)
     {
+//     $service = Service::find($id);
+
+          /*$serviceName = $request->id;
+          $serviceState =   $request->state;*/
 
       $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->first();
       if ($likecheck) {
+        return 'Heyyyyy';    
+      }else{
+        return 'Heyyyyy22222';    
+      }
+      if ($likecheck) {
         Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->delete();
         $likecount = Like::where(['service_id'=>$request->id])->count();
-        return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
+        // return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
 //                    return redirect('/home');    
       }else{
         $like = new Like();
@@ -664,6 +680,56 @@ public function show($id)
          //return redirect('/home');    
       }      
     }
+
+
+ public function saveLike2($id)
+    {
+      $service = Service::find($id);
+      $service_slug = $service->slug;
+      //return $service_slug;
+          /*$serviceName = $request->id;
+          $serviceState =   $request->state;*/
+
+      $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->first();
+      if ($likecheck) {
+         Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
+        $likecount = Like::where(['service_id'=>$id])->count();
+        return redirect()->to('serviceDetail/'.$service_slug);
+        //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
+        //return redirect('/home');   
+      }else{
+         $like = new Like();
+        $like->user_id = Auth::id();
+        $like->service_id = $id;
+        $like->save();
+        $likecount = Like::where(['service_id'=>$id])->count();
+        return redirect()->to('serviceDetail/'.$service_slug);
+        //return 'Heyyyyy22222'. $likecount;    
+      }
+      if ($likecheck) {
+        Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
+        $likecount = Like::where(['service_id'=>$id])->count();
+        return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
+//                    return redirect('/home');    
+      }else{
+        $like = new Like();
+        $like->user_id = Auth::id();
+        $like->service_id = $id;
+        $like->save();
+        $likecount = Like::where(['service_id'=>$id])->count();
+         //return redirect('/home');    
+      }      
+    }
+
+
+
+
+
+
+
+
+
+
     public function storeComment(Request $request)
     {
       $data = $request->all();
@@ -684,13 +750,16 @@ public function show($id)
         $message->service_user_id = $data['service_user_id'];
         $message->description = $data['description'];
         $serviceDetailId = $message->service_id;
-        $slug = $random = Str::random(40);
-        $message->slug = $slug;
+        $service = Service::find($serviceDetailId);
+        $service_slug = $service->slug;
+
+        //$slug = $random = Str::random(40);
+        //$message->slug = $slug;
 
 
         if ($message->save()) {
         //return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
-          return redirect()->to('serviceDetail/'.$serviceDetailId);
+          return redirect()->to('serviceDetail/'.$service_slug);
         }
 
 

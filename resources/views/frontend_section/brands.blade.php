@@ -28,36 +28,30 @@
         </div>
         <div class="row">
                       
-                        <div class="col-lg-3 col-md-12">
+                        <div class="col-lg-4 col-md-12">
                 <div class="blog-3">
                     <div class="blog-photo">
                                                 <img src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid">
                                             </div>
                 </div>
             </div>
-                        <div class="col-lg-3 col-md-12">
+                        <div class="col-lg-4 col-md-12">
                 <div class="blog-3">
                     <div class="blog-photo">
                                                 <img src="{{asset('images')}}/{{'download.jpg'}}" alt="advert" class="img-fluid">
                                             </div>
                 </div>
             </div>
-             <div class="col-lg-3 col-md-12">
+             <div class="col-lg-4 col-md-12">
                 <div class="blog-3">
                     <div class="blog-photo">
                                                 <img src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid">
                                             </div>
                 </div>
             </div>
-                        <div class="col-lg-3 col-md-12">
-                <div class="blog-3">
-                    <div class="blog-photo">
-                                                <img src="{{asset('images')}}/{{'download.jpg'}}" alt="advert" class="img-fluid">
-                                            </div>
-                </div>
-            </div>
+                     
                     </div>
-        <p>got a content and need an <strong>ADVERT</strong> on this page? click<strong> <a href="https://efcontact.com/advertisement"> HERE</a></strong></p>
+        <p>Got a content and need an <strong>ADVERT</strong> on this page? click<strong> <a href="https://efcontact.com/advertisement"> HERE</a></strong></p>
     </div>
 </div>
 

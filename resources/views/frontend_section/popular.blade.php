@@ -2,7 +2,7 @@
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
-            <h1>Featured Businesses</h1>
+            <h1>Verified Businesses</h1>
         </div>
         @if(isset($approvedServices))
 

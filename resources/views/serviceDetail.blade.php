@@ -10,12 +10,29 @@
         <div class="page-name">
             <h1>Services Detail</h1>
             <ul>
-                <li><a href="index.html">Index</a></li>
+                <li><a href="{{route('home')}}">Home</a></li>
                 <li><span>/</span>Service Detail Page</li>
             </ul>
         </div>
     </div>
 </div>
+
+
+   <div class="pull-right">
+                                    <h3><span class="text-right">
+                                        <div class="posts-by-category widget">
+                                            <!--<h3 class="sidebar-title">Cities</h3>-->                       
+                                            <ul class="list-unstyled list-cat">
+
+                                         
+                                              <a href="{{route('home')}}" class="btn btn-outline-warning"><i class="fa fa-home">Back To Home</i></a>
+                                            
+                                          </ul>
+                                      </div></span></h3>
+                                  
+                                  </div>
+
+
 
 <!-- Properties Details page start -->
 <div class="properties-details-page content-area-7">
@@ -58,6 +75,22 @@
                                     <h3>{{$serviceDetail->name}}</h3>
                                     <p><i class="fa fa-map-marker"></i>{{$serviceDetail->state}}</p>
                                 </div>
+
+<!--<div class="properties-listing">
+    <a class="fa-thumbs-up btn-submit" href="{{ route('admin2.like', $serviceDetail->id)}}">like</a>
+                              <span>  <form action="{{ route('admin2.like', $serviceDetail->id)}}" method="get">
+                            {{ csrf_field() }}
+
+             <span id="alert-block"></span>                &nbsp;&nbsp;&nbsp; <input id="id" type="hidden" value="{{$serviceDetail->id}}" class="input-text" name="id"><button id="alert-block2" class="fa fa-thumbs-up btn-submit" type="submit">Like</button>
+                        </form>
+                    </span>
+                                <span> <i class="fa fa-thumbs-down"></i> 2 &nbsp;&nbsp;&nbsp;
+Unlike</span>
+                                <span>980 sqft</span>
+                            </div>-->
+
+
+
                                 <div class="pull-right">
                                     <h3><span class="text-right">
                                         <div class="posts-by-category widget">
@@ -248,6 +281,9 @@
             <li class="nav-item">
                 <a class="nav-link" id="six-tab" data-toggle="tab" href="#six" role="tab" aria-controls="six" aria-selected="true">Similar Properties</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="seven-tab" data-toggle="tab" href="#seven" role="tab" aria-controls="six" aria-selected="true">Contact Details</a>
+            </li>
         </ul>
         <div class="tab-content" id="carTabContent">
             <div class="tab-pane fade active show" id="one" role="tabpanel" aria-labelledby="one-tab">
@@ -327,6 +363,26 @@
        </div>
    </div>
 
+   <div class="tab-pane fade " id="seven" role="tabpanel" aria-labelledby="seven-tab">
+       <div class="properties-description mb-50">
+        <h3 class="heading-2">
+            Phone
+        </h3>
+
+        @guest
+        <p class="animate__animated animate__bounce">Please login to see this seller's phone number!</p>
+
+        @endguest
+        @auth
+        <p class="animate__animated animate__bounce">{{$serviceDetail->phone}}</p>
+        @endauth
+
+
+
+
+    </div>
+</div>
+
 </div>
 </div>
 
@@ -334,6 +390,7 @@
 
 
 @auth
+@if(Auth::user()->role == 'buyer')
 <ul class="comments">
     <li>
         @if(isset($userMessages))
@@ -348,7 +405,7 @@
             <div class="comment-content">
                 <div class="comment-meta">
                     <h3>
-                        Maikel Alisa
+                        {{$userMessage->buyer_name}}
                     </h3>
                     <div class="comment-meta">
                         <!--6:42 PM 6/28/2019<a href="#">Reply</a>-->
@@ -386,7 +443,9 @@
                         </li>
                         
                     </ul>
-
+                    @else
+                    <p>Please login as a buyer to see your previous conversation with this seller</p>
+                    @endif
                     @endauth
 
 
@@ -408,11 +467,11 @@
 
 
 
-
+                    @auth
                     <!-- Contact 1 start -->
-                    <div class="contact-1 mb-0">
+                    <!--<div class="contact-1 mb-0">
                         <h3 class="heading mb-0">Contact Seller</h3>
-                        <form id="myform" action="{{ route('user.message')}}" method="POST">
+                        <form id="myform2" action="{{ route('user.message')}}" method="POST">
                             <div class="row">
                                 {{ csrf_field() }}
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -425,8 +484,6 @@
                                         <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">
                                     </div>
                                 </div>
-
-
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="form-group name">
                                         <input type="text" name="buyer_name" class="form-control" placeholder=" Your Name">
@@ -437,15 +494,12 @@
                                         <input type="email" name="buyer_email" class="form-control" placeholder="Your Email">
                                     </div>
                                 </div>
-
                                 <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
                                     <div class="form-group email"> 
 
                                         <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="form-control" placeholder="Email">
                                     </div>
                                 </div>
-
-
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="form-group subject">
                                         <input type="text" name="subject" class="form-control" placeholder="Subject">
@@ -455,8 +509,7 @@
                                     <div class="form-group number">
                                         <input type="text" name="phone" class="form-control" placeholder="Your Phone Number">
                                     </div>
-                                </div>
-                                
+                                </div>                                
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group message">
                                         <textarea class="form-control" id="description" name="description" placeholder="Write message"></textarea>
@@ -469,165 +522,103 @@
                                 </div>
                             </div>
                         </form>
-
-
-                    </div>
-
+                    </div>-->
+                    @endauth
                 </div>
             </div>
-
-
-
-
-
-            <div class="col-lg-4 col-md-12">
+         <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right">
                     <!-- Advanced search start -->
-                    <div class="sidebar widget advanced-search none-992">
-                        <h3 class="sidebar-title">Advanced Search</h3>
-
-                        <form action="{{route('search3')}}" method="GET" enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group name">
-                                        <input type="text" name="name" class="form-control" placeholder="What Service Are You Looking For?">
-                                    </div>
-                                </div>
-                                
-                               <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group subject">
-                                        <input type="text" name="state" class="form-control" placeholder="Enter Your State">
-                                    </div>
-                                </div>-->
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group subject">
-                                        <input type="hidden" name="serviceDetail_id" value={{$serviceDetail_id}} class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
-                                  <div class="form-group subject">
-                                    <select class="form-control" id="state" name="state">                                
-                                        @if(isset($all_states))
-
-                                        @foreach($all_states as $state)
-
-                                        <option value="{{$state->id}}"> {{ $state->name }}  </option> 
-                                        @endforeach
-                                        @endif                         
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input type="number" name="minprice" id="minprice" class="form-control" placeholder="Min Price" autocomplete="off">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input type="number" name="maxprice" id="maxprice" class="form-control" placeholder="Max Price" autocomplete="off">
-                                    </div>
-                                </div>
+                    <div class="contact-1 financing-calculator widget">
+                        <h5 class="sidebar-title">Chat With Seller</h5>
+                                                <img src="{{asset('images')}}/{{$serviceDetail->image}}" alt="Agent" height="200" width="200">
+                        <br>
+                                                <div class="pull-left">
+                            Registered:  "{{$serviceDetail->created_at->diffForHumans()}}"
+                        </div>
+                        <!--<div class="pull-right">
+                            <i class="fa fa-circle text-success"></i> Online
+                        </div>-->
+                        <br>
+                        @guest
+                        <a href="{{route('home')}}"><strong>Login</strong></a> to view contact seller
+                        @endguest
+                        <div class="s-border"></div>
+                        <div class="m-border"></div>
+                                                <form id="myform" action="{{ route('user.message')}}" method="POST">
+                                {{ csrf_field() }}
+                         
+                            <input  type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
+                            <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">  
+                              <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="form-control" placeholder="Email">           
                             <div class="form-group">
-                                <div class="switch">
-                                    <label>
-                                        <input type="checkbox" name="featured">
-                                        <span class="lever"></span>  
-                                        Featured
-                                    </label>
-                                </div>
+                                <label class="form-label">Full Name</label>
+<input type="text" name="buyer_name" class="form-control" placeholder=" Your Name">
                             </div>
-                            <div class="col-lg-12 col-md-12">
-                                <div class="send-btn">
-                                    <button type="submit" class="btn btn-outline-warning btn-block bg-warning text-white">Search  <i class="fa fa-search" aria-hidden="true"></i></button>
-                                </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+ <input type="email" name="buyer_email" class="form-control" placeholder="Your Email">                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone</label>
+ <input type="text" name="phone" class="form-control" placeholder="Your Phone Number">                            </div> 
+ <div class="form-group">
+                                <label class="form-label">Subject</label>
+                                 <input type="text" name="subject" class="form-control" placeholder="Subject">
                             </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="widget popular-posts">
-                    <h3 class="sidebar-title">Featured Services</h3>
-                    <div class="s-border"></div>
-                    <div class="m-border"></div>
-                    @if(isset($featuredServices))
-                    @foreach($featuredServices as $featuredService)
-                    <div class="media">
-                        <div class="media-left">
-                            <img class="media-object" src="{{asset('images')}}/{{$featuredService->image}}">
-                        </div>
-                        <div class="media-body align-self-center">
-                            <h3 class="media-heading">
-                                <a href="https://efcontact.com/services/emeka-auto-mechanic">{{$featuredService->user->name}}, {{$featuredService->name}}, {{$featuredService->city}}</a>
-                            </h3>
-                        </div>
+
+                            <div class="form-group message">
+                                <textarea class="form-control" id="description" name="description" placeholder="Write message"></textarea>
+                            </div>
+                            @guest
+                                                        <p>Only registered users can message sellers. <a href="{{route('home')}}"><strong>Login</strong></a> or <a href="{{route('home')}}"><strong>Register</strong></a> if you dont have an account.</p>
+                                                        @endguest
+                        
+                                            </div>
+@auth
+                                             <div class="col-lg-12 col-md-12">
+                                    <div class="send-btn">
+                                        <button type="submit" class="btn btn-md btn-submit btn-warning">Send Message</button>
+                                    </div>
+                                </div>
+                                @endauth
+                                                        </form>
+
+                    <div class="posts-by-category widget">
+                        <h3 class="sidebar-title">Safety tips</h3>
+                        <div class="s-border"></div>
+                        <div class="m-border"></div>
+                        <ul class="list-unstyled list-cat">
+                            <li>* Do not pay in advance even for the delivery.</li>
+                            <li>* Try to meet at a safe, public location.</li>
+                            <li>* Check the item BEFORE you buy it.</li>
+                            <li>* Pay only after collecting the item.</li>
+                            <li>* You pay only the listed price without any hidden costs.</li>
+                            <li>
+                                <button type="button" class="btn btn-danger btn-md">Report Seller <i class="fa fa-flag"></i> </button>
+                            </li>
+                        </ul>
                     </div>
-                    @endforeach
-                    @endif
+                   
                 </div>
-                <div class="posts-by-category widget">
-                    <h3 class="sidebar-title">Cities</h3>
-                    <div class="s-border"></div>
-                    <div class="m-border"></div>
-                    <ul class="list-unstyled list-cat">
-
-                      @if(isset($featuredServices2))
-                      @foreach($featuredServices2 as $featuredService)
-                      <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-home">{{$featuredService->city}}</i></a>
-                      @endforeach
-                      @endif
-                      
-                  </ul>
-              </div>
-              <div class="widget helping-center">
-                <div class="s-border"></div>
-                <div class="m-border"></div>
-                <div class="media">
-                    <div class="media-left">
-                      <img src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid">
-                  </div>
-              </div>
-          </div>
-
-
-
-
-
-          <div class="widget helping-center">
-            <h3 class="sidebar-title">Helping Center</h3>
-            <div class="s-border"></div>
-            <div class="m-border"></div>
-            <ul class="contact-link">
-                <li>
-                    <i class="flaticon-technology-1"></i>
-                    <a href="tel:+0700-6258244">
-                        0700-6258244
-                    </a>
-                </li>
-                <li>
-                    <i class="flaticon-technology-1"></i>
-                    <a href="tel:+0807-9000286">
-                        0807-9000286
-                    </a>
-                </li>
-                <li>
-                    <i class="flaticon-technology-1"></i>
-                    <a href="tel:+080567654345">
-                        080567654345
-                    </a>
-                </li>
-                <li>
-                    <i class="flaticon-envelope"></i>
-                    <a href="mailto:info@efcontact.com">
-                        info@efcontact.com
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+            </div>
 </div>
 </div>
 </div>
+
+<div class="container mb-5 mt-0">
+    <h5>
+        HAPPY WITH THE SERVICE RENDERED? THEN GIVE THIS SELLER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">   LIKE!</span>
+        </a>
+    </h5>
 </div>
+
+
+
+
+
+
+
+
 
 @endsection
 

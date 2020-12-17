@@ -20,7 +20,7 @@ class CreateServicesTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('city');
-            $table->string('state');
+            $table->string('state')->nullable();
             $table->string('streetAddress')->nullable();
             $table->string('closestBusstop')->nullable();
             //$table->string('category');

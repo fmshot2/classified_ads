@@ -28,7 +28,7 @@ class AuthController extends Controller
 		$user->email = $request->email;
 		$user->password = Hash::make($request->password);
 		$user->role = $request->role;
-		$user->state = $request->state;
+		//$user->state = $request->state;
 		$user->save();
 
 		session()->flash('success', ' Succesfull');
