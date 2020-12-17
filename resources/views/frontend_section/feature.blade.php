@@ -116,7 +116,7 @@
             <div class="col-lg-3 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
                 <div class="property-box">
                     <div class="property-thumbnail">
-                        <a href="{{route('serviceDetail', $featuredService->id)}}" class="property-img">
+                        <a href="{{route('serviceDetail', $featuredService->slug)}}" class="property-img">
                             <div class="listing-badges">
                                 <span class="featured bg-warning">featured</span>
                             </div>
@@ -137,8 +137,8 @@
                             </a>
                         </div>
                         <div class="detail">
-                            <div class="d-flex justify-content-between"><a class="title " href="{{route('serviceDetail', $featuredService->id)}}"  style="font-size: 14px;">{{$featuredService->name}}</a>
-                                <a class="pull-right" href="{{route('serviceDetail', $featuredService->id)}}" style="font-size: 13px;">
+                            <div class="d-flex justify-content-between"><a class="title " href="{{route('serviceDetail', $featuredService->slug)}}"  style="font-size: 14px;">{{$featuredService->name}}</a>
+                                <a class="pull-right" href="{{route('serviceDetail', $featuredService->slug)}}" style="font-size: 13px;">
                                     <i class="fa fa-map-marker text-warning"></i> {{$featuredService->city}}, {{$featuredService->state}}                                   
                                 </a></div>
 
@@ -239,7 +239,7 @@
  <!--<img class="" src="{{asset('images')}}/{{'adminteacher.png'}}" style="width: 50px;" alt="properties">-->
 
                     <i class="fa fa-user text-warning"></i>
-                    <a href="{{route('services', $category->id)}}" >
+                    <a href="{{route('services', $category->slug)}}" >
                     <h4>{{$category->name}}</h4>
                     </a>
                 </div>

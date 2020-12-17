@@ -15,14 +15,31 @@
 <div class="sub-banner">
     <div class="container">
         <div class="page-name">
-            <h1>Properties </h1>
+
+            <h1>{{$one_category->name}} services</h1>
             <ul>
-                <li><a href="https://efcontact.com">Home</a></li>
-                <li><span>/</span>Properties</li>
+                <li><a href="{{route('home')}}">Home</a></li>
+                <li><span>/</span>{{$one_category->name}} services</li>
             </ul>
         </div>
     </div>
 </div>
+
+
+
+  <div class="pull-right">
+                                    <h3><span class="text-right">
+                                        <div class="posts-by-category widget">
+                                            <!--<h3 class="sidebar-title">Cities</h3>-->                       
+                                            <ul class="list-unstyled list-cat">
+
+                                         
+                                              <a href="{{route('home')}}" class="btn btn-outline-warning"><i class="fa fa-home">Back To Home</i></a>
+                                            
+                                          </ul>
+                                      </div></span></h3>
+                                  
+                                  </div>
 <!-- Properties Details page start -->
 <div class="properties-details-page content-area-7">
     <div class="container">
@@ -58,7 +75,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
                 <div class="property-box">
                     <div class="property-thumbnail">
-                        <a href="http://localhost:8000/serviceDetail/2" class="property-img">
+                        <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
                             <div class="listing-badges">
                                 <span class="featured bg-warning">featured</span>
                             </div>
@@ -68,22 +85,31 @@
                                 </p>
                                 </div>
                                 <div class="listing-time opening">femi</div>
-                                <img class="d-block w-100" src="http://localhost:8000/images/1607874476.jpeg" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                <img class="d-block w-100" src="{{asset('images')}}/{{$category_service->image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                             </a>
                         </div>
-                        <div class="detail">
-                            <span class="d-flex justify-content-between"><a class="title " href="properties-details.html" style="font-size: 12px;">{{$category_service->name}}</a>
-                                </span>
+                     <div class="detail">
+                            <div class="d-flex justify-content-between"><a class="title " href="{{route('serviceDetail', $category_service->id)}}"  style="font-size: 14px;">{{$category_service->name}}</a>
+                                <a class="pull-right" href="{{route('serviceDetail', $category_service->id)}}" style="font-size: 13px;">
+                                    <i class="fa fa-map-marker text-warning"></i> {{$category_service->city}}, {{$category_service->state}}                                   
+                                </a></div>
 
                                 <ul class="facilities-list clearfix">
-                                    <li><i class="fa fa-map-marker text-warning"></i>
-                                        {{$category_service->city}}
+                                    <li>
+                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i>                                    {{$category_service->likes->count()}} likes
                                     </li>
-                                    <li class="" style="float: right;">
-                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true"></i><a href="http://localhost:8000/serviceDetail/2" >{{$category_service->likes->count()}} like(s)</a>
-                                        </li>
+                                 
                             </ul>
                         </div>
+
+
+
+
+
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -181,10 +207,10 @@
                         <h3 class="sidebar-title">Cities</h3>
                         <div class="s-border"></div>
                         <div class="m-border"></div>
-                        <ul class="list-unstyled list-cat">
+                        <ul class="list-unstyled list-cat mt-5">
                               @if(isset($featuredServices))
                         @foreach($featuredServices as $featuredService)
-                                                        <a href="{{route('search_by_city', $featuredService->city)}}" class="change-view-btn"><i class="fa fa-home">{{$featuredService->city}}</i></a>
+                                                        <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-home">{{$featuredService->city}}</i></a>
                                                             @endforeach
                         @endif
                                                       
@@ -192,15 +218,15 @@
                     </div>
 
                                  
-                    <div class="widget helping-center">
-                        <div class="s-border"></div>
-                        <div class="m-border"></div>
-                                                <div class="media">
-                            <div class="media-left">
-                                                                <img src="/storage/advert/fresh-toothpaste-advertisement-realistic-style_52683-16161.jpg" alt="advert" class="img-fluid">
-                                                            </div>
-                        </div>
-                                           </div>
+                      <div class="widget helping-center">
+                <div class="s-border"></div>
+                <div class="m-border"></div>
+                <div class="media">
+                    <div class="media-left">
+                      <img src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid">
+                  </div>
+              </div>
+          </div>
                     <!-- Helping Center start -->
                     <div class="widget helping-center">
                         <h3 class="sidebar-title">Helping Center</h3>

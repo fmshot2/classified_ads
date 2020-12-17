@@ -63,7 +63,7 @@ Home |
                     </h4>
                 </div>
                 <div class="float-right cod-pad">
-                    <div class="sorting-options">       @if(isset($featuredServices))
+                    <div class="sorting-options">@if(isset($featuredServices))
                         @foreach($featuredServices as $featuredService)
                         <a href="https://efcontact.com/services/city/lugbe" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a>
                         @endforeach
@@ -81,7 +81,7 @@ Home |
                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="property-box">
                         <div class="property-thumbnail">
-                            <a href="{{route('serviceDetail', $approvedService->id)}}" class="property-img">
+                            <a href="{{route('serviceDetail', $approvedService->slug)}}" class="property-img">
                                 <div class="price-ratings-box">
                                     <p class="price">
                                         {{$approvedService->experience}} Yrs Experience
@@ -97,7 +97,7 @@ Home |
 
                             <span class="d-flex justify-content-between">
                                 <h1 class="title">
-                                    <a href="{{route('serviceDetail', $approvedService->id)}}" style="font-size: 15px;">{{$approvedService->name}}</a>
+                                    <a href="{{route('serviceDetail', $approvedService->slug)}}" style="font-size: 15px;">{{$approvedService->name}}</a>
                                 </h1>
 
                             </span>
@@ -113,11 +113,12 @@ Home |
                             </div>
 
                             <div class="footer clearfix">
-
+                                @guest
                                 <div class="pull-right">
                                     <a><i class="flaticon-time"></i>                                 login to contact  <strong>{{$approvedService->user->name}}</strong>
                                     </a>
                                 </div>
+                                @endguest
                                 <div class="pull-center">
                                    <i class="fa fa-thumbs-up text-warning" aria-hidden="true"></i><a>{{$approvedService->likes->count()}} like(s)</a>
                                </div>

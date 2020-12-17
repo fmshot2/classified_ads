@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Message;
 use App\Notification;
+use App\Service;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,20 +17,25 @@ use App\Notification;
 */
 
 Route::get('/', 'ServiceController@index2')->name('home');
-Route::get('/serviceDetail/{id}', 'ServiceController@serviceDetail')->name('serviceDetail');
+Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('serviceDetail');
 Route::get('/allservices', 'ServiceController@allServices')->name('allServices');
 Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service.search');
 Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');
 Route::get('/sellers', 'ServiceController@allSellers')->name('seller.sellers');
+Route::get('/terms-of-use', 'ServiceController@termsOfUse')->name('terms-of-use');
+
 
 
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
 Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard');
 Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile');
 Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messages');
-Route::get('services/{id}','CategoryController@show')->name('services');
+Route::get('services/{slug}','CategoryController@show')->name('services');
 Route::get('/categoryDetail/{id}', 'CategoryController@categoryDetail')->name('categoryDetail');
 Route::get('/catdet/{id}', 'CategoryController@show')->name('catdet');
+
+Route::get('/saveLike2','ServiceController@saveLike2')->name('saveLike2');
+
 
 
 // add comment routes
@@ -49,6 +55,8 @@ Route::get('/allCategories/', 'CategoryController@allCategories')->name('allCate
 Route::get('/admin/user_register/ajax/{state_id}',array('as'=>'user_register.ajax','uses'=>'CategoryController@stateForCountryAjax'));
 Route::get('/getlocal_governments/{id}','CategoryController@getlocal_governments');
 Route::get('api/get-city-list/{id}','CategoryController@getCityList');
+Route::get('api/get-like-list/{id}','ServiceController@getLikeList');
+
 
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
 Route::get('contact-us','ContactController@contact_us')->name('contact');
@@ -94,6 +102,8 @@ Route::get('/seller/notification/{slug}', 'SellerController@viewNotification')->
 
 Route::get('/seller/profile/', 'SellerController@viewProfile')->name('seller.profile');
 Route::post('/seller/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
+Route::get('/admin2/like/{id}', 'ServiceController@saveLike2')->name('admin2.like');
+
 
 Route::get('/buyer/dashboard', 'DashboardController@buyer')->name('buyer.dashboard');
 Route::get('/buyer/dashboard/service/all', 'BuyerController@allService')->name('buyer.service.all');
@@ -143,9 +153,10 @@ Route::any ( '/searchresults',  'ServiceController@search')->name('search3');
 
 
 //Views Composer 
-View::composer(['layouts.frontend_partials.navbar', ], function ($view) {
+View::composer(['layouts.frontend_partials.navbar', 'layouts.frontend_partials.footer' ], function ($view) {
     $categories = App\Category::all();
-   $view->with('categories',$categories);
+    $service = Service::take(3)->get();
+   $view->with( compact('categories', 'service') );
 });
 
 View::composer(['layouts.seller_partials.navbar', 'layouts.seller_partials.sidebar', 'layouts.backend_partials.navbar', 'layouts.backend_partials.navbar'], function ($view) {
