@@ -10,6 +10,11 @@ All Service |
 <br>
 <hr>
 
+    <section class="content">
+
+
 @include('admin/section/all_service_table') 
+
+</section>
 
 @endsection

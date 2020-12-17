@@ -13,7 +13,14 @@ Seller Table |
 
 <div class="container">
 
+
+    <section class="content">
+
+
 @include('admin/section/seller_table') 
+
+</section>
+
 
 </div>
 

@@ -12,7 +12,12 @@ Buyer Table |
 
 <div class="container">
 
+    <section class="content">
+
+
 @include('admin/section/buyer_table') 
+
+</section>
 
 </div>
 

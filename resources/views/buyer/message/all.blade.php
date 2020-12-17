@@ -1,4 +1,4 @@
-@extends('layouts.seller')
+@extends('layouts.buyer')
 
 @section('title')
 All Message Table | 
@@ -11,11 +11,11 @@ All Message Table |
 
 <div class="container">
 
+@include('layouts.buyer_partials.status')
+
 	<section class="content">
 
-
-@include('layouts.seller_partials.status')
-@include('seller/section/all_message_table') 
+@include('buyer/section/all_message_table') 
 
 </section>
 

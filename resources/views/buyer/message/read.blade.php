@@ -1,8 +1,8 @@
 
-@extends('layouts.admin')
+@extends('layouts.buyer')
 
 @section('title')
-Active Service | 
+Read Message Table | 
 @endsection
 
 @section('content')
@@ -12,10 +12,10 @@ Active Service |
 
 <div class="container">
 
-    <section class="content">
 
+	<section class="content">
 
-@include('admin/section/active_service_table') 
+@include('buyer/section/read_message_table') 
 
 </section>
 

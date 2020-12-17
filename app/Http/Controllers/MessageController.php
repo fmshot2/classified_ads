@@ -14,7 +14,7 @@ class MessageController extends Controller
 
         $service_id = $request->service_id;
         $description = $request->description;
-        $slug = Str::of($request->description)->slug('-');
+        $slug = $random = Str::random(40);
         
         $buyer_id = Auth::id();
         $message = new Message();      

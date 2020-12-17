@@ -8,7 +8,6 @@ use App\User;
 use App\Like;
 use App\Message;
 use DB;
-use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;

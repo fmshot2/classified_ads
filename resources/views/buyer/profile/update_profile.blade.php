@@ -1,6 +1,6 @@
 
 
-@extends('layouts.seller')
+@extends('layouts.buyer')
 
 @section('title')
 Update Profile | 
@@ -147,15 +147,7 @@ Update Profile |
 										<input class="form-control" name="newpassword_confirmation" type="password" required="">
 									</div>
 								</div>
-								<div class="form-group">
-									<div class="col-sm-offset-2 col-sm-10">
-										<div class="checkbox">
-											<input type="checkbox" id="basic_checkbox_1" checked="" required="">
-											<label for="basic_checkbox_1"> I agree to the</label>
-											&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Terms and Conditions</a>
-										</div>
-									</div>
-								</div>
+
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
 										<button type="submit" class="btn btn-warning">Update <i class="fa fa-refresh"></i></button>

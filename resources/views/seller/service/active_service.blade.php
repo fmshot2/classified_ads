@@ -12,6 +12,11 @@ Active Service |
 
 <div class="container">
 
+	<section class="content">
+
 @include('seller/section/active_service_table') 
+
+</section>
+
 
 @endsection

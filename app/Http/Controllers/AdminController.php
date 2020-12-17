@@ -32,7 +32,7 @@ class AdminController extends Controller
   public function destroy($id)
   {
     $service = Service::findOrFail($id);
-    Storage::disk('public')->delete($service->image);
+    //Storage::disk('public')->delete($service->image);
     $service->delete();
     session()->flash('status', 'Task was successful!');
     return back();
@@ -69,6 +69,9 @@ class AdminController extends Controller
     return view('admin/search/index', compact('users', 'query'));
   }
 
-
+public function viewProfile()
+{
+    return view ('admin.profile.update_profile');
+}
 
 }

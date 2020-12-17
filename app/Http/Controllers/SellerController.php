@@ -200,7 +200,6 @@ public function storeReplyMessage(Request $request)
     ]);
 
     $request->session()->flash('status', 'Task was successful!');
-    return $this->allMessage();
 
     $message = New Message();
     $message->subject = $request->subject;
@@ -209,7 +208,10 @@ public function storeReplyMessage(Request $request)
     $message->service_user_id = $request->service_user_id;
     $message->buyer_name = $request->buyer_name;
     $message->buyer_email = $request->buyer_email;
-    return view ('seller.service.all_service', compact('all_service') );
+    $message->buyer_id = $request->buyer_id;
+    $message->reply = 'yes';
+    $message->save();
+    return back();
 }
 
 public function viewNotification($slug)

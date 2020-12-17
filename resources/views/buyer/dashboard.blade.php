@@ -7,6 +7,10 @@ Buyer Dashboard |
 
 @section('content')
 
+  <section class="content">
+
+
+
 <div class="wrapper">
 
   <!-- Content Wrapper. Contains page content -->
@@ -142,5 +146,7 @@ Buyer Dashboard |
 </div>
 <!-- ./wrapper -->
 
+
+</section>
 
 @endsection

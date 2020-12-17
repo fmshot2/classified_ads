@@ -10,6 +10,11 @@ Pending Service |
 <br>
 <hr>
 
+    <section class="content">
+
+
 @include('admin/section/pending_service_table') 
+
+</section>
 
 @endsection

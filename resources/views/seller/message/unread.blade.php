@@ -12,9 +12,13 @@ Unread Message Table |
 
 <br>
 <hr>
+	<section class="content">
 
 
 @include('seller/section/unread_message_table') 
+
+</section>
+
 
 </div>
 

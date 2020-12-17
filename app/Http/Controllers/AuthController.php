@@ -132,6 +132,7 @@ class AuthController extends Controller
 		$user->address = $request->address;
 		$user->about = $request->about;
 		$user->save();
+		return back();
 	}
 
 	public function updatePassword (Request $request, $id)
@@ -150,6 +151,7 @@ class AuthController extends Controller
 		$user->address = $request->address;
 		$user->about = $request->about;
 		$user->save();
+		return back();
 	}
 
 }

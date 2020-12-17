@@ -6,10 +6,10 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="image">
-        <img src="../images/user2-160x160.jpg" class="img-circle" alt="User Image">
+        <img src=" {{ '/images/user-icon.png' }} " class="img-circle" alt="User Image">
       </div>
       <div class="info">
-        <p>MultiPurpose Themes</p>
+        <p> {{ Auth::user()->name }} </p>
         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
       </div>
     </div>
@@ -27,7 +27,7 @@
     <!-- sidebar menu-->
     <ul class="sidebar-menu" data-widget="tree">
 
-      <li>
+      <li style="{{ url()->current() == route('admin.dashboard') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('admin.dashboard') }}">
           <i class="fa fa-dashboard"></i> <span> Dashboard </span>
           <span class="pull-right-container">
@@ -36,7 +36,7 @@
       </li>
 
 
-      <li>
+      <li style="{{ url()->current() == route('admin.category.show') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{ route ('admin.category.show') }} ">
           <i class="fa fa-tags"></i> <span> Categories </span>
           <span class="pull-right-container">
@@ -45,7 +45,7 @@
       </li>
 
 
-      <li class="treeview">
+      <li class="treeview" style=" {{ url()->current() == route('admin.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.all') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
           <i class="fa fa-briefcase"></i>
           <span> Service </span>
@@ -61,9 +61,15 @@
       </li>
 
 
+      <li style="{{ url()->current() == route('admin.profile') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{ route ('admin.profile') }} ">
+          <i class="fa fa-user"></i> <span> Profile </span>
+          <span class="pull-right-container">
+          </span>
+        </a>
+      </li>
 
-
-      <li class="treeview">
+      <li class="treeview" style=" {{ url()->current() == route('admin.buyer') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.seller') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
           <i class="fa fa-users"></i>
           <span> Users </span>
@@ -77,16 +83,36 @@
         </ul>
       </li>
 
-    </ul>
+      <li>
+        <a href=" {{ route ('home') }} ">
+          <i class="fa fa-globe"></i> <span> Main Website </span>
+          <span class="pull-right-container">
+          </span>
+        </a>
+      </li>
 
-  </section>
-  <!-- /.sidebar -->
-  <div class="sidebar-footer">
-    <!-- item-->
-    <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog fa-spin"></i></a>
-    <!-- item-->
-    <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i class="fa fa-envelope"></i></a>
-    <!-- item-->
-    <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i class="fa fa-power-off"></i></a>
-  </div>
+
+      <li>
+        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+           @csrf
+         </form>
+         <i class="fa fa-sign-out"></i> <span> Logout </span>
+         <span class="pull-right-container">
+         </span>
+       </a>
+     </li>
+
+   </ul>
+
+ </section>
+ <!-- /.sidebar -->
+ <div class="sidebar-footer">
+  <!-- item-->
+  <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog fa-spin"></i></a>
+  <!-- item-->
+  <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i class="fa fa-envelope"></i></a>
+  <!-- item-->
+  <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i class="fa fa-power-off"></i></a>
+</div>
 </aside>

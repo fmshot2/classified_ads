@@ -14,6 +14,8 @@ Update Service |
 
   @include('layouts.backend_partials.status')
 
+  <section class="content">
+
 
   <div class="row">
     <div class="col-xs-12">
