@@ -10,7 +10,7 @@ Active Service |
 <br>
 <hr>
 
-<div class="container">
+<div class="">
 
     <section class="content">
 
