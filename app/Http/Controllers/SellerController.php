@@ -40,8 +40,8 @@ class SellerController extends Controller
 
      $image = $request->file('image');
 
-     $slug = $random = Str::random(40);
-
+     $random = Str::random(3);
+     $slug = Str::of($request->name)->slug('-').''.$random; 
      $service = new Service();
 
                 // Image set up

@@ -4081,7 +4081,7 @@ footer {
     right: 0;
     top: 0;
     transition: background-color .15s linear;
-    background-color: rgba(36, 42, 53, 0.7);
+    /*background-color: rgba(36, 42, 53, 0.7);*/
 }
 
 .category-subtitle {

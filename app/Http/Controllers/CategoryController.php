@@ -98,11 +98,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
+        //$service = Service::find($id);
+      //$service_slug = $service->slug;//
         
-        $one_category = Category::find($id);
-        $category_services = Service::where('id', $id)->get();
+        $one_category = Category::where('slug', $slug)->first();
+        $category_id = $one_category->id;
+        $category_services = Service::where('id', $category_id)->get();
         //$category_city = Service::all()->pluck("city");
         $category_city = Service::all()->random(4);
         $all_states = State::all();
