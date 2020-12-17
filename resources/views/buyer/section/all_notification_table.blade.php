@@ -1,7 +1,7 @@
 
 
 <!-- Content Header (Page header) -->
-@if (url()->current() == !route('seller.dashboard') )
+@if (url()->current() == !route('buyer.dashboard') )
 <section class="content-header p-3 box">
   <h1>
     Dashboard
@@ -79,7 +79,7 @@
 </div>
 <!-- /.box-body -->
 
-@if (url()->current() == route('seller.notification.all') )
+@if (url()->current() == route('buyer.notification.all') )
 <div class="box-footer clearfix">
 
   {{ $all_notification->links() }}

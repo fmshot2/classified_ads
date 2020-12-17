@@ -5,15 +5,15 @@
 Category | 
 @endsection
 
-@section('content')
 
+@section('content')
 
 <br>
 <hr>
 
 <div class="container">
 
-
+    <section class="content">
 
 
     <!-- Content Header (Page header) -->
@@ -69,5 +69,7 @@ Category |
 
 @include('admin/section/category_table') 
 
+</section>
+</div>
 
 @endsection

@@ -1,6 +1,6 @@
 
   <!-- Content Header (Page header) -->
-  @if (url()->current() == !route('seller.dashboard') )
+  @if (url()->current() == !route('buyer.dashboard') )
   <section class="content-header p-3 box">
     <h1>
       Dashboard
@@ -21,7 +21,7 @@
       <h3 class="box-title"> Read Message {{ $read_message->count() }} </h3>
 
 
-      @if (url()->current() == route('seller.message.read') )
+      @if (url()->current() == route('buyer.message.read') )
       <div class="box-tools">
         <form class="" method="GET" action="{{ route('admin.service.search') }}">
         <div class="input-group input-group-sm" style="width: 150px;">
@@ -92,7 +92,7 @@
   </div>
   <!-- /.box-body -->
 
-@if (url()->current() == !route('seller.dashboard') )
+@if (url()->current() == !route('buyer.dashboard') )
 <div class="box-footer clearfix">
 
 {{ $read_message->links() }}
@@ -101,7 +101,5 @@
 @endif
 
 </div>
-
-@include('seller/modal/create_service') 
 
 

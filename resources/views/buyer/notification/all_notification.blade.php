@@ -1,8 +1,7 @@
-
-@extends('layouts.seller')
+@extends('layouts.buyer')
 
 @section('title')
-All Service | 
+All Notification | 
 @endsection
 
 @section('content')
@@ -12,11 +11,9 @@ All Service |
 
 <div class="container">
 
-@include('layouts.backend_partials.status')
-
 	<section class="content">
 
-@include('seller/section/all_service_table') 
+@include('buyer/section/all_notification_table') 
 
 </section>
 

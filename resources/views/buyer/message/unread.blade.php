@@ -1,21 +1,21 @@
 
-@extends('layouts.seller')
+@extends('layouts.buyer')
 
 @section('title')
-Read Message Table | 
+Unread Message Table | 
 @endsection
 
 @section('content')
 
+<div class="container">
+
+
 <br>
 <hr>
 
-<div class="container">
-
 	<section class="content">
 
-
-@include('seller/section/read_message_table') 
+@include('buyer/section/unread_message_table') 
 
 </section>
 

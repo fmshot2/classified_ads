@@ -20,7 +20,7 @@
 
 	<div class="box-header">
 		<h3 class="box-title"> Pending Service Table</h3>
-		<button alt="default" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-warning model_img img-responsive pull-right"> Add Aervice </button>
+		<a href="{{ route('seller.service.create') }} " class="btn btn-warning model_img img-responsive pull-right"> Add Aervice </a>
 	</div>
 	<!-- /.box-header -->
 	<div class="box-body">

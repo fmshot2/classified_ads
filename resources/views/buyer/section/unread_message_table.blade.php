@@ -1,7 +1,7 @@
 
 
   <!-- Content Header (Page header) -->
-  @if (url()->current() == !route('seller.dashboard') )
+  @if (url()->current() == !route('buyer.dashboard') )
   <section class="content-header p-3 box">
     <h1>
       Dashboard
@@ -19,10 +19,10 @@
   <div class="box">
 
     <div class="box-header with-border">
-      <h3 class="box-title"> {{ url()->current() == route('seller.message.unread') ?  'Unread Message' : 'Recent Unread Message' }} {{ $unread_message->count() }} </h3>
+      <h3 class="box-title"> {{ url()->current() == route('buyer.message.unread') ?  'Unread Message' : 'Recent Unread Message' }} {{ $unread_message->count() }} </h3>
 
 
-      @if (url()->current() == route('seller.message.all') )
+      @if (url()->current() == route('buyer.message.all') )
       <div class="box-tools">
         <form class="" method="GET" action="{{ route('admin.service.search') }}">
         <div class="input-group input-group-sm" style="width: 150px;">
@@ -93,7 +93,7 @@
   </div>
   <!-- /.box-body -->
 
-@if (url()->current() == route('seller.message.unread') )
+@if (url()->current() == route('buyer.message.unread') )
 <div class="box-footer clearfix">
 
 {{ $unread_message->links() }}

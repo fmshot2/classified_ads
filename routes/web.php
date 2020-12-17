@@ -96,7 +96,12 @@ Route::get('/seller/profile/', 'SellerController@viewProfile')->name('seller.pro
 Route::post('/seller/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
 
 Route::get('/buyer/dashboard', 'DashboardController@buyer')->name('buyer.dashboard');
-
+Route::get('/buyer/dashboard/service/all', 'BuyerController@allService')->name('buyer.service.all');
+Route::get('/buyer/message/unread', 'BuyerController@unreadMessage')->name('buyer.message.unread');
+Route::get('/buyer/message/read', 'BuyerController@readMessage')->name('buyer.message.read');
+Route::get('/buyer/message/all', 'BuyerController@allMessage')->name('buyer.message.all');
+Route::get('/buyer/notification/all', 'BuyerController@allNotification')->name('buyer.notification.all');
+Route::get('/buyer/profile/', 'BuyerController@viewProfile')->name('buyer.profile');
 
 
 Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
@@ -125,6 +130,9 @@ Route::get('/admin/dashboard/user/search', 'AdminController@userSearch')->name('
 Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.seller');
 Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer');
 
+Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
+
+
 //Route::any ( '/search',  'ServiceController@search')->name('search3');
 Route::any ( '/search4',  'ServiceController@search3')->name('search4');
 Route::any ( '/searchresults',  'ServiceController@search')->name('search3');
@@ -140,7 +148,7 @@ View::composer(['layouts.frontend_partials.navbar', ], function ($view) {
    $view->with('categories',$categories);
 });
 
-View::composer(['layouts.seller_partials.navbar', 'layouts.seller_partials.sidebar'], function ($view) {
+View::composer(['layouts.seller_partials.navbar', 'layouts.seller_partials.sidebar', 'layouts.backend_partials.navbar', 'layouts.backend_partials.navbar'], function ($view) {
     $all_message = Message::where('service_user_id', Auth::id() );
     $unread_message =  $all_message->Where('status', 0);
     $check_unread_message_table = collect($unread_message)->isEmpty();
@@ -156,7 +164,9 @@ View::composer(['layouts.seller_partials.navbar', 'layouts.seller_partials.sideb
 
 
 View::composer(['layouts.buyer_partials.navbar', 'layouts.buyer_partials.sidebar'], function ($view) {
-    $all_message = Message::where('buyer_id', Auth::id() );
+    $reply_message = Message::where('reply', 'yes' );
+    
+    $all_message = $reply_message->Where('buyer_id', Auth::id() );
     $unread_message =  $all_message->Where('status', 0);
     $check_unread_message_table = collect($unread_message)->isEmpty();
     $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
@@ -168,6 +178,7 @@ View::composer(['layouts.buyer_partials.navbar', 'layouts.buyer_partials.sidebar
     $unread_notification = $check_unread_notification_table == true ? 0 : $unread_notification->orderBy('id', 'desc')->take(5)->get();
    $view->with( compact( 'unread_message_count', 'unread_message', 'unread_notification_count', 'unread_notification') );
 });
+
 
 //Auth::routes();
  

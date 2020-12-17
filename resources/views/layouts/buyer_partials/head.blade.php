@@ -20,7 +20,7 @@
 	
 	<!-- ionicons -->
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_components/Ionicons/css/ionicons.css')}}">
-	
+
 	<!-- theme style -->
 	<link rel="stylesheet" href="{{asset('OurBackend/css/master_style.css')}}">
 	

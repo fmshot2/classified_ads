@@ -23,7 +23,7 @@
 		<code>  {{ url()->current() == route('seller.dashboard') ? 'showing 5 recent services ' : '' }}</code>
 
 		@if (url()->current() == route('seller.service.active'))
-		<button alt="default" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-warning model_img img-responsive pull-right"> Add Aervice </button>
+		<a href="{{ route('seller.service.create') }} " class="btn btn-warning model_img img-responsive pull-right"> Add Aervice </a>
 		@endif
 
 		@if ( url()->current() == !route('seller.dashboard') )

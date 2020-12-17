@@ -12,6 +12,9 @@ Search |
 
 <div class="container">
 
+    <section class="content">
+
+
 	<!-- Content Header (Page header) -->
 	<section class="content-header p-3 box">
 		<h1>
@@ -113,6 +116,8 @@ Search |
   {{ $services->links() }} 
 
 </div>
+
+</section>
 
 </div>
 

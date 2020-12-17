@@ -11,6 +11,11 @@ All Notification |
 
 <div class="container">
 
+	<section class="content">
+
 @include('seller/section/all_notification_table') 
+
+</section>
+
 
 @endsection

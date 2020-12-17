@@ -12,6 +12,11 @@ View Message |
 
 <div class="container">
 
+  <section class="content">
+
+
+
+
 <div class="row">
       <div class="col-md-12">
         <div class="box box-info dash-1">
@@ -56,5 +61,9 @@ View Message |
 
 
 </div>
+
+
+</section>
+
 
 @endsection

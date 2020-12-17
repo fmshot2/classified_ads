@@ -25,6 +25,7 @@ class CreateMessagesTable extends Migration
             $table->unsignedInteger('buyer_id')->nullable();
             $table->text('description');
             $table->string('slug');
+            $table->string('reply')->default('no');
             $table->timestamps();
         });
     }

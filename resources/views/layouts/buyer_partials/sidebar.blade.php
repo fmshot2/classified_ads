@@ -21,7 +21,7 @@
     <!-- /.search form -->
     <!-- sidebar menu-->
     <ul class="sidebar-menu" data-widget="tree">
-
+{{--
       <li class="" style="{{ url()->current() == route('buyer.dashboard') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('seller.dashboard') }}">
           <i class="fa fa-dashboard"></i> <span> Dashboard </span>
@@ -29,10 +29,21 @@
           </span>
         </a>
       </li>
+--}}
 
 
-      <li class="" style=" {{ url()->current() == route('seller.service.all') ? 'background-color: #f8d053' : '' }} ">
-        <a href=" {{ route('seller.service.all') }} ">
+      <li class="" style="{{ url()->current() == route('buyer.dashboard') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{route ('buyer.dashboard') }}">
+          <i class="fa fa-dashboard"></i> <span> Dashboard </span>
+          <span class="pull-right-container">
+          </span>
+        </a>
+      </li>
+
+
+
+      <li class="" style=" {{ url()->current() == route('buyer.service.all') ? 'background-color: #f8d053' : '' }} ">
+        <a href=" {{ route('buyer.service.all') }} ">
           <i class="fa fa-search"></i> <span> Find A Service </span>
           <span class="pull-right-container">
           </span>
@@ -48,14 +59,14 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href=" {{ route('seller.message.unread') }} "><i class="fa fa-circle-o"></i> Unread </a></li>
-          <li><a href=" {{ route('seller.message.read') }} "><i class="fa fa-circle-o"></i>  Read </a></li>
-          <li><a href=" {{ route('seller.message.all') }} "><i class="fa fa-circle-o"></i> All Message </a></li>
+          <li><a href=" {{ route('buyer.message.unread') }} "><i class="fa fa-circle-o"></i> Unread </a></li>
+          <li><a href=" {{ route('buyer.message.read') }} "><i class="fa fa-circle-o"></i>  Read </a></li>
+          <li><a href=" {{ route('buyer.message.all') }} "><i class="fa fa-circle-o"></i> All Message </a></li>
         </ul>
       </li>
 
-      <li class="" style=" {{ url()->current() == route('seller.notification.all') ? 'background-color: #f8d053' : '' }}">
-        <a href=" {{route ('seller.notification.all') }}">
+      <li class="" style=" {{ url()->current() == route('buyer.notification.all') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{route ('buyer.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
           <span class="pull-right-container">
             <small class="label pull-right bg-danger"> {{ $unread_notification_count }}  </small> 
@@ -63,8 +74,8 @@
         </a>
       </li>
 
-      <li style="{{ url()->current() == route('seller.profile') ? 'background-color: #f8d053' : '' }}">
-        <a href=" {{ route ('seller.profile') }} ">
+      <li style="{{ url()->current() == route('buyer.profile') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{ route ('buyer.profile') }} ">
           <i class="fa fa-user"></i> <span> Profile </span>
           <span class="pull-right-container">
           </span>
