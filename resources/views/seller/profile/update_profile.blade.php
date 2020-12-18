@@ -23,7 +23,7 @@ Update Profile |
 				<!-- Profile Image -->
 				<div class="box box-warning">
 					<div class="box-body box-profile">
-						<img class="profile-user-img img-responsive img-circle" src="/images/user-icon.png" alt="User profile picture">
+						<img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->image == 'null' ? '/images/user-icon.png' : asset('images')}}/{{Auth::user()->image }}" alt="User profile picture">
 
 						<h3 class="profile-username text-center"> {{ Auth::user()->name }} </h3>
 

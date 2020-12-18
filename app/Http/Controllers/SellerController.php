@@ -199,6 +199,7 @@ public function storeReplyMessage(Request $request)
         'description' => 'required|max:255',
     ]);
 
+    $slug = Str::random(3);
     $request->session()->flash('status', 'Task was successful!');
 
     $message = New Message();
@@ -206,12 +207,14 @@ public function storeReplyMessage(Request $request)
     $message->description = $request->description;
     $message->service_id = $request->service_id;
     $message->service_user_id = $request->service_user_id;
-    $message->buyer_name = $request->buyer_name;
-    $message->buyer_email = $request->buyer_email;
+    $message->buyer_name = Auth::user()->name;
+    $message->buyer_email = Auth::user()->email;
     $message->buyer_id = $request->buyer_id;
     $message->reply = 'yes';
+    $message->phone = $request->phone;
+    $message->slug = $slug;
     $message->save();
-    return back();
+    return $this->allMessage();
 }
 
 public function viewNotification($slug)
