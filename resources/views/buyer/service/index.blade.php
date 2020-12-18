@@ -8,9 +8,9 @@ All Service |
 @section('content')
 
 
+<div class="container">
 @include('layouts.backend_partials.status')
-
-
+</div>
 
 <div class="content-wrapper" style="min-height: 518px;">
 

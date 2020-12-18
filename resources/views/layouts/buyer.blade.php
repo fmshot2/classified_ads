@@ -14,10 +14,10 @@
 	@yield('content')
 
 	@include('layouts.buyer_partials.footer')
+
+	
+
 	@include('layouts.buyer_partials.script')
-
-
-
 </body>
 
 </html>
