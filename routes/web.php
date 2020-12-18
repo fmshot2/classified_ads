@@ -141,6 +141,8 @@ Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.sell
 Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer');
 
 Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
+Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
+
 
 
 //Route::any ( '/search',  'ServiceController@search')->name('search3');

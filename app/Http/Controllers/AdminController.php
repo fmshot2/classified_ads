@@ -74,4 +74,10 @@ public function viewProfile()
     return view ('admin.profile.update_profile');
 }
 
+public function systemConfig()
+{
+    return view ('admin.system_config');
+}
+
+
 }

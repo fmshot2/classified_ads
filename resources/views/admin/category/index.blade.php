@@ -8,30 +8,18 @@ Category |
 
 @section('content')
 
-<br>
-<hr>
 
-<div class="container">
+<div class="content-wrapper" style="min-height: 518px;">
 
-    <section class="content">
+<section class="content">
 
-
-    <!-- Content Header (Page header) -->
-    <section class="content-header p-3 box">
-      <h1>
-        Dashboard
-        <small>Control panel</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Category </a></li>
-        <li class="active">Dashboard</li>
-      </ol>
-    </section>
+<div class="row">
+  <div class="col-xs-12">
 
 
   @include('layouts.backend_partials.status')
 
-<div class="box box-info mt-5">
+<div class="box">
   <div class="box-header with-border">
     <h3 class="box-title"> Category Form </h3>
   </div>
@@ -58,17 +46,23 @@ Category |
       </div>
     <!-- /.box-body -->
     <div class="box-footer">
-      <button type="submit" class="btn btn-info pull-right"> Submit </button>
+      <button type="submit" class="btn btn-warning pull-right"> Submit </button>
     </div>
     <!-- /.box-footer -->
   </form>
 </div>
 
-</div>
+
+<br>
+<hr>
 
 
 @include('admin/section/category_table') 
 
+
+
+</div>
+</div>
 </section>
 </div>
 
