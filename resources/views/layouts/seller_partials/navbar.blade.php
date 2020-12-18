@@ -18,7 +18,7 @@
           <!-- User Account -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src=" {{ Auth::user()->image == null ? '/images/user-icon.png' : asset('images')}}/{{Auth::user()->image }} " class="user-image" alt="User Image">
+              <img src=" {{ Auth::user()->image == 'null' ? '/images/user-icon.png' : asset('images')}}/{{Auth::user()->image }} " class="user-image" alt="User Image">
             </a>
             <ul class="dropdown-menu scale-up">
               <!-- User image -->

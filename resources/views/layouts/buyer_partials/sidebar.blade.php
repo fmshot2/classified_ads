@@ -41,6 +41,17 @@
       </li>
 
 
+
+      <li class="" style="{{ url()->current() == route('buyer.message.all') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{route ('buyer.message.all') }}">
+          <i class="fa fa-briefcase"></i> <span> Message </span>
+          <span class="pull-right-container">
+            <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small> 
+          </span>
+        </a>
+      </li>
+
+{{--
       <li class="treeview" class="" style="{{ url()->current() == route('seller.message.unread') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.message.read') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.message.all') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
           <i class="fa fa-envelope"></i> <span> Message </span>
@@ -55,7 +66,7 @@
           <li><a href=" {{ route('buyer.message.all') }} "><i class="fa fa-circle-o"></i> All Message </a></li>
         </ul>
       </li>
-
+--}}
 
       <li class="" style=" {{ url()->current() == route('buyer.service.all') ? 'background-color: #f8d053' : '' }} ">
         <a href=" {{ route('buyer.service.all') }} ">
