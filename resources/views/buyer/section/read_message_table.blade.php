@@ -1,20 +1,4 @@
 
-<!-- Content Header (Page header) -->
-@if (url()->current() == !route('buyer.dashboard') )
-<section class="content-header p-3 box">
-  <h1>
-    Dashboard
-    <small>Control panel</small>
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Message </a></li>
-    <li class="active">Dashboard</li>
-  </ol>
-</section>
-@endif
-
-@include('layouts.backend_partials.status')
-
 <div class="box">
 
   <div class="box-header with-border">
