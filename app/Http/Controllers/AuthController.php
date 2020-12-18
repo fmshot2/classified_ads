@@ -113,7 +113,6 @@ class AuthController extends Controller
 		$user = User::find($id);
 		$validatedData = $request->validate([
 			'name' => ['required', 'string', 'max:255'],
-			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
 			'state' => ['string'],			
 			'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 		]);

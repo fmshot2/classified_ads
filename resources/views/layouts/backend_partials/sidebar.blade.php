@@ -35,20 +35,10 @@
         </a>
       </li>
 
-
-      <li style="{{ url()->current() == route('admin.category.show') ? 'background-color: #f8d053' : '' }}">
-        <a href=" {{ route ('admin.category.show') }} ">
-          <i class="fa fa-tags"></i> <span> Categories </span>
-          <span class="pull-right-container">
-          </span>
-        </a>
-      </li>
-
-
       <li class="treeview" style=" {{ url()->current() == route('admin.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.all') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
           <i class="fa fa-briefcase"></i>
-          <span> Service </span>
+          <span> Service Management </span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
@@ -57,13 +47,24 @@
           <li><a href=" {{ route('admin.service.active') }} "><i class="fa fa-circle-o"></i> Active Service</a></li>
           <li><a href=" {{ route('admin.service.pending') }} "><i class="fa fa-circle-o"></i> Pending Service </a></li>
           <li><a href=" {{ route('admin.service.all') }} "><i class="fa fa-circle-o"></i> All Service </a></li>
+          <li><a href=" {{ route ('admin.category.show') }} "><i class="fa fa-circle-o"></i> Categories </a></li>
+
         </ul>
+      </li>
+
+      
+      <li style="{{ url()->current() == route('system.config') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{route ('system.config') }}">
+          <i class="fa fa-cog"></i> <span> System Config </span>
+          <span class="pull-right-container">
+          </span>
+        </a>
       </li>
 
 
       <li style="{{ url()->current() == route('admin.profile') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{ route ('admin.profile') }} ">
-          <i class="fa fa-user"></i> <span> Profile </span>
+          <i class="fa fa-user"></i> <span> Profile Config </span>
           <span class="pull-right-container">
           </span>
         </a>

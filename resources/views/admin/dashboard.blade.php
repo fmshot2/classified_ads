@@ -154,7 +154,7 @@ Admin |
   <div class="row">
     <div class="col-md-6 connectedSortable">
       <!-- Category Table -->
-      @include('admin/section/category_table')
+      @include('admin/section/all_service_table')
     </div>
     <div class="col-md-6 connectedSortable">
       @include('admin/section/active_service_table')

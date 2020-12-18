@@ -1,26 +1,10 @@
 
-<div class="container">
-
-
-    <!-- Content Header (Page header) -->
-    <section class="content-header p-3 box">
-      <h1>
-        Dashboard
-        <small>Control panel</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Service </a></li>
-        <li class="active">Dashboard</li>
-      </ol>
-    </section>
-
-	  @include('layouts.backend_partials.status')
-
 
 	<div class="box">
 
 		<div class="box-header">
-			<h3 class="box-title"> Active Service Table </h3>
+			<h3 class="box-title"> Recent Service Table </h3>
+@if (url()->current() == route('admin.service.all') )
 
 			<div class="box-tools">
 				<form class="" method="GET" action="{{ route('admin.service.search') }}">
@@ -32,6 +16,7 @@
 					</div>
 				</div>
 			</form>
+			@endif
 		</div>
 		
 		<!-- /.box-header -->
@@ -99,11 +84,12 @@
 		<!-- /.box-body -->
 	</div>
 
+@if (url()->current() == route('admin.service.all') )
+
 <div class="box-footer clearfix">
 
   {{ $all_service->links() }} 
 
 </div>
+@endif
 
-
-</div>

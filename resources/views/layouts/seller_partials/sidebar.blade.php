@@ -30,7 +30,7 @@
         </a>
       </li>
 
-
+{{--
 
       <li class="treeview " style="{{ url()->current() == route('seller.service.create') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.service.all') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
@@ -47,8 +47,28 @@
           <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> All Service </a></li>
         </ul>
       </li>
+--}}
+
+      <li class="" style="{{ url()->current() == route('seller.service.all') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{route ('seller.service.all') }}">
+          <i class="fa fa-briefcase"></i> <span> Service </span>
+          <span class="pull-right-container">
+          </span>
+        </a>
+      </li>
 
 
+      <li class="" style="{{ url()->current() == route('seller.message.all') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{route ('seller.message.all') }}">
+          <i class="fa fa-briefcase"></i> <span> Message </span>
+          <span class="pull-right-container">
+            <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small> 
+          </span>
+        </a>
+      </li>
+
+
+{{--
       <li class="treeview" class="" style="{{ url()->current() == route('seller.message.unread') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.message.read') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.message.all') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
           <i class="fa fa-envelope"></i> <span> Message </span>
@@ -63,6 +83,7 @@
           <li><a href=" {{ route('seller.message.all') }} "><i class="fa fa-circle-o"></i> All Message </a></li>
         </ul>
       </li>
+--}}
 
       <li class="" style=" {{ url()->current() == route('seller.notification.all') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('seller.notification.all') }}">

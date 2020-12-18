@@ -6,7 +6,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="image">
-        <img src="/images/user-icon.png" class="img-circle" alt="User Image">
+        <img src=" {{ Auth::user()->image == 'null' ? '/images/user-icon.png' : asset('images')}}/{{Auth::user()->image }} " class="img-circle" alt="User Image">
       </div>
       <div class="info">
         <p> {{ Auth::user()->name }} </p>
@@ -41,15 +41,6 @@
       </li>
 
 
-
-      <li class="" style=" {{ url()->current() == route('buyer.service.all') ? 'background-color: #f8d053' : '' }} ">
-        <a href=" {{ route('buyer.service.all') }} ">
-          <i class="fa fa-search"></i> <span> Find A Service </span>
-          <span class="pull-right-container">
-          </span>
-        </a>
-      </li>
-
       <li class="treeview" class="" style="{{ url()->current() == route('seller.message.unread') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.message.read') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.message.all') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
           <i class="fa fa-envelope"></i> <span> Message </span>
@@ -64,6 +55,24 @@
           <li><a href=" {{ route('buyer.message.all') }} "><i class="fa fa-circle-o"></i> All Message </a></li>
         </ul>
       </li>
+
+
+      <li class="" style=" {{ url()->current() == route('buyer.service.all') ? 'background-color: #f8d053' : '' }} ">
+        <a href=" {{ route('buyer.service.all') }} ">
+          <i class="fa fa-search"></i> <span> Need A Service </span>
+          <span class="pull-right-container">
+          </span>
+        </a>
+      </li>
+
+      <li class="">
+        <a href="/sellers">
+          <i class="fa fa-users"></i> <span> View Sellers </span>
+          <span class="pull-right-container">
+          </span>
+        </a>
+      </li>
+
 
       <li class="" style=" {{ url()->current() == route('buyer.notification.all') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('buyer.notification.all') }}">

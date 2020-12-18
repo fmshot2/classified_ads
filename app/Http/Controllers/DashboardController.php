@@ -90,7 +90,7 @@ class DashboardController extends Controller
     $active_service = Service::where('status', 1)->take(5)->get();
     $pending_service = Service::where('status', 0)->take(5);
 
-    return view ('admin.dashboard', compact('all_service_count', 'all_categories_count', 'all_sellers_count', 'all_buyers_count', 'active_service_count', 'pending_service_count', 'category', 'active_service', 'seller', 'buyer'));
+    return view ('admin.dashboard', compact('all_service_count', 'all_categories_count', 'all_sellers_count', 'all_buyers_count', 'active_service_count', 'pending_service_count', 'category', 'active_service', 'seller', 'buyer', 'all_service'));
   }
 
 
