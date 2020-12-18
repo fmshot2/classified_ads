@@ -65,8 +65,8 @@ Register
                                 <strong>{{ $errors->first('state') }}</strong>
                             </span>
                             @endif
-                                                      </div>-->
-                         <div class="form-group form-box clearfix">
+                        </div>-->
+                        <div class="form-group form-box clearfix">
                             <input id="password" type="password" class="input-text" name="password" placeholder="Password" required>
                             @if ($errors->has('password'))
                             <span class="helper-text" data-error="wrong" data-success="right">
@@ -82,7 +82,7 @@ Register
                             <div class="row">
                                 <div class="col-md-4"></div>
                                 <div class="form-group col-md-12">
-                                   <div class="captcha">
+                                 <div class="captcha">
                                     <span>{!! captcha_img('math') !!}</span>   
                                     <button type="button" class="btn btn-success"><i class="fa fa-refresh refresh" ></i></button>
                                 </div>
@@ -91,10 +91,10 @@ Register
                         <div class="row">
                             <div class="col-md-4"></div>
                             <div class="form-group col-md-12">
-                               <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha" required></div>
+                             <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha" required></div>
 
-                               @if ($errors->has('captcha'))
-                               <span class="helper-text" data-error="wrong" data-success="right">
+                             @if ($errors->has('captcha'))
+                             <span class="helper-text" data-error="wrong" data-success="right">
                                 <strong>  Invalid answer </strong>  {{-- $errors->first('captcha') --}}
                             </span>
                             @endif
@@ -167,12 +167,12 @@ Register
 <script type="text/javascript">
     $('.refresh').click(function(){
       $.ajax({
-       type:'GET',
-       url:'refreshcaptcha',
-       success:function(data){
-        $(".captcha span").html(data.captcha);
-    }
-});
+         type:'GET',
+         url:'refreshcaptcha',
+         success:function(data){
+            $(".captcha span").html(data.captcha);
+        }
+    });
   });
 </script>
 
