@@ -7,18 +7,12 @@ Active Service |
 
 @section('content')
 
-<br>
-<hr>
 
-<div class="container">
 
-    <section class="content">
 
 
 @include('admin/section/active_service_table') 
 
-</section>
 
-</div>
 
 @endsection

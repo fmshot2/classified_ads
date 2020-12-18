@@ -13,6 +13,8 @@
 	
 	<!-- Bootstrap 3.3.7 -->
 	<script src="{{asset('OurBackend/assets/vendor_components/bootstrap/dist/js/bootstrap.js')}}"></script>
+
+	<script src="{{asset('dropzone/dist/dropzone.js')}}"></script>
 	
 	<!-- Morris.js charts -->
 	<script src="{{asset('OurBackend/assets/vendor_components/raphael/raphael.js')}}"></script>
@@ -34,9 +36,22 @@
 	<!-- Bootstrap WYSIHTML5 -->
 	<script src="{{asset('OurBackend/assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js')}}"></script>
 	
-	<!-- Slimscroll -->
-	<script src="{{asset('OurBackend/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js')}}"></script>
-	
+	<script src="{{asset('OurBackend/js/pages/data-table.js')}}"></script>
+
+	<script src="{{asset('OurBackend/assets/vendor_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset ('cms/assets/vendor_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset ('cms/assets/vendor_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+	<script src="{{ asset ('cms/assets/vendor_plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset ('cms/assets/vendor_plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js') }}"></script>
+	<script src="{{ asset ('cms/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.min.91.delay') }}"></script>
+<script src="{{ asset ('cms/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/buttons.flash.min.js') }}"></script>
+<script src="{{asset ('cms/assets/vendor_plugins/DataTables-1.10.15/ex-js/jszip.min.js') }}"></script>
+<script src="{{asset ('cms/assets/vendor_plugins/DataTables-1.10.15/ex-js/pdfmake.min.js') }}"></script>
+<script src="{{asset ('cms/assets/vendor_plugins/DataTables-1.10.15/ex-js/vfs_fonts.js') }}"></script>
+<script src="{{asset('cms/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{asset ('cms/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{asset ('cms/js/pages/data-table.js') }}"></script>
+
 	<!-- FastClick -->
 	<script src="{{asset('OurBackend/assets/vendor_components/fastclick/lib/fastclick.js')}}"></script>
 	
@@ -51,8 +66,6 @@
 	
 	<!-- Cross Admin for demo purposes -->
 	<script src="{{asset('OurBackend/js/demo.js')}}"></script>
-
-
 
 
 

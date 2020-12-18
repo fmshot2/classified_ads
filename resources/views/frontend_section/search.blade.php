@@ -82,7 +82,7 @@
 
                             <div class="col-lg-2 col-md-3" style="">
                               <div class="form-group">
-                                <select class="form-control" id="exampleFormControlSelect1" name="category">
+                                <select class="form-control" id="categories" name="category">
                                           @if(isset($categories))
 
                                     @foreach($categories as $category)
@@ -93,6 +93,16 @@
                                 </select>
                             </div>
                         </div>
+
+                         <div class="col-lg-2 col-md-3" style="">
+                      <div class="form-group">
+                        <select class="form-control" id="sub_category" name="sub_categories">
+
+
+
+                        </select>
+                    </div>
+                </div>
 
                         <div class="col-lg-2 col-md-3" style="">
                           <div class="form-group">
@@ -225,7 +235,37 @@
 
 
           
+<script type="text/javascript">
 
+
+   $('#categories').on('change',function(){
+    var categoryID = $(this).val();    
+    if(categoryID){
+        $.ajax({
+         type:"GET",
+           //url:"{{url('qqq')}}"+stateID,
+           url: 'api/get-category-list/'+categoryID,
+           success:function(res){               
+            if(res){
+             console.log(res);
+             console.log(categoryID);
+             $("#categ ").empty();
+             $.each(res,function(key,value){
+                $("#sub_category").append('<option value="'+key+'">'+value+'</option>');
+            });
+
+         }else{
+             $("#sub_categories").empty();
+         }
+     }
+ });
+    }else{
+        $("#sub_categories").empty();
+    }
+
+}); 
+
+</script>
 
 
 

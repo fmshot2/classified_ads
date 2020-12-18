@@ -2,7 +2,7 @@
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
   <!-- sidebar-->
-  <section class="sidebar">
+  <section class="sidebar" style="height: auto;">
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="image">
@@ -105,7 +105,6 @@
 
    </ul>
 
- </section>
  <!-- /.sidebar -->
  <div class="sidebar-footer">
   <!-- item-->
@@ -115,4 +114,5 @@
   <!-- item-->
   <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i class="fa fa-power-off"></i></a>
 </div>
+</section>
 </aside>

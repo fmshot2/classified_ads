@@ -7,6 +7,7 @@ use App\Service;
 use App\User;
 use App\Like;
 use App\Message;
+use Illuminate\Support\Str;
 use DB;
 
 use Illuminate\Support\Facades\Storage;
@@ -739,12 +740,15 @@ public function show($id)
         $message->service_id = $request->service_id;
         $message->description = $request->description;*/
         $success = 'succccccccs';
+        $slug = Str::random(10);
+
                 //$message->service_id = $data['id']; 
         $message->buyer_id = $data['buyer_id']; 
         $message->buyer_name = $data['buyer_name']; 
         $message->buyer_email = $data['buyer_email']; 
         $message->subject = $data['subject']; 
         $message->phone = $data['phone']; 
+        $message->slug = $slug; 
         $message->service_id = $data['service_id'];
         $message->service_user_id = $data['service_user_id'];
         $message->description = $data['description'];
@@ -752,7 +756,7 @@ public function show($id)
         $service = Service::find($serviceDetailId);
         $service_slug = $service->slug;
 
-        //$slug = $random = Str::random(40);
+        $slug = $random = Str::random(40);
         //$message->slug = $slug;
 
 
