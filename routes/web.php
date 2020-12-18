@@ -115,6 +115,10 @@ Route::get('/buyer/message/all', 'BuyerController@allMessage')->name('buyer.mess
 Route::get('/buyer/notification/all', 'BuyerController@allNotification')->name('buyer.notification.all');
 Route::get('/buyer/profile/', 'BuyerController@viewProfile')->name('buyer.profile');
 
+Route::get('/buyer/message/{slug}', 'BuyerController@viewMessage')->name('buyer.message.view');
+Route::get('/buyer/message/reply/{slug}', 'BuyerController@replyMessage')->name('buyer.message.reply');
+Route::post('/buyer/message/reply/', 'BuyerController@storeReplyMessage')->name('buyer.message.reply.store');
+
 
 Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
 

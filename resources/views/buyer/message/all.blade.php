@@ -7,9 +7,12 @@ All Message Table |
 @section('content')
 
 
-@include('layouts.backend_partials.status')
 
 <div class="content-wrapper" style="min-height: 518px;">
+
+<div class="container">
+@include('layouts.backend_partials.status')
+</div>
 
 	<section class="content">
 
@@ -23,6 +26,7 @@ All Message Table |
 						<h3 class="box-title"> Message </h3>
 						<h6 class="box-subtitle"> Sorting is from the most recent. </h6>
 					</div>
+
 					<!-- /.box-header -->
 					<div class="box-body">
 						<div id="example_wrapper" class="dataTables_wrapper"><div class="dt-buttons"><a class="dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="example" href="#"><span>Copy</span></a><a class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="example" href="#"><span>CSV</span></a><a class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="example" href="#"><span>Excel</span></a><a class="dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="example" href="#"><span>PDF</span></a><a class="dt-button buttons-print" tabindex="0" aria-controls="example" href="#"><span>Print</span></a></div><div id="example_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="example"></label></div><table id="example" class="table table-bordered table-hover display nowrap margin-top-10 dataTable" role="grid" aria-describedby="example_info">
@@ -30,9 +34,6 @@ All Message Table |
 								<tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 296px;"> SL</th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 458px;"> Name</th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 224px;"> Email </th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 116px;"> Message </th><th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 170px;"> Action </th></tr>
 							</thead>
 							<tbody>
-								
-								
-								
 
 								@foreach($all_message as $key =>  $all_messages)
 
@@ -40,30 +41,15 @@ All Message Table |
 								<tr role="row" class="odd">
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 
-									<td> {{ $$all_messages->name }} </td>
-									<td> {{ $all_messages->email }} </td>
+									<td> {{ $all_messages->buyer_name }} </td>
+									<td> {{ $all_messages->buyer_email }} </td>
 									<td> {{ $all_messages->description }} </td>
 
 									<td class="center">
-										<a href="{{ route('serviceDetail', $all_services->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
+										<a href=" {{ route('buyer.message.view',$all_messages->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
+										<a href="{{ route('buyer.message.reply',$all_messages->slug) }} " class="btn btn-warning "><i class="fa fa-reply"></i></a>
 									</td>
-
-
-
-
-
-									<td>
-										<a href="https://www.efcontact.com/buyer/message/read/2" class="btn btn-warning "><i class="fa fa-eye"></i></a>
-										<a href="https://www.efcontact.com/buyer/message/replay/2" class="btn btn-primary"><i class="fa fa-reply"></i></a>
-										<a href="#" onclick="deleteMessage(2)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-										<form action="https://www.efcontact.com/buyer/message/delete/2" method="POST" id="del-message-2" style="display:none;">
-											<input type="hidden" name="_token" value="12rN5MJb6l26392IBNcEom2Nxp2UPbK5O1idW48x">                                <input type="hidden" name="_method" value="DELETE">                            </form>
-										</td>
-
-
-
 									</tr>
-
 
 									@endforeach
 
