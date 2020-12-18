@@ -53,15 +53,16 @@ class DashboardController extends Controller
   {
 
     $reply_message = Message::where('reply', 'yes' );
-
     $all_message_count = $reply_message->Where('buyer_id', Auth::id() )->count();
 
-    $unread_message =   $reply_message->Where('status', 0);
+    $reply_message_unread = Message::where('reply', 'yes' );
+    $unread_message =   $reply_message_unread->Where('status', 0);
     $check_unread_message_table = collect($unread_message)->isEmpty();
     $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
     $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
 
-    $read_message =  $reply_message->Where('status', 1);
+    $reply_message_read = Message::where('reply', 'yes' );
+    $read_message =  $reply_message_read->Where('status', 1);
     $check_read_message_table = collect($read_message)->isEmpty();
     $read_message_count = $check_read_message_table == true ? 0 : $read_message->count();
     $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();

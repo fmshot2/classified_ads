@@ -1,29 +1,29 @@
 
-  <!-- Content Header (Page header) -->
-  @if (url()->current() == !route('buyer.dashboard') )
-  <section class="content-header p-3 box">
-    <h1>
-      Dashboard
-      <small>Control panel</small>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Message </a></li>
-      <li class="active">Dashboard</li>
-    </ol>
-  </section>
-  @endif
+<!-- Content Header (Page header) -->
+@if (url()->current() == !route('buyer.dashboard') )
+<section class="content-header p-3 box">
+  <h1>
+    Dashboard
+    <small>Control panel</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Message </a></li>
+    <li class="active">Dashboard</li>
+  </ol>
+</section>
+@endif
 
-  @include('layouts.backend_partials.status')
+@include('layouts.backend_partials.status')
 
-  <div class="box">
+<div class="box">
 
-    <div class="box-header with-border">
-      <h3 class="box-title"> Read Message {{ $read_message->count() }} </h3>
+  <div class="box-header with-border">
+    <h3 class="box-title"> Read Message {{ $read_message->count() }} </h3>
 
 
-      @if (url()->current() == route('buyer.message.read') )
-      <div class="box-tools">
-        <form class="" method="GET" action="{{ route('admin.service.search') }}">
+    @if (url()->current() == route('buyer.message.read') )
+    <div class="box-tools">
+      <form class="" method="GET" action="{{ route('admin.service.search') }}">
         <div class="input-group input-group-sm" style="width: 150px;">
           <input type="search" class="form-control pull-right" placeholder="Search" name="query"  value="{{ isset($query) ? $query : '' }}" required>
 
@@ -32,55 +32,38 @@
           </div>
         </div>
       </form>
-      </div>
-      @endif 
-
     </div>
-    <!-- /.box-header -->
-    <div class="box-body ">
-      <table class="table table-bordered">
+    @endif 
 
-        <tbody>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body ">
+    <table class="table table-bordered">
 
-          <tr>
-            <th> # </th>
-            <th> From </th>
-            <th> Email </th>
-            <th> Message </th>
-            <th> Status </th>
-            <th> Date </th>
-            <th> Action </th>
-          </tr>
+      <tbody>
 
-          <tr>
-        @foreach( $read_message as $key => $read_messages )
-            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-            <td> {{ $read_messages->buyer_name }} </td>
-            <td> {{ $read_messages->buyer_email }} </td>
-            <td> {{ Str::limit($read_messages->description, 30) }} </td>
-            <td> {{ $read_messages->status == 1 ? 'Active' : 'Pending' }} </td>
-            <td> {{ $read_messages->created_at->diffForHumans() }} </td>
+        <tr>
+          <th> # </th>
+          <th> From </th>
+          <th> Email </th>
+          <th> Message </th>
+          <th> Status </th>
+          <th> Date </th>
+          <th> Action </th>
+        </tr>
 
-            <td>
-              <div class="btn-group">
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                  <span class="caret"></span>
-                  <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
+        <tr>
+          @foreach( $read_message as $key => $read_messages )
+          <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+          <td> {{ $read_messages->buyer_name }} </td>
+          <td> {{ $read_messages->buyer_email }} </td>
+          <td> {{ Str::limit($read_messages->description, 30) }} </td>
+          <td> {{ $read_messages->status == 1 ? 'Active' : 'Pending' }} </td>
+          <td> {{ $read_messages->created_at->diffForHumans() }} </td>
 
-
-
-                  <!-- Edit -->
-                    <li> <a href="{{ route('seller.message.reply',$read_messages->slug) }}" class="btn btn-block" type="submit" style="margin-left: 8px;"> Reply </a> </li>
-                    <!-- View -->
-                    <li>  <a href=" {{ route('seller.message.view',$read_messages->slug) }}" class="btn btn-block" style="margin-left: 8px;"> View </a> </li>
-                    <!-- Delete -->
-
-                </ul>
-
-              </ul>
-            </div>
+          <td class="center">
+            <a href=" {{ route('buyer.message.view',$all_messages->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
+            <a href="{{ route('buyer.message.reply',$all_messages->slug) }} " class="btn btn-warning "><i class="fa fa-reply"></i></a>
           </td>
 
         </tr>
@@ -92,13 +75,13 @@
   </div>
   <!-- /.box-body -->
 
-@if (url()->current() == !route('buyer.dashboard') )
-<div class="box-footer clearfix">
+  @if (url()->current() == !route('buyer.dashboard') )
+  <div class="box-footer clearfix">
 
-{{ $read_message->links() }}
+    {{ $read_message->links() }}
 
-</div>
-@endif
+  </div>
+  @endif
 
 </div>
 
