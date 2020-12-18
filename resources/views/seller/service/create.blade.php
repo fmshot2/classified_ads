@@ -129,7 +129,7 @@ Create Service |
                       <h3 class="box-title">Gallery Image</h3>
                     </div>
                     <div class="body">
-                      <input class="form-control" name="gallaryimage[]" type="file" multiple="">
+                      <input class="form-control" name="file" type="file">
                       <span class="helper-text" data-error="wrong" data-success="right">Upload one or more images</span>
                     </div>
                   </div>
