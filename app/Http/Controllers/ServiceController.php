@@ -756,7 +756,7 @@ public function show($id)
         $service = Service::find($serviceDetailId);
         $service_slug = $service->slug;
 
-        $slug = $random = Str::random(40);
+        // $slug = $random = Str::random(40);
         //$message->slug = $slug;
 
 

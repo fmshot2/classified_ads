@@ -214,9 +214,7 @@
                                            <!-- Page navigation start -->
                 <div class="pagination-box hidden-mb-45 text-center">
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            
-                        </ul>
+                          {{ $all_message->links() }}   
                     </nav>
                 </div>
             </div>
