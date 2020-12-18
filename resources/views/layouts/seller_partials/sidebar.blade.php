@@ -15,8 +15,8 @@
     </div>
     <!-- search form -->
 
-<br>
-<hr>
+    <br>
+    <hr>
 
     <!-- /.search form -->
     <!-- sidebar menu-->
@@ -47,14 +47,20 @@
           <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> All Service </a></li>
         </ul>
       </li>
---}}
+      --}}
 
-      <li class="" style="{{ url()->current() == route('seller.service.all') ? 'background-color: #f8d053' : '' }}">
-        <a href=" {{route ('seller.service.all') }}">
-          <i class="fa fa-briefcase"></i> <span> Service </span>
+      <li class="treeview" style=" {{ url()->current() == route('seller.service.create') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.service.all') ? 'background-color: #f8d053' : '' }} ">
+        <a href="#">
+          <i class="fa fa-briefcase"></i>
+          <span> Service Management </span>
           <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
+        <ul class="treeview-menu">
+          <li><a href=" {{ route('seller.service.create') }} "><i class="fa fa-circle-o"></i> Create </a></li>
+          <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> All Service </a></li>
+        </ul>
       </li>
 
 
@@ -83,7 +89,7 @@
           <li><a href=" {{ route('seller.message.all') }} "><i class="fa fa-circle-o"></i> All Message </a></li>
         </ul>
       </li>
---}}
+      --}}
 
       <li class="" style=" {{ url()->current() == route('seller.notification.all') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('seller.notification.all') }}">
@@ -112,28 +118,28 @@
 
       <li>
         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-         @csrf
-        </form>
-          <i class="fa fa-sign-out"></i> <span> Logout </span>
-          <span class="pull-right-container">
-          </span>
-        </a>
-      </li>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+           @csrf
+         </form>
+         <i class="fa fa-sign-out"></i> <span> Logout </span>
+         <span class="pull-right-container">
+         </span>
+       </a>
+     </li>
 
 
-    </ul>
+   </ul>
 
 
-  </section>
-  <!-- /.sidebar -->
-  <div class="sidebar-footer">
-    <!-- item-->
-    <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog fa-spin"></i></a>
-    <!-- item-->
-    <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i class="fa fa-envelope"></i></a>
-    <!-- item-->
-    <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i class="fa fa-power-off"></i></a>
-  </div>
+ </section>
+ <!-- /.sidebar -->
+ <div class="sidebar-footer">
+  <!-- item-->
+  <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog fa-spin"></i></a>
+  <!-- item-->
+  <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i class="fa fa-envelope"></i></a>
+  <!-- item-->
+  <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i class="fa fa-power-off"></i></a>
+</div>
 </aside>
 
