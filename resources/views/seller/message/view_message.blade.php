@@ -53,7 +53,7 @@ View Message |
                     <input type="hidden" name="_token" value="5P51Gk7hIrIYV2H8whQF7oJpEttZs2F7CDQrCpa4">                    <input type="hidden" name="status" value="0">
                     <input type="hidden" name="messageid" value="2">
 
-              <button type="button" class="pull-left btn btn-primary"><a href=" {{ route('seller.message.reply', $message->slug) }} "><font color="white"> Reply </font></a><i class="fa fa-reply"></i></button>
+              <button type="button" class="pull-left btn btn-warning"><a href=" {{ route('seller.message.reply', $message->slug) }} "><font color="white"> Reply </font></a><i class="fa fa-reply"></i></button>
             </form></div>
           </div>
       </div>

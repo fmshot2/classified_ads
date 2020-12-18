@@ -35,20 +35,25 @@ View Message |
                <input type="hidden" name="service_id" value=" {{ $message->service_id }} ">
                <input type="hidden" name="buyer_id" value=" {{ $message->buyer_id }}">
                <input type="hidden" name="service_user_id" value=" {{ $message->service_user_id }}">
-               <input type="hidden" name="buyer_email" value=" {{ $message->buyer_email }}">
 
                <div class="form-group">
-                <input class="form-control" name="buyer_email" type="email" value=" {{$message->buyer_email}} " disabled="">
+                <input class="form-control" name="buyer_email" type="email" value=" {{ Auth::user()->email }} " disabled="">
               </div>
+              
               <div class="form-group">
                 <input class="form-control" name="subject"  type="text" placeholder=" Enter subject here " >
               </div>
+
+              <div class="form-group">
+                <input class="form-control" name="phone"  type="number" placeholder=" Enter phone here " >
+              </div>
+
               <div>
                 <textarea class="textarea" placeholder="Message" name="description" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
               </div>
 
               <div class="box-footer clearfix">
-                <button type="submit" class="pull-right btn btn-primary"><font color="white"> SEND </font><i class="fa fa-paper-plane-o"></i></button>
+                <button type="submit" class="pull-right btn btn-warning"><font color="white"> SEND </font><i class="fa fa-paper-plane-o"></i></button>
               </div>
             </form>
           </div>
