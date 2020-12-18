@@ -1,21 +1,4 @@
 
-
-<!-- Content Header (Page header) -->
-<section class="content-header p-3 box">
-	<h1>
-		Dashboard
-		<small>Control panel</small>
-	</h1>
-	<ol class="breadcrumb">
-		<li><a href="#"><i class="fa fa-dashboard"></i> Service </a></li>
-		<li class="active">Dashboard</li>
-	</ol>
-</section>
-
-
-@include('layouts.backend_partials.status')
-
-
 <div class="box">
 
 	<div class="box-header">
