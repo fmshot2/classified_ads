@@ -202,4 +202,14 @@ public function getlocal_governments($id)
         return response()->json($cities);
     }
 
+
+
+    public function getCategoryList($id)
+    {
+        $sub_categories = DB::table("sub_categories")
+                    ->where("category_id",$id)
+                    ->pluck("name","id");
+        return response()->json($sub_categories);
+    }
+
 }
