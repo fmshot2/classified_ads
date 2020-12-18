@@ -47,7 +47,7 @@ class ServiceController extends Controller
       $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(4);
       //$service_likes = Like::where('service_id', $serviceDetail_id)->count();
         //$closerServices = Service::where('state', $my_state)->get();
-      $categories = Category::paginate(8);
+      $categories = Category::all();
       $states = State::all(); 
       $local_governments = Local_government::all();               
       $user11 = session()->get('user11');
