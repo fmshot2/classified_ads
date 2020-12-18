@@ -104,10 +104,9 @@ class CategoryController extends Controller
       //$service_slug = $service->slug;//
         
         $one_category = Category::where('slug', $slug)->first();
-        return $one_category;
         $category_id = $one_category->id;
-        $category_services = Service::where('id', $category_id)->get();
-        return $category_services;
+        $category_services = Service::where('category_id', $category_id)->get();
+        //return $category_services;
         //$category_city = Service::all()->pluck("city");
         $category_city = Service::all();
         $all_states = State::all();

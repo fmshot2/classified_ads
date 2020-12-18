@@ -46,7 +46,7 @@
         <div class="row">
 
 
-   <!--<div class="container">
+   {{--<div class="container">
             @if(isset($closerServices))
             <p> The Search results for your query <b> query</b> are :</p>
             <h2>Sample User details</h2>
@@ -66,7 +66,7 @@
                 </tbody>
             </table>
             @endif
-        </div>-->
+        </div>--}}
 
 
 @if(isset($category_services))
