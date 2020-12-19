@@ -46,7 +46,7 @@
         <div class="row">
 
 
-   {{--<div class="container">
+   <!--<div class="container">
             @if(isset($closerServices))
             <p> The Search results for your query <b> query</b> are :</p>
             <h2>Sample User details</h2>
@@ -66,12 +66,15 @@
                 </tbody>
             </table>
             @endif
-        </div>--}}
+        </div>-->
 
+                @if(isset($category_services))
 
-@if(isset($category_services))
-@foreach($category_services as $category_service)
             <div class="col-lg-8 col-md-12 col-xs-12">
+<div class="row">
+    @foreach($category_services as $category_service)
+
+
                 <div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
                 <div class="property-box">
                     <div class="property-thumbnail">
@@ -97,24 +100,18 @@
                                 <ul class="facilities-list clearfix">
                                     <li>
                                         <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i>                                    {{$category_service->likes->count()}} likes
-                                    </li>
-                                 
+                                    </li>                               
                             </ul>
                         </div>
-
-
-
-
-
-
-
-
-
                     </div>
                 </div>
+                @endforeach 
+
             </div>
-            @endforeach
-            @endif
+            </div>
+                        @endif
+
+           
           <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right">
                     <!-- Advanced search start -->

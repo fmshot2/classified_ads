@@ -604,13 +604,16 @@ Unlike</span>
 </div>
 </div>
 </div>
-
+ @auth
+@if(Auth::user()->role == 'buyer')
 <div class="container mb-5 mt-0">
     <h5>
         HAPPY WITH THE SERVICE RENDERED? THEN GIVE THIS SELLER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">   LIKE!</span>
         </a>
     </h5>
 </div>
+ @endif 
+@endauth
 
 
 

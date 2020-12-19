@@ -97,6 +97,12 @@ class ServiceController extends Controller
       $user_id = $serviceDetail->user_id;
       //$userMessages = Message::where('service_id', $id && Auth::id())->get();
       $userMessages = Message::where('service_id', $serviceDetail_id)->get();
+      if ($ww = session()->get('message')) {
+        $ww2 = $ww;
+      }else{
+        $ww2 = null;
+      }
+      //return $ww2;
       if($userser2 = session()->get('userSer')) {
         $userser3 = $userser2;
       }else{
@@ -111,7 +117,7 @@ class ServiceController extends Controller
       }
        //return $userMessages;
 
-      return view('serviceDetail', compact(['serviceDetail', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages']));
+      return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages']));
     }
 
 
@@ -350,6 +356,7 @@ public function search(Request $request){
     ->orWhere('state', 'like', '%' . $state . '%');
   })->get();
 
+
   if (count ( $userSer ) > 0){
         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
     //return redirect()->to('/')->with('user11', $userSer);
@@ -358,7 +365,9 @@ public function search(Request $request){
 
   }
   else
-    return view ( 'searchResult' )->withMessage ( 'No Details found. Try to search again !' );}
+    $userSer = null;
+    return view ( 'searchResult' )->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
+}
 
 
 
@@ -406,13 +415,14 @@ $state2[] = $state;
 
        $services_in_city = Service::where('city', $d_city)->with('user')->get();
         $all_states = State::all();
+        $all_categories = Category::all();
 //return $services_in_city;
 
     $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
 
         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
   //return redirect()->to('serviceDetail/'.$serviceDetailId);
-      return view('city_services')->with('services_in_city', $services_in_city)->with('featuredServices', $featuredServices)->with('all_states', $all_states);
+      return view('city_services')->with('services_in_city', $services_in_city)->with('featuredServices', $featuredServices)->with('all_states', $all_states)->with('all_categories', $all_categories);
 
   }
 
@@ -762,7 +772,7 @@ public function show($id)
 
         if ($message->save()) {
         //return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
-          return redirect()->to('serviceDetail/'.$service_slug);
+          return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Successful');
         }
 
 

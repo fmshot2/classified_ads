@@ -65,29 +65,19 @@
                 <div class="search-contents">
                     <form action="{{route('search3')}}" method="GET">
 
-                        <div class="row">
-                            <div class="col-lg-1 col-md-6 col-sm-6 col-6">
-                                <div class="form-group">
-                                    <input type="hidden" name="name2" class="form-control" placeholder="">
-                                </div>
-                            </div>
-
+                        <div class="row">                          
                             <div class="col-lg-2 col-md-6 col-sm-6 col-6">
                                 <div class="form-group">
-                                    <input type="text" name="name" class="form-control" placeholder="What Service Are You Looking For?">
+                                    <input type="text" name="name" class="form-control" placeholder="Enter Keyword">
                                 </div>
                             </div>
-
-
-
                             <div class="col-lg-2 col-md-3" style="">
                               <div class="form-group">
                                 <select class="form-control" id="categories" name="category">
+                                    <option value="">-- Select Category --</option>
                                           @if(isset($categories))
-
                                     @foreach($categories as $category)
-
-                                    <option value="1"> {{ $category->name }}  </option> 
+                                    <option value="{{ $category->id }}"> {{ $category->name }}  </option> 
                                     @endforeach
                                     @endif
                                 </select>
@@ -107,7 +97,8 @@
                         <div class="col-lg-2 col-md-3" style="">
                           <div class="form-group">
                             <select class="form-control" id="state" name="state">
-                                          @if(isset($categories))
+                              <option value="">-- Select State --</option>
+                               @if(isset($states))
 
                                @foreach($states as $state)
 
@@ -138,6 +129,17 @@
                         <button class="btn btn-block bg-warning font-weight-bold text-white btn-warning">Search <i class="fa fa-search ml-2" aria-hidden="true"></i></button>
                     </div>
                 </div>
+
+
+ <div class="col-lg-1 col-md-6 col-sm-6 col-6">
+                                <div class="form-group">
+                                    <input type="hidden" name="name2" class="form-control" placeholder="">
+                                </div>
+                            </div>
+
+
+
+
             </div>
         </form>
     </div>

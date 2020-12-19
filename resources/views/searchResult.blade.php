@@ -214,7 +214,7 @@
                                            <!-- Page navigation start -->
                 <div class="pagination-box hidden-mb-45 text-center">
                     <nav aria-label="Page navigation example">
-                          {{ $all_message->links() }}   
+                          {{--{{ $all_message->links() }}  --}} 
                     </nav>
                 </div>
             </div>
