@@ -35,7 +35,7 @@ class SellerController extends Controller
         'city' => 'required',
         'name' => 'required',
         'state' => 'required',
-        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg', //|max:2048
+        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', //|max:2048
     ]); 
 
      $image = $request->file('image');
@@ -79,7 +79,6 @@ class SellerController extends Controller
 
      $this->validate($request,[
         'description' => 'required',
-        'category_id' => 'required',
         'address' => 'required',
         'description' => 'required',
         'city' => 'required',
@@ -191,6 +190,13 @@ public function viewServiceUpdate($slug)
     $category = Category::all();
     $service = Service::where('slug', $slug)->first();
     return view ('seller.service.update_service', compact('service', 'category') );
+}
+
+public function viewService($slug)
+{
+    $service = Service::where('slug', $slug)->first();
+    $category = Category::where('id', $service->category_id )->first();
+    return view ('seller.service.view_service', compact('service', 'category') );
 }
 
 public function storeReplyMessage(Request $request)

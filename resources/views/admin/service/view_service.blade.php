@@ -1,4 +1,4 @@
-@extends('layouts.seller')
+@extends('layouts.admin')
 
 @section('title')
 All Service | 
@@ -148,13 +148,9 @@ All Service |
                   <h3 class="box-title"> </h3>
                 </div>
                 <div class="body">
-                    <a href="https://www.efcontact.com/admin/properties" class="btn btn-info btn-warning waves-effect">
+                    <a href=" {{ route('admin.service.all') }}" class="btn btn-info btn-warning waves-effect">
                         <i class="fa fa-arrow-left"></i>
                         <span> BACK </span>
-                    </a>
-                    <a href="{{ route('service.update.view', $service->slug) }} " class="btn btn-info btn-warning waves-effect">
-                        <i class="fa fa-pencil-square-o"></i>
-                        <span> UPDATE </span>
                     </a>
                 </div>
             </div>
