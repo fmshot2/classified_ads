@@ -1,19 +1,5 @@
 
 
-    <!-- Content Header (Page header) -->
-    @if (url()->current() == route('admin.buyer') )
-    <section class="content-header p-3 box">
-      <h1>
-        Dashboard
-        <small>Control panel</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Users </a></li>
-        <li class="active">Dashboard</li>
-      </ol>
-    </section>
-    @endif
-
 	
 
 	<div class="box">

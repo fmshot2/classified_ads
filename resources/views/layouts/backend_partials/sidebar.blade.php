@@ -6,15 +6,19 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="image">
-        <img src=" {{ '/images/user-icon.png' }} " class="img-circle" alt="User Image">
+        <img src=" {{ Auth::user()->image == 'null' ? '/images/user-icon.png' : asset('images')}}/{{Auth::user()->image }}" class="img-circle" alt="User Image">
       </div>
       <div class="info">
         <p> {{ Auth::user()->name }} </p>
         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
       </div>
     </div>
+
+       <br>
+    <hr>
+    
     <!-- search form -->
-    <form action="#" method="get" class="sidebar-form">
+ {{--   <form action="#" method="get" class="sidebar-form">
       <div class="input-group">
         <input type="text" name="q" class="form-control" placeholder="Search...">
         <span class="input-group-btn">
@@ -22,7 +26,7 @@
           </button>
         </span>
       </div>
-    </form>
+    </form> --}}
     <!-- /.search form -->
     <!-- sidebar menu-->
     <ul class="sidebar-menu" data-widget="tree">
@@ -44,22 +48,12 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href=" {{ route('admin.service.active') }} "><i class="fa fa-circle-o"></i> Active Service</a></li>
-          <li><a href=" {{ route('admin.service.pending') }} "><i class="fa fa-circle-o"></i> Pending Service </a></li>
-          <li><a href=" {{ route('admin.service.all') }} "><i class="fa fa-circle-o"></i> All Service </a></li>
+          <li><a href=" {{ route('admin.service.all') }} "><i class="fa fa-circle-o"></i> All Service</a></li>
           <li><a href=" {{ route ('admin.category.show') }} "><i class="fa fa-circle-o"></i> Categories </a></li>
 
         </ul>
       </li>
 
-      
-      <li style="{{ url()->current() == route('system.config') ? 'background-color: #f8d053' : '' }}">
-        <a href=" {{route ('system.config') }}">
-          <i class="fa fa-cog"></i> <span> System Config </span>
-          <span class="pull-right-container">
-          </span>
-        </a>
-      </li>
 
 
       <li style="{{ url()->current() == route('admin.profile') ? 'background-color: #f8d053' : '' }}">

@@ -27,20 +27,21 @@
 
           <tr>
             <th> # </th>
-            <th> Notification </th>
+            <th> Title </th>
             <th> Date </th>
+            <th> Action </th>
           </tr>
 
           <tr>
         @foreach($unread_notification as $key => $unread_notifications)
 
             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-            <td> {{ Str::limit( $unread_notifications->description, 100) }} </td>
+            <td> {{ Str::limit( $unread_notifications->title, 100)  }} </td>
             <td> {{ $unread_notifications->created_at->diffForHumans() }} </td>
 
             <td>
               <div class="btn-group">
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
                   <span class="caret"></span>
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>

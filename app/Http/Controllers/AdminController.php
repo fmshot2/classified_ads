@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Service;
 use App\User;
+use App\Category;
 
 
 class AdminController extends Controller
@@ -69,15 +70,21 @@ class AdminController extends Controller
     return view('admin/search/index', compact('users', 'query'));
   }
 
-public function viewProfile()
-{
+  public function viewProfile()
+  {
     return view ('admin.profile.update_profile');
-}
+  }
 
-public function systemConfig()
-{
+  public function systemConfig()
+  {
     return view ('admin.system_config');
-}
+  }
 
+  public function viewService($slug)
+  {
+    $service = Service::where('slug', $slug)->first();
+    $category = Category::where('id', $service->category_id )->first();
+    return view ('seller.service.view_service', compact('service', 'category') );
+  }
 
 }

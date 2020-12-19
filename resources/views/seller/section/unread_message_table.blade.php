@@ -1,21 +1,4 @@
 
-
-  <!-- Content Header (Page header) -->
-  @if (url()->current() == !route('seller.dashboard') )
-  <section class="content-header p-3 box">
-    <h1>
-      Dashboard
-      <small>Control panel</small>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Message </a></li>
-      <li class="active">Dashboard</li>
-    </ol>
-  </section>
-  @endif
-
-  @include('layouts.backend_partials.status')
-
   <div class="box">
 
     <div class="box-header with-border">
@@ -59,29 +42,11 @@
             <td> {{ $unread_messages->buyer_name }} </td>
             <td> {{ $unread_messages->buyer_email }} </td>
             <td> {{ Str::limit($unread_messages->description, 30) }} </td>
-            <td> {{ $unread_messages->status == 1 ? 'Active' : 'Pending' }} </td>
+            <td> {{ $unread_messages->status == 1 ? ' Read' : 'Unread' }} </td>
             <td> {{ $unread_messages->created_at->diffForHumans() }} </td>
 
-            <td>
-              <div class="btn-group">
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                  <span class="caret"></span>
-                  <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-
-
-
-                  <!-- Edit -->
-                    <li> <a href="{{ route('seller.message.reply',$unread_messages->slug) }}" class="btn btn-block" type="submit" style="margin-left: 8px;"> Reply </a> </li>
-                    <!-- View -->
-                    <li>  <a href=" {{ route('seller.message.view',$unread_messages->slug) }}" class="btn btn-block" style="margin-left: 8px;"> View </a> </li>
-                    <!-- Delete -->
-
-                </ul>
-
-              </ul>
-            </div>
+          <td class="center">
+            <a href=" {{ route('seller.message.view',$unread_messages->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
           </td>
 
         </tr>

@@ -1,60 +1,70 @@
 
-	  
-	<!-- jQuery 3 -->
-	<script src="{{asset('OurBackend/assets/vendor_components/jquery/dist/jquery.js')}}"></script>
-	
-	<!-- jQuery UI 1.11.4 -->
-	<script src="{{asset('OurBackend/assets/vendor_components/jquery-ui/jquery-ui.js')}}"></script>
-	
-	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-	<script>
-	  $.widget.bridge('uibutton', $.ui.button);
-	</script>
-	
-	<!-- Bootstrap 3.3.7 -->
-	<script src="{{asset('OurBackend/assets/vendor_components/bootstrap/dist/js/bootstrap.js')}}"></script>
+<!-- jQuery 3 -->
+	<script src="{{asset('OurBackend/assets/vendor_components/jquery/dist/jquery.min.js')}}"></script>
 
-	<script src="{{asset('dropzone/dist/dropzone.js')}}"></script>
-	
-	<!-- Morris.js charts -->
-	<script src="{{asset('OurBackend/assets/vendor_components/raphael/raphael.js')}}"></script>
-	<script src="{{asset('OurBackend/assets/vendor_components/morris.js/morris.js')}}"></script>
-	
-	<!-- Sparkline -->
-	<script src="{{asset('OurBackend/assets/vendor_components/jquery-sparkline/dist/jquery.sparkline.js')}}"></script>
-	
-	<!-- jQuery Knob Chart -->
-	<script src="{{asset('OurBackend/assets/vendor_components/jquery-knob/js/jquery.knob.js')}}"></script>
-	
-	<!-- daterangepicker -->
-	<script src="{{asset('OurBackend/assets/vendor_components/moment/min/moment.min.js')}}"></script>
-	<script src="{{asset('OurBackend/assets/vendor_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-	
-	<!-- datepicker -->
-	<script src="{{asset('OurBackend/assets/vendor_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')}}"></script>
-	
-	<!-- Bootstrap WYSIHTML5 -->
-	<script src="{{asset('OurBackend/assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js')}}"></script>
-	
-	<!-- Slimscroll -->
-	<script src="{{asset('OurBackend/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js')}}"></script>
+
+
+	<!-- Bootstrap 3.3.7 -->
+	<script src="{{asset('OurBackend/assets/vendor_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+
+
+
+<!-- SlimScroll -->
+	<script src="{{asset('OurBackend/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 	
 	<!-- FastClick -->
 	<script src="{{asset('OurBackend/assets/vendor_components/fastclick/lib/fastclick.js')}}"></script>
 	
-	<!-- chart.js charts -->
-	<script src="{{asset('OurBackend/assets/vendor_components/chart-js/chart.js')}}"></script>
-	
 	<!-- Cross Admin App -->
 	<script src="{{asset('OurBackend/js/template.js')}}"></script>
-	
-	<!-- Cross Admin dashboard demo (This is only for demo purposes) -->
-	<script src="{{asset('OurBackend/js/pages/dashboard2.js')}}"></script>
-	
-	<!-- Cross Admin for demo purposes -->
+
+
+<!-- Cross Admin for demo purposes -->
 	<script src="{{asset('OurBackend/js/demo.js')}}"></script>
 
 
 
+
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	$(document).ready( function () {
+	    $('.data_table_main').DataTable({
+			dom: 'Bfrtip',
+			buttons: [
+				'copy', 'csv', 'excel', 'pdf', 'print'
+			]
+		});
+	});
+</script>
+  
+
+	
+	<!-- This is data table -->
+    {{--<script src="{{asset('OurBackend/assets/vendor_plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js')}}"></script>--}}
+    
+    <!-- start - This is for export functionality only -->
+
+    <!-- end - This is for export functionality only -->
+	
+	<!-- Cross Admin for Data Table -->
+	{{-- <script src="{{asset('OurBackend/js/pages/data-table.js')}}"></script> --}}
 
 

@@ -1,21 +1,4 @@
 
-
-  <!-- Content Header (Page header) -->
-  @if (url()->current() == !route('seller.dashboard') )
-  <section class="content-header p-3 box">
-    <h1>
-      Dashboard
-      <small>Control panel</small>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Message </a></li>
-      <li class="active">Dashboard</li>
-    </ol>
-  </section>
-  @endif
-
-  @include('layouts.backend_partials.status')
-
   <div class="box">
 
     <div class="box-header with-border">
@@ -46,6 +29,7 @@
             <th> # </th>
             <th> Notification </th>
             <th> Date </th>
+            <th> Action </th>
           </tr>
 
           <tr>
@@ -57,7 +41,7 @@
 
             <td>
               <div class="btn-group">
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
                   <span class="caret"></span>
                   <span class="sr-only">Toggle Dropdown</span>
                 </button>

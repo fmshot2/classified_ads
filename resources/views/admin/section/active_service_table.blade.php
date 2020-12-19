@@ -1,12 +1,4 @@
 
-
-
-
-
-
-
-
-
 	<div class="box">
 
 		<div class="box-header with-border">
@@ -97,12 +89,5 @@
 		</table>
 	</div>
 	<!-- /.box-body -->
-
-	@if (url()->current() == route('admin.service.active') )
-	<div class="box-footer clearfix">
-
-		{{ $active_service->links() }} 
-
-	</div>
-	@endif
+</div>
 
