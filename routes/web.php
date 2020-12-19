@@ -75,7 +75,20 @@ Route::get('/refreshcaptcha', 'AuthController@refreshCaptcha')->name('refreshcap
 Route::get('/terms', 'PageController@terms')->name('terms');
 Route::get('/privacy', 'PageController@privacy')->name('privacy');
 
-Route::middleware(['auth'])->group(function () {
+
+Route::get('/admin2/like/{id}', 'ServiceController@saveLike2')->name('admin2.like');
+
+
+
+
+Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
+
+Route::post('/admin/like', 'ServiceController@saveLike')->name('admin.like');
+
+Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name('service.delete');
+
+
+Route::middleware(['seller'])->group(function () { //Seller Middleware protection start here
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
 Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
 
@@ -93,7 +106,7 @@ Route::get('/seller/dashboard/service/all', 'SellerController@allService')->name
 Route::post('/service/store/', 'SellerController@storeService')->name('service.save');
 Route::post('/service/{id}', 'SellerController@storeServiceUpdate')->name('service.update');
 Route::get('seller/dashboard/service/view/{slug}', 'SellerController@viewService')->name('service.view');
-Route::delete('/service/{id}', 'SellerController@destroy')->name('seller.service.destroy');
+Route::get('/service/{id}', 'SellerController@destroy')->name('seller.service.destroy');
 Route::get('seller/dashboard/service/update/{slug}', 'SellerController@viewServiceUpdate')->name('service.update.view');
 
 
@@ -103,9 +116,10 @@ Route::get('/seller/notification/{slug}', 'SellerController@viewNotification')->
 
 
 Route::get('/seller/profile/', 'SellerController@viewProfile')->name('seller.profile');
-Route::post('/seller/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
-Route::get('/admin2/like/{id}', 'ServiceController@saveLike2')->name('admin2.like');
 
+}); //Seller Middleware protection start here
+
+Route::middleware(['auth'])->group(function () { //Auth Middleware protection start here
 
 Route::get('/buyer/dashboard', 'DashboardController@buyer')->name('buyer.dashboard');
 Route::get('/buyer/dashboard/service/all', 'BuyerController@allService')->name('buyer.service.all');
@@ -119,13 +133,13 @@ Route::get('/buyer/message/{slug}', 'BuyerController@viewMessage')->name('buyer.
 Route::get('/buyer/message/reply/{slug}', 'BuyerController@replyMessage')->name('buyer.message.reply');
 Route::post('/buyer/message/reply/', 'BuyerController@storeReplyMessage')->name('buyer.message.reply.store');
 
+Route::post('/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
 
-Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
 
-Route::post('/admin/like', 'ServiceController@saveLike')->name('admin.like');
+}); //Auth Middleware protection end here
 
-Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name('service.delete');
-});
+
+Route::middleware(['admin'])->group(function () { //Seller Middleware protection start here
 
 Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
 Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
@@ -136,8 +150,10 @@ Route::get('/admin/dashboard/service/all', 'AdminController@allService')->name('
 Route::get('/admin/dashboard/service/active', 'AdminController@activeService')->name('admin.service.active');
 Route::get('/admin/dashboard/service/pending', 'AdminController@pendingService')->name('admin.service.pending');
 Route::get('/admin/dashboard/service/pending', 'AdminController@pendingService')->name('admin.service.pending');
-Route::patch('/admin/dashboard/service/status/{id}', 'AdminController@updateServiceStatus')->name('admin.service.status');
-Route::delete('/admin/dashboard/service/destroy/{id}', 'AdminController@destroy')->name('admin.service.destroy');
+Route::get('/admin/dashboard/service/status/{id}', 'AdminController@updateServiceStatus')->name('admin.service.status');
+Route::get('/admin/dashboard/service/destroy/{id}', 'AdminController@destroy')->name('admin.service.destroy');
+Route::get('admin/dashboard/service/view/{slug}', 'AdminController@viewService')->name('admin.view');
+
 
 Route::get('/admin/dashboard/service/search', 'AdminController@serviceSearch')->name('admin.service.search');
 Route::get('/admin/dashboard/user/search', 'AdminController@userSearch')->name('admin.user.search');
@@ -148,6 +164,7 @@ Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer'
 
 Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
 Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
+}); //Admin Middleware protection end here
 
 
 

@@ -75,9 +75,13 @@ class AuthController extends Controller
 			{
 				session()->flash('success', ' Login Succesfull');
 				return redirect()->intended('seller/dashboard');
-			} else {
+			} else if (Auth::user()->role == 'buyer')
+			{
 				session()->flash('success', ' Login Succesfull');
-				return redirect()->intended('/');
+				return redirect()->intended('buyer/dashboard');
+			} else 
+			{
+				return view ('/');
 			}
 		}
 

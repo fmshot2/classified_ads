@@ -4,20 +4,6 @@
   <div class="box-header with-border">
     <h3 class="box-title">  All Notification {{ $all_notification->count() }} </h3>
 
-    @if (url()->current() == route('seller.notification.all') )
-    <div class="box-tools">
-      <form class="" method="GET" action="{{ route('admin.service.search') }}">
-        <div class="input-group input-group-sm" style="width: 150px;">
-          <input type="search" class="form-control pull-right" placeholder="Search" name="query"  value="{{ isset($query) ? $query : '' }}" required>
-
-          <div class="input-group-btn">
-            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-          </div>
-        </div>
-      </form>
-    </div>
-    @endif 
-
   </div>
   <!-- /.box-header -->
   <div class="box-body ">
