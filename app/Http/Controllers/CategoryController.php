@@ -105,16 +105,18 @@ class CategoryController extends Controller
         
         $one_category = Category::where('slug', $slug)->first();
         $category_id = $one_category->id;
-        $category_services = Service::where('id', $category_id)->get();
+        $category_services = Service::where('category_id', $category_id)->get();
+        //return $category_services;
         //$category_city = Service::all()->pluck("city");
-        $category_city = Service::all()->random(4);
+        $category_city = Service::all();
         $all_states = State::all();
+        $toShowOtherSearch = null;
         $all_categories = Category::all();
         $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
         //$category_id = $id;
         //return $category_city;
 
-        return view ('services', compact('category_services', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices') );        
+        return view ('services', compact('category_services', 'toShowOtherSearch', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices') );        
     }
 
 

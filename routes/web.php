@@ -23,6 +23,9 @@ Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service
 Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');
 Route::get('/sellers', 'ServiceController@allSellers')->name('seller.sellers');
 Route::get('/terms-of-use', 'ServiceController@termsOfUse')->name('terms-of-use');
+Route::get('/advertisement', 'ServiceController@advertisement')->name('advertisement');
+
+
 
 
 
@@ -36,13 +39,6 @@ Route::get('/catdet/{id}', 'CategoryController@show')->name('catdet');
 
 Route::get('/saveLike2','ServiceController@saveLike2')->name('saveLike2');
 
-
-
-// add comment routes
-//Route::get('ajaxRequest', [AjaxController::class, 'ajaxRequest']);
-//Route::post('ajaxRequest', 'ServiceController@ajaxRequestPost')->name('ajaxRequest.post');
-
-// add comment routes
 
 
 
@@ -120,6 +116,7 @@ Route::get('/seller/profile/', 'SellerController@viewProfile')->name('seller.pro
 }); //Seller Middleware protection start here
 
 Route::middleware(['auth'])->group(function () { //Auth Middleware protection start here
+Route::post('/store_contact_form', 'ContactController@store_contact_form')->name('store_contact_form');
 
 Route::get('/buyer/dashboard', 'DashboardController@buyer')->name('buyer.dashboard');
 Route::get('/buyer/dashboard/service/all', 'BuyerController@allService')->name('buyer.service.all');
@@ -168,12 +165,12 @@ Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system
 
 
 
-//Route::any ( '/search',  'ServiceController@search')->name('search3');
-Route::any ( '/search4',  'ServiceController@search3')->name('search4');
+Route::post ( '/searchonservices',  'ServiceController@searchonservices')->name('searchonservices');
+
 Route::any ( '/searchresults',  'ServiceController@search')->name('search3');
 
 
-//Route::any ( '/searchforuser',  'ServiceController@searchSeller')->name('searchUser');
+
 
 
 

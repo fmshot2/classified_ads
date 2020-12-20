@@ -8,6 +8,20 @@
 <div class="sub-banner">
     <div class="container">
         <div class="page-name">
+
+@if(isset($ww2))
+
+<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px; ">
+  <div class="toast bg-warning" style="position: absolute; top: 0; right: 0; border-radius: 8px;">
+   
+    <div class="toast-body">
+   Hello, world! This is a toast message.
+       </div>
+  </div>
+</div>
+   @endif
+
+
             <h1>Services Detail</h1>
             <ul>
                 <li><a href="{{route('home')}}">Home</a></li>
@@ -16,6 +30,16 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+  
+
+
+
+
 
 
    <div class="pull-right">
@@ -31,7 +55,6 @@
                                       </div></span></h3>
                                   
                                   </div>
-
 
 
 <!-- Properties Details page start -->
@@ -550,24 +573,50 @@ Unlike</span>
                          
                             <input  type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
                             <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">  
-                              <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="form-control" placeholder="Email">           
+                              <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="form-control">           
                             <div class="form-group">
                                 <label class="form-label">Full Name</label>
 <input type="text" name="buyer_name" class="form-control" placeholder=" Your Name">
+    @if ($errors->has('buyer_name'))
+                            <span >
+                                <strong class="text-danger">{{ $errors->first('buyer_name') }}</strong>
+                            </span>
+                            @endif
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Email</label>
- <input type="email" name="buyer_email" class="form-control" placeholder="Your Email">                            </div>
+ <input type="email" name="buyer_email" class="form-control" placeholder="Your Email">
+  @if ($errors->has('buyer_email'))
+                            <span>
+                                <strong class="text-danger">{{ $errors->first('buyer_email') }}</strong>
+                            </span>
+                            @endif
+                             </div>
                             <div class="form-group">
                                 <label class="form-label">Phone</label>
- <input type="text" name="phone" class="form-control" placeholder="Your Phone Number">                            </div> 
+ <input type="text" name="phone" class="form-control" placeholder="Your Phone Number">
+   @if ($errors->has('phone'))
+                            <span>
+                                <strong class="text-danger">{{ $errors->first('phone') }}</strong>
+                            </span>
+                            @endif                            </div> 
  <div class="form-group">
                                 <label class="form-label">Subject</label>
                                  <input type="text" name="subject" class="form-control" placeholder="Subject">
+                                  @if ($errors->has('subject'))
+                            <span>
+                                <strong class="text-danger">{{ $errors->first('subject') }}</strong>
+                            </span>
+                            @endif 
                             </div>
 
                             <div class="form-group message">
                                 <textarea class="form-control" id="description" name="description" placeholder="Write message"></textarea>
+                                 @if ($errors->has('description'))
+                            <span>
+                                <strong class="text-danger">{{ $errors->first('description') }}</strong>
+                            </span>
+                            @endif 
                             </div>
                             @guest
                                                         <p>Only registered users can message sellers. <a href="{{route('home')}}"><strong>Login</strong></a> or <a href="{{route('home')}}"><strong>Register</strong></a> if you dont have an account.</p>
@@ -604,13 +653,16 @@ Unlike</span>
 </div>
 </div>
 </div>
-
+ @auth
+@if(Auth::user()->role == 'buyer')
 <div class="container mb-5 mt-0">
     <h5>
         HAPPY WITH THE SERVICE RENDERED? THEN GIVE THIS SELLER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">   LIKE!</span>
         </a>
     </h5>
 </div>
+ @endif 
+@endauth
 
 
 

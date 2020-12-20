@@ -17,7 +17,7 @@
         <div class="page-name">
             <h1>Search By City </h1>
             <ul>
-                <li><a href="https://efcontact.com">Home</a></li>
+                <li><a href="{{route('home')}}">Home</a></li>
                 <li><span>/</span>Search By City</li>
             </ul>
         </div>
@@ -25,71 +25,6 @@
 </div>
 
 
-  <!-- <div class="container">
-            @if(isset($closerServices))
-            <p> The Search results for your query <b> query</b> are :</p>
-            <h2>Sample User details</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($closerServices as $closerService)
-                    <tr>
-                        <td>{{$closerService->name}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            @endif
-        </div>-->
-
-<!--<div class="row property-section">
-
-            <div class="col-lg-8 col-md-12 col-xs-12">
-            	   @if(isset($services_in_city))
-                        @foreach($services_in_city as $service_in_city)
-                <div class="col-lg-3 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
-                <div class="property-box">
-                    <div class="property-thumbnail">
-                        <a href="http://localhost:8000/serviceDetail/2" class="property-img">
-                            <div class="listing-badges">
-                                <span class="featured bg-warning">featured</span>
-                            </div>
-                            <div class="price-ratings-box">
-                                <p class="price">
-                                    {{$service_in_city->experience}} Yrs Experience
-                                </p>
-                                </div>
-                                <div class="listing-time opening">{{$service_in_city->user->name}},</div>
-                                <img class="d-block w-100" src="{{asset('images')}}/{{$service_in_city->image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
-                            </a>
-                        </div>
-                        <div class="detail">
-                            <span class="d-flex justify-content-around"><a class="title " href="properties-details.html">{{$service_in_city->name}}</a>
-                                <a class="pull-right" href="properties-details.html">
-                                    <i class="fa fa-map-marker text-warning"></i> {{$service_in_city->city}}, {{$service_in_city->name}}
-                                </a></span>
-
-                                <ul class="facilities-list clearfix">
-                                    <li>
-                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; 5 likes
-                                    </li>
-                                    <li class="" style="float: right;">
-                                        <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="http://localhost:8000/serviceDetail/2">Verified</a>
-                                        </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-                @endif
-            </div>
-
-</div>-->
 <div class="container">
 
 <div class="row property-section mt-5">
@@ -125,10 +60,11 @@
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="property-box">
                             <div class="property-thumbnail">
-                                <a href="https://efcontact.com/services/milean-ventures" class="property-img">
+                                <a class="property-img">
                                                                         <div class="price-ratings-box">
                                         <p class="price">
-                                            ₦4,000,000
+                                            {{ $service_in_city->is_verified == 1 ? 'verified' : 'Not yet verified' }}
+
                                         </p>
                                      
                                     </div>
@@ -136,18 +72,17 @@
                                 </a>
                             </div>
                             <div class="detail">
-                                <h1 class="title">
-                                    <a href="https://efcontact.com/services/milean-ventures">{{$service_in_city->name}}</a>
+                                <h1 class="title text-primary" >{{$service_in_city->user->name}}
                                 </h1>
-                                                                login to contact  <strong>{{$service_in_city->name}}</strong>
+                                          <a href="{{route('login')}}">  login to contact  <strong class="text-primary"> {{$service_in_city->user->name}}, {{$service_in_city->name}}</strong></a>                     
                             </div>
                             <div class="footer clearfix">
                                 
                                 <div class="pull-right">
-                                    <a><i class="flaticon-time"></i> Jul 15, 2020</a>
+                                    <a><i class="flaticon-time"></i>{{$service_in_city->experience}} yrs experience</a>
                                 </div>
                                 <div class="pull-center">
-                                    <a><i class="fa fa-comments"></i> 0</a>
+                                    <a><i class="fa fa-thumbs-up"></i> {{$service_in_city->likes->count()}}</a>
                                 </div>
                             </div>
                         </div>
@@ -159,19 +94,7 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-          <div class="col-lg-4 col-md-12">
+         <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right">
                     <!-- Advanced search start -->
                   <div class="sidebar widget advanced-search none-992">
@@ -195,9 +118,27 @@
                                      <!--  <input type="text" name="serviceDetail_id" value= class="form-control"> -->
                                  </div>
                              </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
+                              <div class="form-group subject">
+                                <select class="form-control" id="state" name="state">
+                                    <option value="">-- Please select category --</option>                                
+                                    @if(isset($all_categories))
+
+                                    @foreach($all_categories as $all_category)
+
+                                    <option value="{{$all_category->id}}"> {{ $all_category->name }}  </option> 
+                                    @endforeach
+                                    @endif                         
+
+                                </select>
+
+
+                            </div>
+                        </div>
                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
                               <div class="form-group subject">
-                                <select class="form-control" id="state" name="state">                                
+                                <select class="form-control" id="state" name="state">
+                                    <option value="">-- Please select state --</option>                                
                                     @if(isset($all_states))
 
                                     @foreach($all_states as $state)

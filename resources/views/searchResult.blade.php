@@ -37,7 +37,7 @@
                                         <input type="text" name="name" class="form-control" placeholder="What Service Are You Looking For?">
                                     </div>
                                 </div>
-                                
+                                </div>
                                <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group subject">
                                         <input type="text" name="state" class="form-control" placeholder="Enter Your State">
@@ -50,7 +50,8 @@
                              </div>
                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
                               <div class="form-group subject">
-                                <select class="form-control" id="state" name="state">                                
+                                <select class="form-control" id="state" name="state">
+                                <option class="text-center" value="">--Choose a state--</option>                                
                                     @if(isset($all_states))
 
                                     @foreach($all_states as $state)
@@ -92,9 +93,8 @@
                                 <button type="submit" class="btn btn-outline-warning btn-block bg-warning text-white">Search  <i class="fa fa-search" aria-hidden="true"></i></button>
                             </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                        </form>
+                    </div>            
             <!-- Popular posts start -->
             <div class="widget popular-posts">
                 <h3 class="sidebar-title">Featured Services</h3>
@@ -214,9 +214,7 @@
                                            <!-- Page navigation start -->
                 <div class="pagination-box hidden-mb-45 text-center">
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            
-                        </ul>
+                          {{--{{ $all_message->links() }}  --}} 
                     </nav>
                 </div>
             </div>
