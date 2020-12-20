@@ -6,7 +6,8 @@ All Service Table |
 
 @section('content')
 
-
+<br>
+<hr>
 
 <div class="content-wrapper" style="min-height: 518px;">
 
@@ -48,7 +49,7 @@ All Service Table |
 
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 									<td>
-										<a href="https://www.efcontact.com/admin/properties/classic-crib">
+										<a href="#">
 											<img src="{{asset('images')}}/{{$all_services->image}}" alt="classic crib" width="60" class="img-responsive img-rounded">
 										</a>
 									</td>
@@ -59,7 +60,9 @@ All Service Table |
 
 
 									<td class="center">
-										<a href="{{ route('serviceDetail', $all_services->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
+										<a href="{{ route('service.view', $all_services->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
+										<a href="{{ route('service.update.view', $all_services->slug) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
+										<a href="{{ route('seller.service.destroy', $all_services->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 									</td>
 
 								</tr>

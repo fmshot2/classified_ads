@@ -13,7 +13,7 @@ Update Profile |
 
 <div class="container">
 
-@include('layouts.backend_partials.status')
+@include('layouts.buyer_partials.status')
 
 
 		<div class="row">
@@ -22,7 +22,7 @@ Update Profile |
 				<!-- Profile Image -->
 				<div class="box box-warning">
 					<div class="box-body box-profile">
-						<img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->image == 'null' ? '/images/user-icon.png' : asset('images')}}/{{Auth::user()->image }} " alt="User profile picture">
+						<img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" alt="User profile picture">
 
 						<h3 class="profile-username text-center"> {{ Auth::user()->name }} </h3>
 
@@ -99,7 +99,7 @@ Update Profile |
 									<label for="inputSkills" class="col-sm-2 control-label">About Me</label>
 
 									<div class="col-sm-10">
-										<textarea class="form-control" name="about" placeholder=""> {{ Auth::user()->description }} </textarea>
+										<textarea class="form-control" name="about" placeholder=""> {{ Auth::user()->about }} </textarea>
 									</div>
 								</div>
 
@@ -107,7 +107,7 @@ Update Profile |
 									<label for="inputSkills" class="col-sm-2 control-label">Address</label>
 
 									<div class="col-sm-10">
-										<textarea class="form-control" name="address" placeholder=""> {{ Auth::user()->about }} </textarea>
+										<textarea class="form-control" name="address" placeholder=""> {{ Auth::user()->address }} </textarea>
 									</div>
 								</div>
 
@@ -122,14 +122,14 @@ Update Profile |
 
 
 						<div class="tab-pane" id="password">
-							<form class="form-horizontal form-element" method="POST" action="{{route('profile.update', Auth::id() )}}" enctype="multipart/form-data">
+							<form class="form-horizontal form-element" method="POST" action="{{route('profile.update.password', Auth::id() )}}" enctype="multipart/form-data">
 								{{ csrf_field() }}
 
 								<div class="form-group">
 									<label for="inputName" class="col-sm-2 control-label">Current Password</label>
 
 									<div class="col-sm-10">
-										<input class="form-control" name="currentpassword" type="password" placeholder="*********" required="">
+										<input class="form-control" name="old_password" type="password" placeholder="*********" required="">
 									</div>
 								</div>
 								<div class="form-group">
@@ -143,7 +143,7 @@ Update Profile |
 									<label for="inputPhone" class="col-sm-2 control-label">Confirm New Password</label>
 
 									<div class="col-sm-10">
-										<input class="form-control" name="newpassword_confirmation" type="password" required="">
+										<input class="form-control" name="password_confirmation" type="password" required="">
 									</div>
 								</div>
 

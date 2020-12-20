@@ -22,6 +22,8 @@
 <!-- Cross Admin for demo purposes -->
 	<script src="{{asset('OurBackend/js/demo.js')}}"></script>
 
+	<script type="text/javascript" src="{{asset('dropzone/dist/dropzone.js')}}"></script>
+
 
 
 

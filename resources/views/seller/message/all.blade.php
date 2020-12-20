@@ -6,7 +6,8 @@ All Message Table |
 
 @section('content')
 
-
+<br>
+<hr>
 
 <div class="content-wrapper" style="min-height: 518px;">
 

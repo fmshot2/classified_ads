@@ -177,12 +177,12 @@ Update Service |
 
 
 
-                      <a href=" {{ route('seller.service.all') }}" class="btn btn-danger btn-lg m-t-15 waves-effect">
+                      <a href=" {{ route('seller.service.all') }}" class="btn btn-warning btn-lg m-t-15 waves-effect">
                         <i class="fa fa-arrow-left"></i>
                         <span>BACK</span>
                       </a>
 
-                      <button type="submit" class="btn btn-primary btn-lg m-t-15 waves-effect">
+                      <button type="submit" class="btn btn-warning btn-lg m-t-15 waves-effect">
                         <i class="fa fa-save"></i>
                         <span>Submit</span>
                       </button>

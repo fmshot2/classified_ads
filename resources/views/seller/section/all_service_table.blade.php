@@ -3,7 +3,7 @@
 
     <div class="box-header">
         <h3 class="box-title"> All Service Table </h3>
-        <code>  {{ url()->current() == route('seller.dashboard') ? 'showing 5 active services ' : '' }} </code>
+        <code>  {{ url()->current() == route('seller.dashboard') ? 'showing 5 recent services ' : '' }} </code>
 
         <div class="box-tools">
 

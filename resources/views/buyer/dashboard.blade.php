@@ -126,7 +126,12 @@ Buyer Dashboard |
  </div>
 
 
-
+ <div class="row">
+  <div class="col-md-12 connectedSortable">
+   @include('seller/section/all_service_table') 
+ </div>
+</div>
+<!-- Row end here -->
 
  <div class="row">
 

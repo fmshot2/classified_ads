@@ -8,14 +8,10 @@ Category |
 
 @section('content')
 
+<br>
+<hr>
 
-<div class="content-wrapper" style="min-height: 518px;">
-
-<section class="content">
-
-<div class="row">
-  <div class="col-xs-12">
-
+<div class="container">
 
   @include('layouts.backend_partials.status')
 
@@ -53,17 +49,12 @@ Category |
 </div>
 
 
-<br>
-<hr>
+</div>
 
 
 @include('admin/section/category_table') 
 
 
 
-</div>
-</div>
-</section>
-</div>
 
 @endsection

@@ -134,6 +134,8 @@ Route::get('/buyer/message/reply/{slug}', 'BuyerController@replyMessage')->name(
 Route::post('/buyer/message/reply/', 'BuyerController@storeReplyMessage')->name('buyer.message.reply.store');
 
 Route::post('/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
+Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
+
 
 
 }); //Auth Middleware protection end here
@@ -144,7 +146,7 @@ Route::middleware(['admin'])->group(function () { //Seller Middleware protection
 Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
 Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
 Route::get('/admin/dashboard/category/show', 'CategoryController@index')->name('admin.category.show');
-Route::delete('/admin/category/{id}', 'CategoryController@destroy')->name('admin.category.delete');
+Route::get('/admin/category/{id}', 'CategoryController@destroy')->name('admin.category.delete');
 
 Route::get('/admin/dashboard/service/all', 'AdminController@allService')->name('admin.service.all');
 Route::get('/admin/dashboard/service/active', 'AdminController@activeService')->name('admin.service.active');
@@ -164,6 +166,9 @@ Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer'
 
 Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
 Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
+
+Route::get('/admin/notification/all', 'AdminController@allNotification')->name('admin.notification.all');
+
 }); //Admin Middleware protection end here
 
 
@@ -184,7 +189,7 @@ View::composer(['layouts.frontend_partials.navbar', 'layouts.frontend_partials.f
    $view->with( compact('categories', 'service') );
 });
 
-View::composer(['layouts.seller_partials.navbar', 'layouts.seller_partials.sidebar', 'layouts.backend_partials.navbar', 'layouts.backend_partials.navbar'], function ($view) {
+View::composer(['layouts.seller_partials.navbar', 'layouts.seller_partials.sidebar', 'layouts.backend_partials.navbar', 'layouts.backend_partials.sidebar'], function ($view) {
     $all_message = Message::where('service_user_id', Auth::id() );
     $unread_message =  $all_message->Where('status', 0);
     $check_unread_message_table = collect($unread_message)->isEmpty();
