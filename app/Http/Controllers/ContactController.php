@@ -17,14 +17,10 @@ class ContactController extends Controller
      $this->validate($request,[
         'name' => 'required',
         'email' => 'required',
-        'address' => 'required',
         'subject' => 'required',
         'phone' => 'required',
         'message' => 'required',
     ]); 
-     
-
-
 
 
        $contact = new Contact([
@@ -39,7 +35,7 @@ class ContactController extends Controller
 
         $contact->save();
         return 'sfdsgdgdg';
-        //return redirect('/contacts')->with('success', 'Contact saved!');
+        return back()->with('success', 'Contact saved!');
     }
 
      /*$random = Str::random(3);
