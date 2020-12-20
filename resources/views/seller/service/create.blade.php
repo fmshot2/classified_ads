@@ -201,4 +201,153 @@ Create Service |
         </div>
 
 
-        @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{--
+
+            <form action="{{route('service.save')}}" method="post" name="file" files="true" enctype="multipart/form-data" class="dropzone" id="image-upload">
+                @csrf
+                <div>
+                <h3 class="text-center">Upload Multiple Images</h3>
+            </div>    
+            <button type="submit"> Upload Img</button>
+            </form>
+
+
+<script type="text/javascript">
+        Dropzone.options.imageUpload = {
+            maxFilesize: 5,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif,.svg"
+        };
+</script>
+
+--}}
+
+
+
+
+@endsection

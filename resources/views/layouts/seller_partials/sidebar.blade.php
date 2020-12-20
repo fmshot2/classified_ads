@@ -6,7 +6,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="image">
-        <img src=" {{ Auth::user()->image == 'null' ? '/images/user-icon.png' : asset('images')}}/{{Auth::user()->image }} " class="img-circle" alt="User Image">
+        <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" class="img-circle" alt="User Image">
       </div>
       <div class="info">
         <p> {{ Auth::user()->name }} </p>
@@ -95,7 +95,7 @@
         <a href=" {{route ('seller.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
           <span class="pull-right-container">
-            <small class="label pull-right bg-danger"> {{ $unread_notification_count }}  </small> 
+            <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small> 
           </span>
         </a>
       </li>
@@ -134,12 +134,14 @@
  </section>
  <!-- /.sidebar -->
  <div class="sidebar-footer">
-  <!-- item-->
-  <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog fa-spin"></i></a>
-  <!-- item-->
-  <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i class="fa fa-envelope"></i></a>
-  <!-- item-->
-  <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i class="fa fa-power-off"></i></a>
+    <a href=" {{route('seller.message.all') }} " class="link" data-toggle="tooltip" title="" data-original-title="Message"><i class="fa fa-envelope"></i></a>
+    <!-- item-->
+
+    <a  href="{{ route('logout') }}" class="link" data-toggle="tooltip" title="" data-original-title="Logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+       @csrf
+     </form>
+     <i class="fa fa-power-off"></i></a> 
 </div>
 </aside>
 

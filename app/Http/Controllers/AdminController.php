@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Service;
 use App\User;
 use App\Category;
+use App\Notification;
 
 
 class AdminController extends Controller
@@ -86,5 +87,20 @@ class AdminController extends Controller
     $category = Category::where('id', $service->category_id )->first();
     return view ('seller.service.view_service', compact('service', 'category') );
   }
+
+  public function allNotification()
+  {
+    $all_notification = Notification::paginate(8);
+    return view ('admin.notification.all_notification', compact('all_notification') );
+  }
+
+  public function viewNotification($slug)
+  {
+    $notification = Message::where('slug', $slug)->first();
+    $notification->status = 1;
+    $notification->save();
+    return view ('seller.notification.view_notification', compact('notification') );
+  }
+
 
 }

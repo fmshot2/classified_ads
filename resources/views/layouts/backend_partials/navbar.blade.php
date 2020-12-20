@@ -19,12 +19,12 @@
           <!-- User Account -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src=" {{ Auth::user()->image == 'null' ? '/images/user-icon.png' : asset('images')}}/{{Auth::user()->image }}" class="user-image" alt="User Image">
+              <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" class="user-image" alt="User Image">
             </a>
             <ul class="dropdown-menu scale-up">
               <!-- User image -->
               <li class="user-header" style="background-color: #f8d053;">
-                <img src=" {{ Auth::user()->image == 'null' ? '/images/user-icon.png' : asset('images')}}/{{Auth::user()->image }}" class="img-responsive" alt="User Image">
+                <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" class="img-responsive" alt="User Image">
 
                 <p>
                   {{ Auth::user()->name }}
@@ -104,7 +104,7 @@
         <li class="dropdown messages-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-bell"></i>
-            <span class="label label-danger"> {{ $unread_notification_count }}  </span>
+            <span class="label label-primary"> {{ $unread_notification_count }}  </span>
           </a>
           <ul class="dropdown-menu scale-up">
             <li class="header">You have {{ $unread_notification_count }} unread notification</li>
@@ -127,7 +127,7 @@
 
             </ul><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 112.676px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
           </li>
-          <li class="footer"> <a href="{{route('seller.notification.unread') }}" class="text-warning" style="font-weight: bold;"> See all  notification </a> </li>
+          <li class="footer"> <a href="{{route('admin.notification.all') }}" class="text-warning" style="font-weight: bold;"> See all  notification </a> </li>
         </ul>
       </li>
 </ul>

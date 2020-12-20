@@ -1,3 +1,4 @@
+
 @extends('layouts.admin')
 
 @section('title')
@@ -23,7 +24,7 @@ All Seller |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Buyer Table</h3>
+						<h3 class="box-title"> Seller Table</h3>
 					</div>
 
 					<!-- /.box-header -->
@@ -36,40 +37,40 @@ All Seller |
 									<th> Email </th>
 									<th> role </th>
 									<th> Date </th>
-								</tr>
-							</thead>
+								</tr>	
 
-							<tbody>
-								<tr>
 									@foreach($seller as $key => $sellers)
+
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 									<td> {{ $sellers->name }} </td>
 									<td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
 									<td> {{ $sellers->role }} </td>
 									<td> {{ $sellers->created_at->diffForHumans() }} </span></td>
-								</tr>
-								@endforeach
+
+							</tr>
+
+							@endforeach
 
 
-							</tbody>
+						</tbody>
 
 
-						</table>
+					</table>
 
 
-					</div>
-					<!-- /.box-body -->
 				</div>
+				<!-- /.box-body -->
+			</div>
 
 
-				<!-- /.content -->
-			</div>	
+			<!-- /.content -->
+		</div>	
 
 
-
-		</div>
 
 	</div>
+
+</div>
 </section>
 
 @endsection

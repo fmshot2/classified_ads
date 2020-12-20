@@ -36,6 +36,7 @@ All Service Table |
 									<th> Image </th>
 									<th> Title </th>
 									<th> State </th>
+									<th> Status </th>
 									<th> Featured </th>
 									<th> Date </th>
 									<th> Action </th>
@@ -44,48 +45,58 @@ All Service Table |
 
 							<tbody>
 
-									@foreach($all_service as $key => $all_services)
+								@foreach($all_service as $key => $all_services)
 
-									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-									<td>
-										<a href="https://www.efcontact.com/admin/properties/classic-crib">
-											<img src="{{asset('images')}}/{{$all_services->image}}" alt="classic crib" width="60" class="img-responsive img-rounded">
-										</a>
-									</td>
-									<td> {{ $all_services->name }} </td>
-									<td> {{ $all_services->state }} </td>
-									<td> {{ $all_services->featured == 1 ? 'Yes' : 'No' }} </td>
-									<td> {{ $all_services->created_at->diffForHumans() }} </td>
+								<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+								<td>
+									<a href="#">
+										<img src="{{asset('images')}}/{{$all_services->image}}" alt="classic crib" width="60" class="img-responsive img-rounded">
+									</a>
+								</td>
+								<td> {{ $all_services->name }} </td>
+								<td> {{ $all_services->state }} </td>
 
+								<td>
+									@if($all_services->status == 1)
+									<a href="{{ route('admin.service.status', $all_services->id) }} " class="btn btn-warning"> Deactive</a>
+									@else 
+									<a href="{{ route('admin.service.status', $all_services->id) }} " class="btn btn-primary"> Activate </a>
+									@endif
+								</td>
 
-									<td class="center">
-										<a href="{{ route('serviceDetail', $all_services->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
-									</td>
-
-								</tr>
-
-								@endforeach
-
-
-							</tbody>
+								<td> {{ $all_services->featured == 1 ? 'Yes' : 'No' }} </td>
+								<td> {{ $all_services->created_at->diffForHumans() }} </td>
 
 
-						</table>
+								<td class="center">
+									<a href="{{ route('serviceDetail', $all_services->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
+									<a href="{{ route('admin.service.destroy', $all_services->id) }} " class="btn btn-danger "><i class="fa fa-trash"></i></a>
+								</td>
+
+							</tr>
+
+							@endforeach
 
 
-					</div>
-					<!-- /.box-body -->
+						</tbody>
+
+
+					</table>
+
+
 				</div>
+				<!-- /.box-body -->
+			</div>
 
 
-				<!-- /.content -->
-			</div>	
+			<!-- /.content -->
+		</div>	
 
 
-
-		</div>
 
 	</div>
+
+</div>
 </section>
 
 @endsection

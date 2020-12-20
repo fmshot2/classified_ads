@@ -30,38 +30,9 @@
                         <td> {{ $all_services->is_featured == 1 ? 'Yes' : 'No' }} </td>
                         <td> {{ $all_services->status == 1 ? 'Active' : 'Pending' }} </td>
                         <td> {{ $all_services->created_at->diffForHumans() }} </span></td>
-
-                        @if (url()->current() == route('admin.service.all') )
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                    <span class="caret"></span>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-
-                                    <!-- Edit -->
-                                    <form method="post" class="update_form" action=" {{ route('admin.service.status',$all_services->id) }} ">
-                                        @method('PATCH')
-                                        @csrf
-                                        <li>  <button class="btn btn-block" type="submit" style="margin-left: 8px;"> {{ $all_services->status == 1 ? 'Deactivate' : 'Activate' }} </button> </li>
-                                    </form>
-
-
-                                    <!-- Delete -->
-                                    <form method="post" class="delete_form" action=" {{ route('admin.service.destroy',$all_services->id) }} ">
-                                        @method('DELETE')
-                                        @csrf
-                                        <li>  <button class="btn btn-block" type="submit" style="margin-left: 8px;"> Delete </button> </li>
-                                    </form>
-
-                                </ul>
-
-                            </ul>
-                        </div>
-                    </td>
-                    @endif
-
+                        <td class="center">
+                        <a href="{{ route('serviceDetail', $all_services->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
+                        </td>
                     </tr>
                     @endforeach
 
@@ -70,13 +41,6 @@
         </div>
         <!-- /.box-body -->
     </div>
-
-<div class="box-footer clearfix">
-
-  {{ $all_service->links() }} 
-
-</div>
-
 
 </div>
 

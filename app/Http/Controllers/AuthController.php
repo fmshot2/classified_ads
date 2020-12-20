@@ -37,7 +37,7 @@ class AuthController extends Controller
 
 		if (Auth::attempt($credentials)) {
 			if ( $request->role == 'seller' )
-        return redirect('/seller/dashboard');
+				return redirect('/seller/dashboard');
 
 		} else {
 			return view('/');
@@ -54,7 +54,7 @@ class AuthController extends Controller
 
 	public function showRegister ()
 	{
-		        $states = State::all(); 
+		$states = State::all(); 
 
 		if (Auth::check()) {
 			return redirect()->intended('/');
@@ -121,12 +121,14 @@ class AuthController extends Controller
 			'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 		]);
 
+		session()->flash('status', ' Succesfull');
+
         // Image set up
-        if ( $request->hasFile('file') ) {
-        $image_name = time().'.'.$request->file->extension();
-        $request->file->move(public_path('images'),$image_name);
-        $user->image = $image_name;
-        }
+		if ( $request->hasFile('file') ) {
+			$image_name = time().'.'.$request->file->extension();
+			$request->file->move(public_path('images'),$image_name);
+			$user->image = $image_name;
+		}
 
 		$user->name = $request->name;
 		$user->email = $request->email;
@@ -146,15 +148,19 @@ class AuthController extends Controller
 			'password' => ['required', 'string', 'min:6', 'confirmed'],
 		]);
 
-		$user->name = $request->name;
-		$user->email = $request->email;
-		$user->role = $request->role;
-		$user->state = $request->state;
-		$user->phone = $request->phone;
-		$user->address = $request->address;
-		$user->about = $request->about;
-		$user->save();
-		return back();
+		$hashedPassword = Auth::user()->password;
+
+		if ( Hash::check($request->old_password, $hashedPassword) ) {
+            // Authentication passed...
+			$user->password = Hash::make($request->new_password);
+			$user->save();
+			session()->flash('status', ' Succesfull');
+			return back();
+		} else {
+			session()->flash('fail', ' Failed');
+			return back();
+		}
+
 	}
 
 }

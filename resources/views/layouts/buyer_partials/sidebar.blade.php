@@ -6,7 +6,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="image">
-        <img src=" {{ Auth::user()->image == 'null' ? '/images/user-icon.png' : asset('images')}}/{{Auth::user()->image }} " class="img-circle" alt="User Image">
+        <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" class="img-circle" alt="User Image">
       </div>
       <div class="info">
         <p> {{ Auth::user()->name }} </p>
@@ -15,8 +15,8 @@
     </div>
     <!-- search form -->
 
-<br>
-<hr>
+    <br>
+    <hr>
 
     <!-- /.search form -->
     <!-- sidebar menu-->
@@ -29,7 +29,7 @@
           </span>
         </a>
       </li>
---}}
+      --}}
 
 
       <li class="" style="{{ url()->current() == route('buyer.dashboard') ? 'background-color: #f8d053' : '' }}">
@@ -66,7 +66,7 @@
           <li><a href=" {{ route('buyer.message.all') }} "><i class="fa fa-circle-o"></i> All Message </a></li>
         </ul>
       </li>
---}}
+      --}}
 
       <li class="" style=" {{ url()->current() == route('buyer.service.all') ? 'background-color: #f8d053' : '' }} ">
         <a href=" {{ route('buyer.service.all') }} ">
@@ -89,7 +89,7 @@
         <a href=" {{route ('buyer.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
           <span class="pull-right-container">
-            <small class="label pull-right bg-danger"> {{ $unread_notification_count }}  </small> 
+            <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small> 
           </span>
         </a>
       </li>
@@ -112,28 +112,37 @@
 
       <li>
         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-         @csrf
-        </form>
-          <i class="fa fa-sign-out"></i> <span> Logout </span>
-          <span class="pull-right-container">
-          </span>
-        </a>
-      </li>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+           @csrf
+         </form>
+         <i class="fa fa-sign-out"></i> <span> Logout </span>
+         <span class="pull-right-container">
+         </span>
+       </a>
+     </li>
 
 
-    </ul>
+   </ul>
 
 
-  </section>
-  <!-- /.sidebar -->
-  <div class="sidebar-footer">
-    <!-- item-->
+ </section>
+ <!-- /.sidebar -->
+ <div class="sidebar-footer">
+    <!-- item-->{{--
     <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Settings"><i class="fa fa-cog fa-spin"></i></a>
+    <!-- item--> --}}
+
+
+
+    <a href=" {{route('buyer.message.all') }} " class="link" data-toggle="tooltip" title="" data-original-title="Message"><i class="fa fa-envelope"></i></a>
     <!-- item-->
-    <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i class="fa fa-envelope"></i></a>
-    <!-- item-->
-    <a href="#" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i class="fa fa-power-off"></i></a>
-  </div>
-</aside>
+
+    <a  href="{{ route('logout') }}" class="link" data-toggle="tooltip" title="" data-original-title="Logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+       @csrf
+     </form>
+     <i class="fa fa-power-off"></i></a> 
+
+   </div>
+ </aside>
 

@@ -70,7 +70,9 @@ class DashboardController extends Controller
     $unread_notification = Notification::where('status', 0)->orderBy('id', 'desc')->take(5)->get();
     $all_notification_count = Notification::count();
 
-    return view('buyer.dashboard', compact('unread_message', 'unread_notification', 'all_message_count', 'unread_message_count', 'read_message', 'read_message_count', 'all_notification_count' ));
+    $all_service = Service::take(6)->get();
+
+    return view('buyer.dashboard', compact('unread_message', 'unread_notification', 'all_message_count', 'unread_message_count', 'read_message', 'read_message_count', 'all_notification_count', 'all_service' ));
   }
 
 

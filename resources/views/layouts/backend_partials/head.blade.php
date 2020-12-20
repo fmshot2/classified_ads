@@ -63,7 +63,26 @@
 	}
 </style>
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/basic.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    .dropzone {
+        border:2px dashed #999999;
+        border-radius: 10px;
+    }
+    .dropzone .dz-default.dz-message {
+        height: 171px;
+        background-size: 132px 132px;
+        margin-top: -101.5px;
+        background-position-x:center;
 
+    }
+    .dropzone .dz-default.dz-message span {
+        display: block;
+        margin-top: 145px;
+        font-size: 20px;
+        text-align: center;
+    }
+</style>
 
 </head>
 

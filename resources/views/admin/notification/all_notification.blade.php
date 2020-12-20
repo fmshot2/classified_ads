@@ -1,4 +1,4 @@
-@extends('layouts.buyer')
+@extends('layouts.admin')
 
 @section('title')
 All Notification | 
