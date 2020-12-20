@@ -37,7 +37,7 @@ Login
                             <input type="email" name="email" class="input-text" placeholder="Email Address">
                             @if ($errors->has('email'))
                             <span class="helper-text" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('email') }}</strong>
+                                <strong class="text-danger">{{ $errors->first('email') }}</strong>
                             </span>
                             @endif
                         </div>
@@ -45,7 +45,7 @@ Login
                             <input type="password" name="password" class="input-text" placeholder="Password">
                             @if ($errors->has('password'))
                             <span class="helper-text" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('password') }}</strong>
+                                <strong class="text-danger">{{ $errors->first('password') }}</strong>
                             </span>
                             @endif
                         </div>

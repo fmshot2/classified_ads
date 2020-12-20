@@ -110,12 +110,13 @@ class CategoryController extends Controller
         //$category_city = Service::all()->pluck("city");
         $category_city = Service::all();
         $all_states = State::all();
+        $toShowOtherSearch = null;
         $all_categories = Category::all();
         $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
         //$category_id = $id;
         //return $category_city;
 
-        return view ('services', compact('category_services', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices') );        
+        return view ('services', compact('category_services', 'toShowOtherSearch', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices') );        
     }
 
 

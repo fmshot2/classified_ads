@@ -39,7 +39,7 @@ Register
                             <input id="name" type="text" class="input-text" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name">
                             @if ($errors->has('name'))
                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('name') }}</strong>
+                                <strong class="text-danger">{{ $errors->first('name') }}</strong>
                             </span>
                             @endif
                         </div>
@@ -47,7 +47,7 @@ Register
                             <input id="email" type="email" placeholder="Email Address" class="input-text" name="email" value="{{ old('email') }}" required>
                             @if ($errors->has('email'))
                             <span class="helper-text" data-error="wrong" data-success="right">
-                                <strong>{{ $errors->first('email') }}</strong>
+                                <strong class="text-danger">{{ $errors->first('email') }}</strong>
                             </span>
                             @endif
                         </div>

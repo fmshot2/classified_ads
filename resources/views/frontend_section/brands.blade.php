@@ -51,7 +51,7 @@
             </div>
                      
                     </div>
-        <p>Got a content and need an <strong>ADVERT</strong> on this page? click<strong> <a href="https://efcontact.com/advertisement"> HERE</a></strong></p>
+        <p>Got a content and need an <a href="{{route('advertisement')}}"><strong>ADVERT</strong></a> on this page? click<strong> <a href="{{route('advertisement')}}"> HERE</a></strong></p>
     </div>
 </div>
 

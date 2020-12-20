@@ -54,10 +54,10 @@
             </div>
         </div>
 
-        <form action="https://efcontact.com/contact" method="post">
-            <input type="hidden" name="mailto" value="info@maxwellochadefoundation.com">
+ <form action="{{route('store_contact_form')}}" method="POST">
+             <input type="hidden" name="mailto" value="info@maxwellochadefoundation.com">
 
-                        <input type="hidden" name="_token" value="SHe70Yl5i4BSuX9zCNwZTMQql3jmdOCelhi1XCDM">
+    {{ csrf_field() }}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
@@ -66,7 +66,7 @@
                                 <input id="name" name="name" class="form-control" type="text" placeholder="Enter Full Name">
                                                             </div>
                         </div>
-                                                                                                <div class="col-md-6">
+                                                                                                >
                             <div class="form-group email">
                                 <input id="email" name="email" class="form-control required email" type="email" placeholder="Email">
                                                             </div>

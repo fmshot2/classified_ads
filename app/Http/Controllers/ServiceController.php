@@ -355,7 +355,35 @@ public function search(Request $request){
     $query->where('name', 'like', '%' . $category . '%')
     ->orWhere('state', 'like', '%' . $state . '%');
   })->get();
+//return $query;
 
+  if (count ( $userSer ) > 0){
+        //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
+    //return redirect()->to('/')->with('user11', $userSer);
+    return view('searchResult')->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
+
+
+  }
+  else
+    $userSer = null;
+    return view ( 'searchResult' )->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
+}
+
+
+
+
+public function searchonservices(Request $request){
+  $category = $request->input('name');
+  $state = $request->input('state');
+  $all_states = State::all();
+  $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+
+  $userSer = Service::where(function ($query) use ($category, $state) {
+
+    $query->where('name', 'like', '%' . $category . '%')
+    ->orWhere('state', 'like', '%' . $state . '%');
+  })->get();
+//return $query;
 
   if (count ( $userSer ) > 0){
         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
@@ -742,6 +770,13 @@ public function show($id)
 
     public function storeComment(Request $request)
     {
+       $this->validate($request,[
+      'buyer_name' => 'required',
+      'buyer_email' => 'required',
+      'phone' => 'required',
+      'description' => 'required',
+      
+    ]); 
       $data = $request->all();
         #create or update your data here
         //$request->photo_id; // array of all selected photo id's
@@ -772,10 +807,16 @@ public function show($id)
 
         if ($message->save()) {
         //return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
-          return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Successful');
+          return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
+        }else{
+          return back()->with('message', 'Your message was not sent!');
         }
 
 
 
+      }
+
+      public function advertisement() {
+        return view('advertisement');
       }
     }
