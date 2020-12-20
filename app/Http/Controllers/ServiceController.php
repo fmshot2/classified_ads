@@ -819,4 +819,41 @@ public function show($id)
       public function advertisement() {
         return view('advertisement');
       }
+
+
+public function showContacts() {
+        return view('contacts');
+      }
+
+
+
+       public function saveContacts(Request $request)
+    {
+
+     $this->validate($request,[
+        'name' => 'required',
+        'email' => 'required',
+        'subject' => 'required',
+        'phone' => 'required',
+        'message' => 'required',
+    ]); 
+
+     $random = Str::random(3);
+     $slug = Str::of($request->name)->slug('-').''.$random; 
+     $contact = new Contact();
+    $contact->name = $request->name;
+    $contact->email = $request->email;
+    $contact->address = $request->address;
+    $contact->subject = $request->subject;
+    $contact->phone = $request->phone;
+    $contact->message = $request->message;
+    $contact->slug = $slug;
+    if ($contact->save()) {
+    return 'sfdsgdgdg';
+    }else{
+          return 'unsuccessful';
+    }
+    $request->session()->flash('status', 'Task was successful!');
+    //return $this->allService();
+}
     }

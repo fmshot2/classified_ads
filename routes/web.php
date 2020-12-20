@@ -18,6 +18,9 @@ use App\Service;
 
 Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('serviceDetail');
+Route::post('saveContacts', 'ServiceController@saveContacts')->name('saveContacts');
+Route::get('/contacts', 'ServiceController@showContacts')->name('contacts');
+
 Route::get('/allservices', 'ServiceController@allServices')->name('allServices');
 Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service.search');
 Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');

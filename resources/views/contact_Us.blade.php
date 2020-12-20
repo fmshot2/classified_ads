@@ -54,6 +54,129 @@
             </div>
         </div>
 
+<div id="" class="search-section search-area-2 bg-grea">
+    <div class="">
+        <div class="search-section-area">
+            <div class="search-area-inner">
+                <div class="search-contents">
+                    <form action="{{route('store_contact_form')}}" method="POST">
+    @csrf
+
+                        <div class="row">                          
+                            <div class="col-lg-2 col-md-6 col-sm-6 col-6">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control" placeholder="Enter Keyword">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-3" style="">
+                              <div class="form-group">
+                                <select class="form-control" id="categories" name="category">
+                                    <option value="">-- Select Category --</option>
+                                                                                                                                                  </select>
+                            </div>
+                        </div>
+
+                         <div class="col-lg-2 col-md-3" style="">
+                      <div class="form-group">
+                        <select class="form-control" id="sub_category" name="sub_categories">
+
+
+
+                        </select>
+                    </div>
+                </div>
+
+                        <div class="col-lg-2 col-md-3" style="">
+                          <div class="form-group">
+                            <select class="form-control" id="state" name="state">
+                              <option value="">-- Select State --</option>
+                               
+                                                                                                  
+
+                           </select>
+                       </div>
+                   </div>
+
+                   <div class="col-lg-2 col-md-3" style="">
+                      <div class="form-group">
+                        <select class="form-control" id="city" name="city">
+
+
+
+                        </select>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-lg-2 col-md-6 col-sm-6 col-6">
+                    <div class="form-group">
+                        <button class="btn btn-block bg-warning font-weight-bold text-white btn-warning">Search <i class="fa fa-search ml-2" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+
+
+ <div class="col-lg-1 col-md-6 col-sm-6 col-6">
+                                <div class="form-group">
+                                    <input type="hidden" name="name2" class="form-control" placeholder="">
+                                </div>
+                            </div>
+
+
+
+
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<form  action="{{route('store_contact_form')}}" method="POST">
+    @csrf
+  <div class="form-group">
+    <label for="exampleInputtext">name</label>
+    <input type="text" class="form-control" id="exampleInputtext" name="name" aria-describedby="emailtext" placeholder="Enter name">
+    <small id="text2" class="form-text text-muted">We'll never share your name with anyone else.</small>
+       @if ($errors->has('name'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong class="text-danger">{{ $errors->first('name') }}</strong>
+                            </span>
+                            @endif
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">email</label>
+    <input type="email" name="email" class="form-control" id="exampleInputPassword1" placeholder="Password">
+       @if ($errors->has('email'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong class="text-danger">{{ $errors->first('email') }}</strong>
+                            </span>
+                            @endif
+  </div>
+   <div class="form-group">
+    <label for="exampleInputPhone">phone</label>
+    <input type="number" class="form-control" id="exampleInputPhone" name="phone" placeholder="Enter phone">
+    @if ($errors->has('phone'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong class="text-danger">{{ $errors->first('phone') }}</strong>
+                            </span>
+                            @endif
+  </div>
+  <div class="form-group">
+    <label for="exampleInputMessage">message</label>
+    <input type="text" class="form-control" id="exampleInputMessage" name="message" placeholder="Enter message">
+      @if ($errors->has('message'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong class="text-danger">{{ $errors->first('message') }}</strong>
+                            </span>
+                            @endif
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
  <form action="{{route('store_contact_form')}}" method="POST">
              <input type="hidden" name="mailto" value="info@maxwellochadefoundation.com">
 
