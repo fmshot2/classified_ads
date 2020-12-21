@@ -84,61 +84,20 @@ Home |
 
 
 
-                <div class="row">
-                    <div class="col-lg-12">
-                            <form action="{{route('store_contact_form')}}" method="post">
-                            <div class="col-md-6">
-                                <div class="form-group name">
-                                    <input id="name" name="name" class="form-control" type="text" placeholder="Enter Full Name">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group email">
-                                    <input id="email" name="email" class="form-control required email" type="email" placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group subject">
-                                    <input type="text" name="subject" id="subject" class="form-control" placeholder="Subject">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group number">
-                                    <input id="phone" name="phone" class="form-control" type="number" placeholder="Enter Phone">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group message">
-                                    <textarea class="form-control" name="message" id="message" placeholder="Write message"></textarea>
-                                </div>
-                            </div>
 
-                            <div class="col-lg-6">
-                              <div class="form-group">
-                                <select class="form-control" id="advert_type" name="advert_type">
-                                    <option value="">--Select an advert type--</option>
-                                    <option value="Home page banner">Home page banner</option>
-                                    <option value="Propery page banner">Propery page banner</option>
-                                    <option value="Search result banner">Search result banner</option>
-                                    <option value="Email newsletter">Email newsletter</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="send-btn text-center">
-                                <button type="submit" class="btn btn-md btn-warning ">Send Message</button>
-                            </div>
-                        </div>
-                        </form>
-                </div>
-            </div>
+                <form action="{{route('store_contact_form')}}" method="POST">
+
+                </form>
 
 
 
-            <div class="col-md-12">
-                <div class="submit-address">
-                    <form action="https://efcontact.com/request-advert" method="post">
-                        <input type="hidden" name="_token" value="EmXzxBylQxRDtXnW2ipXMwPjFVE2jo6ecWhQUW6D">
+
+
+
+                <div class="col-md-12">
+                    <div class="submit-address">
+                       <form action="{{route('store_contact_form')}}" method="POST">
+                        {{ csrf_field() }}
                         <h3 class="heading-2">Contact Us:</h3>
                         <a href="mailto:info@efcontact.com"><span>info@efcontact.com</span></a>
                         <a href="tel:0700-6258244">0700-6258244</a>,
@@ -146,45 +105,99 @@ Home |
                         <strong>Or fill the form below</strong>
                         <div class="search-contents-sidebar mb-30">
                             <div class="row">
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>Full Name</label>
-                                        <input type="text" class="input-text" placeholder="your name" name="name">
+
+
+
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group name">
+                                                <input id="name" name="name" class="form-control"  required type="text" placeholder="Enter Full Name" style="color: black;">
+                                                @if ($errors->has('name'))
+                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                    <strong class="text-danger">{{ $errors->first('name') }}</strong>
+                                                </span>
+                                                @endif 
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <div class="form-group email">
+                                                <input id="email" name="email" class="form-control required email" required type="email" placeholder="Email" style="color: black;">
+                                                @if ($errors->has('email'))
+                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                    <strong class="text-danger">{{ $errors->first('email') }}</strong>
+                                                </span>
+                                            @endif                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <div class="form-group subject">
+                                                <input type="text" name="subject" id="subject" required class="form-control" placeholder="Subject" style="color: black;">
+                                                @if ($errors->has('subject'))
+                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                    <strong class="text-danger">{{ $errors->first('subject') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group number">
+                                                <input id="phone" name="phone" required class="form-control" type="number" placeholder="Enter Phone" style="color: black;">
+                                                @if ($errors->has('phone'))
+                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                    <strong class="text-danger">{{ $errors->first('phone') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12" style="" class="text-center">
+                                      <div class="form-group">
+                                        <select class="form-control" class="text-center" id="categories" name="category">
+                                            <option class="text-center" value="">-- Select Advert Type --</option>
+                                            <option class="text-center" value="Home page banner">Home page banner</option>
+                                            <option class="text-center" value="Propery page banner">Propery page banner</option>
+                                            <option class="text-center" value="Search result banner">Search result banner</option>
+                                            <option class="text-center" value="Email newsletter">Email newsletter</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>Email </label>
-                                        <input type="email" class="input-text" placeholder="your email" name="email">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>Phone Number</label>
-                                        <input type="text" class="input-text" placeholder="your phone number" name="phone">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="form-group">
-                                        <label>Add Category</label>
-                                        <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="category" tabindex="-98">
-                                            <option value="Home page banner">Home page banner</option>
-                                            <option value="Propery page banner">Propery page banner</option>
-                                            <option value="Search result banner">Search result banner</option>
-                                            <option value="Email newsletter">Email newsletter</option>
-                                        </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="Home page banner"><div class="filter-option"><div class="filter-option-inner">Home page banner</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
-                                    </div>
-                                </div>
+
+
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-md button-theme">Submit</button>
+                                    <div class="form-group message">
+                                        <textarea class="form-control" required name="message" id="message" placeholder="Write message" style="color: black;"></textarea>
+                                        @if ($errors->has('message'))
+                                        <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                            <strong class="text-danger">{{ $errors->first('message') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="send-btn text-center">
+                                        <button type="submit" class="btn btn-outline-warning">Send Message</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 </div>

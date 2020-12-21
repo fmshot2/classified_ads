@@ -54,8 +54,15 @@
             </div>
         </div>
 
+
+                    <form action="{{route('store_contact_form')}}" method="POST">
+
+        </form>
+   
+
+
  <form action="{{route('store_contact_form')}}" method="POST">
-             <input type="hidden" name="mailto" value="info@maxwellochadefoundation.com">
+             
 
     {{ csrf_field() }}
             <div class="row">
@@ -63,27 +70,57 @@
                     <div class="row">
                                                                         <div class="col-md-6">
                             <div class="form-group name">
-                                <input id="name" name="name" class="form-control" type="text" placeholder="Enter Full Name">
+                                <input id="name" name="name" class="form-control"  required type="text" placeholder="Enter Full Name" style="color: black;">
+                                 @if ($errors->has('name'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong class="text-danger">{{ $errors->first('name') }}</strong>
+                            </span>
+                            @endif 
                                                             </div>
                         </div>
-                                                                                                >
+                                                                                                         <div class="col-md-6">
+                                            
                             <div class="form-group email">
-                                <input id="email" name="email" class="form-control required email" type="email" placeholder="Email">
-                                                            </div>
+                                <input id="email" name="email" class="form-control required email" required type="email" placeholder="Email" style="color: black;">
+                                @if ($errors->has('email'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong class="text-danger">{{ $errors->first('email') }}</strong>
+                            </span>
+                            @endif                        </div>
+                                                        </div>
                         </div>
+                    <div class="row">
+
                                                 <div class="col-md-6">
                             <div class="form-group subject">
-                                <input type="text" name="subject" id="subject" class="form-control" placeholder="Subject">
+                                <input type="text" name="subject" id="subject" required class="form-control" placeholder="Subject" style="color: black;">
+                                 @if ($errors->has('subject'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong class="text-danger">{{ $errors->first('subject') }}</strong>
+                            </span>
+                            @endif
                             </div>
                         </div>
+
                                                                         <div class="col-md-6">
                             <div class="form-group number">
-                                <input id="phone" name="phone" class="form-control" type="number" placeholder="Enter Phone">
+                                <input id="phone" name="phone" required class="form-control" type="number" placeholder="Enter Phone" style="color: black;">
+                                  @if ($errors->has('phone'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong class="text-danger">{{ $errors->first('phone') }}</strong>
+                            </span>
+                            @endif
                                                             </div>
                         </div>
+                    </div>
                                                 <div class="col-md-12">
                             <div class="form-group message">
-                                <textarea class="form-control" name="message" id="message" placeholder="Write message"></textarea>
+                                <textarea class="form-control" required name="message" id="message" placeholder="Write message" style="color: black;"></textarea>
+                                  @if ($errors->has('message'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong class="text-danger">{{ $errors->first('message') }}</strong>
+                            </span>
+                            @endif
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -93,7 +130,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </form>
     </div>
 </div>

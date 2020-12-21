@@ -18,12 +18,16 @@ use App\Service;
 
 Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('serviceDetail');
+Route::post('saveContacts', 'ServiceController@saveContacts')->name('saveContacts');
+Route::get('/contacts', 'ServiceController@showContacts')->name('contacts');
+
 Route::get('/allservices', 'ServiceController@allServices')->name('allServices');
 Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service.search');
 Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');
 Route::get('/sellers', 'ServiceController@allSellers')->name('seller.sellers');
 Route::get('/terms-of-use', 'ServiceController@termsOfUse')->name('terms-of-use');
 Route::get('/advertisement', 'ServiceController@advertisement')->name('advertisement');
+Route::post('/store_contact_form', 'ContactController@store_contact_form')->name('store_contact_form');
 
 
 
@@ -116,7 +120,6 @@ Route::get('/seller/profile/', 'SellerController@viewProfile')->name('seller.pro
 }); //Seller Middleware protection start here
 
 Route::middleware(['auth'])->group(function () { //Auth Middleware protection start here
-Route::post('/store_contact_form', 'ContactController@store_contact_form')->name('store_contact_form');
 
 Route::get('/buyer/dashboard', 'DashboardController@buyer')->name('buyer.dashboard');
 Route::get('/buyer/dashboard/service/all', 'BuyerController@allService')->name('buyer.service.all');

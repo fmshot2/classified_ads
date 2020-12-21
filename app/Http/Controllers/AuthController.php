@@ -81,7 +81,7 @@ class AuthController extends Controller
 				return redirect()->intended('buyer/dashboard');
 			} else 
 			{
-				return view ('/');
+				return redirect()->intended('admin/dashboard');
 			}
 		}
 
@@ -93,7 +93,7 @@ class AuthController extends Controller
 	public function showLogin ()
 	{
 		if (Auth::check()) {
-			return view ('/');
+			return view ('welcome');
 		}
 		return view ('auth/login');
 	}
