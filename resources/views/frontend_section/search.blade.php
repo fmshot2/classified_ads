@@ -238,8 +238,6 @@
 
           
 <script type="text/javascript">
-
-
    $('#categories').on('change',function(){
     var categoryID = $(this).val();    
     if(categoryID){
