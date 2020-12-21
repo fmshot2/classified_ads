@@ -86,6 +86,14 @@
       </li>
 
       <li>
+        <a href=" {{ route ('general') }} ">
+          <i class="fa fa-globe"></i> <span> Settings </span>
+          <span class="pull-right-container">
+          </span>
+        </a>
+      </li>
+
+      <li>
         <a href=" {{ route ('home') }} ">
           <i class="fa fa-globe"></i> <span> Main Website </span>
           <span class="pull-right-container">

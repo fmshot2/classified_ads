@@ -166,6 +166,7 @@ Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer'
 
 Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
 Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
+Route::get('/admin/system/settings', 'GeneralInfoController@view_info')->name('general');
 
 Route::get('/admin/notification/all', 'AdminController@allNotification')->name('admin.notification.all');
 
