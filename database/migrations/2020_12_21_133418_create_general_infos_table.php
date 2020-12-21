@@ -15,6 +15,20 @@ class CreateGeneralInfosTable extends Migration
     {
         Schema::create('general_infos', function (Blueprint $table) {
             $table->id();
+            $table->string('site_name');
+            $table->string('header_logo');
+            $table->string('header_email');
+            $table->string('header_phone');
+            $table->string('footer_phone2');
+            $table->string('footer_address');
+            $table->string('footer_sitename');
+            $table->longText('register_section1');
+            $table->longText('register_section2');
+            $table->longText('register_section3');
+            $table->string('facebook');
+            $table->string('instagram');
+            $table->string('linkedin');
+            $table->string('support_email');
             $table->timestamps();
         });
     }
