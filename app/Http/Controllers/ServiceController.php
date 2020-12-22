@@ -856,4 +856,11 @@ public function showContacts() {
     $request->session()->flash('status', 'Task was successful!');
     //return $this->allService();
 }
+
+
+
+ public function create_service_page() {
+        return view('seller.service.create_service_page');
+      }
+
     }

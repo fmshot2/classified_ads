@@ -7,6 +7,7 @@ use App\Service;
 use App\User;
 use App\Category;
 use App\Notification;
+use App\General_Info;
 
 
 class AdminController extends Controller
@@ -78,7 +79,47 @@ class AdminController extends Controller
 
   public function systemConfig()
   {
-    return view ('admin.system_config');
+    $general_info = General_Info::first();
+    $check_general_info = collect($general_info)->isEmpty();
+    return view ('admin.system_config', compact('general_info', 'check_general_info') );
+  }
+
+  public function storeSystemConfig(Request $request, $id)
+  {
+
+      $general_info = $id == 1 ? General_Info::find($id) : New General_Info;
+      $general_info->site_name = $request->site_name;
+      $general_info->hot_line = $request->hotline;
+      $general_info->hot_line_2 = $request->hotline2;
+      $general_info->hot_line_3 = $request->hotline3;
+      $general_info->support_email = $request->support_email;
+      $general_info->address = $request->address;
+      $general_info->facebook = $request->facebook;
+      $general_info->twitter = $request->twitter;
+      $general_info->linkedin = $request->linkedin;
+      $general_info->instagram = $request->instagram;
+      $general_info->register_section_1 = $request->register_section_1;
+      $general_info->register_section_2 = $request->register_section_2;
+      $general_info->register_section_3 = $request->register_section_3;
+      $general_info->register_section_1_title = $request->register_section_1_title;
+      $general_info->register_section_2_title = $request->register_section_2_title;
+      $general_info->register_section_3_title = $request->register_section_3_title;
+
+
+    if ( $request->hasFile('file') ) {
+      $image_name = time().'.'.$request->file->extension();
+      $request->file->move(public_path('images'),$image_name);
+      $general_info->logo = $image_name;
+    }
+
+
+      $general_info->save();
+      $request->session()->flash('status', 'Task was successful!');
+
+      return $this->systemConfig();
+
+
+
   }
 
   public function viewService($slug)
@@ -101,6 +142,5 @@ class AdminController extends Controller
     $notification->save();
     return view ('seller.notification.view_notification', compact('notification') );
   }
-
 
 }

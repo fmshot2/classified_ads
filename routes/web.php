@@ -29,10 +29,6 @@ Route::get('/terms-of-use', 'ServiceController@termsOfUse')->name('terms-of-use'
 Route::get('/advertisement', 'ServiceController@advertisement')->name('advertisement');
 Route::post('/store_contact_form', 'ContactController@store_contact_form')->name('store_contact_form');
 
-
-
-
-
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
 Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard');
 Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile');
@@ -83,6 +79,7 @@ Route::get('/admin2/like/{id}', 'ServiceController@saveLike2')->name('admin2.lik
 
 Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
 
+
 Route::post('/admin/like', 'ServiceController@saveLike')->name('admin.like');
 
 Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name('service.delete');
@@ -91,6 +88,8 @@ Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name(
 Route::middleware(['seller'])->group(function () { //Seller Middleware protection start here
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
 Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
+Route::get('/seller/service/create_service_page', 'ServiceController@create_service_page')->name('create_service_page');
+
 
 Route::get('/seller/message/unread', 'SellerController@unreadMessage')->name('seller.message.unread');
 Route::get('/seller/message/read', 'SellerController@readMessage')->name('seller.message.read');
@@ -165,10 +164,12 @@ Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.sell
 Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer');
 
 Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
-Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
-Route::get('/admin/system/settings', 'GeneralInfoController@view_info')->name('general');
 
 Route::get('/admin/notification/all', 'AdminController@allNotification')->name('admin.notification.all');
+
+Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
+
+Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('system.config.store');
 
 }); //Admin Middleware protection end here
 

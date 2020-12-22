@@ -86,8 +86,8 @@
       </li>
 
       <li>
-        <a href=" {{ route ('general') }} ">
-          <i class="fa fa-globe"></i> <span> Settings </span>
+        <a href=" {{ route ('system.config') }} ">
+          <i class="fa fa-globe"></i> <span> System Config </span>
           <span class="pull-right-container">
           </span>
         </a>
@@ -118,7 +118,7 @@
  <!-- /.sidebar -->
  <div class="sidebar-footer">
   <!-- item--> 
-    <a href=" {{route('seller.notification.all') }} " class="link" data-toggle="tooltip" title="" data-original-title="Message"><i class="fa fa-envelope"></i></a>
+    <a href=" {{route('admin.notification.all') }} " class="link" data-toggle="tooltip" title="" data-original-title="Message"><i class="fa fa-envelope"></i></a>
     <!-- item-->
 
     <a  href="{{ route('logout') }}" class="link" data-toggle="tooltip" title="" data-original-title="Logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

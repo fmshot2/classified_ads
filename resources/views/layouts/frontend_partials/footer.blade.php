@@ -8,23 +8,23 @@
                     <div class="m-border"></div>
                     <ul class="contact-info">
                         <li>
-                            Email: <a href="mailto:info@efcontact.com">info@efcontact.com</a>
+                            Email: <a href="{{ $general_info->support_email }}"> {{ $general_info->support_email }} </a>
                         </li>
                         <li>
-                            Phone 1: <a href="tel:+"></a>
+                            Phone 1: <a href=" {{ $general_info->hot_line }}"> {{ $general_info->hot_line }} </a>
                         </li>
                         <li>
-                            Phone 2: <a href="tel:+0807-9000286">0807-9000286</a>
+                            Phone 2: <a href="{{ $general_info->hot_line_2 }}"> {{ $general_info->hot_line_2 }} </a>
                         </li>
                         <li>
-                            Phone 3: <a href="tel:+080567654345">080567654345</a>
+                            Phone 3: <a href="{{ $general_info->hot_line_2 }}"> {{ $general_info->hot_line_2 }}</a>
                         </li>
                     </ul>
                     <ul class="social-list clearfix">
-                        <li><a href="https://www.facebook.com/maxwellochadefoundation" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="https://twitter.com/mochadefoundatn?s=09" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="https://instagram.com/maxwellochade_foundation?igshid=4xtbur0qkvfh" target="_blank"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="https://www.linkedin.com/company/maxwellochadefoundation" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="{{ $general_info->facebook }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="{{ $general_info->twitter }}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="{{ $general_info->instagram }}" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="{{ $general_info->linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
             </div>
