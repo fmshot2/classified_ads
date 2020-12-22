@@ -327,7 +327,7 @@ Unlike</span>
             <div class="tab-pane fade " id="four" role="tabpanel" aria-labelledby="four-tab">
                 <div class="inside-properties mb-50">
                     <h3 class="heading-2">
-                        Property Video
+                        Service Video
                     </h3>
                     <iframe src="https://www.youtube.com/embed/5e0LxrLSzok" allowfullscreen=""></iframe>
                     <iframe width="560" height="315" src="{{$serviceDetail->video_link}}" frameborder="0" allowfullscreen></iframe> 
@@ -337,9 +337,9 @@ Unlike</span>
             <div class="tab-pane fade " id="five" role="tabpanel" aria-labelledby="five-tab">
                <div class="properties-description mb-50">
                 <h3 class="heading-2">
-                    Address
+                    Address 
                 </h3>
-                <p>{{$serviceDetail->city}}, &nbsp; {{$serviceDetail->state}}</p>
+                <p>{{$serviceDetail->streetAddress}} | {{$serviceDetail->city}} | &nbsp; {{$serviceDetail->state}}</p>
                 
             </div>
         </div>
@@ -438,6 +438,8 @@ Unlike</span>
             </div>
         </div>
         @endforeach
+        @endif
+
         @else
         <p>There are no messages here yet</p>
         @endif
@@ -466,10 +468,9 @@ Unlike</span>
                         </li>
                         
                     </ul>
-                    @else
+                    @guest
                     <p>Please login as a buyer to see your previous conversation with this seller</p>
-                    @endif
-                    @endauth
+                    @endguest
 
 
 

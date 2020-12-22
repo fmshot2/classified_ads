@@ -41,7 +41,7 @@ class ServiceController extends Controller
           //$my_state =  Auth::user()->state;
         //}
         //$my_state =  Auth::user()->state;
-      $featuredServices = Service::where('is_featured', 1)->with('user')->get();
+      $featuredServices = Service::where('is_featured', 1)->with('user')->paginate(4);
       $approvedServices = Service::where('status', 1)->with('user')->get();
       $advertServices = Service::where('is_approved', 1)->with('user')->get();
       $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(4);

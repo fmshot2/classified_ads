@@ -118,7 +118,7 @@
                     <div class="property-thumbnail">
                         <a href="{{route('serviceDetail', $featuredService->slug)}}" class="property-img">
                             <div class="listing-badges">
-                                <span class="featured bg-warning">featured</span>
+                                <span class="featured bg-warning">{{$featuredService->is_featured == 1 ? 'featured' : ''}}</span>
                             </div>
                             <div class="price-ratings-box">
                                 <p class="price">
@@ -243,10 +243,13 @@
                     <h4>{{$category->name}}</h4>
                     </a>
                 </div>
+                                    {{--{{ $categories->links() }}--}}
+
             </div>
                @endforeach
             @endif
                     </div>
+
     </div>
 </div>
 
