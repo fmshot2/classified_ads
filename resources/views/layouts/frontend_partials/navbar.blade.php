@@ -4,8 +4,8 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-8 col-sm-7">
                         <div class="list-inline">
-                            <a href="tel:1-8X0-666-8X88"><i class="fa fa-phone"></i>Need Support? {{ $general_info->hot_line }} </a>
-                            <a href=" {{ $general_info->support_email }}"><i class="fa fa-envelope"></i> {{ $general_info->support_email }} </a>
+                            <a href=" {{ $check_general_info == 0 ? $general_info->hot_line : '' }} "><i class="fa fa-phone"></i>Need Support? {{ $check_general_info == 0 ? $general_info->hot_line : '' }} </a>
+                            <a href=" {{ $check_general_info == 0 ? $general_info->support_email : ''}}"><i class="fa fa-envelope"></i> {{ $check_general_info == 0 ? $general_info->support_email : ''}} </a>
                         </div>
                     </div>
 

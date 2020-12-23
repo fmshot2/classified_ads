@@ -8,23 +8,23 @@
                     <div class="m-border"></div>
                     <ul class="contact-info">
                         <li>
-                            Email: <a href="{{ $general_info->support_email }}"> {{ $general_info->support_email }} </a>
+                            Email: <a href="{{ $check_general_info == 0 ? $general_info->support_email : ''}}"> {{ $check_general_info == 0 ? $general_info->support_email : ''}} </a>
                         </li>
                         <li>
-                            Phone 1: <a href=" {{ $general_info->hot_line }}"> {{ $general_info->hot_line }} </a>
+                            Phone 1: <a href="  {{ $check_general_info == 0 ? $general_info->hot_line : '' }}">  {{ $check_general_info == 0 ? $general_info->hot_line : '' }} </a>
                         </li>
                         <li>
-                            Phone 2: <a href="{{ $general_info->hot_line_2 }}"> {{ $general_info->hot_line_2 }} </a>
+                            Phone 2: <a href="{{ $check_general_info == 0 ? $general_info->hot_line_2 : ''}}"> {{ $check_general_info == 0 ? $general_info->hot_line_2 : ''}} </a>
                         </li>
                         <li>
-                            Phone 3: <a href="{{ $general_info->hot_line_2 }}"> {{ $general_info->hot_line_2 }}</a>
+                            Phone 3: <a href="{{ $check_general_info == 0 ? $general_info->hot_line_3 : ''}}"> {{ $check_general_info == 0 ? $general_info->hot_line_3 : ''}}</a>
                         </li>
                     </ul>
                     <ul class="social-list clearfix">
-                        <li><a href="{{ $general_info->facebook }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="{{ $general_info->twitter }}" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="{{ $general_info->instagram }}" target="_blank"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="{{ $general_info->linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href=" {{ $check_general_info == 0 ? $general_info->facebook : ''}} " target="_blank"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href=" {{ $check_general_info == 0 ? $general_info->twitter : ''}} " target="_blank"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="{{ $check_general_info == 0 ? $general_info->linkedin : ''}}" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="{{ $check_general_info == 0 ? $general_info->instagram : ''}}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                         @foreach($service as $services)
                                                 <div class="media">
                             <div class="media-left">
-                                <img class="media-object" src="{{asset('images')}}/{{$services->image}}" alt="sub-properties">
+                                <img class="media-object" src=" {{asset('images')}}/{{ $check_general_info == 0 ? $general_info->logo : ''}} " alt="sub-properties">
                             </div>
                             <div class="media-body align-self-center">
                                 <h3 class="media-heading">
