@@ -270,8 +270,6 @@
 
 
 <script type="text/javascript">
-
-
    $('#state').on('change',function(){
     var stateID = $(this).val();    
     if(stateID){

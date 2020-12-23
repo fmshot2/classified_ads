@@ -9,85 +9,55 @@
     <div class="container">
         <div class="page-name">
 
-@if(isset($ww2))
+            @if(isset($ww2))
 
-<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px; ">
-  <div class="toast bg-warning" style="position: absolute; top: 0; right: 0; border-radius: 8px;">
-   
-    <div class="toast-body">
-   Hello, world! This is a toast message.
-       </div>
+            <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px; ">
+              <div class="toast bg-warning" style="position: absolute; top: 0; right: 0; border-radius: 8px;">
+
+                <div class="toast-body">
+                 Hello, world! This is a toast message.
+             </div>
+         </div>
+     </div>
+     @endif
+
+
+     <h1>Services Detail</h1>
+     <ul>
+        <li><a href="{{route('home')}}">Home</a></li>
+        <li><span>/</span>Service Detail Page</li>
+    </ul>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="pull-right">
+    <h3><span class="text-right">
+        <div class="posts-by-category widget">
+            <!--<h3 class="sidebar-title">Cities</h3>-->                       
+            <ul class="list-unstyled list-cat">
+              <a href="{{route('home')}}" class="btn btn-outline-warning"><i class="fa fa-home">Back To Home</i></a>
+          </ul>
+      </div></span></h3>
+
   </div>
-</div>
-   @endif
 
-
-            <h1>Services Detail</h1>
-            <ul>
-                <li><a href="{{route('home')}}">Home</a></li>
-                <li><span>/</span>Service Detail Page</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-  
-
-
-
-
-
-
-   <div class="pull-right">
-                                    <h3><span class="text-right">
-                                        <div class="posts-by-category widget">
-                                            <!--<h3 class="sidebar-title">Cities</h3>-->                       
-                                            <ul class="list-unstyled list-cat">
-
-                                         
-                                              <a href="{{route('home')}}" class="btn btn-outline-warning"><i class="fa fa-home">Back To Home</i></a>
-                                            
-                                          </ul>
-                                      </div></span></h3>
-                                  
-                                  </div>
-
-
-<!-- Properties Details page start -->
-<div class="properties-details-page content-area-7">
+  <!-- Properties Details page start -->
+  <div class="properties-details-page content-area-7">
     <div class="container">
         <div class="row">
-
-
-         <div class="container">
-            @if(isset($closerServices))
-            <p> The Search results for your query <b> query</b> are :</p>
-            <h2>Sample User details</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($closerServices as $closerService)
-                    <tr>
-                        <td>{{$closerService->name}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            @endif
-        </div>
-
-
-
-        <div class="col-lg-8 col-md-12 col-xs-12">
+        <div class="col-lg-8 col-md-12 col-xs-12 col-sm-12">
             <div class="properties-details-section">
                 <div id="propertiesDetailsSlider" class="carousel properties-details-sliders slide mb-40">
                     <!-- Heading properties start -->
@@ -98,140 +68,25 @@
                                     <h3>{{$serviceDetail->name}}</h3>
                                     <p><i class="fa fa-map-marker"></i>{{$serviceDetail->state}}</p>
                                 </div>
+                            <div class="pull-right">
+                                <h3><span class="text-right">
+                                    <div class="posts-by-category widget">
+                                        <!--<h3 class="sidebar-title">Cities</h3>-->                       
+                                        <ul class="list-unstyled list-cat">
 
-<!--<div class="properties-listing">
-    <a class="fa-thumbs-up btn-submit" href="{{ route('admin2.like', $serviceDetail->id)}}">like</a>
-                              <span>  <form action="{{ route('admin2.like', $serviceDetail->id)}}" method="get">
-                            {{ csrf_field() }}
+                                          @if(isset($featuredServices2))
+                                          @foreach($featuredServices2 as $featuredService)
+                                          <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-home">{{$featuredService->city}}</i></a>
+                                          @endforeach
+                                          @endif
 
-             <span id="alert-block"></span>                &nbsp;&nbsp;&nbsp; <input id="id" type="hidden" value="{{$serviceDetail->id}}" class="input-text" name="id"><button id="alert-block2" class="fa fa-thumbs-up btn-submit" type="submit">Like</button>
-                        </form>
-                    </span>
-                                <span> <i class="fa fa-thumbs-down"></i> 2 &nbsp;&nbsp;&nbsp;
-Unlike</span>
-                                <span>980 sqft</span>
-                            </div>-->
-
-
-
-                                <div class="pull-right">
-                                    <h3><span class="text-right">
-                                        <div class="posts-by-category widget">
-                                            <!--<h3 class="sidebar-title">Cities</h3>-->                       
-                                            <ul class="list-unstyled list-cat">
-
-                                              @if(isset($featuredServices2))
-                                              @foreach($featuredServices2 as $featuredService)
-                                              <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-home">{{$featuredService->city}}</i></a>
-                                              @endforeach
-                                              @endif
-                                              
-                                          </ul>
-                                      </div></span></h3>
-                                      <!--<p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i></p>-->
-                                  </div>
+                                      </ul>
+                                  </div></span></h3>
                               </div>
                           </div>
                       </div>
-                      @if(isset($userSer))
-                      @foreach($userSer as $userSer1)
-
-                      <div class="col-sm-3 card service-box">
-                        <img class="card-img-top" src="http://localhost:8000/images/1607948139.jpeg" alt="service" style="min-width: 150px;">
-                        <div class="card-body detail">
-                            <div class="title">
-                                <h4><a href="#" style="font-size: 15px;">{{$userser1->user->name}}, &nbsp; fishing</a></h4>
-                            </div>
-                            <div class="location">
-                                <a href="properties-details.html" tabindex="-1">
-
-                                </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>Lagos</span>
-                            </div>
-                            
-                            <!--<a href="#" class="read-more">More...</a>-->
-                        </div>
-                    </div>
-                    @endforeach
-                    @endif
-                    @if(isset($userser3))
-                    <div class="row">
-                        @foreach($userser3 as $userser33)
-                        <div class="col-lg-3 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
-                            <div class="property-box">
-                                <div class="property-thumbnail">
-                                    <a href="http://localhost:8000/serviceDetail/1" class="property-img">
-                                        <div class="listing-badges">
-                                            <span class="featured bg-warning">featured</span>
-                                        </div>
-                                        <div class="price-ratings-box">
-                                            <p class="price">
-                                                4 Yrs Experience
-                                            </p>
-                                            
-                                        </div>
-                                        <div class="listing-time opening">{{$userser33->user->name}}</div>
-                                        <img class="d-block w-100" src="http://localhost:8000/images/1607874436.jpeg" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
-                                    </a>
-                                </div>
-                                <div class="detail">
-                                    <span class="d-flex justify-content-around"><a class="title " href="properties-details.html">{{$userser33->name}}r</a>
-                                        <a class="pull-right" href="properties-details.html">
-                                            <i class="fa fa-map-marker text-warning"></i> {{$userser33->city}}
-                                        </a></span>
-
-                                        <ul class="facilities-list clearfix">
-                                            <li>
-                                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; 5 likes
-                                            </li>
-                                            <li class="" style="float: right;">
-                                                <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="http://localhost:8000/serviceDetail/1">Verified</a>
-                                            </li>
-                                            
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-
-                        </div>
-<!--<div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
-                <div class="property-box">
-                    <div class="property-thumbnail">
-                        <a href="http://localhost:8000/serviceDetail/1" class="property-img">
-                            <div class="listing-badges">
-                                <span class="featured bg-warning">featured</span>
-                            </div>
-                            <div class="price-ratings-box">
-                                <p class="price">
-                                    4 Yrs Experience
-                                </p>
-                                
-                                </div>
-                                <div class="listing-time opening">femi</div>
-                                <img class="d-block w-100" src="http://localhost:8000/images/1607874436.jpeg" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
-                            </a>
-                        </div>
-                        <div class="detail">
-                            <span class="d-flex justify-content-around"><a class="title " href="properties-details.html">Home Lesson Teacher</a>
-                                <a class="pull-right" href="properties-details.html">
-                                    <i class="fa fa-map-marker text-warning"></i> Lagos
-                                </a></span>
-
-                                <ul class="facilities-list clearfix">
-                                    <li>
-                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>&nbsp; 5 likes
-                                    </li>
-                                    <li class="" style="float: right;">
-                                        <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="http://localhost:8000/serviceDetail/1">Verified</a>
-                                        </li>
-                            
-                            </ul>
-                        </div>
-                   
-                    </div>
-                </div>
-            -->
-            @endif
+                  </div>
+              
             <!-- main slider carousel items -->
             <div class="carousel-inner">
                 <div class="active item carousel-item" data-slide-number="0">
@@ -240,52 +95,10 @@ Unlike</span>
                 
             </div>
             
-        </div>  <!-- main slider carousel nav controls -->                
-        <!-- main slider carousel items -->
-        <!--comments section-->
-        <!-- Advanced search start -->
-        <div class="widget-2 sidebar advanced-search-2">
-            <h3 class="sidebar-title">Advanced Search</h3>
-            <div class="s-border"></div>
-            <div class="m-border">
-               <form action="#" method="GET" enctype="multipart/form-data">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="form-group name">
-                            <input type="text" name="name" class="form-control" placeholder="Name">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="form-group email">
-                            <input type="email" name="email" class="form-control" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="form-group subject">
-                            <input type="text" name="subject" class="form-control" placeholder="Subject">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <div class="form-group number">
-                            <input type="text" name="phone" class="form-control" placeholder="Number">
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group message">
-                            <textarea class="form-control" name="message" placeholder="Write message"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <div class="send-btn">
-                            <button type="submit" class="btn btn-md button-theme">Send Message</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
         </div>
-    </div>
+        
     <!-- Tabbing box start -->
-    <div class="tabbing tabbing-box tb-2 mb-40">
+    <div class="tabbing tabbing-box tb-2 mb-40 col-sm-12">
         <ul class="nav nav-tabs" id="carTab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active show" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="one" aria-selected="false">Description</a>
@@ -335,7 +148,7 @@ Unlike</span>
                 </div>
             </div>
             <div class="tab-pane fade " id="five" role="tabpanel" aria-labelledby="five-tab">
-               <div class="properties-description mb-50">
+             <div class="properties-description mb-50">
                 <h3 class="heading-2">
                     Address 
                 </h3>
@@ -350,44 +163,44 @@ Unlike</span>
                     <!-- Heading -->
                     <h3 class="heading-2">Similar Services</h3>
                     <div class="my-properties">
-                       <table class="table brd-none">
-                           <thead>
-                               <tr>
-                                   <th>Service</th>
-                                   <th>Name</th>
-                                   <th class="hedin-div">Address</th>
-                                   <th><span class="hedin-div">Likes</span></th>
-                               </tr>
-                           </thead>
-                           <tbody>
+                     <table class="table brd-none">
+                         <thead>
+                             <tr>
+                                 <th>Service</th>
+                                 <th>Name</th>
+                                 <th class="hedin-div">Address</th>
+                                 <th><span class="hedin-div">Likes</span></th>
+                             </tr>
+                         </thead>
+                         <tbody>
                             @if(isset($similarProducts))
                             @foreach($similarProducts as $similarProduct)
                             <tr>
-                               <td class="image">
-                                   <a href="{{route('serviceDetail', $similarProduct->id)}}"><img alt="properties-small" src="{{asset('images')}}/{{$similarProduct->image}}" class="img-fluid"></a>
-                               </td>
-                               <td>
-                                   <div class="inner">
-                                       <h5><a href="{{route('serviceDetail', $similarProduct->id)}}">{{$similarProduct->name}}</a></h5>
-                                       <figure class="hedin-div"><i class="fa fa-map-marker"></i> {{$similarProduct->state}}, &nbsp; {{$similarProduct->city}}</figure>
-                                       <!--<div class="price-month">$ 27,000</div>-->
-                                   </div>
-                               </td>
-                               <td class="hedin-div">  <figure class="hedin-div"><i class="fa fa-map-marker"></i> {{$similarProduct->state}}, &nbsp; {{$similarProduct->city}}</figure></td>
-                               <td> <span class="hedin-div">{{$similarProduct->likes->count()}}</span></td>
+                             <td class="image">
+                                 <a href="{{route('serviceDetail', $similarProduct->id)}}"><img alt="properties-small" src="{{asset('images')}}/{{$similarProduct->image}}" class="img-fluid"></a>
+                             </td>
+                             <td>
+                                 <div class="inner">
+                                     <h5><a href="{{route('serviceDetail', $similarProduct->id)}}">{{$similarProduct->name}}</a></h5>
+                                     <figure class="hedin-div"><i class="fa fa-map-marker"></i> {{$similarProduct->state}}, &nbsp; {{$similarProduct->city}}</figure>
+                                     <!--<div class="price-month">$ 27,000</div>-->
+                                 </div>
+                             </td>
+                             <td class="hedin-div">  <figure class="hedin-div"><i class="fa fa-map-marker"></i> {{$similarProduct->state}}, &nbsp; {{$similarProduct->city}}</figure></td>
+                             <td> <span class="hedin-div">{{$similarProduct->likes->count()}}</span></td>
 
-                           </tr>
-                           @endforeach
-                           @endif
-                       </tbody>
-                   </table>
-               </div>
-           </div>
-       </div>
-   </div>
+                         </tr>
+                         @endforeach
+                         @endif
+                     </tbody>
+                 </table>
+             </div>
+         </div>
+     </div>
+ </div>
 
-   <div class="tab-pane fade " id="seven" role="tabpanel" aria-labelledby="seven-tab">
-       <div class="properties-description mb-50">
+ <div class="tab-pane fade " id="seven" role="tabpanel" aria-labelledby="seven-tab">
+     <div class="properties-description mb-50">
         <h3 class="heading-2">
             Phone
         </h3>
@@ -400,9 +213,6 @@ Unlike</span>
         <p class="animate__animated animate__bounce">{{$serviceDetail->phone}}</p>
         @endauth
 
-
-
-
     </div>
 </div>
 
@@ -412,7 +222,7 @@ Unlike</span>
 
 
 
-@auth
+
 @if(Auth::user()->role == 'buyer')
 <ul class="comments">
     <li>
@@ -421,7 +231,6 @@ Unlike</span>
         <div class="comment">
             <div class="comment-author">
                 <a href="#">
-                    <!--<img src="img/avatar/avatar-1.jpg" alt="comments-user">-->
                     <i class="fa fa-user fa-2x"></i>
                 </a>
             </div>
@@ -431,7 +240,6 @@ Unlike</span>
                         {{$userMessage->buyer_name}}
                     </h3>
                     <div class="comment-meta">
-                        <!--6:42 PM 6/28/2019<a href="#">Reply</a>-->
                     </div>
                 </div>
                 <p>{{$userMessage->description}}</p>
@@ -443,28 +251,6 @@ Unlike</span>
         @else
         <p>There are no messages here yet</p>
         @endif
-                            <!--<ul>
-                                <li>
-                                    <div class="comment">
-                                        <div class="comment-author">
-                                            <a href="#">
-                                                <img src="img/avatar/avatar-2.jpg" alt="comments-user">
-                                            </a>
-                                        </div>
-                                        <div class="comment-content">
-                                            <div class="comment-meta">
-                                                <h3>
-                                                    Karen Paran
-                                                </h3>
-                                                <div class="comment-meta">
-                                                    6:42 PM 6/28/2019<a href="#">Reply</a>
-                                                </div>
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam. Aliquam gravida massa at sem vulputate interdum et vel eros.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>-->
                         </li>
                         
                     </ul>
@@ -472,92 +258,19 @@ Unlike</span>
                     <p>Please login as a buyer to see your previous conversation with this seller</p>
                     @endguest
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     @auth
-                    <!-- Contact 1 start -->
-                    <!--<div class="contact-1 mb-0">
-                        <h3 class="heading mb-0">Contact Seller</h3>
-                        <form id="myform2" action="{{ route('user.message')}}" method="POST">
-                            <div class="row">
-                                {{ csrf_field() }}
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="form-group name">
-                                        <input type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name" >
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <div class="form-group name">
-                                        <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <div class="form-group name">
-                                        <input type="text" name="buyer_name" class="form-control" placeholder=" Your Name">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <div class="form-group email">
-                                        <input type="email" name="buyer_email" class="form-control" placeholder="Your Email">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
-                                    <div class="form-group email"> 
-
-                                        <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <div class="form-group subject">
-                                        <input type="text" name="subject" class="form-control" placeholder="Subject">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <div class="form-group number">
-                                        <input type="text" name="phone" class="form-control" placeholder="Your Phone Number">
-                                    </div>
-                                </div>                                
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group message">
-                                        <textarea class="form-control" id="description" name="description" placeholder="Write message"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="send-btn">
-                                        <button type="submit" class="btn btn-md btn-submit btn-warning">Send Message</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>-->
+                  
                     @endauth
                 </div>
             </div>
-         <div class="col-lg-4 col-md-12">
+            <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right">
                     <!-- Advanced search start -->
                     <div class="contact-1 financing-calculator widget">
                         <h5 class="sidebar-title">Chat With Seller</h5>
-                                                <img src="{{asset('images')}}/{{$serviceDetail->image}}" alt="Agent" height="200" width="200">
+                        <img class="img-fluid" src="{{asset('images')}}/{{$serviceDetail->image}}" alt="Agent" height="200" width="200">
                         <br>
-                                                <div class="pull-left">
+                        <div class="pull-left">
                             Registered:  "{{$serviceDetail->created_at->diffForHumans()}}"
                         </div>
                         <!--<div class="pull-right">
@@ -569,69 +282,69 @@ Unlike</span>
                         @endguest
                         <div class="s-border"></div>
                         <div class="m-border"></div>
-                                                <form id="myform" action="{{ route('user.message')}}" method="POST">
-                                {{ csrf_field() }}
-                         
+                        <form id="myform" action="{{ route('user.message')}}" method="POST">
+                            {{ csrf_field() }}
+
                             <input  type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
                             <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">  
-                              <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="form-control">           
+                            <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="form-control">           
                             <div class="form-group">
                                 <label class="form-label">Full Name</label>
-<input type="text" name="buyer_name" class="form-control" placeholder=" Your Name">
-    @if ($errors->has('buyer_name'))
-                            <span >
-                                <strong class="text-danger">{{ $errors->first('buyer_name') }}</strong>
-                            </span>
-                            @endif
+                                <input type="text" name="buyer_name" class="form-control" placeholder=" Your Name">
+                                @if ($errors->has('buyer_name'))
+                                <span >
+                                    <strong class="text-danger">{{ $errors->first('buyer_name') }}</strong>
+                                </span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Email</label>
- <input type="email" name="buyer_email" class="form-control" placeholder="Your Email">
-  @if ($errors->has('buyer_email'))
-                            <span>
-                                <strong class="text-danger">{{ $errors->first('buyer_email') }}</strong>
-                            </span>
-                            @endif
-                             </div>
+                                <input type="email" name="buyer_email" class="form-control" placeholder="Your Email">
+                                @if ($errors->has('buyer_email'))
+                                <span>
+                                    <strong class="text-danger">{{ $errors->first('buyer_email') }}</strong>
+                                </span>
+                                @endif
+                            </div>
                             <div class="form-group">
                                 <label class="form-label">Phone</label>
- <input type="text" name="phone" class="form-control" placeholder="Your Phone Number">
-   @if ($errors->has('phone'))
-                            <span>
-                                <strong class="text-danger">{{ $errors->first('phone') }}</strong>
-                            </span>
+                                <input type="text" name="phone" class="form-control" placeholder="Your Phone Number">
+                                @if ($errors->has('phone'))
+                                <span>
+                                    <strong class="text-danger">{{ $errors->first('phone') }}</strong>
+                                </span>
                             @endif                            </div> 
- <div class="form-group">
+                            <div class="form-group">
                                 <label class="form-label">Subject</label>
-                                 <input type="text" name="subject" class="form-control" placeholder="Subject">
-                                  @if ($errors->has('subject'))
-                            <span>
-                                <strong class="text-danger">{{ $errors->first('subject') }}</strong>
-                            </span>
-                            @endif 
+                                <input type="text" name="subject" class="form-control" placeholder="Subject">
+                                @if ($errors->has('subject'))
+                                <span>
+                                    <strong class="text-danger">{{ $errors->first('subject') }}</strong>
+                                </span>
+                                @endif 
                             </div>
 
                             <div class="form-group message">
                                 <textarea class="form-control" id="description" name="description" placeholder="Write message"></textarea>
-                                 @if ($errors->has('description'))
-                            <span>
-                                <strong class="text-danger">{{ $errors->first('description') }}</strong>
-                            </span>
-                            @endif 
+                                @if ($errors->has('description'))
+                                <span>
+                                    <strong class="text-danger">{{ $errors->first('description') }}</strong>
+                                </span>
+                                @endif 
                             </div>
                             @guest
-                                                        <p>Only registered users can message sellers. <a href="{{route('home')}}"><strong>Login</strong></a> or <a href="{{route('home')}}"><strong>Register</strong></a> if you dont have an account.</p>
-                                                        @endguest
-                        
-                                            </div>
-@auth
-                                             <div class="col-lg-12 col-md-12">
-                                    <div class="send-btn">
-                                        <button type="submit" class="btn btn-md btn-submit btn-warning">Send Message</button>
-                                    </div>
-                                </div>
-                                @endauth
-                                                        </form>
+                            <p>Only registered users can message sellers. <a href="{{route('home')}}"><strong>Login</strong></a> or <a href="{{route('home')}}"><strong>Register</strong></a> if you dont have an account.</p>
+                            @endguest
+
+                        </div>
+                        @auth
+                        <div class="col-lg-12 col-md-12">
+                            <div class="send-btn">
+                                <button type="submit" class="btn btn-md btn-submit btn-warning">Send Message</button>
+                            </div>
+                        </div>
+                        @endauth
+                    </form>
 
                     <div class="posts-by-category widget">
                         <h3 class="sidebar-title">Safety tips</h3>
@@ -648,13 +361,13 @@ Unlike</span>
                             </li>
                         </ul>
                     </div>
-                   
+
                 </div>
             </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
- @auth
+@auth
 @if(Auth::user()->role == 'buyer')
 <div class="container mb-5 mt-0">
     <h5>
@@ -662,16 +375,8 @@ Unlike</span>
         </a>
     </h5>
 </div>
- @endif 
+@endif 
 @endauth
-
-
-
-
-
-
-
-
 
 @endsection
 
@@ -720,11 +425,3 @@ Unlike</span>
         }
     });
 </script>
-<!--if($.isEmptyObject(msg.error)){
-                  console.log(msg.success);
-                  //$('#alert-block').empty().append(msg.success);
-                  //$('#alert-block2').empty().append(msg.success2);
-
-                  $('.alert-block').empty().('display','block').append('<strong>'+msg.success+'</strong>');
-              }
-              -->

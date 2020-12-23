@@ -28,6 +28,7 @@ Route::get('/sellers', 'ServiceController@allSellers')->name('seller.sellers');
 Route::get('/terms-of-use', 'ServiceController@termsOfUse')->name('terms-of-use');
 Route::get('/advertisement', 'ServiceController@advertisement')->name('advertisement');
 Route::post('/store_contact_form', 'ContactController@store_contact_form')->name('store_contact_form');
+Route::get('/all-featured-sellers', 'ServiceController@allFeaturedSellers')->name('allSellers');
 
 
 
