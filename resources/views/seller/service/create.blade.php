@@ -30,14 +30,15 @@ Create Service |
                 <div class="box-header with-border">
                   <i class="fa fa-plus"></i>
 
-                  <h2 class="box-title"><strong>Create Property</strong></h2>
+                  <h2 class="box-title"><strong>Create A Service</strong></h2>
+                  <small class="text-danger">*please fill all required fields</small>
                 </div>
                 <div class="body">
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label class="form-label">Service Name </label>
-                      <input type="text" name="name" class="form-control" value="">
+                      <label class="form-label">Service Name </label><small class="text-danger">*required*</small>
+                      <input type="text" required name="name" class="form-control" value="">
                     </div>
                   </div>
 
@@ -54,15 +55,15 @@ Create Service |
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label class="form-label"> Experience </label>
-                      <input type="text" name="experience" class="form-control" value="">
+                      <label class="form-label"> Experience </label><small class="text-danger">*required*</small>
+                      <input type="number" required name="experience" class="form-control" value="">
                     </div>
                   </div>
 
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label for="">Phone</label>
+                      <label for="">Phone</label><small class="text-danger">*required*</small>
                       <input type="number" class="form-control" name="phone" value=" {{ Auth::user()->phone }}">
                     </div>
                   </div>
@@ -85,23 +86,23 @@ Create Service |
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label class="form-label">State</label>
-                      <input type="text" class="form-control" name="state" autocomplete="" aria-autocomplete="" value="">
+                      <label class="form-label">State</label><small class="text-danger">*required*</small>
+                      <input type="text" required class="form-control" name="state" autocomplete="" aria-autocomplete="" value="">
 
                     </div>
                   </div>
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label class="form-label">City</label>
-                      <input type="text" class="form-control" name="city">
+                      <label class="form-label">City</label><small class="text-danger">*required*</small>
+                      <input type="text" required class="form-control" name="city">
                     </div>
                   </div>
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label class="form-label">Address</label>
-                      <input type="text" class="form-control" name="address">
+                      <label class="form-label">Address</label><small class="text-danger">*required*</small>
+                      <input type="text" required class="form-control" name="address">
                     </div>
                   </div>
 
@@ -127,16 +128,18 @@ Create Service |
                   <div class="box box-default">
                     <div class="box-header with-border">
                       <h3 class="box-title">Gallery Image</h3>
+                      <small class="text-danger">*required*</small>
                     </div>
                     <div class="body">
-                      <input class="form-control" name="file" type="file">
+                      <input class="form-control" required name="file" type="file">
                       <span class="helper-text" data-error="wrong" data-success="right">Upload one or more images</span>
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label>Select Category</label>
-                    <select name="category_id" class="form-control show-tick">
+                    <small class="text-danger">*required*</small>
+                    <select name="category_id" required class="form-control show-tick">
                       <option value="">-- Please select --</option>
                       @foreach($category as $categories)
                       <option value=" {{ $categories->id }} "> {{ $categories->name }} </option>

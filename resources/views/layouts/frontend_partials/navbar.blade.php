@@ -294,7 +294,7 @@
     <a class="nav-link" href="{{route('seller.sellers')}}" id="">
         Sellers
     </a>
-
+</li>
 
 <li class="nav-item dropdown">
     <a class="nav-link" href="{{route('faq')}}" id="">
@@ -316,7 +316,7 @@
 @if(Auth::user()->role == 'seller')
 <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-        <a href="{{route('seller.dashboard')}}" class="btn btn-outline-warning font-weight-bold text-warning"> Seller Dashboard</a>
+        <a href="{{route('seller.dashboard')}}" class="btn btn-outline-warning font-weight-bold text-warning"> My Dashboard</a>
     </li>
 </ul>
 
@@ -328,7 +328,7 @@
 @if(Auth::user()->role == 'buyer')
 <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-        <a href="{{route('buyer.dashboard')}}" class="btn btn-outline-warning font-weight-bold text-warning">Buyer Dashboard</a>
+        <a href="{{route('buyer.dashboard')}}" class="btn btn-outline-warning font-weight-bold text-warning">My Dashboard</a>
     </li>
 </ul>
 

@@ -35,95 +35,95 @@
 -->
 
 
+<!-- Main title -->
+<div class="main-title">
+    <h1> Featured Services </h1>
+</div>
+
+
+
+
+
+@if(isset($seller))
+<p> The Search results for your query <b> query</b> are :</p>
+<h2>Sample User details</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Seller</th>
+            <th>Service</th>
+            <th>Phone</th>
+            <th>More</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($seller as $user)
+        <a href="{{route('serviceDetail', $user->id)}}"><tr>
+            <td>{{$user->user->name}}</td>
+            <td>{{$user->name}}</td>
+            <td>{{$user->user->phone}}</td>
+            <td>
+                <a href="{{route('serviceDetail', $user->id)}}">view</a>
+            </td>
+
+
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
+
+
+
+<div class="our-team-2 content-area">
+    <div class="container">
         <!-- Main title -->
         <div class="main-title">
-            <h1> Featured Services </h1>
+            <h1>Our Agent</h1>
         </div>
+        <div class="row">
+            @foreach($seller as $user)
 
-        
-
-
-
-        @if(isset($seller))
-        <p> The Search results for your query <b> query</b> are :</p>
-        <h2>Sample User details</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Seller</th>
-                    <th>Service</th>
-                    <th>Phone</th>
-                    <th>More</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($seller as $user)
-                <a href="{{route('serviceDetail', $user->id)}}"><tr>
-                    <td>{{$user->user->name}}</td>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->user->phone}}</td>
-                    <td>
-                        <a href="{{route('serviceDetail', $user->id)}}">view</a>
-                    </td>
-
-
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-
-
-
-        <div class="our-team-2 content-area">
-            <div class="container">
-                <!-- Main title -->
-                <div class="main-title">
-                    <h1>Our Agent</h1>
-                </div>
-                <div class="row">
-                    @foreach($seller as $user)
-
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="team-1">
-                            <div class="team-photo">
-                                <a href="#">
-                                    <img src="img/avatar/avatar-7.jpg" alt="agent-2" class="img-fluid">
-                                </a>
-                            </div>
-                            <div class="team-details">
-
-                                <h5><a href="agent-detail.html">{{$user->user->name}}</a></h5>
-                                <h6>{{$user->name}}</h6>
-                                <ul class="social-list clearfix">
-                                    <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a>{{$user->user->phone}}</li>
-
-                                </ul>
-                            </div>
-                        </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="team-1">
+                    <div class="team-photo">
+                        <a href="#">
+                            <img src="img/avatar/avatar-7.jpg" alt="agent-2" class="img-fluid">
+                        </a>
                     </div>
-                    @endforeach
+                    <div class="team-details">
 
+                        <h5><a href="agent-detail.html">{{$user->user->name}}</a></h5>
+                        <h6>{{$user->name}}</h6>
+                        <ul class="social-list clearfix">
+                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a>{{$user->user->phone}}</li>
+
+                        </ul>
+                    </div>
                 </div>
             </div>
+            @endforeach
+
         </div>
-        @endif
+    </div>
+</div>
+@endif
 
 
-        @if(isset($featuredServices))
-        <div class="row">
-            @foreach($featuredServices as $featuredService)
-            <div class="col-lg-3 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
-                <div class="property-box">
-                    <div class="property-thumbnail">
-                        <a href="{{route('serviceDetail', $featuredService->slug)}}" class="property-img">
-                            <div class="listing-badges">
-                                <span class="featured bg-warning">featured</span>
-                            </div>
-                            <div class="price-ratings-box">
-                                <p class="price">
-                                    {{$featuredService->experience}} Yrs Experience
-                                </p>
+@if(isset($featuredServices))
+<div class="row">
+    @foreach($featuredServices as $featuredService)
+    <div class="col-lg-3 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
+        <div class="property-box">
+            <div class="property-thumbnail">
+                <a href="{{route('serviceDetail', $featuredService->slug)}}" class="property-img">
+                    <div class="listing-badges">
+                        <span class="featured bg-warning">{{$featuredService->is_featured == 1 ? 'featured' : ''}}</span>
+                    </div>
+                    <div class="price-ratings-box">
+                        <p class="price">
+                            {{$featuredService->experience}} Yrs Experience
+                        </p>
                                    <!-- <div class="ratings">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -148,7 +148,7 @@
                                     </li>
                                    <!-- <li class="" style="float: right;">
                                         <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="{{route('serviceDetail', $featuredService->id)}}">Verified</a>
-                                        </li>-->
+                                    </li>-->
                                <!-- <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
                             {{ csrf_field() }}
 
@@ -182,73 +182,86 @@
             </div>
 
 
-    @endif
+            @endif
+
+
+
+        </div>
+
+
+        <div id="" class="search-section search-area-2">
+            <div class="row justify-content-end">                          
+
+                <div class="col-lg-2 col-md-6 col-sm-6 col-6">
+                    <div class="form-group">
+                        <a href="{{route('allSellers')}}" class="btn font-weight-bold btn-outline-warning">See All Featured Sellers</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+
+
+
+        <div class="services-2 content-area-5 bg-grea-3 d-none d-sm-block">
+            <div class="container">
+                <!-- Main title -->
+                <div class="main-title">
+                    <h1>What are you looking for?</h1>
+                </div>
+                <div class="row wow animated" style="visibility: visible;">
+                    @if(isset($categories))
+
+                    @foreach($categories as $category)
+                    <div class="  col-lg-2 col-md-3 col-sm-2 col-xs-2">
+                        <div class="service-info-5">
+
+                           {{--<img class="" src="{{asset('images')}}/{{'adminteacher.png'}}" style="width: 50px;" alt="properties">--}}
+
+                           <i class="fa fa-user text-warning"></i>
+                           <a href="{{route('services', $category->slug)}}" >
+                            <h4>{{$category->name}}</h4>
+                        </a>
+                    </div>
+
+                </div>
+                @endforeach
+                @endif
+            </div>
+            {{ $categories->links() }}
+
+        </div>
+    </div>
+
+{{--mobile view for choosing a category--}}
+    <div class=" services-2 content-area-5 bg-grea-3 d-block d-sm-none">
+        <div class="container">
+            <!-- Main title -->
+            <div class="main-title">
+                <h1>Choose a category</h1>
+            </div>
+            <div class=" d-flex justify-content-around">
+                    <div class="form-group col-6">
+                        <select class="form-control" id="categories" name="category">
+                            <option value="">-- Select Category --</option>
+                            @if(isset($categories))
+                            @foreach($categories as $category)
+                            <option value="{{ $category->id }}"> {{ $category->name }}  </option> 
+                            @endforeach
+                            @endif
+                        </select>
+                </div>
+            </div>
+        </div>
+    </div>
+{{--End mobile view for choosing a category--}}
+
+
+
+
 
  
-       </div>
-               </div>
-
-
-
-   {{--  <div class="services-2 content-area-5 bg-grea-3">
-            <div class="container">
-                <div class="main-title">
-                    <h1>What service are you looking for?</h1>
-                </div>         
-                    <div class="row wow animated" style="visibility: visible;">
-                         
-                 <form action="{{ route('admin.like', $featuredService->id)}}" method="POST">
-                    {{ csrf_field() }}
-     @if(isset($categories))
-
-                @foreach($categories as $category)
-                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                            <div class="service-info-5 animate__animated animate__fadeInUp">
-                                <i class="flaticon-apartment text-warning"></i>
-                                <h4>{{$category->name}}</h4>
-                                <p>See all services</p>
-                            </div>
-                        </div>
-                    @endforeach
-                    @endif
-                    </form>                
-                </div>
-                <div class="text-center read-more-2">
-                    <a href="{{ route('allCategories')}}" class="btn-white">Read More</a>
-                </div>
-            </div>
-        </div>
-
---}}
-
-
-
-<div class="services-2 content-area-5 bg-grea-3">
-    <div class="container">
-        <!-- Main title -->
-        <div class="main-title">
-            <h1>What are you looking for?</h1>
-        </div>
-        <div class="row wow animated" style="visibility: visible;">
-                @if(isset($categories))
-
-                @foreach($categories as $category)
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                <div class="service-info-5">
-
- <!--<img class="" src="{{asset('images')}}/{{'adminteacher.png'}}" style="width: 50px;" alt="properties">-->
-
-                    <i class="fa fa-user text-warning"></i>
-                    <a href="{{route('services', $category->slug)}}" >
-                    <h4>{{$category->name}}</h4>
-                    </a>
-                </div>
-            </div>
-               @endforeach
-            @endif
-                    </div>
-    </div>
-</div>
 
 
 
@@ -263,29 +276,29 @@
 
 
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(".btn-submit").click(function(e){
-                e.preventDefault();
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".btn-submit").click(function(e){
+            e.preventDefault();
 
-                var _token = $("input[name='_token']").val();
-                var id = $("#id").val();
+            var _token = $("input[name='_token']").val();
+            var id = $("#id").val();
 
-                $.ajax({
-                    url: "{{ route('admin.like') }}",
-                    type:'POST',
-                    data: {_token:_token, id:id},
-                    success: function(data) {
-                      printMsg(data);
-                  }
-              });
-            }); 
+            $.ajax({
+                url: "{{ route('admin.like') }}",
+                type:'POST',
+                data: {_token:_token, id:id},
+                success: function(data) {
+                  printMsg(data);
+              }
+          });
+        }); 
 
-            function printMsg (msg) {
-              if($.isEmptyObject(msg.error)){
-                  console.log(msg.success);
-                  $('#alert-block').empty().append(msg.success);
-                  $('#alert-block2').empty().append(msg.success2);
+        function printMsg (msg) {
+          if($.isEmptyObject(msg.error)){
+              console.log(msg.success);
+              $('#alert-block').empty().append(msg.success);
+              $('#alert-block2').empty().append(msg.success2);
 
                   //$('.alert-block').empty().('display','block').append('<strong>'+msg.success+'</strong>');
               }else{

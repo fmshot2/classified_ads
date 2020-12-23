@@ -238,8 +238,6 @@
 
           
 <script type="text/javascript">
-
-
    $('#categories').on('change',function(){
     var categoryID = $(this).val();    
     if(categoryID){
@@ -272,8 +270,6 @@
 
 
 <script type="text/javascript">
-
-
    $('#state').on('change',function(){
     var stateID = $(this).val();    
     if(stateID){

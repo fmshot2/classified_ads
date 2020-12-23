@@ -26,7 +26,7 @@ class SellerController extends Controller
     public function storeService(Request $request)
     {
 
-        return $request->file;
+        //return $request->file;
 
      $this->validate($request,[
         'description' => 'required',

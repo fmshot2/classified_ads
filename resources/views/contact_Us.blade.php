@@ -78,7 +78,7 @@
                             @endif 
                                                             </div>
                         </div>
-                                                                                                         <div class="col-md-6">
+                                  <div class="col-md-6">
                                             
                             <div class="form-group email">
                                 <input id="email" name="email" class="form-control required email" required type="email" placeholder="Email" style="color: black;">
@@ -125,7 +125,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="send-btn text-center">
-                                <button type="submit" class="btn btn-md button-theme">Send Message</button>
+                                <button type="submit" class="btn btn-outline-warning">Send Message</button>
                             </div>
                         </div>
                     </div>
