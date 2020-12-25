@@ -812,6 +812,7 @@ public function show($id)
       
     ]); 
       $data = $request->all();
+      return $data;
         #create or update your data here
         //$request->photo_id; // array of all selected photo id's
       $message = new Message();  
@@ -844,6 +845,56 @@ public function show($id)
           return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
         }else{
           return back()->with('message', 'Your message was not sent!');
+        }
+
+
+
+      }
+
+
+
+
+       public function storeComment2(Request $request)
+    {
+       
+      $data = $request->all();
+              $success = 'succccccccs';
+
+        #create or update your data here
+        //$request->photo_id; // array of all selected photo id's
+      $message = new Message();  
+        /*$message->buyer_id = $request->buyer_id;
+        $message->service_id = $request->service_id;
+        $message->description = $request->description;*/
+        $slug = Str::random(10);
+
+                //$message->service_id = $data['id']; 
+        $message->buyer_id = $data['buyer_id']; 
+        $message->buyer_name = $data['buyer_name']; 
+        $message->buyer_email = $data['buyer_email']; 
+        $message->subject = $data['subject']; 
+        $message->phone = $data['phone']; 
+        $message->slug = $slug; 
+        $message->service_id = $data['service_id'];
+        $message->service_user_id = $data['service_user_id'];
+        $message->description = $data['description'];
+        //$serviceDetailId = $message->service_id;
+        //$service = Service::find($serviceDetailId);
+        //$service_slug = $service->slug;
+
+
+
+
+        $message->save();
+        // $slug = $random = Str::random(40);
+        //$message->slug = $slug;
+
+
+        if ($message->save()) {
+        return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
+          //return redirect()->to('serviceDetail/'.$service_slug)->with('success', 'Your message has been sent!');
+        }else{
+          return response()->json('success', 'Your message was not sent!');
         }
 
 
@@ -896,5 +947,4 @@ public function showContacts() {
  public function create_service_page() {
         return view('seller.service.create_service_page');
       }
-
-    }
+}

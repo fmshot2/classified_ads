@@ -15,6 +15,11 @@ use App\Service;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('dropzone/example', 'DropzoneController@dropzoneExample');
+Route::post('dropzone/store', 'UserController@dropzoneStore')->name('dropzone.store');
+
+Route::get('dropzone', 'DropzoneController@dropzone');
+Route::post('dropzone/store', 'DropzoneController@dropzoneStore')->name('dropzone.store');
 
 Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('serviceDetail');
@@ -31,6 +36,8 @@ Route::post('/store_contact_form', 'ContactController@store_contact_form')->name
 Route::get('/all-featured-sellers', 'ServiceController@allFeaturedSellers')->name('allSellers');
 
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
+Route::post('/buyer/createcomment2', 'ServiceController@storeComment2');
+
 Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard');
 Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile');
 Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messages');
@@ -89,6 +96,8 @@ Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name(
 Route::middleware(['seller'])->group(function () { //Seller Middleware protection start here
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
 Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
+Route::get('/seller/service/badges', 'SellerController@badges')->name('seller.service.badges');
+Route::get('/seller/service/post_advert', 'SellerController@post_advert')->name('seller.post_advert');
 Route::get('/seller/service/create_service_page', 'ServiceController@create_service_page')->name('create_service_page');
 
 

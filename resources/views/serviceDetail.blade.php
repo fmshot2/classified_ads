@@ -282,7 +282,10 @@
                         @endguest
                         <div class="s-border"></div>
                         <div class="m-border"></div>
-                        <form id="myform" action="{{ route('user.message')}}" method="POST">
+<form></form>
+
+                        {{--<form id="myform" action="{{ route('user.message')}}" method="POST">--}}
+                        <form id="myform">
                             {{ csrf_field() }}
 
                             <input  type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
@@ -340,7 +343,7 @@
                         @auth
                         <div class="col-lg-12 col-md-12">
                             <div class="send-btn">
-                                <button type="submit" class="btn btn-md btn-submit btn-warning">Send Message</button>
+                                <button type="submit" class="btn btn-md btn-submit2 btn-warning">Send Message</button>
                             </div>
                         </div>
                         @endauth
@@ -382,27 +385,35 @@
 
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".btn-submit").click(function(e){
+        $(".btn-submit2").click(function(e){
             e.preventDefault();
 
             var _token = $("input[name='_token']").val();
+
             var buyer_id = $("#buyer_id").val();
             var service_id = $("#service_id").val();
             var service_user_id = $("#service_user_id").val();
+            var phone = $("#phone").val();
+            var buyer_email = $("#buyer_email").val();
+            var buyer_name = $("#buyer_name").val();
+
             var description = $("#description").val();
             
 
             $.ajax({
-                url: "{{ route('user.message') }}",
                 type:'POST',
+                {{--url: "{{ route('user.message2') }}",--}}
                     //data: $('#myform').serialize(),
-                    data: {_token:_token, buyer_id:buyer_id, service_id:service_id, service_user_id:service_user_id, description:description},
+                    url: '/buyer/createcomment2/',
+                    data: {_token:_token, buyer_id:buyer_id, service_id:service_id, service_user_id:service_user_id, description:description, buyer_name, buyer_email, phone },
                     success: function(data) {
-                      printMsg(data);
+                    alert(data);
+                      //printMsg(data);
                   }
               });
         }); 
@@ -413,7 +424,7 @@
                   //$('#alert-block').empty().append(msg.success);
                   //$('#alert-block2').empty().append(msg.success2);
 
-                  $('.alert-block').empty().('display','block').append('<strong>'+msg.success+'</strong>');
+                 // $('.alert-block').empty().('display','block').append('<strong>'+msg.success+'</strong>');
               }
               else{
                 $.each( msg.error, function( key, value ) {
