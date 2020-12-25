@@ -293,7 +293,7 @@
                             <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="form-control">           
                             <div class="form-group">
                                 <label class="form-label">Full Name</label>
-                                <input type="text" name="buyer_name" class="form-control" placeholder=" Your Name">
+                                <input type="text" id="buyer_name" name="buyer_name" class="form-control" placeholder=" Your Name">
                                 @if ($errors->has('buyer_name'))
                                 <span >
                                     <strong class="text-danger">{{ $errors->first('buyer_name') }}</strong>
@@ -302,7 +302,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Email</label>
-                                <input type="email" name="buyer_email" class="form-control" placeholder="Your Email">
+                                <input type="email" id="buyer_email" name="buyer_email" class="form-control" placeholder="Your Email">
                                 @if ($errors->has('buyer_email'))
                                 <span>
                                     <strong class="text-danger">{{ $errors->first('buyer_email') }}</strong>
@@ -311,7 +311,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Phone</label>
-                                <input type="text" name="phone" class="form-control" placeholder="Your Phone Number">
+                                <input type="text" id="phone" name="phone" class="form-control" placeholder="Your Phone Number">
                                 @if ($errors->has('phone'))
                                 <span>
                                     <strong class="text-danger">{{ $errors->first('phone') }}</strong>
@@ -319,7 +319,7 @@
                             @endif                            </div> 
                             <div class="form-group">
                                 <label class="form-label">Subject</label>
-                                <input type="text" name="subject" class="form-control" placeholder="Subject">
+                                <input type="text" id="subject" name="subject" class="form-control" placeholder="Subject">
                                 @if ($errors->has('subject'))
                                 <span>
                                     <strong class="text-danger">{{ $errors->first('subject') }}</strong>
@@ -396,11 +396,12 @@
             var _token = $("input[name='_token']").val();
 
             var buyer_id = $("#buyer_id").val();
+            var buyer_name = $("#buyer_name").val();
             var service_id = $("#service_id").val();
+            var subject = $("#subject").val();
             var service_user_id = $("#service_user_id").val();
             var phone = $("#phone").val();
             var buyer_email = $("#buyer_email").val();
-            var buyer_name = $("#buyer_name").val();
 
             var description = $("#description").val();
             
@@ -410,9 +411,9 @@
                 {{--url: "{{ route('user.message2') }}",--}}
                     //data: $('#myform').serialize(),
                     url: '/buyer/createcomment2/',
-                    data: {_token:_token, buyer_id:buyer_id, service_id:service_id, service_user_id:service_user_id, description:description, buyer_name, buyer_email, phone },
+                    data: {_token:_token, buyer_id:buyer_id, service_id:service_id, service_user_id:service_user_id, description:description, subject:subject, buyer_name, buyer_email, phone },
                     success: function(data) {
-                    alert(data);
+                    alert(data.success2);
                       //printMsg(data);
                   }
               });
