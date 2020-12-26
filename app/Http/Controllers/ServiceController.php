@@ -7,6 +7,7 @@ use App\Service;
 use App\User;
 use App\Like;
 use App\Message;
+use App\Badge;
 use Illuminate\Support\Str;
 use DB;
 
@@ -858,13 +859,13 @@ public function show($id)
     {
        $data = $request->all();
 
-       /*$this->validate($request,[
+       $this->validate($request,[
       'buyer_name' => 'required',
       'buyer_email' => 'required',
       'phone' => 'required',
       'description' => 'required',
       
-    ]); */
+    ]); 
      
         #create or update your data here
         //$request->photo_id; // array of all selected photo id's
@@ -901,6 +902,85 @@ public function show($id)
         }
 
       }
+
+
+       public function createpay(Request $request)
+    {
+       $data = $request->all();
+
+
+       $this->validate($request,[
+      'amount' => 'required',
+      'email' => 'required',
+      
+    ]); 
+
+        $badge = new Badge(); 
+
+       
+        
+        $badge->email = $data['email'];
+        //$badge->slug = $slug; 
+        $badge->amount = $data['amount'];
+
+        //$message->slug = $slug;
+        $badge->save();
+                                             return "yyyy";
+
+        //return 
+
+        if ($badge->save()) {
+        return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
+        //return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
+        }else{
+          return response()->json(['success2', 'Your message was not sent!']);
+        }
+
+      }
+
+
+ public function createbadge(Request $request)
+    {
+      return 'jhj';
+       $data = $request->all();
+
+       $this->validate($request,[
+      'buyer_name' => 'required',
+      'buyer_email' => 'required',
+      'phone' => 'required',
+      'description' => 'required',
+      
+    ]); 
+        $message = new Message(); 
+        $success = 'succccccccs';
+        $slug = Str::random(10);
+        $message->buyer_id = $data['buyer_id'];
+        $message->buyer_name = $data['buyer_name'];     
+        $message->buyer_email = $data['buyer_email'];
+        $message->phone = $data['phone'];
+        $message->slug = $slug; 
+        $message->service_id = $data['service_id'];
+        $message->subject = $data['subject'];
+        $message->service_user_id = $data['service_user_id'];
+        $message->description = $data['description'];
+
+        //$serviceDetailId = $message->service_id;
+        //$service = Service::find($serviceDetailId);
+        //$service_slug = $service->slug;
+
+        // $slug = $random = Str::random(40);
+        //$message->slug = $slug;
+
+        if ($message->save()) {
+        return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
+        //return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
+        }else{
+          return response()->json(['success2', 'Your message was not sent!']);
+        }
+
+      }
+
+
 
       public function advertisement() {
         return view('advertisement');

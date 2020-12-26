@@ -73,13 +73,14 @@ Create Service |
           <div class="tab-content">
 
             <div class="tab-pane active" id="timeline">
-                                <input type="hidden" name="_auth" id="_auth" value="Hg5Wei5BX1wV0oH02l1b0UImwTQ7AOyHEe9jlVA8">
+                               
                 <form class="form-horizontal form-element">
+                                              {{ csrf_field() }}
+
                     <input type="hidden" name="amount" id="amount" value="15000" class="form-control">
                     <input type="hidden" name="plan" id="plan" value="Trusted Seller" class="form-control">
                     <input type="hidden" name="type" value="card" class="form-control">
-                    <input type="hidden" name="_token" value="Hg5Wei5BX1wV0oH02l1b0UImwTQ7AOyHEe9jlVA8">
-                    <input type="hidden" name="_token" value="Hg5Wei5BX1wV0oH02l1b0UImwTQ7AOyHEe9jlVA8">                    <div class="form-group">
+                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">Full Name</label>
 
                     <div class="col-sm-10">
@@ -90,7 +91,7 @@ Create Service |
                     <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
                     <div class="col-sm-10">
-                      <input type="email" class="form-control" name="email" id="email" value="{{Auth::User()->email}}">
+                      <input type="email" class="form-control" name="email-address" id="email-address" value="{{Auth::User()->email}}">
                     </div>
                   </div>
                   <div class="form-group">
@@ -122,6 +123,8 @@ Create Service |
                       <form>
   <script src="https://js.paystack.co/v1/inline.js"></script>
   <button type="button" class="btn btn-warning" onclick="payWithPaystack()"> MAKE PAYMENT </button> 
+    <button type="button" class="btn btn-submit2 btn-warning"> MAKE confirm </button> 
+
 </form>
                     </div>
 
@@ -255,53 +258,21 @@ Create Service |
 
 </div>
 
-@endsection
-
-
-<script type="text/javascript">
-   $('#categories').on('change',function(){
-    var categoryID = $(this).val();    
-    if(categoryID){
-        $.ajax({
-         type:"GET",
-           //url:"{{url('qqq')}}"+stateID,
-           url: 'api/get-category-list/'+categoryID,
-           success:function(res){               
-            if(res){
-             console.log(res);
-             console.log(categoryID);
-             $("#categ ").empty();
-             $.each(res,function(key,value){
-                $("#sub_category").append('<option value="'+key+'">'+value+'</option>');
-            });
-
-         }else{
-             $("#sub_categories").empty();
-         }
-     }
- });
-    }else{
-        $("#sub_categories").empty();
-    }
-
-}); 
-
-</script>
-
-
-
-
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
 <!-- place below the html form -->
 <script>
+  var _token = document.getElementById("_token");
+  //
+  //var _token = $("input[name='_token']").val();
+  var email = document.getElementById("email-address");
+  var amount = document.getElementById("amount");
   function payWithPaystack(){
     var handler = PaystackPop.setup({
       key: 'pk_test_cb0fc910bb9fd127519794aa4128be0fd2c354d4',
-      email: 'customer@email.com',
-      amount: 10000,
+       email: document.getElementById("email-address").value,
+    amount: document.getElementById("amount").value * 100,
       ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
       metadata: {
          custom_fields: [
@@ -312,27 +283,54 @@ Create Service |
             }
          ]
       },
-     /* callback: function(response){
-          alert('success. transaction ref is ' + response.reference);
-      },
-*/
 
-callback: function(response){
-  $.ajax({
+
+      callback: function(response){
+       /* $.ajax({
     url: 'http://www.yoururl.com/verify_transaction?reference='+ response.reference,
     method: 'get',
     success: function (response) {
       // the transaction status is in response.data.status
     }
-  });
-}
-
-
-
+  });*/
+            console.log(response);
+          alert('success. transaction ref is ' + response.reference);
+      },
       onClose: function(){
           alert('window closed');
       }
     });
     handler.openIframe();
   }
+
+ 
+         
 </script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".btn-submit2").click(function(e){
+            e.preventDefault();
+
+            var _token = $("input[name='_token']").val();
+
+            var email = $("#email-address").val();
+            var amount = $("#amount").val();
+           
+             $.ajax({
+                type:'POST',
+                {{--url: "{{ route('user.message2') }}",--}}
+                    //data: $('#myform').serialize(),
+                    url: '/seller/service/createpay/',
+                    data: {_token:_token, email, amount },
+                    success: function(data) {
+                      alert(data);
+                      //printMsg(data);
+                  }
+              });
+        });
+    });
+</script>
+@endsection

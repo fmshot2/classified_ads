@@ -25,7 +25,6 @@ Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('serviceDetail');
 Route::post('saveContacts', 'ServiceController@saveContacts')->name('saveContacts');
 Route::get('/contacts', 'ServiceController@showContacts')->name('contacts');
-
 Route::get('/allservices', 'ServiceController@allServices')->name('allServices');
 Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service.search');
 Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');
@@ -37,6 +36,8 @@ Route::get('/all-featured-sellers', 'ServiceController@allFeaturedSellers')->nam
 
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
 Route::post('/buyer/createcomment2', 'ServiceController@storeComment2');
+Route::post('/buyer/createbadge', 'ServiceController@createbadge');
+
 
 Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard');
 Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile');
@@ -97,6 +98,9 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
 Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
 Route::get('/seller/service/badges', 'SellerController@badges')->name('seller.service.badges');
+Route::post('/seller/service/createpay', 'ServiceController@createpay');
+
+
 Route::get('/seller/service/post_advert', 'SellerController@post_advert')->name('seller.post_advert');
 Route::get('/seller/service/create_service_page', 'ServiceController@create_service_page')->name('create_service_page');
 
