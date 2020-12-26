@@ -20,7 +20,10 @@ class AppServiceProvider extends ServiceProvider
     {
 
         View::composer('*', function($view) {
-            $view->with('general_info', General_Info::first() );
+            $general_info = General_Info::first();
+            $check_general_info = collect($general_info)->isEmpty();
+
+            $view->with( compact('general_info', 'check_general_info'));
         });
 
     }
