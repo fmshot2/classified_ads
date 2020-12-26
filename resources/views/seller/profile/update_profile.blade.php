@@ -10,10 +10,11 @@ Update Profile |
 
 <br>
 <hr>
+<div class="content-wrapper" style="min-height: 868px;">
 
-<div class="container">
+  @include('layouts.backend_partials.status')
 
-@include('layouts.backend_partials.status')
+
 
 	<section class="content">
 
@@ -167,7 +168,6 @@ Update Profile |
 		<!-- /.row -->
 
 	</section>
-
 
 </div>
 

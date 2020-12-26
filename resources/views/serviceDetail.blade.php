@@ -282,7 +282,10 @@
                         @endguest
                         <div class="s-border"></div>
                         <div class="m-border"></div>
-                        <form id="myform" action="{{ route('user.message')}}" method="POST">
+<form></form>
+
+                        {{--<form id="myform" action="{{ route('user.message')}}" method="POST">--}}
+                        <form id="myform">
                             {{ csrf_field() }}
 
                             <input  type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
@@ -290,7 +293,7 @@
                             <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="form-control">           
                             <div class="form-group">
                                 <label class="form-label">Full Name</label>
-                                <input type="text" name="buyer_name" class="form-control" placeholder=" Your Name">
+                                <input type="text" id="buyer_name" name="buyer_name" class="form-control" placeholder=" Your Name">
                                 @if ($errors->has('buyer_name'))
                                 <span >
                                     <strong class="text-danger">{{ $errors->first('buyer_name') }}</strong>
@@ -299,7 +302,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Email</label>
-                                <input type="email" name="buyer_email" class="form-control" placeholder="Your Email">
+                                <input type="email" id="buyer_email" name="buyer_email" class="form-control" placeholder="Your Email">
                                 @if ($errors->has('buyer_email'))
                                 <span>
                                     <strong class="text-danger">{{ $errors->first('buyer_email') }}</strong>
@@ -308,7 +311,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Phone</label>
-                                <input type="text" name="phone" class="form-control" placeholder="Your Phone Number">
+                                <input type="text" id="phone" name="phone" class="form-control" placeholder="Your Phone Number">
                                 @if ($errors->has('phone'))
                                 <span>
                                     <strong class="text-danger">{{ $errors->first('phone') }}</strong>
@@ -316,7 +319,7 @@
                             @endif                            </div> 
                             <div class="form-group">
                                 <label class="form-label">Subject</label>
-                                <input type="text" name="subject" class="form-control" placeholder="Subject">
+                                <input type="text" id="subject" name="subject" class="form-control" placeholder="Subject">
                                 @if ($errors->has('subject'))
                                 <span>
                                     <strong class="text-danger">{{ $errors->first('subject') }}</strong>
@@ -340,7 +343,7 @@
                         @auth
                         <div class="col-lg-12 col-md-12">
                             <div class="send-btn">
-                                <button type="submit" class="btn btn-md btn-submit btn-warning">Send Message</button>
+                                <button type="submit" class="btn btn-md btn-submit2 btn-warning">Send Message</button>
                             </div>
                         </div>
                         @endauth
@@ -382,27 +385,36 @@
 
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".btn-submit").click(function(e){
+        $(".btn-submit2").click(function(e){
             e.preventDefault();
 
             var _token = $("input[name='_token']").val();
+
             var buyer_id = $("#buyer_id").val();
+            var buyer_name = $("#buyer_name").val();
             var service_id = $("#service_id").val();
+            var subject = $("#subject").val();
             var service_user_id = $("#service_user_id").val();
+            var phone = $("#phone").val();
+            var buyer_email = $("#buyer_email").val();
+
             var description = $("#description").val();
             
 
             $.ajax({
-                url: "{{ route('user.message') }}",
                 type:'POST',
+                {{--url: "{{ route('user.message2') }}",--}}
                     //data: $('#myform').serialize(),
-                    data: {_token:_token, buyer_id:buyer_id, service_id:service_id, service_user_id:service_user_id, description:description},
+                    url: '/buyer/createcomment2/',
+                    data: {_token:_token, buyer_id:buyer_id, service_id:service_id, service_user_id:service_user_id, description:description, subject:subject, buyer_name, buyer_email, phone },
                     success: function(data) {
-                      printMsg(data);
+                    alert(data.success2);
+                      //printMsg(data);
                   }
               });
         }); 
@@ -413,7 +425,7 @@
                   //$('#alert-block').empty().append(msg.success);
                   //$('#alert-block2').empty().append(msg.success2);
 
-                  $('.alert-block').empty().('display','block').append('<strong>'+msg.success+'</strong>');
+                 // $('.alert-block').empty().('display','block').append('<strong>'+msg.success+'</strong>');
               }
               else{
                 $.each( msg.error, function( key, value ) {

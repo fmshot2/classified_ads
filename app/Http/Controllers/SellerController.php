@@ -243,4 +243,13 @@ public function viewProfile()
   }
 
 
+ public function badges() {
+        return view('seller.service.service_badges');
+      }
+
+public function post_advert() {
+        return view('seller.service.post_advert');
+      }
+
+
 }
