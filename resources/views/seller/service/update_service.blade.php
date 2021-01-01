@@ -31,14 +31,15 @@ Update Service |
                 <div class="box-header with-border">
                   <i class="fa fa-plus"></i>
 
-                  <h2 class="box-title"><strong>Create Property</strong></h2>
+                  <h2 class="box-title"><strong>Update Details For {{$service->name}}</strong></h2>
                 </div>
                 <div class="body">
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label class="form-label">Service Name </label>
-                      <input type="text" name="name" class="form-control" value=" {{ $service->name }}">
+                      <label class="form-label">Service Name* </label>
+                      <input type="text" required name="name" class="form-control" value=" {{ $service->name }}">
+                      <small class="text-danger">required*</small>
                     </div>
                   </div>
 
@@ -47,32 +48,34 @@ Update Service |
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label for="">Description</label>
-                      <textarea name="description" class="form-control"> {{ $service->description }}</textarea>
+                      <label for="">Description*</label>
+                      <textarea name="description" required class="form-control"> {{ $service->description }}</textarea>
+                    </div>
+                    <small class="text-danger">required*</small>
+                  </div>
+
+
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="form-label"> Experience*(in years) </label>
+                      <input type="number" name="experience" class="form-control" value=" {{$service->description }} ">
+                      <small class="text-danger">required*</small>
                     </div>
                   </div>
 
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label class="form-label"> Experience </label>
-                      <input type="text" name="experience" class="form-control" value=" {{$service->description }} ">
-                    </div>
-                  </div>
-
-
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label for="">Phone</label>
-                      <input type="number" class="form-control" name="phone" value=" {{ Auth::user()->phone }}">
+                      <label for="">Phone*</label>
+                      <input type="number" required class="form-control" name="phone" value=" {{ Auth::user()->phone }}">
+                      <small class="text-danger">required*</small>                    
                     </div>
                   </div>
 
                   <div class="col-md-12">
                     <div class="form-group">
                       <label class="form-label">Min Price</label>
-                      <input type="number" name="min_price" class="form-control" value="{{$service->min_price }}">
-
+                      <input type="number" name="min_price" placeholder="e.g 2000 per hr" class="form-control" value="{{$service->min_price }}">
                     </div>
                   </div>
 
@@ -86,23 +89,25 @@ Update Service |
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label class="form-label">State</label>
+                      <label class="form-label">State*</label>
                       <input type="text" class="form-control" name="state" autocomplete="" aria-autocomplete="" value=" {{ $service->state }}">
-
+                      <small class="text-danger">required*</small>
                     </div>
                   </div>
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label class="form-label">City</label>
-                      <input type="text" class="form-control" name="city" value=" {{ $service->city }}">
+                      <label class="form-label">City*</label>
+                      <input type="text" required class="form-control" name="city" value=" {{ $service->city }}">
+                      <small class="text-danger">required*</small>                     
                     </div>
                   </div>
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label class="form-label">Address</label>
+                      <label class="form-label">Street Address*</label>
                       <input type="text" class="form-control" name="address" value=" {{ $service->address }}">
+                    <small class="text-danger">required*</small>
                     </div>
                   </div>
 
@@ -132,19 +137,21 @@ Update Service |
                       <h3 class="box-title">Gallery Image</h3>
                     </div>
                     <div class="body">
-                      <input class="form-control" name="file" type="file">
+                      <input class="form-control" required name="file" type="file">
                       <span class="helper-text" data-error="wrong" data-success="right">Upload one or more images</span>
+                      <small class="text-danger">required*</small>                      
                     </div>
                   </div>
 
                   <div class="form-group">
                     <label>Select Category</label>
-                    <select name="category_id" class="form-control show-tick">
+                    <select name="category_id" required class="form-control show-tick">
                       <option value=" ">-- Please select --</option>
                       @foreach($category as $categories)
                       <option value=" {{ $categories->id }} "> {{ $categories->name }} </option>
                       @endforeach
                     </select>
+                      <small class="text-danger">required*</small>                    
                   </div>
 
                 </div>

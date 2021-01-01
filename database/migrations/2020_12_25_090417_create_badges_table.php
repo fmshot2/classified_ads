@@ -16,11 +16,14 @@ class CreateBadgesTable extends Migration
         Schema::create('badges', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('seller_id');
-            $table->string('badge_type');
-            $table->string('email');
-            $table->string('amount');
-            $table->string('ref_no');
+            $table->integer('seller_id')->nullable();
+            $table->string('badge_type')->nullable();
+            $table->string('email')->nullable();
+            $table->string('amount')->nullable();
+            $table->string('ref_no')->nullable();
+            $table->string('seller_name')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('service_id')->nullable();
             
         });
     }

@@ -172,6 +172,17 @@ Seller Dashboard |
     <!-- /.col -->
   </div>
 
+{{--<div class="pad margin no-print">
+            <div class="callout callout-info bg-warning" style="margin-bottom: 0!important;background-color: #fec30bbb;">
+              <h4><i class="fa fa-info"></i> Note:</h4>
+              Hello! Shehu Furnitures Your Account is now under <strong>Verification Review</strong>, and would take 24 hrs process.
+            </div>
+          </div>--}}
+
+
+
+             @include('seller/section/badge_notification')
+
 
   <div class="row">
     <div class="col-md-6 connectedSortable">

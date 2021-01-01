@@ -97,7 +97,7 @@ Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name(
 Route::middleware(['seller'])->group(function () { //Seller Middleware protection start here
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
 Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
-Route::get('/seller/service/badges', 'SellerController@badges')->name('seller.service.badges');
+Route::get('/seller/service/badges', 'BadgeController@badges')->name('seller.service.badges');
 Route::post('/seller/service/createpay', 'ServiceController@createpay');
 
 
@@ -129,6 +129,8 @@ Route::get('/seller/notification/{slug}', 'SellerController@viewNotification')->
 
 
 Route::get('/seller/profile/', 'SellerController@viewProfile')->name('seller.profile');
+Route::any ( '/save/service/Badge',  'BadgeController@saveService4Badge')->name('saveService4Badge');
+
 
 }); //Seller Middleware protection start here
 
@@ -183,7 +185,15 @@ Route::get('/admin/notification/all', 'AdminController@allNotification')->name('
 
 Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
 
+
 Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('system.config.store');
+
+Route::get('/admin/badge/requests', 'AdminController@allBadges')->name('badge.request');
+Route::get('/admin/seller/saveBadge/', 'AdminController@saveBadge')->name('save.badge');
+Route::get('seller/service/badges/badger','BadgeController@getBadgeList')->name('fff');
+///seller/service/admin/get-badge-list/2 404 (Not Found)
+
+
 
 }); //Admin Middleware protection end here
 

@@ -27,34 +27,26 @@ class CreateServicesTable extends Migration
             //$table->string('phone')->nullable();
             $table->string('image')->nullable();
             $table->string('address');
-
-
-
-
             $table->string('image_1')->nullable();
             $table->string('image_2')->nullable();
             $table->string('image_3')->nullable();
             $table->string('image_4')->nullable();
             $table->string('image_5')->nullable();
             $table->string('image_6')->nullable();
-
             $table->string('experience');
             $table->string('phone');
             $table->string('video_link')->nullable();
-
             $table->float('min_price', 10, 2)->nullable();
             $table->float('max_price', 10, 2)->nullable();
-
             $table->boolean('is_featured')->nullable()->default(true);
             $table->boolean('is_approved')->nullable()->default(true);
             $table->string('slug')->unique()->nullable();
             $table->boolean('status')->default(false);
-
             $table->unsignedInteger('user_id');
             //$table->unsignedInteger('like_id');
             $table->unsignedInteger('category_id')->nullable();
-
             $table->timestamps();
+            $table->string('badge_type')->nullable();            
 
         });
     }

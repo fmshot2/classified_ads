@@ -124,7 +124,7 @@ class ServiceController extends Controller
 
 
 
-     public function allServices()
+    public function allServices()
     {
       $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
       $approvedServices = Service::with('user')->paginate(6);
@@ -158,10 +158,10 @@ class ServiceController extends Controller
     }
 
 
-  public function allSellers()
+    public function allSellers()
     {
       $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
-            $allFeaturedServices = Service::where('is_featured', 1)->with('user')->paginate(32)->get();
+      $allFeaturedServices = Service::where('is_featured', 1)->with('user')->paginate(32)->get();
       $approvedServices = Service::with('user')->paginate(6);
       $advertServices = Service::where('is_approved', 1)->with('user')->get();
       $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
@@ -194,10 +194,10 @@ class ServiceController extends Controller
 
 
 
-public function allFeaturedSellers()
+    public function allFeaturedSellers()
     {
       $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
-            $allFeaturedServices = Service::where('is_featured', 1)->with('user')->paginate(32);
+      $allFeaturedServices = Service::where('is_featured', 1)->with('user')->paginate(32);
       $approvedServices = Service::with('user')->paginate(6);
       $advertServices = Service::where('is_approved', 1)->with('user')->get();
       $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
@@ -298,30 +298,30 @@ public function allFeaturedSellers()
       $name = $request->name;
       $experience = $request->experience;
         //$service->image = $image;
-        $description = $request->description;
-        $streetAddress = $request->streetAddress;
-        $city = $request->city;
-        $state = $request->state;
-        $closestBusstop = $request->closestBusstop;  
-        $phone = $request->phone;
+      $description = $request->description;
+      $streetAddress = $request->streetAddress;
+      $city = $request->city;
+      $state = $request->state;
+      $closestBusstop = $request->closestBusstop;  
+      $phone = $request->phone;
 
 
-        $name = $request->name;
-        $image = $request->file('file');
-        $imageName = time().'.'.$image->extension();
-        $image->move(public_path('images'),$imageName);
-        $service = new Service();
-        $service->category = $category;
-        $service->name = $name;
-        $service->experience = $experience;
-        $service->description = $description;
-        $service->image = $imageName;
-        $service->streetAddress = $streetAddress;
-        $service->city = $city;
-        $service->state = $state;
-        $service->closestBusstop = $closestBusstop;
-        $service->phone = $phone;
-        $service->user_id = Auth::id();      
+      $name = $request->name;
+      $image = $request->file('file');
+      $imageName = time().'.'.$image->extension();
+      $image->move(public_path('images'),$imageName);
+      $service = new Service();
+      $service->category = $category;
+      $service->name = $name;
+      $service->experience = $experience;
+      $service->description = $description;
+      $service->image = $imageName;
+      $service->streetAddress = $streetAddress;
+      $service->city = $city;
+      $service->state = $state;
+      $service->closestBusstop = $closestBusstop;
+      $service->phone = $phone;
+      $service->user_id = Auth::id();      
       $description = $request->description;
       $streetAddress = $request->streetAddress;
       $city = $request->city;
@@ -401,7 +401,7 @@ public function search(Request $request){
   }
   else
     $userSer = null;
-    return view ( 'searchResult' )->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
+  return view ( 'searchResult' )->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
 }
 
 
@@ -429,18 +429,18 @@ public function searchonservices(Request $request){
   }
   else
     $userSer = null;
-    return view ( 'searchResult' )->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
+  return view ( 'searchResult' )->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
 }
 
 
 
 
-  public function search10(Request $request){
+public function search10(Request $request){
   $category = $request->input('name');
   $state = $request->input('state');
-    $serviceDetail_id = $request->input('serviceDetail_id');
+  $serviceDetail_id = $request->input('serviceDetail_id');
 
-        $userSer1 = Service::where('state', $state)->with('user')->get();
+  $userSer1 = Service::where('state', $state)->with('user')->get();
 
 
   $userSer = userSer1::where(function ($query) use ($category) {
@@ -449,9 +449,9 @@ public function searchonservices(Request $request){
   })->get();
   $state2[] = array();
 
-foreach ($userSer1 as $key => $value) {
-$state2[] = $state;
-}
+  foreach ($userSer1 as $key => $value) {
+    $state2[] = $state;
+  }
 //return $state2;
 
         //$userSer = Service::where('state', $state2)->with('user')->get();
@@ -461,7 +461,7 @@ $state2[] = $state;
   if (count ( $userSer ) > 0){
         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
 
-      return redirect()->to('serviceDetail/'.$serviceDetail_id)->with('userSer', $userSer);
+    return redirect()->to('serviceDetail/'.$serviceDetail_id)->with('userSer', $userSer);
     //return redirect()->to('/')->with('user11', $userSer);
 
   }
@@ -476,16 +476,16 @@ $state2[] = $state;
   public function search_by_city($city){
     $d_city = $city;
 
-       $services_in_city = Service::where('city', $d_city)->with('user')->get();
-        $all_states = State::all();
-        $all_categories = Category::all();
+    $services_in_city = Service::where('city', $d_city)->with('user')->get();
+    $all_states = State::all();
+    $all_categories = Category::all();
 //return $services_in_city;
 
     $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
 
         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
   //return redirect()->to('serviceDetail/'.$serviceDetailId);
-      return view('city_services')->with('services_in_city', $services_in_city)->with('featuredServices', $featuredServices)->with('all_states', $all_states)->with('all_categories', $all_categories);
+    return view('city_services')->with('services_in_city', $services_in_city)->with('featuredServices', $featuredServices)->with('all_states', $all_states)->with('all_categories', $all_categories);
 
   }
 
@@ -733,66 +733,66 @@ public function show($id)
           /*$serviceName = $request->id;
           $serviceState =   $request->state;*/
 
-      $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->first();
-      if ($likecheck) {
-        return 'Heyyyyy';    
-      }else{
-        return 'Heyyyyy22222';    
-      }
-      if ($likecheck) {
-        Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->delete();
-        $likecount = Like::where(['service_id'=>$request->id])->count();
+          $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->first();
+          if ($likecheck) {
+            return 'Heyyyyy';    
+          }else{
+            return 'Heyyyyy22222';    
+          }
+          if ($likecheck) {
+            Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->delete();
+            $likecount = Like::where(['service_id'=>$request->id])->count();
         // return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
 //                    return redirect('/home');    
-      }else{
-        $like = new Like();
-        $like->user_id = Auth::id();
-        $like->service_id = $request->id;
-        $like->save();
-        $likecount = Like::where(['service_id'=>$request->id])->count();
+          }else{
+            $like = new Like();
+            $like->user_id = Auth::id();
+            $like->service_id = $request->id;
+            $like->save();
+            $likecount = Like::where(['service_id'=>$request->id])->count();
          //return redirect('/home');    
-      }      
-    }
+          }      
+        }
 
 
- public function saveLike2($id)
-    {
-      $service = Service::find($id);
-      $service_slug = $service->slug;
+        public function saveLike2($id)
+        {
+          $service = Service::find($id);
+          $service_slug = $service->slug;
       //return $service_slug;
           /*$serviceName = $request->id;
           $serviceState =   $request->state;*/
 
-      $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->first();
-      if ($likecheck) {
-         Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
-        $likecount = Like::where(['service_id'=>$id])->count();
-        return redirect()->to('serviceDetail/'.$service_slug);
+          $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->first();
+          if ($likecheck) {
+           Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
+           $likecount = Like::where(['service_id'=>$id])->count();
+           return redirect()->to('serviceDetail/'.$service_slug);
         //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
         //return redirect('/home');   
-      }else{
-         $like = new Like();
-        $like->user_id = Auth::id();
-        $like->service_id = $id;
-        $like->save();
-        $likecount = Like::where(['service_id'=>$id])->count();
-        return redirect()->to('serviceDetail/'.$service_slug);
+         }else{
+           $like = new Like();
+           $like->user_id = Auth::id();
+           $like->service_id = $id;
+           $like->save();
+           $likecount = Like::where(['service_id'=>$id])->count();
+           return redirect()->to('serviceDetail/'.$service_slug);
         //return 'Heyyyyy22222'. $likecount;    
-      }
-      if ($likecheck) {
-        Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
-        $likecount = Like::where(['service_id'=>$id])->count();
-        return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
+         }
+         if ($likecheck) {
+          Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
+          $likecount = Like::where(['service_id'=>$id])->count();
+          return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
 //                    return redirect('/home');    
-      }else{
-        $like = new Like();
-        $like->user_id = Auth::id();
-        $like->service_id = $id;
-        $like->save();
-        $likecount = Like::where(['service_id'=>$id])->count();
+        }else{
+          $like = new Like();
+          $like->user_id = Auth::id();
+          $like->service_id = $id;
+          $like->save();
+          $likecount = Like::where(['service_id'=>$id])->count();
          //return redirect('/home');    
-      }      
-    }
+        }      
+      }
 
 
 
@@ -803,20 +803,20 @@ public function show($id)
 
 
 
-    public function storeComment(Request $request)
-    {
+      public function storeComment(Request $request)
+      {
        $this->validate($request,[
-      'buyer_name' => 'required',
-      'buyer_email' => 'required',
-      'phone' => 'required',
-      'description' => 'required',
-      
-    ]); 
-      $data = $request->all();
-      return $data;
+        'buyer_name' => 'required',
+        'buyer_email' => 'required',
+        'phone' => 'required',
+        'description' => 'required',
+
+      ]); 
+       $data = $request->all();
+       return $data;
         #create or update your data here
         //$request->photo_id; // array of all selected photo id's
-      $message = new Message();  
+       $message = new Message();  
         /*$message->buyer_id = $request->buyer_id;
         $message->service_id = $request->service_id;
         $message->description = $request->description;*/
@@ -855,21 +855,21 @@ public function show($id)
 
 
 
-       public function storeComment2(Request $request)
-    {
+      public function storeComment2(Request $request)
+      {
        $data = $request->all();
 
        $this->validate($request,[
-      'buyer_name' => 'required',
-      'buyer_email' => 'required',
-      'phone' => 'required',
-      'description' => 'required',
-      
-    ]); 
-     
+        'buyer_name' => 'required',
+        'buyer_email' => 'required',
+        'phone' => 'required',
+        'description' => 'required',
+
+      ]); 
+
         #create or update your data here
         //$request->photo_id; // array of all selected photo id's
-        $message = new Message();  
+       $message = new Message();  
         /*$message->buyer_id = $request->buyer_id;
         $message->service_id = $request->service_id;
         $message->description = $request->description;*/
@@ -895,7 +895,7 @@ public function show($id)
         //$message->slug = $slug;
 
         if ($message->save()) {
-        return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
+          return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
         //return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
         }else{
           return response()->json(['success2', 'Your message was not sent!']);
@@ -904,91 +904,153 @@ public function show($id)
       }
 
 
-       public function createpay(Request $request)
-    {
+      public function createpay(Request $request)
+      {
        $data = $request->all();
+       //return 'nnn';
+
+        //return $data['service_id'];
+       $badge_service_id = $data['service_id'];    
 
 
        $this->validate($request,[
-      'amount' => 'required',
-      'email' => 'required',
-      
-    ]);
+        'amount' => 'required',
+        'email' => 'required',      
+      ]);
+       $service_check = Service::where(['id'=>$badge_service_id])->first();
+       //return $service_check->badge_type;
+       $service_check->badge_type = $data['badge_type'];
+       $service_check->save();
+       $badge_check = Badge::where(['service_id'=>$badge_service_id])->first();
 
-        //$message->slug = $slug;
-        $badge_check = Badge::where(['seller_id'=>Auth::id()])->first();
-if ($badge_check) {
-  $badge_check->badge_type = $data['badge_type'];
-  $badge_check->amount = $data['amount'];
-          $badge_check->save();
-                                             return "yyyy";
+       if ($badge_check) {
+        $badge_check->badge_type = $data['badge_type'];
+
+        $badge_check->amount = $data['amount'];
+        $badge_check->ref_no = $data['ref_no'];  
+  //$badge_check->service_id = $data['service_id'];    
+
+        $badge_check->save();
+        return "Badge Updated successfully!";
       }else{
-         $badge = new Badge();
-        $badge->email = $data['email'];
-        $badge->badge_type = $data['badge_type'];
-        $badge->seller_id = $data['seller_id'];
-        $badge->amount = $data['amount'];
-        $badge->save();
-        return "yyyy";   
-      }
+       $badge = new Badge();
+       $badge->email = $data['email'];
+       $badge->badge_type = $data['badge_type'];
+       $badge->seller_id = $data['seller_id'];
+       $badge->amount = $data['amount'];
+       $badge->seller_name = $data['seller_name'];
+       $badge->phone = $data['phone'];
+       $badge->ref_no = $data['ref_no'];
+        //$badge->service_id = $data['service_id'];
+
+       $badge->save();
+       return "Badge created successfully";   
+     }
 
 
-        $badge->save();
-                                             return "yyyy";
+     $badge->save();
+     return "yyyy";
 
         //return 
 
-        if ($badge->save()) {
-        return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
+     if ($badge->save()) {
+      return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
         //return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
-        }else{
-          return response()->json(['success2', 'Your message was not sent!']);
-        }
+    }else{
+      return response()->json(['success2', 'Your message was not sent!']);
+    }
 
-          $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->first();
-      if ($likecheck) {
-         Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
-        $likecount = Like::where(['service_id'=>$id])->count();
-        return redirect()->to('serviceDetail/'.$service_slug);
+    $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->first();
+    if ($likecheck) {
+     Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
+     $likecount = Like::where(['service_id'=>$id])->count();
+     return redirect()->to('serviceDetail/'.$service_slug);
         //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
         //return redirect('/home');   
-      }else{
-         $like = new Like();
-        $like->user_id = Auth::id();
-        $like->service_id = $id;
-        $like->save();
-        $likecount = Like::where(['service_id'=>$id])->count();
-        return redirect()->to('serviceDetail/'.$service_slug);
+   }else{
+     $like = new Like();
+     $like->user_id = Auth::id();
+     $like->service_id = $id;
+     $like->save();
+     $likecount = Like::where(['service_id'=>$id])->count();
+     return redirect()->to('serviceDetail/'.$service_slug);
         //return 'Heyyyyy22222'. $likecount;    
-      }
+   }
 
-      }
+ }
 
 
- public function createbadge(Request $request)
-    {
-      return 'jhj';
-       $data = $request->all();
 
-       $this->validate($request,[
-      'buyer_name' => 'required',
-      'buyer_email' => 'required',
-      'phone' => 'required',
-      'description' => 'required',
-      
-    ]); 
-        $message = new Message(); 
-        $success = 'succccccccs';
-        $slug = Str::random(10);
-        $message->buyer_id = $data['buyer_id'];
-        $message->buyer_name = $data['buyer_name'];     
-        $message->buyer_email = $data['buyer_email'];
-        $message->phone = $data['phone'];
-        $message->slug = $slug; 
-        $message->service_id = $data['service_id'];
-        $message->subject = $data['subject'];
-        $message->service_user_id = $data['service_user_id'];
-        $message->description = $data['description'];
+
+
+ public function saveBadge(Request $request)
+ {
+
+   $data = $request->all();
+
+
+
+   $badge_check = Service::where(['seller_id'=>Auth::id()])->first();
+   if ($badge_check) {
+    $badge_check->badge_type = $data['badge_type'];
+
+    $badge_check->amount = $data['amount'];
+    $badge_check->ref_no = $data['ref_no'];      
+
+    $badge_check->save();
+    return "yyyy";
+  }else{
+   $badge = new Badge();
+   $badge->email = $data['email'];
+   $badge->badge_type = $data['badge_type'];
+   $badge->seller_id = $data['seller_id'];
+   $badge->amount = $data['amount'];
+   $badge->seller_name = $data['seller_name'];
+   $badge->phone = $data['phone'];
+   $badge->ref_no = $data['ref_no'];        
+   $badge->save();
+   return "yyyy";   
+ }
+
+
+ $badge->save();
+ return "yyyy";
+
+        //return 
+
+ if ($badge->save()) {
+  return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
+        //return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
+}else{
+  return response()->json(['success2', 'Your message was not sent!']);
+}
+}
+
+
+public function createbadge(Request $request)
+{
+  return 'jhj';
+  $data = $request->all();
+
+  $this->validate($request,[
+    'buyer_name' => 'required',
+    'buyer_email' => 'required',
+    'phone' => 'required',
+    'description' => 'required',
+
+  ]); 
+  $message = new Message(); 
+  $success = 'succccccccs';
+  $slug = Str::random(10);
+  $message->buyer_id = $data['buyer_id'];
+  $message->buyer_name = $data['buyer_name'];     
+  $message->buyer_email = $data['buyer_email'];
+  $message->phone = $data['phone'];
+  $message->slug = $slug; 
+  $message->service_id = $data['service_id'];
+  $message->subject = $data['subject'];
+  $message->service_user_id = $data['service_user_id'];
+  $message->description = $data['description'];
 
         //$serviceDetailId = $message->service_id;
         //$service = Service::find($serviceDetailId);
@@ -997,61 +1059,61 @@ if ($badge_check) {
         // $slug = $random = Str::random(40);
         //$message->slug = $slug;
 
-        if ($message->save()) {
-        return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
+  if ($message->save()) {
+    return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
         //return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
-        }else{
-          return response()->json(['success2', 'Your message was not sent!']);
-        }
+  }else{
+    return response()->json(['success2', 'Your message was not sent!']);
+  }
 
-      }
+}
 
 
 
-      public function advertisement() {
-        return view('advertisement');
-      }
+public function advertisement() {
+  return view('advertisement');
+}
 
 
 public function showContacts() {
-        return view('contacts');
-      }
+  return view('contacts');
+}
 
 
 
-       public function saveContacts(Request $request)
-    {
+public function saveContacts(Request $request)
+{
 
-     $this->validate($request,[
-        'name' => 'required',
-        'email' => 'required',
-        'subject' => 'required',
-        'phone' => 'required',
-        'message' => 'required',
-    ]); 
+ $this->validate($request,[
+  'name' => 'required',
+  'email' => 'required',
+  'subject' => 'required',
+  'phone' => 'required',
+  'message' => 'required',
+]); 
 
-     $random = Str::random(3);
-     $slug = Str::of($request->name)->slug('-').''.$random; 
-     $contact = new Contact();
-    $contact->name = $request->name;
-    $contact->email = $request->email;
-    $contact->address = $request->address;
-    $contact->subject = $request->subject;
-    $contact->phone = $request->phone;
-    $contact->message = $request->message;
-    $contact->slug = $slug;
-    if ($contact->save()) {
-    return 'sfdsgdgdg';
-    }else{
-          return 'unsuccessful';
-    }
-    $request->session()->flash('status', 'Task was successful!');
+ $random = Str::random(3);
+ $slug = Str::of($request->name)->slug('-').''.$random; 
+ $contact = new Contact();
+ $contact->name = $request->name;
+ $contact->email = $request->email;
+ $contact->address = $request->address;
+ $contact->subject = $request->subject;
+ $contact->phone = $request->phone;
+ $contact->message = $request->message;
+ $contact->slug = $slug;
+ if ($contact->save()) {
+  return 'sfdsgdgdg';
+}else{
+  return 'unsuccessful';
+}
+$request->session()->flash('status', 'Task was successful!');
     //return $this->allService();
 }
 
 
 
- public function create_service_page() {
-        return view('seller.service.create_service_page');
-      }
+public function create_service_page() {
+  return view('seller.service.create_service_page');
+}
 }

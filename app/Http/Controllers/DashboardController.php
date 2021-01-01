@@ -46,7 +46,12 @@ class DashboardController extends Controller
     $read_message_count = $check_read_message_table == true ? 0 : $read_message->count();
     $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();
 
-    return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count') );
+
+     $all_service2 = Service::where('user_id', Auth::id())->get();
+    $count_badge =  $all_service2->Where('badge_type', null)->count();
+    //$active_service_count = $active_service->count();
+
+    return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge') );
   }
 
   public function buyer()
