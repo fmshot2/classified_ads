@@ -243,4 +243,19 @@ public function viewProfile()
   }
 
 
+
+
+public function post_advert() {
+        return view('seller.service.post_advert');
+      }
+
+public function badgeNotice()
+{
+    
+    $all_service = Service::where('user_id', Auth::id() )->get();
+    $active_service =  $all_service->Where('badge_type', 0);
+    $active_service_count = $active_service->count();
+    return view ('seller.section.badge_notification', compact('active_service_count', 'all_service') );
+}
+
 }

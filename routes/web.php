@@ -15,12 +15,16 @@ use App\Service;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('dropzone/example', 'DropzoneController@dropzoneExample');
+Route::post('dropzone/store', 'UserController@dropzoneStore')->name('dropzone.store');
+
+Route::get('dropzone', 'DropzoneController@dropzone');
+Route::post('dropzone/store', 'DropzoneController@dropzoneStore')->name('dropzone.store');
 
 Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('serviceDetail');
 Route::post('saveContacts', 'ServiceController@saveContacts')->name('saveContacts');
 Route::get('/contacts', 'ServiceController@showContacts')->name('contacts');
-
 Route::get('/allservices', 'ServiceController@allServices')->name('allServices');
 Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service.search');
 Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');
@@ -28,8 +32,13 @@ Route::get('/sellers', 'ServiceController@allSellers')->name('seller.sellers');
 Route::get('/terms-of-use', 'ServiceController@termsOfUse')->name('terms-of-use');
 Route::get('/advertisement', 'ServiceController@advertisement')->name('advertisement');
 Route::post('/store_contact_form', 'ContactController@store_contact_form')->name('store_contact_form');
+Route::get('/all-featured-sellers', 'ServiceController@allFeaturedSellers')->name('allSellers');
 
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
+Route::post('/buyer/createcomment2', 'ServiceController@storeComment2');
+Route::post('/buyer/createbadge', 'ServiceController@createbadge');
+
+
 Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard');
 Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile');
 Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messages');
@@ -88,6 +97,11 @@ Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name(
 Route::middleware(['seller'])->group(function () { //Seller Middleware protection start here
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
 Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
+Route::get('/seller/service/badges', 'BadgeController@badges')->name('seller.service.badges');
+Route::post('/seller/service/createpay', 'ServiceController@createpay');
+
+
+Route::get('/seller/service/post_advert', 'SellerController@post_advert')->name('seller.post_advert');
 Route::get('/seller/service/create_service_page', 'ServiceController@create_service_page')->name('create_service_page');
 
 
@@ -115,6 +129,8 @@ Route::get('/seller/notification/{slug}', 'SellerController@viewNotification')->
 
 
 Route::get('/seller/profile/', 'SellerController@viewProfile')->name('seller.profile');
+Route::any ( '/save/service/Badge',  'BadgeController@saveService4Badge')->name('saveService4Badge');
+
 
 }); //Seller Middleware protection start here
 
@@ -169,9 +185,16 @@ Route::get('/admin/notification/all', 'AdminController@allNotification')->name('
 
 Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
 
+
 Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('system.config.store');
 
 Route::get('/admin/pages/faq', 'AdminController@FAQs')->name('admin.pages.faq');
+Route::get('/admin/badge/requests', 'AdminController@allBadges')->name('badge.request');
+Route::get('/admin/seller/saveBadge/', 'AdminController@saveBadge')->name('save.badge');
+Route::get('seller/service/badges/badger','BadgeController@getBadgeList')->name('fff');
+///seller/service/admin/get-badge-list/2 404 (Not Found)
+
+
 
 }); //Admin Middleware protection end here
 

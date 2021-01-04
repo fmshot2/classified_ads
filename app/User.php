@@ -40,4 +40,8 @@ class User extends Authenticatable
     public function services(){
         return $this->hasMany('\App\Service'); //Product Model Name
     }
+
+    public function badges(){
+        return $this->hasMany('\App\Badge'); //Product Model Name
+    }
 }

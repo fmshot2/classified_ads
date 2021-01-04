@@ -294,7 +294,7 @@
     <a class="nav-link" href="{{route('seller.sellers')}}" id="">
         Sellers
     </a>
-
+</li>
 
 <li class="nav-item dropdown">
     <a class="nav-link" href="{{route('faq')}}" id="">

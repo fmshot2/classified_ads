@@ -55,8 +55,8 @@ Create Service |
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label class="form-label"> Experience </label><small class="text-danger">*required*</small>
-                      <input type="number" required name="experience" class="form-control" value="">
+                      <label class="form-label"> Experience (in years)</label><small class="text-danger">*required*</small>
+                      <input type="number" required name="experience" placeholder="Insert a number" class="form-control" value="">
                     </div>
                   </div>
 
@@ -64,14 +64,14 @@ Create Service |
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="">Phone</label><small class="text-danger">*required*</small>
-                      <input type="number" class="form-control" name="phone" value=" {{ Auth::user()->phone }}">
+                      <input type="number" class="form-control" placeholder="numbers only" name="phone" value=" {{ Auth::user()->phone }}">
                     </div>
                   </div>
 
                   <div class="col-md-12">
                     <div class="form-group">
                       <label class="form-label">Min Price</label>
-                      <input type="number" name="min_price" class="form-control">
+                      <input type="text" placeholder="e.g 2000 per hour" name="min_price" class="form-control">
 
                     </div>
                   </div>
@@ -79,7 +79,7 @@ Create Service |
                   <div class="col-md-12">
                     <div class="form-group">
                       <label class="form-label">Max Price</label>
-                      <input type="number" name="max_price" class="form-control">
+                      <input type="number" placeholder="e.g 2000 per hour" name="max_price" class="form-control">
 
                     </div>
                   </div>
@@ -132,7 +132,7 @@ Create Service |
                     </div>
                     <div class="body">
                       <input class="form-control" required name="file" type="file">
-                      <span class="helper-text" data-error="wrong" data-success="right">Upload one or more images</span>
+                      <span class="helper-text" data-error="wrong" data-success="right">Upload image</span>
                     </div>
                   </div>
 

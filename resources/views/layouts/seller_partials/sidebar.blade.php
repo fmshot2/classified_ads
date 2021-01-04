@@ -30,6 +30,17 @@
         </a>
       </li>
 
+
+
+      <li class="" style="{{ url()->current() == route('seller.message.all') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{route ('seller.message.all') }}">
+          <i class="fa fa-briefcase"></i> <span> My Messages </span>
+          <span class="pull-right-container">
+            <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small> 
+          </span>
+        </a>
+      </li>
+
 {{--
 
       <li class="treeview " style="{{ url()->current() == route('seller.service.create') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.service.all') ? 'background-color: #f8d053' : '' }}">
@@ -51,27 +62,20 @@
 
       <li class="treeview" style=" {{ url()->current() == route('seller.service.create') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.service.all') ? 'background-color: #f8d053' : '' }} ">
         <a href="#">
-          <i class="fa fa-briefcase"></i>
+          <i class="fa fa-home"></i>
           <span> Service Management </span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href=" {{ route('seller.service.create') }} "><i class="fa fa-circle-o"></i> Create </a></li>
-          <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> All Service </a></li>
+          <li><a href=" {{ route('seller.service.create') }} "><i class="fa fa-circle-o"></i> Create Service</a></li>
+          <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> All Services </a></li>
         </ul>
       </li>
 
 
-      <li class="" style="{{ url()->current() == route('seller.message.all') ? 'background-color: #f8d053' : '' }}">
-        <a href=" {{route ('seller.message.all') }}">
-          <i class="fa fa-briefcase"></i> <span> Message </span>
-          <span class="pull-right-container">
-            <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small> 
-          </span>
-        </a>
-      </li>
+      
 
 
 {{--
@@ -91,6 +95,23 @@
       </li>
       --}}
 
+<li style="{{ url()->current() == route('seller.post_advert') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{ route ('seller.post_advert') }} ">
+          <i class="fa fa-plus"></i> <span> Post Advert </span>
+          <span class="pull-right-container">
+          </span>
+        </a>
+      </li>
+
+
+        <li style="{{ url()->current() == route('seller.service.badges') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{ route ('seller.service.badges') }} ">
+          <i class="fa fa-certificate"></i> <span> Verification Badges </span>
+          <span class="pull-right-container">
+          </span>
+        </a>
+      </li>
+
       <li class="" style=" {{ url()->current() == route('seller.notification.all') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('seller.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
@@ -99,6 +120,9 @@
           </span>
         </a>
       </li>
+
+
+     
 
       <li style="{{ url()->current() == route('seller.profile') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{ route ('seller.profile') }} ">

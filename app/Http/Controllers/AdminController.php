@@ -8,6 +8,7 @@ use App\User;
 use App\Category;
 use App\Notification;
 use App\General_Info;
+use App\Badge;
 
 
 class AdminController extends Controller
@@ -143,9 +144,20 @@ class AdminController extends Controller
     return view ('seller.notification.view_notification', compact('notification') );
   }
 
+<<<<<<< HEAD
   public function FAQs()
   {
     return view ('admin.page_management.faq');
   }
 
+=======
+  public function allBadges()
+  {
+    $all_badges = Badge::paginate(10);
+    return view ('admin.badge.index', compact('all_badges') );
+  }
+
+    
+
+>>>>>>> dd30c289582d0b2335f96b2047c06af0d314d868
 }

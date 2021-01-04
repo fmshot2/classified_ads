@@ -39,6 +39,9 @@ All Service Table |
 									<th> State </th>
 									<th> Featured </th>
 									<th> Date </th>
+									<th>Comments</th>
+									<th>Badge Type</th>
+									<th>Likes</th>
 									<th> Action </th>
 								</tr>
 							</thead>
@@ -57,6 +60,9 @@ All Service Table |
 									<td> {{ $all_services->state }} </td>
 									<td> {{ $all_services->featured == 1 ? 'Yes' : 'No' }} </td>
 									<td> {{ $all_services->created_at->diffForHumans() }} </td>
+									<td><span><i class="fa fa-comments">  comments</i> {{$all_services->messages->count()}}</span> </td>
+									<td> {{$all_services->badge_type ? $all_services->badge_type : 'No Badges'}}</td>
+									<td> {{$all_services->likes->count()}}</td>
 
 
 									<td class="center">

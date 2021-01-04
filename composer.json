@@ -15,8 +15,9 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.4",
-        "mews/captcha": "^3.2"
-    },
+        "mews/captcha": "^3.2",
+        "laravelcollective/html": "~6.0"
+   },
     "require-dev": {
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
