@@ -308,7 +308,7 @@ System Config |
 
                                     <li>
                                         <b>Logo (logo size:207 X 57)</b><br>
-                                        <p><img src=" {{asset('images')}}/{{ $check_general_info == 0 ? $general_info->logo : ''}} " alt="" width="30%" style="float: left; margin-right: 20px;"></p>
+                                        <p><img src="{{asset('images')}}/{{ $check_general_info == 0 ? $general_info->logo : ''}}" alt="" width="30%" style="float: left; margin-right: 20px;"></p>
                                     </li>
                                 </ul>
 
@@ -373,7 +373,7 @@ System Config |
                       <div class="box-body">
                           <dl>
                             <dt> {{ $check_general_info == 0 ? Str::limit($general_info->register_section_3_title, 25) : ''}} </dt>
-                            <dd> {{ $check_general_info == 0 ? Str::limit($general_info->register_section_3, 80) : ''}}</dd>
+                            <dd> {{ $check_general_info == 0 ? Str::limit($general_info->register_section_3, 80) : ''}} </dd>
                         </dl>
                     </div>
                     <!-- /.box-body -->

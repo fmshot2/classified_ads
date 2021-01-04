@@ -143,4 +143,9 @@ class AdminController extends Controller
     return view ('seller.notification.view_notification', compact('notification') );
   }
 
+  public function FAQs()
+  {
+    return view ('admin.page_management.faq');
+  }
+
 }

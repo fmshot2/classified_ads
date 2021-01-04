@@ -171,6 +171,8 @@ Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system
 
 Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('system.config.store');
 
+Route::get('/admin/pages/faq', 'AdminController@FAQs')->name('admin.pages.faq');
+
 }); //Admin Middleware protection end here
 
 
