@@ -154,6 +154,11 @@ class AdminController extends Controller
     $all_badges = Badge::paginate(10);
     return view ('admin.badge.index', compact('all_badges') );
   }
+public function privacyPolicy()
+  {
+    $all_badges = Badge::paginate(10);
+    return view ('admin.page_management.privacy_policy', compact('all_badges') );
+  }
 
     
 

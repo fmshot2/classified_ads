@@ -202,6 +202,8 @@ Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('sy
 Route::get('/admin/pages/faq', 'AdminController@FAQs')->name('admin.pages.faq');
 Route::get('/admin/badge/requests', 'AdminController@allBadges')->name('badge.request');
 Route::get('/admin/seller/saveBadge/', 'AdminController@saveBadge')->name('save.badge');
+Route::get('/admin/privacy-policy/', 'AdminController@privacyPolicy')->name('privacy.policy');
+
 Route::get('seller/service/badges/badger','BadgeController@getBadgeList')->name('fff');
 ///seller/service/admin/get-badge-list/2 404 (Not Found)
 
