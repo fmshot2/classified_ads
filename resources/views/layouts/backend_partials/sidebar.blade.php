@@ -85,6 +85,25 @@
         </ul>
       </li>
 
+
+      <li class="treeview" style=" {{ url()->current() == route('admin.pages.faq') ? 'background-color: #f8d053' : '' }}">
+        <a href="#">
+          <i class="fa fa-file"></i>
+          <span> Pages Management </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="#"><i class="fa fa-circle-o"></i> Events </a></li>
+          <li><a href=" {{ route('admin.pages.faq') }}"><i class="fa fa-circle-o"></i> FAQs </a></li>
+          <li><a href="#"><i class="fa fa-circle-o"></i> Privacy </a></li>
+          <li><a href="#"><i class="fa fa-circle-o"></i> Terms Of Use </a></li>
+          <li><a href="#"><i class="fa fa-circle-o"></i> Slider </a></li>
+        </ul>
+      </li>
+
+
       <li>
         <a href=" {{ route ('system.config') }} ">
           <i class="fa fa-globe"></i> <span> System Config </span>

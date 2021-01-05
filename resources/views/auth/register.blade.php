@@ -88,6 +88,11 @@ Register
                              @if ($errors->has('captcha'))
                              <span class="helper-text" data-error="wrong" data-success="right">
                                 <strong class="text-danger">  Invalid answer </strong>  {{-- $errors->first('captcha') --}}
+                             <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha" required></div>
+
+                             @if ($errors->has('captcha'))
+                             <span class="helper-text" data-error="wrong" data-success="right">
+                                <strong>  Invalid answer </strong>  {{-- $errors->first('captcha') --}}
                             </span>
                             @endif
 
@@ -124,30 +129,33 @@ Register
         <hr>
         <p>
             {{ $general_info->register_section_1_title_register ? $general_info->register_section_1_title_register : ''}}
+        <h6 class="text-center"> {{ $check_general_info == 0 ? Str::limit($general_info->register_section_1_title, 25) : ''}} </h6>
+        <hr>
+        <p>
+            {{ $check_general_info == 0 ? Str::limit($general_info->register_section_1, 80) : ''}}
         </p>
         @endif
         <!--h6 class="text-center">What I gain by joining Estate.ng</h6-->
         <hr>
-        <ol>
-            <li>Post as many properties as you can</li>
-            <li>Gain access to phone numbers of unlimited number of clients</li>
-            <li>Never forget an inspection with the inspection reminder</li>
-            <li>Gain access to real estate agents all over Nigeria</li>
-            <li>Market directly to clients through multiple online channels</li>
-            <li>Market your properties on real estate gazzettes and publications.</li>
-        </ol>
-        <h6 class="text-center">Account Types:</h6>
-        <ol>
-            <li>Individual: searching for property</li>
-            <li>Property Owner: Landlords</li>
-            <li>Agent: Middleman between a buyer and propert owner</li>
-            <li>Property Developer: entrepreneurs who carry out real estate development.</li>
-        </ol>
+        <h6 class="text-center"> {{ $check_general_info == 0 ? Str::limit($general_info->register_section_2_title, 25) : ''}} </h6>
         <hr>
+        <p>
+            {{ $general_info->register_section_2 }}
+        </p>
+        <hr>
+
+        <hr>
+        <h6 class="text-center"> {{ $check_general_info == 0 ? Str::limit($general_info->register_section_3_title, 25) : ''}} </h6>
+        <hr>
+        <p>
+            {{ $check_general_info == 0 ? Str::limit($general_info->register_section_3, 80) : ''}}
+        </p>
+        <hr>
+
         <div class="info clearfix">
             <div class="logo-2">
                 <a href="{{url('/')}}">
-                    <img src="logos/Logo.png" class="cm-logo" alt="black-logo">
+                    <img src="{{asset('images')}}/{{ $check_general_info == 0 ? $general_info->logo : ''}}" class="cm-logo" alt="black-logo">
                 </a>
             </div>
         </div>

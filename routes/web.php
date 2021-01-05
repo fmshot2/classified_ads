@@ -199,6 +199,7 @@ Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system
 
 Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('system.config.store');
 
+Route::get('/admin/pages/faq', 'AdminController@FAQs')->name('admin.pages.faq');
 Route::get('/admin/badge/requests', 'AdminController@allBadges')->name('badge.request');
 Route::get('/admin/seller/saveBadge/', 'AdminController@saveBadge')->name('save.badge');
 Route::get('seller/service/badges/badger','BadgeController@getBadgeList')->name('fff');
