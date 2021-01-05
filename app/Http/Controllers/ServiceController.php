@@ -13,6 +13,8 @@ use DB;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailable;
 
 use Illuminate\Http\File;
 use App\Category;
@@ -28,6 +30,14 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+public function mail()
+{
+   $name = 'femi';
+   Mail::to('ololadeshot@gmail.com')->send(new SendMailable($name));
+   
+   return 'Email was sent again, twice4';
+}
 
 
     public function termsOfUse()
@@ -873,7 +883,7 @@ public function show($id)
         /*$message->buyer_id = $request->buyer_id;
         $message->service_id = $request->service_id;
         $message->description = $request->description;*/
-        $success = 'succccccccs';
+        $success = 'Your message was sent successfully';
         $slug = Str::random(10);
 
                 //$message->service_id = $data['id']; 
@@ -893,8 +903,22 @@ public function show($id)
 
         // $slug = $random = Str::random(40);
         //$message->slug = $slug;
+if ($message->save()) {
+  $buyer_name = $message->buyer_name;
+  $name = 'Your message has been delivered successfully!';
+   Mail::to($message->buyer_email)->send(new SendMailable($name));
+return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
+}
+return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>"not saved"]);
 
         if ($message->save()) {
+$name = $message->buyer_name;
+$message = $message->description;
+   Mail::to($message->buyer_email)
+   ->send(new SendMailable($name));
+   
+
+
           return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
         //return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
         }else{

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.verify_mail_layout')
 
 @section('content')
 <div class="container">
@@ -25,4 +25,5 @@
         </div>
     </div>
 </div>
+<br />
 @endsection

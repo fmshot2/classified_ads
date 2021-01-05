@@ -227,9 +227,10 @@
 
                 </div>
                 @endforeach
-                @endif
             </div>
             {{ $categories->links() }}
+                            @endif
+
 
         </div>
     </div>

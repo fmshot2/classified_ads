@@ -26,6 +26,10 @@
 <div class="contact-2 content-area-5">
     <div class="container">
         <!-- Main title -->
+        <div class="container">
+        @include('layouts.frontend_partials.status')
+    </div>
+
         <div class="main-title">
             <h1 class="mb-10">Contact us</h1>
         </div>
@@ -67,8 +71,7 @@
     {{ csrf_field() }}
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="row">
-                                                                        <div class="col-md-6">
+                    <div class="row">                                                                      <div class="col-md-6">
                             <div class="form-group name">
                                 <input id="name" name="name" class="form-control"  required type="text" placeholder="Enter Full Name" style="color: black;">
                                  @if ($errors->has('name'))

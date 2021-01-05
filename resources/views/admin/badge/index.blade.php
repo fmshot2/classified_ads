@@ -177,8 +177,6 @@ All Badges |
             var seller_name1 = $("#seller_name1").val();
             var phone1 = $("#phone1").val();
 
-
-
   function payWithPaystack1(){
     var handler = PaystackPop.setup({
       key: 'pk_test_cb0fc910bb9fd127519794aa4128be0fd2c354d4',
@@ -232,8 +230,8 @@ All Badges |
 
             $.ajax({
                 type:'POST',
-                    url: '/seller/saveBadge/',
-                    data: {_token:_token, badge_id:badge_id, badge_value:badge_value },
+                    url: '/admin/seller/saveBadge/',
+                    data: {_token:_token, badge_id:badge_id, badge_value:badge_value, service_id:service_id },
                     success: function(data) {
                     alert(data.success2);
                       //printMsg(data);

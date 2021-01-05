@@ -25,4 +25,7 @@ class MessageController extends Controller
 
 //  return redirect()->to('serviceDetail')->with('message', $message);
      }
+
+
+     
 }

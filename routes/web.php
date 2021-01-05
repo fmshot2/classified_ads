@@ -15,6 +15,8 @@ use App\Service;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/send/email', 'ServiceController@mail');
+
 Route::get('dropzone/example', 'DropzoneController@dropzoneExample');
 Route::post('dropzone/store', 'UserController@dropzoneStore')->name('dropzone.store');
 
@@ -36,6 +38,8 @@ Route::get('/all-featured-sellers', 'ServiceController@allFeaturedSellers')->nam
 
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
 Route::post('/buyer/createcomment2', 'ServiceController@storeComment2');
+Route::post('/buyer/createcomplaint', 'ComplaintController@storeComplaint');
+
 Route::post('/buyer/createbadge', 'ServiceController@createbadge');
 
 
@@ -64,11 +68,17 @@ Route::get('api/get-category-list/{id}','CategoryController@getCategoryList');
 
 Route::get('api/get-like-list/{id}','ServiceController@getLikeList');
 
-
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
 Route::get('contact-us','ContactController@contact_us')->name('contact');
 
-
+/*the next 3 routes are for implementing verify by email. they are working well. thanks.
+just add middleware ->middleware(['verified']); to the end to any route to ensure only email verified users can access that.
+Auth::routes(['verify' => true]);
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth');
+Route::get('/home', 'AuthController@loginformail')->name('loginformail');
+*/
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register', 'AuthController@createUser')->name('register');
 Route::get('/login', 'AuthController@showLogin')->name('login');
@@ -96,6 +106,7 @@ Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name(
 
 Route::middleware(['seller'])->group(function () { //Seller Middleware protection start here
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
+;
 Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
 Route::get('/seller/service/badges', 'BadgeController@badges')->name('seller.service.badges');
 Route::post('/seller/service/createpay', 'ServiceController@createpay');
