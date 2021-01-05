@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Contact;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailable;
+
 class ContactController extends Controller
 {
     public function contact_us()
@@ -14,7 +17,7 @@ class ContactController extends Controller
 
     public function store_contact_form(Request $request)
     {
-     $this->validate($request,[
+       $this->validate($request,[
         'name' => 'required',
         'email' => 'required',
         'subject' => 'required',
@@ -24,19 +27,23 @@ class ContactController extends Controller
 
 
        $contact = new Contact([
-            'name' => $request->get('name'),
-            'address' => $request->get('address'),
-            'email' => $request->get('email'),
-            'subject' => $request->get('subject'),
-            'phone' => $request->get('phone'),
-            'message' => $request->get('message')
-        ]);
+        'name' => $request->get('name'),
+        'address' => $request->get('address'),
+        'email' => $request->get('email'),
+        'subject' => $request->get('subject'),
+        'phone' => $request->get('phone'),
+        'message' => $request->get('message')
+    ]);
 
-
-        $contact->save();
-        return 'sfdsgdgdg';
-        return back()->with('success', 'Contact saved!');
+       if ($contact->save()) {
+        $name = "Your message has been recieved. We will respond to you shortly. Thank you!";
+       
+        Mail::to($contact->email)->send(new SendMailable($name));
     }
+
+    //return 'sfdsgdgdg';
+    return back()->with('success', 'Your message has been sent!');
+}
 
      /*$random = Str::random(3);
      $slug = Str::of($request->name)->slug('-').''.$random; 

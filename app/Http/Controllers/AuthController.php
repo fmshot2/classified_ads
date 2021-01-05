@@ -7,6 +7,8 @@ use App\User;
 use App\State;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailable;
 
 class AuthController extends Controller
 {
@@ -30,6 +32,11 @@ class AuthController extends Controller
 		$user->role = $request->role;
 		//$user->state = $request->state;
 		$user->save();
+		if ($user->save()) {
+			$name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+
+			Mail::to($user->email)->send(new SendMailable($name));
+		}
 
 		session()->flash('success', ' Succesfull');
 
@@ -62,6 +69,39 @@ class AuthController extends Controller
 
 		return view ('auth/register', compact('states'));
 	}
+
+
+
+	public function loginformail(Request $request)
+
+	{
+	//dd(Auth::user());
+		//use
+		if (Auth::user()->email_verified_at == null) {
+			return redirect()->intended('/email/verify');
+		}
+		//$credentials = $request->only('email', 'password');
+
+		//if (Auth::attempt($credentials)) {
+		if (Auth::user()->role == 'seller' ) 
+		{
+			session()->flash('success', ' Login Succesfull');
+			return redirect()->intended('seller/dashboard');
+		} else if (Auth::user()->role == 'buyer')
+		{
+			session()->flash('success', ' Login Succesfull');
+			return redirect()->intended('buyer/dashboard');
+		} else 
+		{
+			return redirect()->intended('admin/dashboard');
+		}
+		//}
+		session()->flash('fail', ' Credential Incorect');
+		return view ('auth/login');
+		
+	}
+
+
 
 
 	public function login(Request $request)

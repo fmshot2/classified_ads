@@ -15,6 +15,8 @@ use App\Service;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/send/email', 'ServiceController@mail');
+
 Route::get('dropzone/example', 'DropzoneController@dropzoneExample');
 Route::post('dropzone/store', 'UserController@dropzoneStore')->name('dropzone.store');
 
@@ -25,7 +27,6 @@ Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('serviceDetail');
 Route::post('saveContacts', 'ServiceController@saveContacts')->name('saveContacts');
 Route::get('/contacts', 'ServiceController@showContacts')->name('contacts');
-
 Route::get('/allservices', 'ServiceController@allServices')->name('allServices');
 Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service.search');
 Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');
@@ -37,6 +38,10 @@ Route::get('/all-featured-sellers', 'ServiceController@allFeaturedSellers')->nam
 
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
 Route::post('/buyer/createcomment2', 'ServiceController@storeComment2');
+Route::post('/buyer/createcomplaint', 'ComplaintController@storeComplaint');
+
+Route::post('/buyer/createbadge', 'ServiceController@createbadge');
+
 
 Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard');
 Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile');
@@ -63,11 +68,17 @@ Route::get('api/get-category-list/{id}','CategoryController@getCategoryList');
 
 Route::get('api/get-like-list/{id}','ServiceController@getLikeList');
 
-
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
 Route::get('contact-us','ContactController@contact_us')->name('contact');
 
-
+/*the next 3 routes are for implementing verify by email. they are working well. thanks.
+just add middleware ->middleware(['verified']); to the end to any route to ensure only email verified users can access that.
+Auth::routes(['verify' => true]);
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth');
+Route::get('/home', 'AuthController@loginformail')->name('loginformail');
+*/
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register', 'AuthController@createUser')->name('register');
 Route::get('/login', 'AuthController@showLogin')->name('login');
@@ -95,8 +106,12 @@ Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name(
 
 Route::middleware(['seller'])->group(function () { //Seller Middleware protection start here
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
+;
 Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
-Route::get('/seller/service/badges', 'SellerController@badges')->name('seller.service.badges');
+Route::get('/seller/service/badges', 'BadgeController@badges')->name('seller.service.badges');
+Route::post('/seller/service/createpay', 'ServiceController@createpay');
+
+
 Route::get('/seller/service/post_advert', 'SellerController@post_advert')->name('seller.post_advert');
 Route::get('/seller/service/create_service_page', 'ServiceController@create_service_page')->name('create_service_page');
 
@@ -125,6 +140,8 @@ Route::get('/seller/notification/{slug}', 'SellerController@viewNotification')->
 
 
 Route::get('/seller/profile/', 'SellerController@viewProfile')->name('seller.profile');
+Route::any ( '/save/service/Badge',  'BadgeController@saveService4Badge')->name('saveService4Badge');
+
 
 }); //Seller Middleware protection start here
 
@@ -179,7 +196,15 @@ Route::get('/admin/notification/all', 'AdminController@allNotification')->name('
 
 Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
 
+
 Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('system.config.store');
+
+Route::get('/admin/badge/requests', 'AdminController@allBadges')->name('badge.request');
+Route::get('/admin/seller/saveBadge/', 'AdminController@saveBadge')->name('save.badge');
+Route::get('seller/service/badges/badger','BadgeController@getBadgeList')->name('fff');
+///seller/service/admin/get-badge-list/2 404 (Not Found)
+
+
 
 }); //Admin Middleware protection end here
 

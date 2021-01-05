@@ -93,6 +93,16 @@
         </a>
       </li>
 
+      
+
+        <li>
+        <a href=" {{ route ('badge.request') }} ">
+          <i class="fa fa-globe"></i> <span> Badge Requests </span>
+          <span class="pull-right-container">
+          </span>
+        </a>
+      </li>
+
       <li>
         <a href=" {{ route ('home') }} ">
           <i class="fa fa-globe"></i> <span> Main Website </span>
