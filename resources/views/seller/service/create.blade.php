@@ -38,7 +38,7 @@ Create Service |
                   <div class="col-md-12">
                     <div class="form-group">
                       <label class="form-label">Service Name </label><small class="text-danger">*required*</small>
-                      <input type="text" required name="name" class="form-control" value="">
+                      <input type="text" required name="name" value="{{ old('name') }}" class="form-control" value="">
                     </div>
                   </div>
 
@@ -48,7 +48,7 @@ Create Service |
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="">Description</label>
-                      <textarea name="description" class="form-control"></textarea>
+                      <textarea name="description" value="{{ old('description') }}" class="form-control"></textarea>
                     </div>
                   </div>
 
@@ -56,7 +56,7 @@ Create Service |
                   <div class="col-md-12">
                     <div class="form-group">
                       <label class="form-label"> Experience (in years)</label><small class="text-danger">*required*</small>
-                      <input type="number" required name="experience" placeholder="Insert a number" class="form-control" value="">
+                      <input type="number" required value="{{ old('experience') }}" name="experience" placeholder="Insert a number" class="form-control" value="">
                     </div>
                   </div>
 
@@ -64,30 +64,70 @@ Create Service |
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="">Phone</label><small class="text-danger">*required*</small>
-                      <input type="number" class="form-control" placeholder="numbers only" name="phone" value=" {{ Auth::user()->phone }}">
+                      <input type="number" class="form-control" value="{{ old('phone') }}" placeholder="numbers only" name="phone" value=" {{ Auth::user()->phone }}">
                     </div>
                   </div>
 
                   <div class="col-md-12">
                     <div class="form-group">
                       <label class="form-label">Min Price</label>
-                      <input type="text" placeholder="e.g 2000 per hour" name="min_price" class="form-control">
+                      <input type="text" value="{{ old('price') }}" placeholder="e.g 2000 per hour" name="min_price" class="form-control">
 
                     </div>
                   </div>
+                        <p>
+                    <label>
+                        <input type="checkbox"  value="{{ old('negotiable') }}"  name="negotiable" class="filled-in"/>
+                        <span>Negotiable?</span>
+                    </label>
+                </p>
 
-                  <div class="col-md-12">
+                  {{--<div class="col-md-12">
                     <div class="form-group">
                       <label class="form-label">Max Price</label>
                       <input type="number" placeholder="e.g 2000 per hour" name="max_price" class="form-control">
 
                     </div>
-                  </div>
+                  </div>--}}
+
+                    {{-- <div class="col-lg-2 col-md-3" style="">
+                          <div class="form-group">
+                            <select class="form-control" value="{{ old('state') }}" id="state" name="state">
+                              <option value="">-- Select State --</option>
+                               @if(isset($states))
+
+                               @foreach($states as $state)
+
+                               <option value="{{$state->id}}"> {{ $state->name }}  </option> 
+                               @endforeach
+                                                                   @endif
+
+
+                           </select>
+                       </div>
+                   </div>--}}
 
                   <div class="col-md-12">
                     <div class="form-group">
                       <label class="form-label">State</label><small class="text-danger">*required*</small>
-                      <input type="text" required class="form-control" name="state" autocomplete="" aria-autocomplete="" value="">
+                     {{--}} <input type="text" required class="form-control" name="state" autocomplete="" aria-autocomplete="" value="{{ old('state') }}">--}}
+
+                   
+                            <select class="form-control" id="state" name="state">
+                              <option value="">-- Select State --</option>
+                               @if(isset($states))
+
+                               @foreach($states as $state)
+
+                               <option value="{{$state->id}}"> {{ $state->name }}  </option> 
+                               @endforeach
+                                                                   @endif
+
+
+                           </select>
+                       
+
+                  
 
                     </div>
                   </div>
@@ -95,7 +135,16 @@ Create Service |
                   <div class="col-md-12">
                     <div class="form-group">
                       <label class="form-label">City</label><small class="text-danger">*required*</small>
-                      <input type="text" required class="form-control" name="city">
+                      {{--<input type="text" required class="form-control" name="city">--}}
+           
+                      
+                        <select class="form-control" id="city" name="city">
+
+
+
+                        </select>
+                  
+                  
                     </div>
                   </div>
 
@@ -131,7 +180,7 @@ Create Service |
                       <small class="text-danger">*required*</small>
                     </div>
                     <div class="body">
-                      <input class="form-control" required name="file" type="file">
+                      <input class="form-control"  value="{{ old('file') }}" required name="file" type="file">
                       <span class="helper-text" data-error="wrong" data-success="right">Upload image</span>
                     </div>
                   </div>
@@ -204,9 +253,38 @@ Create Service |
         </div>
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
+<script type="text/javascript">
+   $('#state').on('change',function(){
+    var stateID = $(this).val();   
+    if(stateID){
+        $.ajax({
+         type:"GET",
+           //url:"{{url('qqq')}}"+stateID,
+           url: '../../api/get-city-list/'+stateID,
+           success:function(res){               
+            if(res){
+             console.log(res);
+             console.log(stateID);
+             $("#city").empty();
+             $.each(res,function(key,value){
+                $("#city").append('<option value="'+key+'">'+value+'</option>');
+            });
 
+         }else{
+             $("#city").empty();
+         }
+     }
+ });
+    }else{
+        $("#city").empty();
+    }
+
+}); 
+
+</script>
 
 
 

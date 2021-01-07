@@ -216,10 +216,11 @@
                     @foreach($categories as $category)
                     <div class="  col-lg-2 col-md-3 col-sm-2 col-xs-2">
                         <div class="service-info-5">
+<div style="border-radius: 50px">
+                           <img class="" src="{{asset('images')}}/{{$category->image}}" style="width: 90%; border-radius: 10px;" alt="properties">
+                           </div>
 
-                           {{--<img class="" src="{{asset('images')}}/{{'adminteacher.png'}}" style="width: 50px;" alt="properties">--}}
-
-                           <i class="fa fa-user text-warning"></i>
+                           {{--<i class="fa fa-user text-warning"></i>--}}
                            <a href="{{route('services', $category->slug)}}" >
                             <h4>{{$category->name}}</h4>
                         </a>

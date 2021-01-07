@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNotificationsTable extends Migration
+class CreateSlidersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
-            $table->id();
-
-            $table->string('title')->nullable();
-            $table->boolean('status')->default(0);
-            $table->text('description')->nullable();
-            $table->string('slug')->nullable();
-
+        Schema::create('sliders', function (Blueprint $table) {
+             $table->id();
             $table->timestamps();
+            $table->string('image');            
+            $table->string('title');
+            $table->longText('details');  
         });
     }
 
@@ -32,6 +29,6 @@ class CreateNotificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('sliders');
     }
 }

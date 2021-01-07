@@ -110,7 +110,8 @@ Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dash
 Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
 Route::get('/seller/service/badges', 'BadgeController@badges')->name('seller.service.badges');
 Route::post('/seller/service/createpay', 'ServiceController@createpay');
-
+Route::post('/seller/service/createpay4Advert', 'BadgeController@createpay4Advert');
+Route::get('/seller/service/adverts', 'BadgeController@adverts')->name('seller.service.adverts');
 
 Route::get('/seller/service/post_advert', 'SellerController@post_advert')->name('seller.post_advert');
 Route::get('/seller/service/create_service_page', 'ServiceController@create_service_page')->name('create_service_page');
@@ -142,6 +143,7 @@ Route::get('/seller/notification/{slug}', 'SellerController@viewNotification')->
 Route::get('/seller/profile/', 'SellerController@viewProfile')->name('seller.profile');
 Route::any ( '/save/service/Badge',  'BadgeController@saveService4Badge')->name('saveService4Badge');
 
+Route::any ( '/save/service/Advert',  'BadgeController@saveService4Advert')->name('saveService4Advert');
 
 }); //Seller Middleware protection start here
 
@@ -193,6 +195,7 @@ Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer'
 Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
 
 Route::get('/admin/notification/all', 'AdminController@allNotification')->name('admin.notification.all');
+Route::post('/admin/notification/send', 'AdminController@sendNotification')->name('admin.notification.send');
 
 Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
 
@@ -202,7 +205,27 @@ Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('sy
 Route::get('/admin/pages/faq', 'AdminController@FAQs')->name('admin.pages.faq');
 Route::get('/admin/badge/requests', 'AdminController@allBadges')->name('badge.request');
 Route::get('/admin/seller/saveBadge/', 'AdminController@saveBadge')->name('save.badge');
-Route::get('/admin/privacy-policy/', 'AdminController@privacyPolicy')->name('privacy.policy');
+Route::get('/admin/privacy-policy/', 'AdminController@privacyPolicy')->name('admin.privacy.policy');
+Route::post('/admin/save_privacy_policy/', 'AdminController@save_privacyPolicy')->name('admin.save_privacyPolicy');
+Route::get('/admin/terms-of-use/', 'AdminController@termsOfUse')->name('admin.termsOfUse');
+Route::post('/admin/save_terms_of_use/', 'AdminController@save_termsOfUse')->name('admin.save_termsOfUse');
+Route::post('/admin/save_faq/', 'AdminController@save_faq')->name('admin.save_faq');
+Route::get('/admin/save_faq/', 'AdminController@show_faq')->name('admin.show_faq');
+Route::get('/admin/delete/faqs/{id}', 'AdminController@delete_faqs')->name('admin.delete_faqs');
+Route::get('/admin/sliders', 'AdminController@sliders')->name('admin.sliders');
+Route::post('/admin/save_slider/', 'AdminController@save_slider')->name('admin.save_slider');
+Route::get('/admin/delete/sliders/{id}', 'AdminController@delete_sliders')->name('admin.delete_sliders');
+Route::get('/admin/pending_advert_requests', 'AdminController@pending_advert_requests')
+->name('pending_advert_requests');
+Route::get('/admin/treated_advert_requests', 'AdminController@treated_advert_requests')
+->name('treated_advert_requests');
+Route::get('/admin/active_adverts', 'AdminController@active_adverts')
+->name('active_adverts');
+Route::get('/admin/events', 'AdminController@events')
+->name('events');
+
+
+
 
 Route::get('seller/service/badges/badger','BadgeController@getBadgeList')->name('fff');
 ///seller/service/admin/get-badge-list/2 404 (Not Found)
