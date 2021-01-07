@@ -76,10 +76,40 @@ class CategoryController extends Controller
         $category = new Category();
                 // Image set up
         if ( $request->hasFile('file') ) {
+                $names = [];
+foreach($request->file('image') as $image)
+    {
         $image_name = time().'.'.$request->file->extension();
         $request->file->move(public_path('images'),$image_name);
-        $category->image = $image_name;
+        array_push($names, $filename);          
+        //$category->image = $image_name;
         }
+            $category->image = json_encode($names)
+
+}
+
+/*if($request->hasFile('image'))
+{
+    $names = [];
+    foreach($request->file('image') as $image)
+    {
+        $destinationPath = 'content_images/';
+        //$filename = $image->getClientOriginalName();
+        //$image->move($destinationPath, $filename);
+        array_push($names, $filename);          
+
+    }
+    $content->image = json_encode($names)
+}
+*/
+
+
+
+
+
+
+
+
 
         $category->name = $request->name;
         $category->slug = $slug;
