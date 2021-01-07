@@ -21,7 +21,7 @@ class CreateAdvertrequestsTable extends Migration
             $table->string('seller_name')->nullable();            
             $table->string('phone')->nullable();            
             $table->string('ref_no')->nullable();
-            $table->timestamps()->nullable();
+            $table->timestamps();
              $table->string('image')->nullable();            
             $table->string('startDate')->nullable();
             $table->string('endDate')->nullable(); 

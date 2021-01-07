@@ -217,7 +217,7 @@
                     <div class="  col-lg-2 col-md-3 col-sm-2 col-xs-2">
                         <div class="service-info-5">
 <div style="border-radius: 50px">
-                           <img class="" src="{{asset('images')}}/{{$category->image}}" style="width:100px;height:70px; border-radius: 10px;" alt="properties">
+                           <img class="" src="{{asset('images')}}/{{$category->image}}" style="width:90%;height:100px; border-radius: 10px;" alt="properties">
                            </div>
 
                            {{--<i class="fa fa-user text-warning"></i>--}}

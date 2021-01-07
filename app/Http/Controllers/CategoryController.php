@@ -77,16 +77,18 @@ class CategoryController extends Controller
                 // Image set up
         if ( $request->hasFile('file') ) {
                 $names = [];
-foreach($request->file('image') as $image)
+                return $request->file('file');
+foreach($request->file('file') as $image)
     {
-        $image_name = time().'.'.$request->file->extension();
+        //$image_name = time().'.'.$request->file->extension();
+        $image_name = time().'.'.$image->extension();
         $request->file->move(public_path('images'),$image_name);
-        array_push($names, $filename);          
+        array_push($names, $image_name);          
         //$category->image = $image_name;
         }
-            $category->image = json_encode($names)
-
+            $category->image = json_encode($names);
 }
+        return $category->image;
 
 /*if($request->hasFile('image'))
 {
@@ -102,14 +104,6 @@ foreach($request->file('image') as $image)
     $content->image = json_encode($names)
 }
 */
-
-
-
-
-
-
-
-
 
         $category->name = $request->name;
         $category->slug = $slug;
