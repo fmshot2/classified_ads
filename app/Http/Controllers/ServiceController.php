@@ -291,6 +291,7 @@ public function mail()
 
     public function storeService(Request $request)
     {
+      dd('sss');
 /*        $validatedData = $request->validate([
       'name' => ['required', 'string', 'max:255'],
       'category' => ['string', 'max:255'],
@@ -349,6 +350,12 @@ public function mail()
       $closestBusstop = $request->closestBusstop;  
       $phone = $request->phone;
 
+      $state_name = State::find(['id'=>$request->state]);
+      $name_of_state = $state_name->name;
+      //dd()
+      $LGA = Local_government::find(['id'=>$request->city]);
+      $name_of_city = $LGA->name;
+
 
        // $name = $request->name;
       $image = $request->file('file');
@@ -361,8 +368,8 @@ public function mail()
       $service->description = $description;
       $service->image = $imageName;
       $service->streetAddress = $streetAddress;
-      $service->city = $city;
-      $service->state = $state;
+      $service->city = $name_of_city;
+      $service->state = $name_of_state;
       $service->closestBusstop = $closestBusstop;
       $service->phone = $phone;
 
@@ -373,7 +380,6 @@ public function mail()
       $service->save();
       $likecount = Like::where(['service_id'=>$request->id])->count();
       return redirect('seller/dashboard');
-      return redirect('/seller/dashboard');
 
     }
 

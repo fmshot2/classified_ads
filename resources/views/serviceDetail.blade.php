@@ -303,6 +303,7 @@
 
 
 
+@auth
 
 @if(Auth::user()->role == 'buyer')
 <ul class="comments">
@@ -335,6 +336,8 @@
   </li>
 
 </ul>
+@endauth
+
 @guest
 <p>Please login as a buyer to see your previous conversation with this seller</p>
 @endguest
@@ -417,7 +420,7 @@
                                 @endif 
                               </div>
                               @guest
-                              <p>Only registered users can message sellers. <a href="{{route('home')}}"><strong>Login</strong></a> or <a href="{{route('home')}}"><strong>Register</strong></a> if you dont have an account.</p>
+                              <p>Only registered users can message sellers. <a href="{{route('login')}}"><strong>Login</strong></a> or <a href="{{route('register')}}"><strong>Register</strong></a> if you dont have an account.</p>
                               @endguest
 
                             </div>
@@ -461,103 +464,110 @@
                                         </button>
                                       </div>
                                       <div class="modal-body">
-                                       <form id="myform2">
-                                        {{ csrf_field() }}
-                                        <input  type="hidden" id="service_id_report" name="service_id_report" value="{{$serviceDetail->id}}" class="form-control">
-                                        <input type="hidden" id="service_user_id_report" name="service_user_id_report" value="{{$serviceDetail->user_id}}" class="form-control">  
-                                        <input type="hidden" id="buyer_id_report" value="{{Auth::id()}}" name="buyer_id_report" class="text-dark form-control">          
-                                        <div class="form-group">
-                                          <label class="form-label">Full Name</label>
-                                          <input type="hidden"  value="{{Auth::user()->name}}" id="buyer_name_report" name="buyer_name_report" class="text-dark form-control" placeholder=" Your Name">
-                                          @if ($errors->has('buyer_name_report'))
-                                          <span >
-                                            <strong class="text-danger">{{ $errors->first('buyer_name_report') }}</strong>
-                                          </span>
-                                          @endif
+                                        @auth
+
+                                        <form id="myform2">
+                                          {{ csrf_field() }}
+                                          <input  type="hidden" id="service_id_report" name="service_id_report" value="{{$serviceDetail->id}}" class="form-control">
+                                          <input type="hidden" id="service_user_id_report" name="service_user_id_report" value="{{$serviceDetail->user_id}}" class="form-control">  
+                                          <input type="hidden" id="buyer_id_report" value="{{Auth::id()}}" name="buyer_id_report" class="text-dark form-control">          
+                                          <div class="form-group">
+                                            <label class="form-label">Full Name</label>
+                                            <input type="hidden"  value="{{Auth::user()->name}}" id="buyer_name_report" name="buyer_name_report" class="text-dark form-control" placeholder=" Your Name">
+                                            @if ($errors->has('buyer_name_report'))
+                                            <span >
+                                              <strong class="text-danger">{{ $errors->first('buyer_name_report') }}</strong>
+                                            </span>
+                                            @endif
+                                          </div>
+                                          <div class="form-group">
+                                            <input type="hidden" id="buyer_email_report" value="{{Auth::user()->email}}" name="buyer_email_report" class="text-dark form-control">
+                                            @if ($errors->has('buyer_email_report'))
+                                            <span>
+                                              <strong class="text-danger">{{ $errors->first('buyer_email_report') }}</strong>
+                                            </span>
+                                            @endif
+                                          </div>                        
+
+
+                                          <div class="form-group message">
+                                            <textarea class="text-dark form-control" id="description_report" name="description_report" placeholder="Write message"></textarea>
+                                            @if ($errors->has('description_report'))
+                                            <span>
+                                              <strong class="text-danger">{{ $errors->first('description_report') }}</strong>
+                                            </span>
+                                            @endif 
+                                          </div>
+                                          @guest
+                                          <p>Only registered users can message sellers. <a href="{{route('home')}}"><strong>Login</strong></a> or <a href="{{route('home')}}"><strong>Register</strong></a> if you dont have an account.</p>
+                                          @endguest
+
                                         </div>
-                                        <div class="form-group">
-                                          <input type="hidden" id="buyer_email_report" value="{{Auth::user()->email}}" name="buyer_email_report" class="text-dark form-control">
-                                          @if ($errors->has('buyer_email_report'))
-                                          <span>
-                                            <strong class="text-danger">{{ $errors->first('buyer_email_report') }}</strong>
-                                          </span>
-                                          @endif
-                                        </div>                        
-
-
-                                        <div class="form-group message">
-                                          <textarea class="text-dark form-control" id="description_report" name="description_report" placeholder="Write message"></textarea>
-                                          @if ($errors->has('description_report'))
-                                          <span>
-                                            <strong class="text-danger">{{ $errors->first('description_report') }}</strong>
-                                          </span>
-                                          @endif 
-                                        </div>
-                                        @guest
-                                        <p>Only registered users can message sellers. <a href="{{route('home')}}"><strong>Login</strong></a> or <a href="{{route('home')}}"><strong>Register</strong></a> if you dont have an account.</p>
-                                        @endguest
-
-                                      </div>
-                                      @auth
-                                      <div class="col-lg-12 col-md-12 mb-4">
-                                        <div class="send-btn">
-                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                         <button id="" type="button" class="btn-submit3 btn btn-danger" data-dismiss="modal">Send Report</button>
+                                        @auth
+                                        <div class="col-lg-12 col-md-12 mb-4">
+                                          <div class="send-btn">
+                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                           <button id="" type="button" class="btn-submit3 btn btn-danger" data-dismiss="modal">Send Report</button>
+                                         </div>
                                        </div>
+                                       @endauth
                                      </div>
-                                     @endauth
-                                   </div>
 
-                                 </form>
+                                   </form>
+                                   @endauth
+                                   @guest
+                                   <h6>Please log in as a buyer to report this seller </h6>
+                                   @endguest
+
+                                 </div>
                                </div>
                              </div>
-                           </div>
-                         </li>
-                       </ul>
-                     </div>
+                           </li>
+                         </ul>
+                       </div>
 
+                     </div>
                    </div>
                  </div>
                </div>
              </div>
-           </div>
-           @auth
-           @if(Auth::user()->role == 'buyer')
-           <div class="container mb-5 mt-0">
-            <h5>
-              HAPPY WITH THE SERVICE RENDERED? THEN GIVE THIS SELLER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">   LIKE!</span>
-              </a>
-            </h5>
-          </div>
-          @endif 
-          @endauth
+             @auth
+             @if(Auth::user()->role == 'buyer')
+             <div class="container mb-5 mt-0">
+              <h5>
+                HAPPY WITH THE SERVICE RENDERED? THEN GIVE THIS SELLER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">   LIKE!</span>
+                </a>
+              </h5>
+            </div>
+            @endif 
+            @endauth
 
-          @endsection
-
+            @endsection
 
 
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
-          <script type="text/javascript">
-            $(document).ready(function() {
-              $(".btn-submit2").click(function(e){
-                e.preventDefault();
+            <script type="text/javascript">
+              $(document).ready(function() {
+                $(".btn-submit2").click(function(e){
+                  e.preventDefault();
 
-                var _token = $("input[name='_token']").val();
-                var buyer_id = $("#buyer_id").val();
-                var buyer_name = $("#buyer_name").val();
-                var service_id = $("#service_id").val();
-                var subject = $("#subject").val();
-                var service_user_id = $("#service_user_id").val();
-                var phone = $("#phone").val();
-                var buyer_email = $("#buyer_email").val();
-                var description = $("#description").val();
+                  var _token = $("input[name='_token']").val();
+                  var buyer_id = $("#buyer_id").val();
+                  var buyer_name = $("#buyer_name").val();
+                  var service_id = $("#service_id").val();
+                  var subject = $("#subject").val();
+                  var service_user_id = $("#service_user_id").val();
+                  var phone = $("#phone").val();
+                  var buyer_email = $("#buyer_email").val();
+                  var description = $("#description").val();
 
 
-                $.ajax({
-                  type:'POST',
-                  {{--url: "{{ route('user.message2') }}",--}}
+                  $.ajax({
+                    type:'POST',
+                    {{--url: "{{ route('user.message2') }}",--}}
                     //data: $('#myform').serialize(),
                     url: '/buyer/createcomment2/',
                     data: {_token:_token, buyer_id:buyer_id, service_id:service_id, service_user_id:service_user_id, description:description, subject:subject, buyer_name, buyer_email, phone },
@@ -566,11 +576,11 @@
                       //printMsg(data);
                     }
                   });
-              }); 
+                }); 
 
-              function printMsg (msg) {
-                if((msg.success)){
-                  console.log(msg.success);
+                function printMsg (msg) {
+                  if((msg.success)){
+                    console.log(msg.success);
                   //$('#alert-block').empty().append(msg.success);
                   //$('#alert-block2').empty().append(msg.success2);
 
