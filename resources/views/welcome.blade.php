@@ -8,7 +8,7 @@
 @section('content')
 
 
-{{--@include('layouts.frontend_partials.status')--}}
+@include('layouts.frontend_partials.status')
 
 @include('frontend_section/carousel')
 

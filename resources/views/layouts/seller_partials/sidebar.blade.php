@@ -63,13 +63,13 @@
       <li class="treeview" style=" {{ url()->current() == route('seller.service.create') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.service.all') ? 'background-color: #f8d053' : '' }} ">
         <a href="#">
           <i class="fa fa-home"></i>
-          <span> Service Management </span>
+          <span> My Services </span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href=" {{ route('seller.service.create') }} "><i class="fa fa-circle-o"></i> Create Service</a></li>
+          <li><a href=" {{ route('seller.service.create') }} "><i class="fa fa-circle-o"></i> Create New Service</a></li>
           <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> All Services </a></li>
         </ul>
       </li>

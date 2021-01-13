@@ -53,7 +53,7 @@ All Service Table |
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 									<td>
 										<a href="#">
-											<img src="{{asset('images')}}/{{$all_services->image}}" alt="classic crib" width="60" class="img-responsive img-rounded">
+											<img src="{{asset('images')}}/{{$all_services->image[0]}}" alt="classic crib" width="60" class="img-responsive img-rounded">
 										</a>
 									</td>
 									<td> {{ $all_services->name }} </td>

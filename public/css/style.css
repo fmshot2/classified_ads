@@ -4045,28 +4045,48 @@ footer {
 }
 
 .cat-1-bg {
-    background-image: url(../img/popular-places/popular-places-1.jpg);
+    background-image: url(../img/popular-places/lagos-1.jpg);
 }
+
+/*.cat-2-bg {
+    background-image: url(../img/popular-places/popular-places-2.jpg);
+}*/
 
 .cat-2-bg {
-    background-image: url(../img/popular-places/popular-places-2.jpg);
+    background-image: url(../img/popular-places/lagos-image-1.jfif);
 }
-
-.cat-3-bg {
+/*.cat-3-bg {
     background-image: url(../img/popular-places/popular-places-4.jpg);
+}*/
+.cat-3-bg {
+    background-image: url(../img/popular-places/enugu-3.jpg);
 }
 
-.cat-4-bg {
+/*.cat-4-bg {
     background-image: url(../img/popular-places/popular-places-3.jpg);
 }
+*/
+
+.cat-4-bg {
+    background-image: url(../img/popular-places/abuja-1.jpg);
+}
+
+/*.cat-5-bg {
+    background-image: url(../img/popular-places/popular-places-5.jpg);
+}*/
 
 .cat-5-bg {
-    background-image: url(../img/popular-places/popular-places-5.jpg);
+    background-image: url(../img/popular-places/enugu-1.jpg);
 }
 
+
 .cat-6-bg {
-    background-image: url(../img/popular-places/popular-places-6.jpg);
+    background-image: url(../img/popular-places/abuja-1.jpg);
 }
+
+/*.cat-6-bg {
+    background-image: url(../img/popular-places/popular-places-6.jpg);
+}*/
 
 .category_bg_box:hover
 {

@@ -99,6 +99,7 @@ public function mail()
       $categories = Category::paginate(8);
       $serviceDetail = Service::where('slug', $slug)->first();
       $all_states = State::all();
+            $images_4_service = $serviceDetail->image;
       //return $serviceDetail;
       $serviceDetail_id = $serviceDetail->id;
       $service_likes = Like::where('service_id', $serviceDetail_id)->count();
@@ -126,9 +127,18 @@ public function mail()
       }else{
         $user111 = null; 
       }
-       //return $userMessages;
+      //return 'dddd';
+                  //$cat_images2 = jso$cat_images);
+                        //$images_4_service = $service_images;
+                        // dd($cat_images2);
+       //return $cat_images2;
 
-      return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages']));
+   
+            //return $catt_images;
+              // $arr = json_decode($row["details"], true);
+
+
+      return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages', 'images_4_service']));
     }
 
 
@@ -171,7 +181,7 @@ public function mail()
     public function allSellers()
     {
       $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
-      $allFeaturedServices = Service::where('is_featured', 1)->with('user')->paginate(32)->get();
+      $allFeaturedServices = Service::where('is_featured', 1)->with('user')->paginate(32);
       $approvedServices = Service::with('user')->paginate(6);
       $advertServices = Service::where('is_approved', 1)->with('user')->get();
       $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
@@ -1094,11 +1104,6 @@ public function createbadge(Request $request)
 
 
 
-public function advertisement() {
-  return view('advertisement');
-}
-
-
 public function showContacts() {
   return view('contacts');
 }
@@ -1140,4 +1145,5 @@ $request->session()->flash('status', 'Task was successful!');
 public function create_service_page() {
   return view('seller.service.create_service_page');
 }
+
 }

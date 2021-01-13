@@ -12,7 +12,7 @@
 
 
 <div class="main">
-        <div class="sub-banner">
+        <div class="sub-banner" style="background-image:url({{asset('OurBackend/img/hometeacher.jpg')}})">
     <div class="container">
         <div class="page-name">
             <h1>Frequently Asked Questions</h1>

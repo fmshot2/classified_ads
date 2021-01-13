@@ -25,6 +25,7 @@ class SellerController extends Controller
 
     public function storeService(Request $request)
     {
+        //dd($request->files);
         
      $this->validate($request,[
         'description' => 'required',
@@ -32,10 +33,10 @@ class SellerController extends Controller
         'address' => 'required',
         'description' => 'required',
         'slug' => 'unique:services,slug',
-        'city' => 'required',
+        //'city' => 'required',
         'name' => 'required',
         'state' => 'required',
-        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', //|max:2048
+        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,jfif|max:2048', //|max:2048
     ]); 
 
      $image = $request->file('image');
@@ -44,12 +45,38 @@ class SellerController extends Controller
      $slug = Str::of($request->name)->slug('-').''.$random; 
      $service = new Service();
 
+
+/*
+   if ( $request->hasFile('files') ) {
+                $names = array();
+           
+foreach($request->file('files') as $image)
+    {
+       
+                $image_name = $image->getClientOriginalName();
+
+        $image->move(public_path('images'),$image_name);
+        array_push($names, $image_name);
+                
+        }
+            $category->image = json_encode($names);
+
+}
+*/
+
                 // Image set up
-     if ( $request->hasFile('file') ) {
-        $image_name = time().'.'.$request->file->extension();
-        $request->file->move(public_path('images'),$image_name);
-        $service->image = $image_name;
+     if ( $request->hasFile('files') ) {
+                        $names = array();
+                        foreach($request->file('files') as $image)
+    {
+
+                $image_name = $image->getClientOriginalName();
+        $image->move(public_path('images'),$image_name);
+                array_push($names, $image_name);
+}
+        $service->image = json_encode($names);
     }
+  
 
     $service->user_id = Auth::id();
     $service->category_id = $request->category_id;

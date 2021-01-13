@@ -14,6 +14,8 @@ use App\Privacypolicy;
 use App\Faq;
 use App\Slider;
 use App\Advertrequest;
+use App\Event;
+use App\Subscription;
 use Illuminate\Support\Str;
 
 
@@ -29,6 +31,11 @@ class AdminController extends Controller
     $all_service = Service::paginate(10);
     return view ('admin.service.index', compact('all_service') );
   }
+  
+
+  public function advertisement() {
+  return view('advertisement');
+}
 
   public function activeService()
   {
@@ -61,9 +68,96 @@ class AdminController extends Controller
 
   public function events()
   {
-    $events = Advertrequest::where('status', 2)->paginate(10);
-    return view ('admin.advert_management.events', compact('events') );
+    //return view('events');
+    $all_events = Event::all();
+    
+    return view ('admin.page_management.events', compact('all_events'));
   }
+
+
+ public function all_events()
+  {
+    //return view('events');
+    $all_events = Event::all();
+    
+    return view ('all_events', compact('all_events'));
+  }
+
+
+   public function save_event(Request $request)
+  {
+    $id = $request->id;  
+    $title = $request->title;  
+    $image = $request->image;  
+    $date = $request->event_date;  
+    $time = $request->event_time;  
+    //$venue = $request->venue;  
+    $location = $request->location;  
+    $description = $request->description;  
+    
+
+   $new_event = new Event();
+   $new_event->title = $title;
+   $new_event->image = $image;
+   $new_event->date = $date;
+   $new_event->time = $time;
+   $new_event->location = $location;   
+   $new_event->description = $description;
+
+
+    if ( $request->hasFile('file') ) {
+      $image_name = time().'.'.$request->file->extension();
+      $request->file->move(public_path('images'),$image_name);
+      $new_event->image = $image_name;
+    }
+
+   $new_event->save();
+          dd('ddd');
+
+   return back()->with('success', 'Task was successful!');
+     //  return back()->with('success', 'Task was successful!');
+ }
+
+
+ /*public function storeSystemConfig(Request $request, $id)
+  {
+
+    $general_info = $id == 1 ? General_Info::find($id) : New General_Info;
+    $general_info->site_name = $request->site_name;
+    $general_info->hot_line = $request->hotline;
+    $general_info->hot_line_2 = $request->hotline2;
+    $general_info->hot_line_3 = $request->hotline3;
+    $general_info->support_email = $request->support_email;
+    $general_info->address = $request->address;
+    $general_info->facebook = $request->facebook;
+    $general_info->twitter = $request->twitter;
+    $general_info->linkedin = $request->linkedin;
+    $general_info->instagram = $request->instagram;
+    $general_info->register_section_1 = $request->register_section_1;
+    $general_info->register_section_2 = $request->register_section_2;
+    $general_info->register_section_3 = $request->register_section_3;
+    $general_info->register_section_1_title = $request->register_section_1_title;
+    $general_info->register_section_2_title = $request->register_section_2_title;
+    $general_info->register_section_3_title = $request->register_section_3_title;
+
+
+    if ( $request->hasFile('file') ) {
+      $image_name = time().'.'.$request->file->extension();
+      $request->file->move(public_path('images'),$image_name);
+      $general_info->logo = $image_name;
+    }
+
+
+    $general_info->save();
+    $request->session()->flash('status', 'Task was successful!');
+
+    return $this->systemConfig();
+
+  }
+*/
+
+
+
 
   public function destroy($id)
   {
@@ -345,6 +439,20 @@ public function delete_sliders($id)
           //return view ('admin.page_management.faq', compact('faqs') );
         }
 
+public function subscribe(Request $request)
+ {
+     $this->validate($request,[
+        'email' => ['required'],
+    ]); 
+
+
+     $subscription = new Subscription();
+    
+$subscription->email = $request->email;
+$subscription->save();
+
+return back()->with('success', 'Your email was sent successfully');
+}
 
 
       }

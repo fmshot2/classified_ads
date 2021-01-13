@@ -36,8 +36,8 @@ class CreateServicesTable extends Migration
             $table->string('experience');
             $table->string('phone');
             $table->string('video_link')->nullable();
-            $table->float('min_price', 10, 2)->nullable();
-            $table->float('max_price', 10, 2)->nullable();
+            $table->string('min_price')->nullable();
+            $table->string('max_price')->nullable();
             $table->boolean('is_featured')->nullable()->default(true);
             $table->boolean('is_approved')->nullable()->default(true);
             $table->string('slug')->unique()->nullable();

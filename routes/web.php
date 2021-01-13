@@ -15,6 +15,8 @@ use App\Service;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/subscribe', 'AdminController@subscribe')->name('subscribe');
+
 Route::get('/send/email', 'ServiceController@mail');
 
 Route::get('dropzone/example', 'DropzoneController@dropzoneExample');
@@ -32,8 +34,11 @@ Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service
 Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');
 Route::get('/sellers', 'ServiceController@allSellers')->name('seller.sellers');
 Route::get('/terms-of-use', 'ServiceController@termsOfUse')->name('terms-of-use');
-Route::get('/advertisement', 'ServiceController@advertisement')->name('advertisement');
+Route::get('/advertisement', 'AdminController@advertisement')->name('advertisement');
+
 Route::post('/store_contact_form', 'ContactController@store_contact_form')->name('store_contact_form');
+Route::post('/store_advert_form', 'AdvertController@store_advert_form')->name('store_advert_form');
+
 Route::get('/all-featured-sellers', 'ServiceController@allFeaturedSellers')->name('allSellers');
 
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
@@ -69,6 +74,7 @@ Route::get('api/get-category-list/{id}','CategoryController@getCategoryList');
 Route::get('api/get-like-list/{id}','ServiceController@getLikeList');
 
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
+
 Route::get('contact-us','ContactController@contact_us')->name('contact');
 
 /*the next 3 routes are for implementing verify by email. they are working well. thanks.
@@ -221,8 +227,12 @@ Route::get('/admin/treated_advert_requests', 'AdminController@treated_advert_req
 ->name('treated_advert_requests');
 Route::get('/admin/active_adverts', 'AdminController@active_adverts')
 ->name('active_adverts');
+Route::get('all_events', 'AdminController@all_events')->name('event2');
+
 Route::get('/admin/events', 'AdminController@events')
 ->name('events');
+Route::post('/admin/save_event/', 'AdminController@save_event')->name('admin.save_event');
+
 
 
 
@@ -285,4 +295,3 @@ View::composer(['layouts.buyer_partials.navbar', 'layouts.buyer_partials.sidebar
 
 
 //Auth::routes();
- 

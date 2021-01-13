@@ -9,10 +9,9 @@ Home |
 
 @section('content')
 
-
 <div class="main">
 
-    <div class="sub-banner">
+    <div class="sub-banner" style="background-image:url({{asset('OurBackend/img/mech3.jpg')}})">
         <div class="container">
             <div class="page-name">
                 <h1>Services </h1>
@@ -29,7 +28,7 @@ Home |
             <div class="row">
 
 
-   <!--<div class="container">
+   {{--<div class="container">
             @if(isset($closerServices))
             <p> The Search results for your query <b> query</b> are :</p>
             <h2>Sample User details</h2>
@@ -49,7 +48,7 @@ Home |
                 </tbody>
             </table>
             @endif
-        </div>-->
+        </div>--}}
 
         <div class="col-lg-8 col-md-12">
             <!-- Option bar start -->
@@ -65,7 +64,7 @@ Home |
                 <div class="float-right cod-pad">
                     <div class="sorting-options">@if(isset($featuredServices))
                         @foreach($featuredServices as $featuredService)
-                        <a href="https://efcontact.com/services/city/lugbe" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a>
+                        <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a>
                         @endforeach
                         @endif
                     </div>
@@ -78,17 +77,17 @@ Home |
             <div class="row property-section">
                 @if(isset($approvedServices))
                 @foreach($approvedServices as $approvedService)
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-3 col-md-3 col-sm-12">
                     <div class="property-box">
                         <div class="property-thumbnail">
                             <a href="{{route('serviceDetail', $approvedService->slug)}}" class="property-img">
                                 <div class="price-ratings-box">
                                     <p class="price">
-                                        {{$approvedService->experience}} Yrs Experience
+                                        {{ Str::limit($approvedService->experience, 5)}} Yrs Experience
                                     </p>
 
                                 </div>
-                                <img class="d-block w-100" src="{{asset('images')}}/{{$approvedService->image}}" alt="properties img">
+                                <img class="d-block w-100" src="{{asset('images')}}/{{$approvedService->image[0]}}" alt="properties img">
                             </a>
                         </div>
 
@@ -97,25 +96,25 @@ Home |
 
                             <span class="d-flex justify-content-between">
                                 <h1 class="title">
-                                    <a href="{{route('serviceDetail', $approvedService->slug)}}" style="font-size: 15px;">{{$approvedService->name}}</a>
+                                    <a href="{{route('serviceDetail', $approvedService->slug)}}" style="font-size: 15px;">{{Str::limit($approvedService->name, 7)}}</a>
                                 </h1>
 
                             </span>
 
                             <ul class="facilities-list clearfix">
                                 <li><i class="fa fa-map-marker text-warning"></i>
-                                    {{$approvedService->city}}, {{$approvedService->state}}
+                                    {{$approvedService->city}}
                                 </li>
-                                  <!--  <li class="" style="float: right;">
+                                  {{--  <li class="" style="float: right;">
                                         <i class="fa fa-thumbs-up text-warning" aria-hidden="true"></i><a href="http://localhost:8000/serviceDetail/2" >{{$approvedService->likes->count()}} like(s)</a>
-                                    </li>-->
+                                    </li>--}}
                                 </ul>
                             </div>
 
                             <div class="footer clearfix">
                                 @guest
                                 <div class="pull-right">
-                                    <a><i class="flaticon-time"></i>                                 login to contact  <strong>{{$approvedService->user->name}}</strong>
+                                    <a><i class="flaticon-time"></i>                                 login to contact  <strong>{{Str::limit($approvedService->user->name, 4)}}</strong>
                                     </a>
                                 </div>
                                 @endguest
@@ -138,7 +137,7 @@ Home |
                 </nav>
             </div>
         </div>
-       <!--     <div class="col-lg-8 col-md-12 col-xs-12">
+       {{--     <div class="col-lg-8 col-md-12 col-xs-12">
                 <div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
                 <div class="property-box">
                     <div class="property-thumbnail">
@@ -170,7 +169,7 @@ Home |
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div> --}}
 
             <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right">
@@ -249,14 +248,14 @@ Home |
                 <div class="s-border"></div>
                 <div class="m-border"></div>
                 @if(isset($featuredServices))
-                @foreach($featuredServices as $featuredService)
+                @foreach($featuredServices as $key => $featuredService)
                 <div class="media">
                     <div class="media-left">
-                        <img class="media-object" src="{{asset('images')}}/{{$featuredService->image}}">
+                        <img class="media-object" src="{{asset('images')}}/{{$featuredService->image[0]}}">
                     </div>
                     <div class="media-body align-self-center">
                         <h3 class="media-heading">
-                            <a href="https://efcontact.com/services/emeka-auto-mechanic">{{$featuredService->user->name}}, {{$featuredService->name}}, {{$featuredService->city}}</a>
+                            <a href="https://efcontact.com/services/emeka-auto-mechanic">{{Str::limit($featuredService->user->name, 5)}} | {{Str::limit($featuredService->name, 7)}}</a>
                         </h3>
                     </div>
                 </div>

@@ -56,10 +56,16 @@ public function scopeSearchCity($query, $city)
 
 
 
-public function likes(){
+    public function likes(){
         return $this->hasMany('\App\Like'); //Product Model Name
     }
     public function messages(){
         return $this->hasMany('\App\Message'); //Product Model Name
     }
+
+    public function getImageAttribute($value)
+    {
+        return json_decode($value);
+    }
+    
 }

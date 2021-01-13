@@ -122,7 +122,7 @@
                     </div>
                     <div class="price-ratings-box">
                         <p class="price">
-                            {{$featuredService->experience}} Yrs Experience
+                           {{ Str::limit($featuredService->experience, 5) }} Yrs Experience
                         </p>
                                    <!-- <div class="ratings">
                                         <i class="fa fa-star"></i>
@@ -132,12 +132,12 @@
                                         <i class="fa fa-star-o"></i>
                                     </div> -->
                                 </div>
-                                <div class="listing-time opening">{{$featuredService->user->name}}</div>
-                                <img class="d-block w-100" src="{{asset('images')}}/{{$featuredService->image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                <div class="listing-time opening">{{ Str::limit($featuredService->user->name, 10) }}</div>
+                                <img class="d-block w-100" src="{{asset('images')}}/{{$featuredService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                             </a>
                         </div>
                         <div class="detail">
-                            <div class="d-flex justify-content-between"><a class="title " href="{{route('serviceDetail', $featuredService->slug)}}"  style="font-size: 14px;">{{$featuredService->name}}</a>
+                            <div class="d-flex justify-content-between"><a class="title " href="{{route('serviceDetail', $featuredService->slug)}}"  style="font-size: 14px;">{{ Str::limit($featuredService->name, 10) }}</a>
                                 <a class="pull-right" href="{{route('serviceDetail', $featuredService->slug)}}" style="font-size: 13px;">
                                     <i class="fa fa-map-marker text-warning"></i> {{$featuredService->city}}, {{$featuredService->state}}                                   
                                 </a></div>

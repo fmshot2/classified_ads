@@ -11,7 +11,7 @@
 
 
 <div class="main">
-        <div class="sub-banner">
+        <div class="sub-banner" style="background-image:url({{asset('OurBackend/img/makeupartist.jfif')}})">
     <div class="container">
         <div class="page-name">
             <h1>Contact Us</h1>

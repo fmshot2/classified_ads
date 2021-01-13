@@ -4,10 +4,11 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-8 col-sm-7">
                         <div class="list-inline">
-                            <a href=" {{ $check_general_info == 0 ? $general_info->hot_line : '' }} "><i class="fa fa-phone"></i>Need Support? {{ $check_general_info == 0 ? $general_info->hot_line : '' }} </a>
-                            <a href=" {{ $check_general_info == 0 ? $general_info->support_email : ''}}"><i class="fa fa-envelope"></i> {{ $check_general_info == 0 ? $general_info->support_email : ''}} </a>
+                            <a href="tel: {{ $check_general_info == 0 ? $general_info->hot_line : '' }} "><i class="fa fa-phone"></i>Need Support? {{ $check_general_info == 0 ? $general_info->hot_line : '' }} </a>
+                            <a href="mailto: {{ $check_general_info == 0 ? $general_info->support_email : ''}}"><i class="fa fa-envelope"></i> {{ $check_general_info == 0 ? $general_info->support_email : ''}} </a>
                         </div>
                     </div>
+                  
 
                     @guest
                     <div class="col-lg-6 col-md-4 col-sm-5">

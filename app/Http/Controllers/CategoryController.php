@@ -35,16 +35,16 @@ class CategoryController extends Controller
     {
 
 
-         $category = Category::find($id);
-        $categories = Service::where('id', $id)->get();
+       $category = Category::find($id);
+       $categories = Service::where('id', $id)->get();
                 //return 'categories'; 
 
         //return view ('categoryDetails', compact('categories') ); 
 
-        
-        $categories = Category::orderBy('id', 'desc')->paginate(12);
-        return view ('allCategories', compact('categories') );
-    }
+
+       $categories = Category::orderBy('id', 'desc')->paginate(12);
+       return view ('allCategories', compact('categories') );
+   }
 
 
 
@@ -66,55 +66,30 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+     $this->validate($request,[
+        'name' => ['required', 'unique:categories'],
+    ]); 
 
-       $this->validate($request,[
-            'name' => ['required', 'unique:categories'],
-        ]); 
+     $slug = Str::of($request->name)->slug('-');
 
-        $slug = Str::of($request->name)->slug('-');
-
-        $category = new Category();
+     $category = new Category();
                 // Image set up
-        if ( $request->hasFile('file') ) {
-                $names = [];
-                return $request->file('file');
-foreach($request->file('file') as $image)
-    {
-        //$image_name = time().'.'.$request->file->extension();
-        $image_name = time().'.'.$image->extension();
+     if ( $request->hasFile('file') ) {
+        $image_name = time().'.'.$request->file->extension();
         $request->file->move(public_path('images'),$image_name);
-        array_push($names, $image_name);          
-        //$category->image = $image_name;
-        }
-            $category->image = json_encode($names);
-}
-        return $category->image;
-
-/*if($request->hasFile('image'))
-{
-    $names = [];
-    foreach($request->file('image') as $image)
-    {
-        $destinationPath = 'content_images/';
-        //$filename = $image->getClientOriginalName();
-        //$image->move($destinationPath, $filename);
-        array_push($names, $filename);          
-
+        $category->image = $image_name;
     }
-    $content->image = json_encode($names)
+
+$category->name = $request->name;
+$category->slug = $slug;
+$category->save();
+
+$request->session()->flash('status', 'Task was successful!');
+
+return $this->index();
+
+
 }
-*/
-
-        $category->name = $request->name;
-        $category->slug = $slug;
-        $category->save();
-
-        $request->session()->flash('status', 'Task was successful!');
-
-        return $this->index();
-
-
-    }
 
     /**
      * Display the specified resource.
@@ -126,7 +101,7 @@ foreach($request->file('file') as $image)
     {
         //$service = Service::find($id);
       //$service_slug = $service->slug;//
-        
+
         $one_category = Category::where('slug', $slug)->first();
         $category_id = $one_category->id;
         $category_services = Service::where('category_id', $category_id)->get();
@@ -166,19 +141,19 @@ foreach($request->file('file') as $image)
      */
     public function update(Request $request, $id)
     {
-        
-       $this->validate($request,[
-            'name' => 'required',
-        ]); 
 
-        $category->name = $request->name;
+     $this->validate($request,[
+        'name' => 'required',
+    ]); 
 
-        $category->save();
+     $category->name = $request->name;
 
-        $request->session()->flash('success', 'Task was successful!');
-        return 'success';
+     $category->save();
 
-    }
+     $request->session()->flash('success', 'Task was successful!');
+     return 'success';
+
+ }
 
     /**
      * Remove the specified resource from storage.
@@ -188,7 +163,7 @@ foreach($request->file('file') as $image)
      */
     public function destroy($id)
     {
-        
+
         $category = Category::findOrFail($id);
         $category->delete();
         session()->flash('success', 'Task was successful!');
@@ -200,31 +175,32 @@ foreach($request->file('file') as $image)
 
 
   //For fetching all countries
-public function getStates()
-{
-    $states = DB::table("states")->get();
-    return view('index')->with('states',$states);
-}
+    public function getStates()
+    {
+        $states = DB::table("states")->get();
+        return view('index')->with('states',$states);
+    }
 
 
 
 
 //For fetching cities
-public function getlocal_governments($id)
-{
-    $local_governments= DB::table("local_governments")
-                ->where("state_id",$id)
-                ->pluck("name","id");
-    return response()->json($local_governments);
-}
+    public function getlocal_governments($id)
+    {
+        $local_governments= DB::table("local_governments")
+        ->where("state_id",$id)
+        ->pluck("name","id");
+        return response()->json($local_governments);
+    }
 
 
 
-  public function getCityList($id)
+    public function getCityList($id)
     {
         $cities = DB::table("local_governments")
-                    ->where("state_id",$id)
-                    ->pluck("name","id");
+        ->where("state_id",$id)
+        ->pluck("name","id");
+
         return response()->json($cities);
     }
 
@@ -233,8 +209,8 @@ public function getlocal_governments($id)
     public function getCategoryList($id)
     {
         $sub_categories = DB::table("sub_categories")
-                    ->where("category_id",$id)
-                    ->pluck("name","id");
+        ->where("category_id",$id)
+        ->pluck("name","id");
         return response()->json($sub_categories);
     }
 
