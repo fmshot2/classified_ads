@@ -15,6 +15,8 @@ use App\Service;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/subscribe', 'AdminController@subscribe')->name('subscribe');
+
 Route::get('/send/email', 'ServiceController@mail');
 
 Route::get('dropzone/example', 'DropzoneController@dropzoneExample');
@@ -32,8 +34,11 @@ Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service
 Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');
 Route::get('/sellers', 'ServiceController@allSellers')->name('seller.sellers');
 Route::get('/terms-of-use', 'ServiceController@termsOfUse')->name('terms-of-use');
-Route::get('/advertisement', 'ServiceController@advertisement')->name('advertisement');
+Route::get('/advertisement', 'AdminController@advertisement')->name('advertisement');
+
 Route::post('/store_contact_form', 'ContactController@store_contact_form')->name('store_contact_form');
+Route::post('/store_advert_form', 'AdvertController@store_advert_form')->name('store_advert_form');
+
 Route::get('/all-featured-sellers', 'ServiceController@allFeaturedSellers')->name('allSellers');
 
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
@@ -63,12 +68,13 @@ Route::get('/allCategories/', 'CategoryController@allCategories')->name('allCate
     //dynamic dropdown country and states
 Route::get('/admin/user_register/ajax/{state_id}',array('as'=>'user_register.ajax','uses'=>'CategoryController@stateForCountryAjax'));
 Route::get('/getlocal_governments/{id}','CategoryController@getlocal_governments');
-Route::get('api/get-city-list/{id}','CategoryController@getCityList');
-Route::get('api/get-category-list/{id}','CategoryController@getCategoryList');
+Route::get('api/get-city-list/{state_name}','CategoryController@getCityList');
+Route::get('api/get-category-list/{state_name}','CategoryController@getCategoryList');
 
 Route::get('api/get-like-list/{id}','ServiceController@getLikeList');
 
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
+
 Route::get('contact-us','ContactController@contact_us')->name('contact');
 
 /*the next 3 routes are for implementing verify by email. they are working well. thanks.
@@ -110,7 +116,8 @@ Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dash
 Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
 Route::get('/seller/service/badges', 'BadgeController@badges')->name('seller.service.badges');
 Route::post('/seller/service/createpay', 'ServiceController@createpay');
-
+Route::post('/seller/service/createpay4Advert', 'BadgeController@createpay4Advert');
+Route::get('/seller/service/adverts', 'BadgeController@adverts')->name('seller.service.adverts');
 
 Route::get('/seller/service/post_advert', 'SellerController@post_advert')->name('seller.post_advert');
 Route::get('/seller/service/create_service_page', 'ServiceController@create_service_page')->name('create_service_page');
@@ -142,6 +149,7 @@ Route::get('/seller/notification/{slug}', 'SellerController@viewNotification')->
 Route::get('/seller/profile/', 'SellerController@viewProfile')->name('seller.profile');
 Route::any ( '/save/service/Badge',  'BadgeController@saveService4Badge')->name('saveService4Badge');
 
+Route::any ( '/save/service/Advert',  'BadgeController@saveService4Advert')->name('saveService4Advert');
 
 }); //Seller Middleware protection start here
 
@@ -193,14 +201,42 @@ Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer'
 Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
 
 Route::get('/admin/notification/all', 'AdminController@allNotification')->name('admin.notification.all');
+Route::post('/admin/notification/send', 'AdminController@sendNotification')->name('admin.notification.send');
 
 Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
 
 
 Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('system.config.store');
 
+Route::get('/admin/pages/faq', 'AdminController@FAQs')->name('admin.pages.faq');
 Route::get('/admin/badge/requests', 'AdminController@allBadges')->name('badge.request');
 Route::get('/admin/seller/saveBadge/', 'AdminController@saveBadge')->name('save.badge');
+Route::get('/admin/privacy-policy/', 'AdminController@privacyPolicy')->name('admin.privacy.policy');
+Route::post('/admin/save_privacy_policy/', 'AdminController@save_privacyPolicy')->name('admin.save_privacyPolicy');
+Route::get('/admin/terms-of-use/', 'AdminController@termsOfUse')->name('admin.termsOfUse');
+Route::post('/admin/save_terms_of_use/', 'AdminController@save_termsOfUse')->name('admin.save_termsOfUse');
+Route::post('/admin/save_faq/', 'AdminController@save_faq')->name('admin.save_faq');
+Route::get('/admin/save_faq/', 'AdminController@show_faq')->name('admin.show_faq');
+Route::get('/admin/delete/faqs/{id}', 'AdminController@delete_faqs')->name('admin.delete_faqs');
+Route::get('/admin/sliders', 'AdminController@sliders')->name('admin.sliders');
+Route::post('/admin/save_slider/', 'AdminController@save_slider')->name('admin.save_slider');
+Route::get('/admin/delete/sliders/{id}', 'AdminController@delete_sliders')->name('admin.delete_sliders');
+Route::get('/admin/pending_advert_requests', 'AdminController@pending_advert_requests')
+->name('pending_advert_requests');
+Route::get('/admin/treated_advert_requests', 'AdminController@treated_advert_requests')
+->name('treated_advert_requests');
+Route::get('/admin/active_adverts', 'AdminController@active_adverts')
+->name('active_adverts');
+Route::get('all_events', 'AdminController@all_events')->name('event2');
+
+Route::get('/admin/events', 'AdminController@events')
+->name('events');
+Route::post('/admin/save_event/', 'AdminController@save_event')->name('admin.save_event');
+
+
+
+
+
 Route::get('seller/service/badges/badger','BadgeController@getBadgeList')->name('fff');
 ///seller/service/admin/get-badge-list/2 404 (Not Found)
 
@@ -259,4 +295,3 @@ View::composer(['layouts.buyer_partials.navbar', 'layouts.buyer_partials.sidebar
 
 
 //Auth::routes();
- 

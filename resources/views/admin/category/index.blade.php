@@ -7,9 +7,7 @@ Category |
 
 
 @section('content')
-
-<br>
-<hr>
+<div class="content-wrapper" style="min-height: 868px;">
 
 <div class="container">
 
@@ -55,6 +53,7 @@ Category |
 @include('admin/section/category_table') 
 
 
+</div>
 
 
 @endsection

@@ -54,19 +54,17 @@
                 @foreach($allFeaturedServices as $allFeaturedService)
             <div class="col-lg-2 col-md-2 col-sm-6">
                         <div class="photo mt-2">
-                        <h6>{{$allFeaturedService->name}}</h6>
-                            <a href="{{route('serviceDetail', $allFeaturedService->slug)}}"><img src="{{asset('images')}}/{{$allFeaturedService->image}}" alt="agent" class="img-fluid">
+                        <h6 class="text-muted">{{ Str::limit( $allFeaturedService->name, 20)}}</h6>
+                            <a href="{{route('serviceDetail', $allFeaturedService->slug)}}"><img src="{{asset('images')}}/{{$allFeaturedService->image[0]}}" alt="agent" class="img-fluid">
                         </a>
                         </div>
                         <div class="detail">
-                            <h4>
-                                <h5 href="{{route('serviceDetail', $allFeaturedService->slug)}}">{{$allFeaturedService->user->name}}</h5>
-                            </h4>
-
-                            <div class="contact">
-                                <ul>
+                            
+                                <p class="text-muted mb-0" href="{{route('serviceDetail', $allFeaturedService->slug)}}">{{ Str::limit($allFeaturedService->user->name, 20)}}</p>
+                            
+                                <ul class="mt-0">
                                     <li>
-                                        <a href="{{route('serviceDetail', $allFeaturedService->slug)}}"> {{$allFeaturedService->state}}</a>
+                                        <p href="{{route('serviceDetail', $allFeaturedService->slug)}}"> {{$allFeaturedService->state}}</p>
                                     </li>
                                     {{--<li>
                                         <span>Email:</span><a href="mailto:info@themevessel.com"> info@themevessel.com</a>
@@ -75,7 +73,7 @@
                                         {{--<span></span><a> {{ Str::limit( $allFeaturedService->phone, 2)}}</a>--}}
                                     </li>
                                 </ul>
-                            </div>
+                     
 
                             {{--<ul class="social-list clearfix mb-3">
                                 <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>

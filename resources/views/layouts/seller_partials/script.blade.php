@@ -37,15 +37,6 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
 
-
-
-
-
-
-
-
-
-
 <script type="text/javascript">
 	$(document).ready( function () {
 	    $('.data_table_main').DataTable({

@@ -86,7 +86,7 @@
                 <div class="row">
                     <div class="col-sm-6 col-pad">
                         <div class="category">
-                            <div class="category_bg_box cat-2-bg">
+                            <div class="category_bg_box cat-1-bg">
                                 <div class="category-overlay">
                                     <div class="category-content">
                                         <h3 class="category-title">
@@ -99,7 +99,7 @@
                     </div>
                     <div class="col-sm-6 col-pad">
                         <div class="category">
-                            <div class="category_bg_box cat-1-bg">
+                            <div class="category_bg_box cat-2-bg">
                                 <div class="category-overlay">
                                     <div class="category-content">
                                         <h3 class="category-title">

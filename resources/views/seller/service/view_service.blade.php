@@ -87,7 +87,7 @@ All Service |
                   <h3 class="box-title"> Images </h3>
                 </div>
                                 <div class="body">
-                    <img class="img-responsive" src="{{asset('images')}}/{{$service->image}}" alt=" {{ $service->name }}">
+                    <img class="img-responsive" src="{{asset('images')}}/{{$service->image[0]}}" alt=" {{ $service->name }}">
                 </div>
                             </div>
 

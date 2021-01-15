@@ -11,7 +11,9 @@ All Notification |
 <div class="content-wrapper" style="min-height: 518px;">
 
 	<div class="container">
+		<div class="w-75">
 		@include('layouts.backend_partials.status')
+		</div>
 	</div>
 
 	<section class="content">
@@ -102,27 +104,26 @@ All Notification |
         </button>
       </div>
       <div class="modal-body">
-       <form>
+       <form method="POST" action="{{route('admin.notification.send')}}">
+                            {{ csrf_field() }}
   <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <label for="exampleInputEmail1">Subject</label>
+    <input type="text" required class="form-control" name="title" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Message Subject">
+   
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <label for="exampleInputPassword1">Message</label>
+    <input type="text" required name="description" class="form-control" id="exampleInputPassword1" placeholder="Enter Your Message">
   </div>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    <button type="submit" class="btn btn-primary">Save changes</button>
+          </form>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
       </div>
+
     </div>
   </div>
 </div>

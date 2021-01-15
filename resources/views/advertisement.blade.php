@@ -8,7 +8,7 @@ Home |
 @section('content')
 
 <div class="main">
-    <div class="sub-banner">
+    <div class="sub-banner" style="background-image:url({{asset('OurBackend/img/makeupartist.jfif')}})">
         <div class="container">
             <div class="page-name">
                 <h1>Advertisement</h1>
@@ -85,7 +85,7 @@ Home |
 
 
 
-                <form action="{{route('store_contact_form')}}" method="POST">
+                <form method="POST">
 
                 </form>
 
@@ -96,7 +96,7 @@ Home |
 
                 <div class="col-md-12">
                     <div class="submit-address">
-                       <form action="{{route('store_contact_form')}}" method="POST">
+                       <form action="{{route('store_advert_form')}}" method="POST">
                         {{ csrf_field() }}
                         <h3 class="heading-2">Contact Us:</h3>
                         <a href="mailto:info@efcontact.com"><span>info@efcontact.com</span></a>

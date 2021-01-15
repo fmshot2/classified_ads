@@ -2,12 +2,12 @@
 @extends('layouts.app')
 
 @section('title')
- Home | 
+Home | 
 @endsection
 
 @section('content')
 
-<div class="sub-banner">
+<div class="sub-banner" style="background-image:url({{asset('OurBackend/img/hairdresser.jfif')}})"> 
     <div class="container">
         <div class="page-name">
             <h1>Sellers List</h1>
@@ -54,32 +54,40 @@
         </div>
         <div class="clearfix"></div>
         <div class="row">
-                  @if(isset($approvedServices))
-                @foreach($approvedServices as $approvedService)
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="row team-4">
-                    <div class="col-xl-5 col-lg-5 col-md-12 col-pad ">
-                        <div class="photo mt-2">
-                            <img src="{{asset('images')}}/{{$approvedService->image}}" alt="agent" class="img-fluid">
-                        </div>
+          @if(isset($approvedServices))
+          @foreach($approvedServices as $approvedService)
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <div class="row team-4">
+                <div class="col-xl-5 col-lg-5 col-md-12 col-pad" style="background-image:url({{asset('images')}}/{{$approvedService->image[0]}})">
+                    <div class="photo mt-2">
+                        {{-- <img src="{{asset('images')}}/{{$approvedService->image[0]}}" alt="agent" class=""> --}}
                     </div>
-                    <div class="col-xl-7 col-lg-7 col-md-12 col-pad align-self-center mt-2">
-                        <div class="detail">
-                            <h5>{{$approvedService->name}}</h5>
-                            <h4>
-                                <a href="agent-detail.html">{{$approvedService->user->name}}</a>
-                            </h4>
+                </div>
 
-                            <div class="contact">
-                                <ul>
-                                    <li>
-                                        <span>Address:</span><a href="#">  {{$approvedService->city}}, {{$approvedService->state}}</a>
-                                    </li>
+                <div class="col-xl-7 col-lg-7 col-md-12 col-pad align-self-center mt-2">
+                    <div class="detail">
+                        <h4 style="font-size: 13px;">
+                            <a href="{{route('serviceDetail', $approvedService->slug)}}">
+                                {{Str::limit($approvedService->name, 7)}}</h4>
+                                <h4 style="font-size: 13px;">
+                                    <a href="{{route('serviceDetail', $approvedService->slug)}}">{{Str::limit($approvedService->user->name, 7)}}</a>
+                                </h4>
+
+                                <div class="contact">
+                                    <ul>
+                                        <li>
+                                            <h4 style="font-size: 13px;">
+                                               <a href="{{route('serviceDetail', $approvedService->slug)}}">
+                                                   {{$approvedService->city}} | {{$approvedService->state}}</a>
+                                               </h4>
+                                           </li>
                                     <!--<li>
                                         <span>Email:</span><a href="mailto:info@themevessel.com"> info@themevessel.com</a>
                                     </li>-->
                                     <li>
-                                        <span>Mobile:</span><a href="tel:+554XX-634-7071"> {{$approvedService->phone}}</a>
+                                        <h4 style="font-size: 13px;"> <a href="{{route('serviceDetail', $approvedService->slug)}}"> {{$approvedService->phone}}
+                                        </a>
+                                    </h4>
                                     </li>
                                 </ul>
                             </div>
@@ -87,16 +95,15 @@
                             <ul class="social-list clearfix mb-3">
                                 <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#" class="google-bg"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a></li>
+
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-              @endforeach
-                   @endif  
-           
+            @endforeach
+            @endif  
+
         </div>
     </div>
 </div>

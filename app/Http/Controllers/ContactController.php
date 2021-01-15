@@ -45,6 +45,12 @@ class ContactController extends Controller
     return back()->with('success', 'Your message has been sent!');
 }
 
+
+
+
+
+
+
      /*$random = Str::random(3);
      $slug = Str::of($request->name)->slug('-').''.$random; 
      $contact = new Contact();

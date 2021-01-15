@@ -9,10 +9,9 @@ Home |
 
 @section('content')
 
-
 <div class="main">
 
-    <div class="sub-banner">
+    <div class="sub-banner" style="background-image:url({{asset('OurBackend/img/mech3.jpg')}})">
         <div class="container">
             <div class="page-name">
                 <h1>Services </h1>
@@ -23,13 +22,31 @@ Home |
             </div>
         </div>
     </div>
+
+
+    <div class="pull-right">
+        <h3><span class="text-right">
+            <div class="posts-by-category widget">
+                <!--<h3 class="sidebar-title">Cities</h3>-->                       
+                <ul class="list-unstyled list-cat">
+
+                   
+                  <a href="{{route('home')}}" class="btn btn-outline-warning"><i class="fa fa-home">Back To Home</i></a>
+                  
+              </ul>
+          </div></span></h3>
+          
+      </div>
+
+
+
     <!-- Properties Details page start -->
     <div class="properties-details-page content-area-7">
         <div class="container">
             <div class="row">
 
 
-   <!--<div class="container">
+   {{--<div class="container">
             @if(isset($closerServices))
             <p> The Search results for your query <b> query</b> are :</p>
             <h2>Sample User details</h2>
@@ -49,23 +66,22 @@ Home |
                 </tbody>
             </table>
             @endif
-        </div>-->
+        </div>--}}
 
         <div class="col-lg-8 col-md-12">
             <!-- Option bar start -->
             <div class="option-bar">
                 <div class="float-left">
-                    <h4>
+                    <h4 href="{{route('home')}}">
                         <span class="heading-icon bg-warning">
                             <i class="fa fa-th-large"></i>
                         </span>
-                        <span class="title-name">List of Services Available</span>
                     </h4>
                 </div>
                 <div class="float-right cod-pad">
                     <div class="sorting-options">@if(isset($featuredServices))
                         @foreach($featuredServices as $featuredService)
-                        <a href="https://efcontact.com/services/city/lugbe" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a>
+                        <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a>
                         @endforeach
                         @endif
                     </div>
@@ -78,17 +94,17 @@ Home |
             <div class="row property-section">
                 @if(isset($approvedServices))
                 @foreach($approvedServices as $approvedService)
-                <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="property-box">
                         <div class="property-thumbnail">
                             <a href="{{route('serviceDetail', $approvedService->slug)}}" class="property-img">
                                 <div class="price-ratings-box">
                                     <p class="price">
-                                        {{$approvedService->experience}} Yrs Experience
+                                        {{ Str::limit($approvedService->experience, 5)}} Yrs Experience
                                     </p>
 
                                 </div>
-                                <img class="d-block w-100" src="{{asset('images')}}/{{$approvedService->image}}" alt="properties img">
+                                <img class="d-block w-100" src="{{asset('images')}}/{{$approvedService->image[0]}}" alt="properties img">
                             </a>
                         </div>
 
@@ -96,31 +112,31 @@ Home |
                         <div class="detail">
 
                             <span class="d-flex justify-content-between">
-                                <h1 class="title">
-                                    <a href="{{route('serviceDetail', $approvedService->slug)}}" style="font-size: 15px;">{{$approvedService->name}}</a>
-                                </h1>
+                              
+                                    <a class="title" href="{{route('serviceDetail', $approvedService->slug)}}" style="font-size: 15px;">{{Str::limit($approvedService->name, 7)}}</a>
+                                    <ul>
+                                <li><i class="fa fa-map-marker text-warning"></i>
+                                    {{Str::limit($approvedService->city, 7)}}
+                                </li>
+                                  {{--  <li class="" style="float: right;">
+                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true"></i><a href="http://localhost:8000/serviceDetail/2" >{{$approvedService->likes->count()}} like(s)</a>
+                                    </li>--}}
+                                </ul>
 
                             </span>
 
-                            <ul class="facilities-list clearfix">
-                                <li><i class="fa fa-map-marker text-warning"></i>
-                                    {{$approvedService->city}}, {{$approvedService->state}}
-                                </li>
-                                  <!--  <li class="" style="float: right;">
-                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true"></i><a href="http://localhost:8000/serviceDetail/2" >{{$approvedService->likes->count()}} like(s)</a>
-                                    </li>-->
-                                </ul>
+                          
                             </div>
 
                             <div class="footer clearfix">
                                 @guest
                                 <div class="pull-right">
-                                    <a><i class="flaticon-time"></i>                                 login to contact  <strong>{{$approvedService->user->name}}</strong>
+                                    <a><i class="flaticon-time"></i>                                 login to contact  <strong>{{Str::limit($approvedService->user->name, 4)}}</strong>
                                     </a>
                                 </div>
                                 @endguest
                                 <div class="pull-center">
-                                   <i class="fa fa-thumbs-up text-warning" aria-hidden="true"></i><a>{{$approvedService->likes->count()}} like(s)</a>
+                                   <i class="fa fa-thumbs-up text-warning" aria-hidden="true"></i><a>{{$approvedService->likes->count()}}</a>
                                </div>
                            </div>
                        </div>
@@ -138,7 +154,7 @@ Home |
                 </nav>
             </div>
         </div>
-       <!--     <div class="col-lg-8 col-md-12 col-xs-12">
+       {{--     <div class="col-lg-8 col-md-12 col-xs-12">
                 <div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
                 <div class="property-box">
                     <div class="property-thumbnail">
@@ -170,15 +186,19 @@ Home |
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div> --}}
+          <form action="" method="POST">
+          </form>
+
 
             <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right">
+            
                     <!-- Advanced search start -->
                     <div class="sidebar widget advanced-search none-992">
                         <h3 class="sidebar-title">Advanced Search</h3>
 
-                        <form action="{{route('search3')}}" method="GET" enctype="multipart/form-data">
+                        <form action="{{route('search3')}}" method="POST" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group name">
@@ -193,7 +213,7 @@ Home |
                                 </div>-->
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group subject">
-                                     <!--  <input type="text" name="serviceDetail_id" value= class="form-control"> -->
+                                     <!--  <input type="text" name="serviceDetail_id"class="form-control"> -->
                                  </div>
                              </div>
                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
@@ -249,14 +269,14 @@ Home |
                 <div class="s-border"></div>
                 <div class="m-border"></div>
                 @if(isset($featuredServices))
-                @foreach($featuredServices as $featuredService)
+                @foreach($featuredServices as $key => $featuredService)
                 <div class="media">
                     <div class="media-left">
-                        <img class="media-object" src="{{asset('images')}}/{{$featuredService->image}}">
+                        <img class="media-object" src="{{asset('images')}}/{{$featuredService->image[0]}}">
                     </div>
                     <div class="media-body align-self-center">
                         <h3 class="media-heading">
-                            <a href="https://efcontact.com/services/emeka-auto-mechanic">{{$featuredService->user->name}}, {{$featuredService->name}}, {{$featuredService->city}}</a>
+                            <a href="https://efcontact.com/services/emeka-auto-mechanic">{{Str::limit($featuredService->user->name, 5)}} | {{Str::limit($featuredService->name, 7)}}</a>
                         </h3>
                     </div>
                 </div>

@@ -85,6 +85,54 @@
         </ul>
       </li>
 
+
+      <li class="treeview" style=" {{ url()->current() == route('admin.show_faq') ? 'background-color: #f8d053' : '' }} 
+      {{ url()->current() == route('admin.privacy.policy') ? 'background-color: #f8d053' : '' }}
+      {{ url()->current() == route('admin.sliders') ? 'background-color: #f8d053' : '' }}
+       {{ url()->current() == route('admin.termsOfUse') ? 'background-color: #f8d053' : '' }}">
+        <a href="#">
+          <i class="fa fa-file"></i>
+          <span> Pages Management </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href=" {{ route('events') }}"i class="fa fa-circle-o"></i> Events </a></li>
+          <li><a href=" {{ route('admin.show_faq') }}"><i class="fa fa-circle-o"></i> FAQs </a></li>
+          <li><a href="{{ route('admin.privacy.policy') }}"><i class="fa fa-circle-o"></i> Privacy </a></li>
+          <li><a href="{{ route('admin.termsOfUse') }}"><i class="fa fa-circle-o"></i> Terms Of Use </a></li>
+          <li><a href="{{ route('admin.sliders') }}"><i class="fa fa-circle-o"></i> Slider </a></li>
+        </ul>
+      </li>
+
+
+
+<li class="treeview" style=" {{ url()->current() == route('pending_advert_requests') ? 'background-color: #f8d053' : '' }} 
+      {{ url()->current() == route('treated_advert_requests') ? 'background-color: #f8d053' : '' }}
+      {{ url()->current() == route('active_adverts') ? 'background-color: #f8d053' : '' }}">
+        <a href="#">
+          <i class="fa fa-file"></i>
+          <span> Advert Management </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{ route('pending_advert_requests') }}"><i class="fa fa-circle-o"></i>Untreated Advert Requests</a></li>
+            <li><a href="{{ route('treated_advert_requests') }}"><i class="fa fa-circle-o"></i> Treated Advert Requests </a></li>
+          <li><a href="{{ route('active_adverts') }}"><i class="fa fa-circle-o"></i> Active Adverts </a></li>
+        </ul>
+      </li>
+
+
+
+
+
+
+
+
+
       <li>
         <a href=" {{ route ('system.config') }} ">
           <i class="fa fa-globe"></i> <span> System Config </span>

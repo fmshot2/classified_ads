@@ -3,6 +3,7 @@
 <html lang="en">
 
 
+
 @include('layouts.frontend_partials.head')
 
 <body>

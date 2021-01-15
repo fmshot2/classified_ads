@@ -122,7 +122,7 @@
                     </div>
                     <div class="price-ratings-box">
                         <p class="price">
-                            {{$featuredService->experience}} Yrs Experience
+                           {{ Str::limit($featuredService->experience, 5) }} Yrs Experience
                         </p>
                                    <!-- <div class="ratings">
                                         <i class="fa fa-star"></i>
@@ -132,14 +132,14 @@
                                         <i class="fa fa-star-o"></i>
                                     </div> -->
                                 </div>
-                                <div class="listing-time opening">{{$featuredService->user->name}}</div>
-                                <img class="d-block w-100" src="{{asset('images')}}/{{$featuredService->image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                <div class="listing-time opening">{{ Str::limit($featuredService->user->name, 10) }}</div>
+                                <img class="d-block w-100" src="{{asset('images')}}/{{$featuredService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                             </a>
                         </div>
                         <div class="detail">
-                            <div class="d-flex justify-content-between"><a class="title " href="{{route('serviceDetail', $featuredService->slug)}}"  style="font-size: 14px;">{{$featuredService->name}}</a>
+                            <div class="d-flex justify-content-between"><a class="title " href="{{route('serviceDetail', $featuredService->slug)}}"  style="font-size: 14px;">{{ Str::limit($featuredService->name, 10) }}</a>
                                 <a class="pull-right" href="{{route('serviceDetail', $featuredService->slug)}}" style="font-size: 13px;">
-                                    <i class="fa fa-map-marker text-warning"></i> {{$featuredService->city}}, {{$featuredService->state}}                                   
+                                    <i class="fa fa-map-marker text-warning"></i>{{$featuredService->state}}                                   
                                 </a></div>
 
                                 <ul class="facilities-list clearfix">
@@ -216,12 +216,13 @@
                     @foreach($categories as $category)
                     <div class="  col-lg-2 col-md-3 col-sm-2 col-xs-2">
                         <div class="service-info-5">
+<div style="border-radius: 50px">
+                           <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px;" alt="properties">
+                           </div>
 
-                           {{--<img class="" src="{{asset('images')}}/{{'adminteacher.png'}}" style="width: 50px;" alt="properties">--}}
-
-                           <i class="fa fa-user text-warning"></i>
+                           {{--<i class="fa fa-user text-warning"></i>--}}
                            <a href="{{route('services', $category->slug)}}" >
-                            <h4>{{$category->name}}</h4>
+                            <h6>{{$category->name}}</h6>
                         </a>
                     </div>
 

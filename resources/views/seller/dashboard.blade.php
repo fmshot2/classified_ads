@@ -17,6 +17,7 @@ Seller Dashboard |
         Dashboard
         <small>Control panel</small>
       </h1>
+      <a href=" {{ route('seller.service.create')}} "><button class="btn btn-danger"> Create A New Service</button></a>
       <ol class="breadcrumb">
         <li><a href=" {{ route('seller.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>

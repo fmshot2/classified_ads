@@ -28,7 +28,6 @@ Register
                     </div>
                     <br/>
                     @endif
-
                     --}}
 
                     <div class="clearfix"></div>
@@ -172,7 +171,3 @@ Register
 
 
 @endsection
-
-
-
-
