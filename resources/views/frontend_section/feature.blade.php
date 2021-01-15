@@ -139,7 +139,7 @@
                         <div class="detail">
                             <div class="d-flex justify-content-between"><a class="title " href="{{route('serviceDetail', $featuredService->slug)}}"  style="font-size: 14px;">{{ Str::limit($featuredService->name, 10) }}</a>
                                 <a class="pull-right" href="{{route('serviceDetail', $featuredService->slug)}}" style="font-size: 13px;">
-                                    <i class="fa fa-map-marker text-warning"></i> {{$featuredService->city}}, {{$featuredService->state}}                                   
+                                    <i class="fa fa-map-marker text-warning"></i>{{$featuredService->state}}                                   
                                 </a></div>
 
                                 <ul class="facilities-list clearfix">
@@ -217,7 +217,7 @@
                     <div class="  col-lg-2 col-md-3 col-sm-2 col-xs-2">
                         <div class="service-info-5">
 <div style="border-radius: 50px">
-                           <img class="" src="{{asset('images')}}/{{$category->image}}" style="width:90%;height:100px; border-radius: 10px;" alt="properties">
+                           <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px;" alt="properties">
                            </div>
 
                            {{--<i class="fa fa-user text-warning"></i>--}}

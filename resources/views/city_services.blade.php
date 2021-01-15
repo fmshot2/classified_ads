@@ -24,8 +24,25 @@
     </div>
 </div>
 
+<div class="container">
+ <div class="">
+        <h3><span class="text-right">
+            <div class="posts-by-category widget">
+                <!--<h3 class="sidebar-title">Cities</h3>-->                       
+                <ul class="list-unstyled list-cat">
+
+                   
+                  <a href="{{route('home')}}" class="btn btn-outline-warning"><i class="fa fa-home">Back To Home</i></a>
+                  
+              </ul>
+          </div></span></h3>
+          
+      </div>
+      </div>
+
 
 <div class="container">
+
 
 <div class="row property-section mt-5">
 
@@ -36,13 +53,12 @@
 
 		<div class="option-bar">
                     <div class="float-left">
-                        <h4>
-                            <span class="heading-icon bg-warning">
-                                <i class="fa fa-th-large"></i>
-                            </span>
-                            <span class="title-name">List of Services Available</span>
-                        </h4>
-                    </div>
+                    <h4 href="{{route('home')}}">
+                        <span class="heading-icon bg-warning">
+                            <i class="fa fa-th-large"></i>
+                        </span>
+                    </h4>
+                </div>
                     <div class="float-right cod-pad">
                         <!-- Posts by category start -->
                       
@@ -57,7 +73,7 @@
                     </div>
                 </div>
                 @foreach($services_in_city as $service_in_city)
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="col-lg-4 col-md-4 col-sm-12">
                         <div class="property-box">
                             <div class="property-thumbnail">
                                 <a class="property-img">
@@ -68,13 +84,13 @@
                                         </p>
                                      
                                     </div>
-                                    <img class="d-block w-100" src="{{asset('images')}}/{{$service_in_city->image}}" alt="properties img">
+                                    <img class="d-block w-100" src="{{asset('images')}}/{{$service_in_city->image[0]}}" alt="properties img">
                                 </a>
                             </div>
                             <div class="detail">
                                 <h1 class="title text-primary" >{{$service_in_city->user->name}}
                                 </h1>
-                                          <a href="{{route('login')}}">  login to contact  <strong class="text-primary"> {{$service_in_city->user->name}}, {{$service_in_city->name}}</strong></a>                     
+                                          <a href="{{route('login')}}">  Login to contact  <strong class="text-primary"> {{Str::limit($service_in_city->user->name, 5)}},   {{Str::limit($service_in_city->name, 12)}}</strong></a>                     
                             </div>
                             <div class="footer clearfix">
                                 
@@ -192,11 +208,11 @@
                         @foreach($services_in_city as $service_in_city)
                                                 <div class="media">
                             <div class="media-left">
-                                <img class="media-object" src="{{asset('images')}}/{{$service_in_city->image}}">
+                                <img class="media-object" src="{{asset('images')}}/{{$service_in_city->image[0]}}">
                             </div>
                             <div class="media-body align-self-center">
                                 <h3 class="media-heading">
-                                    <a href="https://efcontact.com/services/emeka-auto-mechanic">{{$service_in_city->user->name}}, {{$service_in_city->name}}, {{$service_in_city->city}}</a>
+                                    <a href="https://efcontact.com/services/emeka-auto-mechanic">{{$service_in_city->user->name}} | {{Str::limit($service_in_city->name, 10)}}</a>
                                 </h3>
                                                             </div>
                         </div>
@@ -211,7 +227,7 @@
                         <ul class="list-unstyled list-cat">
                               @if(isset($featuredServices))
                         @foreach($featuredServices as $featuredService)
-                                                        <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning text-gray-dark"><i class="fa fa-home">{{$featuredService->city}}</i></a>
+                        <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning text-gray-dark"><i class="fa fa-home">{{$featuredService->city}}</i></a>
                                                             @endforeach
                         @endif
                                                       
@@ -254,8 +270,8 @@
                             </li>
                             <li>
                                 <i class="flaticon-envelope"></i>
-                                <a href="mailto:info@efcontact.com">
-                                    info@efcontact.com
+                                <a href="mailto:support@efcontact.com">
+                                    support@efcontact.com
                                 </a>
                             </li>
                         </ul>

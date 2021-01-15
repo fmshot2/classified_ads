@@ -58,7 +58,7 @@ Update Service |
                   <div class="col-md-12">
                     <div class="form-group">
                       <label class="form-label"> Experience*(in years) </label>
-                      <input type="number" name="experience" class="form-control" value=" {{$service->description }} ">
+                      <input type="number" name="experience" class="form-control" value=" {{$service->experience }} ">
                       <small class="text-danger">required*</small>
                     </div>
                   </div>
@@ -67,7 +67,7 @@ Update Service |
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="">Phone*</label>
-                      <input type="number" required class="form-control" name="phone" value=" {{ Auth::user()->phone }}">
+                      <input type="number" required class="form-control" name="phone" value="{{$service->phone }}">
                       <small class="text-danger">required*</small>                    
                     </div>
                   </div>
@@ -98,7 +98,7 @@ Update Service |
                   <div class="col-md-12">
                     <div class="form-group">
                       <label class="form-label">City*</label>
-                      <input type="text" required class="form-control" name="city" value=" {{ $service->city }}">
+                      <input type="text" class="form-control" name="city" value=" {{ $service->city }}">
                       <small class="text-danger">required*</small>                     
                     </div>
                   </div>
@@ -137,7 +137,7 @@ Update Service |
                       <h3 class="box-title">Gallery Image</h3>
                     </div>
                     <div class="body">
-                      <input class="form-control" required name="file" type="file">
+                      <input class="form-control" required name="files[]" multiple type="file">
                       <span class="helper-text" data-error="wrong" data-success="right">Upload one or more images</span>
                       <small class="text-danger">required*</small>                      
                     </div>

@@ -9,6 +9,7 @@ use App\State;
 use Illuminate\Support\Str;
 use Illuminate\Http\File;
 use DB;
+use Image;
 
 
 
@@ -66,19 +67,33 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        //dd('asasas');
      $this->validate($request,[
         'name' => ['required', 'unique:categories'],
     ]); 
 
      $slug = Str::of($request->name)->slug('-');
+             $slug2 = Str::random(5);
+
 
      $category = new Category();
                 // Image set up
      if ( $request->hasFile('file') ) {
+                $thumbnailImage = Image::make($request->file);
+                $thumbnailImage->resize(200,200);
+                $thumbnailImage_name = $slug2.'.'.time().'.'.$request->file->getClientOriginalExtension();
+$destinationPath = 'images/';
+        $thumbnailImage->save($destinationPath . $thumbnailImage_name);
+        $category->image = $thumbnailImage_name;
+
+/*
         $image_name = time().'.'.$request->file->extension();
         $request->file->move(public_path('images'),$image_name);
         $category->image = $image_name;
+        */
     }
+
+
 
 $category->name = $request->name;
 $category->slug = $slug;
@@ -195,10 +210,13 @@ return $this->index();
 
 
 
-    public function getCityList($id)
-    {
+    public function getCityList($state_name)
+    {       
+        $state = State::where("name",$state_name)->first();
+
+        $state_id = $state->id;
         $cities = DB::table("local_governments")
-        ->where("state_id",$id)
+        ->where("state_id",$state_id)
         ->pluck("name","id");
 
         return response()->json($cities);

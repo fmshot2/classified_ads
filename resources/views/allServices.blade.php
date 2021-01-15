@@ -22,6 +22,24 @@ Home |
             </div>
         </div>
     </div>
+
+
+    <div class="pull-right">
+        <h3><span class="text-right">
+            <div class="posts-by-category widget">
+                <!--<h3 class="sidebar-title">Cities</h3>-->                       
+                <ul class="list-unstyled list-cat">
+
+                   
+                  <a href="{{route('home')}}" class="btn btn-outline-warning"><i class="fa fa-home">Back To Home</i></a>
+                  
+              </ul>
+          </div></span></h3>
+          
+      </div>
+
+
+
     <!-- Properties Details page start -->
     <div class="properties-details-page content-area-7">
         <div class="container">
@@ -54,11 +72,10 @@ Home |
             <!-- Option bar start -->
             <div class="option-bar">
                 <div class="float-left">
-                    <h4>
+                    <h4 href="{{route('home')}}">
                         <span class="heading-icon bg-warning">
                             <i class="fa fa-th-large"></i>
                         </span>
-                        <span class="title-name">List of Services Available</span>
                     </h4>
                 </div>
                 <div class="float-right cod-pad">
@@ -77,7 +94,7 @@ Home |
             <div class="row property-section">
                 @if(isset($approvedServices))
                 @foreach($approvedServices as $approvedService)
-                <div class="col-lg-3 col-md-3 col-sm-12">
+                <div class="col-lg-4 col-md-4 col-sm-12">
                     <div class="property-box">
                         <div class="property-thumbnail">
                             <a href="{{route('serviceDetail', $approvedService->slug)}}" class="property-img">
@@ -95,20 +112,20 @@ Home |
                         <div class="detail">
 
                             <span class="d-flex justify-content-between">
-                                <h1 class="title">
-                                    <a href="{{route('serviceDetail', $approvedService->slug)}}" style="font-size: 15px;">{{Str::limit($approvedService->name, 7)}}</a>
-                                </h1>
-
-                            </span>
-
-                            <ul class="facilities-list clearfix">
+                              
+                                    <a class="title" href="{{route('serviceDetail', $approvedService->slug)}}" style="font-size: 15px;">{{Str::limit($approvedService->name, 7)}}</a>
+                                    <ul>
                                 <li><i class="fa fa-map-marker text-warning"></i>
-                                    {{$approvedService->city}}
+                                    {{Str::limit($approvedService->city, 7)}}
                                 </li>
                                   {{--  <li class="" style="float: right;">
                                         <i class="fa fa-thumbs-up text-warning" aria-hidden="true"></i><a href="http://localhost:8000/serviceDetail/2" >{{$approvedService->likes->count()}} like(s)</a>
                                     </li>--}}
                                 </ul>
+
+                            </span>
+
+                          
                             </div>
 
                             <div class="footer clearfix">
@@ -119,7 +136,7 @@ Home |
                                 </div>
                                 @endguest
                                 <div class="pull-center">
-                                   <i class="fa fa-thumbs-up text-warning" aria-hidden="true"></i><a>{{$approvedService->likes->count()}} like(s)</a>
+                                   <i class="fa fa-thumbs-up text-warning" aria-hidden="true"></i><a>{{$approvedService->likes->count()}}</a>
                                </div>
                            </div>
                        </div>
@@ -170,14 +187,18 @@ Home |
                     </div>
                 </div>
             </div> --}}
+          <form action="" method="POST">
+          </form>
+
 
             <div class="col-lg-4 col-md-12">
                 <div class="sidebar-right">
+            
                     <!-- Advanced search start -->
                     <div class="sidebar widget advanced-search none-992">
                         <h3 class="sidebar-title">Advanced Search</h3>
 
-                        <form action="{{route('search3')}}" method="GET" enctype="multipart/form-data">
+                        <form action="{{route('search3')}}" method="POST" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group name">
@@ -192,7 +213,7 @@ Home |
                                 </div>-->
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group subject">
-                                     <!--  <input type="text" name="serviceDetail_id" value= class="form-control"> -->
+                                     <!--  <input type="text" name="serviceDetail_id"class="form-control"> -->
                                  </div>
                              </div>
                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">

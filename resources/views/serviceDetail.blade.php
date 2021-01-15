@@ -44,7 +44,7 @@
   <div class="toast bg-success mt-2 p-2" style="border-radius: 6px; position: absolute; top: 0; right: 0;">
     <div class="toast-header">
       <i class="fa fa-check-circle"></i>
-      <strong class="mr-auto text-white">Your complaint was sent successfully</strong>
+      <strong class="mr-auto text-white">Your comoplaint was sent successfully</strong>
       <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -258,7 +258,7 @@
             @foreach($similarProducts as $similarProduct)
             <tr>
              <td class="image">
-               <a href="{{route('serviceDetail', $similarProduct->id)}}"><img alt="properties-small" src="{{asset('images')}}/{{$similarProduct->image}}" class="img-fluid"></a>
+               <a href="{{route('serviceDetail', $similarProduct->id)}}"><img alt="properties-small" src="{{asset('images')}}/{{$similarProduct->image[0]}}" class="img-fluid"></a>
              </td>
              <td>
                <div class="inner">

@@ -1,7 +1,7 @@
 
 <head>
 
- <title> @yield('title') Nigeria Yellow Page </title>
+ <title> @yield('title') EFContacts </title>
 
 
  <meta name="viewport" content="width=device-width, initial-scale=1.0">

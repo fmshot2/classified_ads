@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->json('image')->nullable();
+            $table->string('priority')->nullable();
 
             $table->timestamps();
         });

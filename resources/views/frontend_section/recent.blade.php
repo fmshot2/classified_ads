@@ -11,7 +11,7 @@
     @foreach($recentServices as $recentService)
 
     <div class="col-sm-3 card service-box">
-                        <img class="card-img-top" style="height: 90%;" src="{{asset('images')}}/{{$recentService->image[0]}}" alt="service" style="min-width: 150px;">
+                        <img class="card-img-top" src="{{asset('images')}}/{{$recentService->image[0]}}" alt="service" style="min-width: 150px;">
                         <div class="card-body detail">
                             <div class="title">
                                 <h4 style="color: black;"><a href="{{route('serviceDetail', $recentService->slug)}}"  style="font-size: 15px;">{{$recentService->user->name}}, &nbsp; {{$recentService->name}}</a></h4>

@@ -102,7 +102,7 @@
 
                                @foreach($states as $state)
 
-                               <option value="{{$state->id}}"> {{ $state->name }}  </option> 
+                               <option value="{{$state->name}}"> {{ $state->name }}  </option> 
                                @endforeach
                                                                    @endif
 
@@ -249,38 +249,32 @@
             if(res){
              console.log(res);
              console.log(categoryID);
-             $("#categ ").empty();
+             $("#sub_category ").empty();
              $.each(res,function(key,value){
                 $("#sub_category").append('<option value="'+key+'">'+value+'</option>');
             });
-
          }else{
-             $("#sub_categories").empty();
+             $("#sub_category").empty();
          }
      }
  });
     }else{
-        $("#sub_categories").empty();
+        $("#sub_category").empty();
     }
-
 }); 
-
 </script>
-
-
-
 <script type="text/javascript">
    $('#state').on('change',function(){
-    var stateID = $(this).val();    
-    if(stateID){
+    var state_name = $(this).val();    
+    if(state_name){
         $.ajax({
          type:"GET",
            //url:"{{url('qqq')}}"+stateID,
-           url: 'api/get-city-list/'+stateID,
+           url: 'api/get-city-list/'+state_name,
            success:function(res){               
             if(res){
              console.log(res);
-             console.log(stateID);
+             console.log(state_name);
              $("#city").empty();
              $.each(res,function(key,value){
                 $("#city").append('<option value="'+key+'">'+value+'</option>');

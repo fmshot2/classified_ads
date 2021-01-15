@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Message;
 use App\Notification;
 use App\State;
+use Image;
+
 use Illuminate\Support\Str;
 
 class SellerController extends Controller
@@ -26,8 +28,8 @@ class SellerController extends Controller
     public function storeService(Request $request)
     {
         //dd($request->files);
-        
-     $this->validate($request,[
+
+       $this->validate($request,[
         'description' => 'required',
         'category_id' => 'required',
         'address' => 'required',
@@ -36,16 +38,12 @@ class SellerController extends Controller
         //'city' => 'required',
         'name' => 'required',
         'state' => 'required',
-        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,jfif|max:2048', //|max:2048
+        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', //|max:2048
     ]); 
-
-     $image = $request->file('image');
-
-     $random = Str::random(3);
-     $slug = Str::of($request->name)->slug('-').''.$random; 
-     $service = new Service();
-
-
+       $image = $request->file('image');
+       $random = Str::random(3);
+       $slug = Str::of($request->name)->slug('-').''.$random; 
+       $service = new Service();
 /*
    if ( $request->hasFile('files') ) {
                 $names = array();
@@ -60,67 +58,86 @@ foreach($request->file('files') as $image)
                 
         }
             $category->image = json_encode($names);
-
 }
 */
+$slug = Str::random(5);
 
                 // Image set up
-     if ( $request->hasFile('files') ) {
-                        $names = array();
-                        foreach($request->file('files') as $image)
+if ( $request->hasFile('files') ) {
+    $names = array();
+    foreach($request->file('files') as $image)
     {
+        $thumbnailImage = Image::make($image);
+        $thumbnailImage->resize(300,300);
+        $thumbnailImage_name = $slug.'.'.time().'.'.$image->getClientOriginalExtension();
+        $destinationPath = 'images/';
+               /* $image_name = $image->getClientOriginalName();
+               $image->move(public_path('images'),$image_name);*/
+            //$thumbnailImage_name = $thumbnailImage->getClientOriginalName();
+               $thumbnailImage->save($destinationPath . $thumbnailImage_name);
+               array_push($names, $thumbnailImage_name);
+           }
+           $service->image = json_encode($names);
+       }
+       $service->user_id = Auth::id();
+       $service->category_id = $request->category_id;
+       $service->name = $request->name;
+       $service->phone = $request->phone;
+       $service->city = $request->city;
+       $service->experience = $request->experience;
+       $service->address = $request->address;
+       $service->min_price = $request->min_price;
+       $service->max_price = $request->max_price;
+       $service->slug = $slug;
+       $service->video_link = $request->video_link;
+       $service->description = $request->description;
+       $service->state = $request->state;
+       $service->save();
+       $request->session()->flash('status', 'Task was successful!');
+       return $this->allService();
 
-                $image_name = $image->getClientOriginalName();
-        $image->move(public_path('images'),$image_name);
-                array_push($names, $image_name);
-}
-        $service->image = json_encode($names);
-    }
-  
+   }
 
-    $service->user_id = Auth::id();
-    $service->category_id = $request->category_id;
-    $service->name = $request->name;
-    $service->phone = $request->phone;
-    $service->city = $request->city;
-    $service->experience = $request->experience;
-    $service->address = $request->address;
-    $service->min_price = $request->min_price;
-    $service->max_price = $request->max_price;
-    $service->slug = $slug;
-    $service->video_link = $request->video_link;
-    $service->description = $request->description;
-    $service->state = $request->state;
-
-    $service->save();
-
-    $request->session()->flash('status', 'Task was successful!');
-    return $this->allService();
-
-}
-
-    public function storeServiceUpdate(Request $request, $id)
-    {
+   public function storeServiceUpdate(Request $request, $id)
+   {
 
     $service = Service::findOrFail($id);
 
-     $this->validate($request,[
+    $this->validate($request,[
         'description' => 'required',
         'address' => 'required',
         'description' => 'required',
-        'city' => 'required',
+        //'city' => 'required',
         'name' => 'required',
         'state' => 'required',
         'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ]); 
-
-     $image = $request->file('image');
+           $image = $request->file('image');
+    $slug = Str::random(5);
+                // Image set up
+    if ( $request->hasFile('files') ) {
+        $names = array();
+        foreach($request->file('files') as $image)
+        {
+            $thumbnailImage = Image::make($image);
+            $thumbnailImage->resize(300,300);
+            $thumbnailImage_name = $slug.'.'.time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = 'images/';
+               /* $image_name = $image->getClientOriginalName();
+               $image->move(public_path('images'),$image_name);*/
+            //$thumbnailImage_name = $thumbnailImage->getClientOriginalName();
+               $thumbnailImage->save($destinationPath . $thumbnailImage_name);
+               array_push($names, $thumbnailImage_name);
+           }
+           $service->image = json_encode($names);
+       }
+     /*  $image = $request->file('image');
     // Image set up
-     if ( $request->hasFile('file') ) {
+       if ( $request->hasFile('file') ) {
         $image_name = time().'.'.$request->file->extension();
         $request->file->move(public_path('images'),$image_name);
         $service->image = $image_name;
-    }
+    }*/
 
     $service->user_id = Auth::id();
     $service->category_id = $request->category_id;
@@ -145,9 +162,9 @@ foreach($request->file('files') as $image)
 
 public function unreadMessage()
 {
-   $all_message = Message::where('service_user_id', Auth::id() );
-   $unread_message =  $all_message->Where('status', 0)->orderBy('id', 'desc')->paginate(10);
-   return view ('seller.message.unread', compact('unread_message') );
+ $all_message = Message::where('service_user_id', Auth::id() );
+ $unread_message =  $all_message->Where('status', 0)->orderBy('id', 'desc')->paginate(10);
+ return view ('seller.message.unread', compact('unread_message') );
 }
 
 public function readMessage()
@@ -261,24 +278,24 @@ public function viewProfile()
     return view ('seller.profile.update_profile');
 }
 
-  public function destroy($id)
-  {
+public function destroy($id)
+{
     $service = Service::findOrFail($id);
     $service->delete();
     session()->flash('status', 'Task was successful!');
     return back();
-  }
+}
 
 
 
 
 public function post_advert() {
-        return view('seller.service.post_advert');
-      }
+    return view('seller.service.post_advert');
+}
 
 public function badgeNotice()
 {
-    
+
     $all_service = Service::where('user_id', Auth::id() )->get();
     $active_service =  $all_service->Where('badge_type', 0);
     $active_service_count = $active_service->count();
