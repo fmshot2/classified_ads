@@ -20,6 +20,9 @@ body {
     font-weight: 700;
     text-transform: capitalize;
 }
+.fea-ad-hm-location {
+    font-size: 13px !important;
+}
 
 @media (max-width: 768px) {
     .home-recently-properties {

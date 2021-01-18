@@ -23,7 +23,7 @@
                             <div class="media-body align-self-center">
                                 <h3 class="media-heading"><a href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 30)}}</a></h3>
 
-                                <p><strong>Location:</strong> <a href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->state, 30)}}</a></p>
+                                <p class="fea-ad-hm-location"><strong>Location:</strong> <a href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->state, 30)}}</a></p>
                             </div>
                         </div>
                         @endforeach
@@ -87,7 +87,7 @@
                             </div>
                             <div class="media-body align-self-center">
                                 <h3 class="media-heading"><a href="#">{{ Str::limit($featuredService->name, 35)}}</a></h3>
-                                <p><strong>Location:</strong> {{ Str::limit($featuredService->state, 30)}}</p>
+                                <p class="fea-ad-hm-location"><strong>Location:</strong> {{ Str::limit($featuredService->state, 30)}}</p>
                             </div>
                         </div>
                         @endforeach
