@@ -1,0 +1,18 @@
+.home-recently-properties {
+    margin-bottom: -230px !important;
+    margin-top: -175px !important;
+    margin-right: 80px !important;
+    margin-left: 80px !important;
+}
+
+@media (max-width: 768px) {
+    .home-recently-properties {
+        margin-top: -30px !important;
+    }
+    .content-area {
+        margin-top: 150px !important;
+    }
+    img.d-block.w-100 {
+        height: auto !important;
+    }
+}

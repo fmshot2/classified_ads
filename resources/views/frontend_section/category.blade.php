@@ -1,4 +1,4 @@
-<div class="recently-properties content-area-12" style="margin-bottom: -230px; margin-top: -175px; margin-right: 80px;margin-left: 80px;">
+<div class="recently-properties content-area-12 home-recently-properties" style="">
     <div class="" style="">
 
     {{--    @if(isset($closerServices))
@@ -16,7 +16,7 @@
                             </div>
                              <div class="location">
                                     <a href="properties-details.html" tabindex="-1">
-                                        
+
                                     </a><i class="fa fa-map-marker"></i><span>{{$closerService->state}}</span>
                                 </div>
                             </div>
@@ -80,10 +80,10 @@
                         <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning text-gray-dark"><i class="fa fa-home">{{$featuredService->city}}</i></a>
                                                             @endforeach
                         @endif
-                                                      
+
                     </ul>
                 </div>--}}
-                
+
             </div>
         </div>
 
@@ -184,7 +184,7 @@
 </div>
 
 {{--mobile view for choosing a category--}}
-<div class=" services-2 content-area-5 bg-grea-3 d-block d-sm-none">
+{{-- <div class=" services-2 content-area-5 bg-grea-3 d-block d-sm-none">
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
@@ -196,14 +196,14 @@
                     <option value="">-- Select Category --</option>
                     @if(isset($categories))
                     @foreach($categories as $category)
-                    <option value="{{ $category->id }}"> {{ $category->name }}  </option> 
+                    <option value="{{ $category->id }}"> {{ $category->name }}  </option>
                     @endforeach
                     @endif
                 </select>
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 {{--End mobile view for choosing a category--}}
 
 
@@ -259,7 +259,7 @@
                                         <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i>                                    {{$featuredService->likes->count()}} likes
                                     </li>
                                     <a class="pull-right" href="{{route('serviceDetail', $featuredService->slug)}}" style="font-size: 13px;">
-                                    <i class="fa fa-map-marker text-warning"></i>{{$featuredService->state}}                                   
+                                    <i class="fa fa-map-marker text-warning"></i>{{$featuredService->state}}
                                 </a>
                                    <!-- <li class="" style="float: right;">
                                         <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="{{route('serviceDetail', $featuredService->id)}}">Verified</a>
@@ -291,7 +291,7 @@
                             </div>
                         </div>-->
                     </div>
-                </div> 
+                </div>
                 @endforeach
 
             </div>
@@ -323,7 +323,7 @@
                       printMsg(data);
                   }
               });
-            }); 
+            });
 
             function printMsg (msg) {
               if($.isEmptyObject(msg.error)){
