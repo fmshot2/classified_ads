@@ -1,8 +1,24 @@
+html,
+body {
+    width: 100%;
+    overflow-x: hidden;
+}
 .home-recently-properties {
     margin-bottom: -230px !important;
     margin-top: -175px !important;
     margin-right: 80px !important;
     margin-left: 80px !important;
+}
+.featured-ad-hm-image {
+    border-radius: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.featured-ad-hm-list .media-heading,
+.featured-service-hm .media-heading {
+    font-weight: 700;
+    text-transform: capitalize;
 }
 
 @media (max-width: 768px) {
