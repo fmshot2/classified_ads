@@ -73,14 +73,14 @@
                         @foreach($service as $services)
                                                 <div class="media">
                             <div class="media-left">
-                                <img class="media-object" src=" {{asset('images')}}/{{ $services->image[0]}} " alt="sub-properties">
+                                <a class="title " href="{{route('serviceDetail', $services->slug)}}"  style="font-size: 14px;"><img class="media-object" src=" {{asset('images')}}/{{ $services->image[0]}} " alt="sub-properties"></a>
                              
                             </div>
                             <div class="media-body align-self-center">
                                 <h3 class="media-heading">
-                                    </h3><h6><a href="#">{{ Str::limit($services->name, 5)}}</a></h6>
+                                    </h3><h6><a href="#">{{ Str::limit($services->name, 35)}}</a></h6>
                                 
-                                <p>{{ Str::limit($services->state, 5)}}</p>
+                                <p>{{ Str::limit($services->state, 25)}}</p>
                             </div>
                         </div>
                         @endforeach

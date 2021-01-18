@@ -15,7 +15,9 @@
                         <div class="agenttrusted-badges">
                                 <span class="" style="color: rgb(182, 165, 13)">Trusted <i class="fa fa-star"></i></span>
                             </div>
-                        <div class="category">
+                            <a class="title " href="{{route('serviceDetail', $approvedService->slug)}}"  style="font-size: 14px;">{{ Str::limit($approvedService->name, 50) }} <img class="d-block w-100" src="{{asset('images')}}/{{$approvedService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                </a>
+                        {{--<div class="category">
                             <div class="category_bg_box cat-2-bg" style="background-image: url({{asset('images')}}/{{$approvedService->image[0]}})">
                                 <div class="category-overlay">
                                     <div class="category-content">
@@ -29,7 +31,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>--}}
                     </div>
                         @endforeach
 @endif
