@@ -1,122 +1,18 @@
-<div class="recently-properties content-area-12">
+<div class="blog content-area bg-grea-3">
     <div class="container">
-
-
-<!--
- <div class="main-title">
-            <h1> Sellers Closest To You </h1>
-        </div>
-
-
-
-        @if(isset($closerServices))
-
-
-
-<div class="row">
-    @foreach($closerServices as $closerService)
-
-    <div class="col-sm-3 card service-box mr-3">
-                        <img class="card-img-top" src="{{asset('images')}}/{{$closerService->image}}" alt="service" style="min-width: 150px;">
-                        <div class="card-body detail">
-                            <div class="title">
-                                <h4><a href="#">{{$closerService->user->name}}, &nbsp; {{$closerService->name}}</a></h4>
-                            </div>
-                             <div class="location">
-                                    <a href="properties-details.html" tabindex="-1">
-                                        
-                                    </a><i class="fa fa-map-marker"></i><span>{{$closerService->state}}</span>
-                                </div>
-                            </div>
-                    </div>
-                        @endforeach
-    </div>
-@endif
--->
-
-
-<!-- Main title -->
-<div class="main-title">
+       <!-- Main title -->
+<div class="main-title" style="margin-top: -50px;">
     <h1> Featured Services </h1>
 </div>
-
-
-
-
-
-@if(isset($seller))
-<p> The Search results for your query <b> query</b> are :</p>
-<h2>Sample User details</h2>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Seller</th>
-            <th>Service</th>
-            <th>Phone</th>
-            <th>More</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($seller as $user)
-        <a href="{{route('serviceDetail', $user->id)}}"><tr>
-            <td>{{$user->user->name}}</td>
-            <td>{{$user->name}}</td>
-            <td>{{$user->user->phone}}</td>
-            <td>
-                <a href="{{route('serviceDetail', $user->id)}}">view</a>
-            </td>
-
-
-        </tr>
-        @endforeach
-    </tbody>
-</table>
-
-
-
-
-<div class="our-team-2 content-area">
-    <div class="container">
-        <!-- Main title -->
-        <div class="main-title">
-            <h1>Our Agent</h1>
-        </div>
-        <div class="row">
-            @foreach($seller as $user)
-
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="team-1">
-                    <div class="team-photo">
-                        <a href="#">
-                            <img src="img/avatar/avatar-7.jpg" alt="agent-2" class="img-fluid">
-                        </a>
-                    </div>
-                    <div class="team-details">
-
-                        <h5><a href="agent-detail.html">{{$user->user->name}}</a></h5>
-                        <h6>{{$user->name}}</h6>
-                        <ul class="social-list clearfix">
-                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a>{{$user->user->phone}}</li>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-
-        </div>
-    </div>
-</div>
-@endif
-
 
 @if(isset($featuredServices))
 <div class="row">
     @foreach($featuredServices as $featuredService)
+    <a href="{{route('serviceDetail', $featuredService->slug)}}" class="property-img">
     <div class="col-lg-3 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
         <div class="property-box">
             <div class="property-thumbnail">
-                <a href="{{route('serviceDetail', $featuredService->slug)}}" class="property-img">
+                
                     <div class="listing-badges">
                         <span class="featured bg-warning">{{$featuredService->is_featured == 1 ? 'featured' : ''}}</span>
                     </div>
@@ -134,18 +30,19 @@
                                 </div>
                                 <div class="listing-time opening">{{ Str::limit($featuredService->user->name, 10) }}</div>
                                 <img class="d-block w-100" src="{{asset('images')}}/{{$featuredService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
-                            </a>
+                            
                         </div>
                         <div class="detail">
-                            <div class="d-flex justify-content-between"><a class="title " href="{{route('serviceDetail', $featuredService->slug)}}"  style="font-size: 14px;">{{ Str::limit($featuredService->name, 10) }}</a>
-                                <a class="pull-right" href="{{route('serviceDetail', $featuredService->slug)}}" style="font-size: 13px;">
-                                    <i class="fa fa-map-marker text-warning"></i>{{$featuredService->state}}                                   
-                                </a></div>
+                            <div class="d-flex justify-content-between"><a class="title " href="{{route('serviceDetail', $featuredService->slug)}}"  style="font-size: 14px;">{{ Str::limit($featuredService->name, 50) }}</a>
+                                </div>
 
                                 <ul class="facilities-list clearfix">
                                     <li>
                                         <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i>                                    {{$featuredService->likes->count()}} likes
                                     </li>
+                                    <a class="pull-right" href="{{route('serviceDetail', $featuredService->slug)}}" style="font-size: 13px;">
+                                    <i class="fa fa-map-marker text-warning"></i>{{$featuredService->state}}                                   
+                                </a>
                                    <!-- <li class="" style="float: right;">
                                         <i class="fa fa-check-circle text-warning" aria-hidden="true"></i><a href="{{route('serviceDetail', $featuredService->id)}}">Verified</a>
                                     </li>-->
@@ -160,25 +57,11 @@
                                 </li>-->
                             </ul>
                         </div>
-                    <!--    <div class="footer clearfix">
-                            <div class="pull-left days">
-                                <a><i class="fa fa-user"></i>{{$featuredService->user->name}}</a>
-                            </div>
-                            <div class="pull-right">
-                                <ul class="facilities-list clearfix">
-                                <li>
-                                   <i class="fa fa-thumbs-up"></i>Upvote
-                                </li>
-                                <li>
-                                    <i class="fa fa-thumbs-down"></i>Downvote
-                                </li>
-                                 </ul>
-                            </div>
-                        </div>-->
+                 
                     </div>
                 </div> 
                 @endforeach
-
+</a>
             </div>
 
 
@@ -190,7 +73,7 @@
 
 
         <div id="" class="search-section search-area-2">
-            <div class="row justify-content-end">                          
+            <div class="row justify-content-center">                          
 
                 <div class="col-lg-2 col-md-6 col-sm-6 col-6">
                     <div class="form-group">
@@ -201,114 +84,6 @@
         </div>
     </div>
   
-
-
-
-        <div class="services-2 content-area-5 bg-grea-3 d-none d-sm-block">
-            <div class="container">
-                <!-- Main title -->
-                <div class="main-title">
-                    <h1>What are you looking for?</h1>
-                </div>
-                <div class="row wow animated" style="visibility: visible;">
-                    @if(isset($categories))
-
-                    @foreach($categories as $category)
-                    <div class="  col-lg-2 col-md-3 col-sm-2 col-xs-2">
-                        <div class="service-info-5">
-<div style="border-radius: 50px">
-                           <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px;" alt="properties">
-                           </div>
-
-                           {{--<i class="fa fa-user text-warning"></i>--}}
-                           <a href="{{route('services', $category->slug)}}" >
-                            <h6>{{$category->name}}</h6>
-                        </a>
-                    </div>
-
-                </div>
-                @endforeach
-            </div>
-            {{ $categories->links() }}
-                            @endif
-
-
-        </div>
     </div>
+</div>
 
-{{--mobile view for choosing a category--}}
-    <div class=" services-2 content-area-5 bg-grea-3 d-block d-sm-none">
-        <div class="container">
-            <!-- Main title -->
-            <div class="main-title">
-                <h1>Choose a category</h1>
-            </div>
-            <div class=" d-flex justify-content-around">
-                    <div class="form-group col-6">
-                        <select class="form-control" id="categories" name="category">
-                            <option value="">-- Select Category --</option>
-                            @if(isset($categories))
-                            @foreach($categories as $category)
-                            <option value="{{ $category->id }}"> {{ $category->name }}  </option> 
-                            @endforeach
-                            @endif
-                        </select>
-                </div>
-            </div>
-        </div>
-    </div>
-{{--End mobile view for choosing a category--}}
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".btn-submit").click(function(e){
-            e.preventDefault();
-
-            var _token = $("input[name='_token']").val();
-            var id = $("#id").val();
-
-            $.ajax({
-                url: "{{ route('admin.like') }}",
-                type:'POST',
-                data: {_token:_token, id:id},
-                success: function(data) {
-                  printMsg(data);
-              }
-          });
-        }); 
-
-        function printMsg (msg) {
-          if($.isEmptyObject(msg.error)){
-              console.log(msg.success);
-              $('#alert-block').empty().append(msg.success);
-              $('#alert-block2').empty().append(msg.success2);
-
-                  //$('.alert-block').empty().('display','block').append('<strong>'+msg.success+'</strong>');
-              }else{
-                $.each( msg.error, function( key, value ) {
-                  $('.'+key+'_err').text(value);
-              });
-            }
-
-        }
-    });
-</script>

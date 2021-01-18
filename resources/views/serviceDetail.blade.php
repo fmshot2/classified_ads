@@ -44,7 +44,7 @@
   <div class="toast bg-success mt-2 p-2" style="border-radius: 6px; position: absolute; top: 0; right: 0;">
     <div class="toast-header">
       <i class="fa fa-check-circle"></i>
-      <strong class="mr-auto text-white">Your comoplaint was sent successfully</strong>
+      <strong class="mr-auto text-white">Your complaint was sent successfully</strong>
       <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -87,7 +87,8 @@
 
                             @if(isset($featuredServices2))
                             @foreach($featuredServices2 as $featuredService)
-                            <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-home">{{$featuredService->city}}</i></a>
+                            <a href="{{route('search_by_city', $featuredService->city)}}" 
+                              class="btn btn-outline-warning"><i class="fa fa-home">{{$featuredService->city}}</i></a>
                             @endforeach
                             @endif
 
@@ -189,9 +190,9 @@
       <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Likes</a>
     </li>
 
-    <li class="nav-item">
+    {{--<li class="nav-item">
       <a class="nav-link" id="four-tab" data-toggle="tab" href="#four" role="tab" aria-controls="four" aria-selected="true">Video</a>
-    </li>
+    </li>--}}
     <li class="nav-item">
       <a class="nav-link" id="five-tab" data-toggle="tab" href="#five" role="tab" aria-controls="five" aria-selected="true">Location</a>
     </li>

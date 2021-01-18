@@ -16,7 +16,7 @@
                                 <span class="" style="color: rgb(182, 165, 13)">Trusted <i class="fa fa-star"></i></span>
                             </div>
                         <div class="category">
-                            <div class="category_bg_box cat-2-bg" style="background-image: url({{asset('images')}}/{{$approvedService->image}})">
+                            <div class="category_bg_box cat-2-bg" style="background-image: url({{asset('images')}}/{{$approvedService->image[0]}})">
                                 <div class="category-overlay">
                                     <div class="category-content">
                                         <h3 class="category-title">
