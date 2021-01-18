@@ -14,6 +14,8 @@
 
 @include('frontend_section/search')
 
+@include('frontend_section/category')
+
 @include('frontend_section/feature')
 
 @include('frontend_section/popular')

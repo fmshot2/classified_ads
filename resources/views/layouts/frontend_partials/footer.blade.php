@@ -111,7 +111,7 @@
         </div>
         <div class="row">
             <div class="col-xl-12">
-                <p class="copy">© 2020 EFContact <a href="https://www.efnetworks.com">Powered by EF Networks. </a><a href="{{route('terms-of-use')}}"> TERMS</a> | <a href="{{route('terms-of-use')}}"> POLICIES</a></p>
+                <p class="copy">© 2021 EFContact <a href="https://www.efnetworks.com">Powered by EF Network Ltd. </a><a href="{{route('terms-of-use')}}"> TERMS</a> | <a href="{{route('terms-of-use')}}"> POLICIES</a></p>
             </div>
         </div>
     </div>

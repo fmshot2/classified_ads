@@ -52,10 +52,10 @@ class ServiceController extends Controller
           //$my_state =  Auth::user()->state;
         //}
         //$my_state =  Auth::user()->state;
-    $featuredServices = Service::where('is_featured', 1)->with('user')->paginate(8);
+    $featuredServices = Service::where('is_featured', 1)->with('user')->paginate(16);
     $approvedServices = Service::where('status', 1)->with('user')->get();
     $advertServices = Service::where('is_approved', 1)->with('user')->get();
-    $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(8);
+    $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(16);
       //$service_likes = Like::where('service_id', $serviceDetail_id)->count();
         //$closerServices = Service::where('state', $my_state)->get();
       //$categories = Category::paginate(16);
