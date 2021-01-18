@@ -1,5 +1,7 @@
 <?php
 
+use Intervention\Image\ImageServiceProvider;
+
 return [
 
     /*
@@ -176,7 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Mews\Captcha\CaptchaServiceProvider::class,
-        Intervention\Image\ImageServiceProvider,
+        ImageServiceProvider::class
 
     ],
 
