@@ -86,7 +86,7 @@ Home |
                                 </div>
                             </div>
                             @empty
-                            <h6 class="text-muted text-center">There are no sub-services within this service</h6>
+                            <h6 class="text-muted text-center">There are no services yet within this category</h6>
 
                             @endforelse
                         </div>

@@ -13,8 +13,8 @@
 Advertise Your Skills								</p>
 							</div>
 							<div class="btn-sections">
-								<a href="#" class="btn btn-lg btn-warning text-white">Get Started Now</a>
-								<a href="#" class="btn btn-lg btn-white-lg-outline">Learn More</a>
+								<a href="{{route('register')}}" class="btn btn-lg btn-warning text-white">Get Started Now</a>
+								<a href="{{route('faq')}}" class="btn btn-lg btn-white-lg-outline">Learn More</a>
 							</div>
 						</div>
 					</div>

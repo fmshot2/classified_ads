@@ -65,7 +65,7 @@
                         <ul class="list-unstyled list-cat">
                               @if(isset($featuredServices))
                         @foreach($featuredServices as $featuredService)
-                                                        <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-home">{{$featuredService->city}}</i></a>
+                        <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-home">{{$featuredService->city}}</i></a>
                                                             @endforeach
                         @endif
                                                       
@@ -90,7 +90,8 @@
                             <div class="detail">
                                 <h1 class="title text-primary" >{{$service_in_city->user->name}}
                                 </h1>
-                                          <a href="{{route('login')}}">  Login to contact  <strong class="text-primary"> {{Str::limit($service_in_city->user->name, 5)}},   {{Str::limit($service_in_city->name, 12)}}</strong></a>                     
+                                 <p><strong class="text-primary">{{Str::limit($service_in_city->name, 40)}}</strong></p>
+                                <a href="{{route('login')}}">  Login to contact  <strong class="text-primary"> {{Str::limit($service_in_city->user->name, 5)}}</strong></a>                     
                             </div>
                             <div class="footer clearfix">
                                 

@@ -35,26 +35,26 @@ Home |
             </div>
             <div class="contact-info">
                 <div class="row">
-                    <div class="col-md-3 col-sm-6 mrg-btn-50">
+                    <div class="col-md-4 col-sm-6 mrg-btn-50">
                         <i class="flaticon-location"></i>
                         <p>Office Address</p>
-                        <strong>No 8, Huambo Crescent, Off Harper Street, by Bolton White Hotel, Wuse Zone 7, Abuja, Federal Capital Territory, Nigeria</strong>
+                        <strong>31, Pope John Paul II Street, Maitama, FCT, Abuja</strong>
                     </div>
-                    <div class="col-md-3 col-sm-6 mrg-btn-50">
+                    <div class="col-md-4 col-sm-6 mrg-btn-50">
                         <i class="flaticon-technology-1"></i>
                         <p>Phone Number</p>
                         <strong>0700-6258244</strong>
                     </div>
-                    <div class="col-md-3 col-sm-6 mrg-btn-50">
+                    <div class="col-md-4 col-sm-6 mrg-btn-50">
                         <i class="flaticon-envelope"></i>
                         <p>Email Address</p>
                         <strong>info@efcontact.com</strong>
                     </div>
-                    <div class="col-md-3 col-sm-6 mrg-btn-50">
+                   {{-- <div class="col-md-3 col-sm-6 mrg-btn-50">
                         <i class="flaticon-globe"></i>
                         <p>Support</p>
                         <strong>info@maxwellochadefoundation.com</strong>
-                    </div>
+                    </div>--}}
                 </div>
             </div>
 
