@@ -8,7 +8,7 @@
             <div class="row">
                 @foreach($featuredServices as $featuredService)
                     <a href="{{route('serviceDetail', $featuredService->slug)}}" class="property-img">
-                        <div class="col-lg-3 col-md-4 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
+                        <div class="col-lg-3 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                             <div class="property-box">
                                 <div class="property-thumbnail">
                                     <div class="listing-badges">
@@ -29,11 +29,11 @@
 
                                     <ul class="d-flex flex-row justify-content-between info">
                                         <li>
-                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$featuredService->likes->count()}} likes
+                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$featuredService->likes->count()}} Likes
                                         </li>
                                         <li>
                                             <a class="pull-right" href="{{route('serviceDetail', $featuredService->slug)}}">
-                                                <i class="fa fa-map-marker text-warning"></i>{{$featuredService->state}}
+                                                <i class="fa fa-map-marker text-warning"></i> {{$featuredService->state}}
                                             </a>
                                         </li>
                                     </ul>
