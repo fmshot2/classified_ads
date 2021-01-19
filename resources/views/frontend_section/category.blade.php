@@ -1,7 +1,7 @@
 <div class="recently-properties content-area-12 home-recently-properties" style="">
     <div class="services-2 content-area-5">
         <div class="row container-fluid hm-top-row">
-            <div class="col-lg-3 col-md-2 fea-ser-mobile">
+            <div class="col-lg-3 col-md-2 fea-ser-mobile fea-ser-tablet">
                 <div class="sidebar-right">
                     <div class="footer-item clearfix container-fluid">
                         <br/>
@@ -90,8 +90,36 @@
                 </div>
             </div>
 
+            <div class="col-lg-6 tablet-cat-col">
+                <div class="main-title">
+                    <h1>What service are you looking for?</h1>
+                </div>
+                <div class="sidebar-right" style="width: 100%; padding: 15px;">
+                    <div class="row wow animated" style="visibility: visible;" style="margin: 0; padding: 0; width: 100%">
+                        @if(isset($categories))
+                            @foreach($categories as $category)
+                                <div class="col-3 col-xs-2" style="margin: 0; padding: 10px; width: 100%">
+                                    <div class="service-info-5" style="margin: 0; padding: 10px; width: 100%">
+                                        <a href="{{route('services', $category->slug)}}" >
+                                            <div style="border-radius: 50px">
+                                                <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="properties">
+                                            </div>
+                                        </a>
 
-            <div class="col-lg-3 col-md-3">
+                                        <a href="{{route('services', $category->slug)}}" >
+                                            <h6  class="cat-title">{{$category->name}}</h6>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
+                            {{ $categories->links() }}
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-3 fea-ser-tablet">
                 <div class="sidebar-right">
                     <div class="footer-item clearfix container-fluid">
                         <br/>
