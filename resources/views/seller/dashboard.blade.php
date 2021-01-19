@@ -12,12 +12,24 @@ Seller Dashboard |
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+      @include('layouts.backend_partials.status')
+
     <section class="content-header">
-      <h1>
-        Dashboard
-        <small>Control panel</small>
+       <h1>
+<h6>Refferal Link</h6>
+<a>
+  <button class="btn btn-danger" onclick="myFunction()">Click here to copy link</button>
+</a>
       </h1>
-      <a href=" {{ route('seller.service.create')}} "><button class="btn btn-danger"> Create A New Service</button></a>
+   
+       <input type="text" readonly class="text-muted" value="{{$linkcheck->refererlink}} {{$user}}" id="myInput">
+       <div>
+{{-- <button onclick="myFunction()">Click Here To Copy Your Referal Link</button>
+ --}}
+</div>
+      {{-- <a href=" {{ route('seller.service.create')}} "><button class="btn btn-danger"> Create A New Service</button></a> --}}
+         {{--  <input type="text" value="{{$linkcheck->refererlink}}" id="myInput">
+<button onclick="myFunction()">Copy text</button> --}}
       <ol class="breadcrumb">
         <li><a href=" {{ route('seller.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
@@ -221,7 +233,15 @@ Seller Dashboard |
 
 
 
-
+ <script>
+function myFunction() {
+  var copyText = document.getElementById("myInput");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+  alert("Copied the text: " + copyText.value);
+}
+</script>
 
 
 

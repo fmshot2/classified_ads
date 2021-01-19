@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
+use App\Refererlink;
+use Illuminate\Support\Str;
+
 
 class AuthController extends Controller
 {
@@ -30,6 +33,7 @@ class AuthController extends Controller
 		$user->email = $request->email;
 		$user->password = Hash::make($request->password);
 		$user->role = $request->role;
+		
 		//$user->state = $request->state;
 		$user->save();
 		if ($user->save()) {
@@ -37,6 +41,8 @@ class AuthController extends Controller
 
 			Mail::to($user->email)->send(new SendMailable($name));
 		}
+
+
 
 		session()->flash('success', ' Succesfull');
 
