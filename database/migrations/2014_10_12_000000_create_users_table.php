@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('state')->nullable();
             $table->string('slug')->nullable();
+            $table->string('randomLink')->nullable();
             $table->boolean('status')->default(true);
             $table->rememberToken();
             $table->timestamps();

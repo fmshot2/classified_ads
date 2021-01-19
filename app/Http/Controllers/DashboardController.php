@@ -9,6 +9,9 @@ use App\User;
 use App\Message;
 use App\Service;
 use App\Notification;
+use App\Refererlink;
+use Illuminate\Support\Str;
+
 
 
 class DashboardController extends Controller
@@ -50,6 +53,41 @@ class DashboardController extends Controller
      $all_service2 = Service::where('user_id', Auth::id())->get();
     $count_badge =  $all_service2->Where('badge_type', null)->count();
     //$active_service_count = $active_service->count();
+
+     $slug3 = Str::random(8);
+    // $user->randomLink = $slug3;
+    // $referLink = new Refererlink;
+    // $referLink->refererlink = $slug3;
+    // //$new_user = User::where('id', $serviceDetail_id)->count();
+    // $referlink->user_id = Auth::id();
+    // $referLink_>save();
+$status = "hghgcc";
+
+
+ $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
+          if ($linkcheck) {
+       $user = Auth::user()->id;
+       
+ return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'user') );
+
+         }else{
+           $link = new Refererlink();
+           $link->user_id = Auth::id();
+           $link->refererlink = $slug3;
+           $link->save();
+           $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
+            return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'linkcount', 'status', 'linkcheck'));
+           //dd($linkcount);
+         }
+
+
+
+
+
+
+
+
+
 
     return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge') );
   }

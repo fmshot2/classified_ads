@@ -15,6 +15,9 @@ use App\Service;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
+
 Route::post('/subscribe', 'AdminController@subscribe')->name('subscribe');
 
 Route::get('/send/email', 'ServiceController@mail');
