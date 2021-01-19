@@ -27,13 +27,13 @@ body {
     display: none;
 }
 
-.hm-feat-ser-mid-sec .row .col-md-6 .title {
+.hm-feat-ser-mid-sec .row .col-md-4 .title {
     font-size: 15px;
     font-weight: 800;
     text-transform: capitalize;
 }
 
-.hm-feat-ser-mid-sec .row .col-md-6 .info {
+.hm-feat-ser-mid-sec .row .col-md-4 .info {
     font-size: 13px;
     margin-top: 5px;
 }
@@ -117,19 +117,16 @@ body {
     .mobile-cat-col .cat-title {
         font-size: 11px !important;
     }
-    .hm-search-form-comp .row .col-sm-6 {
+    .hm-search-form-comp .row .col-sm-6,
+    .hm-feat-ser-mid-sec .col-sm-6 {
         width: 50% !important;
     }
     .home-recently-properties .featured-ad-hm-list {
         display: none;
     }
 
-    .hm-feat-ser-mid-sec .row .col-md-6 {
-        width: 50% !important;
-    }
-
-    .hm-feat-ser-mid-sec .row .col-md-6 .title {
-        font-size: 12px;
+    .hm-feat-ser-mid-sec .row .col-md-4 .title {
+        font-size: 14px;
     }
 
     .hm-feat-ser-mid-sec .listing-badges {
@@ -139,5 +136,10 @@ body {
     .hm-feat-ser-mid-sec .price-ratings-box .price {
         text-align: left;
         font-size: 10px;
+    }
+
+    .hm-feat-ser-mid-sec .row .col-md-4 .info {
+        font-size: 12px;
+        margin-top: 5px;
     }
 }

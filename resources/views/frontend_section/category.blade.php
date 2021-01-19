@@ -90,7 +90,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 tablet-cat-col">
+            <div class="col-lg-6 tablet-cat-col d-none">
                 <div class="main-title">
                     <h1>What service are you looking for?</h1>
                 </div>
