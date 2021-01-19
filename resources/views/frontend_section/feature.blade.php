@@ -8,7 +8,7 @@
             <div class="row">
                 @foreach($featuredServices as $featuredService)
                     <a href="{{route('serviceDetail', $featuredService->slug)}}" class="property-img">
-                        <div class="col-lg-3 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
+                        <div class="col-lg-3 col-md-4 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
                             <div class="property-box">
                                 <div class="property-thumbnail">
                                     <div class="listing-badges">
@@ -40,8 +40,8 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-                </a>
+                    </a>
+                @endforeach
             </div>
         @endif
     </div>

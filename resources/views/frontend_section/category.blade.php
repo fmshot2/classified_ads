@@ -98,7 +98,7 @@
                     <div class="row wow animated" style="visibility: visible;" style="margin: 0; padding: 0; width: 100%">
                         @if(isset($categories))
                             @foreach($categories as $category)
-                                <div class="col-4 col-xs-2" style="margin: 0; padding: 10px; width: 100%">
+                                <div class="col-3 col-xs-2" style="margin: 0; padding: 10px; width: 100%">
                                     <div class="service-info-5" style="margin: 0; padding: 10px; width: 100%">
                                         <a href="{{route('services', $category->slug)}}" >
                                             <div style="border-radius: 50px">
