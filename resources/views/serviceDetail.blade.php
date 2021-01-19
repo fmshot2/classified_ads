@@ -41,7 +41,7 @@
 
 
 <div id="complaint_notification" aria-live="polite" aria-atomic="true" style="position: relative; min-height: 50px;">
-  <div class="toast bg-success mt-2 p-2" style="border-radius: 6px; position: absolute; top: 0; right: 0;">
+  <div class="toast bg-success mt-2 p-2" style="border-radius: 6px; position: absolute; top: 0; right: 0; display: none">
     <div class="toast-header">
       <i class="fa fa-check-circle"></i>
       <strong class="mr-auto text-white">Your complaint was sent successfully</strong>
@@ -56,7 +56,7 @@
 <div class="pull-right">
   <h3><span class="text-right">
     <div class="posts-by-category widget">
-      <!--<h3 class="sidebar-title">Cities</h3>-->                       
+      <!--<h3 class="sidebar-title">Cities</h3>-->
       <ul class="list-unstyled list-cat">
         <a href="{{route('home')}}" class="btn btn-outline-warning"><i class="fa fa-home">Back To Home</i></a>
       </ul>
@@ -76,18 +76,18 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="pull-left">
-                      <h3>{{$serviceDetail->name}}</h3>
+                      <h3 style="text-transform: capitalize">{{$serviceDetail->name}}</h3>
                       <p><i class="fa fa-map-marker"></i>{{$serviceDetail->state}}</p>
                     </div>
                     <div class="pull-right">
                       <h3><span class="text-right">
                         <div class="posts-by-category widget">
-                          <!--<h3 class="sidebar-title">Cities</h3>-->                       
+                          <!--<h3 class="sidebar-title">Cities</h3>-->
                           <ul class="list-unstyled list-cat">
 
                             @if(isset($featuredServices2))
                             @foreach($featuredServices2 as $featuredService)
-                            <a href="{{route('search_by_city', $featuredService->city)}}" 
+                            <a href="{{route('search_by_city', $featuredService->city)}}"
                               class="btn btn-outline-warning"><i class="fa fa-home">{{$featuredService->city}}</i></a>
                             @endforeach
                             @endif
@@ -97,7 +97,7 @@
                       </div>
                     </div>
                   </div>
-                </div>      
+                </div>
               </div>
 
               <link href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -123,7 +123,7 @@
 
 
 
-                    </div></div> 
+                    </div></div>
                     @endforeach
                     @endif
                   </div>
@@ -143,9 +143,9 @@
             <script type="text/javascript">
               var owl = $('.owl-carousel');
               owl.owlCarousel({
-                items:4, 
+                items:4,
   // items change number for slider display on desktop
-  
+
   loop:true,
   margin:10,
   autoplay:true,
@@ -212,7 +212,7 @@
         <p>{{$serviceDetail->description}}</p>
 
       </div>
-    </div>                     
+    </div>
     <div class="tab-pane fade " id="three" role="tabpanel" aria-labelledby="three-tab">
       <div class="property-details mb-40">
         <h6 class="heading-2">This User has {{$service_likes}} likes</h6>
@@ -225,21 +225,21 @@
           Service Video
         </h3>
         <iframe src="https://www.youtube.com/embed/5e0LxrLSzok" allowfullscreen=""></iframe>
-        <iframe width="560" height="315" src="{{$serviceDetail->video_link}}" frameborder="0" allowfullscreen></iframe> 
+        <iframe width="560" height="315" src="{{$serviceDetail->video_link}}" frameborder="0" allowfullscreen></iframe>
 
       </div>
     </div>
     <div class="tab-pane fade " id="five" role="tabpanel" aria-labelledby="five-tab">
      <div class="properties-description mb-50">
       <h3 class="heading-2">
-        Address 
+        Address
       </h3>
       <p>{{$serviceDetail->streetAddress}} | {{$serviceDetail->city}} | &nbsp; {{$serviceDetail->state}}</p>
 
     </div>
   </div>
   <div class="tab-pane fade" id="six" role="tabpanel" aria-labelledby="six-tab">
-    <div class="properties-description mb-50">                              
+    <div class="properties-description mb-50">
 
       <div class="col-lg-12 col-md-12 col-sm-12">
         <!-- Heading -->
@@ -374,8 +374,8 @@
                               {{ csrf_field() }}
 
                               <input  type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
-                              <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">  
-                              <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="text-dark form-control">          
+                              <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">
+                              <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="text-dark form-control">
                               <div class="form-group">
                                 <label class="form-label">Full Name</label>
                                 <input type="text" id="buyer_name" name="buyer_name" class="text-dark form-control" placeholder=" Your Name">
@@ -401,7 +401,7 @@
                                 <span>
                                   <strong class="text-danger">{{ $errors->first('phone') }}</strong>
                                 </span>
-                              @endif                            </div> 
+                              @endif                            </div>
                               <div class="form-group">
                                 <label class="form-label">Subject</label>
                                 <input type="text" id="subject" name="subject" class="form-control text-dark" placeholder="Subject">
@@ -409,7 +409,7 @@
                                 <span>
                                   <strong class="text-danger">{{ $errors->first('subject') }}</strong>
                                 </span>
-                                @endif 
+                                @endif
                               </div>
 
                               <div class="form-group message">
@@ -418,7 +418,7 @@
                                 <span>
                                   <strong class="text-danger">{{ $errors->first('description') }}</strong>
                                 </span>
-                                @endif 
+                                @endif
                               </div>
                               @guest
                               <p>Only registered users can message sellers. <a href="{{route('login')}}"><strong>Login</strong></a> or <a href="{{route('register')}}"><strong>Register</strong></a> if you dont have an account.</p>
@@ -470,8 +470,8 @@
                                         <form id="myform2">
                                           {{ csrf_field() }}
                                           <input  type="hidden" id="service_id_report" name="service_id_report" value="{{$serviceDetail->id}}" class="form-control">
-                                          <input type="hidden" id="service_user_id_report" name="service_user_id_report" value="{{$serviceDetail->user_id}}" class="form-control">  
-                                          <input type="hidden" id="buyer_id_report" value="{{Auth::id()}}" name="buyer_id_report" class="text-dark form-control">          
+                                          <input type="hidden" id="service_user_id_report" name="service_user_id_report" value="{{$serviceDetail->user_id}}" class="form-control">
+                                          <input type="hidden" id="buyer_id_report" value="{{Auth::id()}}" name="buyer_id_report" class="text-dark form-control">
                                           <div class="form-group">
                                             <label class="form-label">Full Name</label>
                                             <input type="hidden"  value="{{Auth::user()->name}}" id="buyer_name_report" name="buyer_name_report" class="text-dark form-control" placeholder=" Your Name">
@@ -488,7 +488,7 @@
                                               <strong class="text-danger">{{ $errors->first('buyer_email_report') }}</strong>
                                             </span>
                                             @endif
-                                          </div>                        
+                                          </div>
 
 
                                           <div class="form-group message">
@@ -497,7 +497,7 @@
                                             <span>
                                               <strong class="text-danger">{{ $errors->first('description_report') }}</strong>
                                             </span>
-                                            @endif 
+                                            @endif
                                           </div>
                                           @guest
                                           <p>Only registered users can message sellers. <a href="{{route('home')}}"><strong>Login</strong></a> or <a href="{{route('home')}}"><strong>Register</strong></a> if you dont have an account.</p>
@@ -540,7 +540,7 @@
                 </a>
               </h5>
             </div>
-            @endif 
+            @endif
             @endauth
 
             @endsection
@@ -577,7 +577,7 @@
                       //printMsg(data);
                     }
                   });
-                }); 
+                });
 
                 function printMsg (msg) {
                   if((msg.success)){
@@ -603,7 +603,7 @@
            document.getElementById("complaint_notification").hidden = true;
            $(".btn-submit3").click(function(e){
             e.preventDefault();
-            
+
             var _token = $("input[name='_token']").val();
             var buyer_id = $("#buyer_id_report").val();
             var buyer_name = $("#buyer_name_report").val();
@@ -611,7 +611,7 @@
             var service_user_id = $("#service_user_id_report").val();
             var buyer_email = $("#buyer_email_report").val();
             var description = $("#description_report").val();
-            
+
 
             $.ajax({
               type:'POST',
@@ -626,7 +626,7 @@
                        //printMsg(data);
                      }
                    });
-          }); 
+          });
 
          });
        </script>
