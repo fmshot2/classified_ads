@@ -23,15 +23,45 @@ body {
 .fea-ad-hm-location {
     font-size: 13px !important;
 }
+.mobile-cat-col {
+    display: none;
+}
 
 @media (max-width: 768px) {
     .home-recently-properties {
         margin-top: -30px !important;
+        margin-right: 0 !important;
+        margin-left: 0 !important;
     }
     .content-area {
         margin-top: 150px !important;
     }
     img.d-block.w-100 {
         height: auto !important;
+    }
+    .home-recently-properties .hm-top-row {
+        width: 100%;
+    }
+    .home-recently-properties .hm-top-row .col-lg-3 {
+        width: 100% !important;
+        margin: 0 !important;
+        padding-right: 0;
+    }
+    .home-recently-properties .container-fluid {
+        width: 100%;
+        padding-right: 0;
+    }
+    .mobile-cat-col {
+        display: block !important;
+        padding-right: 0 !important;
+    }
+    .desktop-cat-col {
+        display: none;
+    }
+    .fea-ser-mobile {
+        display: none;
+    }
+    .mobile-cat-col .cat-title {
+        font-size: 11px !important;
     }
 }
