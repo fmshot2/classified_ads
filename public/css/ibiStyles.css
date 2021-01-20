@@ -27,19 +27,64 @@ body {
     display: none;
 }
 
-.hm-feat-ser-mid-sec .row .col-md-4 .title {
+.hm-feat-ser-mid-sec .row .col-md-4 .title,
+.hm-cl-recently-properties .row .col-md-4 .title {
     font-size: 15px;
     font-weight: 800;
     text-transform: capitalize;
 }
 
-.hm-feat-ser-mid-sec .row .col-md-4 .info {
+.hm-feat-ser-mid-sec .row .col-md-4 .info,
+.hm-cl-recently-properties .row .col-md-4 .info {
     font-size: 13px;
     margin-top: 5px;
 }
 
 .hm-feat-ser-mid-sec .listing-badges {
     display: block;
+}
+
+.hm-cl-recently-properties .detail .title h4 a {
+    font-size: 14px;
+    text-transform: capitalize;
+    color: #000;
+}
+.service-page-sidebar .sp-seller-img {
+    margin-bottom: 10px;
+    width: 100%;
+    height: auto;
+}
+
+#showContactSellerForm {
+    margin: 0 auto;
+    border-radius: 0;
+    width: auto;
+}
+
+#sellerContact {
+    display: none;
+    margin-top: 15px;
+}
+.sellerContactFormShow {
+    display: block !important;
+    transition: display 1s;
+}
+.service-page-sidebar .sidebar-right .sidebar-title {
+    text-transform: uppercase;
+    font-weight: 800;
+}
+.service-page-sidebar .heading-properties-2 p {
+    color: #ffc107;
+}
+.service-page-sidebar .heading-properties-2 p span {
+    color: #000;
+    font-weight: normal;
+}
+.service-page-sidebar .heading-properties-2 h3.service-name {
+    text-transform: capitalize;
+}
+.service-page-sidebar {
+    padding-top: 0 !important;
 }
 
 @media only screen and (max-width: 992px) {
@@ -118,7 +163,8 @@ body {
         font-size: 11px !important;
     }
     .hm-search-form-comp .row .col-sm-6,
-    .hm-feat-ser-mid-sec .col-sm-6 {
+    .hm-feat-ser-mid-sec .col-sm-6,
+    .hm-cl-recently-properties .col-sm-6 {
         width: 50% !important;
     }
     .home-recently-properties .featured-ad-hm-list {
@@ -141,5 +187,23 @@ body {
     .hm-feat-ser-mid-sec .row .col-md-4 .info {
         font-size: 12px;
         margin-top: 5px;
+    }
+
+    .hm-cl-recently-properties .container {
+        padding: 10px;
+    }
+
+    .hm-cl-recently-properties .row .col-md-4 .title {
+        font-size: 13px;
+    }
+    .service-page-sidebar .row {
+        display: block !important;
+    }
+    .service-page-sidebar .tabbing-box .nav-tabs .nav-link {
+        border: none;
+        font-size: 10px;
+    }
+    .go-back-btn a.btn.btn-outline-success {
+        font-size: 10px;
     }
 }
