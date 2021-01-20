@@ -54,7 +54,7 @@
     <div class="properties-details-page content-area-7 service-page-sidebar">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-12 col-xs-12 col-sm-12">
+                <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
                     <div class="properties-details-section">
                         <div id="propertiesDetailsSlider" class="carousel properties-details-sliders slide mb-40">
                             <!-- Heading properties start -->
@@ -65,7 +65,7 @@
                                         <p><span><i class="fa fa-map-marker"></i> Location:</span> {{$serviceDetail->state}}</p>
                                     </div>
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 ser-fea-add">
                                         <div class="pull-right">
                                             <h3>
                                                 <span class="text-right">
@@ -294,7 +294,7 @@
                 </div>
 
 
-                <div class="col-lg-4 col-md-12">
+                <div class="col-lg-4 col-md-4">
                     <div class="sidebar-right">
                         <!-- Advanced search start -->
                         <div class="contact-1 financing-calculator widget">
@@ -305,13 +305,15 @@
 
                             <img class="img-fluid sp-seller-img" src="{{asset('images')}}/{{$serviceDetail->image[0]}}" alt="Agent" height="200" width="200">
 
-                            <div>
-                                <b>Registered:</b>  <i>"{{$serviceDetail->created_at->diffForHumans()}}"</i>
-                            </div>
+                            <div class="ser-seller-note">
+                                <div>
+                                    <b>Registered:</b>  <i>"{{$serviceDetail->created_at->diffForHumans()}}"</i>
+                                </div>
 
-                            @guest
-                                <p style="margin-bottom: 5px"><a href="{{route('home')}}"><strong style="color: #28a745">Login</strong></a> to view contact seller</p>
-                            @endguest
+                                @guest
+                                    <p style="margin-bottom: 5px"><a href="{{route('home')}}"><strong style="color: #28a745">Login</strong></a> to view contact seller</p>
+                                @endguest
+                            </div>
 
                             <div class="s-border" style="margin-top: 10px"></div>
                             <div class="m-border"></div>
@@ -388,7 +390,7 @@
                                 </form>
                             </div>
 
-                            <div class="posts-by-category widget" style="margin-top: 20px; padding: 0">
+                            <div class="posts-by-category widget ser-pg-safety-tips" style="margin-top: 20px; padding: 0">
                                 <h3 class="sidebar-title">Safety tips</h3>
                                 <div class="s-border"></div>
                                 <div class="m-border"></div>
