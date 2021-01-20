@@ -49,6 +49,30 @@ body {
     text-transform: capitalize;
     color: #000;
 }
+.service-page-sidebar .sp-seller-img {
+    margin-bottom: 10px;
+    width: 100%;
+    height: auto;
+}
+
+#showContactSellerForm {
+    margin: 0 auto;
+    border-radius: 0;
+    width: auto;
+}
+
+#sellerContact {
+    display: none;
+    margin-top: 15px;
+}
+.sellerContactFormShow {
+    display: block !important;
+    transition: display 1s;
+}
+.service-page-sidebar .sidebar-right .sidebar-title {
+    text-transform: uppercase;
+    font-weight: 800;
+}
 
 @media only screen and (max-width: 992px) {
     .home-recently-properties {
