@@ -98,6 +98,16 @@ body {
 .all-ser-pg-top-ct-mbl {
     display: none;
 }
+.all-services-card .detail .title {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.all-services-card .detail .info {
+    font-size: 13px;
+    margin-top: 10px;
+    text-transform: capitalize;
+}
 
 @media only screen and (max-width: 992px) {
     .home-recently-properties {
@@ -244,10 +254,12 @@ body {
     }
     .all-services-card .detail .title {
         font-size: 14px;
-        font-weight: 600;
     }
     .all-services-card .detail .info {
         font-size: 12px;
         margin-top: 5px;
+    }
+    .all-services-card .price {
+        font-size: 10px;
     }
 }

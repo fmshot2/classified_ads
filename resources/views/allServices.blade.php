@@ -80,7 +80,7 @@
                                                     {{ Str::limit($approvedService->experience, 5) }} Yrs Experience
                                                     </p>
                                                 </div>
-                                                <div class="listing-time opening">{{ Str::limit($approvedService->user->name, 10) }}</div>
+                                                <div class="listing-time opening" style="text-transform: capitalize">{{ Str::limit($approvedService->user->name, 10) }}</div>
                                                 <img class="d-block w-100" src="{{asset('images')}}/{{$featuredService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                                             </div>
                                             <div class="detail">
@@ -123,6 +123,8 @@
                         <!-- Advanced search start -->
                         <div class="sidebar widget advanced-search none-992">
                             <h3 class="sidebar-title">Advanced Search</h3>
+                            <div class="s-border"></div>
+                            <div class="m-border"></div>
                             <form action="{{route('search3')}}" method="POST" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -189,7 +191,11 @@
                                         </div>
                                         <div class="media-body align-self-center">
                                             <h3 class="media-heading">
-                                                <a href="https://efcontact.com/services/emeka-auto-mechanic">{{Str::limit($featuredService->user->name, 5)}} | {{Str::limit($featuredService->name, 7)}}</a>
+                                                <a href="https://efcontact.com/services/emeka-auto-mechanic">
+                                                    <strong style="text-transform: capitalize">{{ $featuredService->name }}</strong>
+                                                    <br>
+                                                    <span style="text-transform: capitalize">{{ $featuredService->user->name }}</span>
+                                                </a>
                                             </h3>
                                         </div>
                                     </div>
@@ -215,8 +221,8 @@
                             <div class="s-border"></div>
                             <div class="m-border"></div>
                             <div class="media">
-                                <div class="media-left">
-                                <img src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid">
+                                <div class="">
+                                    <img style="width: 100%; height: auto; margin: 0 auto; border-radius: 10px" src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid">
                             </div>
                         </div>
                     </div>
