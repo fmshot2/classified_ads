@@ -43,7 +43,7 @@
             <div class="posts-by-category widget">
                 <!--<h3 class="sidebar-title">Cities</h3>-->
                 <ul class="list-unstyled list-cat">
-                    <a href="{{route('home')}}" class="btn btn-outline-success"><i class="fa fa-home"> Back To Home</i></a>
+                    <a href="{{route('home')}}" class="btn btn-outline-warning"><i class="fa fa-home"> Back To Home</i></a>
                 </ul>
             </div>
         </span>

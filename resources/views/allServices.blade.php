@@ -24,7 +24,7 @@
                 <div class="posts-by-category widget">
                     <!--<h3 class="sidebar-title">Cities</h3>-->
                     <ul class="list-unstyled list-cat">
-                        <a href="{{route('home')}}" class="btn btn-outline-success"><i class="fa fa-home"> Back To Home</i></a>
+                        <a href="{{route('home')}}" class="btn btn-outline-warning"><i class="fa fa-home"> Back To Home</i></a>
                     </ul>
                 </div>
             </span>
@@ -37,7 +37,7 @@
     <div class="properties-details-page content-area-7 all-services-page">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-12">
+                <div class="col-lg-8 col-md-8">
                     <!-- Option bar start -->
                     <div class="option-bar">
                         <div class="float-left">
@@ -62,52 +62,53 @@
                                             <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a>
                                         @endforeach
                                     </div>
+                                    <div class="all-ser-pg-top-ct-tbl">
+                                        @foreach($featuredServices as $featuredService)
+                                            @if ($loop->index < 3)
+                                                <a style="font-size: 13px;" href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a>
+                                            @endif
+                                        @endforeach
+                                    </div>
                                 @endif
                             </div>
                         </div>
                     </div>
 
                     <!-- Property section start -->
-                    <div class="row property-section">
+                    <div class="row property-section all-services-card">
                         @if(isset($approvedServices))
                             @foreach($approvedServices as $approvedService)
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                    <div class="property-box">
-                                        <div class="property-thumbnail">
-                                            <a href="{{route('serviceDetail', $approvedService->slug)}}" class="property-img">
+                                <a href="{{route('serviceDetail', $approvedService->slug)}}" class="property-img">
+                                    <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                        <div class="property-box">
+                                            <div class="property-thumbnail">
                                                 <div class="price-ratings-box">
                                                     <p class="price">
-                                                        {{ Str::limit($approvedService->experience, 5)}} Yrs Experience
+                                                    {{ Str::limit($approvedService->experience, 5) }} Yrs Experience
                                                     </p>
                                                 </div>
-                                                <img class="d-block w-100" src="{{asset('images')}}/{{$approvedService->image[0]}}" alt="properties img">
-                                            </a>
-                                        </div>
+                                                <div class="listing-time opening" style="text-transform: capitalize">{{ Str::limit($approvedService->user->name, 10) }}</div>
+                                                <img class="d-block w-100" src="{{asset('images')}}/{{$featuredService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                            </div>
+                                            <div class="detail">
+                                                <div>
+                                                    <a class="title" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 50) }}</a>
+                                                </div>
 
-                                        <div class="detail">
-                                            <span class="d-flex justify-content-between">
-                                                <a class="title" href="{{route('serviceDetail', $approvedService->slug)}}" style="font-size: 15px; text-transform: capitalize;">{{Str::limit($approvedService->name, 10)}}</a>
-                                                <ul>
-                                                    <li><i class="fa fa-map-marker text-warning"></i>
-                                                        {{Str::limit($approvedService->city, 7)}}
+                                                <ul class="d-flex flex-row justify-content-between info">
+                                                    <li>
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$approvedService->likes->count()}} Likes
+                                                    </li>
+                                                    <li>
+                                                        <a class="pull-right" href="{{route('serviceDetail', $approvedService->slug)}}">
+                                                            <i class="fa fa-map-marker text-warning"></i> {{$approvedService->state}}
+                                                        </a>
                                                     </li>
                                                 </ul>
-                                            </span>
-                                        </div>
-
-                                        <div class="footer clearfix">
-                                            @guest
-                                            <div class="pull-right">
-                                                <a style="text-transform: capitalize"><strong> {{Str::limit($approvedService->user->name, 15)}}</strong>
-                                                </a>
-                                            </div>
-                                            @endguest
-                                            <div class="pull-center">
-                                                <i class="fa fa-thumbs-up text-warning" aria-hidden="true"></i><a> {{$approvedService->likes->count()}}</a>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             @endforeach
                         @endif
                     </div>
@@ -124,11 +125,13 @@
                 </form>
 
 
-                <div class="col-lg-4 col-md-12">
+                <div class="col-lg-4 col-md-4">
                     <div class="sidebar-right">
                         <!-- Advanced search start -->
                         <div class="sidebar widget advanced-search none-992">
                             <h3 class="sidebar-title">Advanced Search</h3>
+                            <div class="s-border"></div>
+                            <div class="m-border"></div>
                             <form action="{{route('search3')}}" method="POST" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -193,9 +196,13 @@
                                         <div class="media-left">
                                             <img class="media-object" src="{{asset('images')}}/{{$featuredService->image[0]}}">
                                         </div>
-                                        <div class="media-body align-self-center">
+                                        <div class="media-body align-self-center all-ser-pg-sidebar-feat-ser">
                                             <h3 class="media-heading">
-                                                <a href="https://efcontact.com/services/emeka-auto-mechanic">{{Str::limit($featuredService->user->name, 5)}} | {{Str::limit($featuredService->name, 7)}}</a>
+                                                <a href="https://efcontact.com/services/emeka-auto-mechanic">
+                                                    <strong style="text-transform: capitalize">{{ $featuredService->name }}</strong>
+                                                    <br>
+                                                    <span style="text-transform: capitalize">{{ $featuredService->user->name }}</span>
+                                                </a>
                                             </h3>
                                         </div>
                                     </div>
@@ -221,8 +228,8 @@
                             <div class="s-border"></div>
                             <div class="m-border"></div>
                             <div class="media">
-                                <div class="media-left">
-                                <img src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid">
+                                <div class="">
+                                    <img style="width: 100%; height: auto; margin: 0 auto; border-radius: 10px" src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid">
                             </div>
                         </div>
                     </div>
