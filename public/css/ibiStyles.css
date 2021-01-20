@@ -98,6 +98,36 @@ body {
 .all-ser-pg-top-ct-mbl {
     display: none;
 }
+.all-services-card .detail .title {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.all-services-card .detail .info {
+    font-size: 13px;
+    margin-top: 10px;
+    text-transform: capitalize;
+}
+.all-ser-pg-top-ct-tbl {
+    display: none;
+}
+.contact-2 .contact-info p {
+    font-weight: 700;
+}
+.mapouter {
+    position: relative;
+    text-align: right;
+    height: 400px;
+    width: 100%;
+    margin-bottom: -20px;
+}
+.gmap_canvas {
+    overflow: hidden;
+    background: none !important;
+    height: 400px;
+    width: 100%;
+    margin-bottom: -20px;
+}
 
 @media only screen and (max-width: 992px) {
     .home-recently-properties {
@@ -142,6 +172,18 @@ body {
     .service-page-sidebar .ser-seller-note,
     #showContactSellerForm {
         font-size: 13px;
+    }
+    .all-ser-pg-top-ct-dkt {
+        display: none !important;
+    }
+    .all-ser-pg-top-ct-mbl {
+        display: none !important;
+    }
+    .all-ser-pg-top-ct-tbl {
+        display: block !important;
+    }
+    .all-ser-pg-sidebar-feat-ser a {
+        font-size: 14px;
     }
 }
 
@@ -232,11 +274,39 @@ body {
     .all-ser-pg-top-ct-dkt {
         display: none !important;
     }
+    .all-ser-pg-top-ct-tbl {
+        display: none !important;
+    }
     .all-ser-pg-top-ct-mbl {
         display: block !important;
     }
     .all-ser-pg-top-ct-mbl a {
-        font-size: 11px;
+        font-size: 10px;
         margin-top: 5px;
+    }
+    .all-services-card .col-sm-6 {
+        width: 50% !important;
+    }
+    .all-services-card .detail .title {
+        font-size: 14px;
+    }
+    .all-services-card .detail .info {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+    .all-services-card .price {
+        font-size: 10px;
+    }
+
+    .sellers-page-content-area {
+        margin-top: 0 !important;
+    }
+    .mapouter {
+        height: 320px !important;
+        margin-bottom: 0;
+    }
+    .gmap_canvas {
+        height: 320px !important;
+        margin-bottom: 0;
     }
 }
