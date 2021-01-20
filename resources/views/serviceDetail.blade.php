@@ -37,8 +37,8 @@
     </div>
 </div>
 
-<div class="pull-right">
-    <h3>
+<div class="">
+    <h3 class="go-back-btn">
         <span class="text-right">
             <div class="posts-by-category widget">
                 <!--<h3 class="sidebar-title">Cities</h3>-->
@@ -61,11 +61,10 @@
                             <div class="heading-properties-2">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div>
-                                            <h3 style="text-transform: capitalize">{{$serviceDetail->name}}</h3>
-                                            <p><i class="fa fa-map-marker"></i> {{$serviceDetail->state}}</p>
-                                        </div>
+                                        <h3 class="service-name">{{$serviceDetail->name}}</h3>
+                                        <p><span><i class="fa fa-map-marker"></i> Location:</span> {{$serviceDetail->state}}</p>
                                     </div>
+
                                     <div class="col-md-12">
                                         <div class="pull-right">
                                             <h3>
