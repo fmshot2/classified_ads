@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->integer('hasUploadedService')->default(0);
+            $table->integer('requestMade')->default(0);            
         });
     }
 

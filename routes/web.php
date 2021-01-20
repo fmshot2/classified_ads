@@ -115,8 +115,13 @@ Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name(
 
 
 Route::middleware(['seller'])->group(function () { //Seller Middleware protection start here
+    
+
+
+Route::get('/seller/dashboard/make_withdrawal_request/{refer_id}', 'DashboardController@make_withdrawal_request')->name('seller.make_withdrawal_request');
+
 Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
-;
+
 Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
 Route::get('/seller/service/badges', 'BadgeController@badges')->name('seller.service.badges');
 Route::post('/seller/service/createpay', 'ServiceController@createpay');
@@ -179,7 +184,8 @@ Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('prof
 }); //Auth Middleware protection end here
 
 
-Route::middleware(['admin'])->group(function () { //Seller Middleware protection start here
+Route::middleware(['admin'])->group(function () { //Admin Middleware protection start here
+Route::get('/admin/dashboard/approve_withdrawal_request/{id}', 'DashboardController@approve_withdrawal_request')->name('admin.approve_withdrawal_request');
 
 Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
 Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');

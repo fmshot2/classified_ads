@@ -406,6 +406,11 @@ class ServiceController extends Controller
 */
 
 public function search(Request $request){
+    $validatedData = $request->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'state' => ['required', 'max:255'],      
+      ]);
+    
   $category = $request->input('name');
   $state = $request->input('state');
   //$serviceDetail_id = $request->input('serviceDetail_id');

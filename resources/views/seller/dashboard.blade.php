@@ -15,6 +15,7 @@ Seller Dashboard |
       @include('layouts.backend_partials.status')
 
     <section class="content-header">
+     {{--    <a class="mb-5" href=" {{ route('seller.service.create')}} "><button class="btn btn-success"> Create A New Service</button></a> --}}
        <h1>
 <h6>Refferal Link</h6>
 <a>
@@ -28,16 +29,56 @@ Seller Dashboard |
 {{-- <button onclick="myFunction()">Click Here To Copy Your Referal Link</button>
  --}}
 </div>
-      {{-- <a href=" {{ route('seller.service.create')}} "><button class="btn btn-danger"> Create A New Service</button></a> --}}
-         {{--  <input type="text" value="{{$linkcheck->refererlink}}" id="myInput">
-<button onclick="myFunction()">Copy text</button> --}}
-      {{-- <ol class="breadcrumb">
-        <li><a href=" {{ route('seller.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+    
+         {{--<input type="text" value="{{$linkcheck->refererlink}}" id="myInput">
+<button onclick="myFunction()">Copy text</button>--}}
+      {{-- <ol class="breadcrumb" style="margin: 30px;">
+        <li><a><i class="fa fa-dashboard"></i> Accrued Amount: &#8358 {{$accruedAmount ?? 0}}</a></li>
+        <li class="btn btn-outline-success">Withdraw</li>
       </ol> --}}
-      <ul class="breadcrumb">Accrued Amount: &#8358 {{$accruedAmount ?? ''}}</ul>
-      <small class="text-danger">Note: You need at least 50 referals to withdaw!</small>
+     {{--   <ol class="breadcrumb">
+        <li><a><i class="fa fa-dashboard"></i> Accrued Amount: &#8358 {{$accruedAmount ?? 0}}</a></li>
+        <li class="btn btn-outline-success">Withdraw</li>
+      </ol> --}}
+      
+
+    <ol class="breadcrumb">
+        <li><h5><i class="fa fa-dashboard"></i> Accrued Amount: &#8358 {{$accruedAmount ?? 0}}</h5></li>
+        <a style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal"><li class="active">Make Withdrawal</li></a>
+      </ol>
     </section>
+
+
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">You Are About To Make Withdrawal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Current Total Amount :  {{$accruedAmount ?? 0}}      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="{{route('seller.make_withdrawal_request', $linkcheck->refererlink)}}"><button type="button"  class="btn btn-primary">Make Request</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+  {{--   <div class="">
+      <ul class="d-flex justify-content-end">Accrued Amount: &#8358 {{$accruedAmount ?? 0}}
+        <p class="text-danger">Note: You need at least 50 referals to withdaw!</p>
+        <li class="text-danger">Note: You need at least 50 referals to withdaw!</li>
+</ul>
+</div> --}}
 
     <!-- Main content -->
     <section class="content">

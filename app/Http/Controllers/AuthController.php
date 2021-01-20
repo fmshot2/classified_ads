@@ -29,7 +29,7 @@ class AuthController extends Controller
 			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
 			'state' => ['string'],			
 			'password' => ['required', 'string', 'min:6', 'confirmed'],
-			'captcha' => 'required|captcha',
+			// 'captcha' => 'required|captcha',
 			'role' => 'required'
 		]);
 		
@@ -188,7 +188,8 @@ $referlink = $refer;
 	public function seller()
 	{
 		$seller = User::where('role', 'seller')->paginate(20);
-		return view ('admin.user.seller', compact('seller') );
+		$approval_status = null;
+		return view ('admin.user.seller', compact('seller', 'approval_status'));
 	}
 
 

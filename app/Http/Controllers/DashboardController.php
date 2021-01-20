@@ -63,11 +63,9 @@ class DashboardController extends Controller
     // $referLink_>save();
     $status = "hghgcc";
 
-
+$accruedAmount = Auth::user()->refereAmount;
     $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
     if ($linkcheck) {
-        $referalcount = Refererlink::where(['user_id'=>Auth::id()])->count();
-        $accruedAmount = $referalcount * 20;
 
         return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount'));
 
@@ -99,27 +97,11 @@ class DashboardController extends Controller
 //         //return 'Heyyyyy22222'. $likecount;    
 //    }
 
-
-
-
-
-
-
-
-     return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck'));
+     return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount'));
            //dd($linkcount);
  }
 
-
-
-
-
-
-
-
-
-
- return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge') );
+ // return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge') );
 }
 
 public function buyer()
@@ -167,6 +149,34 @@ public function admin()
     $pending_service = Service::where('status', 0)->take(5);
 
     return view ('admin.dashboard', compact('all_service_count', 'all_categories_count', 'all_sellers_count', 'all_buyers_count', 'active_service_count', 'pending_service_count', 'category', 'active_service', 'seller', 'buyer', 'all_service'));
+}
+
+
+public function make_withdrawal_request($refer_id){
+            $seller = User::where('refererlink', $refer_id)->first();
+            //dd($seller);
+            $seller->requestMade = 1;
+            $seller->save();
+            return back()->with('success', 'Task was successful!');
+            // dd($seller->requestMade);
+
+}
+
+public function approve_withdrawal_request($id){
+
+            $seller = User::where('id', $id)->first();
+            if ($seller->requestMade == 2) {
+   return back()->with('fail', 'Already Approved!');
+            }
+            $seller->requestMade = 2;
+            $seller->save(); 
+            //dd($seller->requestMade);
+            $seller_Request = $seller->requestMade;
+            $approval_status = 1;
+            // dd($seller_Request);
+   return back()->with('status', 'Approval was successful!')->with('seller_Request')->with('approval_status');
+            // dd($seller->requestMade);
+
 }
 
 

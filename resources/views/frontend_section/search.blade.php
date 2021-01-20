@@ -3,17 +3,20 @@
         <div class="search-section-area">
             <div class="search-area-inner">
                 <div class="search-contents">
+                     <form action="{{route('search3')}}" method="GET">
+                 
+                    </form>
                     <form action="{{route('search3')}}" method="GET">
                         <div class="row">
                             <div class="col-lg-2 col-md-4 col-sm-6">
                                 <div class="form-group">
-                                    <input type="text" name="name" class="form-control" placeholder="Enter Keyword">
+                                    <input type="text" required name="name" class="form-control" placeholder="Enter Keyword">
                                 </div>
                             </div>
 
                             <div class="col-lg-2 col-md-4 col-sm-6" style="">
                                 <div class="form-group">
-                                  <select class="form-control" id="categories" name="category">
+                                  <select class="form-control" required id="categories" name="category">
                                       <option value="">-- Select Category --</option>
                                             @if(isset($categories))
                                       @foreach($categories as $category)
@@ -32,7 +35,7 @@
 
                             <div class="col-lg-2 col-md-4 col-sm-6" style="">
                                 <div class="form-group">
-                                    <select class="form-control" id="state" name="state">
+                                    <select class="form-control" required id="state" name="state">
                                         <option value="">-- Select State --</option>
                                         @if(isset($states))
                                             @foreach($states as $state)
