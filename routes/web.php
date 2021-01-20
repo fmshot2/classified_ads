@@ -16,7 +16,8 @@ use App\Service;
 |
 */
 
-Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
+//Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
+//Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 
 Route::post('/subscribe', 'AdminController@subscribe')->name('subscribe');
 

@@ -22,7 +22,8 @@ Seller Dashboard |
 </a>
       </h1>
    
-       <input type="text" readonly class="text-muted" value="{{$linkcheck->refererlink}} {{$user}}" id="myInput">
+{{--        <input type="text" readonly class="text-muted" value="{{$linkcheck->refererlink}}" id="myInput">
+ --}}       <input type="text" readonly class="text-muted" value="{{url('/register') . '/' . '?' . 'invite' . '=' . $linkcheck->refererlink}}" id="myInput2">
        <div>
 {{-- <button onclick="myFunction()">Click Here To Copy Your Referal Link</button>
  --}}
@@ -30,10 +31,12 @@ Seller Dashboard |
       {{-- <a href=" {{ route('seller.service.create')}} "><button class="btn btn-danger"> Create A New Service</button></a> --}}
          {{--  <input type="text" value="{{$linkcheck->refererlink}}" id="myInput">
 <button onclick="myFunction()">Copy text</button> --}}
-      <ol class="breadcrumb">
+      {{-- <ol class="breadcrumb">
         <li><a href=" {{ route('seller.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
-      </ol>
+      </ol> --}}
+      <ul class="breadcrumb">Accrued Amount: &#8358 {{$accruedAmount ?? ''}}</ul>
+      <small class="text-danger">Note: You need at least 50 referals to withdaw!</small>
     </section>
 
     <!-- Main content -->
@@ -235,7 +238,7 @@ Seller Dashboard |
 
  <script>
 function myFunction() {
-  var copyText = document.getElementById("myInput");
+  var copyText = document.getElementById("myInput2");
   copyText.select();
   copyText.setSelectionRange(0, 99999)
   document.execCommand("copy");

@@ -18,6 +18,12 @@ class AuthController extends Controller
 
 	public function createUser (Request $request)
 	{
+		$link_from_url = $request->refer;
+		// dd($usrerere);
+		// $LGA = User::find(['refererLink'=>$usrerere]);
+		// dd($LGA);
+		// $Link_owner = User::where('refererLink', $usrerere)->first();
+
 		$validatedData = $request->validate([
 			'name' => ['required', 'string', 'max:255'],
 			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -26,20 +32,27 @@ class AuthController extends Controller
 			'captcha' => 'required|captcha',
 			'role' => 'required'
 		]);
-
+		
+		$saveIdOfRefree = User::where(['refererLink'=>$link_from_url])->first();
+		$refererId = $saveIdOfRefree->id;
 		$user = new User;
-
 		$user->name = $request->name;
 		$user->email = $request->email;
 		$user->password = Hash::make($request->password);
-		$user->role = $request->role;
-		
+		$user->role = $request->role;	
+		$user->idOfReferer = $refererId;		
+
 		//$user->state = $request->state;
 		$user->save();
-		if ($user->save()) {
+		 	if ($user->save()) {
 			$name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
 
 			Mail::to($user->email)->send(new SendMailable($name));
+			if ($link_from_url) {
+ 			$link = new Refererlink();
+           $link->refererlink = $link_from_url;
+           $link->save();			}
+			
 		}
 
 
@@ -59,21 +72,43 @@ class AuthController extends Controller
 	}
 
 
+	
+
 	public function refreshCaptcha()
 	{
 		return response()->json(['captcha'=> captcha_img('math')]);
 	}
 
-
-	public function showRegister ()
+	public function showRegisterforRefer($refer)
 	{
+		//dd('fgfgfgfg');
+$referlink = $refer;
+		//dd($referlink);
+
+		
+
+		return view ('auth/register', compact('referlink'));
+	}
+
+
+
+	public function showRegister (Request $request)
+	{
+		  $param = $request->input('invite');
+
+		//$param = $request->query('param');
+		if($param){
+			$referParam = $param;
+		}else{
+			$referParam = null;
+		}
 		$states = State::all(); 
 
 		if (Auth::check()) {
 			return redirect()->intended('/');
 		}
 
-		return view ('auth/register', compact('states'));
+		return view ('auth/register', compact('states', 'referParam'));
 	}
 
 

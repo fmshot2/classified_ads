@@ -16,8 +16,9 @@ class CreateRefererlinksTable extends Migration
         Schema::create('refererlinks', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('refererlink');
-            $table->integer('user_id');
+            $table->string('refererlink')->nullable();
+            $table->integer('user_id')->nullabe();
+            $table->integer('recipient_id')->nullabe();
         });
     }
 

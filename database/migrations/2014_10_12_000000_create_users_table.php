@@ -26,10 +26,13 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('state')->nullable();
             $table->string('slug')->nullable();
-            $table->string('randomLink')->nullable();
+            $table->string('refererLink')->nullable();
+            $table->integer('idOfReferer')->nullable();
+            $table->integer('refererAmount')->nullable();            
             $table->boolean('status')->default(true);
             $table->rememberToken();
             $table->timestamps();
+            $table->integer('hasUploadedService')->default(0);
         });
     }
 
