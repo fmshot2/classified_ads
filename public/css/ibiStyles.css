@@ -236,7 +236,18 @@ body {
         display: block !important;
     }
     .all-ser-pg-top-ct-mbl a {
-        font-size: 11px;
+        font-size: 10px;
+        margin-top: 5px;
+    }
+    .all-services-card .col-sm-6 {
+        width: 50% !important;
+    }
+    .all-services-card .detail .title {
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .all-services-card .detail .info {
+        font-size: 12px;
         margin-top: 5px;
     }
 }
