@@ -50,35 +50,65 @@ class DashboardController extends Controller
     $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();
 
 
-     $all_service2 = Service::where('user_id', Auth::id())->get();
+    $all_service2 = Service::where('user_id', Auth::id())->get();
     $count_badge =  $all_service2->Where('badge_type', null)->count();
     //$active_service_count = $active_service->count();
 
-     $slug3 = Str::random(8);
+    $slug3 = Str::random(8);
     // $user->randomLink = $slug3;
     // $referLink = new Refererlink;
     // $referLink->refererlink = $slug3;
     // //$new_user = User::where('id', $serviceDetail_id)->count();
     // $referlink->user_id = Auth::id();
     // $referLink_>save();
-$status = "hghgcc";
+    $status = "hghgcc";
 
 
- $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
-          if ($linkcheck) {
-       $user = Auth::user()->id;
-       
- return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'user') );
+    $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
+    if ($linkcheck) {
+        $referalcount = Refererlink::where(['user_id'=>Auth::id()])->count();
+        $accruedAmount = $referalcount * 20;
 
-         }else{
-           $link = new Refererlink();
-           $link->user_id = Auth::id();
-           $link->refererlink = $slug3;
-           $link->save();
-           $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
-            return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'linkcount', 'status', 'linkcheck'));
+        return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount'));
+
+    }else{
+     $link = new Refererlink();
+     $link->user_id = Auth::id();
+     $link->refererlink = $slug3;
+     $link->save();
+     $user = Auth::user();
+     $user->refererLink = $slug3;
+     $user->save();
+     $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
+
+
+// $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->first();
+//     if ($likecheck) {
+//      Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
+//      $likecount = Like::where(['service_id'=>$id])->count();
+//      return redirect()->to('serviceDetail/'.$service_slug);
+//         //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
+//         //return redirect('/home');   
+//    }else{
+//      $like = new Like();
+//      $like->user_id = Auth::id();
+//      $like->service_id = $id;
+//      $like->save();
+//      $likecount = Like::where(['service_id'=>$id])->count();
+//      return redirect()->to('serviceDetail/'.$service_slug);
+//         //return 'Heyyyyy22222'. $likecount;    
+//    }
+
+
+
+
+
+
+
+
+     return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck'));
            //dd($linkcount);
-         }
+ }
 
 
 
@@ -89,11 +119,11 @@ $status = "hghgcc";
 
 
 
-    return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge') );
-  }
+ return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge') );
+}
 
-  public function buyer()
-  {
+public function buyer()
+{
 
     $reply_message = Message::where('reply', 'yes' );
     $all_message_count = $reply_message->Where('buyer_id', Auth::id() )->count();
@@ -116,11 +146,11 @@ $status = "hghgcc";
     $all_service = Service::take(6)->get();
 
     return view('buyer.dashboard', compact('unread_message', 'unread_notification', 'all_message_count', 'unread_message_count', 'read_message', 'read_message_count', 'all_notification_count', 'all_service' ));
-  }
+}
 
 
-  public function admin()
-  {
+public function admin()
+{
 
     $all_service_count = Service::all()->count();
     $all_categories_count = Category::all()->count();
@@ -137,7 +167,7 @@ $status = "hghgcc";
     $pending_service = Service::where('status', 0)->take(5);
 
     return view ('admin.dashboard', compact('all_service_count', 'all_categories_count', 'all_sellers_count', 'all_buyers_count', 'active_service_count', 'pending_service_count', 'category', 'active_service', 'seller', 'buyer', 'all_service'));
-  }
+}
 
 
 

@@ -15,8 +15,8 @@ class CreateLocalGovernmentsTable extends Migration
     {
         Schema::create('local_governments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('state_id');
-            $table->string('name');
+            $table->integer('state_id')->nullable();
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }
