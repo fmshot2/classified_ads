@@ -280,4 +280,8 @@ body {
     .all-services-card .price {
         font-size: 10px;
     }
+
+    .sellers-page-content-area {
+        margin-top: 0 !important;
+    }
 }
