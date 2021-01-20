@@ -71,7 +71,7 @@ body {
 }
 .service-page-sidebar .sidebar-right .sidebar-title {
     text-transform: uppercase;
-    font-weight: 800;
+    font-weight: 500;
 }
 .service-page-sidebar .heading-properties-2 p {
     color: #ffc107;
@@ -85,6 +85,18 @@ body {
 }
 .service-page-sidebar {
     padding-top: 0 !important;
+}
+.footer h4 {
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+}
+.all-services-page {
+    padding-top: 0 !important;
+}
+.all-ser-pg-top-ct-mbl {
+    display: none;
 }
 
 @media only screen and (max-width: 992px) {
@@ -119,6 +131,17 @@ body {
     }
     .blog.content-area.bg-grea-3.hm-feat-ser-mid-sec {
         margin-top: 50px;
+    }
+    .ser-fea-add {
+        display: none;
+    }
+    .service-page-sidebar .sidebar-right .sidebar-title {
+        font-size: 18px;
+    }
+    .service-page-sidebar .ser-pg-safety-tips .list-cat,
+    .service-page-sidebar .ser-seller-note,
+    #showContactSellerForm {
+        font-size: 13px;
     }
 }
 
@@ -205,5 +228,15 @@ body {
     }
     .go-back-btn a.btn.btn-outline-success {
         font-size: 10px;
+    }
+    .all-ser-pg-top-ct-dkt {
+        display: none !important;
+    }
+    .all-ser-pg-top-ct-mbl {
+        display: block !important;
+    }
+    .all-ser-pg-top-ct-mbl a {
+        font-size: 11px;
+        margin-top: 5px;
     }
 }
