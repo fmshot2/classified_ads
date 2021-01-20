@@ -37,7 +37,7 @@
     <div class="properties-details-page content-area-7 all-services-page">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-12">
+                <div class="col-lg-8 col-md-8">
                     <!-- Option bar start -->
                     <div class="option-bar">
                         <div class="float-left">
@@ -62,6 +62,13 @@
                                             <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a>
                                         @endforeach
                                     </div>
+                                    <div class="all-ser-pg-top-ct-tbl">
+                                        @foreach($featuredServices as $featuredService)
+                                            @if ($loop->index < 3)
+                                                <a style="font-size: 13px;" href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a>
+                                            @endif
+                                        @endforeach
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -72,7 +79,7 @@
                         @if(isset($approvedServices))
                             @foreach($approvedServices as $approvedService)
                                 <a href="{{route('serviceDetail', $approvedService->slug)}}" class="property-img">
-                                    <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                    <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                         <div class="property-box">
                                             <div class="property-thumbnail">
                                                 <div class="price-ratings-box">
@@ -118,7 +125,7 @@
                 </form>
 
 
-                <div class="col-lg-4 col-md-12">
+                <div class="col-lg-4 col-md-4">
                     <div class="sidebar-right">
                         <!-- Advanced search start -->
                         <div class="sidebar widget advanced-search none-992">
@@ -189,7 +196,7 @@
                                         <div class="media-left">
                                             <img class="media-object" src="{{asset('images')}}/{{$featuredService->image[0]}}">
                                         </div>
-                                        <div class="media-body align-self-center">
+                                        <div class="media-body align-self-center all-ser-pg-sidebar-feat-ser">
                                             <h3 class="media-heading">
                                                 <a href="https://efcontact.com/services/emeka-auto-mechanic">
                                                     <strong style="text-transform: capitalize">{{ $featuredService->name }}</strong>

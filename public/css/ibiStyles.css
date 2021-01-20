@@ -108,6 +108,9 @@ body {
     margin-top: 10px;
     text-transform: capitalize;
 }
+.all-ser-pg-top-ct-tbl {
+    display: none;
+}
 
 @media only screen and (max-width: 992px) {
     .home-recently-properties {
@@ -152,6 +155,18 @@ body {
     .service-page-sidebar .ser-seller-note,
     #showContactSellerForm {
         font-size: 13px;
+    }
+    .all-ser-pg-top-ct-dkt {
+        display: none !important;
+    }
+    .all-ser-pg-top-ct-mbl {
+        display: none !important;
+    }
+    .all-ser-pg-top-ct-tbl {
+        display: block !important;
+    }
+    .all-ser-pg-sidebar-feat-ser a {
+        font-size: 14px;
     }
 }
 
@@ -240,6 +255,9 @@ body {
         font-size: 10px;
     }
     .all-ser-pg-top-ct-dkt {
+        display: none !important;
+    }
+    .all-ser-pg-top-ct-tbl {
         display: none !important;
     }
     .all-ser-pg-top-ct-mbl {
