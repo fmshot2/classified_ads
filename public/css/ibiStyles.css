@@ -111,6 +111,23 @@ body {
 .all-ser-pg-top-ct-tbl {
     display: none;
 }
+.contact-2 .contact-info p {
+    font-weight: 700;
+}
+.mapouter {
+    position: relative;
+    text-align: right;
+    height: 400px;
+    width: 100%;
+    margin-bottom: -20px;
+}
+.gmap_canvas {
+    overflow: hidden;
+    background: none !important;
+    height: 400px;
+    width: 100%;
+    margin-bottom: -20px;
+}
 
 @media only screen and (max-width: 992px) {
     .home-recently-properties {
@@ -283,5 +300,13 @@ body {
 
     .sellers-page-content-area {
         margin-top: 0 !important;
+    }
+    .mapouter {
+        height: 320px !important;
+        margin-bottom: 0;
+    }
+    .gmap_canvas {
+        height: 320px !important;
+        margin-bottom: 0;
     }
 }
