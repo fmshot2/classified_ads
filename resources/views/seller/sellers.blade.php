@@ -42,9 +42,9 @@
             <div class="row">
                 @if(isset($approvedServices))
                     @foreach($approvedServices as $approvedService)
-                        <div class="col-lg-3 col-md-3 col-sm-12">
+                        <div class="col-lg-4 col-md-3 col-sm-12">
                             <div class="row team-4">
-                                <div class="col-xl-5 col-lg-5 col-md-12 col-pad" style="background-image:url({{asset('images')}}/{{$approvedService->image[0]}})">
+                                <div class="col-xl-5 col-lg-5 col-md-12 col-pad" style="background-image:url({{asset('images')}}/{{$approvedService->image[0]}}); background-position: center; background-size: cover;">
                                     <div class="photo mt-2">
                                         {{-- <img src="{{asset('images')}}/{{$approvedService->image[0]}}" alt="agent" class=""> --}}
                                     </div>
@@ -52,7 +52,7 @@
 
                                 <div class="col-xl-7 col-lg-7 col-md-12 col-pad align-self-center mt-2">
                                     <div class="detail">
-                                        <h4 style="font-size: 13px; text-transform: capitalize">
+                                        <h4 class="sellers-pg-ser-name">
                                             <a href="{{route('serviceDetail', $approvedService->slug)}}">
                                                 {{ $approvedService->name }}
                                             </a>

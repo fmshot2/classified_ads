@@ -95,9 +95,15 @@ body {
 .all-services-page {
     padding-top: 0 !important;
 }
+
+/* All Services Page Top City */
 .all-ser-pg-top-ct-mbl {
     display: none;
 }
+.all-ser-pg-top-ct-tbl {
+    display: none;
+}
+
 .all-services-card .detail .title {
     font-size: 16px;
     font-weight: 600;
@@ -107,9 +113,6 @@ body {
     font-size: 13px;
     margin-top: 10px;
     text-transform: capitalize;
-}
-.all-ser-pg-top-ct-tbl {
-    display: none;
 }
 .contact-2 .contact-info p {
     font-weight: 700;
@@ -127,6 +130,11 @@ body {
     height: 400px;
     width: 100%;
     margin-bottom: -20px;
+}
+.sellers-pg-ser-name a {
+    font-size: 16px;
+    text-transform: capitalize !important;
+    padding-top: 15px;
 }
 
 @media only screen and (max-width: 992px) {
@@ -308,5 +316,12 @@ body {
     .gmap_canvas {
         height: 320px !important;
         margin-bottom: 0;
+    }
+    .sellers-pg-ser-name {
+        padding-top: 0;
+    }
+    .job-ap-services-page .row {
+        display: block;
+        margin-top: 30px;
     }
 }
