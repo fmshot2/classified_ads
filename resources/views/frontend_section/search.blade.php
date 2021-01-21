@@ -3,7 +3,7 @@
         <div class="search-section-area">
             <div class="search-area-inner">
                 <div class="search-contents">
-                     <form action="{{route('search3')}}" method="GET">
+                     <form>
                  
                     </form>
                     <form action="{{route('search3')}}" method="GET">

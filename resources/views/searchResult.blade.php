@@ -183,7 +183,7 @@
     @foreach($userSer as $userSer1)
 
     <div class="col-sm-3 card service-box">
-                        <img class="card-img-top" src="{{asset('images')}}/{{$userSer1->image}}" alt="service" style="min-width: 150px;">
+                        <img class="card-img-top" src="{{asset('images')}}/{{$userSer1->image[0]}}" alt="service" style="min-width: 150px;">
                         <div class="card-body detail">
                             <div class="title">
                                 <h4><a href="#" style="font-size: 15px;">{{$userSer1->user->name}}, &nbsp; {{$userSer1->name}}</a></h4>

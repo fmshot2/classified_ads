@@ -16,6 +16,7 @@ Seller Dashboard |
 
     <section class="content-header">
      {{--    <a class="mb-5" href=" {{ route('seller.service.create')}} "><button class="btn btn-success"> Create A New Service</button></a> --}}
+     @if(isset($linkcheck->refererlink))
        <h1>
 <h6>Refferal Link</h6>
 <a>
@@ -23,23 +24,10 @@ Seller Dashboard |
 </a>
       </h1>
    
-{{--        <input type="text" readonly class="text-muted" value="{{$linkcheck->refererlink}}" id="myInput">
- --}}       <input type="text" readonly class="text-muted" value="{{url('/register') . '/' . '?' . 'invite' . '=' . $linkcheck->refererlink}}" id="myInput2">
+     <input type="text" readonly class="text-muted" value="{{url('/register') . '/' . '?' . 'invite' . '=' . $linkcheck->refererlink}}" id="myInput2">
        <div>
-{{-- <button onclick="myFunction()">Click Here To Copy Your Referal Link</button>
- --}}
 </div>
-    
-         {{--<input type="text" value="{{$linkcheck->refererlink}}" id="myInput">
-<button onclick="myFunction()">Copy text</button>--}}
-      {{-- <ol class="breadcrumb" style="margin: 30px;">
-        <li><a><i class="fa fa-dashboard"></i> Accrued Amount: &#8358 {{$accruedAmount ?? 0}}</a></li>
-        <li class="btn btn-outline-success">Withdraw</li>
-      </ol> --}}
-     {{--   <ol class="breadcrumb">
-        <li><a><i class="fa fa-dashboard"></i> Accrued Amount: &#8358 {{$accruedAmount ?? 0}}</a></li>
-        <li class="btn btn-outline-success">Withdraw</li>
-      </ol> --}}
+    @endif
       
 
     <ol class="breadcrumb">
@@ -49,11 +37,7 @@ Seller Dashboard |
     </section>
 
 
-    <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
-
+   
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -68,17 +52,16 @@ Seller Dashboard |
         Current Total Amount :  {{$accruedAmount ?? 0}}      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             @if(isset($linkcheck->refererlink))
+
         <a href="{{route('seller.make_withdrawal_request', $linkcheck->refererlink)}}"><button type="button"  class="btn btn-primary">Make Request</button></a>
+            @endif
+
       </div>
     </div>
   </div>
 </div>
-  {{--   <div class="">
-      <ul class="d-flex justify-content-end">Accrued Amount: &#8358 {{$accruedAmount ?? 0}}
-        <p class="text-danger">Note: You need at least 50 referals to withdaw!</p>
-        <li class="text-danger">Note: You need at least 50 referals to withdaw!</li>
-</ul>
-</div> --}}
+ 
 
     <!-- Main content -->
     <section class="content">

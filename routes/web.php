@@ -258,7 +258,7 @@ Route::get('seller/service/badges/badger','BadgeController@getBadgeList')->name(
 
 Route::post ( '/searchonservices',  'ServiceController@searchonservices')->name('searchonservices');
 
-Route::any ( '/searchresults',  'ServiceController@search')->name('search3');
+Route::get ( '/searchresults',  'ServiceController@search')->name('search3');
 
 
 

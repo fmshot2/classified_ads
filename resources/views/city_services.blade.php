@@ -116,6 +116,8 @@
                     <!-- Advanced search start -->
                   <div class="sidebar widget advanced-search none-992">
                         <h3 class="sidebar-title">Advanced Search</h3>
+                            <form action="{{route('search3')}}" method="GET" enctype="multipart/form-data">
+</form>
 
                         <form action="{{route('search3')}}" method="GET" enctype="multipart/form-data">
                             <div class="row">

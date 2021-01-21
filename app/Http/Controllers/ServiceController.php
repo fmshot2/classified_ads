@@ -104,10 +104,12 @@ class ServiceController extends Controller
     $images_4_service = $serviceDetail->image;
       //return $serviceDetail;
     $serviceDetail_id = $serviceDetail->id;
+    $serviceDetail_state = $serviceDetail->state;
     $service_likes = Like::where('service_id', $serviceDetail_id)->count();
-    $service_category_id = $serviceDetail->category;
-    $similarProducts = Service::where('category_id', $service_category_id)->get();
-    $featuredServices2 = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+    $service_category_id = $serviceDetail->category_id;
+    $similarProducts = Service::where([['category_id', $service_category_id], ['state', $serviceDetail_state] ])->inRandomOrder()->limit(8)->get();
+
+    $featuredServices2 = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(3)->get();
     $user_id = $serviceDetail->user_id;
       //$userMessages = Message::where('service_id', $id && Auth::id())->get();
     $userMessages = Message::where('service_id', $serviceDetail_id)->get();

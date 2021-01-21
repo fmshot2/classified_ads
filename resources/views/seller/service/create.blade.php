@@ -121,7 +121,7 @@ Create Service |
 
                           @foreach($states as $state)
 
-                          <option value="{{$state->id}}"> {{ $state->name }}  </option> 
+                          <option value="{{$state->name}}"> {{ $state->name }}  </option> 
                           @endforeach
                           @endif
 
@@ -256,6 +256,7 @@ Create Service |
 
           <script type="text/javascript">
            $('#state').on('change',function(){
+            console.log('ddd');
             var stateID = $(this).val();   
             if(stateID){
               $.ajax({
