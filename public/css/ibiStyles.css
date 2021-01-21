@@ -128,6 +128,11 @@ body {
     width: 100%;
     margin-bottom: -20px;
 }
+.sellers-pg-ser-name {
+    font-size: 16px;
+    text-transform: capitalize;
+    padding-top: 15px;
+}
 
 @media only screen and (max-width: 992px) {
     .home-recently-properties {
@@ -308,5 +313,12 @@ body {
     .gmap_canvas {
         height: 320px !important;
         margin-bottom: 0;
+    }
+    .sellers-pg-ser-name {
+        padding-top: 0;
+    }
+    .job-ap-services-page .row {
+        display: block;
+        margin-top: 30px;
     }
 }
