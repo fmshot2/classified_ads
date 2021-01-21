@@ -104,11 +104,11 @@
                 @foreach($featuredServices as $featuredService)
                 <div class="media">
                     <div class="media-left">
-                        <img class="media-object" src="{{asset('images')}}/{{$featuredService->image}}">
+                        <img class="media-object" src="{{asset('images')}}/{{$featuredService->image[0]}}">
                     </div>
                     <div class="media-body align-self-center">
                         <h3 class="media-heading">
-                            <a href="https://efcontact.com/services/emeka-auto-mechanic">{{$featuredService->user->name}}, {{$featuredService->name}}, {{$featuredService->city}}</a>
+                            <a href="#">{{$featuredService->user->name}}, {{$featuredService->name}}, {{$featuredService->city}}</a>
                         </h3>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                 @endif
             </div>
             <!-- Posts by category start -->
-            <div class="posts-by-category widget">
+            {{-- <div class="posts-by-category widget">
                 <h3 class="sidebar-title">Cities</h3>
                 <div class="s-border"></div>
                 <div class="m-border"></div>
@@ -128,7 +128,7 @@
                   @endif
 
               </ul>
-          </div>
+          </div> --}}
 
 
           <div class="widget helping-center">
@@ -183,7 +183,7 @@
     @foreach($userSer as $userSer1)
 
     <div class="col-sm-3 card service-box">
-                        <img class="card-img-top" src="{{asset('images')}}/{{$userSer1->image}}" alt="service" style="min-width: 150px;">
+                        <img class="card-img-top" src="{{asset('images')}}/{{$userSer1->image[0]}}" alt="service" style="min-width: 150px;">
                         <div class="card-body detail">
                             <div class="title">
                                 <h4><a href="#" style="font-size: 15px;">{{$userSer1->user->name}}, &nbsp; {{$userSer1->name}}</a></h4>

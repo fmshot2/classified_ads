@@ -29,13 +29,14 @@ All Seller |
 
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table class="display table table-bordered data_table_main">
+						<table class="display table table-bordered data_table_main2">
 							<thead>
 								<tr>
 									<th> # </th>
 									<th> Name </th>
 									<th> Email </th>
 									<th> role </th>
+									<th> Applied for Approval?</th>
 									<th> Date </th>
 								</tr>	
 
@@ -45,6 +46,20 @@ All Seller |
 									<td> {{ $sellers->name }} </td>
 									<td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
 									<td> {{ $sellers->role }} </td>
+									@if(!isset($approval_status))
+									<td>Yes  &nbsp; &nbsp;<span><a href="{{route('admin.approve_withdrawal_request', $sellers->id)}}"><button class="btn btn-sm btn-danger">Approve</button></a>  </span></td>
+									@endif
+									@if(isset($approval_status))
+									<td>Yes  &nbsp; &nbsp;<span><a href="{{route('admin.approve_withdrawal_request', $sellers->id)}}"><button class="btn btn-sm btn-danger">Approve</button></a>  </span></td>
+									@endif
+								
+									{{-- @endif	 --}}
+									{{-- @if($sellers->requestMade)
+									<td>Yes  &nbsp; &nbsp;<span><a href="{{route('admin.approve_withdrawal_request', $sellers->id)}}"><button class="btn btn-sm btn-danger">Approve</button></a>  </span></td>
+									{{-- @endif	 --}}
+									{{-- @if(!$sellers->requestMade)
+									<td>Not Applied yet</td>
+									@endif --}}
 									<td> {{ $sellers->created_at->diffForHumans() }} </span></td>
 
 							</tr>

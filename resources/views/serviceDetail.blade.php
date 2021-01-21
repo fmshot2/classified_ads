@@ -65,7 +65,7 @@
                                         <p><span><i class="fa fa-map-marker"></i> Location:</span> {{$serviceDetail->state}}</p>
                                     </div>
 
-                                    <div class="col-md-12 ser-fea-add">
+                                  {{--   <div class="col-md-12 ser-fea-add">
                                         <div class="pull-right">
                                             <h3>
                                                 <span class="text-right">
@@ -86,7 +86,7 @@
                                                 </span>
                                             </h3>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

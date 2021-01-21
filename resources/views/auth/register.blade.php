@@ -79,7 +79,7 @@ Register
                         </div>
 
                         <p>
-                            <div class="row">
+                          {{--   <div class="row">
                                 <div class="col-md-4"></div>
                                 <div class="form-group col-md-12">
                                  <div class="captcha">
@@ -95,12 +95,12 @@ Register
 
                              @if ($errors->has('captcha'))
                              <span class="helper-text" data-error="wrong" data-success="right">
-                                <strong class="text-danger">  Invalid answer </strong>  {{-- $errors->first('captcha') --}}
+                                <strong class="text-danger">  Invalid answer </strong>  
                             </span>
                             @endif
 
 
-                        </div>
+                        </div> --}}
                         <h6>Account Type</h6>
                         <div class="col-lg-12">
                             <div class="form-group">
