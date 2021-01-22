@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\File;
 use DB;
 use Image;
+use App\Local_government;
+
 
 
 
@@ -115,6 +117,12 @@ return $this->index();
     {
         //$service = Service::find($id);
       //$service_slug = $service->slug;//
+        $categories = Category::orderBy('id', 'asc')->paginate(35);
+        $states = State::all(); 
+        $local_governments = Local_government::all();               
+
+
+
 
         $one_category = Category::where('slug', $slug)->first();
         $category_id = $one_category->id;
@@ -123,13 +131,14 @@ return $this->index();
         //$category_city = Service::all()->pluck("city");
         $category_city = Service::all();
         $all_states = State::all();
+        // dd($all_states);
         $toShowOtherSearch = null;
         $all_categories = Category::all();
         $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
         //$category_id = $id;
         //return $category_city;
 
-        return view ('services', compact('category_services', 'toShowOtherSearch', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices') );        
+        return view ('services', compact('category_services', 'toShowOtherSearch', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices', 'categories', 'states', 'local_governments') );        
     }
 
 

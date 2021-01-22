@@ -45,7 +45,7 @@
                                 <div class="col-lg-3 col-md-3 col-sm-2 col-xs-2 service-info-5 card">
                                     <div class="">
                                         <a href="{{route('services', $category->slug)}}" >
-                                            <div style="border-radius: 50px">
+                                            <div style="border-radius: 50px;">
                                                 <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px;" alt="properties">
                                             </div>
                                         </a>

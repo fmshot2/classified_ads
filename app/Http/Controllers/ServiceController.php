@@ -48,23 +48,15 @@ class ServiceController extends Controller
 
   public function index2()
   {
-        //if (Auth::check()) {
-          //$my_state =  Auth::user()->state;
-        //}
-        //$my_state =  Auth::user()->state;
     $featuredServices = Service::where('is_featured', 1)->with('user')->paginate(16);
     $approvedServices = Service::where('status', 1)->with('user')->get();
     $advertServices = Service::where('is_approved', 1)->with('user')->get();
     $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(16);
-      //$service_likes = Like::where('service_id', $serviceDetail_id)->count();
-        //$closerServices = Service::where('state', $my_state)->get();
-      //$categories = Category::paginate(16);
     $categories = Category::orderBy('id', 'asc')->paginate(35);
 
     $states = State::all(); 
     $local_governments = Local_government::all();               
     $user11 = session()->get('user11');
-         //$userSer = session()->get('userSer');
     $serviceName = session()->get('serviceName');
     $serviceState = session()->get('serviceState');          
     if($user11){
@@ -72,16 +64,9 @@ class ServiceController extends Controller
     }else{
       $user111 = null; 
     }         
-          //return $closerServices;
     return view('welcome', compact(['featuredServices', 'recentServices', 
       'approvedServices', 'user111', 'categories', 'states', 'local_governments' ]));
 
-         // $products = Product::with('user')->get();
-   // return view('shop.index', compact(['products']));
-
-     //   Product::where('user_id', Auth::user()->id)->with('product.purchases')
-     //   $results = User::where('this', '=', 1)
-    //->get();
   }
 
   public function services()
@@ -102,7 +87,6 @@ class ServiceController extends Controller
     $serviceDetail = Service::where('slug', $slug)->first();
     $all_states = State::all();
     $images_4_service = $serviceDetail->image;
-      //return $serviceDetail;
     $serviceDetail_id = $serviceDetail->id;
     $serviceDetail_state = $serviceDetail->state;
     $service_likes = Like::where('service_id', $serviceDetail_id)->count();
@@ -111,14 +95,13 @@ class ServiceController extends Controller
 
     $featuredServices2 = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(3)->get();
     $user_id = $serviceDetail->user_id;
-      //$userMessages = Message::where('service_id', $id && Auth::id())->get();
-    $userMessages = Message::where('service_id', $serviceDetail_id)->get();
+    $userMessages = Message::where('service_id', $serviceDetail_id)->orderBy('created_at','desc')->take(7)->get();
+
     if ($ww = session()->get('message')) {
       $ww2 = $ww;
     }else{
       $ww2 = null;
     }
-      //return $ww2;
     if($userser2 = session()->get('userSer')) {
       $userser3 = $userser2;
     }else{
@@ -131,16 +114,6 @@ class ServiceController extends Controller
     }else{
       $user111 = null; 
     }
-      //return 'dddd';
-                  //$cat_images2 = jso$cat_images);
-                        //$images_4_service = $service_images;
-                        // dd($cat_images2);
-       //return $cat_images2;
-
-
-            //return $catt_images;
-              // $arr = json_decode($row["details"], true);
-
 
     return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages', 'images_4_service']));
   }
@@ -155,7 +128,6 @@ class ServiceController extends Controller
     $advertServices = Service::where('is_approved', 1)->with('user')->get();
     $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
     $categories = Category::paginate(8);
-      //$serviceDetail = Service::find($id);
     $all_states = State::all();
       //$serviceDetail_id = $serviceDetail->id;
       //$service_likes = Like::where('service_id', $serviceDetail_id)->count();
@@ -801,7 +773,9 @@ public function show($id)
           if ($likecheck) {
            Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
            $likecount = Like::where(['service_id'=>$id])->count();
-           return redirect()->to('serviceDetail/'.$service_slug);
+           // return redirect()->to('serviceDetail/'.$service_slug);
+            return back()->with('liked', 'Unliked');
+
         //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
         //return redirect('/home');   
          }else{
@@ -810,22 +784,11 @@ public function show($id)
            $like->service_id = $id;
            $like->save();
            $likecount = Like::where(['service_id'=>$id])->count();
-           return redirect()->to('serviceDetail/'.$service_slug);
+           // return redirect()->to('serviceDetail/'.$service_slug);
+          return back();
+
         //return 'Heyyyyy22222'. $likecount;    
-         }
-         if ($likecheck) {
-          Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
-          $likecount = Like::where(['service_id'=>$id])->count();
-          return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
-//                    return redirect('/home');    
-        }else{
-          $like = new Like();
-          $like->user_id = Auth::id();
-          $like->service_id = $id;
-          $like->save();
-          $likecount = Like::where(['service_id'=>$id])->count();
-         //return redirect('/home');    
-        }      
+         }     
       }
 
 
@@ -891,6 +854,7 @@ public function show($id)
 
       public function storeComment2(Request $request)
       {
+          // return response()->json(['success2'=>'Ajax request submitted successfully']);
        $data = $request->all();
 
        $this->validate($request,[
