@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLocalGovernmentsTable extends Migration
+class CreateRefererlinksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateLocalGovernmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('local_governments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('state_id')->nullable();
-            $table->string('name')->nullable();
+        Schema::create('refererlinks', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
+            $table->string('refererlink')->nullable();
+            $table->integer('user_id')->nullabe();
+            $table->integer('recipient_id')->nullabe();
         });
     }
 
@@ -28,6 +29,6 @@ class CreateLocalGovernmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('local_governments');
+        Schema::dropIfExists('refererlinks');
     }
 }

@@ -29,12 +29,15 @@ Register
                     <br/>
                     @endif
                     --}}
+                  
 
                     <div class="clearfix"></div>
 
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="form-group form-box">
+                            
+
                             <input id="name" type="text" class="input-text" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name">
                             @if ($errors->has('name'))
                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
@@ -57,6 +60,12 @@ Register
                             </span>
                             @endif
                         </div>--}}
+                        <div class="form-group form-box">   
+                        <input type="hidden" class="input-text" name="refer" value="{{$referParam}}"> 
+                         {{--    <p style="color: black;">ffjhgfghfg {{$referParam}}</p>
+                            <p style="color: black;">{{$referParam}}</p> --}}
+
+                        </div>
                         <div class="form-group form-box clearfix">
                             <input id="password" type="password" class="input-text" name="password" placeholder="Password" required>
                             @if ($errors->has('password'))
@@ -70,7 +79,7 @@ Register
                         </div>
 
                         <p>
-                            <div class="row">
+                          {{--   <div class="row">
                                 <div class="col-md-4"></div>
                                 <div class="form-group col-md-12">
                                  <div class="captcha">
@@ -86,12 +95,12 @@ Register
 
                              @if ($errors->has('captcha'))
                              <span class="helper-text" data-error="wrong" data-success="right">
-                                <strong class="text-danger">  Invalid answer </strong>  {{-- $errors->first('captcha') --}}
+                                <strong class="text-danger">  Invalid answer </strong>  
                             </span>
                             @endif
 
 
-                        </div>
+                        </div> --}}
                         <h6>Account Type</h6>
                         <div class="col-lg-12">
                             <div class="form-group">

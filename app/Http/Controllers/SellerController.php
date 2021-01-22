@@ -27,7 +27,8 @@ class SellerController extends Controller
 
     public function storeService(Request $request)
     {
-        //dd($request->files);
+      //dd('llll');       
+      //dd($user);
 
        $this->validate($request,[
         'description' => 'required',
@@ -93,10 +94,58 @@ if ( $request->hasFile('files') ) {
        $service->description = $request->description;
        $service->state = $request->state;
        $service->save();
+       $present_user = Auth::user();
+        $user_hasUploadedService = $present_user->hasUploadedService;
+        //dd($user_hasUploadedService);
+        if ($user_hasUploadedService == 1) {
+        //dd('dddddd');
        $request->session()->flash('status', 'Task was successful!');
+        //dd(Auth::user());
+       //$this->saveReferLink();
        return $this->allService();
+        }
+        //dd($user);
+        $present_user->hasUploadedService = 1;
+        $user_referer_id = $present_user->idOfReferer;
+        $present_user->save();  
+        //dd($user_referer_id);
+        //dd($present_user->hasUploadedService);
+        //dd('xxxxxxxx');
+        //$user_hasUploadedService = 1;
+        // $user_that_referered
+        $referer = User::where('id', $user_referer_id)->first();
+        //dd($referer->refererAmount);
+        if ($referer) {
+        $referer->refererAmount = ($referer->refererAmount + 1) * 20;
+        $referer->save();
+                //dd($referer->refererAmount);
+
+         $request->session()->flash('status', 'Task was successful!');
+        //dd(Auth::user());
+       //$this->saveReferLink();
+       return $this->allService();
+        }
+            $request->session()->flash('status', 'Task was successful!');
+       return $this->allService();
+        
 
    }
+
+
+
+public function saveReferLink($refererlink){
+
+  $link = new Refererlink();
+           $link->user_id = Auth::id();
+           $link->refererlink = $refererlink;
+           $link->save();
+//                $user = Auth::user();
+// $user->refererLink = $slug3;
+// $user->save();
+//            $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
+
+}
+    
 
    public function storeServiceUpdate(Request $request, $id)
    {

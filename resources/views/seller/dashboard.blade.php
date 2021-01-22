@@ -12,17 +12,56 @@ Seller Dashboard |
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+      @include('layouts.backend_partials.status')
+
     <section class="content-header">
-      <h1>
-        Dashboard
-        <small>Control panel</small>
+     {{--    <a class="mb-5" href=" {{ route('seller.service.create')}} "><button class="btn btn-success"> Create A New Service</button></a> --}}
+     @if(isset($linkcheck->refererlink))
+       <h1>
+<h6>Refferal Link</h6>
+<a>
+  <button class="btn btn-danger" onclick="myFunction()">Click here to copy link</button>
+</a>
       </h1>
-      <a href=" {{ route('seller.service.create')}} "><button class="btn btn-danger"> Create A New Service</button></a>
-      <ol class="breadcrumb">
-        <li><a href=" {{ route('seller.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
+   
+     <input type="text" readonly class="text-muted" value="{{url('/register') . '/' . '?' . 'invite' . '=' . $linkcheck->refererlink}}" id="myInput2">
+       <div>
+</div>
+    @endif
+      
+
+    <ol class="breadcrumb mt-5">
+        <li><h5><i class="fa fa-dashboard"></i> Accrued Amount: &#8358 {{$accruedAmount ?? 0}}</h5></li>
+        <a style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal"><li class="active">Make Withdrawal</li></a>
       </ol>
     </section>
+
+
+   
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">You Are About To Make Withdrawal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Current Total Amount :  {{$accruedAmount ?? 0}}      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             @if(isset($linkcheck->refererlink))
+
+        <a href="{{route('seller.make_withdrawal_request', $linkcheck->refererlink)}}"><button type="button"  class="btn btn-primary">Make Request</button></a>
+            @endif
+
+      </div>
+    </div>
+  </div>
+</div>
+ 
 
     <!-- Main content -->
     <section class="content">
@@ -221,7 +260,15 @@ Seller Dashboard |
 
 
 
-
+ <script>
+function myFunction() {
+  var copyText = document.getElementById("myInput2");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+  alert("Copied the text: " + copyText.value);
+}
+</script>
 
 
 

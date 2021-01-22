@@ -24,8 +24,21 @@
         </div>
     </div>
 </div>
+<!--<div id="complaint_notification2" aria-live="polite" aria-atomic="true" style="position: relative; min-height: 50px;">-->
+<!--    <div class="toast bg-success mt-2 p-2" style="border-radius: 6px; position: absolute; top: 0; right: 0; display: none">-->
+<!--        <div class="toast-header">-->
+<!--            <i class="fa fa-check-circle"></i>-->
+<!--            <strong class="mr-auto text-success">Your complaint was sent successfully</strong>-->
+<!--            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
+<!--                <span aria-hidden="true">&times;</span>-->
+<!--            </button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
-<div id="complaint_notification" aria-live="polite" aria-atomic="true" style="position: relative; min-height: 50px;">
+
+
+<div id="complaint_notification2" aria-live="polite" aria-atomic="true" style="position: relative; min-height: 50px;">
     <div class="toast bg-success mt-2 p-2" style="border-radius: 6px; position: absolute; top: 0; right: 0; display: none">
         <div class="toast-header">
             <i class="fa fa-check-circle"></i>
@@ -65,7 +78,24 @@
                                         <p><span><i class="fa fa-map-marker"></i> Location:</span> {{$serviceDetail->state}}</p>
                                     </div>
 
-                                    <div class="col-md-12 ser-fea-add">
+
+                     {{--                    @auth
+                @if(Auth::user()->role == 'buyer')
+                    <div class="container mb-5 mt-0 pull-right">
+                        <p>
+                           @if (session('liked')) YOU HAVE LIKED THIS SERVICE  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger">Unlike</span>
+
+                            </a>  @else HAPPY WITH SERVICE RENDERED? GIVE THIS SELLER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!
+</span> @endif
+
+                            </a>
+                        </p>
+                    </div>
+
+                @endif
+            @endauth --}}
+
+                                  {{--   <div class="col-md-12 ser-fea-add">
                                         <div class="pull-right">
                                             <h3>
                                                 <span class="text-right">
@@ -86,7 +116,7 @@
                                                 </span>
                                             </h3>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -321,7 +351,10 @@
                             <button class="btn btn-outline-success" id="showContactSellerForm">Show Contact Form</button>
 
                             <div id="sellerContact">
-                                <form id="myform">
+        {{--                                                         <form id="myform">
+</form> --}}
+                                <form id="myform" action="POST">
+                                    <input type="hidden" name="_method" value="POST">
                                     {{ csrf_field() }}
                                     <input  type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
                                     <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">
@@ -406,6 +439,7 @@
                                         Report Seller  <i class="fa fa-flag"></i>
                                         </button>
 
+
                                         <!-- Modal -->
                                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -463,6 +497,7 @@
                                                                             <button id="" type="button" class="btn-submit3 btn btn-danger" data-dismiss="modal">Send Report</button>
                                                                         </div>
                                                                 </div>
+                                                                
                                                             @endauth
 
                                                         </form>
@@ -476,6 +511,7 @@
                                             </div>
                                         </div>
                                     </li>
+                                    <li><h6 id="complaint_notification" class="text-center text-success"></h6></li>
                                 </ul>
                             </div>
                         </div>
@@ -483,14 +519,34 @@
                 </div>
             </div>
 
+
+{{-- 
+            @if (session('liked'))<span class="text-danger">{{ session('liked') }}
+</span> @else<span class="text-warning">like!
+</span> @endif --}}
+
             @auth
                 @if(Auth::user()->role == 'buyer')
                     <div class="container mb-5 mt-0">
                         <h5>
-                            HAPPY WITH THE SERVICE RENDERED? THEN GIVE THIS SELLER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">   LIKE!</span>
+                           @if (session('liked')) YOU HAVE LIKED THIS SERVICE  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger">Unlike</span>
+
+                            </a>  @else HAPPY WITH THE SERVICE RENDERED? GIVE THIS SELLER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!
+</span> @endif
+
                             </a>
                         </h5>
                     </div>
+
+
+       {{--              @if (session('success2'))
+<div id="likeNotice" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('success2') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  </button>
+</div>
+@endif --}}
+
                 @endif
             @endauth
         </div>
@@ -501,6 +557,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
+    var baseUrl = "{{url('/')}}"
     $(document).ready(function() {
         $(".btn-submit2").click(function(e){
             e.preventDefault();
@@ -516,11 +573,14 @@
             var description = $("#description").val();
 
             $.ajax({
-                type:'POST',
-                url: '/buyer/createcomment2/',
+                url: baseUrl + '/buyer/createcomment2',
+                method:'POST',                
                 data: {_token:_token, buyer_id:buyer_id, service_id:service_id, service_user_id:service_user_id, description:description, subject:subject, buyer_name, buyer_email, phone },
                 success: function(data) {
                     alert(data.success2);
+                }, 
+                error: function(error){
+                    console.log(error)
                 }
             });
         });
@@ -544,6 +604,7 @@
     });
 </script>
 
+
 <script type="text/javascript">
         $(document).ready(function() {
         document.getElementById("complaint_notification").hidden = true;
@@ -557,16 +618,25 @@
         var service_user_id = $("#service_user_id_report").val();
         var buyer_email = $("#buyer_email_report").val();
         var description = $("#description_report").val();
+        function greet(){
+                    document.getElementById("complaint_notification").hidden = true;
+                    document.getElementById("complaint_notification").innerHTML = "";
+                }
+         function set(){
+              setTimeout(greet, 20000);
+         }
 
 
         $.ajax({
             type:'POST',
-            url: '/buyer/createcomplaint/',
+            url: '/buyer/createcomplaint',
             data: {_token:_token, buyer_id:buyer_id, buyer_name:buyer_name, buyer_email:buyer_email, service_id:service_id, service_user_id:service_user_id,  description:description },
             success: function(data) {
-                alert(data.success2);
-                    document.getElementById("complaint_notification").hidden = false;
+                  document.getElementById("complaint_notification").hidden = false;
                     document.getElementById("complaint_notification").innerHTML = "Your complaint was sent successfully";
+            //   greet();
+            set();
+
                 }
             });
         });

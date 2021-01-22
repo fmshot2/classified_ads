@@ -37,14 +37,15 @@
                 <div class="main-title">
                     <h1>What service are you looking for?</h1>
                 </div>
-                <div class="sidebar-right">
-                    <div class="row wow animated" style="visibility: visible;">
+                {{-- <div class="sidebar-right"> --}}
+                     <div class="">
+                    <div class="row" style="visibility: visible;">
                         @if(isset($categories))
                             @foreach($categories as $category)
-                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-2">
-                                    <div class="service-info-5">
+                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-2 service-info-5 card">
+                                    <div class="">
                                         <a href="{{route('services', $category->slug)}}" >
-                                            <div style="border-radius: 50px">
+                                            <div style="border-radius: 50px;">
                                                 <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px;" alt="properties">
                                             </div>
                                         </a>
