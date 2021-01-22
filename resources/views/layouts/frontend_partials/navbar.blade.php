@@ -43,217 +43,11 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('allServices') }}"  class="nav-link" >
-                                    Explore Services
+                                    Explore
                                 </a>
-
                             </li>
-
-                            @auth
-                            @if(Auth::user()->role == 'seller')
-                            <li class="nav-item dropdown">
-                                <a href="{{ route('seller.service.create') }}"  class="nav-link">
-                                    Post A Service
-                                </a>
-
-                            </li>
-                            @endif 
-                            @endauth
-                            <!-- Modal -->
-                            <div class="modal fade" id="postAService" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                              <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="container border border-warning">
-                                        <div class="col-md-12 text-center">
-                                            <div class="submit-address">
-                                                <form method="POST" action="{{route('service.store')}}" enctype="multipart/form-data">
-                                                    {{ csrf_field() }}
-                                                    <!--<h3 class="heading-2 text-center">Basic Information</h3>-->
-                                                    <button type="button" class="btn btn-outline-warning mt-3 mb-4">Basic Information</button>
-                                                    <div class="border border-warning">
-                                                        <div class="search-contents-sidebar mb-30">
-                                                            <div class="row">
-                                                                <div class="col-lg-12 col-md-12">
-                                                                    <div class="form-group">
-
-                                                                        <input type="hidden" value="{{Auth::id()}}
-                                                                        " class="input-text" name="user_id">
-                                                                        @if ($errors->has('user_id'))
-                                                                        <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                                                            <strong>{{ $errors->first('user_id') }}</strong>
-                                                                        </span>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6 col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>SERVICE NAME</label>
-                                                                        <input type="text" class="input-text" name="name" placeholder="Enter your service">
-                                                                        @if ($errors->has('name'))
-                                                                        <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                                                            <strong>{{ $errors->first('name') }}</strong>
-                                                                        </span>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-lg-6 col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>YEARS OF EXPERIENCE</label>
-                                                                        <input type="text" class="input-text" name="experience" placeholder="Years of Experience?">
-                                                                        @if ($errors->has('experience'))
-                                                                        <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                                                            <strong>{{ $errors->first('experience') }}</strong>
-                                                                        </span>
-                                                                        @endif
-                                                                        
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-lg-6 col-md-6" style="margin-bottom: -30px;">
-                                                                  <div class="form-group">
-                                                                    <label for="exampleFormControlSelect1"> CHOOSE CATEGORY </label>
-                                                                    <select class="form-control" id="exampleFormControlSelect1" name="category">
-
-                                                                      @foreach($categories as $categories)
-                                                                      <option value="{{ $categories->id }}"> {{ $categories->name }} </option> 
-                                                                      @endforeach
-
-                                                                  </select>
-                                                                  @if ($errors->has('category'))
-                                                                  <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                                                    <strong>{{ $errors->first('category') }}</strong>
-                                                                </span>
-                                                                @endif
-                                                            </div>
-                                                        </div>                         
-                                                        <div class="col-lg-6 col-md-6 mt-4" style="margin-bottom: -30px;">
-                                                            <div class="form-group">
-                                                               <input type="file" class="input-text" onChange="previewFile(this)" name="file" class="form-control" />
-                                                               <img id="previewImg" alt="Service Image" style="max-width:130px; 
-                                                               margin-top:20px"/>
-                                                               @if ($errors->has('file'))
-                                                               <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                                                <strong>{{ $errors->first('file') }}</strong>
-                                                            </span>
-                                                            @endif
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>                                     
-                                            <h3 class="heading-2">DETAILED INFORMATION</h3>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group mb-0">
-                                                        <textarea class="input-text" name="description" placeholder="Add More Info about your service"></textarea>
-                                                        @if ($errors->has('description'))
-                                                        <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                                            <strong>{{ $errors->first('description') }}</strong>
-                                                        </span>
-                                                        @endif
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>                      
-                                            <h3 class="heading-2">CONTACT DETAILS</h3>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <input type="text" class="input-text" name="streetAddress" placeholder="Enter Your House No And Street Address">
-                                                        @if ($errors->has('streetAddress'))
-                                                        <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                                            <strong>{{ $errors->first('streetAddress') }}</strong>
-                                                        </span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <input type="text" class="input-text" name="city" placeholder="Enter Your City Name">
-                                                        @if ($errors->has('city'))
-                                                        <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                                            <strong>{{ $errors->first('city') }}</strong>
-                                                        </span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <input type="text" class="input-text" name="state" placeholder="Enter Your State">
-                                                        @if ($errors->has('state'))
-                                                        <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                                            <strong>{{ $errors->first('state') }}</strong>
-                                                        </span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <input type="text" class="input-text" name="closestBusstop" placeholder="Enter Your Closest Busstop">
-                                                        @if ($errors->has('closestBusstop'))
-                                                        <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                                            <strong>{{ $errors->first('closestBusstop') }}</strong>
-                                                        </span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <input type="text" class="input-text" name="phone" placeholder="Enter Your Contact Number">
-                                                        @if ($errors->has('phone'))
-                                                        <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                                            <strong>{{ $errors->first('phone') }}</strong>
-                                                        </span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12">
-                                                    <input type="submit"class="btn btn-md btn-warning mb-30" value="Submit" />
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>          
-
-
-
-            <!-- Modal -->
-            <div class="modal fade" id="findAUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Find A User</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-              <form class="" action="{{-- route('searchUser') --}}" method="POST" role="search">
-                  <div class="modal-body">
-                    {{ csrf_field() }}
-                    <div class="form-group"> 
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="User's Name">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=" Location">
-                    </div>
-                    <div class="form-group">
-                      <button type="submit" class="pull-right btn btn-warning mb-2 font-weight-bold bg-warning text-white"> Search  <i class="fa fa-search ml-2" aria-hidden="true"></i>  </button>
-                  </div>
-              </div>
-              <form>
-              </div>
-          </div>
-      </div>          
-
-
-
-      <li class="nav-item dropdown">
+                        
+      <li class="nav-item">
         <a class="nav-link" href="{{route('seller.sellers')}}" id="">
             Sellers
         </a>
@@ -268,10 +62,19 @@
 
     <li class="nav-item dropdown">
         <a class="nav-link" href="{{route('contact')}}" id="">
-            Contact Us
+            Contact
         </a>
 
     </li>
+
+   @auth
+                @if(Auth::user()->role == 'seller')
+                <li class="nav-item dropdown">
+                <a class="nav-link" href="{{ route('createService') }}"> Post Service </a>
+                  </li>
+                @endif 
+                @endauth
+
 
 </ul>
 
@@ -337,7 +140,7 @@
             @guest
 
             <ul class="navbar-nav ml-auto">
-             <li class="mr-3">
+               <li class="mr-3">
                 <a class="text-warning" href="/login" class="sign-in"><i class="fa fa-sign-in"></i> Login</a>
             </li>
             <li>
@@ -345,6 +148,58 @@
             </li>
         </ul>
         @endguest
+
+
+@auth
+            <ul class="navbar-nav ml-auto">
+
+
+  @if(Auth::user()->role == 'seller')
+          <li class="nav-item dropdown">
+                <a class="nav-link" href="{{ route('seller.dashboard') }}">My Dashboard </a>
+                  </li>
+                @endif 
+
+                @if(Auth::user()->role == 'buyer')
+                <li class="nav-item dropdown">
+                <a class="nav-link" href="{{ route('buyer.dashboard') }}">My Dashboard </a>
+                </li>
+                @endif 
+
+
+
+                
+
+<li>
+             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+                </form>
+
+
+                <a class="nav-link text-warning" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                {{ __('Logout') }}
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        </li>
+
+
+
+
+              
+
+    </ul>
+
+@endauth
+
+ 
+
+
+
+{{-- 
 
 
 
@@ -372,6 +227,20 @@
                 @endif 
                 @endauth
 
+
+
+
+
+  <div class="pull-right">
+                 
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+                </form>
+              </div> 
+
+
+
+
                 <a class="dropdown-item" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
@@ -385,7 +254,7 @@
     </div>
 </ul>
 
-@endauth
+@endauth --}}
 
 
 

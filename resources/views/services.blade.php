@@ -106,7 +106,7 @@
 
                             <!-- Posts by category start -->
                             <div class="posts-by-category widget">
-                                <h3 class=  "sidebar-title">Cities</h3>
+                                <h3 class="sidebar-title">Cities</h3>
                                 <div class="s-border"></div>
                                 <div class="m-border"></div>
                                {{--  <ul class="list-unstyled list-cat">
