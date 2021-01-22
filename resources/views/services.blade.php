@@ -92,7 +92,7 @@
                                             </div>
                                             <div class="media-body align-self-center all-ser-pg-sidebar-feat-ser">
                                                 <h3 class="media-heading">
-                                                    <a href="https://efcontact.com/services/emeka-auto-mechanic">
+                                                    <a  href="{{route('serviceDetail', $featuredService->slug)}}">
                                                         <strong style="text-transform: capitalize">{{ $featuredService->name }}</strong>
                                                         <br>
                                                         <span style="text-transform: capitalize">{{ $featuredService->user->name }}</span>
@@ -106,16 +106,16 @@
 
                             <!-- Posts by category start -->
                             <div class="posts-by-category widget">
-                                <h3 class="sidebar-title">Cities</h3>
+                                <h3 class=  "sidebar-title">Cities</h3>
                                 <div class="s-border"></div>
                                 <div class="m-border"></div>
-                                <ul class="list-unstyled list-cat">
+                               {{--  <ul class="list-unstyled list-cat">
                                     @if(isset($featuredServices))
                                         @foreach($featuredServices as $featuredService)
                                             <li><a href="{{route('search_by_city', $featuredService->city)}}"><i class="fa fa-map-marker"> {{$featuredService->city}}</i></a></li>
                                         @endforeach
                                     @endif
-                                </ul>
+                                </ul> --}}
                             </div>
 
                             <div class="widget helping-center">
@@ -165,4 +165,65 @@
             </div>
         </div>
     </div>
+
+
+
+
+<script type="text/javascript">
+    $('#categories').on('change',function(){
+        var categoryID = $(this).val();
+        if(categoryID){
+         $.ajax({
+            type:"GET",
+                //url:"{{url('qqq')}}"+stateID,
+                url: '/api/get-category-list/'+categoryID,
+                    success:function(res){
+                    if(res){
+                        console.log(res);
+                        console.log(categoryID);
+                        $("#sub_category ").empty();
+                        $.each(res,function(key,value){
+                            $("#sub_category").append('<option value="'+key+'">'+value+'</option>');
+                        });
+                    }else{
+                        $("#sub_category").empty();
+                    }
+                }
+            });
+        }else{
+         $("#sub_category").empty();
+        }
+    });
+</script>
+
+<script type="text/javascript">
+
+    $('#state').on('change',function(){
+        var state_name = $(this).val();
+        if(state_name){
+         $.ajax({
+          type:"GET",
+            //url:"{{url('qqq')}}"+stateID,
+            url: '/api/get-city-list/'+state_name,
+            success:function(res){
+             if(res){
+                console.log(res);
+                console.log(state_name);
+                $("#city").empty();
+                $.each(res,function(key,value){
+                    $("#city").append('<option value="'+key+'">'+value+'</option>');
+                });
+
+            }else{
+              $("#city").empty();
+            }
+        }
+    });
+        }else{
+            $("#city").empty();
+        }
+
+    });
+
+</script>
 @endsection

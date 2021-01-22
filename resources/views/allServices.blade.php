@@ -53,19 +53,19 @@
                                     <div class="all-ser-pg-top-ct-mbl">
                                         @foreach($featuredServices as $featuredService)
                                             @if ($loop->index < 2)
-                                                <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a>
+                                               {{--  <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a> --}}
                                             @endif
                                         @endforeach
                                     </div>
                                     <div class="all-ser-pg-top-ct-dkt">
                                         @foreach($featuredServices as $featuredService)
-                                            <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a>
+                                          {{--   <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a> --}}
                                         @endforeach
                                     </div>
                                     <div class="all-ser-pg-top-ct-tbl">
                                         @foreach($featuredServices as $featuredService)
                                             @if ($loop->index < 3)
-                                                <a style="font-size: 13px;" href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a>
+                                                {{-- <a style="font-size: 13px;" href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-compass"> {{$featuredService->city}}</i></a> --}}
                                             @endif
                                         @endforeach
                                     </div>
@@ -88,7 +88,7 @@
                                                     </p>
                                                 </div>
                                                 <div class="listing-time opening" style="text-transform: capitalize">{{ Str::limit($approvedService->user->name, 10) }}</div>
-                                                <img class="d-block w-100" src="{{asset('images')}}/{{$featuredService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                <img class="d-block w-100" src="{{asset('images')}}/{{$approvedService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                                             </div>
                                             <div class="detail">
                                                 <div>
@@ -155,7 +155,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                  {{--   <div class="col-lg-6">
                                         <div class="form-group">
                                             <input type="number" name="minprice" id="minprice" class="form-control" placeholder="Min Price" autocomplete="off">
                                         </div>
@@ -164,7 +164,7 @@
                                         <div class="form-group">
                                             <input type="number" name="maxprice" id="maxprice" class="form-control" placeholder="Max Price" autocomplete="off">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <div class="switch">
@@ -211,7 +211,7 @@
                         </div>
 
                         <!-- Posts by category start -->
-                        <div class="posts-by-category widget">
+                    {{--     <div class="posts-by-category widget">
                             <h3 class="sidebar-title">Cities</h3>
                             <div class="s-border"></div>
                             <div class="m-border"></div>
@@ -223,7 +223,7 @@
                                 @endif
                             </ul>
                         </div>
-
+ --}}
                         <div class="widget helping-center">
                             <div class="s-border"></div>
                             <div class="m-border"></div>

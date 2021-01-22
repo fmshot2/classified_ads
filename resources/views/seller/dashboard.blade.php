@@ -30,7 +30,7 @@ Seller Dashboard |
     @endif
       
 
-    <ol class="breadcrumb">
+    <ol class="breadcrumb mt-5">
         <li><h5><i class="fa fa-dashboard"></i> Accrued Amount: &#8358 {{$accruedAmount ?? 0}}</h5></li>
         <a style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal"><li class="active">Make Withdrawal</li></a>
       </ol>
