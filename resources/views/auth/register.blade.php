@@ -78,6 +78,7 @@
                 <div class="col-lg-6 bg-color-15 align-self-center pad-0 none-992 p-3">
                     @if(isset($general_info->register_section_1_title))
                         <h6 class="text-center"> {{ $general_info->register_section_1_title ? $general_info->register_section_1_title : '' }} </h6>
+                        <hr>
                         <p>EFContacts is the fastest growing service providers platfromin Nigeria, connecting the best and qualified service providers to the right clients.</p>
                         <p style=""><strong>With EFContacts:</strong></p>
                         <hr>
@@ -94,14 +95,6 @@
                             {!! $general_info->register_section_2 ? $general_info->register_section_2 : '' !!}
                         </p>
                     @endif
-
-                    <h6 class="text-center">Account Types:</h6>
-                    <ol>
-                        <li>Individual: searching for property</li>
-                        <li>Property Owner: Landlords</li>
-                        <li>Agent: Middleman between a buyer and propert owner</li>
-                        <li>Property Developer: entrepreneurs who carry out real estate development.</li>
-                    </ol>
                     <hr>
                     <div class="info clearfix">
                         <div class="logo-2">
