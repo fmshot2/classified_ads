@@ -33,8 +33,8 @@
         <!-- Properties Details page start -->
         <div class="properties-details-page content-area-7 job-ap-services-page" style="margin-top: 20px">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-md-12 col-xs-12" style="display: none">
+                <div class="row job-ap-services-page-row">
+                    <div class="col-lg-8 col-md-12 col-xs-12 jobApSerDesktop">
                         <div class="row">
                             @forelse($category_services as $category_service)
                                 <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
@@ -78,10 +78,10 @@
                     </div>
 
 
-                    <div class="col-lg-8 col-md-12 col-xs-12">
-                        <div class="row">
+                    <div class="col-md-12 jobApSerMobile">
+                        <div class="row mobile-row">
                             @forelse($category_services as $category_service)
-                                <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                <div class="col-sm-6" data-category="3, 2, 1" style="">
                                     <div class="property-box">
                                         <div class="property-thumbnail">
                                             <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
