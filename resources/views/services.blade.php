@@ -151,21 +151,6 @@
                                     @endforeach
                                 @endif
                             </div>
-
-                            <!-- Posts by category start -->
-                            <div class="posts-by-category widget">
-                                <h3 class="sidebar-title">Cities</h3>
-                                <div class="s-border"></div>
-                                <div class="m-border"></div>
-                               {{--  <ul class="list-unstyled list-cat">
-                                    @if(isset($featuredServices))
-                                        @foreach($featuredServices as $featuredService)
-                                            <li><a href="{{route('search_by_city', $featuredService->city)}}"><i class="fa fa-map-marker"> {{$featuredService->city}}</i></a></li>
-                                        @endforeach
-                                    @endif
-                                </ul> --}}
-                            </div>
-
                             <div class="widget helping-center">
                                 <div class="s-border"></div>
                                 <div class="m-border"></div>
