@@ -79,20 +79,26 @@
                     @if(isset($general_info->register_section_1_title))
                         <h6 class="text-center"> {{ $general_info->register_section_1_title ? $general_info->register_section_1_title : '' }} </h6>
                         <hr>
-                        <p>EFContacts is the fastest growing service providers platfromin Nigeria, connecting the best and qualified service providers to the right clients.</p>
-                        <p style=""><strong>With EFContacts:</strong></p>
-                        <hr>
                         <p>
                             {!! $general_info->register_section_1 ? $general_info->register_section_1 : '' !!}
                         </p>
                     @endif
                     <!--h6 class="text-center">What I gain by joining Estate.ng</h6-->
                     <hr>
-                    @if(isset($general_info->register_section_2_title))
+                    @if(isset($general_info->register_section_1_title))
                         <h6 class="text-center"> {{ $general_info->register_section_2_title ? $general_info->register_section_2_title : '' }} </h6>
                         <hr>
                         <p>
                             {!! $general_info->register_section_2 ? $general_info->register_section_2 : '' !!}
+                        </p>
+                    @endif
+
+                    <hr>
+                    @if(isset($general_info->register_section_2_title))
+                        <h6 class="text-center"> {{ $general_info->register_section_3_title ? $general_info->register_section_3_title : '' }} </h6>
+                        <hr>
+                        <p>
+                            {!! $general_info->register_section_3 ? $general_info->register_section_3 : '' !!}
                         </p>
                     @endif
                     <hr>
