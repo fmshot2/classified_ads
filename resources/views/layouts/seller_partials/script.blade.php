@@ -22,7 +22,7 @@
 <!-- Cross Admin for demo purposes -->
 	<script src="{{asset('OurBackend/js/demo.js')}}"></script>
 
-	<script type="text/javascript" src="{{asset('dropzone/dist/dropzone.js')}}"></script>
+	{{-- <script type="text/javascript" src="{{asset('dropzone/dist/dropzone.js')}}"></script> --}}
 
 
 
@@ -47,6 +47,9 @@
 		});
 	});
 </script>
+
+{{--      <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
+ --}}
   
 
 	

@@ -57,7 +57,7 @@ class AuthController extends Controller
 
 
 
-		session()->flash('success', ' Succesfull');
+		session()->flash('success', ' Succesfull!');
 
 		$credentials = $request->only('email', 'password');
 
@@ -181,8 +181,9 @@ $referlink = $refer;
 
 	public function buyer()
 	{
-		$buyer = User::where('role', 'buyer')->paginate(20);
-		return view ('admin.user.buyer', compact('buyer') );
+		$buyers = User::where('role', 'buyer')->orderBy('id', 'asc')->paginate(8);
+		 // Category::orderBy('id', 'asc')->paginate(35);
+		return view ('admin.user.buyer', compact('buyers') );
 	}
 
 	public function seller()
