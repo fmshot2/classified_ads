@@ -28,14 +28,16 @@ body {
 }
 
 .hm-feat-ser-mid-sec .row .col-md-4 .title,
-.hm-cl-recently-properties .row .col-md-4 .title {
+.hm-cl-recently-properties .row .col-md-4 .title,
+.job-ap-services-page .property-box .title {
     font-size: 15px;
     font-weight: 800;
     text-transform: capitalize;
 }
 
 .hm-feat-ser-mid-sec .row .col-md-4 .info,
-.hm-cl-recently-properties .row .col-md-4 .info {
+.hm-cl-recently-properties .row .col-md-4 .info,
+.job-ap-services-page .property-box .info {
     font-size: 13px;
     margin-top: 5px;
 }
@@ -135,6 +137,13 @@ body {
     font-size: 16px;
     text-transform: capitalize !important;
     padding-top: 15px;
+}
+
+.jobApSerMobile {
+    display: none;
+}
+.jobApSerDesktop {
+    display: block;
 }
 
 @media only screen and (max-width: 992px) {
@@ -237,27 +246,32 @@ body {
     }
     .hm-search-form-comp .row .col-sm-6,
     .hm-feat-ser-mid-sec .col-sm-6,
-    .hm-cl-recently-properties .col-sm-6 {
+    .hm-cl-recently-properties .col-sm-6,
+    .job-ap-services-page .col-sm-6 {
         width: 50% !important;
     }
     .home-recently-properties .featured-ad-hm-list {
         display: none;
     }
 
-    .hm-feat-ser-mid-sec .row .col-md-4 .title {
+    .hm-feat-ser-mid-sec .row .col-md-4 .title,
+    .job-ap-services-page .property-box .title {
         font-size: 14px;
     }
 
-    .hm-feat-ser-mid-sec .listing-badges {
+    .hm-feat-ser-mid-sec .listing-badges,
+    .job-ap-services-page .property-box .listing-badges {
         display: none;
     }
 
-    .hm-feat-ser-mid-sec .price-ratings-box .price {
+    .hm-feat-ser-mid-sec .price-ratings-box .price,
+    .jobApSerMobile .price-ratings-box .price {
         text-align: left;
         font-size: 10px;
     }
 
-    .hm-feat-ser-mid-sec .row .col-md-4 .info {
+    .hm-feat-ser-mid-sec .row .col-md-4 .info,
+    .job-ap-services-page .property-box .info {
         font-size: 12px;
         margin-top: 5px;
     }
@@ -320,8 +334,28 @@ body {
     .sellers-pg-ser-name {
         padding-top: 0;
     }
-    .job-ap-services-page .row {
-        display: block;
-        margin-top: 30px;
+
+    .jobApSerDesktop {
+        display: none;
+    }
+    .jobApSerMobile {
+        display: block !important;
+    }
+    .mobile-row {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    .mobile-row .col-sm-6 {
+        width: 100% !important;
+        padding: 5px;
+    }
+    .job-ap-services-page-row {
+        float: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100%;
     }
 }
