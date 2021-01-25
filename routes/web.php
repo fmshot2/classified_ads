@@ -146,7 +146,10 @@ Route::get('/seller/dashboard/service/active', 'SellerController@activeService')
 Route::get('/seller/dashboard/service/pending', 'SellerController@pendingService')->name('seller.service.pending');
 Route::get('/seller/dashboard/service/all', 'SellerController@allService')->name('seller.service.all');
 Route::post('/service/store/', 'SellerController@storeService')->name('service.save');
+Route::post('dropzone/store', 'SellerController@service_save_image');
 Route::post('/service/{id}', 'SellerController@storeServiceUpdate')->name('service.update');
+Route::post('/service/{updateImage}', 'SellerController@updateImage')->name('service.updateImage');
+
 Route::get('seller/dashboard/service/view/{slug}', 'SellerController@viewService')->name('service.view');
 Route::get('/service/{id}', 'SellerController@destroy')->name('seller.service.destroy');
 Route::get('seller/dashboard/service/update/{slug}', 'SellerController@viewServiceUpdate')->name('service.update.view');
@@ -209,6 +212,7 @@ Route::get('/admin/dashboard/user/search', 'AdminController@userSearch')->name('
 
 Route::get('/admin/dashboard/seller', 'AuthController@seller')->name('admin.seller');
 Route::get('/admin/dashboard/buyer', 'AuthController@buyer')->name('admin.buyer');
+Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');
 
 Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
 

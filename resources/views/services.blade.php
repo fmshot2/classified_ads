@@ -49,6 +49,8 @@
                                                         {{$category_service->experience}} Yrs Experience
                                                     </p>
                                                 </div>
+                                                <div class="listing-time opening">Femi</div>
+                                               <a  href="{{route('serviceDetail', $featuredService->slug)}}"> <img class="d-block w-100" src="{{asset('images')}}/{{$category_service->image[0]}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                                                 <div class="listing-time opening">femi</div>
                                                 <img class="d-block w-100" src="{{asset('images')}}/{{$category_service->image[0]}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                                             </a>
@@ -133,7 +135,8 @@
                                     @foreach($featuredServices as $key => $featuredService)
                                         <div class="media">
                                             <div class="media-left">
-                                                <img class="media-object" src="{{asset('images')}}/{{$featuredService->image[0]}}">
+                                              <a  href="{{route('serviceDetail', $featuredService->slug)}}">   <img class="media-object" src="{{asset('images')}}/{{$featuredService->image[0]}}">
+                                                </a>
                                             </div>
                                             <div class="media-body align-self-center all-ser-pg-sidebar-feat-ser">
                                                 <h3 class="media-heading">
@@ -148,7 +151,6 @@
                                     @endforeach
                                 @endif
                             </div>
-
                             <div class="widget helping-center">
                                 <div class="s-border"></div>
                                 <div class="m-border"></div>

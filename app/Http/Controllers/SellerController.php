@@ -11,6 +11,8 @@ use App\Message;
 use App\Notification;
 use App\State;
 use Image;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailable;
 
 use Illuminate\Support\Str;
 
@@ -25,21 +27,38 @@ class SellerController extends Controller
         return view ('seller.service.create', compact('category', 'states') );
     }
 
-    public function storeService(Request $request)
+   public function storeService(Request $request)
     {
       //dd('llll');       
       //dd($user);
 
+
+
+
+ // $validator = Validator::make($request->only('file_input'), [
+ //            'file_input' => 'max:20480',
+ //        ]);
+
+ //        if ($validator->fails()) {
+ //            return redirect()
+ //                        ->route('your.route.name')
+ //                        ->withErrors($validator)
+ //                        ->withInput();
+ //        }
+
+
+
+
        $this->validate($request,[
-        'description' => 'required',
-        'category_id' => 'required',
-        'address' => 'required',
-        'description' => 'required',
-        'slug' => 'unique:services,slug',
-        //'city' => 'required',
-        'name' => 'required',
-        'state' => 'required',
-        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', //|max:2048
+        // 'description' => 'required',
+        // 'category_id' => 'required',
+        // 'address' => 'required',
+        // 'description' => 'required',
+        // 'slug' => 'unique:services,slug',
+        // //'city' => 'required',
+        // 'name' => 'required',
+        // 'state' => 'required',
+        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
     ]); 
        $image = $request->file('image');
        $random = Str::random(3);
@@ -94,6 +113,18 @@ if ( $request->hasFile('files') ) {
        $service->description = $request->description;
        $service->state = $request->state;
        $service->save();
+
+$service_owner = Auth::user();
+$service_owner->name = Auth::user()->name;
+$service_owner->email = Auth::user()->email;
+
+
+        if ($service->save()) {
+      $name = " Hi $service_owner->name, You just created a new service called: $service->name. Wishing you all the best. Have a great time enjoying our services!";
+
+      Mail::to($service_owner->email)->send(new SendMailable($name));
+     }
+
        $present_user = Auth::user();
         $user_hasUploadedService = $present_user->hasUploadedService;
         //dd($user_hasUploadedService);
@@ -130,6 +161,7 @@ if ( $request->hasFile('files') ) {
         
 
    }
+
 
 
 
@@ -281,8 +313,10 @@ public function allService()
 public function viewServiceUpdate($slug)
 {
     $category = Category::all();
+    $serviceDetail = Service::where('slug', $slug)->first();
+    $images_4_service = $serviceDetail->image;
     $service = Service::where('slug', $slug)->first();
-    return view ('seller.service.update_service', compact('service', 'category') );
+    return view ('seller.service.update_service', compact('service', 'category', 'images_4_service') );
 }
 
 public function viewService($slug)
