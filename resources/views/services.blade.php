@@ -31,13 +31,13 @@
         </div>
 
         <!-- Properties Details page start -->
-        <div class="properties-details-page content-area-7 job-ap-services-page">
+        <div class="properties-details-page content-area-7 job-ap-services-page" style="margin-top: 20px">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-md-12 col-xs-12">
+                    <div class="col-lg-8 col-md-12 col-xs-12" style="display: none">
                         <div class="row">
                             @forelse($category_services as $category_service)
-                                <div class="col-lg-4 col-md-6 col-sm-12 filtr-item" data-category="3, 2, 1" style="">
+                                <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
                                     <div class="property-box">
                                         <div class="property-thumbnail">
                                             <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
@@ -49,22 +49,67 @@
                                                         {{$category_service->experience}} Yrs Experience
                                                     </p>
                                                 </div>
-                                                <div class="listing-time opening">Femi</div>
+                                                <div class="listing-time opening">femi</div>
                                                 <img class="d-block w-100" src="{{asset('images')}}/{{$category_service->image[0]}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                                             </a>
                                         </div>
-
                                         <div class="detail">
-                                            <div class="d-flex justify-content-between">
-                                                <a class="title "  href="{{route('serviceDetail', $category_service->slug)}}"  style="font-size: 14px;">{{$category_service->name}}</a>
-                                                <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}" style="font-size: 13px;">
-                                                    <i class="fa fa-map-marker text-warning"></i> {{$category_service->city}}, {{$category_service->state}}
-                                                </a>
+                                            <div>
+                                                <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
                                             </div>
 
-                                            <ul class="facilities-list clearfix">
+                                            <ul class="d-flex flex-row justify-content-between info">
                                                 <li>
-                                                    <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} likes
+                                                    <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                </li>
+                                                <li>
+                                                    <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
+                                                        <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            @empty
+                                <h6 class="text-muted text-center">There are no services yet within this category</h6>
+                            @endforelse
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-8 col-md-12 col-xs-12">
+                        <div class="row">
+                            @forelse($category_services as $category_service)
+                                <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                    <div class="property-box">
+                                        <div class="property-thumbnail">
+                                            <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
+                                                <div class="listing-badges">
+                                                    <span class="featured bg-warning">featured</span>
+                                                </div>
+                                                <div class="price-ratings-box">
+                                                    <p class="price">
+                                                        {{$category_service->experience}} Yrs Experience
+                                                    </p>
+                                                </div>
+                                                <div class="listing-time opening">femi</div>
+                                                <img class="d-block w-100" src="{{asset('images')}}/{{$category_service->image[0]}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                            </a>
+                                        </div>
+                                        <div class="detail">
+                                            <div>
+                                                <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                            </div>
+
+                                            <ul class="d-flex flex-row justify-content-between info">
+                                                <li>
+                                                    <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                </li>
+                                                <li>
+                                                    <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
+                                                        <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>

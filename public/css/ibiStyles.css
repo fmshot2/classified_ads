@@ -28,14 +28,16 @@ body {
 }
 
 .hm-feat-ser-mid-sec .row .col-md-4 .title,
-.hm-cl-recently-properties .row .col-md-4 .title {
+.hm-cl-recently-properties .row .col-md-4 .title,
+.job-ap-services-page .property-box .title {
     font-size: 15px;
     font-weight: 800;
     text-transform: capitalize;
 }
 
 .hm-feat-ser-mid-sec .row .col-md-4 .info,
-.hm-cl-recently-properties .row .col-md-4 .info {
+.hm-cl-recently-properties .row .col-md-4 .info,
+.job-ap-services-page .property-box .info {
     font-size: 13px;
     margin-top: 5px;
 }
@@ -237,18 +239,21 @@ body {
     }
     .hm-search-form-comp .row .col-sm-6,
     .hm-feat-ser-mid-sec .col-sm-6,
-    .hm-cl-recently-properties .col-sm-6 {
+    .hm-cl-recently-properties .col-sm-6,
+    .job-ap-services-page .col-sm-6 {
         width: 50% !important;
     }
     .home-recently-properties .featured-ad-hm-list {
         display: none;
     }
 
-    .hm-feat-ser-mid-sec .row .col-md-4 .title {
+    .hm-feat-ser-mid-sec .row .col-md-4 .title,
+    .job-ap-services-page .property-box .title {
         font-size: 14px;
     }
 
-    .hm-feat-ser-mid-sec .listing-badges {
+    .hm-feat-ser-mid-sec .listing-badges,
+    .job-ap-services-page .property-box .listing-badges {
         display: none;
     }
 
@@ -257,7 +262,8 @@ body {
         font-size: 10px;
     }
 
-    .hm-feat-ser-mid-sec .row .col-md-4 .info {
+    .hm-feat-ser-mid-sec .row .col-md-4 .info,
+    .job-ap-services-page .property-box .info {
         font-size: 12px;
         margin-top: 5px;
     }
