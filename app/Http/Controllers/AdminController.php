@@ -34,8 +34,8 @@ class AdminController extends Controller
   
 
   public function advertisement() {
-  return view('advertisement');
-}
+    return view('advertisement');
+  }
 
   public function activeService()
   {
@@ -54,7 +54,7 @@ class AdminController extends Controller
     return view ('admin.page_management.pending_advert_requests', compact('pending_advert_requests') );
   }
 
-   public function treated_advert_requests()
+  public function treated_advert_requests()
   {
     $treated_advert_requests = Advertrequest::where('status', 1)->paginate(10);
     return view ('admin.page_management.treated_advert_requests', compact('treated_advert_requests') );
@@ -75,7 +75,7 @@ class AdminController extends Controller
   }
 
 
- public function all_events()
+  public function all_events()
   {
     //return view('events');
     $all_events = Event::all();
@@ -84,7 +84,7 @@ class AdminController extends Controller
   }
 
 
-   public function save_event(Request $request)
+  public function save_event(Request $request)
   {
     $id = $request->id;  
     $title = $request->title;  
@@ -96,13 +96,13 @@ class AdminController extends Controller
     $description = $request->description;  
     
 
-   $new_event = new Event();
-   $new_event->title = $title;
-   $new_event->image = $image;
-   $new_event->date = $date;
-   $new_event->time = $time;
-   $new_event->location = $location;   
-   $new_event->description = $description;
+    $new_event = new Event();
+    $new_event->title = $title;
+    $new_event->image = $image;
+    $new_event->date = $date;
+    $new_event->time = $time;
+    $new_event->location = $location;   
+    $new_event->description = $description;
 
 
     if ( $request->hasFile('file') ) {
@@ -111,12 +111,12 @@ class AdminController extends Controller
       $new_event->image = $image_name;
     }
 
-   $new_event->save();
-          dd('ddd');
+    $new_event->save();
+    dd('ddd');
 
-   return back()->with('success', 'Task was successful!');
+    return back()->with('success', 'Task was successful!');
      //  return back()->with('success', 'Task was successful!');
- }
+  }
 
 
  /*public function storeSystemConfig(Request $request, $id)
@@ -260,103 +260,103 @@ class AdminController extends Controller
     return view ('admin.notification.all_notification', compact('all_notification') );
   }
 
-   public function sendNotification(Request $request)
+  public function sendNotification(Request $request)
   {
-     $validatedData = $request->validate([
-        'title' => ['required', 'string', 'max:255'],
-        'description' => ['required', 'string'],
-       
-      ]);
+   $validatedData = $request->validate([
+    'title' => ['required', 'string', 'max:255'],
+    'description' => ['required', 'string'],
 
-    $slug = Str::random(7);
-    $notification = new Notification;
-    $notification->title = $request->title;
-    $notification->description = $request->description;  
-    $notification->slug = $slug;    
-    $notification->save();
-     return back()->with('status', 'Task was successful!');
-   }
-  
+  ]);
+
+   $slug = Str::random(7);
+   $notification = new Notification;
+   $notification->title = $request->title;
+   $notification->description = $request->description;  
+   $notification->slug = $slug;    
+   $notification->save();
+   return back()->with('status', 'Task was successful!');
+ }
 
 
-  public function viewNotification($slug)
-  {
-    $notification = Message::where('slug', $slug)->first();
-    $notification->status = 1;
-    $notification->save();
-    return view ('seller.notification.view_notification', compact('notification') );
-  }
 
-  public function FAQs()
-  {
-    return view ('admin.page_management.faq');
-  }
+ public function viewNotification($slug)
+ {
+  $notification = Message::where('slug', $slug)->first();
+  $notification->status = 1;
+  $notification->save();
+  return view ('seller.notification.view_notification', compact('notification') );
+}
 
-  public function allBadges()
-  {
-    $all_badges = Badge::paginate(10);
-    return view ('admin.badge.index', compact('all_badges') );
-  }
-  public function privacyPolicy()
-  {
-    $all_badges = Badge::paginate(10);
-    return view ('admin.page_management.privacy_policy', compact('all_badges') );
-  }
+public function FAQs()
+{
+  return view ('admin.page_management.faq');
+}
 
-  public function termsOfUse()
-  {
-    $all_badges = Badge::paginate(10);
-    return view ('admin.page_management.terms_of_use', compact('all_badges') );
-  }
+public function allBadges()
+{
+  $all_badges = Badge::paginate(10);
+  return view ('admin.badge.index', compact('all_badges') );
+}
+public function privacyPolicy()
+{
+  $all_badges = Badge::paginate(10);
+  return view ('admin.page_management.privacy_policy', compact('all_badges') );
+}
 
-  public function save_termsOfUse(Request $request)
-  {
+public function termsOfUse()
+{
+  $all_badges = Badge::paginate(10);
+  return view ('admin.page_management.terms_of_use', compact('all_badges') );
+}
 
-    $terms = new Termsofuse;
-    $terms->details = $request->details;
-    $terms->save();
+public function save_termsOfUse(Request $request)
+{
+
+  $terms = new Termsofuse;
+  $terms->details = $request->details;
+  $terms->save();
 
       //$request->session()->flash('status', 'Task was successful!');
 
-    return back()->with('success', 'Task was successful!');
+  return back()->with('success', 'Task was successful!');
 
-  }
+}
 
-  public function save_privacyPolicy(Request $request)
-  {
+public function save_privacyPolicy(Request $request)
+{
 
-    $privacy = new Privacypolicy;
-    $privacy->details = $request->details;
-    $privacy->save();
+  $privacy = new Privacypolicy;
+  $privacy->details = $request->details;
+  $privacy->save();
 
       //$request->session()->flash('status', 'Task was successful!');
 
-    return back()->with('success', 'Task was successful!');
+  return back()->with('success', 'Task was successful!');
 
-  }
+}
 
 
 
-  public function save_faq(Request $request)
-  {
-    $id = $request->id;  
-    $faqDetails = $request->details;  
-    $faqTitle = $request->title;  
+public function save_faq(Request $request)
+{
+  $id = $request->id;  
+  $faqDetails = $request->details;  
+  $faqTitle = $request->title;  
       //$faq = Faq::where('id', $id);
-    $faq = Faq::find($id);
+  $faq = Faq::find($id);
 
-    if ($faq) {
-     $faq->details = $faqDetails;
-     $faq->title = $faqTitle;
-     $faq->save();
-     return back()->with('success', 'Task was successful!');
-   }
-
-   $new_faq = new Faq();
-   $new_faq->details = $faqDetails;
-   $new_faq->title = $faqTitle;
-   $new_faq->save();
+  if ($faq) {
+   $faq->details = $faqDetails;
+   $faq->title = $faqTitle;
+   $faq->save();
    return back()->with('success', 'Task was successful!');
+ }
+
+ $new_faq = new Faq();
+ $new_faq->details = $faqDetails;
+ $new_faq->title = $faqTitle;
+ $new_faq->save();
+ return back()->with('success', 'Task was successful!');
 
 
 
@@ -364,7 +364,7 @@ class AdminController extends Controller
 
 
 
- }
+}
 
 
 /*
@@ -392,67 +392,112 @@ class AdminController extends Controller
         }
 
         public function delete_faqs($id)
-         {
+        {
           $faq = Faq::findOrFail($id);
           $faq->delete();
-              return back()->with('success', 'Task was successful!');
+          return back()->with('success', 'Task was successful!');
 
           //return view ('admin.page_management.faq', compact('faqs') );
         }
 
-   public function sliders()
-         {
+        public function sliders()
+        {
           $sliders = Slider::paginate(10);
           return view ('admin.page_management.sliders', compact('sliders') );
         }
 
 
 
-  public function save_slider(Request $request)
-  {
-    $id = $request->id;  
-    $sliderDetails = $request->details;  
-    $sliderTitle = $request->title;  
+        public function save_slider(Request $request)
+        {
+          $id = $request->id;  
+          $sliderDetails = $request->details;  
+          $sliderTitle = $request->title;  
       //$faq = Faq::where('id', $id);
-    $slider = Slider::find($id);
+          $slider = Slider::find($id);
 
-    if ($slider) {
-     $slider->details = $sliderDetails;
-     $slider->title = $sliderTitle;
-     $slider->save();
-     return back()->with('success', 'Task was successful!');
-   }
+          if ($slider) {
+           $slider->details = $sliderDetails;
+           $slider->title = $sliderTitle;
+           $slider->save();
+           return back()->with('success', 'Task was successful!');
+         }
 
-   $new_slider = new Slider();
-   $new_slider->details = $sliderDetails;
-   $new_slider->title = $sliderTitle;
-   $new_slider->save();
-   return back()->with('success', 'Task was successful!');
- }
+         $new_slider = new Slider();
+         $new_slider->details = $sliderDetails;
+         $new_slider->title = $sliderTitle;
+         $new_slider->save();
+         return back()->with('success', 'Task was successful!');
+       }
 
-public function delete_sliders($id)
-         {
-          $slider = Slider::findOrFail($id);
-          $slider->delete();
-              return back()->with('success', 'Task was successful!');
+       public function delete_sliders($id)
+       {
+        $slider = Slider::findOrFail($id);
+        $slider->delete();
+        return back()->with('success', 'Task was successful!');
 
           //return view ('admin.page_management.faq', compact('faqs') );
-        }
-
-public function subscribe(Request $request)
- {
-     $this->validate($request,[
-        'email' => ['required'],
-    ]); 
-
-
-     $subscription = new Subscription();
-    
-$subscription->email = $request->email;
-$subscription->save();
-
-return back()->with('success', 'Your email was sent successfully');
-}
-
-
       }
+
+      public function subscribe(Request $request)
+      {
+       $this->validate($request,[
+        'email' => ['required'],
+      ]); 
+
+
+       $subscription = new Subscription();
+
+       $subscription->email = $request->email;
+       $subscription->save();
+
+       return back()->with('success', 'Your email was sent successfully');
+     }
+
+
+     public function activate_user($id){
+        //return $id;
+       $success = true;
+        $message = "Activate";
+        $status_message = "Disabled";
+
+      $user = User::where('id' , $id)->first();
+      if ($user->status == 1) {
+         //return $user->status;
+        $user->status = 0;
+        $user->save();
+                      // return $user;
+
+  return response()->json([
+            'success' => $success,
+            'message' => $message,
+            'status_message' => $status_message,
+        ]);
+        //        return $user->status;
+      }
+ if ($user->status == 0) {
+         //return $user->status;
+          $message = "Deactivate User";
+          $status_message = "Enabled";
+
+        $user->status = 1;
+        $user->save();
+                      // return $user;
+
+  return response()->json([
+            'success' => $success,
+            'message' => $message,
+            'status_message' => $status_message,
+
+        ]);   
+      }
+     //  $activatorcheck = User::where(['user_id'=>Auth::id(), 'service_id'=>$id])->first();
+     //  if ($likecheck) {
+     //   Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
+     //   $likecount = Like::where(['service_id'=>$id])->count();
+     //       // return redirect()->to('serviceDetail/'.$service_slug);
+     //   return back()->with('liked', 'Unliked');
+     // }
+   }
+
+   }

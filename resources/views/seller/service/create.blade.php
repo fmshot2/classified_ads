@@ -31,14 +31,14 @@ Create Service |
                   <i class="fa fa-plus"></i>
 
                   <h2 class="box-title"><strong>Create A Service</strong></h2>
-                  <small class="text-danger">*please fill all required fields</small>
+                  <small class="text-danger">*please fill all  fields</small>
                 </div>
                 <div class="body">
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label class="form-label">Service Name </label><small class="text-danger">*required*</small>
-                      <input type="text" required name="name" value="{{ old('name') }}" class="form-control" value="">
+                      <label class="form-label">Service Name </label><small class="text-danger">*</small>
+                      <input type="text"  name="name" value="{{ old('name') }}" class="form-control" value="">
                     </div>
                   </div>
 
@@ -55,16 +55,16 @@ Create Service |
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label class="form-label"> Experience (in years)</label><small class="text-danger">*required*</small>
-                      <input type="number" required value="{{ old('experience') }}" name="experience" placeholder="Insert a number" class="form-control" value="">
+                      <label class="form-label"> Experience (in years)</label><small class="text-danger">*</small>
+                      <input type="number"  value="{{ old('experience') }}" name="experience" placeholder="Insert a number" class="form-control" value="">
                     </div>
                   </div>
 
 
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label for="">Phone</label><small class="text-danger">*required*</small>
-                      <input type="number" required class="form-control" value="{{ old('phone') }}" placeholder="numbers only" name="phone" value=" {{ Auth::user()->phone }}">
+                      <label for="">Phone</label><small class="text-danger">*</small>
+                      <input type="number"  class="form-control" value="{{ old('phone') }}" placeholder="numbers only" name="phone" value=" {{ Auth::user()->phone }}">
                     </div>
                   </div>
 
@@ -111,11 +111,11 @@ Create Service |
 
                      <div class="col-md-12">
                       <div class="form-group">
-                        <label class="form-label">State</label><small class="text-danger">*required*</small>
-                        {{--}} <input type="text" required class="form-control" name="state" autocomplete="" aria-autocomplete="" value="{{ old('state') }}">--}}
+                        <label class="form-label">State</label><small class="text-danger">*</small>
+                        {{--}} <input type="text"  class="form-control" name="state" autocomplete="" aria-autocomplete="" value="{{ old('state') }}">--}}
 
 
-                        <select class="form-control" id="state" required name="state">
+                        <select class="form-control" id="state"  name="state">
                           <option value="">-- Select State --</option>
                           @if(isset($states))
 
@@ -132,7 +132,7 @@ Create Service |
 
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label class="form-label">City</label><small class="text-danger">*required*</small>
+                        <label class="form-label">City</label><small class="text-danger">*</small>
 
 
                         <select class="form-control" id="city" name="city">
@@ -140,15 +140,19 @@ Create Service |
 
 
                         </select>
-
+    {{-- @if ($errors->has('city'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong class="text-danger">{{ $errors->first('city') }}</strong>
+                            </span>
+                            @endif --}}
 
                       </div>
                     </div>
 
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label class="form-label">Address</label><small class="text-danger">*required*</small>
-                        <input type="text" required class="form-control" name="address">
+                        <label class="form-label">Address</label><small class="text-danger">*</small>
+                        <input type="text"  value="{{ old('address') }}" class="form-control" name="address">
                       </div>
                     </div>
 
@@ -166,27 +170,44 @@ Create Service |
               </div>
               <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="box box-default">
-                  <div class="box-header with-border">
-                  </div>
+               {{--    <div class="box-header with-border">
+                  </div> --}}
                   <div class="body">
+{{-- 
+<div class='content'>
+      <!-- Dropzone -->
+      <form action="{{route('users.fileupload')}}" class='dropzone' >
+              <form action="" class='dropzone' >
+
+      </form> 
+    </div>
+ --}}
 
 
-                    <div class="box box-default">
-                      <div class="box-header with-border">
-                        <h3 class="box-title">Gallery Image</h3>
-                        <small class="text-danger">*required*</small>
-                      </div>
-                      <small class="text-danger">You can upload up to 7 images at once!</small>
+<div class="box-header with-border">
+
+                        <h6 class="box-title">Service Images</h6> &nbsp;
+                        <small class="text-danger">*</small>
+                </div>
+
+
+                    <div class="">
+                  
+                      <small class="text-success">Click to select multiple images!</small>
                       <div class="body">
-                        <input class="form-control"  value="{{ old('file') }}" multiple required name="files[]" type="file">
+                        <input class="form-control"  value="{{ old('file') }}" multiple  name="files[]" type="file" accept="image/png, image/jpeg">
                         <span class="helper-text text-center" data-error="wrong" data-success="right">Upload Images</span>
+                        {{-- @if ($errors->has('files'))
+                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                <strong class="text-danger">{{ $errors->first('files') }}</strong>
+                            </span>
+                            @endif --}}
                       </div>
-                    </div>
 
                     <div class="form-group">
                       <label>Select Category</label>
-                      <small class="text-danger">*required*</small>
-                      <select name="category_id" required class="form-control show-tick">
+                      <small class="text-danger">*</small>
+                      <select name="category_id"  class="form-control show-tick">
                         <option value="">-- Please select --</option>
                         @foreach($category as $categories)
                         <option value=" {{ $categories->id }} "> {{ $categories->name }} </option>
@@ -196,11 +217,10 @@ Create Service |
 
 
 
-                  </div>
 
 
-                  <div class="box box-default">
-                    <div class="box-header with-border">
+                  <div class="">
+                    <div class="">
                       <h3 class="box-title"> Service Video</h3>
                     </div>
                     <div class="body">
@@ -217,8 +237,8 @@ Create Service |
 
 
 
-                  <div class="box box-default">
-                    <div class="box-header with-border">
+                  <div class="">
+                    <div class="">
                       <h3 class="box-title"> <!--Featured Image</h3-->
                       </div>
                       <div class="body">
@@ -240,7 +260,8 @@ Create Service |
                     </div>
 
                   </div>
-
+</div>
+</div>
                 </div></form>
 
               </div>
@@ -284,6 +305,21 @@ Create Service |
           }); 
 
         </script>
+
+{{-- 
+
+         <script>
+    var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+
+    Dropzone.autoDiscover = false;
+    var myDropzone = new Dropzone(".dropzone",{ 
+        maxFilesize: 3,  // 3 mb
+        acceptedFiles: ".jpeg,.jpg,.png,.pdf",
+    });
+    myDropzone.on("sending", function(file, xhr, formData) {
+       formData.append("_token", CSRF_TOKEN);
+    }); 
+    </script> --}}
 
 
 

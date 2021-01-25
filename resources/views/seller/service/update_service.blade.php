@@ -38,7 +38,7 @@ Update Service |
                   <div class="col-md-12">
                     <div class="form-group">
                       <label class="form-label">Service Name* </label>
-                      <input type="text" required name="name" class="form-control" value=" {{ $service->name }}">
+                      <input type="text"  name="name" class="form-control" value=" {{ $service->name }}">
                       <small class="text-danger">required*</small>
                     </div>
                   </div>
@@ -49,7 +49,7 @@ Update Service |
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="">Description*</label>
-                      <textarea name="description" required class="form-control"> {{ $service->description }}</textarea>
+                      <textarea name="description"  class="form-control"> {{ $service->description }}</textarea>
                     </div>
                     <small class="text-danger">required*</small>
                   </div>
@@ -67,7 +67,7 @@ Update Service |
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="">Phone*</label>
-                      <input type="number" required class="form-control" name="phone" value="{{$service->phone }}">
+                      <input type="number"  class="form-control" name="phone" value="{{$service->phone }}">
                       <small class="text-danger">required*</small>                    
                     </div>
                   </div>
@@ -79,13 +79,13 @@ Update Service |
                     </div>
                   </div>
 
-                  <div class="col-md-12">
+                 {{--  <div class="col-md-12">
                     <div class="form-group">
                       <label class="form-label">Max Price</label>
                       <input type="number" name="max_price" class="form-control" value=" {{$service->max_price }}">
 
                     </div>
-                  </div>
+                  </div> --}}
 
                   <div class="col-md-12">
                     <div class="form-group">
@@ -107,7 +107,7 @@ Update Service |
                     <div class="form-group">
                       <label class="form-label">Street Address*</label>
                       <input type="text" class="form-control" name="address" value=" {{ $service->address }}">
-                    <small class="text-danger">required*</small>
+                      <small class="text-danger">required*</small>
                     </div>
                   </div>
 
@@ -137,21 +137,23 @@ Update Service |
                       <h3 class="box-title">Gallery Image</h3>
                     </div>
                     <div class="body">
-                      <input class="form-control" required name="files[]" multiple type="file">
+                      <input class="form-control"  name="files[]" multiple type="file">
                       <span class="helper-text" data-error="wrong" data-success="right">Upload one or more images</span>
                       <small class="text-danger">required*</small>                      
                     </div>
                   </div>
 
+                  
+
                   <div class="form-group">
                     <label>Select Category</label>
-                    <select name="category_id" required class="form-control show-tick">
+                    <select name="category_id"  class="form-control show-tick">
                       <option value=" ">-- Please select --</option>
                       @foreach($category as $categories)
                       <option value=" {{ $categories->id }} "> {{ $categories->name }} </option>
                       @endforeach
                     </select>
-                      <small class="text-danger">required*</small>                    
+                    <small class="text-danger">required*</small>                    
                   </div>
 
                 </div>
@@ -203,10 +205,80 @@ Update Service |
 
             </div>
             <!-- /.row -->
-          </div></div></section>
+          </div></div>
 
 
+          <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">Your Images</h3>
+            </div>
+            <div class="body">
+
+
+             @if(isset($images_4_service))
+
+             <table class="table">
+              <thead>
+
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">image</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($images_4_service as $key => $image)
+
+                <tr>
+                  <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                 {{--  <td>
+                    <a href="#">
+                      <img src="{{asset('images')}}/{{$all_services->image[0]}}" alt="classic crib" width="60" class="img-responsive img-rounded">
+                    </a>
+                  </td> --}}
+  <form class="" method="GET" action="{{route('service.updateImage', $image )}}" enctype="multipart/form-data">
+            {{ csrf_field() }}
+                              <td> <img src="{{asset('images')}}/{{$image}}" alt="service image" width="60" class="img-responsive img-rounded"></td>
+                  <td><button type="submit" class="btn-danger">Deleted></button></td>
+                  </form>
+                </tr>
+                @endforeach
+
+              </tbody>
+            </table>   
+            @endif
+
+          </div>
         </div>
 
 
-        @endsection
+
+      </section>
+
+
+    </div>
+
+    <script>
+      function deleteImage(image) {
+        alert(image);
+        event.preventDefault();
+        if (confirm("Are you sure?")) {
+
+          $.ajax({
+            url: 'delete/image/' + id,
+            method: 'get',
+            success: function(result){
+              alert('successfull')
+              window.location.assign(window.location.href);
+            }
+          });
+
+        } else {
+
+          console.log('Delete process cancelled');
+
+        }
+
+      }
+    </script>
+    @endsection
