@@ -4,8 +4,6 @@
 @extends('layouts.app')
 
 @section('title')
- Home | 
-@endsection
 
 @section('content')
 
@@ -57,7 +55,7 @@
                                     </div>
                                     <div id="collapse7" class="card-block collapse" style="">
                                         <div class="foq-info">
-                                            <p>{{$all_faq->details}}</p>
+                                            <p>{!! $all_faq->details !!}</p>
                                             <hr>
                                             <span>
                                                 Was this answer helpful?
@@ -66,10 +64,10 @@
                                             </span>
                                         </div>
                                     </div>
-                                   
+
                               @empty
     <p>No records yet</p>
-@endforelse  
+@endforelse
                                 </div>
                             </div>
                         </div>
