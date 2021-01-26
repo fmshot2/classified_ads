@@ -38,7 +38,7 @@
                     <h1>What service are you looking for?</h1>
                 </div>
                 {{-- <div class="sidebar-right"> --}}
-                     <div class="">
+                <div class="">
                     <div class="row" style="visibility: visible;">
                         @if(isset($categories))
                             @foreach($categories as $category)
