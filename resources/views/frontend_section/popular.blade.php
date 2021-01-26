@@ -35,7 +35,7 @@
                     </div>
                         @endforeach
 @endif
-               
+
                  <!--   <div class="col-sm-12 col-pad">
                         <div class="category">
                             <div class="category_bg_box cat-3-bg">
@@ -50,7 +50,7 @@
                             </div>
                         </div>
                     </div> -->
-                     
+
                 </div>
             </div>
        <!--  <div class="col-lg-5 col-md-12 col-sm-12 col-pad d-none d-xl-block d-lg-block">
@@ -81,7 +81,14 @@
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
-            <h1>Most Popular Places</h1>
+            <h1>Most Popular Places in Nigeria</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-2 col-md-6 col-sm-6 col-6">
+                <div class="form-group">
+                    <a href="{{ route('allcities') }}" class="btn btn-outline-warning" style="border-radius: 20px">View all the Cities</a>
+                </div>
+            </div>
         </div>
         <div class="row wow animated" style="visibility: visible;">
             <div class="col-lg-7 col-md-12 col-sm-12">
@@ -135,7 +142,7 @@
                                 <h3 class="category-title">
                                     <a href="#">Abuja</a>
                                 </h3>
-                                
+
                             </div>
                         </div>
                     </div>
