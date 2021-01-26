@@ -1,26 +1,73 @@
-<div class="categories content-area-8 home-verified-business-section">
+<div class="categories content-area-8">
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
             <h1>Verified Businesses</h1>
         </div>
         @if(isset($approvedServices))
-            <div class="row wow animated" style="visibility: visible;">
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="row">
+
+        <div class="row wow animated" style="visibility: visible;">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row">
                         @foreach($approvedServices as $approvedService)
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-pad">
-                                <div class="agenttrusted-badges">
-                                    <span class="" style="color: rgb(182, 165, 13)">Trusted <i class="fa fa-star"></i></span>
-                                </div>
-                                <a class="title " href="{{route('serviceDetail', $approvedService->slug)}}"  style="font-size: 14px;">{{ Str::limit($approvedService->name, 50) }} <img class="d-block w-100" src="{{asset('images')}}/{{$approvedService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
-                                </a>
+
+                    <div class="col-sm-3 col-pad">
+                        <div class="agenttrusted-badges">
+                                <span class="" style="color: rgb(182, 165, 13)">Trusted <i class="fa fa-star"></i></span>
                             </div>
-                        @endforeach
+                            <a class="title " href="{{route('serviceDetail', $approvedService->slug)}}"  style="font-size: 14px;">{{ Str::limit($approvedService->name, 50) }} <img class="d-block w-100" src="{{asset('images')}}/{{$approvedService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                </a>
+                        {{--<div class="category">
+                            <div class="category_bg_box cat-2-bg" style="background-image: url({{asset('images')}}/{{$approvedService->image[0]}})">
+                                <div class="category-overlay">
+                                    <div class="category-content">
+                                        <h3 class="category-title">
+                                            <a href="{{route('serviceDetail', $approvedService->id)}}"  style="font-size: 15px;">{{$approvedService->user->name}},  {{$approvedService->name}}</a>
+                                        </h3>
+                                        <a href="{{route('serviceDetail', $approvedService->id)}}" class="category-subtitle" style="float: left; font-size: 15px;"><i class="fa fa-map-marker"></i> {{$approvedService->state}}</a>
+                                        <div class="">
+                                <span class="featured text-white">Trusted <i class="fa fa-star text-warning"></i></span>
+                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>--}}
                     </div>
+                        @endforeach
+@endif
+
+                 <!--   <div class="col-sm-12 col-pad">
+                        <div class="category">
+                            <div class="category_bg_box cat-3-bg">
+                                <div class="category-overlay">
+                                    <div class="category-content">
+                                        <h3 class="category-title">
+                                            <a href="#">Villa</a>
+                                        </h3>
+                                        <a href="properties-list-rightside.html" class="category-subtitle">98 Properties</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
                 </div>
             </div>
-        @endif
+       <!--  <div class="col-lg-5 col-md-12 col-sm-12 col-pad d-none d-xl-block d-lg-block">
+                <div class="category">
+                    <div class="category_bg_box category_long_bg cat-4-bg">
+                        <div class="category-overlay">
+                            <div class="category-content">
+                                <h3 class="category-title">
+                                    <a href="#">Farm</a>
+                                </h3>
+                                <a href="properties-list-rightside.html" class="category-subtitle">12 Properties</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
     </div>
 </div>
 

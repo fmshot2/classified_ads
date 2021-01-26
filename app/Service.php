@@ -7,9 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
 
+    protected $guarded = [];
+
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function image()
+    {
+        return $this->morphMany(Image::class, 'imageable_id');
     }
 
 //public function category()
@@ -67,5 +74,5 @@ public function scopeSearchCity($query, $city)
     {
         return json_decode($value);
     }
-    
+
 }

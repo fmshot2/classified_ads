@@ -164,6 +164,11 @@ body {
 .our-featured-cities-page .property-box .location a {
     color: #000;
 }
+.home-verified-business-section .title {
+    text-transform: capitalize;
+    font-size: 17px;
+    font-weight: 700;
+}
 
 @keyframes pulse-black {
     0% {
@@ -406,6 +411,10 @@ body {
     }
     .our-featured-cities-page .property-box .location a {
         font-size: 12px;
+    }
+
+    .home-verified-business-section .col-sm-6 {
+        width: 50%;
     }
 }
 
