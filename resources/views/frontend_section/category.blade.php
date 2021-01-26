@@ -182,17 +182,53 @@
     </div>
 </div>
 
- @foreach($featuredServices as $featuredService)
+
+
+<br>
+ <div class="footer-item clearfix container-fluid">
+                        <br/>
+                     
+                        <h6 style="margin-top: -15px; text-transform: uppercase">Recommended Ctities</h6>
+                        <div class="s-border"></div>
+                        <div class="m-border"></div>
+                    </div>
+
+ {{-- @foreach($featuredServices as $featuredService) --}}
                         <div class="media p-2">
                             <div class="media-left">
-                                <img class="media-object" src=" {{asset('images')}}/{{ $featuredService->image[0]}} " alt="sub-properties">
+                                 <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'enugu-2.jpg'}}" alt="First slide">
                             </div>
                             <div class="media-body align-self-center">
-                                <h3 class="media-heading"><a href="#">{{ Str::limit($featuredService->name, 35)}}</a></h3>
-                                <p class="fea-ad-hm-location"><strong>Location:</strong> {{ Str::limit($featuredService->state, 30)}}</p>
+                                {{-- <h3 class="media-heading"><a href="#">{{ Str::limit($featuredService->name, 35)}}</a></h3> --}}
+                                <p class="fea-ad-hm-location"><strong>Ebonyi</strong> 
+                                    {{-- {{ Str::limit($featuredService->state, 30)}} --}}
+                                </p>
                             </div>
                         </div>
-                        @endforeach
+                        <div class="media p-2">
+                            <div class="media-left">
+                                 <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'abuja-1.jpg'}}" alt="First slide">
+                            </div>
+                            <div class="media-body align-self-center">
+                                {{-- <h3 class="media-heading"><a href="#">{{ Str::limit($featuredService->name, 35)}}</a></h3> --}}
+                                <p class="fea-ad-hm-location"><strong>Abuja</strong> 
+                                    {{-- {{ Str::limit($featuredService->state, 30)}} --}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="media p-2">
+                            <div class="media-left">
+                                 <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'lagos-image-1.jfif'}}" alt="First slide">
+                            </div>
+                            <div class="media-body align-self-center">
+                                {{-- <h3 class="media-heading"><a href="#">{{ Str::limit($featuredService->name, 35)}}</a></h3> --}}
+                                <p class="fea-ad-hm-location"><strong>Lagos</strong> 
+                                    {{-- {{ Str::limit($featuredService->state, 30)}} --}}
+                                </p>
+                            </div>
+                        </div>
+                        
+                        {{-- @endforeach --}}
 
                 </div> 
             </div>
