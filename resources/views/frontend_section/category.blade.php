@@ -42,8 +42,8 @@
                     <div class="row" style="visibility: visible;">
                         @if(isset($categories))
                             @foreach($categories as $category)
-                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-2 service-info-5 card" style="padding: 5px;background: #fff; margin: 0 0 0 0; border: 0">
-                                    <div class="" style="border: 1px solid rgba(0,0,0,.125);width: 100%;margin: 0;padding: 15px;">
+                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-2 service-info-5 card">
+                                    <div class="">
                                         <a href="{{route('services', $category->slug)}}" >
                                             <div style="border-radius: 50px;">
                                                 <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px;" alt="properties">
@@ -132,11 +132,23 @@
                     </div>
 
                     <div class="">
-                        <img src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid featured-ad-hm-image"><hr>
-                        <img src="{{asset('images')}}/{{'piano_lessons.jfif'}}" alt="advert" class="img-fluid featured-ad-hm-image"><hr>
-                        <img src="{{asset('images')}}/{{'portharcout-image.jfif'}}" alt="advert" class="img-fluid featured-ad-hm-image"><hr>
-                        <img src="{{asset('images')}}/{{'repair_1200x800.jpeg'}}" alt="advert" class="img-fluid featured-ad-hm-image"><hr>
-                        <img src="{{asset('images')}}/{{'Screenshotef.png'}}" alt="advert" class="img-fluid featured-ad-hm-image"><hr>
+                          <img src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid featured-ad-hm-image">
+                    </div><br>
+                    <div class="s-border"></div>
+                    <div class="m-border"></div>
+
+                    <div class="popular-posts featured-ad-hm-list">
+                        @foreach($featuredServices as $featuredService)
+                        <div class="media p-2">
+                            <div class="media-left">
+                                <img class="media-object" src=" {{asset('images')}}/{{ $featuredService->image[0]}} " alt="sub-properties">
+                            </div>
+                            <div class="media-body align-self-center">
+                                <h3 class="media-heading"><a href="#">{{ Str::limit($featuredService->name, 35)}}</a></h3>
+                                <p class="fea-ad-hm-location"><strong>Location:</strong> {{ Str::limit($featuredService->state, 30)}}</p>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
