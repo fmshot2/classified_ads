@@ -108,4 +108,7 @@
     .main-header{
         box-shadow: 0px 1px 10px #97979783;
     }
+
+</style>
+
 </style>
