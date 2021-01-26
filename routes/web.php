@@ -19,6 +19,17 @@ use App\Service;
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 
+
+Route::get('upload', 'ImageController@upload');
+Route::post('upload/store', 'ImageController@store');
+Route::post('delete', 'ImageController@delete');
+
+
+
+
+
+
+
 Route::post('/subscribe', 'AdminController@subscribe')->name('subscribe');
 Route::view('/cities', 'featured_city')->name('allcities');
 
