@@ -42,8 +42,8 @@
                     <div class="row" style="visibility: visible;">
                         @if(isset($categories))
                             @foreach($categories as $category)
-                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-2 service-info-5 card">
-                                    <div class="">
+                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-2 service-info-5 card" style="padding: 5px;background: #fff; margin: 0 0 0 0; border: 0">
+                                    <div class="" style="border: 1px solid rgba(0,0,0,.125);width: 100%;margin: 0;padding: 15px;">
                                         <a href="{{route('services', $category->slug)}}" >
                                             <div style="border-radius: 50px;" class="cat-image-icon">
                                                 <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px;" alt="properties">
@@ -194,7 +194,7 @@
                         </div>
                         @endforeach
 
-                </div> 
+                </div>
             </div>
         </div>
     </div>
