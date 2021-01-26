@@ -20,6 +20,7 @@ use App\Service;
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 
 Route::post('/subscribe', 'AdminController@subscribe')->name('subscribe');
+Route::view('/cities', 'featured_city')->name('allcities');
 
 Route::get('/send/email', 'ServiceController@mail');
 
@@ -117,7 +118,7 @@ Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name(
 
 
 Route::middleware(['seller'])->group(function () { //Seller Middleware protection start here
-    
+
 
 
 Route::get('/seller/dashboard/make_withdrawal_request/{refer_id}', 'DashboardController@make_withdrawal_request')->name('seller.make_withdrawal_request');
@@ -271,7 +272,7 @@ Route::get ( '/searchresults',  'ServiceController@search')->name('search3');
 
 
 
-//Views Composer 
+//Views Composer
 View::composer(['layouts.frontend_partials.navbar', 'layouts.frontend_partials.footer' ], function ($view) {
     $categories = App\Category::all();
     $service = Service::take(3)->get();
@@ -295,7 +296,7 @@ View::composer(['layouts.seller_partials.navbar', 'layouts.seller_partials.sideb
 
 View::composer(['layouts.buyer_partials.navbar', 'layouts.buyer_partials.sidebar'], function ($view) {
     $reply_message = Message::where('reply', 'yes' );
-    
+
     $all_message = $reply_message->Where('buyer_id', Auth::id() );
     $unread_message =  $all_message->Where('status', 0);
     $check_unread_message_table = collect($unread_message)->isEmpty();
