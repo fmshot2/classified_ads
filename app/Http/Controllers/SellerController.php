@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
 
 use Illuminate\Support\Str;
+use App\ImageUpload;
+
 
 class SellerController extends Controller
 {
@@ -113,6 +115,8 @@ if ( $request->hasFile('files') ) {
        $service->description = $request->description;
        $service->state = $request->state;
        $service->save();
+       $latest_service = Service::where('user_id', Auth::id())->latest()->first();
+$latest_service_id = $latest_service->id;
 
 $service_owner = Auth::user();
 $service_owner->name = Auth::user()->name;
@@ -133,7 +137,9 @@ $service_owner->email = Auth::user()->email;
        $request->session()->flash('status', 'Task was successful!');
         //dd(Auth::user());
        //$this->saveReferLink();
-       return $this->allService();
+       // dd($latest_service_id);
+       // return $this->allService();
+       return back()->with('service_id', $latest_service_id);
         }
         //dd($user);
         $present_user->hasUploadedService = 1;
@@ -152,12 +158,18 @@ $service_owner->email = Auth::user()->email;
                 //dd($referer->refererAmount);
 
          $request->session()->flash('status', 'Task was successful!');
-        //dd(Auth::user());
        //$this->saveReferLink();
-       return $this->allService();
+         // dd($latest_service_id);
+      return back()->with('service_id', $latest_service_id);
+       // return $this->allService();
         }
-            $request->session()->flash('status', 'Task was successful!');
-       return $this->allService();
+
+                 // dd($latest_service_id);
+
+              return back()->with('service_id', $latest_service_id, 'success', 'Your message has been sent!');
+
+       //      $request->session()->flash('status', 'Task was successful!');
+       // return $this->allService();
         
 
    }
@@ -306,7 +318,9 @@ public function pendingService()
 
 public function allService()
 {
-    $all_service = Service::where('user_id', Auth::id() )->paginate(5);
+    $all_service = Service::where('user_id', Auth::id() )->with('imageUpload')->paginate(5);
+    // dd($all_service);
+    // $all_service_images = ImageUpload::where('service_id', )
     return view ('seller.service.all_service', compact('all_service') );
 }
 

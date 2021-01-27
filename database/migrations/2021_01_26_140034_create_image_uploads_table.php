@@ -16,6 +16,8 @@ class CreateImageUploadsTable extends Migration
     Schema::create('image_uploads', function (Blueprint $table) {
         $table->bigIncrements('id');
         $table->string('filename');
+        $table->integer('user_id')->nullable();
+        $table->integer('service_id')->nullable();
         $table->timestamps();
     });
 }

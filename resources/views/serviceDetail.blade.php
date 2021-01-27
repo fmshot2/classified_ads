@@ -351,8 +351,8 @@
                             <button class="btn btn-outline-success" id="showContactSellerForm">Show Contact Form</button>
 
                             <div id="sellerContact">
-        {{--                                                         <form id="myform">
-</form> --}}
+<form id="myform">
+</form>
                                 <form id="myform" action="POST">
                                     <input type="hidden" name="_method" value="POST">
                                     {{ csrf_field() }}

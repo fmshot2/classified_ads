@@ -1,6 +1,8 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<meta name="_token" content="{{csrf_token()}}"/>
+
 
 
 @include('layouts.seller_partials.head')

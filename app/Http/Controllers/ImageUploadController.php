@@ -7,79 +7,65 @@ use Illuminate\Http\Request;
 
 class ImageUploadController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function upload()
     {
-        //
+        return view('image_upload');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(Request $request, $id)
+    {  
+               $service = new Service();
+
+        $latest_service = Service::where('user_id', Auth::id())->latest()->first();
+        dd($latest_service);
+        $latest_service_id = $latest_service->id;
+        // $user_id = Auth::id();
+        // $image = $request->file('file');
+        // $imageName = $image->getClientOriginalName();
+
+ n
+
+ $names = array();
+    foreach($request->file('file') as $image)
     {
-        //
+        $thumbnailImage = Image::make($image);
+        $thumbnailImage->resize(300,300);
+        $thumbnailImage_name = $slug.'.'.time().'.'.$image->getClientOriginalExtension();
+                $imageName = $image->getClientOriginalName();
+
+        $destinationPath = 'images/';
+               /* $image_name = $image->getClientOriginalName();
+               $image->move(public_path('images'),$image_name);*/
+            //$thumbnailImage_name = $thumbnailImage->getClientOriginalName();
+               $thumbnailImage->save($destinationPath . $thumbnailImage_name);
+               array_push($names, $thumbnailImage_name);
+           }
+           $imageUpload->filename = json_encode($names);
+
+
+
+
+        // $image->move(public_path('images'), $imageName);
+
+        // $imageUpload = new ImageUpload();
+        // $imageUpload->filename = $imageName;
+        // $imageUpload->service_id = $latest_service_id;
+        //        // $service->user_id = Auth::id();
+
+        // $imageUpload->user_id = Auth::id();
+
+        $imageUpload->save();
+        return response()->json(['success' => $latest_service_id]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function delete(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\ImageUpload  $imageUpload
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ImageUpload $imageUpload)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ImageUpload  $imageUpload
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ImageUpload $imageUpload)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ImageUpload  $imageUpload
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ImageUpload $imageUpload)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\ImageUpload  $imageUpload
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ImageUpload $imageUpload)
-    {
-        //
+        $filename = $request->get('filename');
+        ImageUpload::where('filename', $filename)->delete();
+        $path = public_path() . '/images/' . $filename;
+        if (file_exists($path)) {
+            unlink($path);
+        }
+        return $filename;
     }
 }

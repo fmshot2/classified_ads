@@ -58,7 +58,7 @@ Route::post('/store_advert_form', 'AdvertController@store_advert_form')->name('s
 Route::get('/all-featured-sellers', 'ServiceController@allFeaturedSellers')->name('allSellers');
 
 Route::post('/buyer/createcomment', 'ServiceController@storeComment')->name('user.message');
-Route::get('/buyer/createcomment2', 'ServiceController@storeComment2');
+Route::post('/buyer/createcomment2', 'ServiceController@storeComment2');
 Route::get('/buyer/like', 'ServiceController@saveLike2');
 
 Route::post('/buyer/createcomplaint', 'ComplaintController@storeComplaint');
