@@ -9,4 +9,11 @@ class ImageUpload extends Model
     protected $fillable = [
         'filename'
     ];
+
+    public function service()
+{
+    return $this->belongsTo('App\Service');
+}
+
+
 }

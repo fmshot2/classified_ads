@@ -196,37 +196,36 @@
                         {{-- @foreach($featuredServices as $featuredService) --}}
                         <div class="media p-2">
                             <div class="media-left">
-                               <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'enugu-2.jpg'}}" alt="First slide">
+                               <a href="{{ route('allcities') }}"> <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'enugu-2.jpg'}}" alt="First slide"></a>
                            </div>
                            <div class="media-body align-self-center">
                             {{-- <h3 class="media-heading"><a href="#">{{ Str::limit($featuredService->name, 35)}}</a></h3> --}}
-                            <p class="fea-ad-hm-location"><strong>Ebonyi</strong> 
+                            <a href="{{ route('allcities') }}"> <p class="fea-ad-hm-location"><strong>Ebonyi</strong> 
                                 {{-- {{ Str::limit($featuredService->state, 30)}} --}}
-                            </p>
+                            </p></a>
                         </div>
                     </div>
                     <div class="media p-2">
                         <div class="media-left">
-                           <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'abuja-1.jpg'}}" alt="First slide">
+                           <a href="{{ route('allcities') }}"> <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'abuja-1.jpg'}}" alt="First slide"></a>
                        </div>
                        <div class="media-body align-self-center">
-                        {{-- <h3 class="media-heading"><a href="#">{{ Str::limit($featuredService->name, 35)}}</a></h3> --}}
-                        <p class="fea-ad-hm-location"><strong>Abuja</strong> 
-                            {{-- {{ Str::limit($featuredService->state, 30)}} --}}
-                        </p>
+                            <a href="{{ route('allcities') }}">
+                                <p class="fea-ad-hm-location"><strong>Abuja</strong></p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="media p-2">
+                        <div class="media-left">
+                           <a href="{{ route('allcities') }}"> <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'lagos-image-1.jfif'}}" alt="First slide"></a>
+                        </div>
+                        <div class="media-body align-self-center">
+                            <a href="{{ route('allcities') }}"> <p class="fea-ad-hm-location"><strong>Lagos</strong> </p></a>
+                        </div>
                     </div>
                 </div>
-                <div class="media p-2">
-                    <div class="media-left">
-                       <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'lagos-image-1.jfif'}}" alt="First slide">
-                   </div>
-                   <div class="media-body align-self-center">
-                    {{-- <h3 class="media-heading"><a href="#">{{ Str::limit($featuredService->name, 35)}}</a></h3> --}}
-                    <p class="fea-ad-hm-location"><strong>Lagos</strong> 
-                        {{-- {{ Str::limit($featuredService->state, 30)}} --}}
-                    </p>
-                </div>
-            </div>
+
             
             {{-- @endforeach --}}
 
