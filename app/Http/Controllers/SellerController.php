@@ -318,10 +318,10 @@ public function pendingService()
 
 public function allService()
 {
-    $all_service = Service::where('user_id', Auth::id() )->with('imageUpload')->paginate(5);
-    // dd($all_service);
+    $all_services = Service::where('user_id', Auth::id() )->paginate(5);
+     // dd($all_service);
     // $all_service_images = ImageUpload::where('service_id', )
-    return view ('seller.service.all_service', compact('all_service') );
+    return view ('seller.service.all_service', compact('all_services') );
 }
 
 public function viewServiceUpdate($slug)

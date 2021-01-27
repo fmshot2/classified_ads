@@ -81,7 +81,7 @@ class CategoryController extends Controller
                 // Image set up
      if ( $request->hasFile('file') ) {
                 $thumbnailImage = Image::make($request->file);
-                $thumbnailImage->resize(200,200);
+                $thumbnailImage->resize(100,100);
                 $thumbnailImage_name = $slug2.'.'.time().'.'.$request->file->getClientOriginalExtension();
 $destinationPath = 'images/';
         $thumbnailImage->save($destinationPath . $thumbnailImage_name);

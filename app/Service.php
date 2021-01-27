@@ -19,12 +19,16 @@ class Service extends Model
         return $this->morphMany(Image::class, 'imageable_id');
     }
 
-    public function imageUpload() 
+    public function image_uploads() 
     {
         return $this->hasMany(ImageUpload::class, 'service_id');
     }
 
-//public function category()
+
+// public function imageUploads(){
+//         return $this->hasMany('\App\ImageUpload'); //Product Model Name
+//     }
+// //public function category()
 //{
   //  return $this->belongsTo('App\Category');
 //}
