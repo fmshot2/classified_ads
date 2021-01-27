@@ -47,28 +47,28 @@ All Service Table |
 							</thead>
 
 							<tbody>
-
-									@foreach($all_service as $key => $all_services)
+{{-- {{$all_service}} --}}
+									@foreach($all_services as $key => $all_service)
 
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 									<td>
 										<a href="#">
-											<img src="{{asset('images')}}/{{$all_services->imageUpload->first()}}"  alt="service image" width="60" class="img-responsive img-rounded">
+											<img src="{{asset('images')}}/{{$all_service->image_uploads->first()}}"  alt="service image" width="60" class="img-responsive img-rounded">
 										</a>
 									</td>
-									<td> {{ $all_services->name }} </td>
-									<td> {{ $all_services->state }} </td>
-									<td> {{ $all_services->featured == 1 ? 'Yes' : 'No' }} </td>
-									<td> {{ $all_services->created_at->diffForHumans() }} </td>
-									<td><span><i class="fa fa-comments">  comments</i> {{$all_services->messages->count()}}</span> </td>
-									<td> {{$all_services->badge_type ? $all_services->badge_type : 'No Badges'}}</td>
-									<td> {{$all_services->likes->count()}}</td>
+									<td> {{ $all_service->name }} </td>
+									<td> {{ $all_service->state }} </td>
+									<td> {{ $all_service->featured == 1 ? 'Yes' : 'No' }} </td>
+									<td> {{ $all_service->created_at->diffForHumans() }} </td>
+									<td><span><i class="fa fa-comments">  comments</i> {{$all_service->messages->count()}}</span> </td>
+									<td> {{$all_service->badge_type ? $all_service->badge_type : 'No Badges'}}</td>
+									<td> {{$all_service->likes->count()}}</td>
 
 
 									<td class="center">
-										<a href="{{ route('service.view', $all_services->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
-										<a href="{{ route('service.update.view', $all_services->slug) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
-										<a href="{{ route('seller.service.destroy', $all_services->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+										<a href="{{ route('service.view', $all_service->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
+										<a href="{{ route('service.update.view', $all_service->slug) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
+										<a href="{{ route('seller.service.destroy', $all_service->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 									</td>
 
 								</tr>

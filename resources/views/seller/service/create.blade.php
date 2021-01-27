@@ -33,7 +33,7 @@ Create Service |
     </form>
 
 </div>
-{{-- @endif --}}
+@endif
 
 
   @if (!session('status'))
@@ -248,7 +248,7 @@ Create Service |
                   
                       <small class="text-success">Click to select multiple images!</small>
                       <div class="body">
-                        <input class="form-control"  value="{{ old('file') }}" multiple  name="files[]" type="file" accept="image/png, image/jpeg">
+                        <input class="form-control"  value="{{ old('file') }}" multiple  name="files[]" type="file">
                         <span class="helper-text text-center" data-error="wrong" data-success="right">Upload Images</span>
                         {{-- @if ($errors->has('files'))
                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
