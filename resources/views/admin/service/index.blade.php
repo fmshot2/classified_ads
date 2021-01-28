@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-All Service Table | 
+All Service Table |
 @endsection
 
 @section('content')
@@ -59,7 +59,7 @@ All Service Table |
 								<td>
 									@if($all_services->status == 1)
 									<a href="{{ route('admin.service.status', $all_services->id) }} " class="btn btn-warning"> Deactive</a>
-									@else 
+									@else
 									<a href="{{ route('admin.service.status', $all_services->id) }} " class="btn btn-primary"> Activate </a>
 									@endif
 								</td>
@@ -70,7 +70,7 @@ All Service Table |
 
 								<td class="center">
 									<a href="{{ route('serviceDetail', $all_services->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
-									<a href="{{ route('admin.service.destroy', $all_services->id) }} " class="btn btn-danger "><i class="fa fa-trash"></i></a>
+									<button onclick="deleteService({{ $all_services->id }})" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 								</td>
 
 							</tr>
@@ -90,7 +90,7 @@ All Service Table |
 
 
 			<!-- /.content -->
-		</div>	
+		</div>
 
 
 
@@ -102,3 +102,24 @@ All Service Table |
 @endsection
 
 
+<script>
+    function deleteService(id) {
+        event.preventDefault();
+        if (confirm("Are you sure?")) {
+            $.ajax({
+                url: '/admin/dashboard/service/destroy/' + id,
+                method: 'get',
+                success: function(result){
+                alert('successfull')
+                    window.location.assign(window.location.href);
+                }
+            });
+
+        } else {
+
+            console.log('Delete process cancelled');
+
+        }
+
+    }
+</script>

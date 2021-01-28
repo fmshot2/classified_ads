@@ -14,11 +14,6 @@ class Service extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function image()
-    {
-        return $this->morphMany(Image::class, 'imageable_id');
-    }
-
     public function image_uploads()
     {
         return $this->hasMany(ImageUpload::class, 'service_id');

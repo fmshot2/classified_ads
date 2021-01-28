@@ -1,4 +1,4 @@
-<div class="recently-properties content-area-12 home-recently-properties" style="">
+<div class="recently-properties content-area-12 home-recently-properties">
     <div class="services-2 content-area-5">
         <div class="row container-fluid hm-top-row">
             <div class="col-lg-3 col-md-2 fea-ser-mobile fea-ser-tablet">
@@ -94,22 +94,22 @@
                 <div class="sidebar-right" style="width: 100%; padding: 15px;">
                     <div class="row wow animated" style="visibility: visible;" style="margin: 0; padding: 0; width: 100%">
                         @if(isset($categories))
-                        @foreach($categories as $category)
-                        <div class="col-3 col-xs-2" style="margin: 0; padding: 10px; width: 100%">
-                            <div class="service-info-5" style="margin: 0; padding: 10px; width: 100%">
-                                <a href="{{route('services', $category->slug)}}" >
-                                    <div style="border-radius: 50px">
-                                        <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="properties">
-                                    </div>
-                                </a>
+                            @foreach($categories as $category)
+                                <div class="col-3 col-xs-2" style="margin: 0; padding: 10px; width: 100%">
+                                    <div class="service-info-5" style="margin: 0; padding: 10px; width: 100%">
+                                        <a href="{{route('services', $category->slug)}}" >
+                                            <div style="border-radius: 50px">
+                                                <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="properties">
+                                            </div>
+                                        </a>
 
-                                <a href="{{route('services', $category->slug)}}" >
-                                    <h6  class="cat-title">{{$category->name}}</h6>
-                                </a>
-                            </div>
-                        </div>
-                        @endforeach
-                        {{ $categories->links() }}
+                                        <a href="{{route('services', $category->slug)}}">
+                                            <h6  class="cat-title">{{$category->name}}</h6>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
+                            {{ $categories->links() }}
                         @endif
                     </div>
                 </div>
@@ -125,7 +125,6 @@
                         <div class="s-border"></div>
                         <div class="m-border"></div>
                     </div>
-
                     <div class="popular-posts featured-ad-hm-list">
                         <div class="container">
                             <div id="carouselExampleControls" class="carousel vert slide" data-ride="carousel" data-interval="900">
@@ -159,11 +158,12 @@
 
                     <div class="footer-item clearfix container-fluid" style="margin-top:20px">
                         <br/>
-                        <h6 style="margin-top: -15px; text-transform: uppercase">Recommended Ctities</h6>
+                        <h6 style="margin-top: -15px; text-transform: uppercase">Trending Services</h6>
                         <div class="s-border"></div>
                         <div class="m-border"></div>
                     </div>
-                    <div>
+
+                    <div class="popular-posts featured-ad-hm-list" style="margin-top: -10px">
                         <div class="media p-2">
                             <div class="media-left">
                                 <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'enugu-2.jpg'}}" alt="First slide">
@@ -175,46 +175,24 @@
                         </div>
                         <div class="media p-2">
                             <div class="media-left">
-                               <a href="{{ route('allcities') }}"> <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'enugu-2.jpg'}}" alt="First slide"></a>
+                               <a href="{{ route('allcities') }}"> <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'abuja-1.jpg'}}" alt="First slide"></a>
                            </div>
                            <div class="media-body align-self-center">
-                            {{-- <h3 class="media-heading"><a href="#">{{ Str::limit($featuredService->name, 35)}}</a></h3> --}}
-                            <a href="{{ route('allcities') }}"> <p class="fea-ad-hm-location"><strong>Ebonyi</strong>
-                                {{-- {{ Str::limit($featuredService->state, 30)}} --}}
-                            </p></a>
-                        </div>
-                    </div>
-                    <div class="media p-2">
-                        <div class="media-left">
-                           <a href="{{ route('allcities') }}"> <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'abuja-1.jpg'}}" alt="First slide"></a>
-                       </div>
-                       <div class="media-body align-self-center">
-                            <a href="{{ route('allcities') }}">
-                                <p class="fea-ad-hm-location"><strong>Abuja</strong></p>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="media p-2">
-                        <div class="media-left">
-                           <a href="{{ route('allcities') }}"> <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'lagos-image-1.jfif'}}" alt="First slide"></a>
-                        </div>
-                        <div class="media-body align-self-center">
-                            <a href="{{ route('allcities') }}"> <p class="fea-ad-hm-location"><strong>Lagos</strong> </p></a>
+                                <a href="{{ route('allcities') }}">
+                                    <p class="fea-ad-hm-location"><strong>Abuja</strong></p>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
-            {{-- @endforeach --}}
-
+            </div>
         </div>
     </div>
 </div>
 
 
 
-<script type="text/javascript">
+<script>
     .vert .carousel-item-next.carousel-item-left,
     .vert .carousel-item-prev.carousel-item-right {
         -webkit-transform: translate3d(0, 0, 0);
