@@ -1,7 +1,7 @@
 @extends('layouts.seller')
 
 @section('title')
-All Service Table | 
+All Service Table |
 @endsection
 
 @section('content')
@@ -53,7 +53,7 @@ All Service Table |
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 									<td>
 										<a href="#">
-											<img src="{{asset('images')}}/{{$all_service->image_uploads->first()}}"  alt="service image" width="60" class="img-responsive img-rounded">
+											<img src="{{asset('images')}}/{{$all_service->first_image }}"  alt="service image" width="60" class="img-responsive img-rounded">
 										</a>
 									</td>
 									<td> {{ $all_service->name }} </td>
@@ -77,18 +77,18 @@ All Service Table |
 
 
 							</tbody>
-
-
 						</table>
 
 
+
+                        <p>{{ $all_services->links() }}</p>
 					</div>
 					<!-- /.box-body -->
 				</div>
 
 
 				<!-- /.content -->
-			</div>	
+			</div>
 
 
 

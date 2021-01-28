@@ -19,9 +19,21 @@ class Service extends Model
         return $this->morphMany(Image::class, 'imageable_id');
     }
 
-    public function image_uploads() 
+    public function image_uploads()
     {
         return $this->hasMany(ImageUpload::class, 'service_id');
+    }
+
+    public function getFirstImageAttribute()
+    {
+        $images = $this->image_uploads->first();
+
+        if ($images) {
+            return $images->filename;
+        }
+        else {
+            return 'avatar.png';
+        }
     }
 
 
