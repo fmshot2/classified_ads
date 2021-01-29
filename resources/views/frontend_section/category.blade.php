@@ -164,13 +164,31 @@
                     </div>
 
                     <div class="popular-posts featured-ad-hm-list" style="margin-top: -10px">
+                        {{-- @foreach ($trendingServices as $trendingService)
+                            @if ($loop->index < 10)
+                                <div class="media p-2">
+                                    <a href="{{ route('serviceDetail', $trendingService->slug) }}">
+                                        <div class="media-left">
+                                            <img class="d-block mx-auto img-fluid" src="{{asset('images')}}/{{ $trendingService->image[0] }}" alt="First slide">
+                                        </div>
+                                        <div class="media-body align-self-center">
+                                            <p class="fea-ad-hm-location"><strong>{{ Str::limit($trendingService->name, 30)}}</strong>
+                                            </p>
+                                            <p class="fea-ad-hm-location"><strong>Location:</strong> {{ Str::limit($trendingService->state, 30)}}</a></p>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endif
+                        @endforeach --}}
+
                         <div class="media p-2">
                             <div class="media-left">
                                 <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'enugu-2.jpg'}}" alt="First slide">
                             </div>
                             <div class="media-body align-self-center">
-                                <p class="fea-ad-hm-location"><strong>Ebonyi</strong>
+                                <p class="fea-ad-hm-location"><strong>Bricklayer Inc.</strong>
                                 </p>
+                                <p class="fea-ad-hm-location"><strong>Location:</strong> Abuja</a></p>
                             </div>
                         </div>
                         <div class="media p-2">
@@ -179,7 +197,8 @@
                            </div>
                            <div class="media-body align-self-center">
                                 <a href="{{ route('allcities') }}">
-                                    <p class="fea-ad-hm-location"><strong>Abuja</strong></p>
+                                    <p class="fea-ad-hm-location"><strong>School Teacher</strong></p>
+                                    <p class="fea-ad-hm-location"><strong>Location:</strong> Port Harcourt</a></p>
                                 </a>
                             </div>
                         </div>

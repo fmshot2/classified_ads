@@ -77,46 +77,6 @@
                                         <h3 class="service-name">{{$serviceDetail->name}}</h3>
                                         <p><span><i class="fa fa-map-marker"></i> Location:</span> {{$serviceDetail->state}}</p>
                                     </div>
-
-
-                     {{--                    @auth
-                @if(Auth::user()->role == 'buyer')
-                    <div class="container mb-5 mt-0 pull-right">
-                        <p>
-                           @if (session('liked')) YOU HAVE LIKED THIS SERVICE  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger">Unlike</span>
-
-                            </a>  @else HAPPY WITH SERVICE RENDERED? GIVE THIS SELLER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!
-</span> @endif
-
-                            </a>
-                        </p>
-                    </div>
-
-                @endif
-            @endauth --}}
-
-                                  {{--   <div class="col-md-12 ser-fea-add">
-                                        <div class="pull-right">
-                                            <h3>
-                                                <span class="text-right">
-                                                    <div class="posts-by-category widget">
-                                                        <!--<h3 class="sidebar-title">Cities</h3>-->
-                                                        <ul class="list-unstyled list-cat">
-
-                                                            @if(isset($featuredServices2))
-                                                                @foreach($featuredServices2 as $featuredService)
-                                                                    <a href="{{route('search_by_city', $featuredService->city)}}"
-                                                                    class="btn btn-outline-warning">
-                                                                        <i class="fa fa-map-marker"> {{$featuredService->city}}</i>
-                                                                    </a>
-                                                                @endforeach
-                                                            @endif
-                                                        </ul>
-                                                    </div>
-                                                </span>
-                                            </h3>
-                                        </div>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -202,7 +162,7 @@
                                 </div>
                                 <div class="tab-pane fade " id="three" role="tabpanel" aria-labelledby="three-tab">
                                     <div class="property-details mb-40">
-                                        <h6 class="heading-2">This User has {{$service_likes}} likes</h6>
+                                        <h6 class="heading-2">This User has {{$service_likes}} likes but {{ views($serviceDetail)->count() }} views</h6>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade " id="four" role="tabpanel" aria-labelledby="four-tab">
@@ -497,7 +457,7 @@
                                                                             <button id="" type="button" class="btn-submit3 btn btn-danger" data-dismiss="modal">Send Report</button>
                                                                         </div>
                                                                 </div>
-                                                                
+
                                                             @endauth
 
                                                         </form>
@@ -520,7 +480,7 @@
             </div>
 
 
-{{-- 
+{{--
             @if (session('liked'))<span class="text-danger">{{ session('liked') }}
 </span> @else<span class="text-warning">like!
 </span> @endif --}}
@@ -574,11 +534,11 @@
 
             $.ajax({
                 url: baseUrl + '/buyer/createcomment2',
-                method:'POST',                
+                method:'POST',
                 data: {_token:_token, buyer_id:buyer_id, service_id:service_id, service_user_id:service_user_id, description:description, subject:subject, buyer_name, buyer_email, phone },
                 success: function(data) {
                     alert(data.success2);
-                }, 
+                },
                 error: function(error){
                     console.log(error)
                 }

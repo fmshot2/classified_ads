@@ -169,6 +169,16 @@ body {
     font-size: 17px;
     font-weight: 700;
 }
+.main-header {
+    box-shadow: 0px 10px 9px 3px rgba(41, 41, 41, 0.082);
+}
+.main-header .nav-link {
+    font-weight: 500 !important;
+    color: #000;
+}
+.banner .banner-slider-inner {
+    background-color: transparent !important;
+}
 
 @keyframes pulse-black {
     0% {
@@ -187,9 +197,6 @@ body {
 @media only screen and (min-width: 992px) {
     .banner {
         margin: 0 150px;
-    }
-    .main-header {
-        box-shadow: 0px 10px 9px 3px rgba(41, 41, 41, 0.082);
     }
 }
 

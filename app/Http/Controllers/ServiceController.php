@@ -41,7 +41,7 @@ class ServiceController extends Controller
 
 
    public function termsOfUse()
-   {       
+   {
     return view('terms-of-use');
   }
 
@@ -53,26 +53,27 @@ class ServiceController extends Controller
     $advertServices = Service::where('is_approved', 1)->with('user')->get();
     $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(16);
     $categories = Category::orderBy('id', 'asc')->paginate(35);
+    // $trendingServices = Service::orderByUniqueViews()->get();
 
-    $states = State::all(); 
-    $local_governments = Local_government::all();               
+    $states = State::all();
+    $local_governments = Local_government::all();
     $user11 = session()->get('user11');
     $serviceName = session()->get('serviceName');
-    $serviceState = session()->get('serviceState');          
+    $serviceState = session()->get('serviceState');
     if($user11){
       $user111 = $user11;
     }else{
-      $user111 = null; 
-    }         
-    return view('welcome', compact(['featuredServices', 'recentServices', 
-      'approvedServices', 'user111', 'categories', 'states', 'local_governments' ]));
+      $user111 = null;
+    }
+    return view('welcome', compact(['featuredServices', 'recentServices',
+      'approvedServices', 'user111', 'categories', 'states', 'local_governments']));
 
   }
 
   public function services()
   {
 
-    return view('services');      
+    return view('services');
   }
 
 
@@ -97,6 +98,9 @@ class ServiceController extends Controller
     $user_id = $serviceDetail->user_id;
     $userMessages = Message::where('service_id', $serviceDetail_id)->orderBy('created_at','desc')->take(7)->get();
 
+    // $expiresAt = now()->addHours(24);
+    // views($serviceDetail)->cooldown($expiresAt)->record();
+
     if ($ww = session()->get('message')) {
       $ww2 = $ww;
     }else{
@@ -112,7 +116,7 @@ class ServiceController extends Controller
     if($user11){
       $user111 = $user11;
     }else{
-      $user111 = null; 
+      $user111 = null;
     }
 
     return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages', 'images_4_service']));
@@ -146,7 +150,7 @@ class ServiceController extends Controller
     if($user11){
       $user111 = $user11;
     }else{
-      $user111 = null; 
+      $user111 = null;
     }
        //return $userMessages;
 
@@ -181,7 +185,7 @@ class ServiceController extends Controller
     if($user11){
       $user111 = $user11;
     }else{
-      $user111 = null; 
+      $user111 = null;
     }
        //return $userMessages;
 
@@ -217,7 +221,7 @@ class ServiceController extends Controller
     if($user11){
       $user111 = $user11;
     }else{
-      $user111 = null; 
+      $user111 = null;
     }
        //return $userMessages;
 
@@ -298,7 +302,7 @@ class ServiceController extends Controller
       $streetAddress = $request->streetAddress;
       $city = $request->city;
       $state = $request->state;
-      $closestBusstop = $request->closestBusstop;  
+      $closestBusstop = $request->closestBusstop;
       $phone = $request->phone;
 
 
@@ -317,12 +321,12 @@ class ServiceController extends Controller
       $service->state = $state;
       $service->closestBusstop = $closestBusstop;
       $service->phone = $phone;
-      $service->user_id = Auth::id();      
+      $service->user_id = Auth::id();
       $description = $request->description;
       $streetAddress = $request->streetAddress;
       $city = $request->city;
       $state = $request->state;
-      $closestBusstop = $request->closestBusstop;  
+      $closestBusstop = $request->closestBusstop;
       $phone = $request->phone;
 
       $state_name = State::find(['id'=>$request->state]);
@@ -350,7 +354,7 @@ class ServiceController extends Controller
 
 
 
-      $service->user_id = Auth::id();      
+      $service->user_id = Auth::id();
 
       $service->save();
       $likecount = Like::where(['service_id'=>$request->id])->count();
@@ -382,9 +386,9 @@ class ServiceController extends Controller
 public function search(Request $request){
     $validatedData = $request->validate([
         'name' => ['required', 'string', 'max:255'],
-        'state' => ['required', 'max:255'],      
+        'state' => ['required', 'max:255'],
       ]);
-    
+
   $category = $request->input('name');
   $state = $request->input('state');
   //$serviceDetail_id = $request->input('serviceDetail_id');
@@ -520,10 +524,10 @@ if (count ( $seller ) > 0){
 
 
         public function search3(Request $request)
-        {       
+        {
           $serviceName = $request->name;
           $serviceState =   $request->state;
-        // return $request;    
+        // return $request;
           $request->validate([
             "name"     => 'string',
             "state"       => 'string',
@@ -550,24 +554,24 @@ if (count ( $seller ) > 0){
 
 
       public function searchOnServiceDetail(Request $request)
-      {       
+      {
         $serviceName = $request->name;
         $serviceState =   $request->state;
         $serviceDetailId =   $request->id;
-        // return $request;    
+        // return $request;
         $request->validate([
           "name"     => 'string',
           "state"       => 'string',
         ]);
         if( $user11 = Service::searchName($request->name)->
-         searchState($request->state)->get()) {      
+         searchState($request->state)->get()) {
 
           $user11->each(function ($item, $key) {
             $item->name;
             $item->state;
 
           });
-      } 
+      }
       $category_services = Service::where('id', $serviceDetailId)->get();
 
                 //return 'jjj';}
@@ -584,7 +588,7 @@ if (count ( $seller ) > 0){
 /*
 public function show($id)
     {
-        
+
         $one_category = Category::find($id);
         $category_services = Service::where('id', $id)->get();
         //$category_city = Service::all()->pluck("city");
@@ -594,7 +598,7 @@ public function show($id)
         //$category_id = $id;
         //return $category_city;
 
-        return view ('services', compact('category_services', 'one_category', 'category_city', 'all_categories', 'all_states') );        
+        return view ('services', compact('category_services', 'one_category', 'category_city', 'all_categories', 'all_states') );
     }
 
 
@@ -615,7 +619,7 @@ public function show($id)
             //'slug' => 'unique:services,slug',
             //'city' => 'required',
             //'state' => 'required',
-    ]); 
+    ]);
 
      $image = $request->file('image');
 
@@ -690,7 +694,7 @@ public function show($id)
       'description' => 'required',
       'city' => 'required',
       'state' => 'required',
-    ]); 
+    ]);
 
      $image = $request->file('image');
 
@@ -741,23 +745,23 @@ public function show($id)
 
           $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->first();
           if ($likecheck) {
-            return 'Heyyyyy';    
+            return 'Heyyyyy';
           }else{
-            return 'Heyyyyy22222';    
+            return 'Heyyyyy22222';
           }
           if ($likecheck) {
             Like::where(['user_id'=>Auth::id(), 'service_id'=>$request->id])->delete();
             $likecount = Like::where(['service_id'=>$request->id])->count();
         // return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
-//                    return redirect('/home');    
+//                    return redirect('/home');
           }else{
             $like = new Like();
             $like->user_id = Auth::id();
             $like->service_id = $request->id;
             $like->save();
             $likecount = Like::where(['service_id'=>$request->id])->count();
-         //return redirect('/home');    
-          }      
+         //return redirect('/home');
+          }
         }
 
 
@@ -777,7 +781,7 @@ public function show($id)
             return back()->with('liked', 'Unliked');
 
         //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
-        //return redirect('/home');   
+        //return redirect('/home');
          }else{
            $like = new Like();
            $like->user_id = Auth::id();
@@ -787,8 +791,8 @@ public function show($id)
            // return redirect()->to('serviceDetail/'.$service_slug);
           return back();
 
-        //return 'Heyyyyy22222'. $likecount;    
-         }     
+        //return 'Heyyyyy22222'. $likecount;
+         }
       }
 
 
@@ -808,25 +812,25 @@ public function show($id)
         'phone' => 'required',
         'description' => 'required',
 
-      ]); 
+      ]);
        $data = $request->all();
        return $data;
         #create or update your data here
         //$request->photo_id; // array of all selected photo id's
-       $message = new Message();  
+       $message = new Message();
         /*$message->buyer_id = $request->buyer_id;
         $message->service_id = $request->service_id;
         $message->description = $request->description;*/
         $success = 'succccccccs';
         $slug = Str::random(10);
 
-                //$message->service_id = $data['id']; 
-        $message->buyer_id = $data['buyer_id']; 
-        $message->buyer_name = $data['buyer_name']; 
-        $message->buyer_email = $data['buyer_email']; 
-        $message->subject = $data['subject']; 
-        $message->phone = $data['phone']; 
-        $message->slug = $slug; 
+                //$message->service_id = $data['id'];
+        $message->buyer_id = $data['buyer_id'];
+        $message->buyer_name = $data['buyer_name'];
+        $message->buyer_email = $data['buyer_email'];
+        $message->subject = $data['subject'];
+        $message->phone = $data['phone'];
+        $message->slug = $slug;
         $message->service_id = $data['service_id'];
         $message->service_user_id = $data['service_user_id'];
         $message->description = $data['description'];
@@ -863,23 +867,23 @@ public function show($id)
         'phone' => 'required',
         'description' => 'required',
 
-      ]); 
+      ]);
 
         #create or update your data here
         //$request->photo_id; // array of all selected photo id's
-       $message = new Message();  
+       $message = new Message();
         /*$message->buyer_id = $request->buyer_id;
         $message->service_id = $request->service_id;
         $message->description = $request->description;*/
         $success = 'Your message was sent successfully';
         $slug = Str::random(10);
 
-                //$message->service_id = $data['id']; 
+                //$message->service_id = $data['id'];
         $message->buyer_id = $data['buyer_id'];
-        $message->buyer_name = $data['buyer_name'];     
+        $message->buyer_name = $data['buyer_name'];
         $message->buyer_email = $data['buyer_email'];
         $message->phone = $data['phone'];
-        $message->slug = $slug; 
+        $message->slug = $slug;
         $message->service_id = $data['service_id'];
         $message->subject = $data['subject'];
         $message->service_user_id = $data['service_user_id'];
@@ -922,12 +926,12 @@ public function show($id)
        //return 'nnn';
 
         //return $data['service_id'];
-       $badge_service_id = $data['service_id'];    
+       $badge_service_id = $data['service_id'];
 
 
        $this->validate($request,[
         'amount' => 'required',
-        'email' => 'required',      
+        'email' => 'required',
       ]);
        $service_check = Service::where(['id'=>$badge_service_id])->first();
        //return $service_check->badge_type;
@@ -939,8 +943,8 @@ public function show($id)
         $badge_check->badge_type = $data['badge_type'];
 
         $badge_check->amount = $data['amount'];
-        $badge_check->ref_no = $data['ref_no'];  
-  //$badge_check->service_id = $data['service_id'];    
+        $badge_check->ref_no = $data['ref_no'];
+  //$badge_check->service_id = $data['service_id'];
 
         $badge_check->save();
         return "Badge Updated successfully!";
@@ -956,14 +960,14 @@ public function show($id)
         //$badge->service_id = $data['service_id'];
 
        $badge->save();
-       return "Badge created successfully";   
+       return "Badge created successfully";
      }
 
 
      $badge->save();
      return "yyyy";
 
-        //return 
+        //return
 
      if ($badge->save()) {
       return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
@@ -978,7 +982,7 @@ public function show($id)
      $likecount = Like::where(['service_id'=>$id])->count();
      return redirect()->to('serviceDetail/'.$service_slug);
         //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
-        //return redirect('/home');   
+        //return redirect('/home');
    }else{
      $like = new Like();
      $like->user_id = Auth::id();
@@ -986,7 +990,7 @@ public function show($id)
      $like->save();
      $likecount = Like::where(['service_id'=>$id])->count();
      return redirect()->to('serviceDetail/'.$service_slug);
-        //return 'Heyyyyy22222'. $likecount;    
+        //return 'Heyyyyy22222'. $likecount;
    }
 
  }
@@ -1007,7 +1011,7 @@ public function show($id)
     $badge_check->badge_type = $data['badge_type'];
 
     $badge_check->amount = $data['amount'];
-    $badge_check->ref_no = $data['ref_no'];      
+    $badge_check->ref_no = $data['ref_no'];
 
     $badge_check->save();
     return "yyyy";
@@ -1019,16 +1023,16 @@ public function show($id)
    $badge->amount = $data['amount'];
    $badge->seller_name = $data['seller_name'];
    $badge->phone = $data['phone'];
-   $badge->ref_no = $data['ref_no'];        
+   $badge->ref_no = $data['ref_no'];
    $badge->save();
-   return "yyyy";   
+   return "yyyy";
  }
 
 
  $badge->save();
  return "yyyy";
 
-        //return 
+        //return
 
  if ($badge->save()) {
   return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
@@ -1050,15 +1054,15 @@ public function createbadge(Request $request)
     'phone' => 'required',
     'description' => 'required',
 
-  ]); 
-  $message = new Message(); 
+  ]);
+  $message = new Message();
   $success = 'succccccccs';
   $slug = Str::random(10);
   $message->buyer_id = $data['buyer_id'];
-  $message->buyer_name = $data['buyer_name'];     
+  $message->buyer_name = $data['buyer_name'];
   $message->buyer_email = $data['buyer_email'];
   $message->phone = $data['phone'];
-  $message->slug = $slug; 
+  $message->slug = $slug;
   $message->service_id = $data['service_id'];
   $message->subject = $data['subject'];
   $message->service_user_id = $data['service_user_id'];
@@ -1097,10 +1101,10 @@ public function saveContacts(Request $request)
   'subject' => 'required',
   'phone' => 'required',
   'message' => 'required',
-]); 
+]);
 
  $random = Str::random(3);
- $slug = Str::of($request->name)->slug('-').''.$random; 
+ $slug = Str::of($request->name)->slug('-').''.$random;
  $contact = new Contact();
  $contact->name = $request->name;
  $contact->email = $request->email;
