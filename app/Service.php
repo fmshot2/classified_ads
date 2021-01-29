@@ -3,14 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use CyrildeWit\EloquentViewable\InteractsWithViews;
-use CyrildeWit\EloquentViewable\Contracts\Viewable;
+// use CyrildeWit\EloquentViewable\InteractsWithViews;
+// use CyrildeWit\EloquentViewable\Contracts\Viewable;
 
-class Service extends Model implements Viewable
+class Service extends Model
 {
-    use InteractsWithViews;
+    // use InteractsWithViews;
 
-    protected $removeViewsOnDelete = true;
+    // protected $removeViewsOnDelete = true;
     protected $guarded = [];
 
     public function user()
