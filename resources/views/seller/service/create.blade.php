@@ -24,7 +24,7 @@ Create Service |
 
           <div class="text-center" style="margin: 20px 0px 20px 0px;">
        {{--  <a href="https://shouts.dev/" target="_blank"><img src="https://i.imgur.com/hHZjfUq.png"></a><br> --}}
-        <span class="text-secondary">Click here to drag and drop your service images</span>
+        <span class="text-secondary">Click here to drag and drop all your service images</span>
     </div>
 
     <form method="post" action="{{url('upload/store/')}}" enctype="multipart/form-data"
