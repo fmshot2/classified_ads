@@ -153,7 +153,7 @@ body {
 }
 
 .cat-image-icon {
-    animation: pulse-black 1s infinite linear;
+    animation: pulse-black 2s infinite linear;
 }
 
 .footer .footer-inner .Subscribe-box form .btn {
@@ -169,18 +169,34 @@ body {
     font-size: 17px;
     font-weight: 700;
 }
+.main-header {
+    box-shadow: 0px 10px 9px 3px rgba(41, 41, 41, 0.082);
+}
+.main-header .nav-link {
+    font-weight: 500 !important;
+    color: #000;
+}
+.banner .banner-slider-inner {
+    background-color: transparent !important;
+}
 
 @keyframes pulse-black {
     0% {
-        transform: scale(0.95);
-    }
-
-    70% {
         transform: scale(1);
     }
 
+    70% {
+        transform: scale(1.14);
+    }
+
     100% {
-        transform: scale(0.95);
+        transform: scale(1);
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .banner {
+        margin: 0 150px;
     }
 }
 

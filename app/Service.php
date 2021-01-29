@@ -3,10 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
 
-class Service extends Model
+class Service extends Model implements Viewable
 {
+    use InteractsWithViews;
 
+    protected $removeViewsOnDelete = true;
     protected $guarded = [];
 
     public function user()
@@ -14,17 +18,28 @@ class Service extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function image()
-    {
-        return $this->morphMany(Image::class, 'imageable_id');
-    }
-
-    public function imageUpload() 
+    public function image_uploads()
     {
         return $this->hasMany(ImageUpload::class, 'service_id');
     }
 
-//public function category()
+    public function getFirstImageAttribute()
+    {
+        $images = $this->image_uploads->first();
+
+        if ($images) {
+            return $images->filename;
+        }
+        else {
+            return 'avatar.png';
+        }
+    }
+
+
+// public function imageUploads(){
+//         return $this->hasMany('\App\ImageUpload'); //Product Model Name
+//     }
+// //public function category()
 //{
   //  return $this->belongsTo('App\Category');
 //}

@@ -38,6 +38,11 @@ class ImageController extends Controller
         return response()->json(['success' => $imageName]);
     }
 
+
+
+
+    
+
     public function delete(Request $request)
     {
         $filename = $request->get('filename');

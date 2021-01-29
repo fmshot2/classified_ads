@@ -1,10 +1,5 @@
-       <header class="top-header none-992" style="display: flex; justify-content: center; background: linear-gradient(90deg, rgba(251,219,35,1) 52%, rgba(243,163,27,1) 66%);">
-        <a href="https://efskyview.com/">
-            <img src="{{ asset('images/skyviewstickyads.gif') }}" alt="" style="margin: 0 auto">
-        </a>
-       </header>
-       <!-- Top header start -->
-        <header class="top-header none-992" id="top-header-2" style="background: #f3a31b">
+        <!-- Top header start -->
+        <header class="top-header bg-warning  none-992" id="top-header-2">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-8 col-sm-7">
@@ -12,14 +7,14 @@
                             <a href="tel: {{ $check_general_info == 0 ? $general_info->hot_line : '' }} "><i class="fa fa-phone"></i>Need Support? {{ $check_general_info == 0 ? $general_info->hot_line : '' }} | {{ $check_general_info == 0 ? $general_info->hot_line : '' }} </a>
                         </div>
                     </div>
-
+                    
 
                     <div class="col-lg-6 col-md-4 col-sm-5">
                         <ul class="top-social-media pull-right">
 
                             <li>
                               <a href="mailto: {{ $check_general_info == 0 ? $general_info->support_email : ''}}"><i class="fa fa-envelope"></i> {{ $check_general_info == 0 ? $general_info->support_email : ''}} </a>                            </li>
-
+                              
                           </ul>
                       </div>
                   </div>
@@ -51,7 +46,7 @@
                                     Explore
                                 </a>
                             </li>
-
+                        
       <li class="nav-item">
         <a class="nav-link" href="{{route('seller.sellers')}}" id="">
             Sellers
@@ -77,7 +72,7 @@
                 <li class="nav-item dropdown">
                 <a class="nav-link" href="{{ route('createService') }}"> Post Service </a>
                   </li>
-                @endif
+                @endif 
                 @endauth
 
 
@@ -114,7 +109,7 @@
                                 @if(Auth::user()->role == 'seller')
                                 <a class="dropdown-item" href="{{ route('createService') }}"> Post A Service </a>
                                 <a class="dropdown-item" href="{{ route('seller.dashboard') }}"> Dashboard </a>
-                                @endif
+                                @endif 
                                 @endauth
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
@@ -163,17 +158,17 @@
           <li class="nav-item dropdown">
                 <a class="nav-link" href="{{ route('seller.dashboard') }}">My Dashboard </a>
                   </li>
-                @endif
+                @endif 
 
                 @if(Auth::user()->role == 'buyer')
                 <li class="nav-item dropdown">
                 <a class="nav-link" href="{{ route('buyer.dashboard') }}">My Dashboard </a>
                 </li>
-                @endif
+                @endif 
 
 
 
-
+                
 
 <li>
              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -194,17 +189,17 @@
 
 
 
-
+              
 
     </ul>
 
 @endauth
 
+ 
 
 
 
-
-{{--
+{{-- 
 
 
 
@@ -221,15 +216,15 @@
                 @if(Auth::user()->role == 'seller')
                 <a class="dropdown-item" href="{{ route('createService') }}"> Post A Service </a>
                 <a class="dropdown-item" href="{{ route('seller.dashboard') }}"> Dashboard </a>
-                @endif
+                @endif 
                 @endauth
 
 
                 @auth
                 @if(Auth::user()->role == 'buyer')
-
+                
                 <a class="dropdown-item" href="{{ route('buyer.dashboard') }}"> Dashboard </a>
-                @endif
+                @endif 
                 @endauth
 
 
@@ -237,11 +232,11 @@
 
 
   <div class="pull-right">
-
+                 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                   @csrf
                 </form>
-              </div>
+              </div> 
 
 
 
@@ -277,7 +272,7 @@
             reader.onload = function(){
                 $("#previewImg").attr("src",reader.result);
             }
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(file);     
         }
     }
 </script>

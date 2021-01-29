@@ -51,8 +51,7 @@
                                                 </div>
                                                 <div class="listing-time opening">Femi</div>
                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('images')}}/{{$category_service->image[0]}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
-                                                <div class="listing-time opening">femi</div>
-                                                <img class="d-block w-100" src="{{asset('images')}}/{{$category_service->image[0]}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+
                                             </a>
                                         </div>
                                         <div class="detail">
