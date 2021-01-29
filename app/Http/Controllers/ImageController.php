@@ -39,7 +39,15 @@ class ImageController extends Controller
     }
 
 
+public function allService()
+{
+     
 
+    $all_services = Service::where('user_id', Auth::id() )->get();
+   
+
+    return view ('seller.service.all_service', compact('all_services') );
+}
 
     
 

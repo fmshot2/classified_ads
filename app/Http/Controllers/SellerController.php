@@ -31,10 +31,12 @@ class SellerController extends Controller
 
    public function storeService(Request $request)
     {
-      //dd('llll');
+        // return response()->json(['success'=>"working", 'data'=>'done it' ]);
+      //dd('llll');       
       //dd($user);
 
 
+    $data = $request->all();
 
 
  // $validator = Validator::make($request->only('file_input'), [
@@ -61,23 +63,23 @@ class SellerController extends Controller
         // 'name' => 'required',
         // 'state' => 'required',
         'file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
-    ]);
+    ]); 
        $image = $request->file('image');
        $random = Str::random(3);
-       $slug = Str::of($request->name)->slug('-').''.$random;
+       $slug = Str::of($request->name)->slug('-').''.$random; 
        $service = new Service();
 /*
    if ( $request->hasFile('files') ) {
                 $names = array();
-
+           
 foreach($request->file('files') as $image)
     {
-
+       
                 $image_name = $image->getClientOriginalName();
 
         $image->move(public_path('images'),$image_name);
         array_push($names, $image_name);
-
+                
         }
             $category->image = json_encode($names);
 }
@@ -101,19 +103,26 @@ if ( $request->hasFile('files') ) {
            }
            $service->image = json_encode($names);
        }
+
+
+// _token:_token, name:name,  description:description, experience:experience, phone:phone, min_price:min_price, state:state, city:city, address:address, category:category
+
+
+
+
        $service->user_id = Auth::id();
-       $service->category_id = $request->category_id;
-       $service->name = $request->name;
-       $service->phone = $request->phone;
-       $service->city = $request->city;
-       $service->experience = $request->experience;
-       $service->address = $request->address;
-       $service->min_price = $request->min_price;
-       $service->max_price = $request->max_price;
+       $service->category_id = $data['category_id'];
+       $service->name = $data['name'];
+       $service->description = $data['description'];
+       $service->experience = $data['experience'];
+       $service->phone = $data['phone'];
+       $service->min_price = $data['min_price'];
+       $service->state = $data['state'];
+       $service->city = $data['city'];
+       $service->address = $data['address'];
+       $service->max_price = $data['category_id'];
        $service->slug = $slug;
-       $service->video_link = $request->video_link;
-       $service->description = $request->description;
-       $service->state = $request->state;
+       // $service->video_link = $request->video_link;$data['category_id'];
        $service->save();
        $latest_service = Service::where('user_id', Auth::id())->latest()->first();
 $latest_service_id = $latest_service->id;
@@ -139,12 +148,13 @@ $service_owner->email = Auth::user()->email;
        //$this->saveReferLink();
        // dd($latest_service_id);
        // return $this->allService();
-       return back()->with('service_id', $latest_service_id);
+        return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service]);
+       // return back()->with('service_id', $latest_service_id, 'service', $latest_service);
         }
         //dd($user);
         $present_user->hasUploadedService = 1;
         $user_referer_id = $present_user->idOfReferer;
-        $present_user->save();
+        $present_user->save();  
         //dd($user_referer_id);
         //dd($present_user->hasUploadedService);
         //dd('xxxxxxxx');
@@ -160,17 +170,20 @@ $service_owner->email = Auth::user()->email;
          $request->session()->flash('status', 'Task was successful!');
        //$this->saveReferLink();
          // dd($latest_service_id);
-      return back()->with('service_id', $latest_service_id);
+        return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service]);
+
+      // return back()->with('service_id', $latest_service_id, 'service', $latest_service);
        // return $this->allService();
         }
 
                  // dd($latest_service_id);
+        return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service, 'success', 'Your message has been sent!']);
 
-              return back()->with('service_id', $latest_service_id, 'success', 'Your message has been sent!');
+              // return back()->with('service_id', $latest_service_id, 'service', $latest_service, 'success', 'Your message has been sent!');
 
        //      $request->session()->flash('status', 'Task was successful!');
        // return $this->allService();
-
+        
 
    }
 
@@ -189,7 +202,7 @@ public function saveReferLink($refererlink){
 //            $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
 
 }
-
+    
 
    public function storeServiceUpdate(Request $request, $id)
    {
@@ -204,7 +217,7 @@ public function saveReferLink($refererlink){
         'name' => 'required',
         'state' => 'required',
         'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
+    ]); 
            $image = $request->file('image');
     $slug = Str::random(5);
                 // Image set up
@@ -294,7 +307,7 @@ public function replyMessage($slug)
 {
     $message = Message::where('slug', $slug)->first();
     return view ('seller.message.reply_message', compact('message') );
-}
+}    
 
 public function allNotification()
 {
@@ -318,11 +331,15 @@ public function pendingService()
 
 public function allService()
 {
-    $all_services = Service::where('user_id', Auth::id())->paginate(5);
+      // $ist_all_services = Service::where('user_id', Auth::id())->pluck('id');
+      // $ist_all_services_id = $ist_all_services->id;
 
-    return view ('seller.service.all_service', [
-        'all_services' => $all_services
-     ]);
+    $all_services = Service::where('user_id', Auth::id() )->get();
+     
+    // $all_service_images = ImageUpload::where('service_id', $ist_all_services)->pluck('filename');
+    // dd($all_service_images  );
+
+    return view ('seller.service.all_service', compact('all_services') );
 }
 
 public function viewServiceUpdate($slug)
