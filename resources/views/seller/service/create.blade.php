@@ -19,110 +19,101 @@ Create Service |
 
 
 
-  @if (session('service_id'))
-<div class="mb-5 container-fluid">
+  {{-- @if (session('service_id')) --}}
+  <div id="drag_image" class="mb-5 container" style="display: none;">
 
-          <div class="text-center" style="margin: 20px 0px 20px 0px;">
-       {{--  <a href="https://shouts.dev/" target="_blank"><img src="https://i.imgur.com/hHZjfUq.png"></a><br> --}}
-        <span class="text-secondary">Click here to drag and drop all your service images</span>
-    </div>
-
-    <form method="post" action="{{url('upload/store/')}}" enctype="multipart/form-data"
-          class="dropzone" id="dropzone">
-        @csrf
-    </form>
-
+    <div class="text-center" style="margin: 20px 0px 20px 0px;">
+     {{--  <a href="https://shouts.dev/" target="_blank"><img src="https://i.imgur.com/hHZjfUq.png"></a><br> --}}
+     <span class="text-danger">Click Inside To Drap and Drop Multiple Images For Your Service</span>
+   </div>
+ <div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+   <form method="post" action="{{url('upload/store/')}}" enctype="multipart/form-data"
+   class="dropzone" id="dropzone">
+   @csrf
+ </form>
 </div>
-@endif
+ <div class="col-lg-2">
+   <a href="{{route('seller.service.all')}}"><button class="btn btn-danger">I'm Done</button></a>
+ </div>
+</div>
+</div>
+</div>
 
 
-  @if (!session('status'))
+{{-- @endif --}}
+
+
+{{-- @if (!session('service_id')) --}}
 
 
 
 <section class="content">
+  <div class="row">
+    <div class="col-xs-12">
 
+     <div id="show_form" class="row clearfix">
 
+        <form  class="" enctype="multipart/form-data" style="display: block;">
+          {{ csrf_field() }}
 
-   
+          <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
+            <div class="box box-default">
+              <div class="box-header with-border">
+                <i class="fa fa-plus"></i>
 
-    <div class="row">
-      <div class="col-xs-12">
+                <h2 class="box-title"><strong>Create A Service</strong></h2>
+                <small class="text-danger">*please fill all  fields</small>
+              </div>
+              <div class="body">
 
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-label">Service Name </label><small class="text-danger">*</small>
+                    <input id='name' type="text"  name="name" value="{{ old('name') }}" class="form-control" value="">
+                  </div>
+               </div>
 
-
-
-
-        <div class="row clearfix">
-
-
-
-
-
-
-
-
-          <form class="" method="POST" action="{{route('service.save')}}" enctype="multipart/form-data">
-            {{ csrf_field() }}
-
-            <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
-              <div class="box box-default">
-                <div class="box-header with-border">
-                  <i class="fa fa-plus"></i>
-
-                  <h2 class="box-title"><strong>Create A Service</strong></h2>
-                  <small class="text-danger">*please fill all  fields</small>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="">Description</label>
+                    <textarea id='description' name="description" value="{{ old('description') }}" class="form-control"></textarea>
+                  </div>
                 </div>
-                <div class="body">
 
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label class="form-label">Service Name </label><small class="text-danger">*</small>
-                      <input type="text"  name="name" value="{{ old('name') }}" class="form-control" value="">
-                    </div>
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-label"> Experience (in years)</label><small class="text-danger">*</small>
+                    <input id='experience' type="number"  value="{{ old('experience') }}" name="experience" placeholder="Insert a number" class="form-control" value="">
                   </div>
+                </div>
 
 
-
-
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label for="">Description</label>
-                      <textarea name="description" value="{{ old('description') }}" class="form-control"></textarea>
-                    </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="">Phone</label><small class="text-danger">*</small>
+                    <input id="phone" type="number"  class="form-control" value="{{ old('phone') }}" placeholder="numbers only" name="phone" value=" {{ Auth::user()->phone }}">
                   </div>
+                </div>
 
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-label">Min Price</label>
+                    <input id="min_price" type="text" value="{{ old('min_price') }}" placeholder="e.g 2000 per hour" name="min_price" class="form-control">
 
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label class="form-label"> Experience (in years)</label><small class="text-danger">*</small>
-                      <input type="number"  value="{{ old('experience') }}" name="experience" placeholder="Insert a number" class="form-control" value="">
-                    </div>
                   </div>
+                </div>
 
-
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label for="">Phone</label><small class="text-danger">*</small>
-                      <input type="number"  class="form-control" value="{{ old('phone') }}" placeholder="numbers only" name="phone" value=" {{ Auth::user()->phone }}">
-                    </div>
+                <div class="col-md-12">
+                  <div class="form-check">
+                    <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                    Negotiable  </label>
                   </div>
-
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label class="form-label">Min Price</label>
-                      <input type="text" value="{{ old('min_price') }}" placeholder="e.g 2000 per hour" name="min_price" class="form-control">
-
-                    </div>
-                  </div>
-
-                  <div class="col-md-12">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable" id="defaultCheck1">
-                      <label class="form-check-label" for="defaultCheck1">
-                      Negotiable  </label>
-                    </div>
-                  </div>
+                </div>
 
                   {{--<div class="col-md-12">
                     <div class="form-group">
@@ -161,7 +152,7 @@ Create Service |
 
                           @foreach($states as $state)
 
-                          <option value="{{$state->name}}"> {{ $state->name }}  </option> 
+                          <option id="state" value="{{$state->name}}"> {{ $state->name }}  </option> 
                           @endforeach
                           @endif
 
@@ -186,174 +177,143 @@ Create Service |
                             </span>
                             @endif --}}
 
+                          </div>
+                        </div>
+
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="form-label">Address</label><small class="text-danger">*</small>
+                            <input id="address" type="text"  value="{{ old('address') }}" class="form-control" name="address">
+                          </div>
+
+                        </div>
+
+                        <div class="form-group" style="visibility: hidden">
+                          <label for=""></label>
+                          <textarea name="nearby" class="form-control"></textarea>
+                       </div>
+
                       </div>
-                    </div>
-
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label class="form-label">Address</label><small class="text-danger">*</small>
-                        <input type="text"  value="{{ old('address') }}" class="form-control" name="address">
-                      </div>
-
-
-
-
-
-
-                    </div>
-
-
-                    <div class="form-group" style="visibility: hidden">
-                      <label for=""></label>
-                      <textarea name="nearby" class="form-control"></textarea>
                     </div>
 
 
                   </div>
-                </div>
+                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="box box-default">
+              
+               <div class="body">
 
 
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <div class="box box-default">
-               {{--    <div class="box-header with-border">
-                  </div> --}}
-                  <div class="body">
-{{-- 
-<div class='content'>
-      <!-- Dropzone -->
-      <form action="{{route('users.fileupload')}}" class='dropzone' >
-              <form action="" class='dropzone' >
+                {{-- former image upload div --}}
 
-      </form> 
-    </div>
- --}}
-
-
-<div class="box-header with-border">
+{{-- <div class="box-header with-border">
 
                         <h6 class="box-title">Service Images</h6> &nbsp;
                         <small class="text-danger">*</small>
                 </div>
+                --}}
 
+                {{-- <div class="">
 
-
-
-
-
-
-
-
-                    <div class="">
-                  
-                      <small class="text-success">Click to select multiple images!</small>
+                     <small class="text-success">Click to select multiple images!</small>
                       <div class="body">
                         <input class="form-control"  value="{{ old('file') }}" multiple  name="files[]" type="file">
                         <span class="helper-text text-center" data-error="wrong" data-success="right">Upload Images</span>
-                        {{-- @if ($errors->has('files'))
+                          @if ($errors->has('files'))
                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                 <strong class="text-danger">{{ $errors->first('files') }}</strong>
                             </span>
-                            @endif --}}
-                      </div>
+                            @endif
+                          </div> --}}
 
-                    <div class="form-group">
-                      <label>Select Category</label>
-                      <small class="text-danger">*</small>
-                      <select name="category_id"  class="form-control show-tick">
-                        <option value="">-- Please select --</option>
-                        @foreach($category as $categories)
-                        <option value=" {{ $categories->id }} "> {{ $categories->name }} </option>
-                        @endforeach
-                      </select>
-                    </div>
+                                          {{-- end former image upload div --}}
 
 
+                          <div class="form-group">
+                            <label>Select Category</label>
+                            <small class="text-danger">*</small>
+                            <select name="category_id"  class="form-control show-tick">
+                              <option value="">-- Please select --</option>
+                              @foreach($category as $categories)
+                              <option id="category_id" value=" {{ $categories->id }} "> {{ $categories->name }} </option>
+                              @endforeach
+                            </select>
+                          </div>
+
+                          <div class="">
+                            <div class="">
+                              <h3 class="box-title"> Service Video</h3>
+                            </div>
+                            <div class="body">
+                              <div class="form-group form-float">
+                                <div class="form-line">
+                                  <input type="text" class="form-control" name="video_link">
+                                  <label class="form-label">Video</label>
+                                </div>
+                                <div class="help-info">Youtube Link</div>
+                              </div>
+
+                            </div>
+                          </div>
+
+                          <div class="">
+                            <div class="">
+                              <h3 class="box-title"> <!--Featured Image</h3-->
+                              </div>
+                              <div class="body">
+
+                                <a href=" {{ route('seller.service.all') }}" class="btn btn-danger btn-lg m-t-15 waves-effect">
+                                  <i class="fa fa-arrow-left"></i>
+                                  <span>BACK</span>
+                                </a>
+
+                                <button id="save_btn"  class="btn btn-primary btn-submit_service btn-lg m-t-15 waves-effect">
+                                  <i class="fa fa-save"></i>
+                                 
+                                  <span>Submit</span>
+                                </button>
+                                <button id="loading_btn" class="btn btn-primary" type="button" disabled>
+  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading
+</button>
 
 
+                              </div>
+                               <div id="loading" style="display: block;" class="spinner-grow text-danger" role="status">
+                                  <span class="sr-only">Loading...</span>
+                                  </div>
+                            </div>
 
-                  <div class="">
-                    <div class="">
-                      <h3 class="box-title"> Service Video</h3>
-                    </div>
-                    <div class="body">
-                      <div class="form-group form-float">
-                        <div class="form-line">
-                          <input type="text" class="form-control" name="video_link">
-                          <label class="form-label">Video</label>
+                          </div>
                         </div>
-                        <div class="help-info">Youtube Link</div>
                       </div>
-
-                    </div>
-                  </div>
-
-
-
-                  <div class="">
-                    <div class="">
-                      <h3 class="box-title"> <!--Featured Image</h3-->
-                      </div>
-                      <div class="body">
-
-
-
-
-                        <a href=" {{ route('seller.service.all') }}" class="btn btn-danger btn-lg m-t-15 waves-effect">
-                          <i class="fa fa-arrow-left"></i>
-                          <span>BACK</span>
-                        </a>
-
-                        <button type="submit" class="btn btn-primary btn-lg m-t-15 waves-effect">
-                          <i class="fa fa-save"></i>
-                          <span>Submit</span>
-                        </button>
-
-                      </div>
-                    </div>
+                    </div></form>
+                    <div class="spinner-border m-5" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
 
                   </div>
-</div>
-</div>
-                </div></form>
+                  <!-- /.row -->
+                </div></div>
 
-              </div>
-              <!-- /.row -->
-            </div></div>
+              </section>
 
+              {{-- @endif --}}
 
- 
-
-
-          </section>
+            </div>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
 
 
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
-
-
-
-@endif
-
-
-  
-
-
-          </div>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
-
-
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
-          <script type="text/javascript">
-           $('#state').on('change',function(){
-            console.log('ddd');
-            var stateID = $(this).val();   
-            if(stateID){
-              $.ajax({
-               type:"GET",
+            <script type="text/javascript">
+             $('#state').on('change',function(){
+              console.log('ddd');
+              var stateID = $(this).val();   
+              if(stateID){
+                $.ajax({
+                 type:"GET",
            //url:"{{url('qqq')}}"+stateID,
            url: '../../api/get-city-list/'+stateID,
            success:function(res){               
@@ -370,58 +330,119 @@ Create Service |
            }
          }
        });
-            }else{
-              $("#city").empty();
-            }
+              }else{
+                $("#city").empty();
+              }
 
-          }); 
+            }); 
 
-        </script>
-
-   
+          </script>
 
 
-<script type="text/javascript">
-    Dropzone.options.dropzone =
-        {
-            maxFilesize: 12,
-            renameFile: function (file) {
+
+
+          <script type="text/javascript">
+        $(document).ready(function() {
+        // document.getElementById("complaint_notification").hidden = true;
+        $(".btn-submit_service").click(function(e){
+        document.getElementById("save_btn").style.display = 'none';
+        // document.getElementById("loading").style.display = 'block';
+        e.preventDefault();
+
+        var _token = $("input[name='_token']").val();
+        var name = $("#name").val();
+        var description = $("#description").val();
+        var experience = $("#experience").val();
+        var phone = $("#phone").val();
+        var min_price = $("#min_price").val();
+         var state = $("#state").val();
+        var city = $("#city").val();
+        var address = $("#address").val();
+        var category_id = $("#category_id").val();
+        // function greet(){
+        //             document.getElementById("complaint_notification").hidden = true;
+        //             document.getElementById("complaint_notification").innerHTML = "";
+        //         }
+        //  function set(){
+        //       setTimeout(greet, 20000);
+        //  }
+
+
+        $.ajax({
+            type:'POST',
+            url: '/service/store',
+            data: {_token:_token, name:name,  description:description, experience:experience, phone:phone, min_price:min_price, state:state, city:city, address:address, category_id:category_id },
+            success: function(data) {
+              console.log(data);
+              alert('qqq');
+                  // document.getElementById("ww").hidden = false;
+                   document.getElementById("drag_image").style.removeProperty('display');
+                    document.getElementById("show_form").style.display = 'none';
+                    document.getElementById("loading").style.removeProperty('display');
+                    document.getElementById("loading_btn").style.display = 'block';
+
+                   
+                        // document.getElementById("drag_image").style.removeProperty('display');
+
+            //         document.getElementById("complaint_notification").innerHTML = "Your complaint was sent successfully";
+            // //   greet();
+            // set();
+
+                }
+            });
+        });
+
+    });
+</script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+          var service_id
+        });
+    </script>
+
+
+          <script type="text/javascript">
+            Dropzone.options.dropzone =
+            {
+              maxFilesize: 12,
+              renameFile: function (file) {
                 var dt = new Date();
                 var time = dt.getTime();
                 return time + file.name;
-            },
-            acceptedFiles: ".jpeg,.jpg,.png,.gif",
-            addRemoveLinks: true,
-            timeout: 50000,
-            removedfile: function (file) {
+              },
+              acceptedFiles: ".jpeg,.jpg,.png,.gif",
+              addRemoveLinks: true,
+              timeout: 50000,
+              removedfile: function (file) {
                 var name = file.upload.filename;
                 $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    },
-                    type: 'POST',
-                    url: '{{ url("delete") }}',
-                    data: {filename: name},
-                    success: function (data) {
-                        console.log("File has been successfully removed!!");
-                    },
-                    error: function (e) {
-                        console.log(e);
-                    }
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                  },
+                  type: 'POST',
+                  url: '{{ url("delete") }}',
+                  data: {filename: name},
+                  success: function (data) {
+                    console.log("File has been successfully removed!!");
+                  },
+                  error: function (e) {
+                    console.log(e);
+                  }
                 });
                 var fileRef;
                 return (fileRef = file.previewElement) != null ?
-                    fileRef.parentNode.removeChild(file.previewElement) : void 0;
-            },
+                fileRef.parentNode.removeChild(file.previewElement) : void 0;
+              },
 
-            success: function (file, response) {
+              success: function (file, response) {
                 console.log(response);
-            },
-            error: function (file, response) {
+              },
+              error: function (file, response) {
                 return false;
-            }
-        };
-</script>
+              }
+            };
+          </script>
 
 {{-- 
 
@@ -436,7 +457,7 @@ Create Service |
     myDropzone.on("sending", function(file, xhr, formData) {
        formData.append("_token", CSRF_TOKEN);
     }); 
-    </script> --}}
+  </script> --}}
 
 
 
