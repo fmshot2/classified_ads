@@ -162,7 +162,7 @@
                                 </div>
                                 <div class="tab-pane fade " id="three" role="tabpanel" aria-labelledby="three-tab">
                                     <div class="property-details mb-40">
-                                        <h6 class="heading-2">This User has {{$service_likes}} likes but {{ views($serviceDetail)->count() }} views</h6>
+                                        <h6 class="heading-2">This User has {{$service_likes}} likes</h6>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade " id="four" role="tabpanel" aria-labelledby="four-tab">
