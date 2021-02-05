@@ -8,17 +8,19 @@
     <div class="sub-banner" style="background-image:url({{asset('images/servicesbg.jpg')}})">
         <div class="container">
             <div class="page-name">
-                <h1>Services </h1>
-                <ul>
-                    <li><a href="{{route('home')}}">Home</a></li>
-                    <li><span>/</span>All Services</li>
-                </ul>
+                <div class="sub-banner-text-content">
+                    <h1>Services </h1>
+                    <ul>
+                        <li><a href="{{route('home')}}">Home</a></li>
+                        <li><span>/</span>All Services</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 
 
-    <div class="">
+    {{-- <div class="">
         <h3 class="go-back-btn">
             <span class="text-right">
                 <div class="posts-by-category widget">
@@ -29,7 +31,7 @@
                 </div>
             </span>
         </h3>
-    </div>
+    </div> --}}
 
 
 

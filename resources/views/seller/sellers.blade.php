@@ -6,11 +6,13 @@
     <div class="sub-banner" style="background-image:url({{asset('images/serviceprovidersbg.jpg')}});">
         <div class="container">
             <div class="page-name">
-                <h1>Service Providers</h1>
-                <ul>
-                    <li><a href="{{route('home')}}">Home</a></li>
-                    <li><span>/</span>Service Providers</li>
-                </ul>
+                <div class="sub-banner-text-content">
+                    <h1>Service Providers</h1>
+                    <ul>
+                        <li><a href="{{route('home')}}">Home</a></li>
+                        <li><span>/</span>Service Providers</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

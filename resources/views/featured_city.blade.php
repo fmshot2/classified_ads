@@ -6,11 +6,13 @@
 <div class="sub-banner" style="background-image:url({{ asset('img/popular-places/featuredcities-bg.jpg') }})">
     <div class="container">
         <div class="page-name">
-            <h1>Featured Cities </h1>
-            <ul>
-                <li><a href="http://127.0.0.1:8000">Home</a></li>
-                <li><span>/</span>Featured Cities</li>
-            </ul>
+            <div class="sub-banner-text-content">
+                <h1>Featured Cities </h1>
+                <ul>
+                    <li><a href="http://127.0.0.1:8000">Home</a></li>
+                    <li><span>/</span>Featured Cities</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

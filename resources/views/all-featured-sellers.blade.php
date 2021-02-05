@@ -2,7 +2,7 @@
 @extends('layouts.app')
 
 @section('title')
- Home | 
+ Home |
 @endsection
 
 @section('content')
@@ -10,11 +10,13 @@
 <div class="sub-banner">
     <div class="container">
         <div class="page-name">
-            <h1>Featured Sellers List</h1>
-            <ul>
-                <li><a href="{{route('home')}}">Home</a></li>
-                <li><span>/</span>Featured Sellers</li>
-            </ul>
+            <div class="sub-banner-text-content">
+                <h1>Featured Service Providers</h1>
+                <ul>
+                    <li><a href="{{route('home')}}">Home</a></li>
+                    <li><span>/</span>Service Providers</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -30,7 +32,7 @@
                             <span class="heading-icon bg-warning">
                                 <i class="fa fa-th-list"></i>
                             </span>
-                            <span class="title-name">Featured Sellers</span>
+                            <span class="title-name">Featured Service Providers</span>
                         </h4>
                     </div>
                     <div class="float-right cod-pad">
@@ -59,9 +61,9 @@
                         </a>
                         </div>
                         <div class="detail">
-                            
+
                                 <p class="text-muted mb-0" href="{{route('serviceDetail', $allFeaturedService->slug)}}">{{ Str::limit($allFeaturedService->user->name, 20)}}</p>
-                            
+
                                 <ul class="mt-0">
                                     <li>
                                         <p href="{{route('serviceDetail', $allFeaturedService->slug)}}"> {{$allFeaturedService->state}}</p>
@@ -73,7 +75,7 @@
                                         {{--<span></span><a> {{ Str::limit( $allFeaturedService->phone, 2)}}</a>--}}
                                     </li>
                                 </ul>
-                     
+
 
                             {{--<ul class="social-list clearfix mb-3">
                                 <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
@@ -84,8 +86,8 @@
                         </div>
             </div>
               @endforeach
-                   @endif  
-           
+                   @endif
+
         </div>
     </div>
 </div>

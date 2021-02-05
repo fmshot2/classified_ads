@@ -831,3 +831,26 @@ body {
 .moreLinkModal ul li a {
     display: block;
 }
+
+.sub-banner {
+    position: relative;
+}
+.sub-banner .sub-banner-text-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    justify-content: center;
+    align-items: center;
+}
+.sub-banner .page-name {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100%;
+    margin: 0 !important;
+    background: rgba(0, 0, 0, 0.6);
+}

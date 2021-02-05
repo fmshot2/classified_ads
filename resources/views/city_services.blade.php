@@ -3,23 +3,23 @@
 
 @extends('layouts.app')
 
-@section('title')
- Home | 
-@endsection
+@section('title', 'Search by City | ')
 
 @section('content')
 
 
 <div class="main">
-        
+
 <div class="sub-banner">
     <div class="container">
         <div class="page-name">
-            <h1>Search By City </h1>
-            <ul>
-                <li><a href="{{route('home')}}">Home</a></li>
-                <li><span>/</span>Search By City</li>
-            </ul>
+            <div class="sub-banner-text-content">
+                <h1>Search By City </h1>
+                <ul>
+                    <li><a href="{{route('home')}}">Home</a></li>
+                    <li><span>/</span>Search By City</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -28,15 +28,15 @@
  <div class="">
         <h3><span class="text-right">
             <div class="posts-by-category widget">
-                <!--<h3 class="sidebar-title">Cities</h3>-->                       
+                <!--<h3 class="sidebar-title">Cities</h3>-->
                 <ul class="list-unstyled list-cat">
 
-                   
+
                   <a href="{{route('home')}}" class="btn btn-outline-warning"><i class="fa fa-home">Back To Home</i></a>
-                  
+
               </ul>
           </div></span></h3>
-          
+
       </div>
       </div>
 
@@ -61,14 +61,14 @@
                 </div>
                     <div class="float-right cod-pad">
                         <!-- Posts by category start -->
-                      
+
                         <ul class="list-unstyled list-cat">
                               @if(isset($featuredServices))
                         @foreach($featuredServices as $featuredService)
                         <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning"><i class="fa fa-home">{{$featuredService->city}}</i></a>
                                                             @endforeach
                         @endif
-                                                      
+
                                                     </ul>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                                             {{ $service_in_city->is_verified == 1 ? 'verified' : 'Not yet verified' }}
 
                                         </p>
-                                     
+
                                     </div>
                                     <img class="d-block w-100" src="{{asset('images')}}/{{$service_in_city->image[0]}}" alt="properties img">
                                 </a>
@@ -91,10 +91,10 @@
                                 <h1 class="title text-primary" >{{$service_in_city->user->name}}
                                 </h1>
                                  <p><strong class="text-primary">{{Str::limit($service_in_city->name, 40)}}</strong></p>
-                                <a href="{{route('login')}}">  Login to contact  <strong class="text-primary"> {{Str::limit($service_in_city->user->name, 5)}}</strong></a>                     
+                                <a href="{{route('login')}}">  Login to contact  <strong class="text-primary"> {{Str::limit($service_in_city->user->name, 5)}}</strong></a>
                             </div>
                             <div class="footer clearfix">
-                                
+
                                 <div class="pull-right">
                                     <a><i class="flaticon-time"></i>{{$service_in_city->experience}} yrs experience</a>
                                 </div>
@@ -126,7 +126,7 @@
                                         <input type="text" name="name" class="form-control" placeholder="What Service Are You Looking For?">
                                     </div>
                                 </div>
-                                
+
                                <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="form-group subject">
                                         <input type="text" name="state" class="form-control" placeholder="Enter Your State">
@@ -140,14 +140,14 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
                               <div class="form-group subject">
                                 <select class="form-control" id="state" name="state">
-                                    <option value="">-- Please select category --</option>                                
+                                    <option value="">-- Please select category --</option>
                                     @if(isset($all_categories))
 
                                     @foreach($all_categories as $all_category)
 
-                                    <option value="{{$all_category->id}}"> {{ $all_category->name }}  </option> 
+                                    <option value="{{$all_category->id}}"> {{ $all_category->name }}  </option>
                                     @endforeach
-                                    @endif                         
+                                    @endif
 
                                 </select>
 
@@ -157,14 +157,14 @@
                              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
                               <div class="form-group subject">
                                 <select class="form-control" id="state" name="state">
-                                    <option value="">-- Please select state --</option>                                
+                                    <option value="">-- Please select state --</option>
                                     @if(isset($all_states))
 
                                     @foreach($all_states as $state)
 
-                                    <option value="{{$state->id}}"> {{ $state->name }}  </option> 
+                                    <option value="{{$state->id}}"> {{ $state->name }}  </option>
                                     @endforeach
-                                    @endif                         
+                                    @endif
 
                                 </select>
                             </div>
@@ -185,7 +185,7 @@
                                 <div class="switch">
                                     <label>
                                         <input type="checkbox" name="featured">
-                                        <span class="lever"></span>  
+                                        <span class="lever"></span>
                                         Featured
                                     </label>
                                 </div>
@@ -193,7 +193,7 @@
 
                         </div>
 
-                        
+
                         <div class="col-lg-12 col-md-12">
                             <div class="send-btn">
                                 <button type="submit" class="btn btn-outline-warning btn-block bg-warning text-white">Search  <i class="fa fa-search" aria-hidden="true"></i></button>
@@ -233,11 +233,11 @@
                         <a href="{{route('search_by_city', $featuredService->city)}}" class="btn btn-outline-warning text-gray-dark"><i class="fa fa-home">{{$featuredService->city}}</i></a>
                                                             @endforeach
                         @endif
-                                                      
+
                                                     </ul>
                     </div>
 
-                                 
+
                     <div class="widget helping-center">
                         <div class="s-border"></div>
                         <div class="m-border"></div>
