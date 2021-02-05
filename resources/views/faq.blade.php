@@ -10,7 +10,7 @@
 
 
 <div class="main">
-        <div class="sub-banner" style="background-image:url({{asset('OurBackend/img/hometeacher.jpg')}})">
+        <div class="sub-banner" style="background-image:url({{asset('images/faqbg.jpg')}})">
     <div class="container">
         <div class="page-name">
             <h1>Frequently Asked Questions</h1>
@@ -22,7 +22,7 @@
     </div>
 </div>
 <!-- Faq start -->
-<div class="faq content-area">
+<div class="faq faq-page content-area">
     <div class="container">
         <!-- Main title -->
         <div class="main-title">

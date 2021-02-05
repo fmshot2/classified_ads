@@ -27,32 +27,32 @@ class AuthController extends Controller
 		$validatedData = $request->validate([
 			'name' => ['required', 'string', 'max:255'],
 			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-			'state' => ['string'],			
+			'state' => ['string'],
 			'password' => ['required', 'string', 'min:6', 'confirmed'],
 			// 'captcha' => 'required|captcha',
 			'role' => 'required'
 		]);
-		
+
 		$saveIdOfRefree = User::where(['refererLink'=>$link_from_url])->first();
 		$refererId = $saveIdOfRefree->id;
 		$user = new User;
 		$user->name = $request->name;
 		$user->email = $request->email;
 		$user->password = Hash::make($request->password);
-		$user->role = $request->role;	
-		$user->idOfReferer = $refererId;		
+		$user->role = $request->role;
+		$user->idOfReferer = $refererId;
 
 		//$user->state = $request->state;
 		$user->save();
 		 	if ($user->save()) {
 			$name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
 
-			Mail::to($user->email)->send(new SendMailable($name));
+			// Mail::to($user->email)->send(new SendMailable($name));
 			if ($link_from_url) {
  			$link = new Refererlink();
            $link->refererlink = $link_from_url;
            $link->save();			}
-			
+
 		}
 
 
@@ -72,7 +72,7 @@ class AuthController extends Controller
 	}
 
 
-	
+
 
 	public function refreshCaptcha()
 	{
@@ -85,7 +85,7 @@ class AuthController extends Controller
 $referlink = $refer;
 		//dd($referlink);
 
-		
+
 
 		return view ('auth/register', compact('referlink'));
 	}
@@ -102,7 +102,7 @@ $referlink = $refer;
 		}else{
 			$referParam = null;
 		}
-		$states = State::all(); 
+		$states = State::all();
 
 		if (Auth::check()) {
 			return redirect()->intended('/');
@@ -124,7 +124,7 @@ $referlink = $refer;
 		//$credentials = $request->only('email', 'password');
 
 		//if (Auth::attempt($credentials)) {
-		if (Auth::user()->role == 'seller' ) 
+		if (Auth::user()->role == 'seller' )
 		{
 			session()->flash('success', ' Login Succesfull');
 			return redirect()->intended('seller/dashboard');
@@ -132,14 +132,14 @@ $referlink = $refer;
 		{
 			session()->flash('success', ' Login Succesfull');
 			return redirect()->intended('buyer/dashboard');
-		} else 
+		} else
 		{
 			return redirect()->intended('admin/dashboard');
 		}
 		//}
 		session()->flash('fail', ' Credential Incorect');
 		return view ('auth/login');
-		
+
 	}
 
 
@@ -152,7 +152,7 @@ $referlink = $refer;
 
 		if (Auth::attempt($credentials)) {
 
-			if (Auth::user()->role == 'seller' ) 
+			if (Auth::user()->role == 'seller' )
 			{
 				session()->flash('success', ' Login Succesfull');
 				return redirect()->intended('seller/dashboard');
@@ -160,7 +160,7 @@ $referlink = $refer;
 			{
 				session()->flash('success', ' Login Succesfull');
 				return redirect()->intended('buyer/dashboard');
-			} else 
+			} else
 			{
 				return redirect()->intended('admin/dashboard');
 			}
@@ -200,7 +200,7 @@ $referlink = $refer;
 		$user = User::find($id);
 		$validatedData = $request->validate([
 			'name' => ['required', 'string', 'max:255'],
-			'state' => ['string'],			
+			'state' => ['string'],
 			'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 		]);
 

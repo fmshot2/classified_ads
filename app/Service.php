@@ -3,14 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-// use CyrildeWit\EloquentViewable\InteractsWithViews;
-// use CyrildeWit\EloquentViewable\Contracts\Viewable;
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
 
-class Service extends Model
+class Service extends Model implements Viewable
 {
-    // use InteractsWithViews;
+    use InteractsWithViews;
 
-    // protected $removeViewsOnDelete = true;
+    protected $removeViewsOnDelete = true;
     protected $guarded = [];
 
     public function user()
@@ -33,6 +33,11 @@ class Service extends Model
         else {
             return 'avatar.png';
         }
+    }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 
 

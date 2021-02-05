@@ -68,15 +68,15 @@
                         @if(isset($categories))
                             @foreach($categories as $category)
                                 <div class="col-4 col-xs-2" style="margin: 0; padding: 10px; width: 100%">
-                                    <div class="service-info-5" style="margin: 0; padding: 10px; width: 100%">
+                                    <div class="service-info-5" style="margin: 0; padding: 10px; width: 100%; border: 1px solid rgba(0,0,0,.125);">
                                         <a href="{{route('services', $category->slug)}}" >
                                             <div style="border-radius: 50px">
                                                 <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="properties">
                                             </div>
                                         </a>
 
-                                        <a href="{{route('services', $category->slug)}}" >
-                                            <h6  class="cat-title">{{$category->name}}</h6>
+                                        <a href="{{route('services', $category->slug)}}">
+                                            <h6 class="cat-title" style="margin-top: 5px;">{{$category->name}}</h6>
                                         </a>
                                     </div>
                                 </div>
@@ -135,13 +135,10 @@
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img class="d-block mx-auto img-fluid" src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="First slide">
+                                        <img class="d-block mx-auto img-fluid" src="{{asset('images')}}/{{'do_smart_business.png'}}" alt="First slide">
                                     </div>
                                     <div class="carousel-item">
-                                        <img class="d-block mx-auto img-fluid" src="{{asset('images')}}/{{'pepsi.jpg'}}" alt="Second slide">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img class="d-block mx-auto img-fluid" src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="Third slide">
+                                        <img class="d-block mx-auto img-fluid" src="{{asset('images')}}/{{'efskyviewSidebarSlider.png'}}" alt="Second slide">
                                     </div>
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -164,8 +161,8 @@
                     </div>
 
                     <div class="popular-posts featured-ad-hm-list" style="margin-top: -10px">
-                        {{-- @foreach ($trendingServices as $trendingService)
-                            @if ($loop->index < 10)
+                        @foreach ($trendingServices as $trendingService)
+                            @if ($loop->index < 9)
                                 <div class="media p-2">
                                     <a href="{{ route('serviceDetail', $trendingService->slug) }}">
                                         <div class="media-left">
@@ -179,9 +176,9 @@
                                     </a>
                                 </div>
                             @endif
-                        @endforeach --}}
+                        @endforeach
 
-                        <div class="media p-2">
+                        {{-- <div class="media p-2">
                             <div class="media-left">
                                 <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'enugu-2.jpg'}}" alt="First slide">
                             </div>
@@ -201,7 +198,7 @@
                                     <p class="fea-ad-hm-location"><strong>Location:</strong> Port Harcourt</a></p>
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

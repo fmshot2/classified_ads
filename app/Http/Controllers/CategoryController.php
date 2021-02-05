@@ -29,7 +29,7 @@ class CategoryController extends Controller
 
     public function allCategories()
     {
-        $categories = Category::orderBy('id', 'desc')->paginate(12);
+        $categories = Category::orderBy('id', 'desc')->paginate(20);
         return view ('allCategories', compact('categories') );
     }
 
@@ -39,9 +39,9 @@ class CategoryController extends Controller
 
        $category = Category::find($id);
        $categories = Service::where('id', $id)->get();
-                //return 'categories'; 
+                //return 'categories';
 
-        //return view ('categoryDetails', compact('categories') ); 
+        //return view ('categoryDetails', compact('categories') );
 
 
        $categories = Category::orderBy('id', 'desc')->paginate(12);
@@ -71,7 +71,7 @@ class CategoryController extends Controller
         //dd('asasas');
      $this->validate($request,[
         'name' => ['required', 'unique:categories'],
-    ]); 
+    ]);
 
      $slug = Str::of($request->name)->slug('-');
              $slug2 = Str::random(5);
@@ -118,8 +118,8 @@ return $this->index();
         //$service = Service::find($id);
       //$service_slug = $service->slug;//
         $categories = Category::orderBy('id', 'asc')->paginate(35);
-        $states = State::all(); 
-        $local_governments = Local_government::all();               
+        $states = State::all();
+        $local_governments = Local_government::all();
 
 
 
@@ -138,7 +138,7 @@ return $this->index();
         //$category_id = $id;
         //return $category_city;
 
-        return view ('services', compact('category_services', 'toShowOtherSearch', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices', 'categories', 'states', 'local_governments') );        
+        return view ('services', compact('category_services', 'toShowOtherSearch', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices', 'categories', 'states', 'local_governments') );
     }
 
 
@@ -152,7 +152,7 @@ return $this->index();
     public function edit($slug)
     {
         $category = Category::find($slug);
-        return view ('admin/dashboard/category/edit', compact('category') );        
+        return view ('admin/dashboard/category/edit', compact('category') );
     }
 
     /**
@@ -167,7 +167,7 @@ return $this->index();
 
      $this->validate($request,[
         'name' => 'required',
-    ]); 
+    ]);
 
      $category->name = $request->name;
 
@@ -219,7 +219,7 @@ return $this->index();
 
 
     public function getCityList($state_name)
-    {       
+    {
         $state = State::where("name",$state_name)->first();
 
         $state_id = $state->id;

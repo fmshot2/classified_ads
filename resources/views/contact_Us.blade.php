@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="main">
-        <div class="sub-banner" style="background-image:url({{asset('OurBackend/img/makeupartist.jfif')}})">
+        <div class="sub-banner" style="background-image:url({{asset('images/contactusbg.jpg')}})">
             <div class="container">
                 <div class="page-name">
                     <h1>Contact Us</h1>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
 
-                <form action="{{route('store_contact_form')}}" method="POST">
+                <form action="{{route('store_contact_form')}}" method="POST" style="background-color: #fff; padding: 15px">
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-lg-12">

@@ -16,48 +16,45 @@
         </div>
       </form>
       </div>
-      @endif 
+      @endif
 
     </div>
     <!-- /.box-header -->
     <div class="box-body ">
-      <table class="table table-bordered">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th> # </th>
+                    <th> Notification </th>
+                    <th> Date </th>
+                    <th> Action </th>
+                </tr>
+            </thead>
 
-        <tbody>
+            <tbody>
+                @foreach($unread_notification as $key => $unread_notifications)
+                    <tr>
+                        <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                        <td> {{ Str::limit( $unread_notifications->description, 100) }} </td>
+                        <td> {{ $unread_notifications->created_at->diffForHumans() }} </td>
 
-          <tr>
-            <th> # </th>
-            <th> Notification </th>
-            <th> Date </th>
-            <th> Action </th>
-          </tr>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- /.box-body -->
 
-          <tr>
-        @foreach($unread_notification as $key => $unread_notifications)
-
-            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-            <td> {{ Str::limit( $unread_notifications->description, 100) }} </td>
-            <td> {{ $unread_notifications->created_at->diffForHumans() }} </td>
-
-            <td>
-              <div class="btn-group">
-                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-                  <span class="caret"></span>
-                  <span class="sr-only">Toggle Dropdown</span>
-                </button>
-
-              </ul>
-            </div>
-          </td>
-
-        </tr>
-
-        @endforeach
-
-      </tbody>
-    </table>
-  </div>
-  <!-- /.box-body -->
 
 @if (url()->current() == route('seller.notification.unread') )
 <div class="box-footer clearfix">

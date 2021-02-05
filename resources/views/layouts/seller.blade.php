@@ -15,8 +15,8 @@
 	@yield('content')
 
 	@include('layouts.seller_partials.footer')
-	@include('layouts.seller_partials.script')
-	
+    @include('layouts.seller_partials.script')
+
 </body>
 
 </html>

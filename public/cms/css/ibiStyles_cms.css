@@ -1,0 +1,6 @@
+span.info-box-icon.push-bottom.bg-warning {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}

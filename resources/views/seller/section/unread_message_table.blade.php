@@ -17,46 +17,44 @@
         </div>
       </form>
       </div>
-      @endif 
+      @endif
 
     </div>
     <!-- /.box-header -->
     <div class="box-body ">
-      <table class="table table-bordered">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th> # </th>
+                        <th> From </th>
+                        <th> Email </th>
+                        <th> Message </th>
+                        <th> Status </th>
+                        <th> Date </th>
+                        <th> Action </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($unread_message as $key => $unread_messages)
+                    <tr>
+                        <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                        <td> {{ $unread_messages->buyer_name }} </td>
+                        <td> {{ $unread_messages->buyer_email }} </td>
+                        <td> {{ Str::limit($unread_messages->description, 30) }} </td>
+                        <td> {{ $unread_messages->status == 1 ? ' Read' : 'Unread' }} </td>
+                        <td> {{ $unread_messages->created_at->diffForHumans() }} </td>
+                        <td class="center">
+                            <a href=" {{ route('seller.message.view',$unread_messages->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
+                        </td>
 
-        <tbody>
-
-          <tr>
-            <th> # </th>
-            <th> From </th>
-            <th> Email </th>
-            <th> Message </th>
-            <th> Status </th>
-            <th> Date </th>
-            <th> Action </th>
-          </tr>
-
-          <tr>
-        @foreach($unread_message as $key => $unread_messages)
-            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-            <td> {{ $unread_messages->buyer_name }} </td>
-            <td> {{ $unread_messages->buyer_email }} </td>
-            <td> {{ Str::limit($unread_messages->description, 30) }} </td>
-            <td> {{ $unread_messages->status == 1 ? ' Read' : 'Unread' }} </td>
-            <td> {{ $unread_messages->created_at->diffForHumans() }} </td>
-
-          <td class="center">
-            <a href=" {{ route('seller.message.view',$unread_messages->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
-          </td>
-
-        </tr>
-
-        @endforeach
-
-      </tbody>
-    </table>
-  </div>
-  <!-- /.box-body -->
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.box-body -->
 
 @if (url()->current() == route('seller.message.unread') )
 <div class="box-footer clearfix">
@@ -68,6 +66,6 @@
 
 </div>
 
-@include('seller/modal/create_service') 
+@include('seller/modal/create_service')
 
 
