@@ -8,10 +8,11 @@
         <div class="box-tools">
 
         </div>
-        
+
         <!-- /.box-header -->
         <div class="box-body">
-            <table class="table table-hover">
+            <div class="table-responsive">
+                <table class="table table-hover">
 
                 <tbody>
 
@@ -33,7 +34,7 @@
                         <td> {{ $all_services->is_featured == 1 ? 'Yes' : 'No' }} </td>
                         <td> {{ $all_services->status == 1 ? 'Active' : 'Pending' }} </td>
                         <td> {{ $all_services->created_at->diffForHumans() }} </span></td>
-                        
+
                         <td class="center">
                             <a href="{{ route('service.view', $all_services->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
                         </td>
@@ -43,6 +44,8 @@
 
                 </tbody>
             </table>
+            </div>
+
         </div>
         <!-- /.box-body -->
     </div>

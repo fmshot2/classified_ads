@@ -16,7 +16,7 @@
 
        <br>
     <hr>
-    
+
     <!-- search form -->
  {{--   <form action="#" method="get" class="sidebar-form">
       <div class="input-group">
@@ -58,7 +58,7 @@
         <a href=" {{route ('admin.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
           <span class="pull-right-container">
-            <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small> 
+            <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small>
           </span>
         </a>
       </li>
@@ -80,13 +80,13 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href=" {{ route('admin.buyer') }} "><i class="fa fa-circle-o"></i> Buyer </a></li>
-          <li><a href=" {{ route('admin.seller') }} "><i class="fa fa-circle-o"></i> Seller </a></li>
+          <li><a href=" {{ route('admin.buyer') }} "><i class="fa fa-circle-o"></i> Service Seekers </a></li>
+          <li><a href=" {{ route('admin.seller') }} "><i class="fa fa-circle-o"></i> Service Providers </a></li>
         </ul>
       </li>
 
 
-      <li class="treeview" style=" {{ url()->current() == route('admin.show_faq') ? 'background-color: #f8d053' : '' }} 
+      <li class="treeview" style=" {{ url()->current() == route('admin.show_faq') ? 'background-color: #f8d053' : '' }}
       {{ url()->current() == route('admin.privacy.policy') ? 'background-color: #f8d053' : '' }}
       {{ url()->current() == route('admin.sliders') ? 'background-color: #f8d053' : '' }}
        {{ url()->current() == route('admin.termsOfUse') ? 'background-color: #f8d053' : '' }}">
@@ -108,7 +108,7 @@
 
 
 
-<li class="treeview" style=" {{ url()->current() == route('pending_advert_requests') ? 'background-color: #f8d053' : '' }} 
+<li class="treeview" style=" {{ url()->current() == route('pending_advert_requests') ? 'background-color: #f8d053' : '' }}
       {{ url()->current() == route('treated_advert_requests') ? 'background-color: #f8d053' : '' }}
       {{ url()->current() == route('active_adverts') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
@@ -141,7 +141,7 @@
         </a>
       </li>
 
-      
+
 
         <li>
         <a href=" {{ route ('badge.request') }} ">
@@ -175,7 +175,7 @@
 
  <!-- /.sidebar -->
  <div class="sidebar-footer">
-  <!-- item--> 
+  <!-- item-->
     <a href=" {{route('admin.notification.all') }} " class="link" data-toggle="tooltip" title="" data-original-title="Message"><i class="fa fa-envelope"></i></a>
     <!-- item-->
 
@@ -183,7 +183,7 @@
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
        @csrf
      </form>
-     <i class="fa fa-power-off"></i></a> 
+     <i class="fa fa-power-off"></i></a>
 </div>
 </section>
 </aside>

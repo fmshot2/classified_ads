@@ -4,7 +4,7 @@
             <div class="search-area-inner">
                 <div class="search-contents">
                      <form>
-                 
+
                     </form>
                     <form action="{{route('search3')}}" method="GET">
                         <div class="row">
@@ -17,7 +17,7 @@
                             <div class="col-lg-2 col-md-4 col-sm-6" style="">
                                 <div class="form-group">
                                   <select class="form-control" required id="categories" name="category">
-                                      <option value="">-- Select Category --</option>
+                                      <option value="">- Select Category -</option>
                                             @if(isset($categories))
                                       @foreach($categories as $category)
                                       <option value="{{ $category->id }}"> {{ $category->name }}  </option>
@@ -29,14 +29,16 @@
 
                             <div class="col-lg-2 col-md-4 col-sm-6" style="">
                                 <div class="form-group">
-                                    <select class="form-control" id="sub_category" name="sub_categories"></select>
+                                    <select class="form-control" id="sub_category" name="sub_categories">
+                                        <option value="">- Sub Category -</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="col-lg-2 col-md-4 col-sm-6" style="">
                                 <div class="form-group">
                                     <select class="form-control" required id="state" name="state">
-                                        <option value="">-- Select State --</option>
+                                        <option value="">- Select State -</option>
                                         @if(isset($states))
                                             @foreach($states as $state)
 
@@ -49,7 +51,9 @@
 
                             <div class="col-lg-2 col-md-4 col-sm-6" style="">
                                 <div class="form-group">
-                                    <select class="form-control" id="city" name="city"></select>
+                                    <select class="form-control" id="city" name="city">
+                                        <option value="">- Select City -</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -72,6 +76,13 @@
         </div>
     </div>
 </div>
+
+
+<header class="top-header top-header-ads-mobile" style="display: flex; justify-content: center; background: linear-gradient(90deg, rgba(251,219,35,1) 52%, rgba(243,163,27,1) 66%); width: 100%; margin: 0">
+    <a href="https://efskyview.com/">
+        <img src="{{ asset('images/skyviewstickyads.gif') }}" alt="" style="width: 100%; height: 35px">
+    </a>
+</header>
 
 
 

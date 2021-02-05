@@ -30,58 +30,56 @@ All Service Table |
 
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table class="display table table-bordered data_table_main">
-							<thead>
-								<tr>
-									<th> SL </th>
-									<th> Image </th>
-									<th> Title </th>
-									<th> State </th>
-									<th> Featured </th>
-									<th> Date </th>
-									<th>Comments</th>
-									<th>Badge Type</th>
-									<th>Likes</th>
-									<th> Action </th>
-								</tr>
-							</thead>
+						<div class="table-responsive">
+                            <table class="display table table-bordered data_table_main">
+                                <thead>
+                                    <tr>
+                                        <th> SL </th>
+                                        <th> Image </th>
+                                        <th> Title </th>
+                                        <th> State </th>
+                                        <th> Featured </th>
+                                        <th> Date </th>
+                                        <th>Comments</th>
+                                        <th>Badge Type</th>
+                                        <th>Likes</th>
+                                        <th> Action </th>
+                                    </tr>
+                                </thead>
 
-							<tbody>
-{{-- {{$all_service}} --}}
-									@foreach($all_services as $key => $all_service)
-
-									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-									<td>
-										<a href="#">
-											<img src="{{asset('images')}}/{{$all_service->first_image }}"  alt="service image" width="60" class="img-responsive img-rounded">
-										</a>
-									</td>
-									<td> {{ $all_service->name }} </td>
-									<td> {{ $all_service->state }} </td>
-									<td> {{ $all_service->featured == 1 ? 'Yes' : 'No' }} </td>
-									<td> {{ $all_service->created_at->diffForHumans() }} </td>
-									<td><span><i class="fa fa-comments">  comments</i> {{$all_service->messages->count()}}</span> </td>
-									<td> {{$all_service->badge_type ? $all_service->badge_type : 'No Badges'}}</td>
-									<td> {{$all_service->likes->count()}}</td>
-
-
-									<td class="center">
-										<a href="{{ route('service.view', $all_service->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
-										<a href="{{ route('service.update.view', $all_service->slug) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
-										<a href="{{ route('seller.service.destroy', $all_service->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-									</td>
-
-								</tr>
-
-								@endforeach
+                                <tbody>
+                                    @foreach($all_services as $key => $all_service)
+                                        <tr>
+                                            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                                            <td>
+                                                <a href="#">
+                                                    <img src="{{asset('images')}}/{{$all_service->first_image }}"  alt="service image" width="60" class="img-responsive img-rounded">
+                                                </a>
+                                            </td>
+                                            <td> {{ $all_service->name }} </td>
+                                            <td> {{ $all_service->state }} </td>
+                                            <td> {{ $all_service->featured == 1 ? 'Yes' : 'No' }} </td>
+                                            <td> {{ $all_service->created_at->diffForHumans() }} </td>
+                                            <td><span><i class="fa fa-comments">  comments</i> {{$all_service->messages->count()}}</span> </td>
+                                            <td> {{$all_service->badge_type ? $all_service->badge_type : 'No Badges'}}</td>
+                                            <td> {{$all_service->likes->count()}}</td>
 
 
-							</tbody>
-						</table>
+                                            <td class="center">
+                                                <a href="{{ route('service.view', $all_service->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
+                                                <a href="{{ route('service.update.view', $all_service->slug) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
+                                                <a href="{{ route('seller.service.destroy', $all_service->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
 
+                                </tbody>
+                            </table>
+                        </div>
 
-                        <p>{{ $all_services->links() }}</p>
+
+                        {{-- <p>{{ $all_services->links() }}</p> --}}
 					</div>
 					<!-- /.box-body -->
 				</div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Advert;
 use Illuminate\Http\Request;
 use App\Service;
 use App\User;
@@ -31,7 +32,7 @@ class AdminController extends Controller
     $all_service = Service::paginate(10);
     return view ('admin.service.index', compact('all_service') );
   }
-  
+
 
   public function advertisement() {
     return view('advertisement');
@@ -70,7 +71,7 @@ class AdminController extends Controller
   {
     //return view('events');
     $all_events = Event::all();
-    
+
     return view ('admin.page_management.events', compact('all_events'));
   }
 
@@ -79,29 +80,29 @@ class AdminController extends Controller
   {
     //return view('events');
     $all_events = Event::all();
-    
+
     return view ('all_events', compact('all_events'));
   }
 
 
   public function save_event(Request $request)
   {
-    $id = $request->id;  
-    $title = $request->title;  
-    $image = $request->image;  
-    $date = $request->event_date;  
-    $time = $request->event_time;  
-    //$venue = $request->venue;  
-    $location = $request->location;  
-    $description = $request->description;  
-    
+    $id = $request->id;
+    $title = $request->title;
+    $image = $request->image;
+    $date = $request->event_date;
+    $time = $request->event_time;
+    //$venue = $request->venue;
+    $location = $request->location;
+    $description = $request->description;
+
 
     $new_event = new Event();
     $new_event->title = $title;
     $new_event->image = $image;
     $new_event->date = $date;
     $new_event->time = $time;
-    $new_event->location = $location;   
+    $new_event->location = $location;
     $new_event->description = $description;
 
 
@@ -186,14 +187,14 @@ class AdminController extends Controller
    }
 
    public function serviceSearch(Request $request)
-   {   
+   {
     $query = $request->input('query');
     $services = Service::where('name','LIKE',"%$query%")->paginate(8);
     return view('admin/search/service_search', compact('services', 'query'));
   }
 
   public function userSearch(Request $request)
-  {   
+  {
     $query = $request->input('query');
     $users = User::where('name','LIKE',"%$query%")->paginate(8);
     return view('admin/search/index', compact('users', 'query'));
@@ -271,8 +272,8 @@ class AdminController extends Controller
    $slug = Str::random(7);
    $notification = new Notification;
    $notification->title = $request->title;
-   $notification->description = $request->description;  
-   $notification->slug = $slug;    
+   $notification->description = $request->description;
+   $notification->slug = $slug;
    $notification->save();
    return back()->with('status', 'Task was successful!');
  }
@@ -339,9 +340,9 @@ public function save_privacyPolicy(Request $request)
 
 public function save_faq(Request $request)
 {
-  $id = $request->id;  
-  $faqDetails = $request->details;  
-  $faqTitle = $request->title;  
+  $id = $request->id;
+  $faqDetails = $request->details;
+  $faqTitle = $request->title;
       //$faq = Faq::where('id', $id);
   $faq = Faq::find($id);
 
@@ -373,7 +374,7 @@ public function save_faq(Request $request)
            Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
            $likecount = Like::where(['service_id'=>$id])->count();
            return redirect()->to('serviceDetail/'.$service_slug);
-        
+
          }else{
            $like = new Like();
            $like->user_id = Auth::id();
@@ -403,22 +404,31 @@ public function save_faq(Request $request)
         public function sliders()
         {
           $sliders = Slider::paginate(10);
-          return view ('admin.page_management.sliders', compact('sliders') );
+          $AdvertSliders = Advert::paginate(10);
+          return view ('admin.page_management.sliders', compact(['sliders', 'AdvertSliders']) );
+        }
+
+        public function slider($id)
+        {
+          $slider = Slider::find($id);
+          return $slider;
         }
 
 
 
         public function save_slider(Request $request)
         {
-          $id = $request->id;  
-          $sliderDetails = $request->details;  
-          $sliderTitle = $request->title;  
+          $id = $request->id;
+          $sliderDetails = $request->details;
+          $sliderTitle = $request->title;
+          $sliderLink = $request->links;
       //$faq = Faq::where('id', $id);
           $slider = Slider::find($id);
 
           if ($slider) {
            $slider->details = $sliderDetails;
            $slider->title = $sliderTitle;
+           $slider->links = $sliderLink;
            $slider->save();
            return back()->with('success', 'Task was successful!');
          }
@@ -429,6 +439,7 @@ public function save_faq(Request $request)
          $new_slider->save();
          return back()->with('success', 'Task was successful!');
        }
+
 
        public function delete_sliders($id)
        {
@@ -443,7 +454,7 @@ public function save_faq(Request $request)
       {
        $this->validate($request,[
         'email' => ['required'],
-      ]); 
+      ]);
 
 
        $subscription = new Subscription();
@@ -489,7 +500,7 @@ public function save_faq(Request $request)
             'message' => $message,
             'status_message' => $status_message,
 
-        ]);   
+        ]);
       }
      //  $activatorcheck = User::where(['user_id'=>Auth::id(), 'service_id'=>$id])->first();
      //  if ($likecheck) {

@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="main">
-    <div class="sub-banner" style="background-image:url({{asset('OurBackend/img/mech3.jpg')}})">
+    <div class="sub-banner" style="background-image:url({{asset('images/servicesbg.jpg')}})">
         <div class="container">
             <div class="page-name">
                 <h1>Services </h1>
@@ -45,6 +45,7 @@
                                 <span class="heading-icon bg-warning">
                                     <i class="fa fa-th-large"></i>
                                 </span>
+                                <span class="title-name">All Services</span>
                             </h4>
                         </div>
                         <div class="float-right cod-pad">

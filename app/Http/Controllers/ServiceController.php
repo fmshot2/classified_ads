@@ -19,6 +19,7 @@ use App\Mail\SendMailable;
 use Illuminate\Http\File;
 use App\Category;
 use App\Local_government;
+use App\Slider;
 use App\State;
 //use Illuminate\Support\Str;
 
@@ -53,7 +54,8 @@ class ServiceController extends Controller
     $advertServices = Service::where('is_approved', 1)->with('user')->get();
     $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(16);
     $categories = Category::orderBy('id', 'asc')->paginate(35);
-    // $trendingServices = Service::orderByUniqueViews()->get();
+    $sliders = Slider::all();
+    $trendingServices = Service::orderByUniqueViews()->get();
 
     $states = State::all();
     $local_governments = Local_government::all();
@@ -66,7 +68,7 @@ class ServiceController extends Controller
       $user111 = null;
     }
     return view('welcome', compact(['featuredServices', 'recentServices',
-      'approvedServices', 'user111', 'categories', 'states', 'local_governments']));
+      'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'sliders', 'trendingServices']));
 
   }
 
@@ -98,8 +100,8 @@ class ServiceController extends Controller
     $user_id = $serviceDetail->user_id;
     $userMessages = Message::where('service_id', $serviceDetail_id)->orderBy('created_at','desc')->take(7)->get();
 
-    // $expiresAt = now()->addHours(24);
-    // views($serviceDetail)->cooldown($expiresAt)->record();
+    $expiresAt = now()->addHours(24);
+    views($serviceDetail)->cooldown($expiresAt)->record();
 
     if ($ww = session()->get('message')) {
       $ww2 = $ww;

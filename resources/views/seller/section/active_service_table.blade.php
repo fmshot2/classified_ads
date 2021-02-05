@@ -8,38 +8,40 @@
 	</div>
 	<!-- /.box-header -->
 	<div class="box-body ">
-		<table class="table table-bordered">
+		<div class="table-responsive">
+            <table class="table table-bordered">
 
-			<tbody>
+                <tbody>
 
-				<tr>
-					<th> # </th>
-					<th> Name </th>
-					<th> Experienced </th>
-					<th> Featured </th>
-					<th> Date </th>
-				</tr>
+                    <tr>
+                        <th> # </th>
+                        <th> Name </th>
+                        <th> Experienced </th>
+                        <th> Featured </th>
+                        <th> Date </th>
+                    </tr>
 
-				<tr>
-					@foreach($active_service as $key => $active_services)
-					<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-					<td> {{ $active_services->name }} </td>
-					<td><span class="text-muted"><i class="fa fa-clock-o"></i> {{ $active_services->experience }} </span> </td>
-					<td> {{ $active_services->is_featured == 1 ? 'Yes' : 'No' }} </td>
-					<td> {{ $active_services->created_at->diffForHumans() }} </td>
-				</tr>
+                    <tr>
+                        @foreach($active_service as $key => $active_services)
+                        <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                        <td> {{ $active_services->name }} </td>
+                        <td><span class="text-muted"><i class="fa fa-clock-o"></i> {{ $active_services->experience }} </span> </td>
+                        <td> {{ $active_services->is_featured == 1 ? 'Yes' : 'No' }} </td>
+                        <td> {{ $active_services->created_at->diffForHumans() }} </td>
+                    </tr>
 
-				@endforeach
+                    @endforeach
 
-			</tbody>
-		</table>
+                </tbody>
+            </table>
+        </div>
 	</div>
 	<!-- /.box-body -->
 
 	@if (url()->current() == !route('seller.dashboard') )
 	<div class="box-footer clearfix">
 
-		{{ $active_service->links() }} 
+		{{ $active_service->links() }}
 
 	</div>
 	@endif

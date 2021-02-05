@@ -1,6 +1,8 @@
 
 @extends('layouts.app')
 
+@section('title', $serviceDetail->name . ' | ')
+
 @section('content')
 <!-- Sub banner start -->
 <div class="sub-banner" style="background-image:url({{asset('OurBackend/img/hometeacher.jpg')}})">

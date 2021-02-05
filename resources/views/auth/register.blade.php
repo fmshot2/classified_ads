@@ -55,8 +55,8 @@
                                     <div class="form-group">
                                         <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="role" required>
                                             <option selected> Choose... </option>
-                                            <option value="seller"> Seller </option>
-                                            <option value="buyer"> Buyer </option>
+                                            <option value="seller"> Service Provider </option>
+                                            <option value="buyer"> Service Seeker </option>
                                         </select>
                                     </div>
                                 </div>
@@ -101,14 +101,14 @@
                             {!! $general_info->register_section_3 ? $general_info->register_section_3 : '' !!}
                         </p>
                     @endif
-                    <hr>
+                    {{-- <hr>
                     <div class="info clearfix">
                         <div class="logo-2">
                             <a href="{{url('/')}}">
                                 <img src="logos/Logo.png" class="cm-logo" alt="black-logo">
                             </a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

@@ -1,26 +1,21 @@
 
 @extends('layouts.app')
 
-@section('title')
- Home | 
-@endsection
+@section('title', 'Service Providers | ')
 
 @section('content')
 
 <div class="sub-banner">
     <div class="container">
         <div class="page-name">
-            <h1>Sellers List</h1>
+            <h1>Service Providers</h1>
             <ul>
-                <li><a href="{{route('home')}}">Index</a></li>
-                <li><span>/</span>Sellers List</li>
+                <li><a href="{{route('home')}}">Home</a></li>
+                <li><span>/</span>Service Providers</li>
             </ul>
         </div>
     </div>
 </div>
-
-
-
 
 
 
@@ -34,7 +29,7 @@
                             <span class="heading-icon">
                                 <i class="fa fa-th-list"></i>
                             </span>
-                            <span class="title-name">Sellers List</span>
+                            <span class="title-name">Service Providers</span>
                         </h4>
                     </div>
                   <!--  <div class="float-right cod-pad">
@@ -95,8 +90,8 @@
                 </div>
             </div>
               @endforeach
-                   @endif  
-           
+                   @endif
+
         </div>
     </div>
 </div>

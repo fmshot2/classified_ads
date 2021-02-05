@@ -19,7 +19,7 @@
         "laravel/ui": "2.4",
         "laravelcollective/html": "~6.0",
         "mews/captcha": "^3.2",
-        "tymon/jwt-auth": "dev-develop"
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

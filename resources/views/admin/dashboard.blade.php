@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Admin | 
+Admin |
 @endsection
 
 @section('content')
@@ -35,7 +35,7 @@ Admin |
               <span class="info-box-number"> {{ $all_service_count }} </span>
 
               <div class="progress">
-                <div class="progress-bar progress-bar-blue" style="width: {{ $all_service_count }} %"></div>
+                <div class="progress-bar progress-bar-danger" style="width: {{ $all_service_count }} %"></div>
               </div>
               <span class="progress-description">
                 <!-- Extra content can go here -->
@@ -55,7 +55,7 @@ Admin |
               <span class="info-box-number"> {{ $all_categories_count }} </span>
 
               <div class="progress">
-                <div class="progress-bar progress-bar-success" style="width: {{ $all_categories_count }}%"></div>
+                <div class="progress-bar progress-bar-danger" style="width: {{ $all_categories_count }}%"></div>
               </div>
               <span class="progress-description">
                 <!-- Extra content can go here -->
@@ -75,7 +75,7 @@ Admin |
               <span class="info-box-number"> {{ $all_sellers_count }} </span>
 
               <div class="progress">
-                <div class="progress-bar progress-bar-primary" style="width: {{ $all_sellers_count }}%"></div>
+                <div class="progress-bar progress-bar-danger" style="width: {{ $all_sellers_count }}%"></div>
               </div>
               <span class="progress-description">
                <!-- 85% Increase in 28 Days -->
@@ -116,7 +116,7 @@ Admin |
           <span class="info-box-number"> {{ $active_service_count }} </span>
 
           <div class="progress">
-            <div class="progress-bar progress-bar-blue" style="width: {{ $active_service_count }}%"></div>
+            <div class="progress-bar progress-bar-danger" style="width: {{ $active_service_count }}%"></div>
           </div>
           <span class="progress-description">
             <!-- Extra content can go here -->
@@ -138,7 +138,7 @@ Admin |
           <span class="info-box-number"> {{ $pending_service_count }} </span>
 
           <div class="progress">
-            <div class="progress-bar progress-bar-blue" style="width:  {{ $pending_service_count }}%"></div>
+            <div class="progress-bar progress-bar-danger" style="width:  {{ $pending_service_count }}%"></div>
           </div>
           <span class="progress-description">
             <!-- Extra content can go here -->
@@ -173,7 +173,7 @@ Admin |
 
   <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
-  
+
 </div>
 <!-- ./wrapper -->
 

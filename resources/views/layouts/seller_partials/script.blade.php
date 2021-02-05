@@ -11,10 +11,10 @@
 
 <!-- SlimScroll -->
 	<script src="{{asset('OurBackend/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
-	
+
 	<!-- FastClick -->
 	<script src="{{asset('OurBackend/assets/vendor_components/fastclick/lib/fastclick.js')}}"></script>
-	
+
 	<!-- Cross Admin App -->
 	<script src="{{asset('OurBackend/js/template.js')}}"></script>
 
@@ -22,7 +22,7 @@
 <!-- Cross Admin for demo purposes -->
 	<script src="{{asset('OurBackend/js/demo.js')}}"></script>
 
-	{{-- <script type="text/javascript" src="{{asset('dropzone/dist/dropzone.js')}}"></script> --}}
+	<script type="text/javascript" src="{{asset('dropzone/dist/dropzone.js')}}"></script>
 
 
 
@@ -46,20 +46,63 @@
 			]
 		});
 	});
+
+
+
+    Dropzone.options.dropzone = {
+	    maxFiles: 5,
+        maxFilesize: 10,
+        acceptedFiles: ".jpeg,.jpg,.png,.gif",
+        addRemoveLinks: true,
+        autoProcessQueue: false,
+        init: function() {
+            var dpzMultipleFiles = this;
+            var submitButton = document.querySelector("#submit-all");
+            submitButton.addEventListener("click", function () {
+                dpzMultipleFiles.processQueue();
+            });
+
+            this.on("queuecomplete", function () {
+                location.reload();
+            });
+        },
+        success: function(file, response)
+        {
+            file.previewElement.id = response.success;
+            var olddatadzname = file.previewElement.querySelector("[data-dz-name]");
+            file.previewElement.querySelector("img").alt = response.success;
+            olddatadzname.innerHTML = response.success;
+        },
+        error: function(file, response)
+        {
+            if($.type(response) === "string")
+                var message = response; //dropzone sends it's own error messages in string
+            else
+                var message = response.message;
+            file.previewElement.classList.add("dz-error");
+            _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                node = _ref[_i];
+                _results.push(node.textContent = message);
+            }
+            return _results;
+        }
+    };
 </script>
 
 {{--      <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
  --}}
-  
 
-	
+
+
 	<!-- This is data table -->
     {{--<script src="{{asset('OurBackend/assets/vendor_plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js')}}"></script>--}}
-    
+
     <!-- start - This is for export functionality only -->
 
     <!-- end - This is for export functionality only -->
-	
+
 	<!-- Cross Admin for Data Table -->
 	{{-- <script src="{{asset('OurBackend/js/pages/data-table.js')}}"></script> --}}
 
