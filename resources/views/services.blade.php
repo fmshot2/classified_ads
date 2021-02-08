@@ -7,17 +7,19 @@
         <div class="sub-banner">
             <div class="container">
                 <div class="page-name">
-                    <h1>{{$one_category->name}} Services</h1>
-                    <ul>
-                        <li><a href="{{route('home')}}">Home</a></li>
-                        <li><span>/</span>{{$one_category->name}} Services</li>
-                    </ul>
+                    <div class="sub-banner-text-content">
+                        <h1>{{$one_category->name}} Services</h1>
+                        <ul>
+                            <li><a href="{{route('home')}}">Home</a></li>
+                            <li><span>/</span>{{$one_category->name}} Services</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
         @include('frontend_section/search')
 
-        <div class="pull-right">
+        {{-- <div class="pull-right">
             <h3>
                 <span class="text-right">
                     <div class="posts-by-category widget">
@@ -28,10 +30,10 @@
                     </div>
                 </span>
             </h3>
-        </div>
+        </div> --}}
 
         <!-- Properties Details page start -->
-        <div class="properties-details-page content-area-7 job-ap-services-page" style="margin-top: 20px">
+        <div class="properties-details-page content-area-7 job-ap-services-page" style="margin-top: -20px">
             <div class="container">
                 <div class="row job-ap-services-page-row">
                     <div class="col-lg-8 col-md-12 col-xs-12 jobApSerDesktop">

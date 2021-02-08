@@ -5,11 +5,13 @@
 <div class="sub-banner">
     <div class="container">
         <div class="page-name">
-            <h1>All Categories</h1>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><span>/</span>All Categories</li>
-            </ul>
+            <div class="sub-banner-text-content">
+                <h1>All Categories</h1>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><span>/</span>All Categories</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

@@ -10,11 +10,13 @@
         <div class="sub-banner" style="background-image:url({{asset('images/contactusbg.jpg')}})">
             <div class="container">
                 <div class="page-name">
-                    <h1>Contact Us</h1>
-                    <ul>
-                        <li><a href="https://efcontact.com">Home</a></li>
-                        <li><span>/</span>Contact Us</li>
-                    </ul>
+                    <div class="sub-banner-text-content">
+                        <h1>Contact Us</h1>
+                        <ul>
+                            <li><a href="https://efcontact.com">Home</a></li>
+                            <li><span>/</span>Contact Us</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

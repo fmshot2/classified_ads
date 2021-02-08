@@ -18,11 +18,13 @@
                 </div>
             @endif
 
-            <h1>Services Detail</h1>
-            <ul>
-                <li><a href="{{route('home')}}">Home</a></li>
-                <li><span>/</span>Service Detail Page</li>
-            </ul>
+            <div class="sub-banner-text-content">
+                <h1>Services Detail</h1>
+                <ul>
+                    <li><a href="{{route('home')}}">Home</a></li>
+                    <li><span>/</span>Service Detail Page</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -52,7 +54,7 @@
     </div>
 </div>
 
-<div class="">
+{{-- <div class="">
     <h3 class="go-back-btn">
         <span class="text-right">
             <div class="posts-by-category widget">
@@ -63,7 +65,7 @@
             </div>
         </span>
     </h3>
-</div>
+</div> --}}
 
     <!-- Properties Details page start -->
     <div class="properties-details-page content-area-7 service-page-sidebar">
@@ -236,7 +238,7 @@
                                         </h3>
 
                                         @guest
-                                        <p class="animate__animated animate__bounce">Please login to see this seller's phone number!</p>
+                                        <p class="animate__animated animate__bounce">Please login to see this service provider's phone number!</p>
 
                                         @endguest
                                         @auth
@@ -280,7 +282,7 @@
                         @endauth
 
                         @guest
-                        <p>Please login as a buyer to see your previous conversation with this seller</p>
+                        <p>Please login as a buyer to see your previous conversation with this service provider</p>
                         @endguest
                     </div>
                 </div>
@@ -290,7 +292,7 @@
                     <div class="sidebar-right">
                         <!-- Advanced search start -->
                         <div class="contact-1 financing-calculator widget">
-                            <h5 class="sidebar-title">Chat With Seller</h5>
+                            <h5 class="sidebar-title">Chat With Provider</h5>
                             <div class="s-border"></div>
                             <div class="m-border" style="margin-bottom: 2px"></div>
                             <div class="s-border" style="margin-bottom: 15px"></div>
@@ -303,7 +305,7 @@
                                 </div>
 
                                 @guest
-                                    <p style="margin-bottom: 5px"><a href="{{route('home')}}"><strong style="color: #28a745">Login</strong></a> to view contact seller</p>
+                                    <p style="margin-bottom: 5px"><a href="{{route('home')}}"><strong style="color: #28a745">Login</strong></a> to view contact provider</p>
                                 @endguest
                             </div>
 
@@ -372,7 +374,7 @@
                                     </div>
 
                                     @guest
-                                        <p>Only registered users can message sellers. <a href="{{route('login')}}"><strong>Login</strong></a> or <a href="{{route('register')}}"><strong>Register</strong></a> if you dont have an account.</p>
+                                        <p>Only registered users can message providers. <a href="{{route('login')}}"><strong>Login</strong></a> or <a href="{{route('register')}}"><strong>Register</strong></a> if you dont have an account.</p>
                                     @endguest
 
                                     @auth
@@ -398,7 +400,7 @@
                                     <li>
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#exampleModalCenter">
-                                        Report Seller  <i class="fa fa-flag"></i>
+                                        Report Provider  <i class="fa fa-flag"></i>
                                         </button>
 
 
@@ -407,7 +409,7 @@
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title text-center" id="exampleModalLongTitle">Report This Seller</h5>
+                                                        <h5 class="modal-title text-center" id="exampleModalLongTitle">Report This Provider</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -449,7 +451,7 @@
                                                                 </div>
 
                                                                 @guest
-                                                                    <p>Only registered users can message sellers. <a href="{{route('home')}}"><strong>Login</strong></a> or <a href="{{route('home')}}"><strong>Register</strong></a> if you dont have an account.</p>
+                                                                    <p>Only registered users can message providers. <a href="{{route('home')}}"><strong>Login</strong></a> or <a href="{{route('home')}}"><strong>Register</strong></a> if you dont have an account.</p>
                                                                 @endguest
 
                                                                 @auth
@@ -466,7 +468,7 @@
                                                     @endauth
 
                                                     @guest
-                                                        <h6>Please log in as a buyer to report this seller </h6>
+                                                        <h6>Please log in as a service seeker to report this provider </h6>
                                                     @endguest
 
                                                 </div>
@@ -493,7 +495,7 @@
                         <h5>
                            @if (session('liked')) YOU HAVE LIKED THIS SERVICE  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger">Unlike</span>
 
-                            </a>  @else HAPPY WITH THE SERVICE RENDERED? GIVE THIS SELLER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!
+                            </a>  @else HAPPY WITH THE SERVICE RENDERED? GIVE THIS PROVIDER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!
 </span> @endif
 
                             </a>

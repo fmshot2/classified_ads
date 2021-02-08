@@ -13,11 +13,13 @@
         <div class="sub-banner" style="background-image:url({{asset('images/faqbg.jpg')}})">
     <div class="container">
         <div class="page-name">
-            <h1>Frequently Asked Questions</h1>
-            <ul>
-                <li><a href="https://efcontact.com">Home</a></li>
-                <li><span>/</span>Faqs</li>
-            </ul>
+            <div class="sub-banner-text-content">
+                <h1>Frequently Asked Questions</h1>
+                <ul>
+                    <li><a href="https://efcontact.com">Home</a></li>
+                    <li><span>/</span>Faqs</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
