@@ -219,70 +219,49 @@ Create Service |
                {{--    <div class="box-header with-border">
                   </div> --}}
                   <div class="body">
-{{--
-<div class='content'>
-      <!-- Dropzone -->
-      <form action="{{route('users.fileupload')}}" class='dropzone' >
-              <form action="" class='dropzone' >
-
-      </form>
-    </div>
- --}}
-
-
-<div class="box-header with-border">
-
-                        <h6 class="box-title">Service Images</h6> &nbsp;
-                        <small class="text-danger">*</small>
-                </div>
-
-
-
-
-
-
-
-
-
-                    <div class="">
-
-                      <small class="text-success">Click to select multiple images!</small>
-                      <div class="body">
-                        <input class="form-control"  value="{{ old('file') }}" multiple  name="files[]" type="file">
-                        <span class="helper-text text-center" data-error="wrong" data-success="right">Upload Images</span>
-                        {{-- @if ($errors->has('files'))
-                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                <strong class="text-danger">{{ $errors->first('files') }}</strong>
-                            </span>
-                            @endif --}}
-                      </div>
-
                     <div class="form-group">
-                      <label>Select Category</label>
-                      <small class="text-danger">*</small>
-                      <select name="category_id"  class="form-control show-tick">
-                        <option value="">-- Please select --</option>
-                        @foreach($category as $categories)
-                        <option value=" {{ $categories->id }} "> {{ $categories->name }} </option>
-                        @endforeach
+                        <div class="box-header">
+                            <h6 class="box-title">Select Category</h6> &nbsp;
+                            <small class="text-danger">*</small>
+                        </div>
+                        <select name="category_id"  class="form-control show-tick">
+                            <option value="">-- Please select --</option>
+                            @foreach($category as $categories)
+                                <option value=" {{ $categories->id }} "> {{ $categories->name }} </option>
+                            @endforeach
                       </select>
                     </div>
 
-
-
-
-
-                  <div class="">
+                    <div class="box-header with-border" style="margin-top: 20px">
+                        <h6 class="box-title">Add Service Image</h6> &nbsp;
+                        <small class="text-danger">*</small>
+                    </div>
                     <div class="">
+                        <div class="body">
+                            <input class="form-control"  value="{{ old('file') }}"  name="thumbnail" type="file">
+                        </div>
+                        {{-- <small class="text-success">Add Service Thumbnail</small>
+                        <div class="body">
+                            <input class="form-control"  value="{{ old('file') }}"  name="thumbnail" type="file">
+                            <span class="helper-text text-center" data-error="wrong" data-success="right">Upload Image</span>
+                            @if ($errors->has('files'))
+                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                    <strong class="text-danger">{{ $errors->first('files') }}</strong>
+                                </span>
+                                @endif
+                        </div> --}}
+
+
+
+                  <div class="" style="margin-top: 20px">
+                    <div class="box-header">
                       <h3 class="box-title"> Service Video</h3>
                     </div>
                     <div class="body">
                       <div class="form-group form-float">
                         <div class="form-line">
-                          <input type="text" class="form-control" name="video_link">
-                          <label class="form-label">Video</label>
+                          <input type="text" class="form-control" name="video_link" placeholder="Video Link (Youtube Link)">
                         </div>
-                        <div class="help-info">Youtube Link</div>
                       </div>
 
                     </div>
