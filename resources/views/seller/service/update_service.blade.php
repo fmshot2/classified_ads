@@ -58,7 +58,7 @@ Update Service |
                   <div class="col-md-12">
                     <div class="form-group">
                       <label class="form-label"> Experience*(in years) </label>
-                      <input type="number" name="experience" class="form-control" value=" {{$service->experience }} ">
+                      <input type="text" name="experience" class="form-control" value=" {{$service->experience }} ">
                       <small class="text-danger">required*</small>
                     </div>
                   </div>

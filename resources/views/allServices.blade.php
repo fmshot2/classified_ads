@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="main">
-    <div class="sub-banner" style="background-image:url({{asset('images/servicesbg.jpg')}})">
+    <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/servicesbg.jpg')}})">
         <div class="container">
             <div class="page-name">
                 <div class="sub-banner-text-content">
