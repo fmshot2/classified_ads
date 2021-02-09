@@ -132,7 +132,7 @@ Update Service |
                 <div class="body">
 
 
-                  <div class="box box-default">
+                  {{-- <div class="box box-default">
                     <div class="box-header with-border">
                       <h3 class="box-title">Gallery Image</h3>
                     </div>
@@ -141,7 +141,7 @@ Update Service |
                       <span class="helper-text" data-error="wrong" data-success="right">Upload one or more images</span>
                       <small class="text-danger">required*</small>                      
                     </div>
-                  </div>
+                  </div> --}}
 
                   
 
@@ -207,10 +207,12 @@ Update Service |
             <!-- /.row -->
           </div></div>
 
+{{-- Previous imaging system --}}
 
-          <div class="box box-default">
+         {{--  <div class="box box-default">
             <div class="box-header with-border">
               <h3 class="box-title">Your Images</h3>
+              <button class="btn btn-toolbar" onclick="showDropzone()">Add More Images</button>
             </div>
             <div class="body">
 
@@ -231,15 +233,14 @@ Update Service |
 
                 <tr>
                   <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                 {{--  <td>
-                    <a href="#">
-                      <img src="{{asset('images')}}/{{$all_services->image[0]}}" alt="classic crib" width="60" class="img-responsive img-rounded">
-                    </a>
-                  </td> --}}
+                 
   <form class="" method="GET" action="{{route('service.updateImage', $image )}}" enctype="multipart/form-data">
             {{ csrf_field() }}
-                              <td> <img src="{{asset('images')}}/{{$image}}" alt="service image" width="60" class="img-responsive img-rounded"></td>
-                  <td><button type="submit" class="btn-danger">Deleted></button></td>
+                              <td> 
+                                <img src="{{asset('uploads/services')}}/{{$image->image_path}}" alt="service image" width="60" class="img-responsive img-rounded">
+                          
+                            </td>
+                  <td><button type="submit" class="btn-danger">Delete</button></td>
                   </form>
                 </tr>
                 @endforeach
@@ -249,14 +250,49 @@ Update Service |
             @endif
 
           </div>
-        </div>
+        </div> --}}
+
+        {{-- End Previous imaging system --}}
 
 
+ <div class="box box-default">
+                <div class="box-header">
+                    <h2 class="box-title" style="font-weight: 700">Service Images</h2>
+                    <p>Add more images to describe your service more!</p>
+                </div>
+                <div class="box-body">
+                        @forelse ($service->images as $image)
+                            <div style="display: inline-flex; flex-wrap: wrap">
+                                <div>
+                                    <img src="{{ asset('uploads/services/'.$image->image_path) }}" alt="" style="display: block;width:100px;">
+                                    <a href="{{ route('service.image.delete', ['id' => $image->id]) }}" style="display:block">Delete</a>
+                                </div>
+                            </div>
+                        @empty
+                            <p>You don't have other images yet!</p>
+                        @endforelse
+                    </div>
+
+                    <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
+                        @csrf
+                        <div class="dz-default dz-message">Drop your service images here</div>
+                    </form>
+                    <br>
+                    <center>
+                        <button id="submit-all" class="btn btn-success" style="height: 40px;"> Upload all the images</button>
+                    </center>
+
+                </div>
 
       </section>
 
 
     </div>
+  {{--   <script type="text/javascript">
+      function showDropzone() {
+        do
+      }
+    </script> --}}
 
     <script>
       function deleteImage(image) {
