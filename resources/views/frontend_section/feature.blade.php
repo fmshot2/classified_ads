@@ -53,7 +53,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-2 col-md-6 col-sm-6 col-6">
                 <div class="form-group">
-                    <a href="{{route('allSellers')}}" class="btn font-weight-bold btn-outline-warning">See All Featured Sellers</a>
+                    <a href="{{route('allSellers')}}" class="btn font-weight-bold btn-outline-warning">See all Featured Sellers</a>
                 </div>
             </div>
         </div>
