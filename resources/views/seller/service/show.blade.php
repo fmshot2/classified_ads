@@ -19,20 +19,35 @@ Create Service |
 
   <section class="content">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-5">
             <div class="box box-default">
                 <div class="box-header">
+                    <div>
+                        <img src="{{ asset('images/00_SEO-and-Digital-Marketing-Agency-Mega-Stationery-Branding-Identity-Design-Template-scaled.jpg') }}" alt="{{ $service->name }}" style="width: 100%; height: auto; margin: 0 auto">
+                    </div>
+                    <div>
                     <h2 style="font-weight: 700; font-size: 17px; margin: 0 0 5px 0; padding: 0">Service Name:</h2>
                     <h4 class="box-title">{{ $service->name }}</h4>
+                    </div>
                 </div>
                 <div class="box-body">
-                    <h2 style="font-weight: 700; font-size: 17px; margin: 0 0 5px 0; padding: 0">Service Description:</h2>
+                    <h6 style="font-weight: 500; font-size: 17px; margin: 0 0 5px 0; padding: 0">Service Description:</h6>
                     <p>{{ $service->description }}</p>
-                </div>
+                    <h6 style="font-weight: 500; font-size: 17px; margin: 0 0 5px 0; padding: 0">Service City:</h6>
+                    <p>{{ $service->city }}</p>
+                    <h6 style="font-weight: 500; font-size: 17px; margin: 0 0 5px 0; padding: 0">Service State:</h6>
+                    <p>{{ $service->state }}</p>
+                    <h6 style="font-weight: 500; font-size: 17px; margin: 0 0 5px 0; padding: 0">Service Street Address:</h6>
+                    <p>{{ $service->address }}</p>
+                     <h6 style="font-weight: 500; font-size: 17px; margin: 0 0 5px 0; padding: 0">Service Experience:</h6>
+                    <p>{{ $service->experience }}</p>
+                    <h3 style="font-weight: 500; font-size: 17px; margin: 0 0 5px 0; padding: 0">Service Phone No:</h3>
+                    <p>{{ $service->phone }}</p>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="box box-default">
+    </div>
+        <div class="col-md-7">
+          {{--   <div class="box box-default">
                 <div class="box-header">
                     <h2 class="box-title" style="font-weight: 700">Service Thumbnail</h2>
                     <p>This is what will show on your service showcase page.</p>
@@ -43,7 +58,7 @@ Create Service |
                 <div class="box-body">
 
                 </div>
-            </div>
+            </div> --}}
             <div class="box box-default">
                 <div class="box-header">
                     <h2 class="box-title" style="font-weight: 700">Service Images</h2>

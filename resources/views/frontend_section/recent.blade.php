@@ -11,7 +11,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 filtr-item">
                         <div class="property-box">
                             <div class="property-thumbnail">
-                                <img class="d-block w-100" src="{{asset('images')}}/{{$recentService->image[0]}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$recentService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                             </div>
                             <div class="detail">
                                 <div>

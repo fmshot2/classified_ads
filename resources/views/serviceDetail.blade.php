@@ -97,15 +97,15 @@
                             <div class="owl-carousel owl-theme owl-loaded owl-drag">
                                 <div class="owl-stage-outer">
                                     <div class="owl-stage" style="transform: translate3d(-1527px, 0px, 0px); transition: all 0.25s ease 0s; width: 3334px;">
-                                        @if(isset($images_4_service))
+                                        {{-- @if(isset($images_4_service)) --}}
                                             @foreach($images_4_service as $key => $image)
-                                                <div class="owl-item" style="width: 128.906px; margin-right: 10px;">
+                                                <div class="owl-item" style="height: 128px; width: 128.906px; margin-right: 10px;">
                                                     <div class="item">
-                                                        <img class="d-block w-100" src="{{asset('images')}}/{{$image}}" alt="First slide">
+                                                        <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$image->image_path}}" alt="First slide">
                                                     </div>
                                                 </div>
                                             @endforeach
-                                        @endif
+                                        {{-- @endif --}}
                                     </div>
                                 </div>
                                 <div class="owl-nav disabled">

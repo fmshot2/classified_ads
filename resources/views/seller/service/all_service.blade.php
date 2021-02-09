@@ -43,6 +43,7 @@ All Service Table |
                                         <th>Comments</th>
                                         <th>Badge Type</th>
                                         <th>Likes</th>
+                                        <th>Images</th>
                                         <th> Action </th>
                                     </tr>
                                 </thead>
@@ -53,7 +54,7 @@ All Service Table |
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                             <td>
                                                 <a href="#">
-                                                    <img src="{{asset('images')}}/{{$all_service->first_image }}"  alt="service image" width="60" class="img-responsive img-rounded">
+                                                    <img src="{{asset('uploads/services')}}/{{$all_service->service_image }}"  alt="service image" width="60" class="img-responsive img-rounded">
                                                 </a>
                                             </td>
                                             <td> {{ $all_service->name }} </td>
@@ -63,7 +64,12 @@ All Service Table |
                                             <td><span><i class="fa fa-comments">  comments</i> {{$all_service->messages->count()}}</span> </td>
                                             <td> {{$all_service->badge_type ? $all_service->badge_type : 'No Badges'}}</td>
                                             <td> {{$all_service->likes->count()}}</td>
+                                            <td>
 
+                                                <a href="#">
+                                                    <img src="{{asset('images')}}/{{$all_service->first_image }}"  alt="service image" width="60" class="img-responsive img-rounded">
+                                                </a>
+                                            </td>
 
                                             <td class="center">
                                                 <a href="{{ route('service.view', $all_service->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>

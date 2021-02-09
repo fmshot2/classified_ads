@@ -56,7 +56,7 @@ Create Service |
 
      <div id="show_form" class="row clearfix">
 
-        <form  class="" enctype="multipart/form-data" style="display: block;">
+        <form action="{{route('service.save')}}" method="POST" class="" enctype="multipart/form-data" style="display: block;">
           {{ csrf_field() }}
 
           <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
@@ -340,7 +340,7 @@ Create Service |
 
 
 
-
+{{-- 
           <script type="text/javascript">
         $(document).ready(function() {
         // document.getElementById("complaint_notification").hidden = true;
@@ -394,6 +394,7 @@ Create Service |
 
     });
 </script>
+ --}}
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -443,22 +444,6 @@ Create Service |
               }
             };
           </script>
-
-{{-- 
-
-         <script>
-    var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
-
-    Dropzone.autoDiscover = false;
-    var myDropzone = new Dropzone(".dropzone",{ 
-        maxFilesize: 3,  // 3 mb
-        acceptedFiles: ".jpeg,.jpg,.png,.pdf",
-    });
-    myDropzone.on("sending", function(file, xhr, formData) {
-       formData.append("_token", CSRF_TOKEN);
-    }); 
-  </script> --}}
-
 
 
 

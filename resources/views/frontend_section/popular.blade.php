@@ -13,7 +13,7 @@
                                 <div class="agenttrusted-badges">
                                     <span class="" style="color: rgb(182, 165, 13)">Trusted <i class="fa fa-star"></i></span>
                                 </div>
-                                <a class="title " href="{{route('serviceDetail', $approvedService->slug)}}"  style="font-size: 14px;">{{ Str::limit($approvedService->name, 50) }} <img class="d-block w-100" src="{{asset('images')}}/{{$approvedService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                <a class="title " href="{{route('serviceDetail', $approvedService->slug)}}"  style="font-size: 14px;">{{ Str::limit($approvedService->name, 50) }} <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$approvedService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                                 </a>
                             </div>
                         @endforeach

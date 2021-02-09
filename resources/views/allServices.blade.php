@@ -91,7 +91,7 @@
                                                     </p>
                                                 </div>
                                                 <div class="listing-time opening" style="text-transform: capitalize">{{ Str::limit($approvedService->user->name, 10) }}</div>
-                                                <img class="d-block w-100" src="{{asset('images')}}/{{$approvedService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$approvedService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                                             </div>
                                             <div class="detail">
                                                 <div>
@@ -197,7 +197,7 @@
                                 @foreach($featuredServices as $key => $featuredService)
                                     <div class="media">
                                         <div class="media-left">
-                                            <img class="media-object" src="{{asset('images')}}/{{$featuredService->image[0]}}">
+                                            <img class="media-object" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}">
                                         </div>
                                         <div class="media-body align-self-center all-ser-pg-sidebar-feat-ser">
                                             <h3 class="media-heading">

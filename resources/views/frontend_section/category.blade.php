@@ -17,7 +17,7 @@
                             <div class="media p-2">
                                 <a href="{{route('serviceDetail', $featuredService->slug)}}">
                                     <div class="media-left">
-                                        <img class="media-object" src="{{asset('images')}}/{{ $featuredService->image[0]}}" alt="sub-properties">
+                                        <img class="media-object" src="{{asset('uploads/services')}}/{{ $featuredService->service_image}}" alt="sub-properties">
                                     </div>
                                 </a>
                                 <div class="media-body align-self-center">
@@ -166,7 +166,7 @@
                                 <div class="media p-2">
                                     <a href="{{ route('serviceDetail', $trendingService->slug) }}">
                                         <div class="media-left">
-                                            <img class="d-block mx-auto img-fluid" src="{{asset('images')}}/{{ $trendingService->image[0] }}" alt="First slide">
+                                            <img class="d-block mx-auto img-fluid" src="{{asset('uploads/services')}}/{{ $trendingService->service_image }}" alt="First slide">
                                         </div>
                                         <div class="media-body align-self-center">
                                             <p class="fea-ad-hm-location"><strong>{{ Str::limit($trendingService->name, 30)}}</strong>

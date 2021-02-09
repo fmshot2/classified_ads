@@ -31,21 +31,21 @@
                         <div class="col-lg-4 col-md-12">
                 <div class="blog-3">
                     <div class="blog-photo">
-                                    <a class="title " href="#"  style="font-size: 14px;"><img src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid"></a>
+                                    <a class="title " href="#"  style="font-size: 14px;"><img style="max-height: 170px;" src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid"></a>
                                             </div>
                 </div>
             </div>
                         <div class="col-lg-4 col-md-12">
                 <div class="blog-3">
                     <div class="blog-photo">
-                                                 <a class="title " href="#"  style="font-size: 14px;"><img src="{{asset('images')}}/{{'download.jpg'}}" alt="advert" class="img-fluid"></a>
+                                                 <a class="title " href="#"  style="font-size: 14px;"><img style="max-height: 170px;" src="{{asset('images')}}/{{'download.jpg'}}" alt="advert" class="img-fluid"></a>
                                             </div>
                 </div>
             </div>
              <div class="col-lg-4 col-md-12">
                 <div class="blog-3">
                     <div class="blog-photo">
-                                                 <a class="title " href="#"  style="font-size: 14px;"><img src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid"></a>
+                                                 <a class="title " href="#"  style="font-size: 14px;"><img style="max-height: 170px;" src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid"></a>
                                             </div>
                 </div>
             </div>
