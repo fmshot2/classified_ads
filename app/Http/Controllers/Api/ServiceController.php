@@ -22,7 +22,7 @@ class ServiceController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'categories']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'categories', 'banner_slider']]);
         $this->user = $this->guard()->user();
     }
 
@@ -87,6 +87,12 @@ class ServiceController extends Controller
     public function show($id)
     {
         $service = Service::find($id);
+
+        if (!$service) {
+            return response()->json([
+                'error' => 'Service not found!',
+            ]);
+        }
         return new ServiceResource($service);
     }
 
