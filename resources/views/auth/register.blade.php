@@ -38,7 +38,7 @@
                                 <input type="hidden" class="input-text" name="refer" value="{{$referParam}}">
                             </div>
                             <div class="form-group form-box clearfix">
-                                <input id="password" type="password" class="input-text" name="password" placeholder="Password" required>
+                                <input id="password" type="password" class="input-text" name="password" placeholder="Password (min: 6 characters)" required>
                                 @if ($errors->has('password'))
                                 <span class="helper-text" data-error="wrong" data-success="right">
                                     <strong class="text-danger">{{ $errors->first('password') }}</strong>
