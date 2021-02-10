@@ -48,6 +48,13 @@ class Service extends Model implements Viewable
         }
     }
 
+
+ public function getTotalLikesAttribute()
+    {
+       return $this->likes->count();
+    }
+
+
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
