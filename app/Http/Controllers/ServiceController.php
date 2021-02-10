@@ -50,7 +50,33 @@ class ServiceController extends Controller
 
   public function index2()
   {
-    $featuredServices = Service::where('is_featured', 1)->with('user')->paginate(16);
+    $featuredServices = Service::where([
+      ['is_approved', '=', 1], ['badge_type', '=', 'trusted']
+    ])->with('user')->paginate(16);
+    $superServices = Service::where([
+      ['is_approved', '=', 1], ['badge_type', '=', 'super']
+    ])->with('user')->paginate(16);
+    $basicServices = Service::where([
+      ['is_approved', '=', 1], ['badge_type', '=', 'basic']
+    ])->with('user')->paginate(16);
+
+    $allServices = Service::where([
+      ['is_approved', '=', 1] ])->get();
+
+    foreach ($allServices as $key => $serv) {
+      // this is assigning a new field callled total_likes to alservices
+      //not, the total_likes is coming from a function in the model
+      $allServices[$key]->total_likes = $serv->total_likes;
+    }
+
+// this will also do what the above code does
+
+    // $sortedServices = $allServices->(function($serve){
+    //   $serve->total_likes = $serve->total_likes;
+    //   return $serve->total_likes;
+    // });
+
+    $hotServices = $allServices->sortByDesc('total_likes');
     $approvedServices = Service::where('status', 1)->with('user')->get();
     $advertServices = Service::where('is_approved', 1)->with('user')->get();
     $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(16);
@@ -69,7 +95,7 @@ class ServiceController extends Controller
       $user111 = null;
     }
     return view('welcome', compact(['featuredServices', 'recentServices',
-      'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'sliders', 'trendingServices']));
+      'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'superServices', 'basicServices', 'hotServices' ]));
 
   }
 

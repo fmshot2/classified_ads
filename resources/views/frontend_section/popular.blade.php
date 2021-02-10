@@ -2,18 +2,18 @@
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
-            <h1>Verified Businesses</h1>
+            <h1>Hot Businesses</h1>
         </div>
-        @if(isset($approvedServices))
+        @if(isset($hotServices))
             <div class="row wow animated" style="visibility: visible;">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="row">
-                        @foreach($approvedServices as $approvedService)
+                        @foreach($hotServices as $hotService)
                             <div class="col-lg-3 col-md-4 col-sm-6 col-pad">
                                 <div class="agenttrusted-badges">
-                                    <span class="" style="color: rgb(182, 165, 13)">Trusted <i class="fa fa-star"></i></span>
+                                    <span class="" style="color: rgb(182, 165, 13)">{{$hotService->badge_type}} <i class="fa fa-star"></i></span>
                                 </div>
-                                <a class="title " href="{{route('serviceDetail', $approvedService->slug)}}"  style="font-size: 14px;">{{ Str::limit($approvedService->name, 50) }} <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$approvedService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                <a class="title " href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 14px;">{{ Str::limit($hotService->name, 50) }} <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                                 </a>
                             </div>
                         @endforeach
