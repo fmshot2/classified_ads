@@ -27,6 +27,12 @@ class CategoryController extends Controller
         return view ('admin/category/index', compact('category') );
     }
 
+     public function subcategory()
+    {
+        $category = Category::orderBy('id', 'desc')->paginate(5);
+        return view ('admin/subcategory/index', compact('category') );
+    }
+
     public function allCategories()
     {
         $categories = Category::orderBy('name', 'asc')->paginate(20);
