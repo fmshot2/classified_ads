@@ -64,10 +64,10 @@ class Service extends Model implements Viewable
 // public function imageUploads(){
 //         return $this->hasMany('\App\ImageUpload'); //Product Model Name
 //     }
-// //public function category()
-//{
-  //  return $this->belongsTo('App\Category');
-//}
+    public function category()
+    {
+    return $this->belongsTo('App\Category');
+    }
 
 
 

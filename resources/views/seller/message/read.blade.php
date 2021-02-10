@@ -1,24 +1,18 @@
 
 @extends('layouts.seller')
 
-@section('title')
-Read Message Table | 
-@endsection
+@section('title', 'Read Message | ')
 
 @section('content')
 
-<br>
-<hr>
+    <div class="container">
 
-<div class="container">
+        <section class="content">
 
-	<section class="content">
+            @include('seller/section/read_message_table')
 
+        </section>
 
-@include('seller/section/read_message_table') 
-
-</section>
-
-</div>
+    </div>
 
 @endsection

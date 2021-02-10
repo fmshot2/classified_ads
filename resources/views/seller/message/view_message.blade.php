@@ -1,14 +1,9 @@
 
 @extends('layouts.seller')
 
-@section('title')
-View Message | 
-@endsection
+@section('title', 'View Message | ')
 
 @section('content')
-
-<br>
-<hr>
 
 <div class="container">
 
