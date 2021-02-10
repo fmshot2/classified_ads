@@ -2,14 +2,9 @@
 
 @extends('layouts.seller')
 
-@section('title')
-View Message | 
-@endsection
+@section('title', 'View Message | ')
 
 @section('content')
-
-<br>
-<hr>
 
 <div class="container">
 
@@ -39,7 +34,7 @@ View Message |
                <div class="form-group">
                 <input class="form-control" name="buyer_email" type="email" value=" {{ Auth::user()->email }} " disabled="">
               </div>
-              
+
               <div class="form-group">
                 <input class="form-control" name="subject"  type="text" placeholder=" Enter subject here " >
               </div>

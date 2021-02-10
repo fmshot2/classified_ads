@@ -35,7 +35,7 @@ class CategoryController extends Controller
 
     public function allCategories()
     {
-        $categories = Category::orderBy('id', 'desc')->paginate(20);
+        $categories = Category::orderBy('name', 'asc')->paginate(20);
         return view ('allCategories', compact('categories') );
     }
 

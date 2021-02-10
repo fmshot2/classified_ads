@@ -2,9 +2,9 @@
     <!-- Logo -->
     <a href="index.html" class="logo">
       <!-- mini logo-->
-      <span class="logo-mini"><b>C</b></span>
+      <span class="logo-mini"><b>EFC</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b> Yellow</b>Page</span>
+      <span class="logo-lg"><img src="{{ asset('logos/efcontactlogo.png') }}" alt="" style=""></span>
     </a>
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" style="background-color: #f8d053">
@@ -85,7 +85,7 @@
                   <a href="{{ route('seller.message.view',$unread_messages->slug) }}">
 
                     <div class="mail-contnet">
-                      <span style="font-weight: bold;"> {{ Str::limit($unread_messages->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_messages->created_at->diffForHumans() }} </small> </span> 
+                      <span style="font-weight: bold;"> {{ Str::limit($unread_messages->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_messages->created_at->diffForHumans() }} </small> </span>
                   </div>
                 </a>
               </li>
@@ -115,7 +115,7 @@
                   <a href="{{ route('seller.notification.view',$unread_notifications->slug) }}">
 
                     <div class="mail-contnet">
-                      <span style="font-weight: bold;"> {{ Str::limit($unread_notifications->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_notifications->created_at->diffForHumans() }} </small> </span> 
+                      <span style="font-weight: bold;"> {{ Str::limit($unread_notifications->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_notifications->created_at->diffForHumans() }} </small> </span>
                   </div>
                 </a>
               </li>

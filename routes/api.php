@@ -37,7 +37,8 @@ Route::group([
 Route::prefix('v1')->group(function ()
 {
     Route::get('services', [ServiceController::class, 'index']);
+    Route::get('services/{id}', [ServiceController::class, 'show']);
     Route::get('services/search/{query}', [ServiceController::class, 'search']);
-    Route::get('services/categories', [ServiceController::class, 'categories']);
+    Route::get('/categories', [ServiceController::class, 'categories']);
     Route::get('banner/sliders', [ServiceController::class, 'banner_slider']);
 });

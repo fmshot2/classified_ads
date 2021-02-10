@@ -1,9 +1,7 @@
 
 @extends('layouts.seller')
 
-@section('title')
-Create Service | 
-@endsection
+@section('title', 'Advert Banner Badges | ')
 
 @section('content')
 <div class="content-wrapper" style="min-height: 868px;">
@@ -33,7 +31,7 @@ Create Service |
                 <option value=0>-- Choose the advert type --</option>
                 @if(isset($adverts))
                 @foreach($adverts as $advert)
-                <option value="{{ $advert->id }}"> {{ $advert->category }}</option> 
+                <option value="{{ $advert->id }}"> {{ $advert->category }}</option>
                 @endforeach
                 @endif
               </select>
@@ -54,7 +52,7 @@ Create Service |
       <br />
 
       <div class="row">
-       
+
         <div class="col-md-4">
 
           <!-- Profile Image -->
@@ -66,7 +64,7 @@ Create Service |
               <p class="text-center">Conditions and Payment </p>
               <ol>
                 <li>Post as 8 images of your services</li>
-                
+
               </ol>
               <hr>
               <img class="profile-user-img img-responsive img-circle" src="https://efcontact.com/img/48025305-0-WhatsApp-Green-Tick.png" alt="">
@@ -75,10 +73,10 @@ Create Service |
               <p class="text-center">Conditions and Payment</p>
               <ol>
                 <li>Post 6 images of your services</li>
-               
+
               </ol>
               <hr>
-             
+
             </div>
             <!-- /.box-body -->
           </div>
@@ -102,16 +100,16 @@ Create Service |
 
                   <input type="hidden" name="amount1" id="amount1" value="20000" class="form-control">
                   <input type="hidden" name="plan" id="plan" value="Trusted Seller" class="form-control">
-                  
+
                   <input type="hidden" name="seller_id1" id="seller_id1" value="{{Auth::User()->id}}" class="form-control">
-                  <input type="hidden" name="category" id="category" value="Home_Page_Banner" class="form-control"> 
-                  <input type="hidden" name="form_service_id" id="form_service_id" class="form-control"> 
+                  <input type="hidden" name="category" id="category" value="Home_Page_Banner" class="form-control">
+                  <input type="hidden" name="form_service_id" id="form_service_id" class="form-control">
                   {{--<div class="form-group">
                     <select class="form-control"  name="service_id2">
                       <option value="">-- Select  the service --</option>
                       @if(isset($services))
                       @foreach($services as $service)
-                      <option value="{{ $service->id }}"> {{ $service->name }}</option> 
+                      <option value="{{ $service->id }}"> {{ $service->name }}</option>
                       @endforeach
                       @endif
                     </select>
@@ -136,7 +134,7 @@ Create Service |
                     <label for="phone1" class="col-sm-2 control-label">Phone</label>
 
                     <div class="col-sm-10">
-                      <input type="number" class="form-control" name="phone1" id="phone1" 
+                      <input type="number" class="form-control" name="phone1" id="phone1"
                       value="{{Auth::User()->phone}}">
                     </div>
                   </div>
@@ -163,11 +161,11 @@ Create Service |
 
                     <button id="paystack_btn_control1" type="button" class="btn btn-warning" onclick="payWithPaystack1()"> MAKE PAYMENT </button>
                     <small id="error_msg_paystack1" class="text-danger"></small>
-                    
+
                     {{--@endif--}}
         {{-- @if(!isset($service_select))
 
-  <button type="button" disabled class="btn btn-warning" onclick="payWithPaystack1()"> You need to choose a service before you can submit </button> 
+  <button type="button" disabled class="btn btn-warning" onclick="payWithPaystack1()"> You need to choose a service before you can submit </button>
   @endif--}}
 
   {{--<button type="button" class="btn btn-submit2 btn-warning"> MAKE confirm </button> --}}
@@ -183,7 +181,7 @@ Create Service |
 
 
 <div class="tab-pane" id="password">
-  
+
  <form class="form-horizontal form-element">
   {{ csrf_field() }}
 
@@ -211,7 +209,7 @@ Create Service |
     <label for="phone2" class="col-sm-2 control-label">Phone</label>
 
     <div class="col-sm-10">
-      <input type="number" class="form-control" name="phone2" id="phone2" 
+      <input type="number" class="form-control" name="phone2" id="phone2"
       value="{{Auth::User()->phone}}">
     </div>
   </div>
@@ -234,7 +232,7 @@ Create Service |
  <div class="form-group">
   <div class="col-sm-offset-2 col-sm-10">
     <script src="https://js.paystack.co/v1/inline.js"></script>
-    <button id="paystack_btn_control2" type="button" class="btn btn-warning" onclick="payWithPaystack2()"> MAKE PAYMENT2 </button> 
+    <button id="paystack_btn_control2" type="button" class="btn btn-warning" onclick="payWithPaystack2()"> MAKE PAYMENT2 </button>
     <small id="error_msg_paystack2" class="text-danger"></small>
 
   </div>
@@ -270,7 +268,7 @@ Create Service |
     <label for="inputPhone" class="col-sm-2 control-label">Phone</label>
 
     <div class="col-sm-10">
-      <input type="number" class="form-control" name="phone" id="phone" 
+      <input type="number" class="form-control" name="phone" id="phone"
       value="{{Auth::User()->phone}}">
     </div>
   </div>
@@ -293,7 +291,7 @@ Create Service |
  <div class="form-group">
   <div class="col-sm-offset-2 col-sm-10">
     <script src="https://js.paystack.co/v1/inline.js"></script>
-    <button id="paystack_btn_control3" type="button" class="btn btn-warning" onclick="payWithPaystack3()"> MAKE PAYMENT3 </button> 
+    <button id="paystack_btn_control3" type="button" class="btn btn-warning" onclick="payWithPaystack3()"> MAKE PAYMENT3 </button>
     <small id="error_msg_paystack3" class="text-danger"></small>
 
   </div>
@@ -324,18 +322,18 @@ Create Service |
 
 <script type="text/javascript">
 /* $('#categories').on('change',function(){
-    var categoryID = $(this).val();    
+    var categoryID = $(this).val();
     if(categoryID){
         $.ajax({
          type:"GET",
           url:"{{url('seller/service/badges/badger/')}}"+"/"+categoryID,
           // url: 'badges/get-badge-list/'+categoryID,
-           success:function(res){               
+           success:function(res){
             if(res){
              console.log(categoryID);
             console.log(res);
             alert(res);
-            // $("#categ ").empty();         
+            // $("#categ ").empty();
 
          }else{
                        console.log("not found");
@@ -348,7 +346,7 @@ Create Service |
     }
   }); */
 </script>
-<script> 
+<script>
  var _token = $("input[name='_token']").val();
 
  var email1 = $("#email-address1").val();
@@ -367,7 +365,7 @@ Create Service |
     email: document.getElementById("email-address1").value,
     amount: 2000000,
       ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-      
+
       metadata: {
        custom_fields: [
        {
@@ -407,7 +405,7 @@ Create Service |
     }
   });
   handler.openIframe();
-}         
+}
 </script>
 
 <script type="text/javascript">
@@ -442,7 +440,7 @@ Create Service |
       var ref_no2 = response.reference;
       $.ajax({
         type:'POST',
-        
+
         url: '/seller/service/createpay/',
         data: {_token:_token, email:email2, amount:amount2, seller_id:seller_id2, badge_type:badge_type2, seller_name:seller_name2, phone:phone2, ref_no:ref_no2 },
         success: function(data) {
@@ -469,8 +467,8 @@ Create Service |
  var seller_id3 = $("#seller_id3").val();
  var badge_type3 = $("#badge_type3").val();
  var seller_name3 = $("#seller_name3").val();
- var phone3 = $("#phone3").val();           
- 
+ var phone3 = $("#phone3").val();
+
  function payWithPaystack3(){
   var handler = PaystackPop.setup({
     key: 'pk_test_cb0fc910bb9fd127519794aa4128be0fd2c354d4',
@@ -492,9 +490,9 @@ Create Service |
       var ref_no3 = response.reference;
       $.ajax({
         type:'POST',
-        
+
         url: '/seller/service/createpay/',
-        data: {_token:_token, email:email3, amount:amount3, seller_id:seller_id3, badge_type:badge_type3, 
+        data: {_token:_token, email:email3, amount:amount3, seller_id:seller_id3, badge_type:badge_type3,
           seller_name:seller_name3, phone3:phone1, ref_no:ref_no3 },
           success: function(data) {
             alert(data);
@@ -537,12 +535,12 @@ Create Service |
 
           document.getElementById("error_msg_paystack1").innerHTML = "Select a service before payment ";
           document.getElementById("error_msg_paystack2").innerHTML = "Select a service before payment ";
-         
+
           alert("You have not selected a service");
           return;
 
         }
-        
+
         $.ajax({
           type:'POST',
           url: "{{ route('saveService4Advert') }}",
@@ -555,7 +553,7 @@ Create Service |
                       //document.getElementById("paystack_btn_control1").disabled = false;
                       //paystack_btn_control2.disabled = false;
 
-                     
+
                       document.getElementById("error_msg_paystack1").innerHTML = " ";
                       document.getElementById("error_msg_paystack2").innerHTML = " ";
 

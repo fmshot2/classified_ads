@@ -55,7 +55,7 @@
                                           {{$all_faq->title}}
                                         </a>
                                     </div>
-                                    <div id="collapse7" class="card-block collapse" style="">
+                                    <div id="collapse7" class="card-block collapse" style="padding: 0 15px;">
                                         <div class="foq-info">
                                             <p>{!! $all_faq->details !!}</p>
                                             <hr>

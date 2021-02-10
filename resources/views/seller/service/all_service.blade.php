@@ -1,13 +1,8 @@
 @extends('layouts.seller')
 
-@section('title')
-All Service Table |
-@endsection
+@section('title', 'All Service | ')
 
 @section('content')
-
-<br>
-<hr>
 
 <div class="content-wrapper" style="min-height: 518px;">
 
@@ -24,7 +19,7 @@ All Service Table |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Message </h3>
+						<h3 class="box-title"> All Your Services </h3>
 						<h6 class="box-subtitle"> Sorting is from the most recent. </h6>
 					</div>
 
