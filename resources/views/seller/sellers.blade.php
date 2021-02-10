@@ -46,7 +46,7 @@
                     @foreach($approvedServices as $approvedService)
                         <div class="col-lg-4 col-md-3 col-sm-12">
                             <div class="row team-4">
-                                <div class="col-xl-5 col-lg-5 col-md-12 col-pad" style="background-image:url({{asset('images')}}/{{$approvedService->image[0]}}); background-position: center; background-size: cover;">
+                                <div class="col-xl-5 col-lg-5 col-md-12 col-pad" style="background-image:url({{asset('uploads/services')}}/{{$approvedService->service_image}}); background-position: center; background-size: cover;">
                                     <div class="photo mt-2">
                                         {{-- <img src="{{asset('images')}}/{{$approvedService->image[0]}}" alt="agent" class=""> --}}
                                     </div>

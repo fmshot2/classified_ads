@@ -1,9 +1,16 @@
 
 @extends('layouts.seller')
 
-@section('title', 'Create Service | ')
+@section('title')
+Create Service | 
+@endsection
 
 @section('content')
+
+<br>
+<hr>
+
+
 
 <div class="content-wrapper" style="min-height: 868px;">
 
@@ -49,7 +56,7 @@
 
      <div id="show_form" class="row clearfix">
 
-        <form  class="" enctype="multipart/form-data" style="display: block;">
+        <form action="{{route('service.save')}}" method="POST" class="" enctype="multipart/form-data" style="display: block;">
           {{ csrf_field() }}
 
           <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
@@ -124,7 +131,7 @@
 
                                @foreach($states as $state)
 
-                               <option value="{{$state->id}}"> {{ $state->name }}  </option>
+                               <option value="{{$state->id}}"> {{ $state->name }}  </option> 
                                @endforeach
                                                                    @endif
 
@@ -145,7 +152,7 @@
 
                           @foreach($states as $state)
 
-                          <option id="state" value="{{$state->name}}"> {{ $state->name }}  </option>
+                          <option id="state" value="{{$state->name}}"> {{ $state->name }}  </option> 
                           @endforeach
                           @endif
 
@@ -193,7 +200,7 @@
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="box box-default">
-
+              
                <div class="body">
 
 
@@ -262,7 +269,7 @@
 
                                 <button id="save_btn"  class="btn btn-primary btn-submit_service btn-lg m-t-15 waves-effect">
                                   <i class="fa fa-save"></i>
-
+                                 
                                   <span>Submit</span>
                                 </button>
                                 <button id="loading_btn" class="btn btn-primary" type="button" disabled>
@@ -303,13 +310,13 @@
             <script type="text/javascript">
              $('#state').on('change',function(){
               console.log('ddd');
-              var stateID = $(this).val();
+              var stateID = $(this).val();   
               if(stateID){
                 $.ajax({
                  type:"GET",
            //url:"{{url('qqq')}}"+stateID,
            url: '../../api/get-city-list/'+stateID,
-           success:function(res){
+           success:function(res){               
             if(res){
              console.log(res);
              console.log(stateID);
@@ -327,13 +334,13 @@
                 $("#city").empty();
               }
 
-            });
+            }); 
 
           </script>
 
 
 
-
+{{-- 
           <script type="text/javascript">
         $(document).ready(function() {
         // document.getElementById("complaint_notification").hidden = true;
@@ -374,7 +381,7 @@
                     document.getElementById("loading").style.removeProperty('display');
                     document.getElementById("loading_btn").style.display = 'block';
 
-
+                   
                         // document.getElementById("drag_image").style.removeProperty('display');
 
             //         document.getElementById("complaint_notification").innerHTML = "Your complaint was sent successfully";
@@ -387,6 +394,7 @@
 
     });
 </script>
+ --}}
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -436,22 +444,6 @@
               }
             };
           </script>
-
-{{--
-
-         <script>
-    var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
-
-    Dropzone.autoDiscover = false;
-    var myDropzone = new Dropzone(".dropzone",{
-        maxFilesize: 3,  // 3 mb
-        acceptedFiles: ".jpeg,.jpg,.png,.pdf",
-    });
-    myDropzone.on("sending", function(file, xhr, formData) {
-       formData.append("_token", CSRF_TOKEN);
-    });
-  </script> --}}
-
 
 
 
@@ -580,7 +572,7 @@
                 @csrf
                 <div>
                 <h3 class="text-center">Upload Multiple Images</h3>
-            </div>
+            </div>    
             <button type="submit"> Upload Img</button>
             </form>
 

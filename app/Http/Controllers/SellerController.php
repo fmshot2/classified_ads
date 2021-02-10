@@ -16,6 +16,10 @@ use App\Mail\SendMailable;
 
 use Illuminate\Support\Str;
 use App\ImageUpload;
+// use App\Image;
+// use Image as InterventionImage;
+use App\Image as ModelImage;
+
 
 
 class SellerController extends Controller
@@ -132,24 +136,25 @@ $service_owner->name = Auth::user()->name;
 $service_owner->email = Auth::user()->email;
 
 
-        if ($service->save()) {
-      $name = " Hi $service_owner->name, You just created a new service called: $service->name. Wishing you all the best. Have a great time enjoying our services!";
+     //    if ($service->save()) {
+     //  $name = " Hi $service_owner->name, You just created a new service called: $service->name. Wishing you all the best. Have a great time enjoying our services!";
 
-      Mail::to($service_owner->email)->send(new SendMailable($name));
-     }
+     //  Mail::to($service_owner->email)->send(new SendMailable($name));
+     // }
 
        $present_user = Auth::user();
         $user_hasUploadedService = $present_user->hasUploadedService;
         //dd($user_hasUploadedService);
         if ($user_hasUploadedService == 1) {
-        //dd('dddddd');
        $request->session()->flash('status', 'Task was successful!');
-        //dd(Auth::user());
-       //$this->saveReferLink();
-       // dd($latest_service_id);
+        
        // return $this->allService();
-        return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service]);
+        // return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service]);
        // return back()->with('service_id', $latest_service_id, 'service', $latest_service);
+        // /service/{id}
+         // return redirect()->route('seller/service/' . $latest_service_id);
+         return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
+
         }
         //dd($user);
         $present_user->hasUploadedService = 1;
@@ -170,14 +175,20 @@ $service_owner->email = Auth::user()->email;
          $request->session()->flash('status', 'Task was successful!');
        //$this->saveReferLink();
          // dd($latest_service_id);
-        return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service]);
+        // return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service]);
+        // return redirect()->route('seller/service/' . $latest_service_id);
+                  return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
+
 
       // return back()->with('service_id', $latest_service_id, 'service', $latest_service);
        // return $this->allService();
         }
 
                  // dd($latest_service_id);
-        return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service, 'success', 'Your message has been sent!']);
+        // return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service, 'success', 'Your message has been sent!']);
+
+                 return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
+
 
               // return back()->with('service_id', $latest_service_id, 'service', $latest_service, 'success', 'Your message has been sent!');
 
@@ -331,22 +342,17 @@ public function pendingService()
 
 public function allService()
 {
-      // $ist_all_services = Service::where('user_id', Auth::id())->pluck('id');
-      // $ist_all_services_id = $ist_all_services->id;
-
+  
     $all_services = Service::where('user_id', Auth::id() )->get();
-     
-    // $all_service_images = ImageUpload::where('service_id', $ist_all_services)->pluck('filename');
-    // dd($all_service_images  );
-
-    return view ('seller.service.all_service', compact('all_services') );
+         return view ('seller.service.all_service', compact('all_services') );
 }
 
 public function viewServiceUpdate($slug)
 {
     $category = Category::all();
     $serviceDetail = Service::where('slug', $slug)->first();
-    $images_4_service = $serviceDetail->image;
+    // $images_4_service = $serviceDetail->image;
+    $images_4_service = ModelImage::where('imageable_id', $serviceDetail->id)->get();
     $service = Service::where('slug', $slug)->first();
     return view ('seller.service.update_service', compact('service', 'category', 'images_4_service') );
 }

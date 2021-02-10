@@ -35,6 +35,19 @@ class Service extends Model implements Viewable
         }
     }
 
+
+     public function getServiceImageAttribute()
+    {
+        $images = $this->images->first();
+
+        if ($images) {
+            return $images->image_path;
+        }
+        else {
+            return 'avatar.png';
+        }
+    }
+
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');

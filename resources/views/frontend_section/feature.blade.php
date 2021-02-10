@@ -14,13 +14,16 @@
                                     <div class="listing-badges">
                                         <span class="featured bg-warning">{{$featuredService->is_featured == 1 ? 'featured' : ''}}</span>
                                     </div>
+
                                     <div class="price-ratings-box">
                                         <p class="price">
                                         {{ Str::limit($featuredService->experience, 5) }} Yrs Experience
                                         </p>
                                     </div>
                                     <div class="listing-time opening">{{ Str::limit($featuredService->user->name, 10) }}</div>
-                                    <img class="d-block w-100" src="{{asset('images')}}/{{$featuredService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                       <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                 {{--    <img class="d-block w-100" src="{{asset('images')}}/{{$featuredService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties"> --}}
+
                                 </div>
                                 <div class="detail">
                                     <div>

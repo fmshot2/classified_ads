@@ -21,6 +21,7 @@ use App\Category;
 use App\Local_government;
 use App\Slider;
 use App\State;
+use App\Image;
 //use Illuminate\Support\Str;
 
 
@@ -89,8 +90,11 @@ class ServiceController extends Controller
     $categories = Category::paginate(8);
     $serviceDetail = Service::where('slug', $slug)->first();
     $all_states = State::all();
-    $images_4_service = $serviceDetail->image;
+    // $images_4_service = $serviceDetail->image;
+    // $images_4_service = $images_4_servic->image_path;
     $serviceDetail_id = $serviceDetail->id;
+    $images_4_service = Image::where('imageable_id', $serviceDetail_id)->get();
+        // dd($images_4_service);
     $serviceDetail_state = $serviceDetail->state;
     $service_likes = Like::where('service_id', $serviceDetail_id)->count();
     $service_category_id = $serviceDetail->category_id;

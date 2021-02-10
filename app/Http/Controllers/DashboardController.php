@@ -63,8 +63,7 @@ class DashboardController extends Controller
     // $referLink_>save();
     $status = "hghgcc";
 
-// $accruedAmount = Auth::user()->refereAmount;
-    $accruedAmount = 40;
+$accruedAmount = Auth::user()->refererAmount;
 
     $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
     if ($linkcheck) {

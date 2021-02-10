@@ -10,7 +10,7 @@
 
 
 <div class="main">
-        <div class="sub-banner" style="background-image:url({{asset('images/faqbg.jpg')}})">
+        <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/faqbg.jpg')}})">
     <div class="container">
         <div class="page-name">
             <div class="sub-banner-text-content">

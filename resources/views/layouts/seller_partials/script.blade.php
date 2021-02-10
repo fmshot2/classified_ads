@@ -52,6 +52,7 @@
     Dropzone.options.dropzone = {
 	    maxFiles: 5,
         maxFilesize: 10,
+        parallelUploads: 10,
         acceptedFiles: ".jpeg,.jpg,.png,.gif",
         addRemoveLinks: true,
         autoProcessQueue: false,
