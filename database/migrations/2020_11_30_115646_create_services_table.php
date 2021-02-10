@@ -46,7 +46,7 @@ class CreateServicesTable extends Migration
             //$table->unsignedInteger('like_id');
             $table->unsignedInteger('category_id')->nullable();
             $table->timestamps();
-            $table->string('badge_type')->nullable();            
+            $table->string('badge_type')->nullable()->default('basic');            
 
         });
     }
