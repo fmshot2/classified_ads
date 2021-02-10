@@ -1,16 +1,14 @@
 
 @extends('layouts.seller')
 
-@section('title')
-Create Service | 
-@endsection
+@section('title', 'Advert Options | ')
 
 @section('content')
 <div class="content-wrapper" style="min-height: 1263.84px;">
 
 
     <!-- Main content -->
-    
+
 <section class="content">
     <div class="row">
       <div class="col-xs-12">
@@ -552,7 +550,7 @@ Create Service |
 
             <div class="box box-default">
                 <div class="body">
-                    
+
                     <a href="https://efcontact.com/seller/properties" class="btn btn-danger btn-lg m-t-15 waves-effect">
                         <i class="fa fa-arrow-left"></i>
                         <span>BACK</span>
@@ -567,7 +565,7 @@ Create Service |
             </div>
 
         </div>
-        
+
     </div></form>
 
 </div>

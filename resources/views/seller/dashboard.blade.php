@@ -10,10 +10,18 @@
             justify-content:flex-start
         }
     }
+    @media only screen and (max-width: 768px){
+        .referralContainer div > input{
+            margin-top: 5px
+        }
+    }
     .referralContainer div > input{
-        margin-top: 5px;
         margin-bottom: 15px;
-        width: 200px;
+        height: 30px;
+        width: 100% !important;
+        border-radius: 0 !important;
+        border: 1px solid rgb(228, 228, 228);
+        font-size: 12px !important;
     }
     /* width: 350px; height: 30px; border:1px solid #cccccc */
 </style>
@@ -29,7 +37,7 @@
 
         <section class="content-header">
             @if(isset($linkcheck->refererlink))
-                <div>
+                <div class="">
                     <h4>Refferal Link</h4>
                     <div class="referralContainer">
                         <div style="margin-right: 2px">

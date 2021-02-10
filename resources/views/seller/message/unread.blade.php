@@ -1,9 +1,7 @@
 
 @extends('layouts.seller')
 
-@section('title')
-Unread Message Table | 
-@endsection
+@section('title', 'Unread Message | ')
 
 @section('content')
 
@@ -14,10 +12,9 @@ Unread Message Table |
 <hr>
 	<section class="content">
 
+        @include('seller/section/unread_message_table')
 
-@include('seller/section/unread_message_table') 
-
-</section>
+    </section>
 
 
 </div>

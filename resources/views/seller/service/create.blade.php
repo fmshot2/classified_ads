@@ -1,16 +1,9 @@
 
 @extends('layouts.seller')
 
-@section('title')
-Create Service |
-@endsection
+@section('title', 'Create Service | ')
 
 @section('content')
-
-<br>
-<hr>
-
-
 
 <div class="content-wrapper" style="min-height: 868px;">
 
