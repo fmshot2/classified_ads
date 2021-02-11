@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="main">
-        <div class="sub-banner">
+        <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/categorybg.jpg')}})">
             <div class="container">
                 <div class="page-name">
                     <div class="sub-banner-text-content">
@@ -152,12 +152,31 @@
                                     @endforeach
                                 @endif
                             </div>
-                            <div class="widget helping-center">
-                                <div class="s-border"></div>
-                                <div class="m-border"></div>
-                                <div class="media">
-                                    <div class="">
-                                        <img style="width: 100%; height: auto; margin: 0 auto; border-radius: 10px" src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid">
+                            <div class="popular-posts featured-ad-hm-list">
+                                <div class="container">
+                                    <div id="carouselExampleControls" class="carousel vert slide" data-ride="carousel" data-interval="4000">
+                                        <ol class="carousel-indicators">
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                        </ol>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <img class="d-block mx-auto img-fluid" src="{{asset('images')}}/{{'do_smart_business.png'}}" alt="First slide">
+                                            </div>
+                                            <div class="carousel-item">
+                                                <img class="d-block mx-auto img-fluid" src="{{asset('images')}}/{{'efskyviewSidebarSlider.png'}}" alt="Second slide">
+                                            </div>
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

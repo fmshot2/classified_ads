@@ -1,9 +1,7 @@
 
 @extends('layouts.app')
 
-@section('title')
- Home | 
-@endsection
+@section('title', 'The largest services database in the Nigeria | ')
 
 @section('content')
 
@@ -18,12 +16,11 @@
 
 @include('frontend_section/feature')
 
+@include('frontend_section/recent')
+
 @include('frontend_section/popular')
 
-@include('frontend_section/brands')
-
-
-@include('frontend_section/recent')
+{{-- @include('frontend_section/brands') --}}
 
 {{--<div class="partners">
     <div class="container">
@@ -52,72 +49,72 @@
 <!----------HTML code starts here------->
 {{--<div class="container">
 <div class="owl-carousel owl-theme owl-loaded owl-drag">
-            
+
        <div class="owl-stage-outer">
-         
+
          <div class="owl-stage" style="transform: translate3d(-1527px, 0px, 0px); transition: all 0.25s ease 0s; width: 3334px;">
-           
+
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>1</h4>
             </div>
          </div>
-         
+
          <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>2</h4>
             </div></div>
-           
+
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>3</h4>
             </div></div>
-           
+
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>4</h4>
             </div></div>
-           
+
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>5</h4>
             </div></div>
-           
+
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>6</h4>
             </div></div>
-           
+
            <div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>7</h4>
             </div></div><div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>8</h4>
             </div></div>
-           
+
            <div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>9</h4>
             </div></div>
-           
+
            <div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>10</h4>
             </div></div><div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>11</h4>
             </div></div>
-           
+
            <div class="owl-item active" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>12</h4>
             </div></div>
-           
+
            <div class="owl-item active" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>13</h4>
             </div></div>
-           
+
            <div class="owl-item active" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>14</h4>
             </div></div>
-           
+
            <div class="owl-item active" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>15</h4>
             </div></div>
-           
+
            <div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>16</h4>
             </div></div>
-           
+
            <div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>17</h4>
             </div>
@@ -125,33 +122,33 @@
             <div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>18</h4>
             </div></div>
-           
+
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>19</h4>
             </div></div>
-           
+
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>20</h4>
             </div></div>
-           
+
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>21</h4>
             </div></div>
-           
+
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>22</h4>
             </div></div>
-           
+
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>23</h4>
             </div></div>
-           
+
            <div class="owl-item cloned" style=""><div class="item">
               <h4>24</h4>
             </div></div></div></div><div class="owl-nav disabled">
-  
+
   </div>
-  
+
 </div>
 </div>--}}
 
@@ -163,9 +160,9 @@
 <script type="text/javascript">
 	var owl = $('.owl-carousel');
 owl.owlCarousel({
-    items:4, 
+    items:4,
   // items change number for slider display on desktop
-  
+
     loop:true,
     margin:10,
     autoplay:true,
