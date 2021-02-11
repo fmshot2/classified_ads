@@ -130,6 +130,10 @@ class ServiceController extends Controller
     $user_id = $serviceDetail->user_id;
     $userMessages = Message::where('service_id', $serviceDetail_id)->orderBy('created_at','desc')->take(7)->get();
 
+    $the_user = User::find($user_id);
+    $the_user_name = $the_user->name;
+    $the_provider_f_name = explode(' ', trim($the_user_name))[0];
+
     $expiresAt = now()->addHours(24);
     views($serviceDetail)->cooldown($expiresAt)->record();
 
@@ -151,7 +155,7 @@ class ServiceController extends Controller
       $user111 = null;
     }
 
-    return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages', 'images_4_service']));
+    return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages', 'images_4_service', 'the_provider_f_name']));
   }
 
 
