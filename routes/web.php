@@ -208,9 +208,10 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/dashboard/approve_withdrawal_request/{id}', 'DashboardController@approve_withdrawal_request')->name('admin.approve_withdrawal_request');
 
     Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
-    Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
     Route::get('/admin/dashboard/category/show', 'CategoryController@index')->name('admin.category.show');
-    Route::get('/admin/dashboard/subcategory/show', 'CategoryController@subcategory')->name('admin.subcategory.show');
+    Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
+    Route::get('/admin/dashboard/subcategory/show', 'CategoryController@subcategoryIndex')->name('admin.subcategory.show');
+    Route::post('admin/dashboard/category/show', 'CategoryController@storeSubcategory')->name('admin.subcategory.store');
     Route::get('/admin/category/{id}', 'CategoryController@destroy')->name('admin.category.delete');
 
     Route::get('/admin/dashboard/service/all', 'AdminController@allService')->name('admin.service.all');
@@ -295,7 +296,17 @@ Route::post ( '/searchonservices',  'ServiceController@searchonservices')->name(
 Route::get ( '/searchresults',  'ServiceController@search')->name('search3');
 
 
+Route::get ('getlat', function()
+  {
 
+$data = file_get_contents("https://geolocation-db.com/json");
+$json = json_decode($data, true);
+$latitude = $json['latitude'];
+$longitude = $json['longitude'];
+      return response()->json(['success'=>'updated done', 'latitude'=>$latitude, 'longitude'=>$longitude]);
+  }
+
+);
 
 
 

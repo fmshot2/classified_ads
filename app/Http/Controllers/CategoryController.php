@@ -10,6 +10,7 @@ use Illuminate\Http\File;
 use DB;
 use Image;
 use App\Local_government;
+use App\SubCategory;
 
 
 
@@ -27,10 +28,34 @@ class CategoryController extends Controller
         return view ('admin/category/index', compact('category') );
     }
 
-     public function subcategory()
+     public function subcategoryIndex()
     {
-        $category = Category::orderBy('id', 'desc')->paginate(5);
-        return view ('admin/subcategory/index', compact('category') );
+        $categories = Category::orderBy('id', 'desc')->paginate(5);
+        return view ('admin/subcategory/index', compact('categories') );
+    }
+
+
+
+
+    public function storeSubcategory(Request $request)
+    {
+        
+         $data = $request->all();
+            $category_id = $data['category_id'];  
+            $name = $data['inputSubcategory'];          
+
+        // $badge_check = Badge::where(['service_id'=>$service_id])->first();
+       
+            $subCategory = new SubCategory();
+            $subCategory->category_id = $category_id; 
+            $subCategory->name = $name;             
+            if($subCategory->save())
+            {
+            return response()->json(['error'=>'new error', 'id'=>$category_id]);
+        } else {
+        return response()->json(['error'=>'new error']);   
+        }
+        // }
     }
 
     public function allCategories()
@@ -81,8 +106,6 @@ class CategoryController extends Controller
 
      $slug = Str::of($request->name)->slug('-');
              $slug2 = Str::random(5);
-
-
      $category = new Category();
                 // Image set up
      if ( $request->hasFile('file') ) {
@@ -99,9 +122,6 @@ $destinationPath = 'images/';
         $category->image = $image_name;
         */
     }
-
-
-
 $category->name = $request->name;
 $category->slug = $slug;
 $category->save();
@@ -112,6 +132,29 @@ return $this->index();
 
 
 }
+
+
+//     public function store(Request $request)
+//     {
+//          $this->validate($request,[
+//         'name' => ['required', 'unique:subcategories'],
+//     ]);
+
+//      $slug = Str::of($request->name)->slug('-');
+//              $slug2 = Str::random(5);
+
+
+//      $subcategory = new Subcategory();
+// $subcategory->name = $request->name;
+// $subcategory->slug = $slug;
+// $subcategory->save();
+
+// $request->session()->flash('status', 'Task was successful!');
+
+// return $this->index();
+
+
+// }
 
     /**
      * Display the specified resource.
