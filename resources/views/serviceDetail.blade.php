@@ -71,8 +71,8 @@
     <div class="properties-details-page content-area-7 service-page-sidebar">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12">
-                    <div class="properties-details-section">
+                <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12" style="background-color: #fff">
+                    <div class="properties-details-section" style="padding-top: 15px;">
                         <div id="propertiesDetailsSlider" class="carousel properties-details-sliders slide mb-40">
                             <!-- Heading properties start -->
                             <div class="heading-properties-2">
@@ -80,6 +80,7 @@
                                     <div class="col-md-12">
                                         <h3 class="service-name">{{$serviceDetail->name}}</h3>
                                         <p><span><i class="fa fa-map-marker"></i> Location:</span> {{$serviceDetail->state}}</p>
+                                        <p><span><i class="fa fa-user"></i> Service Providers:</span> {{$serviceDetail->user->name}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -87,10 +88,8 @@
 
                         <link href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
                         <link href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.theme.default.min.css" rel="stylesheet">
-                        <script src="https://owlcarousel2.github.io/OwlCarousel2/assets/vendors/jquery.min.js">
-                        </script>
-                        <script src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js">
-                        </script>
+                        <script src="https://owlcarousel2.github.io/OwlCarousel2/assets/vendors/jquery.min.js"></script>
+                        <script src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js"></script>
 
                         <!----------HTML code starts here------->
                         <div class="container">
@@ -99,9 +98,12 @@
                                     <div class="owl-stage" style="transform: translate3d(-1527px, 0px, 0px); transition: all 0.25s ease 0s; width: 3334px;">
                                         {{-- @if(isset($images_4_service)) --}}
                                             @foreach($images_4_service as $key => $image)
-                                                <div class="owl-item" style="height: 60px; width: 128.906px; margin-right: 10px;">
+
+                                                <div class="owl-item" style="width: 128.906px; margin-right: 10px;">
                                                     <div class="item">
-                                                        <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$image->image_path}}" alt="First slide">
+                                                        <a class="portfolio-item" href="{{asset('uploads/services')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" alt="gallery-photo" class="img-fluid">
+                                                        </a>
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -117,7 +119,14 @@
 
 
                         <style type="text/css">
-                        .owl-item {width: 128.906px; margin-right: 10px; background:powderblue; }
+                            .owl-item {width: 128.906px; margin-right: 10px; }
+                            /* .owl-item {width: 128.906px; margin-right: 10px; background:powderblue; } */
+
+                            @media (min-width: 768px){
+                                .owl-item{
+                                    height: 128.906px;
+                                }
+                            }
                         </style>
 
                         <script type="text/javascript">
@@ -141,18 +150,17 @@
                                 <li class="nav-item">
                                     <a class="nav-link active show" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="one" aria-selected="false">Description</a>
                                 </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Likes</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="five-tab" data-toggle="tab" href="#five" role="tab" aria-controls="five" aria-selected="true">Location</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="six-tab" data-toggle="tab" href="#six" role="tab" aria-controls="six" aria-selected="true">Similar Properties</a>
-                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="seven-tab" data-toggle="tab" href="#seven" role="tab" aria-controls="six" aria-selected="true">Contact Details</a>
+                                </li>
+                                {{-- <li class="nav-item">
+                                    <a class="nav-link" id="five-tab" data-toggle="tab" href="#five" role="tab" aria-controls="five" aria-selected="true">Location</a>
+                                </li> --}}
+                                <li class="nav-item">
+                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }} {{ $service_likes != 0 ? '('.$service_likes.')' : ''}}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="six-tab" data-toggle="tab" href="#six" role="tab" aria-controls="six" aria-selected="true">Similar Services</a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="carTabContent">
@@ -178,54 +186,56 @@
                                         <iframe width="560" height="315" src="{{$serviceDetail->video_link}}" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade " id="five" role="tabpanel" aria-labelledby="five-tab">
+                                {{-- <div class="tab-pane fade " id="five" role="tabpanel" aria-labelledby="five-tab">
                                     <div class="properties-description mb-50">
                                         <h3 class="heading-2">
                                             Address
                                         </h3>
                                         <p>{{$serviceDetail->streetAddress}} | {{$serviceDetail->city}} | &nbsp; {{$serviceDetail->state}}</p>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="tab-pane fade" id="six" role="tabpanel" aria-labelledby="six-tab">
                                     <div class="properties-description mb-50">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <!-- Heading -->
                                             <h3 class="heading-2">Similar Services</h3>
                                             <div class="my-properties">
-                                                <table class="table brd-none">
-                                                    <thead>
-                                                        <tr>
-                                                        <th>Service</th>
-                                                        <th>Name</th>
-                                                        <th class="hedin-div">Address</th>
-                                                        <th><span class="hedin-div">Likes</span></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @if(isset($similarProducts))
-                                                            @foreach($similarProducts as $similarProduct)
-                                                                <tr>
-                                                                    <td class="image">
-                                                                        <a href="{{route('serviceDetail', $similarProduct->id)}}"><img alt="properties-small" src="{{asset('images')}}/{{$similarProduct->image[0]}}" class="img-fluid"></a>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="inner">
-                                                                            <h5><a href="{{route('serviceDetail', $similarProduct->id)}}">{{$similarProduct->name}}</a></h5>
+                                                <div class="table-responsive">
+                                                    <table class="table brd-none">
+                                                        <thead>
+                                                            <tr>
+                                                            <th>Service</th>
+                                                            <th>Name</th>
+                                                            <th class="hedin-div">Address</th>
+                                                            <th><span class="hedin-div">Likes</span></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @if(isset($similarProducts))
+                                                                @foreach($similarProducts as $similarProduct)
+                                                                    <tr>
+                                                                        <td class="image">
+                                                                            <a href="{{route('serviceDetail', $similarProduct->id)}}"><img alt="properties-small" src="{{asset('images')}}/{{$similarProduct->image[0]}}" class="img-fluid"></a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="inner">
+                                                                                <h5><a href="{{route('serviceDetail', $similarProduct->id)}}">{{$similarProduct->name}}</a></h5>
+                                                                                <figure class="hedin-div"><i class="fa fa-map-marker"></i> {{$similarProduct->state}}, &nbsp; {{$similarProduct->city}}</figure>
+                                                                                <!--<div class="price-month">$ 27,000</div>-->
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="hedin-div">
                                                                             <figure class="hedin-div"><i class="fa fa-map-marker"></i> {{$similarProduct->state}}, &nbsp; {{$similarProduct->city}}</figure>
-                                                                            <!--<div class="price-month">$ 27,000</div>-->
-                                                                        </div>
-                                                                    </td>
-                                                                    <td class="hedin-div">
-                                                                        <figure class="hedin-div"><i class="fa fa-map-marker"></i> {{$similarProduct->state}}, &nbsp; {{$similarProduct->city}}</figure>
-                                                                    </td>
-                                                                    <td>
-                                                                        <span class="hedin-div">{{$similarProduct->likes->count()}}</span>
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        @endif
-                                                    </tbody>
-                                                </table>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span class="hedin-div">{{$similarProduct->likes->count()}}</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            @endif
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -233,16 +243,21 @@
 
                                 <div class="tab-pane fade " id="seven" role="tabpanel" aria-labelledby="seven-tab">
                                     <div class="properties-description mb-50">
-                                        <h3 class="heading-2">
-                                            Phone
-                                        </h3>
-
                                         @guest
-                                        <p class="animate__animated animate__bounce">Please login to see this service provider's phone number!</p>
-
+                                            <p class="animate__animated animate__bounce">Please login to see this service provider's phone number!</p>
                                         @endguest
                                         @auth
-                                        <p class="animate__animated animate__bounce">{{$serviceDetail->phone}}</p>
+                                            <p class="animate__animated animate__bounce">
+                                                <strong><i class="fa fa-phone"></i> Phone Number:</strong> <a class="btn btn-success" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px;">
+                                                     {{$serviceDetail->phone}}
+                                                </a>
+                                            </p>
+                                            <p class="animate__animated animate__bounce">
+                                                <strong><i class="fa fa-envelope-open"></i> E-mail Address:</strong> <a href="mailto:{{$serviceDetail->user->email}}"> {{$serviceDetail->user->email}}</a>
+                                            </p>
+                                            <p class="animate__animated animate__bounce">
+                                                <strong><i class="fa fa-map-marker"></i> Address:</strong> {{$serviceDetail->streetAddress}} | {{$serviceDetail->city}} | &nbsp; {{$serviceDetail->state}}
+                                            </p>
                                         @endauth
                                     </div>
                                 </div>
@@ -284,6 +299,35 @@
                         @guest
                         <p>Please login as a buyer to see your previous conversation with this service provider</p>
                         @endguest
+
+
+                                {{--
+                                            @if (session('liked'))<span class="text-danger">{{ session('liked') }}
+                                </span> @else<span class="text-warning">like!
+                                </span> @endif --}}
+
+                            @auth
+                            @if(Auth::user()->role == 'buyer')
+                                <div class="container mb-5 mt-0">
+                                    <h5>
+                                    @if (session('liked')) YOU HAVE LIKED THIS SERVICE  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger">Unlike</span>
+
+                                        </a>  @else HAPPY WITH THE SERVICE RENDERED? GIVE THIS PROVIDER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!</span> @endif
+
+                                        </a>
+                                    </h5>
+                                </div>
+                                    {{--              @if (session('success2'))
+                                        <div id="likeNotice" class="alert alert-success alert-dismissible fade show" role="alert">
+                                            {{ session('success2') }}
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        </button>
+                                        </div>
+                                        @endif --}}
+
+                            @endif
+                        @endauth
+
                     </div>
                 </div>
 
@@ -292,7 +336,7 @@
                     <div class="sidebar-right">
                         <!-- Advanced search start -->
                         <div class="contact-1 financing-calculator widget">
-                            <h5 class="sidebar-title">Chat With Provider</h5>
+                            <h5 class="sidebar-title">Chat With <span style="text-transform: uppercase">{{ $the_provider_f_name }}</span></h5>
                             <div class="s-border"></div>
                             <div class="m-border" style="margin-bottom: 2px"></div>
                             <div class="s-border" style="margin-bottom: 15px"></div>
@@ -312,11 +356,19 @@
                             <div class="s-border" style="margin-top: 10px"></div>
                             <div class="m-border"></div>
 
+                            @auth
+                                <p style="text-align: center">
+                                    <a class="btn btn-warning animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309">
+                                        <i class="fa fa-phone"></i> {{$serviceDetail->phone}}
+                                    </a>
+                                </p>
+                            @endauth
+
                             <button class="btn btn-outline-success" id="showContactSellerForm">Show Contact Form</button>
 
-                            <div id="sellerContact">
-<form id="myform">
-</form>
+                            <div id="sellerContact" class="sellerContactDiv">
+                                <form id="myform">
+                                </form>
                                 <form id="myform" action="POST">
                                     <input type="hidden" name="_method" value="POST">
                                     {{ csrf_field() }}
@@ -423,13 +475,7 @@
                                                                 <input type="hidden" id="buyer_id_report" value="{{Auth::id()}}" name="buyer_id_report" class="text-dark form-control">
 
                                                                 <div class="form-group">
-                                                                    <label class="form-label">Full Name</label>
-                                                                    <input type="hidden"  value="{{Auth::user()->name}}" id="buyer_name_report" name="buyer_name_report" class="text-dark form-control" placeholder=" Your Name">
-                                                                    @if ($errors->has('buyer_name_report'))
-                                                                        <span >
-                                                                            <strong class="text-danger">{{ $errors->first('buyer_name_report') }}</strong>
-                                                                        </span>
-                                                                    @endif
+                                                                    Why are you reporting this provider? (<strong>Be specific!</strong>)
                                                                 </div>
 
                                                                 <div class="form-group">
@@ -484,35 +530,6 @@
             </div>
 
 
-{{--
-            @if (session('liked'))<span class="text-danger">{{ session('liked') }}
-</span> @else<span class="text-warning">like!
-</span> @endif --}}
-
-            @auth
-                @if(Auth::user()->role == 'buyer')
-                    <div class="container mb-5 mt-0">
-                        <h5>
-                           @if (session('liked')) YOU HAVE LIKED THIS SERVICE  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger">Unlike</span>
-
-                            </a>  @else HAPPY WITH THE SERVICE RENDERED? GIVE THIS PROVIDER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!
-</span> @endif
-
-                            </a>
-                        </h5>
-                    </div>
-
-
-       {{--              @if (session('success2'))
-<div id="likeNotice" class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ session('success2') }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-  </button>
-</div>
-@endif --}}
-
-                @endif
-            @endauth
         </div>
     </div>
 @endsection
@@ -564,6 +581,13 @@
         $("#showContactSellerForm").click(function(e){
             e.preventDefault();
             $("#sellerContact").toggleClass('sellerContactFormShow');
+            // $(".sellerContactDiv").classList.add('animate__animated', 'animate__hinge');
+
+            if ($("#showContactSellerForm").text() == 'Hide Contact Form') {
+                $("#showContactSellerForm").text('Show Contact Form')
+            } else {
+                $("#showContactSellerForm").text('Hide Contact Form')
+            }
         });
     });
 </script>
