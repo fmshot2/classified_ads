@@ -25,7 +25,29 @@ use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
+  
+  public function lat()
+  {
 
+$data = file_get_contents("https://www.geoip-db.com/json");
+$json = json_decode($data, true);
+$latitude = $json['latitude'];
+$longitude = $json['longitude'];
+      return response()->json(['success'=>'updated done', 'latitude'=>$latitude, 'longitude'=>$longitude]);
+
+
+if ($data = @file_get_contents("https://www.geoip-db.com/json"))    
+{
+        $json = json_decode($data, true);
+        $latitude = $json['latitude'];
+        $longitude = $json['longitude'];
+} else {
+        $latitude = 0;
+        $longitude = 0;
+// }    return view ('admin.service.index', compact('all_service') );
+      return response()->json(['success'=>'updated done', 'latitude'=>$latitude, 'longitude'=>$longitude]);
+  }
+}
 
   public function allService()
   {
