@@ -20,10 +20,8 @@
  <link rel="stylesheet" type="text/css"  href="{{asset('css/jquery.mCustomScrollbar.css')}}">
  <link rel="stylesheet" type="text/css"  href="{{asset('css/dropzone.css')}}">
  <link rel="stylesheet" type="text/css"  href="{{asset('css/slick.css')}}">
- <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 
  <!-- Custom stylesheet -->
  <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
@@ -39,7 +37,9 @@
  <link rel="stylesheet" type="text/css" href="{{asset('css/ie10-viewport-bug-workaround.css')}}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
   <link href="{{ asset('css/ibiStyles.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ asset('css/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
 
 
  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -96,6 +96,13 @@
         $("#moreLinkBtn").on('click', function(){
             $('#moreLinkModal').modal('toggle');
         });
+
+        // Magnify activation
+        $('.portfolio-item').magnificPopup({
+            delegate: 'a',
+            type: 'image',
+            gallery: {enabled: true}
+        });
     });
 </script>
 
@@ -120,6 +127,10 @@
 <!--End of Tawk.to Script-->
 
     <script src="{{ asset('js/ibiScripts.js') }}"></script>
+
+    <script>
+
+    </script>
 
 
  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

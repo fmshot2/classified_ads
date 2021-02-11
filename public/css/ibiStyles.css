@@ -222,6 +222,8 @@ body {
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-link:hover {
     border-radius: 0 !important;
+    background-color: #ca8309;
+    color: #fff;
 }
 
 @-webkit-keyframes pulsePostBtn {
