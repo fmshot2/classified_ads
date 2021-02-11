@@ -11,12 +11,9 @@ use DB;
 use Image;
 use App\Local_government;
 use App\SubCategory;
-<<<<<<< Updated upstream
 
 
 
-=======
->>>>>>> Stashed changes
 
 class CategoryController extends Controller
 {
@@ -44,21 +41,21 @@ class CategoryController extends Controller
 
     public function storeSubcategory(Request $request)
     {
-        
+
          $data = $request->all();
-            $category_id = $data['category_id'];  
-            $name = $data['inputSubcategory'];          
+            $category_id = $data['category_id'];
+            $name = $data['inputSubcategory'];
 
         // $badge_check = Badge::where(['service_id'=>$service_id])->first();
-       
+
             $subCategory = new SubCategory();
-            $subCategory->category_id = $category_id; 
-            $subCategory->name = $name;             
+            $subCategory->category_id = $category_id;
+            $subCategory->name = $name;
             if($subCategory->save())
             {
             return response()->json(['error'=>'new error', 'id'=>$category_id]);
         } else {
-        return response()->json(['error'=>'new error']);   
+        return response()->json(['error'=>'new error']);
         }
         // }
     }
