@@ -18,6 +18,7 @@ use App\Advertrequest;
 use App\Event;
 use App\Subscription;
 use Illuminate\Support\Str;
+use Geocoder;
 
 
 
@@ -25,6 +26,14 @@ use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
+  public function geo(){
+
+     $myGeo =  Geocoder::getCoordinatesForAddress('Infinite Loop 1, Cupertino');
+     return $myGeo;
+
+  }
+
+
   
   public function lat()
   {

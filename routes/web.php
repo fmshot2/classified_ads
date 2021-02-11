@@ -308,6 +308,9 @@ $longitude = $json['longitude'];
 
 );
 
+Route::get ( 'geolo',  'AdminController@geo')->name('geolo');
+
+
 
 
 //Views Composer
