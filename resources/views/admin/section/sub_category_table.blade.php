@@ -2,7 +2,7 @@
 
 <div class="box" >
   <div class="box-header">
-            <h3 class="box-title">Categories</h3>
+            <h3 class="box-title">Sub Categories </h3>
   </div>
   <!-- /.box-header -->
   <div class="box-body">
@@ -18,16 +18,15 @@
               </tr>
             </thead>
 
-              @foreach($category as $key => $categories)
+              @foreach($subcategories as $key => $subcategory)
 
               <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-              <td> {{ $categories->name }} </td>
-              <td> {{ $categories->slug }} </td>
+              <td> {{ $subcategory->name }} </td>
+              <td> {{ $subcategory->slug }} </td>
 
               <td class="center">
-                <button type="button" class="btn btn-default btn-outline btn-sm" onclick="editCategory({{ $categories->id }})"><i class="fa fa-pencil"></i></button>
-
-                <a href="{{ route('admin.category.delete',$categories->id) }} " class="btn btn-danger "><i class="fa fa-trash"></i></a>
+                <button type="button" class="btn btn-default btn-outline btn-sm" onclick="editSubCategory({{ $subcategory->id }})"><i class="fa fa-pencil"></i></button>
+                <a href="{{ route('admin.subcategory.delete',$subcategory->id) }} " class="btn btn-danger "><i class="fa fa-trash"></i></a>
               </td>
 
             </tr>

@@ -214,6 +214,14 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::post('admin/dashboard/category/show', 'CategoryController@storeSubcategory')->name('admin.subcategory.store');
     Route::get('/admin/category/{id}', 'CategoryController@destroy')->name('admin.category.delete');
 
+    Route::get('/admin/dashboard/single/category/{id}', 'CategoryController@categoryShow')->name('admin.single.category.show');
+    Route::put('/admin/dashboard/single/category/{id}', 'CategoryController@categoryUpdate')->name('admin.single.category.update');
+
+    Route::get('/admin/subcategory/{id}', 'CategoryController@subCatDestroy')->name('admin.subcategory.delete');
+    Route::post('admin/dashboard/subcategory/create', 'CategoryController@createSubCategory')->name('admin.subcategory.store');
+    Route::get('/admin/dashboard/single/subcategory/{id}', 'CategoryController@subCategoryShow')->name('admin.single.subcategory.show');
+    Route::put('/admin/dashboard/single/subcategory/{id}', 'CategoryController@subCategoryUpdate')->name('admin.single.subcategory.update');
+
     Route::get('/admin/dashboard/service/all', 'AdminController@allService')->name('admin.service.all');
     Route::get('/admin/dashboard/service/active', 'AdminController@activeService')->name('admin.service.active');
     Route::get('/admin/dashboard/service/pending', 'AdminController@pendingService')->name('admin.service.pending');

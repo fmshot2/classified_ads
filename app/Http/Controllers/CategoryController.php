@@ -11,9 +11,12 @@ use DB;
 use Image;
 use App\Local_government;
 use App\SubCategory;
+<<<<<<< Updated upstream
 
 
 
+=======
+>>>>>>> Stashed changes
 
 class CategoryController extends Controller
 {
@@ -24,8 +27,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::orderBy('id', 'desc')->paginate(5);
-        return view ('admin/category/index', compact('category') );
+        $category = Category::orderBy('id', 'desc')->get();
+        $subcategories = SubCategory::orderBy('id', 'desc')->get();
+        $categoriesList = Category::orderBy('name', 'asc')->get();
+        return view ('admin/category/index', compact(['category', 'categoriesList', 'subcategories']) );
     }
 
      public function subcategoryIndex()
@@ -79,6 +84,109 @@ class CategoryController extends Controller
        return view ('allCategories', compact('categories') );
    }
 
+    public function categoryShow($id)
+    {
+       $category = Category::find($id);
+       return $category;
+   }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createSubCategory(Request $request)
+    {
+        $this->validate($request, [
+            'name' => ['required', 'unique:sub_categories'],
+        ]);
+
+
+        $subcategory = new SubCategory();
+        $slug = Str::of($request->name)->slug('-');
+
+        $subcategory->name = $request->name;
+        $subcategory->slug = $slug;
+        $subcategory->category_id = $request->maincategory;
+        $subcategory->save();
+
+        $request->session()->flash('status', 'Sub Category was added successfully!');
+
+        return redirect()->back();
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function subCategoryShow($id)
+    {
+        $subcategory = SubCategory::find($id);
+        return $subcategory;
+    }
+
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function subCategoryUpdate(Request $request, $id)
+    {
+
+        $subcategory = SubCategory::find($id);
+        $slug = Str::of($request->name)->slug('-');
+
+        $subcategory->name = $request->name;
+        $subcategory->slug = $slug;
+        $subcategory->category_id = $request->maincategory;
+        $subcategory->update();
+
+        $request->session()->flash('status', 'Sub Category was added successfully!');
+        return redirect()->back();
+    }
+
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function categoryUpdate(Request $request, $id)
+    {
+
+        $slug = Str::of($request->name)->slug('-');
+        $slug2 = Str::random(5);
+
+
+        $category = Category::find($id);
+                // Image set up
+        if ( $request->hasFile('file') ) {
+            $thumbnailImage = Image::make($request->file);
+            $thumbnailImage->resize(100,100);
+            $thumbnailImage_name = $slug2.'.'.time().'.'.$request->file->getClientOriginalExtension();
+            $destinationPath = 'images/';
+            $thumbnailImage->save($destinationPath . $thumbnailImage_name);
+            $category->image = $thumbnailImage_name;
+        }
+
+        $category->name = $request->name;
+        $category->slug = $slug;
+        $category->update();
+
+        $request->session()->flash('status', 'Category was updated successfully!');
+
+        return $this->index();
+
+
+    }
+
 
 
     /**
@@ -126,7 +234,7 @@ $category->name = $request->name;
 $category->slug = $slug;
 $category->save();
 
-$request->session()->flash('status', 'Task was successful!');
+$request->session()->flash('status', 'Category was added successfully!');
 
 return $this->index();
 
@@ -239,6 +347,22 @@ return $this->index();
         $category = Category::findOrFail($id);
         $category->delete();
         session()->flash('success', 'Task was successful!');
+        return $this->index();
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function subCatDestroy($id)
+    {
+
+        $subcategory = SubCategory::findOrFail($id);
+        $subcategory->delete();
+        session()->flash('success', 'Sub Category Deleted!');
         return $this->index();
 
     }
