@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/efcontact/public_html/
+    - /bin/cp -R * $DEPLOYPATH
+    
