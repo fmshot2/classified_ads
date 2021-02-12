@@ -159,7 +159,7 @@
                                     <a class="nav-link" id="five-tab" data-toggle="tab" href="#five" role="tab" aria-controls="five" aria-selected="true">Location</a>
                                 </li> --}}
                                 <li class="nav-item">
-                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }} {{ $service_likes != 0 ? '('.$service_likes.')' : ''}}</a>
+                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }} <span style="background-color: #ca8309; color:#fff; border-radius: 50%; padding: 5px; width: 10px; height:10px">{{ $service_likes != 0 ? $service_likes : ''}}</span></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="six-tab" data-toggle="tab" href="#six" role="tab" aria-controls="six" aria-selected="true">Similar Services</a>
