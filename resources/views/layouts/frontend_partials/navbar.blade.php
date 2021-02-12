@@ -11,12 +11,13 @@
             <div class="col-lg-6 col-md-8 col-sm-7">
                 <div class="list-inline">
                     <a href="tel: {{ $check_general_info == 0 ? $general_info->hot_line : '' }} ">
-                        <i class="fa fa-phone"></i>
                         Need Support? {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
-                        | {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
+                    </a>
+                    <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
+                        |&emsp;<i class="fa fa-whatsapp"></i> {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
                     </a>
                     <a href="mailto: {{ $check_general_info == 0 ? $general_info->support_email : ''}}">
-                        | &emsp;<i class="fa fa-envelope"></i> {{ $check_general_info == 0 ? $general_info->support_email : ''}}
+                        |&emsp;<i class="fa fa-envelope"></i> {{ $check_general_info == 0 ? $general_info->support_email : ''}}
                     </a>
                 </div>
             </div>
@@ -86,9 +87,9 @@
                     <li class="nav-item">
                         <a href="{{ route('allCategories') }}"  class="nav-link">Categories</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{route('seller.sellers')}}" id="">Providers</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="{{route('faq')}}" id="">How To Use</a>
                     </li>

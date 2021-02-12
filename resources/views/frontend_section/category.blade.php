@@ -39,17 +39,20 @@
                     <div class="row" style="visibility: visible;">
                         @if(isset($categories))
                             @foreach($categories as $category)
-                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-2 service-info-5 card" style="padding: 5px;background: #fff; margin: 0 0 0 0; border: 0">
-                                    <div class="" style="border: 1px solid rgba(0,0,0,.125);width: 100%;margin: 0;padding: 15px;">
-                                        <a href="{{route('services', $category->slug)}}" >
-                                            <div style="border-radius: 50px;" class="cat-image-icon">
-                                                <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px;" alt="properties">
-                                            </div>
-                                        </a>
+                                <div class="col-lg-3 col-md-3 col-sm-2 col-xs-2 service-info-5 card" style="padding: 5px;background: #fff; margin: 0 0 0 0; border: 0; border-radius: 0">
+                                    <div style="border: 1px solid rgba(0,0,0,.125);width: 100%;margin: 0;padding: 15px;">
+                                        <div class="cat-image-icon">
+                                            <a href="{{route('services', $category->slug)}}" >
+                                                <div style="border-radius: 50px;">
+                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px;" alt="properties">
+                                                </div>
+                                            </a>
 
-                                        <a href="{{route('services', $category->slug)}}" >
-                                            <h6>{{$category->name}}</h6>
-                                        </a>
+                                            <a href="{{route('services', $category->slug)}}" >
+                                                <h6>{{$category->name}}</h6>
+                                            </a>
+                                        </div>
+
                                     </div>
                                 </div>
                             @endforeach
@@ -69,15 +72,17 @@
                             @foreach($categories as $category)
                                 <div class="col-4 col-xs-2" style="margin: 0; padding: 10px; width: 100%">
                                     <div class="service-info-5" style="margin: 0; padding: 10px; width: 100%; border: 1px solid rgba(0,0,0,.125);">
-                                        <a href="{{route('services', $category->slug)}}" >
-                                            <div style="border-radius: 50px">
-                                                <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="properties">
-                                            </div>
-                                        </a>
+                                        <div class="cat-image-icon">
+                                            <a href="{{route('services', $category->slug)}}" >
+                                                <div style="border-radius: 50px">
+                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="properties">
+                                                </div>
+                                            </a>
 
-                                        <a href="{{route('services', $category->slug)}}">
-                                            <h6 class="cat-title" style="margin-top: 5px;">{{$category->name}}</h6>
-                                        </a>
+                                            <a href="{{route('services', $category->slug)}}">
+                                                <h6 class="cat-title" style="margin-top: 5px;">{{$category->name}}</h6>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
@@ -97,15 +102,17 @@
                             @foreach($categories as $category)
                                 <div class="col-3 col-xs-2" style="margin: 0; padding: 10px; width: 100%">
                                     <div class="service-info-5" style="margin: 0; padding: 10px; width: 100%">
-                                        <a href="{{route('services', $category->slug)}}" >
-                                            <div style="border-radius: 50px">
-                                                <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="properties">
-                                            </div>
-                                        </a>
+                                        <div class="cat-image-icon">
+                                            <a href="{{route('services', $category->slug)}}" >
+                                                <div style="border-radius: 50px">
+                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="properties">
+                                                </div>
+                                            </a>
 
-                                        <a href="{{route('services', $category->slug)}}">
-                                            <h6  class="cat-title">{{$category->name}}</h6>
-                                        </a>
+                                            <a href="{{route('services', $category->slug)}}">
+                                                <h6  class="cat-title">{{$category->name}}</h6>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
@@ -127,7 +134,7 @@
                     </div>
                     <div class="popular-posts featured-ad-hm-list">
                         <div class="container">
-                            <div id="carouselExampleControls" class="carousel vert slide" data-ride="carousel" data-interval="900">
+                            <div id="carouselExampleControls" class="carousel vert slide" data-ride="carousel" data-interval="4000">
                                 <ol class="carousel-indicators">
                                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>

@@ -366,6 +366,12 @@
                                         <i class="fa fa-phone"></i> {{$serviceDetail->phone}}
                                     </a>
                                 </p>
+
+                                <p style="text-align: center">
+                                    <a href="https://wa.me/{{$serviceDetail->phone}}/?text=Good%20day.%20I%20am%20interested%20in%your%20service." class="btn btn-success animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff;">
+                                        <i class="fa fa-whatsapp"></i> {{$serviceDetail->phone}}
+                                    </a>
+                                </p>
                             @endauth
 
                             <button class="btn btn-outline-success" id="showContactSellerForm">Show Contact Form</button>

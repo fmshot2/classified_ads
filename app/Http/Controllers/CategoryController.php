@@ -24,8 +24,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::orderBy('id', 'desc')->paginate(5);
-        return view ('admin/category/index', compact('category') );
+        $category = Category::orderBy('id', 'desc')->get();
+        $subcategories = SubCategory::orderBy('id', 'desc')->get();
+        $categoriesList = Category::orderBy('name', 'asc')->get();
+        return view ('admin/category/index', compact(['category', 'categoriesList', 'subcategories']) );
     }
 
      public function subcategoryIndex()
@@ -39,21 +41,21 @@ class CategoryController extends Controller
 
     public function storeSubcategory(Request $request)
     {
-        
+
          $data = $request->all();
-            $category_id = $data['category_id'];  
-            $name = $data['inputSubcategory'];          
+            $category_id = $data['category_id'];
+            $name = $data['inputSubcategory'];
 
         // $badge_check = Badge::where(['service_id'=>$service_id])->first();
-       
+
             $subCategory = new SubCategory();
-            $subCategory->category_id = $category_id; 
-            $subCategory->name = $name;             
+            $subCategory->category_id = $category_id;
+            $subCategory->name = $name;
             if($subCategory->save())
             {
             return response()->json(['error'=>'new error', 'id'=>$category_id]);
         } else {
-        return response()->json(['error'=>'new error']);   
+        return response()->json(['error'=>'new error']);
         }
         // }
     }
@@ -78,6 +80,109 @@ class CategoryController extends Controller
        $categories = Category::orderBy('id', 'desc')->paginate(12);
        return view ('allCategories', compact('categories') );
    }
+
+    public function categoryShow($id)
+    {
+       $category = Category::find($id);
+       return $category;
+   }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createSubCategory(Request $request)
+    {
+        $this->validate($request, [
+            'name' => ['required', 'unique:sub_categories'],
+        ]);
+
+
+        $subcategory = new SubCategory();
+        $slug = Str::of($request->name)->slug('-');
+
+        $subcategory->name = $request->name;
+        $subcategory->slug = $slug;
+        $subcategory->category_id = $request->maincategory;
+        $subcategory->save();
+
+        $request->session()->flash('status', 'Sub Category was added successfully!');
+
+        return redirect()->back();
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function subCategoryShow($id)
+    {
+        $subcategory = SubCategory::find($id);
+        return $subcategory;
+    }
+
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function subCategoryUpdate(Request $request, $id)
+    {
+
+        $subcategory = SubCategory::find($id);
+        $slug = Str::of($request->name)->slug('-');
+
+        $subcategory->name = $request->name;
+        $subcategory->slug = $slug;
+        $subcategory->category_id = $request->maincategory;
+        $subcategory->update();
+
+        $request->session()->flash('status', 'Sub Category was added successfully!');
+        return redirect()->back();
+    }
+
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function categoryUpdate(Request $request, $id)
+    {
+
+        $slug = Str::of($request->name)->slug('-');
+        $slug2 = Str::random(5);
+
+
+        $category = Category::find($id);
+                // Image set up
+        if ( $request->hasFile('file') ) {
+            $thumbnailImage = Image::make($request->file);
+            $thumbnailImage->resize(100,100);
+            $thumbnailImage_name = $slug2.'.'.time().'.'.$request->file->getClientOriginalExtension();
+            $destinationPath = 'images/';
+            $thumbnailImage->save($destinationPath . $thumbnailImage_name);
+            $category->image = $thumbnailImage_name;
+        }
+
+        $category->name = $request->name;
+        $category->slug = $slug;
+        $category->update();
+
+        $request->session()->flash('status', 'Category was updated successfully!');
+
+        return $this->index();
+
+
+    }
 
 
 
@@ -126,7 +231,7 @@ $category->name = $request->name;
 $category->slug = $slug;
 $category->save();
 
-$request->session()->flash('status', 'Task was successful!');
+$request->session()->flash('status', 'Category was added successfully!');
 
 return $this->index();
 
@@ -176,6 +281,9 @@ return $this->index();
         $one_category = Category::where('slug', $slug)->first();
         $category_id = $one_category->id;
         $category_services = Service::where('category_id', $category_id)->get();
+
+        $sub_categories = SubCategory::where("category_id",$category_id)->orderBy('name', 'asc')->get();
+
         //return $category_services;
         //$category_city = Service::all()->pluck("city");
         $category_city = Service::all();
@@ -187,7 +295,7 @@ return $this->index();
         //$category_id = $id;
         //return $category_city;
 
-        return view ('services', compact('category_services', 'toShowOtherSearch', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices', 'categories', 'states', 'local_governments') );
+        return view ('services', compact('category_services', 'toShowOtherSearch', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices', 'categories', 'states', 'local_governments', 'sub_categories') );
     }
 
 
@@ -239,6 +347,22 @@ return $this->index();
         $category = Category::findOrFail($id);
         $category->delete();
         session()->flash('success', 'Task was successful!');
+        return $this->index();
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function subCatDestroy($id)
+    {
+
+        $subcategory = SubCategory::findOrFail($id);
+        $subcategory->delete();
+        session()->flash('success', 'Sub Category Deleted!');
         return $this->index();
 
     }
