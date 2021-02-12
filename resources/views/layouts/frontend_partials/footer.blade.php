@@ -1,4 +1,12 @@
-
+ <div class="big-banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 banner-text text-center">
+          <h2><a href="{{ route('contact') }}">Register Your Service Today!</a></h2>
+        </div>
+      </div>
+    </div>
+  </div>
 <footer class="footer">
     <div class="container footer-inner">
         <div class="row">
@@ -156,6 +164,30 @@
         </div>
     </div>
 
+    <div id="subscribeBox" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Subscribe Now!</h5>
+                    {{-- <button type="button" class="close" data-dismiss="modal">&times;</button> --}}
+                </div>
+                <div class="modal-body">
+                    <p>Subscribe to get updates on our latest services.</p>
+                    <form action="{{route('subscribe')}}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="email" required class="form-contact form-control" name="email" placeholder="Enter Your Email">
+                        <button type="submit" name="submitNewsletter" class="btn btn-block text-white bg-warning" style="margin-top: 10px">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="moreLinkModal" class="modal fade moreLinkModal">
         <div class="modal-dialog">
             <div class="modal-content" style="border-radius: 0 !important; padding: 0">
@@ -164,9 +196,10 @@
                         <li><a href="{{route('contact')}}">Contact Us</a></li>
                         <li><a href="{{route('allServices')}}">All Services</a></li>
                         <li><a href="{{route('allCategories')}}">All Categories</a></li>
-                        <li><a href="{{route('allSellers')}}">Service Providers</a></li>
+                        {{-- <li><a href="{{route('allSellers')}}">Service Providers</a></li> --}}
                         <li><a href="{{route('allcities')}}">Places in Nigeria</a></li>
                         <li><a href="{{route('advertisement')}}">Advertise With Us</a></li>
+                        <li><a data-toggle="modal" data-target="#subscribeBox" href="#">Subscribe Now!</a></li>
                     </ul>
                 </div>
             </div>

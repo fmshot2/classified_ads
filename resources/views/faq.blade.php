@@ -49,13 +49,12 @@
                             <div id="faq" class="faq-accordion">
                                 <div class="card m-b-0">
                                   @forelse ($all_faqs as $all_faq)
-
                                     <div class="card-header">
-                                        <a class="card-title collapsed" data-toggle="collapse" data-parent="#faq" href="#collapse7" aria-expanded="false">
+                                        <a class="card-title collapsed" data-toggle="collapse" data-parent="#faq" href="#collapse{{ $all_faq->id }}" aria-expanded="false">
                                           {{$all_faq->title}}
                                         </a>
                                     </div>
-                                    <div id="collapse7" class="card-block collapse" style="padding: 0 15px;">
+                                    <div id="collapse{{ $all_faq->id }}" class="card-block collapse" style="padding: 0 15px;">
                                         <div class="foq-info">
                                             <p>{!! $all_faq->details !!}</p>
                                             <hr>
@@ -67,14 +66,14 @@
                                         </div>
                                     </div>
 
-                              @empty
-    <p>No records yet</p>
-@endforelse
+                                    @empty
+                                        <p>No records yet</p>
+                                    @endforelse
                                 </div>
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
+                        {{-- <div class="tab-pane fade" id="two" role="tabpanel" aria-labelledby="two-tab">
                             <div id="faq2" class="faq-accordion">
                                 <div class="card m-b-0">
                                     <div class="card-header">
@@ -202,7 +201,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

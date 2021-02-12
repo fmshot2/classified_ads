@@ -2,7 +2,7 @@
 @section('title', 'All Categories | ')
 @section('content')
 
-<div class="sub-banner">
+<div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/allcatbg.jpeg')}});">
     <div class="container">
         <div class="page-name">
             <div class="sub-banner-text-content">

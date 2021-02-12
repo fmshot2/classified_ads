@@ -1,5 +1,5 @@
 <div class="banner homepage-top-banner" id="banner">
-	<div id="bannerCarousole" class="carousel slide" data-ride="carousel">
+	<div id="bannerCarousole" class="carousel slide" data-ride="carousel" data-interval="5000">
 		<div class="carousel-inner">
             @forelse ($sliders as $slider)
                 <div class="carousel-item banner-max-height {{ $loop->index == 1 ? 'active' : '' }}">

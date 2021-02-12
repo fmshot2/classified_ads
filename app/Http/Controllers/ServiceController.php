@@ -50,18 +50,10 @@ class ServiceController extends Controller
 
   public function index2()
   {
-    $featuredServices = Service::where([
-      ['is_approved', '=', 1], ['badge_type', '=', 'trusted']
-    ])->with('user')->paginate(16);
-    $superServices = Service::where([
-      ['is_approved', '=', 1], ['badge_type', '=', 'super']
-    ])->with('user')->paginate(16);
-    $basicServices = Service::where([
-      ['is_approved', '=', 1], ['badge_type', '=', 'basic']
-    ])->with('user')->paginate(16);
 
+    $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
     $allServices = Service::where([
-      ['is_approved', '=', 1] ])->get();
+      ['is_approved', '=', 1] ])->inRandomOrder()->get();
 
     foreach ($allServices as $key => $serv) {
       // this is assigning a new field callled total_likes to alservices
@@ -79,7 +71,7 @@ class ServiceController extends Controller
     $hotServices = $allServices->sortByDesc('total_likes');
     $approvedServices = Service::where('status', 1)->with('user')->get();
     $advertServices = Service::where('is_approved', 1)->with('user')->get();
-    $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(16);
+    $recentServices = Service::where('is_approved', 1)->orderBy('created_at', 'asc')->paginate(16);
     $categories = Category::orderBy('id', 'asc')->paginate(35);
     $sliders = Slider::all();
     $trendingServices = Service::orderByUniqueViews()->get();
@@ -94,8 +86,13 @@ class ServiceController extends Controller
     }else{
       $user111 = null;
     }
+
     return view('welcome', compact(['featuredServices', 'recentServices',
-      'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'superServices', 'basicServices', 'hotServices' ]));
+      'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'hotServices' ]));
+
+
+    // return view('welcome', compact(['featuredServices', 'recentServices',
+    //   'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'superServices', 'basicServices', 'hotServices', 'moderateServices' ]));
 
   }
 

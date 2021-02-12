@@ -9,6 +9,50 @@
                         <div class="col-lg-2 col-md-4 col-sm-6">
                             <div class="form-group">
                                 <input id="keyword" type="text" name="name" class="form-control" placeholder="Enter Keyword">
+                     <form>
+
+                    </form>
+                    <form action="{{route('search3')}}" method="GET">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control" placeholder="Enter Keyword">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-md-4 col-sm-6" style="">
+                                <div class="form-group">
+                                  <select class="form-control" required id="categories" name="category">
+                                      <option value="">- Select Category -</option>
+                                        @if(isset($categories))
+                                            @foreach($categories as $category)
+                                                <option value="{{ $category->id }}"> {{ $category->name }}  </option>
+                                            @endforeach
+                                        @endif
+                                  </select>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-2 col-md-4 col-sm-6" style="">
+                                <div class="form-group">
+                                    <select class="form-control" id="sub_category" name="sub_categories">
+                                        <option value="">- Sub Category -</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-md-4 col-sm-6" style="">
+                                <div class="form-group">
+                                    <select class="form-control" required id="state" name="state">
+                                        <option value="">- Select State -</option>
+                                        @if(isset($states))
+                                            @foreach($states as $state)
+
+                                                <option value="{{$state->name}}"> {{ $state->name }}  </option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
