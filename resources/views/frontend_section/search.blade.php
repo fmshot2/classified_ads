@@ -3,14 +3,12 @@
         <div class="search-section-area">
             <div class="search-area-inner">
                 <div class="search-contents">
+                  
                    <form>
-
-                   </form>
-                   <form action="{{route('search3')}}" method="GET">
                     <div class="row">
                         <div class="col-lg-2 col-md-4 col-sm-6">
                             <div class="form-group">
-                                <input type="text" required name="name" class="form-control" placeholder="Enter Keyword">
+                                <input id="keyword" type="text" name="name" class="form-control" placeholder="Enter Keyword">
                             </div>
                         </div>
 
@@ -44,7 +42,7 @@
 
                   <div class="col-lg-2 col-md-4 col-sm-6" style="">
                     <div class="form-group">
-                        <select class="form-control" required id="state" name="state">
+                        <select class="form-control" id="state" name="state">
                             <option value="">- Select State -</option>
                             @if(isset($states))
                             @foreach($states as $state)
@@ -66,7 +64,7 @@
 
                 <div class="col-lg-2 col-md-4 col-sm-6">
                     <div class="form-group">
-                        <button class="btn btn-block bg-warning font-weight-bold text-white btn-warning">Search <i class="fa fa-search ml-2" aria-hidden="true"></i></button>
+                        <button class="btn btn-block bg-warning font-weight-bold text-white btn-warning" onclick="getLocation()">Search <i class="fa fa-search ml-2" aria-hidden="true"></i></button>
                     </div>
                 </div>
 
@@ -153,3 +151,35 @@
 });
 
 </script>
+
+
+{{-- <script>
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+  var rad2 = document.getElementById("myRange").value;
+  //   var keyword = document.getElementById("keyword").value;
+  // var categories = document.getElementById("categories").value;
+  // var sub_category = document.getElementById("sub_category").value;
+  // var myRange = document.getElementById("myRange").value;
+  // var state = document.getElementById("state").value;
+  // var city = document.getElementById("city").value;
+
+  // var rad = slider.value;
+  // output.innerHTML = slider.value;
+
+   $.ajax({
+            type:'GET',
+            url: '/findgeo',
+            data: {latitude:position.coords.latitude, longitude:position.coords.longitude, radius:rad2, keyword:keyword,
+             categories:categories, sub_category:sub_category, myRange:myRange, state:state, city:city },
+             // data: {latitude:position.coords.latitude, longitude:position.coords.longitude, radius:rad, keyword:keyword,
+             // categories:categories, sub_category:sub_category, myRange:myRange, state:state, city:city },
+            success: function(data) {
+              console.log(data);
+              // alert(data);
+                }
+            });
+}
+</script> --}}
