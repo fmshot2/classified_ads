@@ -310,6 +310,29 @@ $longitude = $json['longitude'];
 
 Route::get ( 'geolo',  'AdminController@geo')->name('geolo');
 
+Route::get ( 'findgeo',  'AdminController@findNearestRestaurants');
+
+
+// Route::get ('getgeo',   function ($latitude, $longitude, $radius = 400)
+// {
+    
+//     $restaurants = Restaurant::selectRaw("id, name, address, latitude, longitude, rating, zone ,
+//                      ( 6371000 * acos( cos( radians(?) ) *
+//                        cos( radians( latitude ) )
+//                        * cos( radians( longitude ) - radians(?)
+//                        ) + sin( radians(?) ) *
+//                        sin( radians( latitude ) ) )
+//                      ) AS distance", [$latitude, $longitude, $latitude])
+//         ->where('active', '=', 1)
+//         ->having("distance", "<", $radius)
+//         ->orderBy("distance",'asc')
+//         ->offset(0)
+//         ->limit(20)
+//         ->get();
+
+//     return $restaurants;
+// })
+
 
 
 
