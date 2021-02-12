@@ -18,11 +18,11 @@
                                 <div class="form-group">
                                   <select class="form-control" required id="categories" name="category">
                                       <option value="">- Select Category -</option>
-                                            @if(isset($categories))
-                                      @foreach($categories as $category)
-                                      <option value="{{ $category->id }}"> {{ $category->name }}  </option>
-                                      @endforeach
-                                      @endif
+                                        @if(isset($categories))
+                                            @foreach($categories as $category)
+                                                <option value="{{ $category->id }}"> {{ $category->name }}  </option>
+                                            @endforeach
+                                        @endif
                                   </select>
                               </div>
                             </div>

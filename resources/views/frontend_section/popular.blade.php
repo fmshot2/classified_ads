@@ -14,7 +14,8 @@
                                     <div class="agenttrusted-badges">
                                         <span class="text-warning" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Super</span>
                                     </div>
-                                    <a class="title hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 50) }} <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $hotService->name }}">
+                                    <a class="title hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 30) }}</a>
+                                    <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $hotService->name }}">
                                     </a>
                                 </div>
                             @elseif($hotService->badge_type == 2)
@@ -22,7 +23,8 @@
                                     <div class="agenttrusted-badges">
                                         <span class="text-success" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i><i class="fa fa-star"></i> Moderate</span>
                                     </div>
-                                    <a class="title hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 50) }} <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $hotService->name }}">
+                                    <a class="title hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 30) }}</a>
+                                    <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $hotService->name }}">
                                     </a>
                                 </div>
                             @elseif($hotService->badge_type == 3)
@@ -30,14 +32,16 @@
                                     <div class="agenttrusted-badges">
                                         <span class="text-primary" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i> Basic</span>
                                     </div>
-                                    <a class="title hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}">{{ Str::limit($hotService->name, 50) }} <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $hotService->name }}">
+                                    <a class="title hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 30) }}</a>
+                                    <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $hotService->name }}">
                                     </a>
                                 </div>
                             @else
                                 <div class="col-lg-3 col-md-4 col-sm-6 col-pad" style="margin-bottom: 30px">
                                     <div class="agenttrusted-badges" style="margin-top: 25px">
                                     </div>
-                                    <a class="title hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 50) }} <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $hotService->name }}">
+                                    <a class="title hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 30) }}</a>
+                                    <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $hotService->name }}">
                                     </a>
                                 </div>
                             @endif

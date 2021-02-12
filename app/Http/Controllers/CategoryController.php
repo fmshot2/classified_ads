@@ -281,6 +281,9 @@ return $this->index();
         $one_category = Category::where('slug', $slug)->first();
         $category_id = $one_category->id;
         $category_services = Service::where('category_id', $category_id)->get();
+
+        $sub_categories = SubCategory::where("category_id",$category_id)->orderBy('name', 'asc')->get();
+
         //return $category_services;
         //$category_city = Service::all()->pluck("city");
         $category_city = Service::all();
@@ -292,7 +295,7 @@ return $this->index();
         //$category_id = $id;
         //return $category_city;
 
-        return view ('services', compact('category_services', 'toShowOtherSearch', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices', 'categories', 'states', 'local_governments') );
+        return view ('services', compact('category_services', 'toShowOtherSearch', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices', 'categories', 'states', 'local_governments', 'sub_categories') );
     }
 
 

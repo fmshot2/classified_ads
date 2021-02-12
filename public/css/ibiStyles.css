@@ -227,7 +227,33 @@ body {
 }
 
 .hot-business-name {
-    font-size: 16px;
+    font-size: 17px;
+}
+.hero img {
+    width: 100%;
+}
+.big-banner {
+    background-color: #ca8309;
+    width: 100%;
+    margin-bottom: 30px;
+    float: left;
+}
+.big-banner .banner-text {
+    padding: 0;
+}
+.big-banner .banner-text h2 {
+    font-size: 25px;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #fff;
+    margin-top: 38px;
+    margin-bottom: 41px;
+    display: inline-block;
+    position: relative;
+}
+
+.big-banner .banner-text h2 a {
+    color: #fff;
 }
 
 @-webkit-keyframes pulsePostBtn {
@@ -370,6 +396,28 @@ body {
     }
     .footer .copy {
         border-top: solid 1px #474747 !important;
+    }
+    .big-banner .banner-text h2:before {
+        content: "";
+        display: block;
+        width: 128px;
+        height: 42px;
+        background: url(https://raw.githubusercontent.com/solodev/cta-with-css/master/image-2.png)
+            no-repeat center center;
+        position: absolute;
+        top: 0;
+        left: -158px;
+    }
+    .big-banner .banner-text h2:after {
+        content: "";
+        display: block;
+        width: 128px;
+        height: 42px;
+        background: url(https://raw.githubusercontent.com/solodev/cta-with-css/master/image-3.png)
+            no-repeat center center;
+        position: absolute;
+        top: 0;
+        right: -158px;
     }
 }
 
@@ -692,7 +740,32 @@ body {
     }
 
     .hot-business-name {
+        display: block;
         font-size: 14px !important;
+        white-space: nowrap;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+        max-width: 150px;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+    .big-banner {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 0 0 30px 0;
+        float: none;
+    }
+    .big-banner .container,
+    .big-banner .row {
+        width: 100%;
+    }
+    .big-banner .banner-text {
+        width: 100%;
+        text-align: center !important;
+    }
+    .big-banner .banner-text h2 {
+        font-size: 16px;
     }
 }
 
@@ -875,4 +948,10 @@ body {
     height: 100%;
     margin: 0 !important;
     background: rgba(0, 0, 0, 0.767);
+}
+
+.sidebar-title {
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 600;
 }

@@ -127,6 +127,7 @@
 
                     <div class="col-lg-4 col-md-12">
                         <div class="sidebar-right">
+
                             <!-- Popular posts start -->
                             <div class="widget popular-posts">
                                 <h3 class="sidebar-title">Featured Services</h3>
@@ -152,6 +153,26 @@
                                     @endforeach
                                 @endif
                             </div>
+                            <!-- Sub Categories -->
+                            <div class="widget popular-posts">
+                                <h3 class="sidebar-title">Sub Categories</h3>
+                                <div class="s-border"></div>
+                                <div class="m-border"></div>
+                                @if(isset($sub_categories))
+                                    @foreach($sub_categories as $key => $all_sub_category)
+                                        <div class="media">
+                                            <div class="media-body align-self-center all-ser-pg-sidebar-feat-ser">
+                                                <h3 class="media-heading">
+                                                    <a href="" class="sub_cat_link">
+                                                        <strong style="text-transform: capitalize"><i class="fa fa-long-arrow-right"></i></strong>  {{ $all_sub_category->name }}
+                                                    </a>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+
                             <div class="popular-posts featured-ad-hm-list">
                                 <div class="container">
                                     <div id="carouselExampleControls" class="carousel vert slide" data-ride="carousel" data-interval="4000">
@@ -179,39 +200,38 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Helping Center start -->
-                        <div class="widget helping-center">
-                            <h3 class="sidebar-title">Helping Center</h3>
-                            <div class="s-border"></div>
-                            <div class="m-border"></div>
-                            <ul class="contact-link">
-                                <li>
-                                    <i class="flaticon-technology-1"></i>
-                                    <a href="tel:+0700-6258244">
-                                        0700-6258244
-                                    </a>
-                                </li>
-                                <li>
-                                    <i class="flaticon-technology-1"></i>
-                                    <a href="tel:+0807-9000286">
-                                        0807-9000286
-                                    </a>
-                                </li>
-                                <li>
-                                    <i class="flaticon-technology-1"></i>
-                                    <a href="tel:+080567654345">
-                                        080567654345
-                                    </a>
-                                </li>
-                                <li>
-                                    <i class="flaticon-envelope"></i>
-                                    <a href="mailto:info@efcontact.com">
-                                        info@efcontact.com
-                                    </a>
-                                </li>
-                            </ul>
+                            <!-- Helping Center start -->
+                            <div class="widget helping-center">
+                                <h3 class="sidebar-title">Helping Center</h3>
+                                <div class="s-border"></div>
+                                <div class="m-border"></div>
+                                <ul class="contact-link">
+                                    <li>
+                                        <i class="flaticon-technology-1"></i>
+                                        <a href="tel:+0700-6258244">
+                                            0700-625-8244
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <i class="flaticon-technology-1"></i>
+                                        <a href="tel:+0807-9000286">
+                                            0807-900-0286
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
+                                            <i class="fa fa-whatsapp"></i> {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <i class="flaticon-envelope"></i>
+                                        <a href="mailto:info@efcontact.com">
+                                            info@efcontact.com
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -279,4 +299,13 @@
     });
 
 </script>
+
+<style>
+    .sub_cat_link{
+        display: block;
+    }
+    .sub_cat_link:hover{
+        margin-left: 10px;
+    }
+</style>
 @endsection

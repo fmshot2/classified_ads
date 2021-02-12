@@ -1,4 +1,12 @@
-
+ <div class="big-banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 banner-text text-center">
+          <h2><a href="{{ route('contact') }}">Register Your Service Today!</a></h2>
+        </div>
+      </div>
+    </div>
+  </div>
 <footer class="footer">
     <div class="container footer-inner">
         <div class="row">

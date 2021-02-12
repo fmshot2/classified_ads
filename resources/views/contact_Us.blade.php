@@ -41,7 +41,14 @@
                         <div class="col-md-4 col-sm-6 mrg-btn-50">
                             <i class="flaticon-technology-1"></i>
                             <p>Phone Number</p>
-                            <strong>0700-6258244</strong>
+                            <strong>
+                                <a href="tel: {{ $check_general_info == 0 ? $general_info->hot_line : '' }} ">
+                                    +234 {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
+                                </a> <br>
+                                <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
+                                    <i class="fa fa-whatsapp" style="font-size: 15px"></i> +234 {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
+                                </a>
+                            </strong>
                         </div>
                         <div class="col-md-4 col-sm-6 mrg-btn-50">
                             <i class="flaticon-envelope"></i>
