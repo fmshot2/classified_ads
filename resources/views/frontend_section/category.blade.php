@@ -159,7 +159,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
                     <div class="footer-item clearfix container-fluid" style="margin-top:20px">
                         <br/>

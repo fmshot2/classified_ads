@@ -185,13 +185,13 @@
             <div class="modal-content" style="border-radius: 0 !important; padding: 0">
                 <div class="modal-body" style="padding: 0">
                     <ul>
-                        <li><a data-toggle="modal" data-target="#subscribeBox" href="#">Subscribe</a></li>
                         <li><a href="{{route('contact')}}">Contact Us</a></li>
                         <li><a href="{{route('allServices')}}">All Services</a></li>
                         <li><a href="{{route('allCategories')}}">All Categories</a></li>
-                        <li><a href="{{route('allSellers')}}">Service Providers</a></li>
+                        {{-- <li><a href="{{route('allSellers')}}">Service Providers</a></li> --}}
                         <li><a href="{{route('allcities')}}">Places in Nigeria</a></li>
                         <li><a href="{{route('advertisement')}}">Advertise With Us</a></li>
+                        <li><a data-toggle="modal" data-target="#subscribeBox" href="#">Subscribe Now!</a></li>
                     </ul>
                 </div>
             </div>

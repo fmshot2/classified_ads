@@ -86,9 +86,9 @@
                     <li class="nav-item">
                         <a href="{{ route('allCategories') }}"  class="nav-link">Categories</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{route('seller.sellers')}}" id="">Providers</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="{{route('faq')}}" id="">How To Use</a>
                     </li>

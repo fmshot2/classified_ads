@@ -17,8 +17,10 @@
                                 <div>
                                     <a class="title" href="{{route('serviceDetail', $recentService->slug)}}">{{$recentService->user->name}}: {{$recentService->name}}</a>
                                 </div>
-
                                 <ul class="d-flex flex-row justify-content-between info">
+                                    <li>
+                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$recentService->likes->count()}} Likes
+                                    </li>
                                     <li>
                                         <a class="pull-right" href="{{route('serviceDetail', $recentService->slug)}}">
                                             <i class="fa fa-map-marker text-warning"></i> {{$recentService->state}}

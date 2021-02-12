@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-lg-2 col-md-4 col-sm-6">
                                 <div class="form-group">
-                                    <input type="text" required name="name" class="form-control" placeholder="Enter Keyword">
+                                    <input type="text" name="name" class="form-control" placeholder="Enter Keyword">
                                 </div>
                             </div>
 
