@@ -18,7 +18,14 @@
 <p>Click the button to get your coordinates.</p>
 
 <button onclick="getLocation()">Try It</button>
-<input id="radi" type="number" name="radius">
+<input id="radi2" type="number" name="radius">
+
+ {{-- <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                      <div class="slidecontainer">
+                          <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                          <p>Value: <span id="demo"></span></p>
+                      </div>
+                  </div> --}}
 
 <p id="demo"></p>
 
@@ -34,10 +41,13 @@ function getLocation() {
 }
 
 function showPosition(position) {
+    var rad = document.getElementById("myRange").value;
+
+  // alert(rad);
   x.innerHTML = "Latitude: " + position.coords.latitude + 
   "<br>Longitude: " + position.coords.longitude;
-  var rad2 = document.getElementById("radi").value;
-  var rad = slider.value;
+  // var rad = document.getElementById("myRange").value;
+  // var rad = slider.value;
   // output.innerHTML = slider.value;
 
    $.ajax({
@@ -112,9 +122,9 @@ slider.oninput = function() {
 
 @include('frontend_section/brands')
 
-
+<div>
 @include('frontend_section/recent')
-
+</div>
 {{--<div class="partners">
     <div class="container">
         <h4>Brands and Partners</h4>
@@ -305,7 +315,12 @@ owl.owlCarousel({
 }
 </style>
 
-
+<script type="text/javascript">
+  $(document).ready( function () {
+    // alert('ddsdsd');
+  getLocation();
+});
+</script>
 
 
 

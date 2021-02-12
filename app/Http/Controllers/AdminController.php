@@ -94,13 +94,18 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
 
 
 
-
-    public function findNearestRestaurants(Request $request)
+    public function findNearestRestaurants(Request $request, $radius = 1000)
 {
   // return $request->radius;
   $latitude = $request->latitude;
     $longitude = $request->longitude;
-    $radius = $request->radius;
+    $radius = 1000;
+    // $keyword = $request->radius,
+    // $categories = $request->categories, 
+    // $sub_category = $request->sub_category, 
+    // $myRange = $request->myRange, 
+    // $state =  $request->state, 
+    // $city = $request->city
 
    // return $latitude . $longitude;
     // $latitude = 

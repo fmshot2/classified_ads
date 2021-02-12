@@ -216,9 +216,9 @@
                                                             @if(isset($similarProducts))
                                                                 @foreach($similarProducts as $similarProduct)
                                                                     <tr>
-                                                                        <td class="image">
+                                                                       {{--  <td class="image">
                                                                             <a href="{{route('serviceDetail', $similarProduct->id)}}"><img alt="properties-small" src="{{asset('images')}}/{{$similarProduct->image[0]}}" class="img-fluid"></a>
-                                                                        </td>
+                                                                        </td> --}}
                                                                         <td>
                                                                             <div class="inner">
                                                                                 <h5><a href="{{route('serviceDetail', $similarProduct->id)}}">{{$similarProduct->name}}</a></h5>
@@ -343,7 +343,9 @@
                             <div class="m-border" style="margin-bottom: 2px"></div>
                             <div class="s-border" style="margin-bottom: 15px"></div>
 
-                            <img class="img-fluid sp-seller-img" src="{{asset('images')}}/{{$serviceDetail->image[0]}}" alt="Agent" height="200" width="200">
+                          {{--   <img class="img-fluid sp-seller-img" src="{{asset('images')}}/{{$serviceDetail->image[0]}}" alt="Agent" height="200" width="200"> --}}
+
+                        {{--   <img class="img-fluid sp-seller-img" src="{{asset('images')}}/{{$serviceDetail->service_image}}" alt="Agent" height="200" width="200"> --}}
 
                             <div class="ser-seller-note">
                                 <div>
