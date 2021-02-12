@@ -18,7 +18,9 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.4",
         "laravelcollective/html": "~6.0",
+        "malhal/laravel-geographical": "^1.0",
         "mews/captcha": "^3.2",
+        "spatie/geocoder": "^3.10",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

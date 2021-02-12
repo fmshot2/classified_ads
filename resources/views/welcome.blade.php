@@ -14,6 +14,96 @@
 
 @include('frontend_section/search')
 
+
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button>
+<input id="radi" type="number" name="radius">
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+  var rad2 = document.getElementById("radi").value;
+  var rad = slider.value;
+  // output.innerHTML = slider.value;
+
+   $.ajax({
+            type:'GET',
+            url: '/findgeo',
+            data: {latitude:position.coords.latitude, longitude:position.coords.longitude, radius:rad },
+            success: function(data) {
+              console.log(data);
+              // alert(data);
+                }
+            });
+}
+</script>
+
+
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+</script>
+
+
+
+<script type="text/javascript">
+        $(document).ready(function() {
+        document.getElementById("complaint_notification").hidden = true;
+        $(".btn-submit3").click(function(e){
+        e.preventDefault();
+
+        var _token = $("input[name='_token']").val();
+        var buyer_id = $("#buyer_id_report").val();
+        var buyer_name = $("#buyer_name_report").val();
+        var service_id = $("#service_id_report").val();
+        var service_user_id = $("#service_user_id_report").val();
+        var buyer_email = $("#buyer_email_report").val();
+        var description = $("#description_report").val();
+        function greet(){
+                    document.getElementById("complaint_notification").hidden = true;
+                    document.getElementById("complaint_notification").innerHTML = "";
+                }
+         function set(){
+              setTimeout(greet, 20000);
+         }
+
+
+        $.ajax({
+            type:'POST',
+            url: '/buyer/createcomplaint',
+            data: {_token:_token, buyer_id:buyer_id, buyer_name:buyer_name, buyer_email:buyer_email, service_id:service_id, service_user_id:service_user_id,  description:description },
+            success: function(data) {
+                  document.getElementById("complaint_notification").hidden = false;
+                    document.getElementById("complaint_notification").innerHTML = "Your complaint was sent successfully";
+            //   greet();
+            set();
+
+                }
+            });
+        });
+
+    });
+</script>
+
 @include('frontend_section/category')
 
 @include('frontend_section/feature')
@@ -175,7 +265,45 @@ owl.owlCarousel({
 </script>
 
 
+<style>
+.slidecontainer {
+  width: 100%;
+}
 
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+</style>
 
 
 

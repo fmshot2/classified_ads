@@ -178,7 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Mews\Captcha\CaptchaServiceProvider::class,
-        ImageServiceProvider::class
+        ImageServiceProvider::class,
+        Spatie\Geocoder\GeocoderServiceProvider::class        
 
     ],
 
@@ -234,6 +235,7 @@ return [
 
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
         'Image' => 'Intervention\Image\Facades\Image',
+        'Geocoder' => Spatie\Geocoder\Facades\Geocoder::class,
     ],
 
 ];
