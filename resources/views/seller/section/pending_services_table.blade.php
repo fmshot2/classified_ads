@@ -77,8 +77,8 @@
 
 
 <div class="box-footer clearfix">
-	{{ $pending_service->links() }} 
+	{{ $pending_service->links() }}
 </div>
 
 
-@include('seller/modal/create_service') 
+@include('seller/modal/create_service')

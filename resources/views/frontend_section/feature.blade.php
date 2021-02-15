@@ -5,6 +5,32 @@
         <div class="main-title" style="margin-top: -50px;">
             <h1> Featured Services </h1>
         </div>
+
+{{--  <div>Country: <span id="country"></span>
+    <div>State: <span id="state"></span>
+    <div>City: <span id="city"></span>
+    <div>Latitude: <span id="latitude"></span>
+    <div>Longitude: <span id="longitude"></span>
+    <div>IP: <span id="IPv4"></span>
+        <button class="btn btn-success" onclick="check()">click</button>
+    <script>
+        function check(){
+    $.ajax({
+        url: "https://geolocation-db.com/jsonp",
+        jsonpCallback: "callback",
+        dataType: "jsonp",
+        success: function( location ) {
+            $('#country').html(location.country_name);
+            $('#state').html(location.state);
+            $('#city').html(location.city);
+            $('#latitude').html(location.latitude);
+            $('#longitude').html(location.longitude);
+            $('#ip').html(location.IPv4);
+        }
+    });
+    }
+    </script> --}}
+
         @if(isset($featuredServices))
             <div class="row">
                 @foreach($featuredServices as $featuredService)

@@ -55,7 +55,7 @@
                             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
                                 <a href="{{ route('services', $category->slug) }}">
                                     <div class="service-info-5 animate__animated animate__fadeInUp">
-                                        <i class="flaticon-apartment text-warning"></i>
+                                        <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px; margin-bottom: 20px" alt="properties">
                                         <h4>{{$category->name}}</h4>
                                     </div>
                                 </a>

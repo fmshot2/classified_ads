@@ -34,7 +34,7 @@ Login
                     <form action="{{route('login')}}" method="POST">
                         @csrf
                         <div class="form-group form-box">
-                            <input type="email" name="email" class="input-text" placeholder="Email Address">
+                            <input type="email" name="email" value="{{ old('email') }}" class="input-text" placeholder="Email Address">
                             @if ($errors->has('email'))
                             <span class="helper-text" data-error="wrong" data-success="right">
                                 <strong class="text-danger">{{ $errors->first('email') }}</strong>
