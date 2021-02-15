@@ -599,7 +599,7 @@ public function search(Request $request){
     $query->where('name', 'like', '%' . $keyword . '%');
   })->get();
 
-   $keyword_and_Category = Service::where(function ($query) use ($keyword, $category) {
+   $keyword_and_Categories = Service::where(function ($query) use ($keyword, $category) {
     $query->where('name', 'like', '%' . $keyword . '%')
     ->orWhere('category_id', 'like', '%' . $category . '%');
   })->get();
@@ -625,7 +625,7 @@ public function search(Request $request){
   //   ->orWhere('state', 'like', '%' . $state . '%');
   // })->get();
 return view('searchResult', compact(['featuredServices', 'all_states',
-      'keywordResponses', 'keyword_and_Category', 'keyword_and_state', 'keyword_and_category_and_state', 'category_response' ]));
+      'keywordResponses', 'keyword_and_Categories', 'keyword_and_state', 'keyword_and_category_and_state', 'category_response' ]));
 }
 
     // return view('searchResult')->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
