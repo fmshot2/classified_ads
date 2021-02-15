@@ -131,11 +131,11 @@ $referlink = $refer;
 		if (Auth::user()->role == 'seller' )
 		{
 			session()->flash('success', ' Login Succesfull');
-			return redirect()->intended('seller/dashboard');
+			return redirect()->intended('provider/dashboard');
 		} else if (Auth::user()->role == 'buyer')
 		{
 			session()->flash('success', ' Login Succesfull');
-			return redirect()->intended('buyer/dashboard');
+			return redirect()->intended('seeker/dashboard');
 		} else
 		{
 			return redirect()->intended('admin/dashboard');
