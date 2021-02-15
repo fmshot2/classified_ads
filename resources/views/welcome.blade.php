@@ -15,20 +15,13 @@
 
 <p>Click the button to get your coordinates.</p>
 
-<button onclick="getLocation()">Try It</button>
+<button onclick="getLocationBtn()">Try It</button>
 <input id="radi2" type="number" name="radius">
 
- {{-- <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-                      <div class="slidecontainer">
-                          <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-                          <p>Value: <span id="demo"></span></p>
-                      </div>
-                  </div> --}}
-
-<p id="demo"></p>
+<p id="demo2"></p>
 
 <script>
-var x = document.getElementById("demo");
+var x = document.getElementById("demo2");
 
 function getLocation() {
   if (navigator.geolocation) {
@@ -38,10 +31,31 @@ function getLocation() {
   }
 }
 
-function showPosition(position) {
-    var rad = document.getElementById("myRange").value;
 
-  // alert(rad);
+
+function getLocationBtn() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition2);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+
+function showPosition2(position) {
+    // var rad = document.getElementById("myRange").value;
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+  // var rad = document.getElementById("myRange").value;
+  // var rad = slider.value;
+  // output.innerHTML = slider.value;
+
+}
+
+function showPosition(position) {
+    // var rad = document.getElementById("myRange").value;
+
+  // alert(position.coords.latitude);
   x.innerHTML = "Latitude: " + position.coords.latitude + 
   "<br>Longitude: " + position.coords.longitude;
   // var rad = document.getElementById("myRange").value;
@@ -50,26 +64,100 @@ function showPosition(position) {
 
    $.ajax({
             type:'GET',
-            url: '/findgeo',
-            data: {latitude:position.coords.latitude, longitude:position.coords.longitude, radius:rad },
-            success: function(data) {
-              console.log(data);
-              // alert(data);
+            url: 'findgeo',
+            data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
+           success: function(result){
+            // console.log(result.data);
+            // return console.log(result.data);
+
+                    services = result.data;
+                     console.log('services', services);
+                        services.forEach(service => {
+                            console.log('one',service)
+                            // badge = service.badge_type
+                            featuredServicesRow.innerHTML += `<a href="" class="property-img">
+                                <div class="col-lg-3 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                    <div class="property-box">
+                                        <div class="property-thumbnail">
+                                            <div class="listing-badges">`+
+                                                service.badge_type
+                                            +`</div>
+                                            <div class="price-ratings-box">
+                                                <p class="price" style="text-transform: capitalize">
+                                                    `+ service.user.name + `
+                                                </p>
+                                            </div>
+                                            <img class="d-block w-100" src="/uploads/services/`+ service.image[0] + `" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+
+                                        </div>
+                                        <div class="detail">
+                                            <div>
+                                                <a class="title" href="">`+ service.name + `</a>
+                                            </div>
+
+                                            <ul class="d-flex flex-row justify-content-between info">
+                                                <li>
+                                                    <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> Likes
+                                                </li>
+                                                <li>
+                                                    <a class="pull-right" href="">
+                                                        <i class="fa fa-map-marker text-warning"></i> `+ service.state + `
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>`
+
+
+                        });
                 }
+              // var myObj = JSON.parse(data);
+              // console.log(myObj);
+              // $('.containerdata').html(data.html);
+              // document.getElementById("nearest").style.removeProperty('display');       
+            
+
+
+            //  $.ajax({
+            // type:'GET',
+            // url: '/',
+            // data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
+            // success: function(data) {
+            //   document.getElementById("nearest").style.removeProperty('display');   
+            //   // $('.containerdata').html(data.html);
+            //   console.log(data);
+            //   // location.reload();
+            //   // return false;    
+            
+            //   // alert(data);
+            //     }
+            // });
+
+
+
+
+            //    $.ajax({
+            // type:'GET',
+            // url: '/',
+            // data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
+            // success: function(data) {
+            //   document.getElementById("nearest").style.removeProperty('display');  
+            //       var myObj = JSON.parse(this.data); 
+            //   $('.containerdata').html(myObj.html);
+            //   console.log(myObj);
+            //   // location.reload();
+            //   // return false;    
+            
+            //   // alert(data);
+            //     }
+            // });
+                
             });
 }
 </script>
 
-
-<script>
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value;
-
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
-</script>
 
 
 
@@ -113,6 +201,13 @@ slider.oninput = function() {
 </script>
 
 @include('frontend_section/category')
+<div id="nearest" style="display: none;" class="containerdata">
+</div>
+
+
+<div class="row" id="featuredServicesRow">
+
+        </div>
 
 @include('frontend_section/feature')
 
@@ -120,7 +215,6 @@ slider.oninput = function() {
 
 @include('frontend_section/popular')
 
-<<<<<<< HEAD
 <div>
 @include('frontend_section/recent')
 </div>
@@ -276,45 +370,6 @@ owl.owlCarousel({
 </script>
 
 
-<style>
-.slidecontainer {
-  width: 100%;
-}
-
-.slider {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 15px;
-  border-radius: 5px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
-
-.slider:hover {
-  opacity: 1;
-}
-
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #4CAF50;
-  cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #4CAF50;
-  cursor: pointer;
-}
-</style>
 
 <script type="text/javascript">
   $(document).ready( function () {

@@ -17,8 +17,8 @@
             <div class="callout callout-info bg-warning text-warning" style="margin-bottom: 0!important;background-color: #fec30bbb;">
               <h4><i class="fa fa-info text-danger"></i> Note:</h4>
               Hello! {{Auth::User()->name}} <br /> 
-              <p style=" color: black;"><strong> You have not created a service yet!.</strong></p> 
-              <a href="{{ route('seller.service.create') }}"> Click here to create a new service</a>
+              <p style=" color: black;"><strong> You have not created a service yet!</strong></p> 
+              <a class="btn-danger" href="{{ route('seller.service.create') }}"> Click here to create a new service</a>
             </div>
           </div>
           @endif
