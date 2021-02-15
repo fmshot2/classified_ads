@@ -186,7 +186,6 @@ class OperationalController extends Controller
     public function getfeatservices()
     {
         $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(5);
-
         return $featuredServices;
     }
 

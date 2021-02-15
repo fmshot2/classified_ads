@@ -263,7 +263,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/sliders', 'AdminController@sliders')->name('admin.sliders');
     Route::get('/admin/slider/{id}', 'AdminController@slider')->name('admin.slider');
     Route::post('/admin/save_slider/', 'AdminController@save_slider')->name('admin.save_slider');
-    Route::post('/admin/update/slider/{id}', 'OperationalController@sliderUpdate')->name('admin.update.slider');
+    Route::put('/admin/update/slider/{id}', 'OperationalController@sliderUpdate')->name('admin.update.slider');
     Route::get('/admin/delete/sliders/{id}', 'AdminController@delete_sliders')->name('admin.delete_sliders');
 
     // Advertisement

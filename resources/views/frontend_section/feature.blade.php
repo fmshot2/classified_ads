@@ -25,10 +25,10 @@
             $('#city').html(location.city);
             $('#latitude').html(location.latitude);
             $('#longitude').html(location.longitude);
-            $('#ip').html(location.IPv4);  
+            $('#ip').html(location.IPv4);
         }
-    }); 
-    }    
+    });
+    }
     </script> --}}
 
 
