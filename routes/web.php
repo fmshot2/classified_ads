@@ -20,7 +20,10 @@ use App\Service;
 
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
+Route::get ( 'findgeo2',  'ServiceController@findNearestRestaurants');
 
+
+Route::get('/allfeat', 'OperationalController@getfeatservices');
 
 Route::get('upload', 'ImageController@upload');
 Route::post('upload/store', 'ImageController@store');
@@ -116,29 +119,26 @@ Route::get('/privacy', 'PageController@privacy')->name('privacy');
 
 Route::get('/admin2/like/{id}', 'ServiceController@saveLike2')->name('admin2.like');
 
-
-
-
-Route::get('/seller/service/create', 'ServiceController@create')->name('service.create');
-
-
 Route::post('/admin/like', 'ServiceController@saveLike')->name('admin.like');
 
-Route::delete('/seller/service/delete/{id}', 'ServiceController@destroy')->name('service.delete');
 
+
+
+Route::get('/provider/service/create', 'ServiceController@create')->name('service.create');
+Route::delete('/provider/service/delete/{id}', 'ServiceController@destroy')->name('service.delete');
 
 Route::middleware(['seller'])->group(function () { //Seller Middleware protection start here
-    Route::get('/seller/dashboard/make_withdrawal_request/{refer_id}', 'DashboardController@make_withdrawal_request')->name('seller.make_withdrawal_request');
+    Route::get('/provider/dashboard/make_withdrawal_request/{refer_id}', 'DashboardController@make_withdrawal_request')->name('seller.make_withdrawal_request');
 
-    Route::get('/seller/dashboard', 'DashboardController@seller')->name('seller.dashboard');
+    Route::get('/provider/dashboard', 'DashboardController@seller')->name('seller.dashboard');
 
-    Route::get('/seller/service/add', 'SellerController@createService')->name('seller.service.create');
-    Route::get('/seller/service/badges', 'BadgeController@badges')->name('seller.service.badges');
-    Route::post('/seller/service/createpay', 'ServiceController@createpay');
-    Route::post('/seller/service/createpay4Advert', 'BadgeController@createpay4Advert');
-    Route::get('/seller/service/adverts', 'BadgeController@adverts')->name('seller.service.adverts');
+    Route::get('/provider/service/add', 'SellerController@createService')->name('seller.service.create');
+    Route::get('/provider/service/badges', 'BadgeController@badges')->name('seller.service.badges');
+    Route::post('/provider/service/createpay', 'ServiceController@createpay');
+    Route::post('/provider/service/createpay4Advert', 'BadgeController@createpay4Advert');
+    Route::get('/provider/service/adverts', 'BadgeController@adverts')->name('seller.service.adverts');
 
-    Route::prefix('seller')->group(function ()
+    Route::prefix('provider')->group(function ()
     {
         Route::get('/service/{id}', [ServiceImageController::class, 'showService'])->name('seller.service.show.service');
         Route::post('/service/images/store/{id}', [ServiceImageController::class, 'imagesStore'])->name('service.images.store');
@@ -146,8 +146,16 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
     });
 
 
-    Route::get('/seller/service/post_advert', 'SellerController@post_advert')->name('seller.post_advert');
-    Route::get('/seller/service/create_service_page', 'ServiceController@create_service_page')->name('create_service_page');
+    Route::get('/provider/service/post_advert', 'SellerController@post_advert')->name('seller.post_advert');
+    Route::get('/provider/service/create_service_page', 'ServiceController@create_service_page')->name('create_service_page');
+
+
+    Route::get('/provider/notification/unread', 'SellerController@unreadNotification')->name('seller.notification.unread');
+    Route::get('/provider/notification/all', 'SellerController@allNotification')->name('seller.notification.all');
+    Route::get('/provider/notification/{slug}', 'SellerController@viewNotification')->name('seller.notification.view');
+
+
+    Route::get('/provider/profile/', 'SellerController@viewProfile')->name('seller.profile');
 
     Route::get('/seller/message/unread', 'SellerController@unreadMessage')->name('seller.message.unread');
     Route::get('/seller/message/read', 'SellerController@readMessage')->name('seller.message.read');
@@ -169,13 +177,6 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
     Route::get('/service/{id}', 'SellerController@destroy')->name('seller.service.destroy');
     Route::get('seller/dashboard/service/update/{slug}', 'SellerController@viewServiceUpdate')->name('service.update.view');
 
-
-    Route::get('/seller/notification/unread', 'SellerController@unreadNotification')->name('seller.notification.unread');
-    Route::get('/seller/notification/all', 'SellerController@allNotification')->name('seller.notification.all');
-    Route::get('/seller/notification/{slug}', 'SellerController@viewNotification')->name('seller.notification.view');
-
-
-    Route::get('/seller/profile/', 'SellerController@viewProfile')->name('seller.profile');
     Route::any ( '/save/service/Badge',  'BadgeController@saveService4Badge')->name('saveService4Badge');
 
     Route::any ( '/save/service/Advert',  'BadgeController@saveService4Advert')->name('saveService4Advert');
@@ -263,7 +264,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/sliders', 'AdminController@sliders')->name('admin.sliders');
     Route::get('/admin/slider/{id}', 'AdminController@slider')->name('admin.slider');
     Route::post('/admin/save_slider/', 'AdminController@save_slider')->name('admin.save_slider');
-    Route::post('/admin/update/slider/{id}', 'OperationalController@sliderUpdate')->name('admin.update.slider');
+    Route::put('/admin/update/slider/{id}', 'OperationalController@sliderUpdate')->name('admin.update.slider');
     Route::get('/admin/delete/sliders/{id}', 'AdminController@delete_sliders')->name('admin.delete_sliders');
 
     // Advertisement
@@ -317,12 +318,14 @@ $longitude = $json['longitude'];
 
 Route::get ( 'geolo',  'AdminController@geo')->name('geolo');
 
-Route::get ( 'findgeo',  'AdminController@findNearestRestaurants');
+Route::get ( 'findgeo',  'ServiceController@findNearestRestaurants');
+Route::get ( 'findLat',  'AdminController@findNearestRestaurants');
+
 
 
 // Route::get ('getgeo',   function ($latitude, $longitude, $radius = 400)
 // {
-    
+
 //     $restaurants = Restaurant::selectRaw("id, name, address, latitude, longitude, rating, zone ,
 //                      ( 6371000 * acos( cos( radians(?) ) *
 //                        cos( radians( latitude ) )

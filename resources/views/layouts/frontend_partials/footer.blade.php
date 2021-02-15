@@ -1,12 +1,18 @@
- <div class="big-banner">
+<div class="footer-cta">
     <div class="container">
       <div class="row">
-        <div class="col-xs-12 banner-text text-center">
-          <h2><a href="{{ route('contact') }}">Register Your Service Today!</a></h2>
+        <div class="col-lg-8 footer-cta-text">
+          <h2><a href="{{ route('register') }}">Register Your Service Today!</a></h2>
+          <span>Take advantage of our platform to showcase your skills and services to a wide range of clients.</span>
         </div>
+        <div class="col-lg-4 footer-cta-btn text-center">
+            <a class="btn btn-success" href="{{ route('register') }}"><i class="fa fa-user-plus"></i> <span style="font-size: 15px !important;color:#fff"> Register Now!</span></a>
+        </div>
+
       </div>
     </div>
-  </div>
+</div>
+
 <footer class="footer">
     <div class="container footer-inner">
         <div class="row">

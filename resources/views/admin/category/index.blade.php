@@ -88,7 +88,7 @@
                         <h4 class="tx-17 mg-b-0 tx-uppercase tx-inverse tx-bold">Edit Category</h4>
                     </div>
                     <div class="modal-body pd-20">
-                        <form id="editCategoryForm" action="" method="POST">
+                        <form id="editCategoryForm" action="" method="POST" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <input type="hidden" name="_method" value="PUT">
                             <div class="row">

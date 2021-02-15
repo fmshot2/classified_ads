@@ -178,8 +178,7 @@ class CategoryController extends Controller
         $category->update();
 
         $request->session()->flash('status', 'Category was updated successfully!');
-
-        return $this->index();
+        return redirect()->back();
 
 
     }
@@ -331,7 +330,7 @@ return $this->index();
      $category->save();
 
      $request->session()->flash('success', 'Task was successful!');
-     return 'success';
+     return redirect()->back();
 
  }
 
@@ -347,7 +346,7 @@ return $this->index();
         $category = Category::findOrFail($id);
         $category->delete();
         session()->flash('success', 'Task was successful!');
-        return $this->index();
+        return redirect()->back();
 
     }
 

@@ -2,7 +2,7 @@
   <div class="box">
 
     <div class="box-header with-border">
-    <h3 class="box-title"> {{ url()->current() == route('seller.notification.unread') ?  'Notification' : 'Recent Notification' }} {{ $unread_notification->count() }} </h3>
+    <h3 class="box-title"> {{ url()->current() == route('seller.notification.unread') ?  'Notification' : 'Recent Notification' }} ({{ $unread_notification->count() }}) </h3>
 
       @if (url()->current() == route('seller.message.all') )
       <div class="box-tools">
@@ -40,12 +40,12 @@
                         <td> {{ $unread_notifications->created_at->diffForHumans() }} </td>
 
                         <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-                                    <span class="caret"></span>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                            </div>
+                            <button type="button" class="btn btn-success">
+                                <i class="fa fa-check"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                 @endforeach

@@ -17,8 +17,8 @@ class CreateRefererlinksTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('refererlink')->nullable();
-            $table->integer('user_id')->nullabe();
-            $table->integer('recipient_id')->nullabe();
+            $table->integer('user_id')->nullable();
+            $table->integer('recipient_id')->nullable();
         });
     }
 

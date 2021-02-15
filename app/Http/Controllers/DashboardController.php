@@ -68,7 +68,7 @@ $accruedAmount = Auth::user()->refererAmount;
     $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
     if ($linkcheck) {
 
-        return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount'));
+        return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service'));
 
     }else{
      $link = new Refererlink();
@@ -87,7 +87,7 @@ $accruedAmount = Auth::user()->refererAmount;
 //      $likecount = Like::where(['service_id'=>$id])->count();
 //      return redirect()->to('serviceDetail/'.$service_slug);
 //         //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
-//         //return redirect('/home');   
+//         //return redirect('/home');
 //    }else{
 //      $like = new Like();
 //      $like->user_id = Auth::id();
@@ -95,10 +95,10 @@ $accruedAmount = Auth::user()->refererAmount;
 //      $like->save();
 //      $likecount = Like::where(['service_id'=>$id])->count();
 //      return redirect()->to('serviceDetail/'.$service_slug);
-//         //return 'Heyyyyy22222'. $likecount;    
+//         //return 'Heyyyyy22222'. $likecount;
 //    }
 
-     return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount'));
+     return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service'));
            //dd($linkcount);
  }
 
@@ -170,7 +170,7 @@ public function approve_withdrawal_request($id){
    return back()->with('fail', 'Already Approved!');
             }
             $seller->requestMade = 2;
-            $seller->save(); 
+            $seller->save();
             //dd($seller->requestMade);
             $seller_Request = $seller->requestMade;
             $approval_status = 1;

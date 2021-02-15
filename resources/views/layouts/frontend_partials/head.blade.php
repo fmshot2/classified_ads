@@ -46,7 +46,7 @@
  <!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
  <script src="{{asset('js/ie-emulation-modes-warning.js')}}"></script>
 
- <script src="{{ asset('js/app.js') }}" defer></script>
+ <script src="{{ asset('js/app.js') }}"></script>
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
  <script src="{{ asset('js/slick.min.js') }}"></script>
 
@@ -76,6 +76,7 @@
 <script src="{{ asset('js/maps.js') }}"></script>
 
 <script>
+
     $(document).ready(function(){
         /* Get iframe src attribute value i.e. YouTube video url
         and store it in a variable */

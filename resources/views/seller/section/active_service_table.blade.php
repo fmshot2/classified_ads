@@ -16,7 +16,7 @@
                     <tr>
                         <th> # </th>
                         <th> Name </th>
-                        <th> Experienced </th>
+                        <th> Experience </th>
                         <th> Featured </th>
                         <th> Date </th>
                     </tr>
