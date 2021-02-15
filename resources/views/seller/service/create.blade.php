@@ -445,7 +445,7 @@ Create Service |
             };
           </script>
 
-
+{{-- 
 <p>Click the button to get your coordinates.</p>
 
 <button onclick="getLocation()">Try It</button>
@@ -493,7 +493,7 @@ function showError(error) {
 });
 </script>
 
-
+ --}}
 
 
 
