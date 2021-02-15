@@ -65,91 +65,7 @@
                 </select>
               </div>
             </div>
-    <div class="">
-        <div class="search-section-area">
-            <div class="search-area-inner">
-                <div class="search-contents">
-                   <form>
-
-                   </form>
-                   <form action="{{route('search3')}}" method="GET">
-                    <div class="row">
-                        <div class="col-lg-2 col-md-4 col-sm-6">
-                            <div class="form-group">
-                                <input type="text" required name="name" class="form-control" placeholder="Enter Keyword">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2 col-md-4 col-sm-6" style="">
-                            <div class="form-group">
-                              <select class="form-control" required id="categories" name="category">
-                                  <option value="">- Select Category -</option>
-                                  @if(isset($categories))
-                                  @foreach($categories as $category)
-                                  <option value="{{ $category->id }}"> {{ $category->name }}  </option>
-                                  @endforeach
-                                  @endif
-                              </select>
-                          </div>
-                      </div>
-
-                      <div class="col-lg-2 col-md-4 col-sm-6" style="">
-                        <div class="form-group">
-                            <select class="form-control" id="sub_category" name="sub_categories">
-                                <option value="">- Sub Category -</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-6">
-                      <div class="slidecontainer">
-                          <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-                          <p>Value: <span id="demo"></span></p>
-                      </div>
-                  </div>
-
-                  <div class="col-lg-2 col-md-4 col-sm-6" style="">
-                    <div class="form-group">
-                        <select class="form-control" required id="state" name="state">
-                            <option value="">- Select State -</option>
-                            @if(isset($states))
-                            @foreach($states as $state)
-
-                            <option value="{{$state->name}}"> {{ $state->name }}  </option>
-                            @endforeach
-                            @endif
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-sm-6" style="">
-                    <div class="form-group">
-                        <select class="form-control" id="city" name="city">
-                            <option value="">- Select City -</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-sm-6">
-                    <div class="form-group">
-                        <button class="btn btn-block bg-warning font-weight-bold text-white btn-warning">Search <i class="fa fa-search ml-2" aria-hidden="true"></i></button>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-4 col-sm-6">
-                    <div class="form-group">
-                        <input type="hidden" name="name2" class="form-control" placeholder="">
-                    </div>
-                </div>
-           {{--  <div class="col-lg-2 col-md-4 col-sm-6" style="">
-              <div class="form-group">
-                <select class="form-control" id="city" name="city">
-                  <option value="">- Select City -</option>
-                </select>
-              </div>
-            </div> --}}
-
-            <div class="col-lg-1 col-md-4 col-sm-6 text-center">
+             <div class="col-lg-1 col-md-4 col-sm-6 text-center">
               <div class="form-group">
                 <p> <span id=""></span>.</p>
                 <button class="btn btn-block bg-warning font-weight-bold text-white btn-warning">Search 
@@ -157,20 +73,9 @@
                 </button>
               </div>
             </div>
-
-           {{--  <div class="col-lg-2 col-md-4 col-sm-6">
-              <div class="form-group">
-                <input type="hidden" name="name2" class="form-control" placeholder="">
-              </div>
-            </div> --}}
-
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+   
 </div>
-</div>
+</form>
 
 
 <header class="top-header top-header-ads-mobile" style="display: flex; justify-content: center; background: linear-gradient(90deg, rgba(251,219,35,1) 52%, rgba(243,163,27,1) 66%); width: 100%; margin: 0">

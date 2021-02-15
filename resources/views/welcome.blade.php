@@ -75,6 +75,9 @@ function showPosition(position) {
                         services.forEach(service => {
                             console.log('one',service)
                             // badge = service.badge_type
+                            if (service.badge_type == 'trusted') {
+                              service.badge_type == 'truuuue';
+                            }
                             featuredServicesRow.innerHTML += `<a href="" class="property-img">
                                 <div class="col-lg-3 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                     <div class="property-box">
@@ -113,6 +116,7 @@ function showPosition(position) {
 
                         });
                 }
+
               // var myObj = JSON.parse(data);
               // console.log(myObj);
               // $('.containerdata').html(data.html);
@@ -205,9 +209,16 @@ function showPosition(position) {
 </div>
 
 
-<div class="row" id="featuredServicesRow">
 
+<div class="blog content-area bg-grea-3 hm-feat-ser-mid-sec">
+    <div class="container">
+            <!-- Main title -->
+        <div class="main-title" style="margin-top: -50px;">
+            <h1>Services Close To You </h1>
         </div>
+<div class="row" id="featuredServicesRow"></div>
+        </div>
+      </div>
 
 @include('frontend_section/feature')
 
