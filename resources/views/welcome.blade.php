@@ -26,7 +26,7 @@ var x = document.getElementById("demo2");
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
-  } else { 
+  } else {
     x.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
@@ -36,7 +36,7 @@ function getLocation() {
 function getLocationBtn() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition2);
-  } else { 
+  } else {
     x.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
@@ -44,7 +44,7 @@ function getLocationBtn() {
 
 function showPosition2(position) {
     // var rad = document.getElementById("myRange").value;
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  x.innerHTML = "Latitude: " + position.coords.latitude +
   "<br>Longitude: " + position.coords.longitude;
   // var rad = document.getElementById("myRange").value;
   // var rad = slider.value;
@@ -56,7 +56,7 @@ function showPosition(position) {
     // var rad = document.getElementById("myRange").value;
 
   // alert(position.coords.latitude);
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  x.innerHTML = "Latitude: " + position.coords.latitude +
   "<br>Longitude: " + position.coords.longitude;
   // var rad = document.getElementById("myRange").value;
   // var rad = slider.value;
@@ -120,8 +120,8 @@ function showPosition(position) {
               // var myObj = JSON.parse(data);
               // console.log(myObj);
               // $('.containerdata').html(data.html);
-              // document.getElementById("nearest").style.removeProperty('display');       
-            
+              // document.getElementById("nearest").style.removeProperty('display');
+
 
 
             //  $.ajax({
@@ -129,12 +129,12 @@ function showPosition(position) {
             // url: '/',
             // data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
             // success: function(data) {
-            //   document.getElementById("nearest").style.removeProperty('display');   
+            //   document.getElementById("nearest").style.removeProperty('display');
             //   // $('.containerdata').html(data.html);
             //   console.log(data);
             //   // location.reload();
-            //   // return false;    
-            
+            //   // return false;
+
             //   // alert(data);
             //     }
             // });
@@ -147,17 +147,17 @@ function showPosition(position) {
             // url: '/',
             // data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
             // success: function(data) {
-            //   document.getElementById("nearest").style.removeProperty('display');  
-            //       var myObj = JSON.parse(this.data); 
+            //   document.getElementById("nearest").style.removeProperty('display');
+            //       var myObj = JSON.parse(this.data);
             //   $('.containerdata').html(myObj.html);
             //   console.log(myObj);
             //   // location.reload();
-            //   // return false;    
-            
+            //   // return false;
+
             //   // alert(data);
             //     }
             // });
-                
+
             });
 }
 </script>
