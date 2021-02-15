@@ -22,11 +22,16 @@ use App\Local_government;
 use App\Slider;
 use App\State;
 use App\Image;
+ use App\Traits\ReusableCode;
+
 //use Illuminate\Support\Str;
 
 
 class ServiceController extends Controller
 {
+
+      use ReusableCode;
+
     /**
      * Display a listing of the resource.
      *
@@ -48,8 +53,112 @@ class ServiceController extends Controller
   }
 
 
-  public function index2()
+
+
+
+//    public function findNearestRestaurants()
+// {
+//   return 'sssss';
+//   // $latitude = Auth::user()->latitude;
+//   // $longitude = Auth::user()->longitude;
+//   // // return $request->radius;
+//   $latitude = $request->latitude;
+//     $longitude = $request->longitude;
+//     $radius = 1000;
+//     // $keyword = $request->radius,
+//     // $categories = $request->categories, 
+//     // $sub_category = $request->sub_category, 
+//     // $myRange = $request->myRange, 
+//     // $state =  $request->state, 
+//     // $city = $request->city
+
+//    // return $latitude . $longitude;
+//     // $latitude = 
+//     $nearestServices = Service::selectRaw("id, name, address,
+//                      ( 6371000 * acos( cos( radians(?) ) *
+//                        cos( radians( latitude ) )
+//                        * cos( radians( longitude ) - radians(?)
+//                        ) + sin( radians(?) ) *
+//                        sin( radians( latitude ) ) )
+//                      ) AS distance", [$latitude, $longitude, $latitude])
+//         ->having("distance", "<", $radius)
+//         ->orderBy("distance",'asc')
+//         ->offset(0)
+//         ->limit(20)
+//         ->get();
+
+//     return $nearestServices;
+// }
+
+
+
+
+
+
+ public function findNearestRestaurants(Request $request)
+{
+  // return $request->radius;
+  $latitude = $request->latitude;
+    $longitude = $request->longitude;
+    $radius = 100000;
+        // $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
+    $servicesss = Service::selectRaw("id, name, address, image, user_id, badge_type,
+                     ( 6371000 * acos( cos( radians(?) ) *
+                       cos( radians( latitude ) )
+                       * cos( radians( longitude ) - radians(?)
+                       ) + sin( radians(?) ) *
+                       sin( radians( latitude ) ) )
+                     ) AS distance", [$latitude, $longitude, $latitude])
+        ->having("distance", "<", $radius)->with('user')
+        ->orderBy("distance",'asc')
+        ->offset(0)
+        ->limit(20)
+        ->get();
+        // dd($servicesss);
+        // Session::put('servicesss', $servicesss);
+            return response()->json(['data'=>$servicesss]);
+        // return $servicesss;
+        // $nearestServices = json_encode($servicesss);
+        // return $nearestServices;
+        // $view = view("nearest",compact('nearestServices'))->render();
+
+    // return response()->json(['html'=>$view]);
+
+      // return redirect('/')->with('latitude', $latitude)->with('longitude', $longitude);
+              // return redirect()->to('/')->with('servicesss', $servicesss);
+
+    // return $servicesss;
+}
+
+
+  public function index2(Request $request)
   {
+ // $latitude = session()->get('latitude');
+ //    $longitude = session()->get('longitude');
+
+// return $latitude;
+
+ 
+
+   
+
+ //    $radius = 100;
+ //    $nearestServices = Service::selectRaw("id, name, address,
+ //                     ( 6371000 * acos( cos( radians(?) ) *
+ //                       cos( radians( latitude ) )
+ //                       * cos( radians( longitude ) - radians(?)
+ //                       ) + sin( radians(?) ) *
+ //                       sin( radians( latitude ) ) )
+ //                     ) AS distance", [$latitude, $longitude, $latitude])
+ //        ->having("distance", "<", $radius)
+ //        ->orderBy("distance",'asc')
+ //        ->offset(0)
+ //        ->limit(20)
+ //        ->get();
+
+
+
+
 
     $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
     $allServices = Service::where([
@@ -81,21 +190,77 @@ class ServiceController extends Controller
     $user11 = session()->get('user11');
     $serviceName = session()->get('serviceName');
     $serviceState = session()->get('serviceState');
+   
+    // $nearestServices = $this->findNearestRestaurants()->services;
+    // $nearestServices = $this->servicesss;
+    //         $nearestServices = $this->brandsAll();
+
     if($user11){
       $user111 = $user11;
     }else{
       $user111 = null;
     }
 
-    return view('welcome', compact(['featuredServices', 'recentServices',
+
+$latitude = $request->latitude;
+    $longitude = $request->longitude;
+    $radius = 100000;
+
+     if ($latitude) {
+          // return response()->json(['html'=>$latitude]);
+
+       $nearestServices = Service::selectRaw("id, name, address,
+                     ( 6371000 * acos( cos( radians(?) ) *
+                       cos( radians( latitude ) )
+                       * cos( radians( longitude ) - radians(?)
+                       ) + sin( radians(?) ) *
+                       sin( radians( latitude ) ) )
+                     ) AS distance", [$latitude, $longitude, $latitude])
+        ->having("distance", "<", $radius)
+        ->orderBy("distance",'asc')
+        ->offset(0)
+        ->limit(20)
+        ->get();
+
+  //       return $nearestServices;
+
+  //        $title2 = "HDTuto.com";
+
+  // $view = view("nearest", compact('title2'))->render();
+
+  //   return response()->json(['html'=>$view]);
+
+         $view = view('welcome', compact(['featuredServices', 'recentServices',
+      'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'hotServices', 'nearestServices' ]))->render();
+
+        return response()->json(['html'=>$view]);
+
+
+    }else{
+      // $nearestServices = null;
+
+      return view('welcome', compact(['featuredServices', 'recentServices',
       'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'hotServices' ]));
+    }
+
+    // if($nearestServices){
+    //   $nearestServices = $nearestServices;
+
+    //   // return $nearestServices;
+    // }else{
+    
+    }
+    // return $nearestServices;
+
+      
+// return $nearestServices;
+    
 
 
     // return view('welcome', compact(['featuredServices', 'recentServices',
     //   'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'superServices', 'basicServices', 'hotServices', 'moderateServices' ]));
 
-  }
-
+  
   public function services()
   {
 
@@ -417,6 +582,7 @@ class ServiceController extends Controller
 */
 
 public function search(Request $request){
+  return $request->ranges;
     $validatedData = $request->validate([
         'name' => ['required', 'string', 'max:255'],
         'state' => ['required', 'max:255'],

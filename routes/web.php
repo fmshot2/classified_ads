@@ -20,6 +20,7 @@ use App\Service;
 
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
+Route::get ( 'findgeo2',  'ServiceController@findNearestRestaurants');
 
 
 Route::get('/allfeat', 'OperationalController@getfeatservices');
@@ -317,7 +318,9 @@ $longitude = $json['longitude'];
 
 Route::get ( 'geolo',  'AdminController@geo')->name('geolo');
 
-Route::get ( 'findgeo',  'AdminController@findNearestRestaurants');
+Route::get ( 'findgeo',  'ServiceController@findNearestRestaurants');
+Route::get ( 'findLat',  'AdminController@findNearestRestaurants');
+
 
 
 // Route::get ('getgeo',   function ($latitude, $longitude, $radius = 400)

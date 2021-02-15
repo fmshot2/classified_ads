@@ -33,14 +33,18 @@ class AuthController extends Controller
 			'role' => 'required'
 		]);
 
-		$saveIdOfRefree = User::where(['refererLink'=>$link_from_url])->first();
+			$saveIdOfRefree = User::where(['refererLink'=>$link_from_url])->first();
+		if($saveIdOfRefree){
 		$refererId = $saveIdOfRefree->id;
+		}
 		$user = new User;
 		$user->name = $request->name;
 		$user->email = $request->email;
 		$user->password = Hash::make($request->password);
 		$user->role = $request->role;
+		if($saveIdOfRefree){
 		$user->idOfReferer = $refererId;
+		}
 
 		//$user->state = $request->state;
 		$user->save();
