@@ -582,36 +582,67 @@ $latitude = $request->latitude;
 */
 
 public function search(Request $request){
-  return $request->ranges;
+  // return $request->ranges;
     $validatedData = $request->validate([
-        'name' => ['required', 'string', 'max:255'],
-        'state' => ['required', 'max:255'],
+        'keyword' => ['max:255'],
+        'state' => ['max:255'],
       ]);
-
-  $category = $request->input('name');
+  $keyword = $request->input('keyword');
+  $category = $request->input('category');
   $state = $request->input('state');
+  $state = $request->input('ranges');
   //$serviceDetail_id = $request->input('serviceDetail_id');
   $all_states = State::all();
   $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
 
-  $userSer = Service::where(function ($query) use ($category, $state) {
+  $keywordResponses = Service::where(function ($query) use ($keyword) {
+    $query->where('name', 'like', '%' . $keyword . '%');
+  })->get();
 
-    $query->where('name', 'like', '%' . $category . '%')
+   $keyword_and_Category = Service::where(function ($query) use ($keyword, $category) {
+    $query->where('name', 'like', '%' . $keyword . '%')
+    ->orWhere('category_id', 'like', '%' . $category . '%');
+  })->get();
+
+   $keyword_and_state = Service::where(function ($query) use ($keyword, $state) {
+    $query->where('name', 'like', '%' . $keyword . '%')
     ->orWhere('state', 'like', '%' . $state . '%');
   })->get();
-//return $query;
 
-  if (count ( $userSer ) > 0){
-        //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
-    //return redirect()->to('/')->with('user11', $userSer);
-    return view('searchResult')->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
+   $keyword_and_category_and_state = Service::where(function ($query) use ($keyword, $category, $state) {
+    $query->where('name', 'like', '%' . $keyword . '%')
+    ->orWhere('category_id', 'like', '%' . $category . '%')
+    ->orWhere('state', 'like', '%' . $state . '%');
+  })->get();
 
+   $category_response = Service::where(function ($query) use ($category) {
+    $query->where('category_id', 'like', '%' . $category . '%');
+  })->get();
 
-  }
-  else
-    $userSer = null;
-  return view ( 'searchResult' )->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
+  // $userSer = Service::where(function ($query) use ($category, $state) {
+
+  //   $query->where('name', 'like', '%' . $category . '%')
+  //   ->orWhere('state', 'like', '%' . $state . '%');
+  // })->get();
+return view('searchResult', compact(['featuredServices', 'all_states',
+      'keywordResponses', 'keyword_and_Category', 'keyword_and_state', 'keyword_and_category_and_state', 'category_response' ]));
 }
+
+    // return view('searchResult')->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
+
+
+
+//   if (count ( $userSer ) > 0){
+//         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
+//     //return redirect()->to('/')->with('user11', $userSer);
+//     return view('searchResult')->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
+
+
+//   }
+//   else
+//     $userSer = null;
+//   return view ( 'searchResult' )->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
+// }
 
 
 
