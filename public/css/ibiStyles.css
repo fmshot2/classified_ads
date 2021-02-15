@@ -232,33 +232,100 @@ body {
 .hero img {
     width: 100%;
 }
-.big-banner {
+
+.nav-link > .pull-right-container {
+    margin-left: 3px;
+}
+.nav-link > .pull-right-container small {
+    margin-top: -5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    text-align: center;
+    font-weight: 400;
     background-color: #ca8309;
-    width: 100%;
-    margin-bottom: 30px;
-    float: left;
-}
-.big-banner .banner-text {
-    padding: 0;
-}
-.big-banner .banner-text h2 {
-    font-size: 25px;
-    font-size: 2.5rem;
-    font-weight: 900;
     color: #fff;
-    margin-top: 38px;
-    margin-bottom: 41px;
-    display: inline-block;
-    position: relative;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.big-banner .banner-text h2 a {
+/* FOOTER CALL TO ACTION  */
+.footer-cta {
+    display: block;
+    width: 100%;
+    background-color: #ca8309;
+    padding: 40px 0;
+}
+.footer-cta .footer-cta-text h2 a{
+    color: #fff;
+    font-size: 35px;
+}
+.footer-cta .footer-cta-text span{
     color: #fff;
 }
+.footer-cta-btn a {
+    font-size: 17px !important;
+    text-transform: uppercase;
+    border-radius: 200px;
+    border: none;
+    padding: 20px 40px;
+    background: #d6a616 !important;
+    cursor: pointer;
+    box-shadow: 0 0 0 #ad850e;
+    animation: pulseFooterCTABtn 1s infinite;
+}
+.footer-cta-btn a:hover {
+    background: #e4b31f !important;
+}
+@-webkit-keyframes pulseFooterCTABtn {
+    0% {
+        -webkit-box-shadow: 0 0 0 0 rgba(202, 185, 29, 0.9);
+    }
+    70% {
+        -webkit-box-shadow: 0 0 0 10px rgba(43, 207, 112, 0);
+    }
+    100% {
+        -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+    }
+}
+@keyframes pulseFooterCTABtn {
+    0% {
+        -moz-box-shadow: 0 0 0 0 rgba(202, 185, 29, 0.9);
+        box-shadow: 0 0 0 0 rgba(202, 185, 29, 0.9);
+    }
+    70% {
+        -moz-box-shadow: 0 0 0 10px rgba(39, 230, 118, 0);
+        box-shadow: 0 0 0 10px rgba(43, 202, 109, 0);
+    }
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(43, 207, 112, 0);
+        box-shadow: 0 0 0 0 rgba(43, 207, 112, 0);
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-cta {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .footer-cta .footer-cta-text h2 a{
+        font-size: 20px;
+        text-transform: uppercase;
+    }
+    .footer-cta .footer-cta-text span{
+        color: #fff;
+    }
+    .footer-cta-btn a{
+        margin-top: 10px
+    }
+}
+/* ./FOOTER CALL TO ACTION  */
 
 @-webkit-keyframes pulsePostBtn {
     0% {
-        -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.4);
+        -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.9);
     }
     70% {
         -webkit-box-shadow: 0 0 0 10px rgba(43, 207, 112, 0);
@@ -269,8 +336,8 @@ body {
 }
 @keyframes pulsePostBtn {
     0% {
-        -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.4);
-        box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.4);
+        -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.9);
+        box-shadow: 0 0 0 0 rgba(204, 169, 44, 0.9);
     }
     70% {
         -moz-box-shadow: 0 0 0 10px rgba(39, 230, 118, 0);
@@ -396,28 +463,6 @@ body {
     }
     .footer .copy {
         border-top: solid 1px #474747 !important;
-    }
-    .big-banner .banner-text h2:before {
-        content: "";
-        display: block;
-        width: 128px;
-        height: 42px;
-        background: url(https://raw.githubusercontent.com/solodev/cta-with-css/master/image-2.png)
-            no-repeat center center;
-        position: absolute;
-        top: 0;
-        left: -158px;
-    }
-    .big-banner .banner-text h2:after {
-        content: "";
-        display: block;
-        width: 128px;
-        height: 42px;
-        background: url(https://raw.githubusercontent.com/solodev/cta-with-css/master/image-3.png)
-            no-repeat center center;
-        position: absolute;
-        top: 0;
-        right: -158px;
     }
 }
 
@@ -749,25 +794,7 @@ body {
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
     }
-    .big-banner {
-        display: block;
-        width: 100%;
-        text-align: center;
-        margin: 0 0 30px 0;
-        float: none;
-    }
-    .big-banner .container,
-    .big-banner .row {
-        width: 100%;
-    }
-    .big-banner .banner-text {
-        width: 100%;
-        text-align: center !important;
-    }
-    .big-banner .banner-text h2 {
-        font-size: 16px;
-    }
-}
+
 
 /*GLOBALS*/
 

@@ -2,7 +2,7 @@
   <div class="box">
 
     <div class="box-header with-border">
-      <h3 class="box-title"> {{ url()->current() == route('seller.message.unread') ?  'Unread Message' : 'Recent Unread Message' }} {{ $unread_message->count() }} </h3>
+      <h3 class="box-title"> {{ url()->current() == route('seller.message.unread') ?  'Unread Message' : 'Unread Message' }} ({{ $unread_message->count() }}) </h3>
 
 
       @if (url()->current() == route('seller.message.all') )
@@ -46,6 +46,15 @@
                         <td> {{ $unread_messages->created_at->diffForHumans() }} </td>
                         <td class="center">
                             <a href=" {{ route('seller.message.view',$unread_messages->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success">
+                                <i class="fa fa-check"></i>
+                            </button>
+                            <a href=" {{ route('seller.message.view',$unread_messages->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
+                            <button type="button" class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </button>
                         </td>
 
                     </tr>

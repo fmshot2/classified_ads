@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Advert;
+use App\Service;
 use App\Slider;
 use Illuminate\Http\Request;
 
@@ -178,6 +179,15 @@ class OperationalController extends Controller
         $advert = Advert::find($id);
         $advert->delete();
         return back()->with('success', 'Task was successful!');
+    }
+
+
+
+    public function getfeatservices()
+    {
+        $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(5);
+
+        return $featuredServices;
     }
 
 
