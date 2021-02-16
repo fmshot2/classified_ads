@@ -55,7 +55,7 @@
 
 
 
-<div class="blog content-area">
+<div class="blog content-area home-advert-section">
     <div class="container">
         <!-- Main title -->
         <div class="main-title">

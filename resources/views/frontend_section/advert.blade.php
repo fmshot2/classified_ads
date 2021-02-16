@@ -1,5 +1,5 @@
 
-<div class="blog content-area bg-grea-3">
+<div class="blog content-area bg-grea-3 home-advert-section">
     <div class="container">
         <!-- Main title -->
         <div class="main-title">

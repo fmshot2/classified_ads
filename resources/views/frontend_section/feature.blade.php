@@ -46,7 +46,7 @@
                                             <span class="featured bg-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> {{$featuredService->is_featured == 1 ? ' Super' : ''}}</span>
                                         </div>
                                         <div class="price-ratings-box">
-                                            <p class="price" style="text-transform: capitalize">
+                                            <p class="price" style="text-transform: capitalize;">
                                                 {{ Str::limit($featuredService->user->name, 20) }}
                                             </p>
                                         </div>

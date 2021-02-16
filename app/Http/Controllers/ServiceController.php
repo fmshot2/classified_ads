@@ -66,14 +66,14 @@ class ServiceController extends Controller
 //     $longitude = $request->longitude;
 //     $radius = 1000;
 //     // $keyword = $request->radius,
-//     // $categories = $request->categories, 
-//     // $sub_category = $request->sub_category, 
-//     // $myRange = $request->myRange, 
-//     // $state =  $request->state, 
+//     // $categories = $request->categories,
+//     // $sub_category = $request->sub_category,
+//     // $myRange = $request->myRange,
+//     // $state =  $request->state,
 //     // $city = $request->city
 
 //    // return $latitude . $longitude;
-//     // $latitude = 
+//     // $latitude =
 //     $nearestServices = Service::selectRaw("id, name, address,
 //                      ( 6371000 * acos( cos( radians(?) ) *
 //                        cos( radians( latitude ) )
@@ -138,9 +138,9 @@ class ServiceController extends Controller
 
 // return $latitude;
 
- 
 
-   
+
+
 
  //    $radius = 100;
  //    $nearestServices = Service::selectRaw("id, name, address,
@@ -182,7 +182,10 @@ class ServiceController extends Controller
     $advertServices = Service::where('is_approved', 1)->with('user')->get();
     $recentServices = Service::where('is_approved', 1)->orderBy('created_at', 'asc')->paginate(16);
     $categories = Category::orderBy('id', 'asc')->get();
+<<<<<<< HEAD
     $search_form_categories = Category::orderBy('name')->get();    
+=======
+>>>>>>> f5e37f13e1725d33a425ffd577b56e67fd52e4aa
     $sliders = Slider::all();
     $trendingServices = Service::orderByUniqueViews()->get();
     $states = State::all();
@@ -190,7 +193,7 @@ class ServiceController extends Controller
     $user11 = session()->get('user11');
     $serviceName = session()->get('serviceName');
     $serviceState = session()->get('serviceState');
-   
+
     // $nearestServices = $this->findNearestRestaurants()->services;
     // $nearestServices = $this->servicesss;
     //         $nearestServices = $this->brandsAll();
@@ -248,19 +251,19 @@ $latitude = $request->latitude;
 
     //   // return $nearestServices;
     // }else{
-    
+
     }
     // return $nearestServices;
 
-      
+
 // return $nearestServices;
-    
+
 
 
     // return view('welcome', compact(['featuredServices', 'recentServices',
     //   'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'superServices', 'basicServices', 'hotServices', 'moderateServices' ]));
 
-  
+
   public function services()
   {
 

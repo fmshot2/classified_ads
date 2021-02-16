@@ -20,14 +20,14 @@
 
 
 
-<div class="blog content-area bg-grea-3">
+<div class="blog content-area bg-grea-3 home-advert-section">
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
             <h1>Advertisement</h1>
         </div>
         <div class="row">
-                      
+
                         <div class="col-lg-4 col-md-12">
                 <div class="blog-3">
                     <div class="blog-photo">
@@ -49,7 +49,7 @@
                                             </div>
                 </div>
             </div>
-                     
+
                     </div>
         <p>Got a content and need an <a href="{{route('advertisement')}}"><strong>ADVERT</strong></a> on this page? click<strong> <a href="{{route('advertisement')}}"> HERE</a></strong></p>
     </div>

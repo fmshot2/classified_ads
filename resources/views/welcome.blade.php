@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 
-@section('title', 'The largest services database in the Nigeria | ')
+@section('title', 'The largest service place in the Nigeria | ')
 
 @section('content')
 
