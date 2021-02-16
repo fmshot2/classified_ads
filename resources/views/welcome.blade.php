@@ -226,6 +226,9 @@ function showPosition(position) {
 
 @include('frontend_section/popular')
 
+<div>
+@include('frontend_section/recent')
+</div>
 {{-- @include('frontend_section/brands') --}}
 
 {{--<div class="partners">

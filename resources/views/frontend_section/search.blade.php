@@ -25,8 +25,8 @@
                             <p style="margin-bottom: 0; font-weight: 600;">Choose Category</p>
                             <select class="form-control" id="categories" name="category">
                                 <option value="">- Select an Option -</option>
-                                @if(isset($categories))
-                                    @foreach($categories as $category)
+                                @if(isset($search_form_categories))
+                                    @foreach($search_form_categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 @endif

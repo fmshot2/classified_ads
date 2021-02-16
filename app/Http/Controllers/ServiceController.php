@@ -181,10 +181,10 @@ class ServiceController extends Controller
     $approvedServices = Service::where('status', 1)->with('user')->get();
     $advertServices = Service::where('is_approved', 1)->with('user')->get();
     $recentServices = Service::where('is_approved', 1)->orderBy('created_at', 'asc')->paginate(16);
-    $categories = Category::orderBy('id', 'asc')->paginate(35);
+    $categories = Category::orderBy('id', 'asc')->get();
+    $search_form_categories = Category::orderBy('name')->get();    
     $sliders = Slider::all();
     $trendingServices = Service::orderByUniqueViews()->get();
-
     $states = State::all();
     $local_governments = Local_government::all();
     $user11 = session()->get('user11');
@@ -231,7 +231,7 @@ $latitude = $request->latitude;
   //   return response()->json(['html'=>$view]);
 
          $view = view('welcome', compact(['featuredServices', 'recentServices',
-      'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'hotServices', 'nearestServices' ]))->render();
+      'approvedServices', 'user111', 'categories', 'search_form_categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'hotServices', 'nearestServices' ]))->render();
 
         return response()->json(['html'=>$view]);
 
@@ -240,7 +240,7 @@ $latitude = $request->latitude;
       // $nearestServices = null;
 
       return view('welcome', compact(['featuredServices', 'recentServices',
-      'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'hotServices' ]));
+      'approvedServices', 'user111', 'categories', 'search_form_categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'hotServices' ]));
     }
 
     // if($nearestServices){
