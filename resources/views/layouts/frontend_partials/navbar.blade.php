@@ -6,7 +6,7 @@
 
 <!-- Top header start -->
 <header class="top-header none-992" id="top-header-2" style="background-color: rgb(202, 131, 9);">
-    <div class="container">
+    <div class="container" id="scroll-top">
         <div class="row">
             <div class="col-lg-6 col-md-8 col-sm-7">
                 <div class="list-inline">

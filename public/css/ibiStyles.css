@@ -547,6 +547,9 @@ h6 {
     .footer .copy {
         border-top: solid 1px #474747 !important;
     }
+    #page_scroller {
+        margin-right: 60px;
+    }
 }
 
 @media only screen and (max-width: 992px) {
