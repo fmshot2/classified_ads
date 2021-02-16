@@ -67,7 +67,7 @@ class AuthController extends Controller
 
 		if (Auth::attempt($credentials)) {
 			if ( $request->role == 'seller' )
-				return redirect('/seller/dashboard');
+				return redirect()->route('seller.dashboard');;
 
 		} else {
 			return view('/');
@@ -131,18 +131,18 @@ $referlink = $refer;
 		if (Auth::user()->role == 'seller' )
 		{
 			session()->flash('success', ' Login Succesfull');
-			return redirect()->intended('provider/dashboard');
+			return redirect()->route('seller.dashboard');
 		} else if (Auth::user()->role == 'buyer')
 		{
 			session()->flash('success', ' Login Succesfull');
-			return redirect()->intended('seeker/dashboard');
+			return redirect()->route('buyer.dashboard');
 		} else
 		{
-			return redirect()->intended('admin/dashboard');
+			return redirect()->route('admin.dashboard');;
 		}
 		//}
 		session()->flash('fail', ' Credential Incorect');
-		return view ('auth/login');
+		return view('auth/login');
 
 	}
 
@@ -159,14 +159,14 @@ $referlink = $refer;
 			if (Auth::user()->role == 'seller' )
 			{
 				session()->flash('success', ' Login Succesfull');
-				return redirect()->intended('seller/dashboard');
+				return redirect()->route('seller.dashboard');
 			} else if (Auth::user()->role == 'buyer')
 			{
 				session()->flash('success', ' Login Succesfull');
-				return redirect()->intended('buyer/dashboard');
+				return redirect()->route('buyer.dashboard');
 			} else
 			{
-				return redirect()->intended('admin/dashboard');
+				return redirect()->route('admin.dashboard');
 			}
 		}
 

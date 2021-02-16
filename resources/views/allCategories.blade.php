@@ -66,9 +66,9 @@
                     @endif
                 </div>
                     <!-- Page navigation start -->
-                    <div class="pagination-box hidden-mb-45 text-center">
+                    {{-- <div class="pagination-box hidden-mb-45 text-center">
                         {{ $categories->links() }}
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

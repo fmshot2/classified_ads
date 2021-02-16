@@ -66,22 +66,22 @@ Login
                 <div class="info clearfix">
                     <div class="logo-2">
                         <a href="{{url('/')}}">
-                            <img src="logos/Logo.png"  class="cm-logo" alt="black-logo">
+                            <img src="{{asset('logos/efcontactlogo.png')}}"  class="cm-logo" alt="black-logo">
                         </a>
                     </div>
                     <div class="social-list">
-                        <a href="#" class="facebook-bg">
+                        <a href="{{ $check_general_info == 0 ? $general_info->facebook : '' }}" class="facebook-bg">
                             <i class="fa fa-facebook"></i>
                         </a>
-                        <a href="#" class="twitter-bg">
+                        <a href="{{ $check_general_info == 0 ? $general_info->twitter : '' }}" class="twitter-bg">
                             <i class="fa fa-twitter"></i>
                         </a>
-                        <a href="#" class="google-bg">
-                            <i class="fa fa-google"></i>
+                        <a href="{{ $check_general_info == 0 ? $general_info->instagram : '' }}" class="google-bg">
+                            <i class="fa fa-instagram"></i>
                         </a>
-                        <a href="#" class="linkedin-bg">
+                        {{-- <a href="#" class="linkedin-bg">
                             <i class="fa fa-linkedin"></i>
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>

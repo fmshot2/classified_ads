@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 
-@section('title', 'The largest services database in the Nigeria | ')
+@section('title', 'The largest service place in the Nigeria | ')
 
 @section('content')
 
@@ -226,6 +226,9 @@ function showPosition(position) {
 
 @include('frontend_section/popular')
 
+<div>
+@include('frontend_section/recent')
+</div>
 {{-- @include('frontend_section/brands') --}}
 
 {{--<div class="partners">

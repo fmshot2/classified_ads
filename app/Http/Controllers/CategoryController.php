@@ -62,7 +62,7 @@ class CategoryController extends Controller
 
     public function allCategories()
     {
-        $categories = Category::orderBy('name', 'asc')->paginate(20);
+        $categories = Category::orderBy('name', 'asc')->get();
         return view ('allCategories', compact('categories') );
     }
 
@@ -397,7 +397,7 @@ return $this->index();
         $state_id = $state->id;
         $cities = DB::table("local_governments")
         ->where("state_id",$state_id)
-        ->pluck("name","id");
+        ->pluck("name","id")->orderBy('name');
 
         return response()->json($cities);
     }
@@ -408,7 +408,7 @@ return $this->index();
     {
         $sub_categories = DB::table("sub_categories")
         ->where("category_id",$id)
-        ->pluck("name","id");
+        ->pluck("name","id")->orderBy('name');
         return response()->json($sub_categories);
     }
 
