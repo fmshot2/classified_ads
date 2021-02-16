@@ -13,12 +13,12 @@
 @include('frontend_section/search')
 
 
-<p>Click the button to get your coordinates.</p>
+{{-- <p>Click the button to get your coordinates.</p>
 
 <button onclick="getLocationBtn()">Try It</button>
 <input id="radi2" type="number" name="radius">
 
-<p id="demo2"></p>
+<p id="demo2"></p> --}}
 
 <script>
 var x = document.getElementById("demo2");
@@ -226,9 +226,6 @@ function showPosition(position) {
 
 @include('frontend_section/popular')
 
-<div>
-@include('frontend_section/recent')
-</div>
 {{-- @include('frontend_section/brands') --}}
 
 {{--<div class="partners">
