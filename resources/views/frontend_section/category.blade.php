@@ -56,7 +56,6 @@
                                     </div>
                                 </div>
                             @endforeach
-                            {{ $categories->links() }}
                         @endif
                     </div>
                 </div>
@@ -86,7 +85,6 @@
                                     </div>
                                 </div>
                             @endforeach
-                            {{ $categories->links() }}
                         @endif
                     </div>
                 </div>
@@ -116,7 +114,6 @@
                                     </div>
                                 </div>
                             @endforeach
-                            {{ $categories->links() }}
                         @endif
                     </div>
                 </div>
@@ -176,7 +173,7 @@
                                             <img class="d-block mx-auto img-fluid" src="{{asset('uploads/services')}}/{{ $trendingService->service_image }}" alt="First slide">
                                         </div>
                                         <div class="media-body align-self-center">
-                                            <p class="fea-ad-hm-location"><strong>{{ Str::limit($trendingService->name, 30)}}</strong>
+                                            <p class="fea-ad-hm-location tt-capitalize"><strong>{{ Str::limit($trendingService->name, 30)}}</strong>
                                             </p>
                                             <p class="fea-ad-hm-location"><strong>Location:</strong> {{ Str::limit($trendingService->state, 30)}}</a></p>
                                         </div>

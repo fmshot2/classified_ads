@@ -6,7 +6,7 @@
           <span>Take advantage of our platform to showcase your skills and services to a wide range of clients.</span>
         </div>
         <div class="col-lg-4 footer-cta-btn text-center">
-            <a class="btn btn-success" href="{{ route('register') }}"><i class="fa fa-user-plus"></i> <span style="font-size: 15px !important;color:#fff"> Register Now!</span></a>
+            <a class="btn btn-success" href="{{ route('register') }}"><i class="fa fa-user-plus"></i> Register Now!</a>
         </div>
 
       </div>
