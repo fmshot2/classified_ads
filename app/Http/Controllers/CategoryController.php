@@ -396,8 +396,8 @@ return $this->index();
 
         $state_id = $state->id;
         $cities = DB::table("local_governments")
-        ->where("state_id",$state_id)
-        ->pluck("name","id")->orderBy('name');
+        ->where("state_id",$state_id)->orderBy('name')
+        ->pluck("name","id");
 
         return response()->json($cities);
     }
@@ -406,9 +406,11 @@ return $this->index();
 
     public function getCategoryList($id)
     {
-        $sub_categories = DB::table("sub_categories")
-        ->where("category_id",$id)
-        ->pluck("name","id")->orderBy('name');
+        $sub_category = DB::table("sub_categories")
+        ->where("category_id",$id)->orderBy('name')
+        ->get();
+        $sub_categories = json_encode($sub_category);
+
         return response()->json($sub_categories);
     }
 

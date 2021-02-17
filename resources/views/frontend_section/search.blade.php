@@ -102,11 +102,11 @@
                 url: 'api/get-category-list/'+categoryID,
                 success:function(res){
                     if(res){
-                        console.log(res);
-                        console.log(categoryID);
+                      var res = JSON.parse(res);
                         $("#sub_category ").empty();
                         $.each(res,function(key,value){
-                            $("#sub_category").append('<option value="'+key+'">'+value+'</option>');
+                        var chosen_value = value;
+                            $("#sub_category").append('<option value="'+key+'">'+chosen_value.name+'</option>');
                         });
                     }else{
                         $("#sub_category").empty();
