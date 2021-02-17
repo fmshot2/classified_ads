@@ -590,12 +590,12 @@ public function search(Request $request){
   $keyword = $request->input('keyword');
   $category = $request->input('category');
   $state = $request->input('state');
-  $state = $request->input('ranges');
+  $ranges = $request->input('ranges');
   //$serviceDetail_id = $request->input('serviceDetail_id');
   $all_states = State::all();
   $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
 
-  $keywordResponses = Service::where(function ($query) use ($keyword) {
+  $keywordResponses = Service::where(function ($query) use ($keyword, $category, $state, $ranges) {
     $query->where('name', 'like', '%' . $keyword . '%');
   })->get();
 
@@ -757,12 +757,13 @@ if (count ( $seller ) > 0){
         {
           $serviceName = $request->name;
           $serviceState =   $request->state;
+          $category = $request->category;
         // return $request;
           $request->validate([
             "name"     => 'string',
             "state"       => 'string',
           ]);
-          if( $user11 = Service::searchName($request->name)->
+          if( $user11 = Service::searchName($request->name)->searchCategory($request->category)->
            searchState($request->state)->get()) {
 
 
@@ -772,6 +773,7 @@ if (count ( $seller ) > 0){
 
             });
         }
+        dd($user11);
 
                 //return 'jjj';}
     //return response()->json($user11);
