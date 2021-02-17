@@ -5,7 +5,7 @@
     font-style: normal;
 }
 @font-face {
-    font-family: "Poppins-regular";
+    font-family: "Poppins-Regular";
     src: url("/fonts/Poppins/Poppins-Regular.ttf");
     font-weight: normal;
     font-style: normal;
@@ -435,10 +435,17 @@ body {
     text-transform: lowercase;
 }
 .main-title h1,
+.main-title h5,
 .sidebar-title {
     font-family: Poppins-Regular;
 }
 .sub-banner-text-content h1 {
+    font-family: Poppins-Regular;
+}
+.option-bar .title-name {
+    font-family: Poppins-Regular;
+}
+.service-info-5 h4 {
     font-family: Poppins-Regular;
 }
 .navbar-top-post-btn a span {
