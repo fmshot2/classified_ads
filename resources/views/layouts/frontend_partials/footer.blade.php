@@ -89,7 +89,7 @@
                         @foreach($service as $services)
                                                 <div class="media">
                             <div class="media-left">
-                                <a class="title" href="{{route('serviceDetail', $services->slug)}}"  style="font-size: 14px;"><img class="media-object" src=" {{asset('images')}}/{{ $services->image[0]}} " alt="sub-properties"></a>
+                                <a class="title" href="{{route('serviceDetail', $services->slug)}}"  style="font-size: 14px;"><img class="media-object" src=" {{asset('images')}}/{{ $services->service_image}} " alt="sub-properties"></a>
 
                             </div>
                             <div class="media-body align-self-center">
