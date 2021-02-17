@@ -32,6 +32,7 @@ Update Service |
                   <i class="fa fa-plus"></i>
 
                   <h2 class="box-title"><strong>Update Details For {{$service->name}}</strong></h2>
+                  <small class="text-danger">*Please Fill All Required Fields</small>
                 </div>
                 <div class="body">
 
@@ -39,7 +40,7 @@ Update Service |
                     <div class="form-group">
                       <label class="form-label">Service Name* </label>
                       <input type="text"  name="name" class="form-control" value=" {{ $service->name }}">
-                      <small class="text-danger">required*</small>
+                      <!-- <small class="text-danger">required*</small> -->
                     </div>
                   </div>
 
@@ -51,7 +52,7 @@ Update Service |
                       <label for="">Description*</label>
                       <textarea name="description"  class="form-control"> {{ $service->description }}</textarea>
                     </div>
-                    <small class="text-danger">required*</small>
+                    <!-- <small class="text-danger">required*</small> -->
                   </div>
 
 
@@ -59,7 +60,7 @@ Update Service |
                     <div class="form-group">
                       <label class="form-label"> Experience*(in years) </label>
                       <input type="text" name="experience" class="form-control" value=" {{$service->experience }} ">
-                      <small class="text-danger">required*</small>
+                      <!-- <small class="text-danger">required*</small> -->
                     </div>
                   </div>
 
@@ -68,7 +69,7 @@ Update Service |
                     <div class="form-group">
                       <label for="">Phone*</label>
                       <input type="number"  class="form-control" name="phone" value="{{$service->phone }}">
-                      <small class="text-danger">required*</small>                    
+                      <!-- <small class="text-danger">required*</small>                     -->
                     </div>
                   </div>
 
@@ -91,7 +92,7 @@ Update Service |
                     <div class="form-group">
                       <label class="form-label">State*</label>
                       <input type="text" class="form-control" name="state" autocomplete="" aria-autocomplete="" value=" {{ $service->state }}">
-                      <small class="text-danger">required*</small>
+                      <!-- <small class="text-danger">required*</small> -->
                     </div>
                   </div>
 
@@ -99,7 +100,7 @@ Update Service |
                     <div class="form-group">
                       <label class="form-label">City*</label>
                       <input type="text" class="form-control" name="city" value=" {{ $service->city }}">
-                      <small class="text-danger">required*</small>                     
+                      <!-- <small class="text-danger">required*</small>                      -->
                     </div>
                   </div>
 
@@ -107,7 +108,7 @@ Update Service |
                     <div class="form-group">
                       <label class="form-label">Street Address*</label>
                       <input type="text" class="form-control" name="address" value=" {{ $service->address }}">
-                      <small class="text-danger">required*</small>
+                      <!-- <small class="text-danger">required*</small> -->
                     </div>
                   </div>
 
@@ -258,7 +259,7 @@ Update Service |
  <div class="box box-default">
                 <div class="box-header">
                     <h2 class="box-title" style="font-weight: 700">Service Images</h2>
-                    <p>Add more images to describe your service more!</p>
+                    <p class="text-danger" style="font-weight: 2700">Drag and drop more images here to describe your service!</p>
                 </div>
                 <div class="box-body">
                         @forelse ($service->images as $image)
