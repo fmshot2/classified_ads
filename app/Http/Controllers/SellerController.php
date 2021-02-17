@@ -19,8 +19,7 @@ use App\ImageUpload;
 // use App\Image;
 // use Image as InterventionImage;
 use App\Image as ModelImage;
-
-
+use App\Mail\ServiceCreated;
 
 class SellerController extends Controller
 {
@@ -36,7 +35,7 @@ class SellerController extends Controller
    public function storeService(Request $request)
     {
         // return response()->json(['success'=>"working", 'data'=>'done it' ]);
-      //dd('llll');       
+      //dd('llll');
       //dd($user);
 
 
@@ -67,23 +66,23 @@ class SellerController extends Controller
         // 'name' => 'required',
         // 'state' => 'required',
         'file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
-    ]); 
+    ]);
        $image = $request->file('image');
        $random = Str::random(3);
-       $slug = Str::of($request->name)->slug('-').''.$random; 
+       $slug = Str::of($request->name)->slug('-').''.$random;
        $service = new Service();
 /*
    if ( $request->hasFile('files') ) {
                 $names = array();
-           
+
 foreach($request->file('files') as $image)
     {
-       
+
                 $image_name = $image->getClientOriginalName();
 
         $image->move(public_path('images'),$image_name);
         array_push($names, $image_name);
-                
+
         }
             $category->image = json_encode($names);
 }
@@ -136,18 +135,22 @@ $service_owner->name = Auth::user()->name;
 $service_owner->email = Auth::user()->email;
 
 
-     //    if ($service->save()) {
-     //  $name = " Hi $service_owner->name, You just created a new service called: $service->name. Wishing you all the best. Have a great time enjoying our services!";
+        if ($service->save()) {
+            $name =  $service->name;
+            $category =  $service->category->name;
+            $phone =  $service->phone;
+            $state =  $service->state;
+            $slug =  $service->slug;
 
-     //  Mail::to($service_owner->email)->send(new SendMailable($name));
-     // }
+            Mail::to($service_owner->email)->send(new ServiceCreated($name, $category, $phone, $state, $slug));
+        }
 
        $present_user = Auth::user();
         $user_hasUploadedService = $present_user->hasUploadedService;
         //dd($user_hasUploadedService);
         if ($user_hasUploadedService == 1) {
        $request->session()->flash('status', 'Task was successful!');
-        
+
        // return $this->allService();
         // return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service]);
        // return back()->with('service_id', $latest_service_id, 'service', $latest_service);
@@ -159,7 +162,7 @@ $service_owner->email = Auth::user()->email;
         //dd($user);
         $present_user->hasUploadedService = 1;
         $user_referer_id = $present_user->idOfReferer;
-        $present_user->save();  
+        $present_user->save();
         //dd($user_referer_id);
         //dd($present_user->hasUploadedService);
         //dd('xxxxxxxx');
@@ -194,7 +197,7 @@ $service_owner->email = Auth::user()->email;
 
        //      $request->session()->flash('status', 'Task was successful!');
        // return $this->allService();
-        
+
 
    }
 
@@ -213,7 +216,7 @@ public function saveReferLink($refererlink){
 //            $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
 
 }
-    
+
 
    public function storeServiceUpdate(Request $request, $id)
    {
@@ -228,7 +231,7 @@ public function saveReferLink($refererlink){
         'name' => 'required',
         'state' => 'required',
         'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]); 
+    ]);
            $image = $request->file('image');
     $slug = Str::random(5);
                 // Image set up
@@ -318,7 +321,7 @@ public function replyMessage($slug)
 {
     $message = Message::where('slug', $slug)->first();
     return view ('seller.message.reply_message', compact('message') );
-}    
+}
 
 public function allNotification()
 {
@@ -342,7 +345,7 @@ public function pendingService()
 
 public function allService()
 {
-  
+
     $all_services = Service::where('user_id', Auth::id() )->get();
          return view ('seller.service.all_service', compact('all_services') );
 }
