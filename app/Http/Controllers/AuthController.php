@@ -52,12 +52,17 @@ class AuthController extends Controller
 		 	if ($user->save()) {
 			// $name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
 			$name = $user->name;
+			$email = $user->email;
+			$origPassword = $request->password;
+			$userRole = $user->role;
 
-			Mail::to($user->email)->send(new UserRegistered($name));
+			Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+
 			if ($link_from_url) {
- 			$link = new Refererlink();
-           $link->refererlink = $link_from_url;
-           $link->save();			}
+                $link = new Refererlink();
+                $link->refererlink = $link_from_url;
+                $link->save();
+            }
 
 		}
 

@@ -86,6 +86,7 @@ img {
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
     background-color: #f5b951;
+    background-image: url(emailBg.jpg);
     /* background-color: #edf2f7; */
     margin: 0;
     padding: 0;

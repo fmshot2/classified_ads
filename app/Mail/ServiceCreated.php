@@ -7,23 +7,24 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserRegistered extends Mailable
+class ServiceCreated extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $name, $email, $password, $accountType;
+    public $name, $category, $phone, $state, $slug;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name, $email, $password, $accountType)
+    public function __construct($name, $category, $phone, $state, $slug)
     {
         $this->name = $name;
-        $this->email = $email;
-        $this->password = $password;
-        $this->accountType = $accountType;
+        $this->category = $category;
+        $this->phone = $phone;
+        $this->state = $state;
+        $this->slug = $slug;
     }
 
     /**
@@ -33,6 +34,6 @@ class UserRegistered extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.user-registered')->subject('Account Created!');
+        return $this->markdown('emails.service-created')->subject('You created a service!');;
     }
 }
