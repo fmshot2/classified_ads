@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
+use App\Mail\UserRegistered;
 use App\Refererlink;
 use Illuminate\Support\Str;
 
@@ -49,9 +50,10 @@ class AuthController extends Controller
 		//$user->state = $request->state;
 		$user->save();
 		 	if ($user->save()) {
-			$name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+			// $name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+			$name = $user->name;
 
-			// Mail::to($user->email)->send(new SendMailable($name));
+			Mail::to($user->email)->send(new UserRegistered($name));
 			if ($link_from_url) {
  			$link = new Refererlink();
            $link->refererlink = $link_from_url;

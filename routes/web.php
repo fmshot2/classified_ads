@@ -22,6 +22,10 @@ use App\Service;
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 Route::get ( 'findgeo2',  'ServiceController@findNearestRestaurants');
 
+Route::get('email', function () {
+    return new App\Mail\UserRegistered();
+});
+
 
 Route::get('/allfeat', 'OperationalController@getfeatservices');
 
