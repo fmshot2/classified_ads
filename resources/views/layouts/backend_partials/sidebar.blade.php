@@ -14,9 +14,6 @@
       </div>
     </div>
 
-       <br>
-    <hr>
-
     <!-- search form -->
  {{--   <form action="#" method="get" class="sidebar-form">
       <div class="input-group">
@@ -50,7 +47,7 @@
         <ul class="treeview-menu">
           <li><a href=" {{ route('admin.service.all') }} "><i class="fa fa-circle-o"></i> All Service</a></li>
           <li><a href=" {{ route ('admin.category.show') }} "><i class="fa fa-circle-o"></i> Categories </a></li>
-          <li><a href=" {{ route ('admin.subcategory.show') }} "><i class="fa fa-circle-o"></i> Sub-categories </a></li>          
+          <li><a href=" {{ route ('admin.subcategory.show') }} "><i class="fa fa-circle-o"></i> Sub-categories </a></li>
 
         </ul>
       </li>
@@ -154,7 +151,7 @@
 
       <li>
         <a href=" {{ route ('home') }} ">
-          <i class="fa fa-globe"></i> <span> Main Website </span>
+          <i class="fa fa-globe"></i> <span> Homepage </span>
           <span class="pull-right-container">
           </span>
         </a>

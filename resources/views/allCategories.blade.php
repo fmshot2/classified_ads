@@ -2,6 +2,25 @@
 @section('title', 'All Categories | ')
 @section('content')
 
+<style>
+    .letters{
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: #515151;
+        position: relative;
+        top: -52px;
+        left: 60px;
+        margin-right: 20px;
+        display: inline-block;
+    }
+    @media (max-width: 768px){
+        .alphabets{
+            display: none
+        }
+    }
+</style>
+
 <div class="main">
     <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/allcatbg.jpeg')}});">
         <div class="container">
@@ -29,7 +48,35 @@
                                 <span class="heading-icon bg-warning">
                                     <i class="fa fa-th-large"></i>
                                 </span>
-                                <span class="title-name">All Categories</span>
+                                {{-- <span class="title-name">All Categories</span> --}}
+                                <div class="alphabets">
+                                    <a href="" class="letters">A</a>
+                                    <a href="" class="letters">B</a>
+                                    <a href="" class="letters">C</a>
+                                    <a href="" class="letters">D</a>
+                                    <a href="" class="letters">E</a>
+                                    <a href="" class="letters">F</a>
+                                    <a href="" class="letters">G</a>
+                                    <a href="" class="letters">H</a>
+                                    <a href="" class="letters">I</a>
+                                    <a href="" class="letters">J</a>
+                                    <a href="" class="letters">K</a>
+                                    <a href="" class="letters">L</a>
+                                    <a href="" class="letters">M</a>
+                                    <a href="" class="letters">N</a>
+                                    <a href="" class="letters">O</a>
+                                    <a href="" class="letters">P</a>
+                                    <a href="" class="letters">Q</a>
+                                    <a href="" class="letters">R</a>
+                                    <a href="" class="letters">S</a>
+                                    <a href="" class="letters">T</a>
+                                    <a href="" class="letters">U</a>
+                                    <a href="" class="letters">V</a>
+                                    <a href="" class="letters">W</a>
+                                    <a href="" class="letters">X</a>
+                                    <a href="" class="letters">Y</a>
+                                    <a href="" class="letters">Z</a>
+                                </div>
                             </h4>
                         </div>
                         <div class="float-right cod-pad ">

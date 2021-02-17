@@ -19,10 +19,10 @@
             @endif
 
             <div class="sub-banner-text-content">
-                <h1>Services Detail</h1>
+                <h1>Service Detail</h1>
                 <ul>
                     <li><a href="{{route('home')}}">Home</a></li>
-                    <li><span>/</span>Service Detail Page</li>
+                    <li><span>/</span>Service Detail</li>
                 </ul>
             </div>
         </div>
@@ -79,8 +79,8 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h3 class="service-name">{{$serviceDetail->name}}</h3>
-                                        <p><span><i class="fa fa-map-marker"></i> Location:</span> {{$serviceDetail->state}}</p>
-                                        <p><span><i class="fa fa-user"></i> Service Providers:</span> {{$serviceDetail->user->name}}</p>
+                                        <p><span><i class="fa fa-map-marker"></i> Location:</span> <span style="color: #ca8309" class="tt-capitalize">{{$serviceDetail->state}}</span></p>
+                                        <p><span><i class="fa fa-user"></i> Service Providers: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->user->name}}</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +161,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }}
                                         <span class="pull-right-container">
-                                            <small class="label pull-right">{{ $service_likes != 0 ? $service_likes : ''}}</small>
+                                            <small class="label pull-right" style="background-color: #ffc107">{{ $service_likes }}</small>
                                         </span>
                                     </a>
 
@@ -306,7 +306,7 @@
                         @endauth
 
                         @guest
-                        <p>Please login as a buyer to see your previous conversation with this service provider</p>
+                        <p>Please login as a service seeker to see your previous conversation with this service provider</p>
                         @endguest
 
 
@@ -350,9 +350,7 @@
                             <div class="m-border" style="margin-bottom: 2px"></div>
                             <div class="s-border" style="margin-bottom: 15px"></div>
 
-                          {{--   <img class="img-fluid sp-seller-img" src="{{asset('images')}}/{{$serviceDetail->image[0]}}" alt="Agent" height="200" width="200"> --}}
-
-                        {{--   <img class="img-fluid sp-seller-img" src="{{asset('images')}}/{{$serviceDetail->service_image}}" alt="Agent" height="200" width="200"> --}}
+                          <img class="img-fluid sp-seller-img" src="{{asset('images')}}/{{$serviceDetail->service_image}}" alt="Agent" height="200" width="200">
 
                             <div class="ser-seller-note">
                                 <div>
