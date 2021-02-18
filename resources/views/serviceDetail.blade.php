@@ -64,7 +64,6 @@
 
                         <!----------HTML code starts here------->
                         <div class="container" style="padding: 0; margin-top: -20px">
-                            <img src="{{asset('noserviceimage.png')}}" class="img-fluid" alt="properties-small" style="height: 200px">
                             @if ($images_4_service->count() != 0)
                                 @if ($images_4_service->count() == 1)
                                     @foreach($images_4_service as $key => $image)
