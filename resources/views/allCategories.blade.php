@@ -28,7 +28,7 @@
                 <div class="sub-banner-text-content">
                     <h1>All Categories</h1>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="/">Home</a></li>
                         <li><span>/</span>All Categories</li>
                     </ul>
                 </div>

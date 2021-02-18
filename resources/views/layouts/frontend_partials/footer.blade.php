@@ -144,7 +144,7 @@
             <li class=" {{ Request::is('frequently-asked-questions') ? 'active' : '' }}"><a href="/frequently-asked-questions"><i class="fa fa-question-circle-o"></i>FAQ</a></li>
 
             <li class=" {{ Request::is('settings') ? 'active' : '' }}">
-                <a href="#" id="moreLinkBtn" data-toggle="modal"><i class="fa fa-ellipsis-v"></i>More</a>
+                <a href="#" id="moreLinkBtn" data-target="#moreLinkModal" data-toggle="modal"><i class="fa fa-ellipsis-v"></i>More</a>
             </li>
         </ul>
       </div>
