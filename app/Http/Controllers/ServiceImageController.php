@@ -36,6 +36,7 @@ class ServiceImageController extends Controller
         return redirect()->back();
     }
 
+
     public function imagesDelete($id)
     {
         $image = Image::find($id);
