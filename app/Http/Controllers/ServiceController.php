@@ -680,6 +680,8 @@ $servicesss = Service::selectRaw("id, name, address, image, user_id, state, badg
     $query->where('name', 'like', '%' . $keyword . '%');
 })->where(function ($query) use ($category) {
     $query->where('category_id', 'like', '%' . $category . '%');
+})->where(function ($query) use ($state) {
+    $query->where('state', 'like', '%' . $state . '%');
 })->with('user')
         ->orderBy("distance",'asc')
         ->offset(0)
