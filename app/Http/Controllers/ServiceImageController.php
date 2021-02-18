@@ -27,13 +27,16 @@ class ServiceImageController extends Controller
         $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
         $file_name= $filename.'-'.time().'.'.$extension;
         $image->move(public_path('uploads/services'),$file_name);
+
         $service = Service::find($service_id);
         $service->images()->create(['image_path' => $file_name]);
         $service->thumbnail = $service->images()->first()->image_path;
         $service->save();
 
         return redirect()->back();
+
     }
+
 
     public function imagesDelete($id)
     {

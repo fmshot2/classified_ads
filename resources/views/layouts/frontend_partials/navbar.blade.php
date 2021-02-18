@@ -46,7 +46,7 @@
 
 
 <!-- Main header start -->
-<header class="main-header ">
+<header class="main-header">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand logos" href="/">
@@ -56,7 +56,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="mobile-top-navbar">
+            <div class="mobile-top-navbar" id="scroll-top">
                 <ul class="mbtn-links">
                     @guest
                         <a href="/login" class="sign-in">Login</a> or
