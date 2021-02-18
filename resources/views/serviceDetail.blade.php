@@ -64,10 +64,11 @@
 
                         <!----------HTML code starts here------->
                         <div class="container" style="padding: 0; margin-top: -20px">
+                            {{-- <img src="{{asset('uploads/services/man-munir-2020-1613567394.jpg')}}" class="img-fluid" alt="properties-small" style="height: 200px"> --}}
                             @if ($images_4_service->count() != 0)
                                 @if ($images_4_service->count() == 1)
                                     @foreach($images_4_service as $key => $image)
-                                        <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid" alt="properties-small">
+                                        <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid" alt="properties-small" style="height: 200px">
                                     @endforeach
                                 @else
                                     <div class="glide">
@@ -294,10 +295,7 @@
                             <div class="s-border"></div>
                             <div class="m-border" style="margin-bottom: 2px"></div>
                             <div class="s-border" style="margin-bottom: 15px"></div>
-                         <img class="img-fluid sp-seller-img" src="{{asset('uploads/services')}}/{{$serviceDetail->service_image}}" alt="Agent" height="200" width="200">
-                       
-                          <img class="img-fluid sp-seller-img" src="{{asset('images')}}/{{$serviceDetail->service_image}}" alt="Agent" height="200" width="200">
-                          <img class="img-fluid sp-seller-img" src="{{asset('uploads/services')}}/{{$serviceDetail->service_image}}" alt="Agent" height="200" width="200">
+                            <img class="img-fluid sp-seller-img" src="{{asset('uploads/services')}}/{{$serviceDetail->service_image}}" alt="Agent" height="200" width="200">
                             <div class="ser-seller-note">
                                 <div>
                                     <b>Registered:</b>  <i>"{{$serviceDetail->created_at->diffForHumans()}}"</i>
