@@ -12,8 +12,8 @@
  <link rel="stylesheet" type="text/css" href="{{asset('css/animate.min.css')}}">
  <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-submenu.css')}}">
  <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-select.min.css')}}">
- <link rel="stylesheet" href="css/leaflet.css')}}" type="text/css">
- <link rel="stylesheet" href="css/map.css')}}" type="text/css">
+ <link rel="stylesheet" href="{{asset('css/leaflet.css')}}" type="text/css">
+ <link rel="stylesheet" href="{{asset('css/map.css')}}" type="text/css">
  <link rel="stylesheet" type="text/css" href="{{asset('fonts/font-awesome/css/font-awesome.min.css')}}">
  <link rel="stylesheet" type="text/css" href="{{asset('fonts/flaticon/font/flaticon.css')}}">
  <link rel="stylesheet" type="text/css" href="{{asset('fonts/linearicons/style.css')}}">
@@ -21,6 +21,13 @@
  <link rel="stylesheet" type="text/css"  href="{{asset('css/dropzone.css')}}">
  <link rel="stylesheet" type="text/css"  href="{{asset('css/slick.css')}}">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+ <!-- Required Core Stylesheet -->
+<link rel="stylesheet" href="{{asset('glide/css/glide.core.min.css')}}">
+
+<!-- Optional Theme Stylesheet -->
+<link rel="stylesheet" href="{{asset('glide/css/glide.theme.min.css')}}">
+<link rel="stylesheet" href="{{asset('lightbox/lightbox.min.css')}}">
 
 
  <!-- Custom stylesheet -->
@@ -74,6 +81,14 @@
 <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('js/jquery.countdown.js') }}"></script>
 <script src="{{ asset('js/maps.js') }}"></script>
+<script src="{{ asset('glide/glide.min.js') }}"></script>
+<script src="{{ asset('lightbox/lightbox-plus-jquery.min.js') }}"></script>
+{{-- <script src="{{ asset('js/efScript.js') }}"></script> --}}
+
+
+
+
+
 
 <script>
 
@@ -98,14 +113,49 @@
             $('#moreLinkModal').modal('toggle');
         });
 
-        // Magnify activation
-        $('.portfolio-item').magnificPopup({
-            delegate: 'a',
-            type: 'image',
-            gallery: {enabled: true}
+        var glide = new Glide('.glide', {
+            type: 'carousel',
+            perView: 4,
+            gap: 10,
+            focusAt: 'center',
+            autoplay: 2000,
+            hoverpause: true,
+            animationDuration: 3000,
+            breakpoints: {
+                800: {
+                perView: 2
+                },
+                480: {
+                perView: 2
+                }
+            }
+        })
+
+        glide.mount()
+
+        // Page scroller initialization.
+        $.scrollUp({
+            scrollName: "page_scroller",
+            scrollDistance: 300,
+            scrollFrom: "top",
+            scrollSpeed: 500,
+            easingType: "linear",
+            animation: "fade",
+            animationSpeed: 200,
+            scrollTrigger: false,
+            scrollTarget: false,
+            scrollText: '<i class="fa fa-chevron-up"></i>',
+            scrollTitle: false,
+            scrollImg: false,
+            activeOverlay: false,
+            zIndex: 2147483647,
         });
+
+
+
     });
 </script>
+
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{{ asset('js/ie10-viewport-bug-workaround.js') }}"></script>
