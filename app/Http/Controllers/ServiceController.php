@@ -182,7 +182,7 @@ class ServiceController extends Controller
     $advertServices = Service::where('is_approved', 1)->with('user')->get();
     $recentServices = Service::where('is_approved', 1)->orderBy('created_at', 'asc')->paginate(16);
     $categories = Category::orderBy('id', 'asc')->get();
-    $search_form_categories = Category::orderBy('name')->get();    
+    $search_form_categories = Category::orderBy('name')->get();
     $sliders = Slider::all();
     $trendingServices = Service::orderByUniqueViews()->get();
     $states = State::all();
