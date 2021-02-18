@@ -8,7 +8,7 @@
  <meta charset="utf-8">
  <meta name="theme-color" content="#CA8309" />
  <!-- Favicon icon -->
- <link rel="shortcut icon" href="{{ asset('logos/efcontactlogo.png') }}" type="image/x-icon" />
+ <link rel="shortcut icon" href="{{ asset('logos/favicon.png') }}" type="image/x-icon" />
 
  <!-- External CSS libraries -->
  <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}">

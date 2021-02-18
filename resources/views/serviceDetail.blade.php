@@ -64,7 +64,7 @@
 
                         <!----------HTML code starts here------->
                         <div class="container" style="padding: 0; margin-top: -20px">
-                            {{-- <img src="{{asset('uploads/services/man-munir-2020-1613567394.jpg')}}" class="img-fluid" alt="properties-small" style="height: 200px"> --}}
+                            <img src="{{asset('noserviceimage.png')}}" class="img-fluid" alt="properties-small" style="height: 200px">
                             @if ($images_4_service->count() != 0)
                                 @if ($images_4_service->count() == 1)
                                     @foreach($images_4_service as $key => $image)
@@ -86,7 +86,7 @@
                                     </div>
                                 @endif
                             @else
-                                <h3>Please upload an image or more of your service!</h3>
+                                <img src="{{asset('noserviceimage.png')}}" class="img-fluid" alt="properties-small" style="height: 200px">
                             @endif
                         </div>
 
@@ -295,7 +295,15 @@
                             <div class="s-border"></div>
                             <div class="m-border" style="margin-bottom: 2px"></div>
                             <div class="s-border" style="margin-bottom: 15px"></div>
-                            <img class="img-fluid sp-seller-img" src="{{asset('uploads/services')}}/{{$serviceDetail->service_image}}" alt="Agent" height="200" width="200">
+
+                            <div style="margin-bottom: 15px">
+                                @if ($serviceDetail->service_image)
+                                    <img class="img-fluid sp-seller-img" src="{{asset('uploads/services')}}/{{$serviceDetail->service_image}}" alt="{{$serviceDetail->user->name}}" style="width: 100%;height: auto; display: block; margin: 0 auto;">
+                                @else
+                                    <img src="{{asset('nouserimage.png')}}" class="img-fluid" alt="{{$serviceDetail->user->name}}" style="width: 250px;height: auto; display: block; margin: 0 auto;">
+                                @endif
+                            </div>
+
                             <div class="ser-seller-note">
                                 <div>
                                     <b>Registered:</b>  <i>"{{$serviceDetail->created_at->diffForHumans()}}"</i>
