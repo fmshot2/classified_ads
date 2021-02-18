@@ -52,7 +52,7 @@
                                                     </p>
                                                 </div>
                                                 <div class="listing-time opening">Femi</div>
-                                               <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('images')}}/{{$category_service->image[0]}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                               <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('images')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
 
                                             </a>
                                         </div>
@@ -97,7 +97,7 @@
                                                     </p>
                                                 </div>
                                                 <div class="listing-time opening">femi</div>
-                                                <img class="d-block w-100" src="{{asset('images')}}/{{$category_service->image[0]}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                <img class="d-block w-100" src="{{asset('images')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                                             </a>
                                         </div>
                                         <div class="detail">
@@ -137,7 +137,7 @@
                                     @foreach($featuredServices as $key => $featuredService)
                                         <div class="media">
                                             <div class="media-left">
-                                              <a  href="{{route('serviceDetail', $featuredService->slug)}}">   <img class="media-object" src="{{asset('images')}}/{{$featuredService->image[0]}}">
+                                              <a  href="{{route('serviceDetail', $featuredService->slug)}}">   <img class="media-object" src="{{asset('images')}}/{{$featuredService->service_image}}">
                                                 </a>
                                             </div>
                                             <div class="media-body align-self-center all-ser-pg-sidebar-feat-ser">
