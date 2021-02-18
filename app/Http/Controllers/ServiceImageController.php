@@ -37,6 +37,7 @@ class ServiceImageController extends Controller
         $service->save();
 
         return redirect()->back();
+
     }
 
 

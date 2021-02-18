@@ -6,6 +6,9 @@
 
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <meta charset="utf-8">
+ <meta name="theme-color" content="#CA8309" />
+ <!-- Favicon icon -->
+ <link rel="shortcut icon" href="{{ asset('logos/efcontactlogo.png') }}" type="image/x-icon" />
 
  <!-- External CSS libraries -->
  <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}">
@@ -33,9 +36,6 @@
  <!-- Custom stylesheet -->
  <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
  <link rel="stylesheet" type="text/css" id="style_sheet" href="{{asset('css/skins/default.css')}}">
-
- <!-- Favicon icon -->
- <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" type="image/x-icon" >
 
  <!-- Google fonts -->
  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700%7CRoboto:300,400,500,700&amp;display=swap">
@@ -116,6 +116,7 @@
         var glide = new Glide('.glide', {
             type: 'carousel',
             perView: 4,
+            gap: 5,
             focusAt: 'center',
             autoplay: 2000,
             hoverpause: true,
@@ -131,24 +132,6 @@
         })
 
         glide.mount()
-
-        // Page scroller initialization.
-        $.scrollUp({
-            scrollName: "page_scroller",
-            scrollDistance: 300,
-            scrollFrom: "top",
-            scrollSpeed: 500,
-            easingType: "linear",
-            animation: "fade",
-            animationSpeed: 200,
-            scrollTrigger: false,
-            scrollTarget: false,
-            scrollText: '<i class="fa fa-chevron-up"></i>',
-            scrollTitle: false,
-            scrollImg: false,
-            activeOverlay: false,
-            zIndex: 2147483647,
-        });
 
 
 
