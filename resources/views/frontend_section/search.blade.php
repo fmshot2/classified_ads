@@ -12,6 +12,7 @@
                         </div>
                     </div>
 
+ 
 
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <p style="margin-bottom: 0; font-weight: 600;">Keyword</p>
@@ -73,6 +74,22 @@
                             <button class="btn btn-block bg-warning font-weight-bold text-white btn-warning" style="margin-top: 25px">Search
                                 <i class="fa fa-search ml-2" aria-hidden="true"></i>
                             </button>
+                        </div>
+                    </div>
+   <div class="form-group">
+<p id="demo2"></p>
+    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <p style="margin-bottom: 0; font-weight: 600;">Keyword</p>
+                        <div class="form-group">
+                        <input id="latitude_id" type="text" name="latitude" class="form-control">
+                        </div>
+                    </div>
+
+                     <div class="col-lg-2 col-md-4 col-sm-6">
+                        <p style="margin-bottom: 0; font-weight: 600;">Keyword</p>
+                        <div class="form-group">
+                        <input id="longitude_id" type="text" name="longitude" class="form-control">
                         </div>
                     </div>
 
@@ -159,6 +176,8 @@
 
 </script>
 
+
+
 <style>
     .slidecontainer {
       width: 100%;
@@ -198,3 +217,12 @@
       cursor: pointer;
     }
   </style>
+
+
+  <script type="text/javascript">
+  $(document).ready( function () {
+    // alert('ddsdsd');
+  getLocation();
+});
+</script>
+

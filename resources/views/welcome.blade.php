@@ -13,62 +13,36 @@
 @include('frontend_section/search')
 
 
-{{-- <p>Click the button to get your coordinates.</p>
-
-<button onclick="getLocationBtn()">Try It</button>
-<input id="radi2" type="number" name="radius">
-
-<p id="demo2"></p> --}}
-
 <script>
 var x = document.getElementById("demo2");
+var y = document.getElementById("latitude_id");
+var z = document.getElementById("longitude_id");
+
+
 
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
   } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
+   var res = "Geolocation is not supported by this browser.";
   }
 }
 
 
+function showPosition(position) { 
 
-function getLocationBtn() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition2);
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
+    console.log('ccc', position.coords.latitude);
 
-
-function showPosition2(position) {
-    // var rad = document.getElementById("myRange").value;
-  x.innerHTML = "Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude;
-  // var rad = document.getElementById("myRange").value;
-  // var rad = slider.value;
-  // output.innerHTML = slider.value;
-
-}
-
-function showPosition(position) {
-    // var rad = document.getElementById("myRange").value;
-
-  // alert(position.coords.latitude);
-  x.innerHTML = "Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude;
-  // var rad = document.getElementById("myRange").value;
-  // var rad = slider.value;
-  // output.innerHTML = slider.value;
+        var lat = document.getElementById("latitude_id").value = position.coords.latitude;
+    console.log('lat', lat);
+     var long = document.getElementById("longitude_id").value = position.coords.longitude;
+    console.log('long', long);
 
    $.ajax({
             type:'GET',
             url: 'findgeo',
             data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
            success: function(result){
-            // console.log(result.data);
-            // return console.log(result.data);
 
                     services = result.data;
                      console.log('services', services);
@@ -115,48 +89,11 @@ function showPosition(position) {
 
 
                         });
+
+
                 }
 
-              // var myObj = JSON.parse(data);
-              // console.log(myObj);
-              // $('.containerdata').html(data.html);
-              // document.getElementById("nearest").style.removeProperty('display');
-
-
-
-            //  $.ajax({
-            // type:'GET',
-            // url: '/',
-            // data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
-            // success: function(data) {
-            //   document.getElementById("nearest").style.removeProperty('display');
-            //   // $('.containerdata').html(data.html);
-            //   console.log(data);
-            //   // location.reload();
-            //   // return false;
-
-            //   // alert(data);
-            //     }
-            // });
-
-
-
-
-            //    $.ajax({
-            // type:'GET',
-            // url: '/',
-            // data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
-            // success: function(data) {
-            //   document.getElementById("nearest").style.removeProperty('display');
-            //       var myObj = JSON.parse(this.data);
-            //   $('.containerdata').html(myObj.html);
-            //   console.log(myObj);
-            //   // location.reload();
-            //   // return false;
-
-            //   // alert(data);
-            //     }
-            // });
+          
 
             });
 }

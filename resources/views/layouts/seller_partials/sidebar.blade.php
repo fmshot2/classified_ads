@@ -15,9 +15,6 @@
     </div>
     <!-- search form -->
 
-    <br>
-    <hr>
-
     <!-- /.search form -->
     <!-- sidebar menu-->
     <ul class="sidebar-menu" data-widget="tree">
@@ -36,7 +33,7 @@
         <a href=" {{route ('seller.message.all') }}">
           <i class="fa fa-briefcase"></i> <span> My Messages </span>
           <span class="pull-right-container">
-            <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small> 
+            <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small>
           </span>
         </a>
       </li>
@@ -75,7 +72,7 @@
       </li>
 
 
-      
+
 
 
 {{--
@@ -84,7 +81,7 @@
           <i class="fa fa-envelope"></i> <span> Message </span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
-            <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small> 
+            <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small>
           </span>
         </a>
         <ul class="treeview-menu">
@@ -116,13 +113,13 @@
         <a href=" {{route ('seller.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
           <span class="pull-right-container">
-            <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small> 
+            <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small>
           </span>
         </a>
       </li>
 
 
-     
+
 
       <li style="{{ url()->current() == route('seller.profile') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{ route ('seller.profile') }} ">
@@ -134,7 +131,7 @@
 
       <li>
         <a href=" {{ route ('home') }} ">
-          <i class="fa fa-globe"></i> <span> Main Website </span>
+          <i class="fa fa-globe"></i> <span> Homepage </span>
           <span class="pull-right-container">
           </span>
         </a>
@@ -165,7 +162,7 @@
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
        @csrf
      </form>
-     <i class="fa fa-power-off"></i></a> 
+     <i class="fa fa-power-off"></i></a>
 </div>
 </aside>
 
