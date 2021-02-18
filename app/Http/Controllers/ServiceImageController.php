@@ -28,7 +28,7 @@ class ServiceImageController extends Controller
         $image->move(public_path('uploads/services'),$file_name);
 
         $post = Service::find($service_id);
-        dd($post);
+        // dd($post);
         $post->images()->create(['image_path' => $file_name]);
         return redirect()->back();
     }
