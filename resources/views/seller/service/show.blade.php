@@ -26,7 +26,7 @@
             <div class="box box-default">
                 <div class="box-header">
                     <div>
-                        <img src="{{ $service->image ? asset('uploads/service/').$service->image : asset('images/00_SEO-and-Digital-Marketing-Agency-Mega-Stationery-Branding-Identity-Design-Template-scaled.jpg') }}" style="width: 100%; height: auto; margin: 0 auto">
+                        <img src="{{ $service->thumbnail ? asset('uploads/services/'.$service->thumbnail) : asset('images/00_SEO-and-Digital-Marketing-Agency-Mega-Stationery-Branding-Identity-Design-Template-scaled.jpg') }}" style="width: 100%; height: auto; margin: 0 auto">
                     </div>
                 </div>
                 <div class="box-body">

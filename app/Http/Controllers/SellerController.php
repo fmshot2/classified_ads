@@ -135,15 +135,15 @@ $service_owner->name = Auth::user()->name;
 $service_owner->email = Auth::user()->email;
 
 
-        // if ($service->save()) {
-        //     $name =  $service->name;
-        //     $category =  $service->category->name;
-        //     $phone =  $service->phone;
-        //     $state =  $service->state;
-        //     $slug =  $service->slug;
+        if ($service->save()) {
+            $name =  $service->name;
+            $category =  $service->category->name;
+            $phone =  $service->phone;
+            $state =  $service->state;
+            $slug =  $service->slug;
 
-        //     Mail::to($service_owner->email)->send(new ServiceCreated($name, $category, $phone, $state, $slug));
-        // }
+            Mail::to($service_owner->email)->send(new ServiceCreated($name, $category, $phone, $state, $slug));
+        }
 
        $present_user = Auth::user();
         $user_hasUploadedService = $present_user->hasUploadedService;

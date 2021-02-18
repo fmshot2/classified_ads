@@ -23,16 +23,9 @@ class CreateServicesTable extends Migration
             $table->string('state')->nullable();
             $table->string('streetAddress')->nullable();
             $table->string('closestBusstop')->nullable();
-            //$table->string('category');
-            //$table->string('phone')->nullable();
-            $table->string('image')->nullable();
+            $table->string('category')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->string('address');
-            $table->string('image_1')->nullable();
-            $table->string('image_2')->nullable();
-            $table->string('image_3')->nullable();
-            $table->string('image_4')->nullable();
-            $table->string('image_5')->nullable();
-            $table->string('image_6')->nullable();
             $table->string('experience');
             $table->string('phone');
             $table->string('video_link')->nullable();
@@ -43,7 +36,6 @@ class CreateServicesTable extends Migration
             $table->string('slug')->unique()->nullable();
             $table->boolean('status')->default(false);
             $table->unsignedInteger('user_id');
-            //$table->unsignedInteger('like_id');
             $table->unsignedInteger('category_id')->nullable();
             $table->timestamps();
             $table->string('badge_type')->nullable()->default('basic');

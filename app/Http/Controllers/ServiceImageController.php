@@ -13,7 +13,8 @@ class ServiceImageController extends Controller
     public function showService($id)
     {
         $service = Service::find($id);
-            return view('seller.service.show', [
+
+        return view('seller.service.show', [
             'service' => $service
         ]);
     }
@@ -27,9 +28,17 @@ class ServiceImageController extends Controller
         $file_name= $filename.'-'.time().'.'.$extension;
         $image->move(public_path('uploads/services'),$file_name);
 
+<<<<<<< HEAD
         $post = Service::find($service_id);
         // dd($post);
         $post->images()->create(['image_path' => $file_name]);
+=======
+        $service = Service::find($service_id);
+        $service->images()->create(['image_path' => $file_name]);
+        $service->thumbnail = $service->images()->first()->image_path;
+        $service->save();
+
+>>>>>>> 43033dce2ebcb9167c5b246001cd3a2539a5e30d
         return redirect()->back();
     }
 

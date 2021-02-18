@@ -28,17 +28,6 @@
         </div>
     </div>
 </div>
-<!--<div id="complaint_notification2" aria-live="polite" aria-atomic="true" style="position: relative; min-height: 50px;">-->
-<!--    <div class="toast bg-success mt-2 p-2" style="border-radius: 6px; position: absolute; top: 0; right: 0; display: none">-->
-<!--        <div class="toast-header">-->
-<!--            <i class="fa fa-check-circle"></i>-->
-<!--            <strong class="mr-auto text-success">Your complaint was sent successfully</strong>-->
-<!--            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
-<!--                <span aria-hidden="true">&times;</span>-->
-<!--            </button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 
 
 
@@ -53,19 +42,6 @@
         </div>
     </div>
 </div>
-
-{{-- <div class="">
-    <h3 class="go-back-btn">
-        <span class="text-right">
-            <div class="posts-by-category widget">
-                <!--<h3 class="sidebar-title">Cities</h3>-->
-                <ul class="list-unstyled list-cat">
-                    <a href="{{route('home')}}" class="btn btn-outline-warning"><i class="fa fa-home"> Back To Home</i></a>
-                </ul>
-            </div>
-        </span>
-    </h3>
-</div> --}}
 
     <!-- Properties Details page start -->
     <div class="properties-details-page content-area-7 service-page-sidebar">
@@ -86,63 +62,32 @@
                             </div>
                         </div>
 
-                        <link href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-                        <link href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.theme.default.min.css" rel="stylesheet">
-                        <script src="https://owlcarousel2.github.io/OwlCarousel2/assets/vendors/jquery.min.js"></script>
-                        <script src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js"></script>
-
                         <!----------HTML code starts here------->
-                        <div class="container">
-                            <div class="owl-carousel owl-theme owl-loaded owl-drag">
-                                <div class="owl-stage-outer">
-                                    <div class="owl-stage" style="transform: translate3d(-1527px, 0px, 0px); transition: all 0.25s ease 0s; width: 3334px;">
-                                        {{-- @if(isset($images_4_service)) --}}
-                                            @foreach($images_4_service as $key => $image)
-
-                                                <div class="owl-item" style="width: 128.906px; margin-right: 10px;">
-                                                    <div class="item">
-                                                        <a class="portfolio-item" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" alt="gallery-photo" class="img-fluid">
+                        <div class="container" style="padding: 0; margin-top: -20px">
+                            @if ($images_4_service->count() != 0)
+                                @if ($images_4_service->count() == 1)
+                                    @foreach($images_4_service as $key => $image)
+                                        <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid" alt="properties-small">
+                                    @endforeach
+                                @else
+                                    <div class="glide">
+                                        <div class="glide__track" data-glide-el="track">
+                                            <ul class="glide__slides">
+                                                @foreach($images_4_service as $key => $image)
+                                                    <li class="glide__slide">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid" alt="properties-small" style="height: 100px;width:auto">
                                                         </a>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        {{-- @endif --}}
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="owl-nav disabled">
-
-                                </div>
-
-                            </div>
+                                @endif
+                            @else
+                                <h3>Please upload an image or more of your service!</h3>
+                            @endif
                         </div>
-
-
-                        <style type="text/css">
-                        .owl-item {width: 128.906px; margin-right: 10px; }
-                        /*.owl-item {width: 128.906px; margin-right: 10px; background:powderblue;}*/
-                            .owl-item {width: 128.906px; margin-right: 10px; }
-                            /* .owl-item {width: 128.906px; margin-right: 10px; background:powderblue; } */
-
-                            @media (min-width: 768px){
-                                .owl-item{
-                                    height: 128.906px;
-                                }
-                            }
-                        </style>
-
-                        <script type="text/javascript">
-                            var owl = $('.owl-carousel');
-                            owl.owlCarousel({
-                                items:4,
-                                // items change number for slider display on desktop
-                                loop:true,
-                                margin:10,
-                                autoplay:true,
-                                autoplayTimeout:1300,
-                                autoplayHoverPause:true
-                            });
-                        </script>
 
                         <hr>
 
@@ -349,11 +294,10 @@
                             <div class="s-border"></div>
                             <div class="m-border" style="margin-bottom: 2px"></div>
                             <div class="s-border" style="margin-bottom: 15px"></div>
-
                          <img class="img-fluid sp-seller-img" src="{{asset('uploads/services')}}/{{$serviceDetail->service_image}}" alt="Agent" height="200" width="200">
                        
                           <img class="img-fluid sp-seller-img" src="{{asset('images')}}/{{$serviceDetail->service_image}}" alt="Agent" height="200" width="200">
-
+                          <img class="img-fluid sp-seller-img" src="{{asset('uploads/services')}}/{{$serviceDetail->service_image}}" alt="Agent" height="200" width="200">
                             <div class="ser-seller-note">
                                 <div>
                                     <b>Registered:</b>  <i>"{{$serviceDetail->created_at->diffForHumans()}}"</i>
