@@ -643,15 +643,18 @@ $keyword_and_Categories = Service::where(function ($query) use ($keyword, $categ
     //   }
 
 public function search3(Request $request){
-  // return $request->ranges;
+
     $validatedData = $request->validate([
         'keyword' => ['max:255'],
         'state' => ['max:255'],
       ]);
+     $latitude = $request->input('latitude');
+  $longitude = $request->input('longitude');
+      $radius = 100000;
+  $name = $request->input('name');
+
   $keyword = $request->input('keyword');
   $category = $request->input('category');
-  // dd($category);
-
   $state = $request->input('state');
   $ranges = $request->input('ranges');
   //$serviceDetail_id = $request->input('serviceDetail_id');
@@ -665,18 +668,38 @@ public function search3(Request $request){
   // })->get();
 
 
+
+$servicesss = Service::selectRaw("id, name, address, image, user_id, state, badge_type,
+                     ( 6371000 * acos( cos( radians(?) ) *
+                       cos( radians( latitude ) )
+                       * cos( radians( longitude ) - radians(?)
+                       ) + sin( radians(?) ) *
+                       sin( radians( latitude ) ) )
+                     ) AS distance", [$latitude, $longitude, $latitude])
+        ->having("distance", "<", $radius)->where(function ($query) use ($keyword) {
+    $query->where('name', 'like', '%' . $keyword . '%');
+})->where(function ($query) use ($category) {
+    $query->where('category_id', 'like', '%' . $category . '%');
+})->with('user')
+        ->orderBy("distance",'asc')
+        ->offset(0)
+        ->limit(20)
+        ->get();
+
+
+
+
  $keywordResponses1 = Service::where(function ($query) use ($keyword) {
     $query->where('name', 'like', '%' . $keyword . '%');
 })->get();
 
   $keywordResponses2 = Service::where(function ($query) use ($category) {
-    $query->where('category_id', '=', $category);
+    $query->where('category_id', 'like', '%' . $category . '%');
 })->get();
 
   $keywordResponses3 = Service::where(function ($query) use ($state) {
     $query->where('state', '=', $state);
 })->get();
-    // return response()->json($keywordResponses);
 
  $keywordResponses4 = Service::where(function ($query) use ($keyword) {
     $query->where('name', 'like', '%' . $keyword . '%');
@@ -720,7 +743,7 @@ $keywordResponses7 = Service::where(function ($query) use ($category) {
 
 // }
 
-    dd($keywordResponses1, $keywordResponses2, $keywordResponses3, $keywordResponses4, $keywordResponses5, $keywordResponses6, $keywordResponses7);
+    dd($keywordResponses1, $keywordResponses2, $keywordResponses3, $keywordResponses4, $keywordResponses5, $keywordResponses6, $keywordResponses7, $servicesss);
 
 
    $keyword_and_Categories = Service::where(function ($query) use ($keyword, $category) {
