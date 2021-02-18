@@ -305,7 +305,10 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
 Route::post ( '/searchonservices',  'ServiceController@searchonservices')->name('searchonservices');
 
-Route::get ( '/searchresults',  'ServiceController@search')->name('search3');
+// Route::get ( '/searchresults',  'ServiceController@search')->name('search3');
+Route::get ( '/searchresults',  'ServiceController@search3')->name('search3');
+
+
 
 
 Route::get ('getlat', function()

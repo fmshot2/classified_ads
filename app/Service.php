@@ -80,7 +80,8 @@ class Service extends Model implements Viewable
 public function scopeSearchName($query, $name)
 {
     if ($name != '' && $name != null  && $name != "null") {
-        return $query->where('name', '=', $name);
+        // return $query->where('name', '=', $name);
+    return  $query->where('name', 'like', '%' . $name . '%');
     } else {
         return $query;
     }
@@ -90,21 +91,37 @@ public function scopeSearchName($query, $name)
 public function scopeSearchState($query, $state)
 {
     if ($state != '' && $state != null  && $state != "null") {
-        return $query->where('state', '=', $state);
+        // return $query->where('state', '=', $state);
+         return  $query->where('state', 'like', '%' . $state . '%');
     } else {
         return $query;
     }
 }
+
 
 
 public function scopeSearchCity($query, $city)
 {
     if ($city != '' && $city != null  && $city != "null") {
-        return $query->where('city', '=', $city);
+        // return $query->where('city', '=', $city);
+        return  $query->where('city', 'like', '%' . $city . '%');
+
     } else {
         return $query;
     }
 }
+
+public function scopeSearchCategory($query, $category)
+{
+    if ($category != '' && $category != null  && $category != "null") {
+        // return $query->where('city', '=', $city);
+        return  $query->where('category_id', 'like', '%' . $category . '%');
+
+    } else {
+        return $query;
+    }
+}
+
 
 
 

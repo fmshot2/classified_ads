@@ -12,6 +12,14 @@
                         </div>
                     </div>
 
+
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <p style="margin-bottom: 0; font-weight: 600;">Keyword</p>
+                        <div class="form-group">
+                        <input type="text" name="name" class="form-control" placeholder="e.g. Barber, Saloon">
+                        </div>
+                    </div>
+
                      <div class="col-lg-2 col-md-4 col-sm-6 text-center">
                         <p style="font-weight: 600; margin-bottom: 0;">Choose Distance(in km): <span id="demo"></span></p>
                         <div class="slidecontainer" style="margin-bottom: 15px;">

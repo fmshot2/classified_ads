@@ -581,7 +581,68 @@ $latitude = $request->latitude;
 }
 */
 
-public function search(Request $request){
+
+
+
+        public function search(Request $request)
+        {
+          // $serviceName = $request->name;
+          // $serviceState =   $request->state;
+          // $category = $request->category;
+
+           $keyword = $request->input('keyword');
+  $category = $request->input('category');
+  $state = $request->input('state');
+  $ranges = $request->input('ranges');
+        // return $request;
+          // $request->validate([
+          //   "name"     => 'string',
+          //   "state"       => 'string',
+          // ]);
+//          $user11 = Service::searchName($request->name)->searchCategory($request->category)->
+//            searchState($request->state)->get();
+//            $user12 = Service::searchName($request->name)->searchCategory($request->category)->get();
+//               $user13 = Service::searchName($request->name)->get();
+// if ($user11) {
+//     return response()->json(['a', $user11]);
+// }
+
+ $keywordResponses = Service::where(function ($query) use ($keyword, $category, $state) {
+    $query->where('name', 'like', '%' . $keyword . '%');
+  })->get();
+     // return response()->json(['a', $keywordResponses]);
+
+$keyword_and_Categories = Service::where(function ($query) use ($keyword, $category) {
+    $query->where('name', 'like', '%' . $keyword . '%')
+    ->orWhere('category_id', 'like', '%' . $category . '%');
+  })->get();
+    return response()->json(['a', $keyword_and_Categories]);
+
+ $vehsearch = "%{$vehsearch}%";
+
+    $query->where(function ($query) use ($vehsearch) {
+        $query->orWhere('vehmod', 'like', $vehsearch);
+        $query->orWhere('vehmark', 'like', $vehsearch);
+        $query->orWhereRaw("CONCAT(vehmod, ' ', vehmark) LIKE ?", [$vehsearch]);
+    });
+    return response()->json(['d', $user11]);
+
+            // $user11->each(function ($item, $key) {
+            //   $item->name;
+            //   $item->state;
+
+            // });
+        }
+
+    // //return response()->json($user11);
+    //     return redirect()->to('/')->with('user11', $user11)
+    //     ->with('serviceName', $serviceName)
+    //     ->with('serviceState', $serviceState);
+    //             //return 'jjj';
+
+    //   }
+
+public function search3(Request $request){
   // return $request->ranges;
     $validatedData = $request->validate([
         'keyword' => ['max:255'],
@@ -589,24 +650,88 @@ public function search(Request $request){
       ]);
   $keyword = $request->input('keyword');
   $category = $request->input('category');
+  // dd($category);
+
   $state = $request->input('state');
-  $state = $request->input('ranges');
+  $ranges = $request->input('ranges');
   //$serviceDetail_id = $request->input('serviceDetail_id');
   $all_states = State::all();
   $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+    $keywordResponses = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
 
-  $keywordResponses = Service::where(function ($query) use ($keyword) {
+
+  // $keywordResponses = Service::where(function ($query) use ($keyword, $category, $state) {
+  //   $query->where('name', 'like', '%' . $keyword . '%');
+  // })->get();
+
+
+ $keywordResponses1 = Service::where(function ($query) use ($keyword) {
     $query->where('name', 'like', '%' . $keyword . '%');
-  })->get();
+})->get();
+
+  $keywordResponses2 = Service::where(function ($query) use ($category) {
+    $query->where('category_id', '=', $category);
+})->get();
+
+  $keywordResponses3 = Service::where(function ($query) use ($state) {
+    $query->where('state', '=', $state);
+})->get();
+    // return response()->json($keywordResponses);
+
+ $keywordResponses4 = Service::where(function ($query) use ($keyword) {
+    $query->where('name', 'like', '%' . $keyword . '%');
+})
+->where(function ($query) use ($category) {
+    $query->where('category_id', '=', $category);
+
+})->get();
+
+$keywordResponses5 = Service::where(function ($query) use ($keyword) {
+    $query->where('name', 'like', '%' . $keyword . '%');
+})
+->where(function ($query) use ($state) {
+    $query->where('state', '=', $state);
+
+})->get();
+
+    $keywordResponses6 = Service::where(function ($query) use ($category) {
+    $query->where('category_id', '=', $category);
+})
+->where(function ($query) use ($state) {
+    $query->where('state', '=', $state);
+
+})->get();
+
+$keywordResponses7 = Service::where(function ($query) use ($category) {
+    $query->where('category_id', '=', $category);
+})
+->where(function ($query) use ($state) {
+    $query->where('state', '=', $state);
+
+})->where(function ($query) use ($keyword) {
+    $query->where('name', 'like', '%' . $keyword . '%');
+
+})->get();
+
+
+// if ($keyword && $category && $state) {
+//   $keywordResponses7 = $keywordResponses;
+//       return response()->json($keywordResponses7);
+
+// }
+
+    dd($keywordResponses1, $keywordResponses2, $keywordResponses3, $keywordResponses4, $keywordResponses5, $keywordResponses6, $keywordResponses7);
+
 
    $keyword_and_Categories = Service::where(function ($query) use ($keyword, $category) {
     $query->where('name', 'like', '%' . $keyword . '%')
-    ->orWhere('category_id', 'like', '%' . $category . '%');
+    ->where('category_id', '=', $category);
   })->get();
+    return response()->json($keyword_and_Categories);
 
    $keyword_and_state = Service::where(function ($query) use ($keyword, $state) {
     $query->where('name', 'like', '%' . $keyword . '%')
-    ->orWhere('state', 'like', '%' . $state . '%');
+    ->orWhere('state',  $state);
   })->get();
 
    $keyword_and_category_and_state = Service::where(function ($query) use ($keyword, $category, $state) {
@@ -753,34 +878,6 @@ if (count ( $seller ) > 0){
 
 
 
-        public function search3(Request $request)
-        {
-          $serviceName = $request->name;
-          $serviceState =   $request->state;
-        // return $request;
-          $request->validate([
-            "name"     => 'string',
-            "state"       => 'string',
-          ]);
-          if( $user11 = Service::searchName($request->name)->
-           searchState($request->state)->get()) {
-
-
-            $user11->each(function ($item, $key) {
-              $item->name;
-              $item->state;
-
-            });
-        }
-
-                //return 'jjj';}
-    //return response()->json($user11);
-        return redirect()->to('/')->with('user11', $user11)
-        ->with('serviceName', $serviceName)
-        ->with('serviceState', $serviceState);
-                //return 'jjj';
-
-      }
 
 
       public function searchOnServiceDetail(Request $request)
