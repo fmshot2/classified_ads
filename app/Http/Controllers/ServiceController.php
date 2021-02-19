@@ -97,13 +97,15 @@ class ServiceController extends Controller
 
   public function findNearestRestaurants(Request $request)
   {
+
+
   // return $request->radius;
     $latitude = $request->latitude;
     $longitude = $request->longitude;
     $radius = 100000;
         // $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
         // $featuredServices->image();
-    $servicesss = Service::selectRaw("id, name, address, image, user_id, badge_type,
+    $servicesss = Service::selectRaw("id, name, address, thumbnail, user_id, badge_type,
      ( 6371000 * acos( cos( radians(?) ) *
      cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -113,8 +115,7 @@ class ServiceController extends Controller
     ->having("distance", "<", $radius)->with('user')->with('images')
     ->orderBy("distance",'asc')
     ->offset(0)
-    ->limit(20)
-    ->get();
+     ->inRandomOrder()->limit(20)->get();
         // dd($servicesss);
         // Session::put('servicesss', $servicesss);
     return response()->json(['data'=>$servicesss]);
@@ -134,6 +135,9 @@ class ServiceController extends Controller
 
   public function index2(Request $request)
   {
+
+     // $category_city = Service::all()->random(4);
+     // dd($category_city);
  // $latitude = session()->get('latitude');
  //    $longitude = session()->get('longitude');
 
