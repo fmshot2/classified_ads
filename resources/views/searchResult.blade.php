@@ -104,10 +104,10 @@
                 @foreach($featuredServices as $featuredService)
                 <div class="media">
                     <div class="media-left">
-{{--                         <img class="media-object" src="{{asset('images')}}/{{$featuredService->image[0]}}">
+{{--                         <img class="media-object" src="{{asset('uploads/services')}}/{{$featuredService->image[0]}}">
 
  --}}        
-                         <img class="media-object" src="{{asset('images')}}/{{$featuredService->service_image}}">
+                         <img class="media-object" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}">
             </div>
                     <div class="media-body align-self-center">
                         <h3 class="media-heading">
@@ -182,25 +182,79 @@
                                 <div class="col-md-12">
                                     <div class="row">
 
-     @if(isset($keywordResponses))
-    @foreach($keywordResponses as $keywordResponse)
+     @if(isset($services1))
+    @foreach($services1 as $service1)
 
     <div class="col-sm-3 card service-box">
-                        <img class="card-img-top" src="{{asset('images')}}/{{$keywordResponse->service_image}}" alt="service" style="min-width: 150px;">
+                        <img class="card-img-top" src="{{asset('uploads/services')}}/{{$service1->service_image}}" alt="service" style="min-width: 150px;">
                         <div class="card-body detail">
                             <div class="title">
-                                <h4><a href="#" style="font-size: 15px;">{{$keywordResponse->user->name}}, &nbsp; {{$keywordResponse->name}}</a></h4>
+                                <h4><a href="#" style="font-size: 15px;">{{$service1->user->name}}, &nbsp; {{$service1->name}}</a></h4>
                             </div>
                              <div class="location">
                                     <a href="properties-details.html" tabindex="-1">
                                         
-                                    </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$keywordResponse->city}}</span>
+                                    </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$service1->city}}</span>
                                 </div>
                          
                             <!--<a href="#" class="read-more">More...</a>-->
                         </div>
                     </div>
                     @endforeach
+@elseif(isset($services2))
+    @foreach($services2 as $service2)       
+ <div class="col-sm-3 card service-box">
+                        <img class="card-img-top" src="{{asset('uploads/services')}}/{{$service2->service_image}}" alt="service" style="min-width: 150px;">
+                        <div class="card-body detail">
+                            <div class="title">
+                                <h4><a href="#" style="font-size: 15px;">{{$service2->user->name}}, &nbsp; {{$service2->name}}</a></h4>
+                            </div>
+                             <div class="location">
+                                    <a href="properties-details.html" tabindex="-1">
+                                        
+                                    </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$service2->city}}</span>
+                                </div>
+                         
+                            <!--<a href="#" class="read-more">More...</a>-->
+                        </div>
+                    </div>
+                    @endforeach  
+                    @elseif(isset($services3))
+    @foreach($services3 as $service3)       
+ <div class="col-sm-3 card service-box">
+                        <img class="card-img-top" src="{{asset('uploads/services')}}/{{$service3->service_image}}" alt="service" style="min-width: 150px;">
+                        <div class="card-body detail">
+                            <div class="title">
+                                <h4><a href="#" style="font-size: 15px;">{{$service3->user->name}}, &nbsp; {{$service3->name}}</a></h4>
+                            </div>
+                             <div class="location">
+                                    <a href="properties-details.html" tabindex="-1">
+                                        
+                                    </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$service3->city}}</span>
+                                </div>
+                         
+                            <!--<a href="#" class="read-more">More...</a>-->
+                        </div>
+                    </div>
+                    @endforeach 
+                    @elseif(isset($services4))
+                    @foreach($services4 as $service4)              
+ <div class="col-sm-3 card service-box">
+                        <img class="card-img-top" src="{{asset('uploads/services')}}/{{$service4->service_image}}" alt="service" style="min-width: 150px;">
+                        <div class="card-body detail">
+                            <div class="title">
+                                <h4><a href="#" style="font-size: 15px;">{{$service1->user->name}}, &nbsp; {{$service1->name}}</a></h4>
+                            </div>
+                             <div class="location">
+                                    <a href="properties-details.html" tabindex="-1">
+                                        
+                                    </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$service1->city}}</span>
+                                </div>
+                         
+                            <!--<a href="#" class="read-more">More...</a>-->
+                        </div>
+                    </div>  
+                    @endforeach          
 </div>
 @else
 
@@ -221,55 +275,6 @@
                     </nav>
                 </div>
             </div>
-
-
- <div class="col-lg-8 col-md-12">
-                <!-- Property box 2 start -->
-                                <div class="col-md-12">
-                                    <div class="row">
-
-     @if(isset($keyword_and_Categories))
-    @foreach($keyword_and_Categories as $keyword_and_Category)
-
-    <div class="col-sm-3 card service-box">
-                        <img class="card-img-top" src="{{asset('images')}}/{{$keyword_and_Category->service_image}}" alt="service" style="min-width: 150px;">
-                        <div class="card-body detail">
-                            <div class="title">
-                                <h4><a href="#" style="font-size: 15px;">{{$keyword_and_Category->user->name}}, &nbsp; {{$keyword_and_Category->name}}</a></h4>
-                            </div>
-                             <div class="location">
-                                    <a href="properties-details.html" tabindex="-1">
-                                        
-                                    </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$keyword_and_Category->city}}</span>
-                                </div>
-                         
-                            <!--<a href="#" class="read-more">More...</a>-->
-                        </div>
-                    </div>
-                    @endforeach
-</div>
-@else
-
-
-
-                    <div class="info">
-                        <h4>Ooops, The Item Could Not Be Found!</h4>
-                        <p>The item you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
-                        <div class="hr"></div>
-                        <p>Please try searching again with a diffenrent keyword this time.</p>
-                    </div>
-                </div>
-                         @endif
-                                           <!-- Page navigation start -->
-                <div class="pagination-box hidden-mb-45 text-center">
-                    <nav aria-label="Page navigation example">
-                          {{--{{ $all_message->links() }}  --}} 
-                    </nav>
-                </div>
-            </div>
-
-
-
 
         </div>
     </div>
