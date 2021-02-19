@@ -47,7 +47,7 @@ function showPosition(position) {
                     services = result.data;
                      console.log('services', services);
                         services.forEach(service => {
-                            console.log('one',service)
+                            console.log('one',service.images)
                             // badge = service.badge_type
                             if (service.badge_type == 'trusted') {
                               service.badge_type == 'truuuue';
@@ -64,7 +64,7 @@ function showPosition(position) {
                                                     `+ service.user.name + `
                                                 </p>
                                             </div>
-                                            <img class="d-block w-100" src="/uploads/services/`+ service.image[0] + `" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                            <img class="d-block w-100" src="/uploads/services/`+ service.thumbnail + `" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
 
                                         </div>
                                         <div class="detail">
