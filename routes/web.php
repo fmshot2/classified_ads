@@ -132,54 +132,60 @@ Route::get('/provider/service/create', 'ServiceController@create')->name('servic
 Route::delete('/provider/service/delete/{id}', 'ServiceController@destroy')->name('service.delete');
 
 Route::middleware(['seller'])->group(function () { //Seller Middleware protection start here
-    Route::get('/provider/dashboard/make_withdrawal_request/{refer_id}', 'DashboardController@make_withdrawal_request')->name('seller.make_withdrawal_request');
 
-    Route::get('/provider/dashboard', 'DashboardController@seller')->name('seller.dashboard');
-
-    Route::get('/provider/service/add', 'SellerController@createService')->name('seller.service.create');
-    Route::get('/provider/service/badges', 'BadgeController@badges')->name('seller.service.badges');
-    Route::post('/provider/service/createpay', 'ServiceController@createpay');
-    Route::post('/provider/service/createpay4Advert', 'BadgeController@createpay4Advert');
-    Route::get('/provider/service/adverts', 'BadgeController@adverts')->name('seller.service.adverts');
 
     Route::prefix('provider')->group(function ()
     {
+        Route::get('/dashboard/make_withdrawal_request/{refer_id}', 'DashboardController@make_withdrawal_request')->name('seller.make_withdrawal_request');
+
+        Route::get('/dashboard', 'DashboardController@seller')->name('seller.dashboard');
+
+        Route::get('/service/add', 'SellerController@createService')->name('seller.service.create');
+        Route::get('/service/badges', 'BadgeController@badges')->name('seller.service.badges');
+        Route::post('/service/createpay', 'ServiceController@createpay');
+        Route::post('/service/createpay4Advert', 'BadgeController@createpay4Advert');
+        Route::get('/service/adverts', 'BadgeController@adverts')->name('seller.service.adverts');
+
         Route::get('/service/{id}', [ServiceImageController::class, 'showService'])->name('seller.service.show.service');
         Route::post('/service/images/store/{id}', [ServiceImageController::class, 'imagesStore'])->name('service.images.store');
         Route::get('/service/images/delete/{id}', [ServiceImageController::class, 'imagesDelete'])->name('service.image.delete');
+        Route::get('/service/post_advert', 'SellerController@post_advert')->name('seller.post_advert');
+
+        Route::get('/service/create_service_page', 'ServiceController@create_service_page')->name('create_service_page');
+        Route::get('/notification/unread', 'SellerController@unreadNotification')->name('seller.notification.unread');
+        Route::get('/notification/all', 'SellerController@allNotification')->name('seller.notification.all');
+        Route::get('/notification/{slug}', 'SellerController@viewNotification')->name('seller.notification.view');
+
+        Route::get('/profile/', 'SellerController@viewProfile')->name('seller.profile');
+
+
+        Route::get('/message/unread', 'SellerController@unreadMessage')->name('seller.message.unread');
+        Route::get('/message/read', 'SellerController@readMessage')->name('seller.message.read');
+        Route::get('/message/all', 'SellerController@allMessage')->name('seller.message.all');
+        Route::delete('/message/{id}', 'SellerController@destroyMessage')->name('seller.message.delete');
+        Route::get('/message/{slug}', 'SellerController@viewMessage')->name('seller.message.view');
+        Route::get('/message/reply/{slug}', 'SellerController@replyMessage')->name('seller.message.reply');
+        Route::post('/message/reply/', 'SellerController@storeReplyMessage')->name('seller.message.reply.store');
+
+        Route::get('/dashboard/service/active', 'SellerController@activeService')->name('seller.service.active');
+        Route::get('/dashboard/service/pending', 'SellerController@pendingService')->name('seller.service.pending');
+        Route::get('/dashboard/service/all', 'SellerController@allService')->name('seller.service.all');
+
+        Route::get('/dashboard/service/view/{slug}', 'SellerController@viewService')->name('service.view');
+        Route::get('/dashboard/service/update/{slug}', 'SellerController@viewServiceUpdate')->name('service.update.view');
+
     });
 
 
-    Route::get('/provider/service/post_advert', 'SellerController@post_advert')->name('seller.post_advert');
-    Route::get('/provider/service/create_service_page', 'ServiceController@create_service_page')->name('create_service_page');
 
-
-    Route::get('/provider/notification/unread', 'SellerController@unreadNotification')->name('seller.notification.unread');
-    Route::get('/provider/notification/all', 'SellerController@allNotification')->name('seller.notification.all');
-    Route::get('/provider/notification/{slug}', 'SellerController@viewNotification')->name('seller.notification.view');
-
-
-    Route::get('/provider/profile/', 'SellerController@viewProfile')->name('seller.profile');
-
-    Route::get('/seller/message/unread', 'SellerController@unreadMessage')->name('seller.message.unread');
-    Route::get('/seller/message/read', 'SellerController@readMessage')->name('seller.message.read');
-    Route::get('/seller/message/all', 'SellerController@allMessage')->name('seller.message.all');
-    Route::delete('/seller/message/{id}', 'SellerController@destroyMessage')->name('seller.message.delete');
-    Route::get('/seller/message/{slug}', 'SellerController@viewMessage')->name('seller.message.view');
-    Route::get('/seller/message/reply/{slug}', 'SellerController@replyMessage')->name('seller.message.reply');
-    Route::post('/seller/message/reply/', 'SellerController@storeReplyMessage')->name('seller.message.reply.store');
-
-    Route::get('/seller/dashboard/service/active', 'SellerController@activeService')->name('seller.service.active');
-    Route::get('/seller/dashboard/service/pending', 'SellerController@pendingService')->name('seller.service.pending');
-    Route::get('/seller/dashboard/service/all', 'SellerController@allService')->name('seller.service.all');
     Route::post('/service/store/', 'SellerController@storeService')->name('service.save');
     Route::post('dropzone/store', 'SellerController@service_save_image');
     Route::post('/service/{id}', 'SellerController@storeServiceUpdate')->name('service.update');
     Route::post('/service/{updateImage}', 'SellerController@updateImage')->name('service.updateImage');
 
-    Route::get('seller/dashboard/service/view/{slug}', 'SellerController@viewService')->name('service.view');
+
     Route::get('/service/{id}', 'SellerController@destroy')->name('seller.service.destroy');
-    Route::get('seller/dashboard/service/update/{slug}', 'SellerController@viewServiceUpdate')->name('service.update.view');
+
 
     Route::any ( '/save/service/Badge',  'BadgeController@saveService4Badge')->name('saveService4Badge');
 

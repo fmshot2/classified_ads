@@ -4,7 +4,7 @@
 <p><strong>Service Name: </strong> {{ $name ? $name : 'Name not provided!' }}</p>
 <p><strong>Service Category: </strong> {{ $category ? $category : 'Category not provided!' }}</p>
 <p><strong>Phone: </strong> {{ $phone ? $phone : 'Phone not provided!' }}</p>
-<p><strong>state: </strong> {{ $state ? $state : 'State not provided!' }}</p>
+<p><strong>State: </strong> {{ $state ? $state : 'State not provided!' }}</p>
 
 @component('mail::button', ['url' => route('serviceDetail', ['slug' => $slug])])
 View Service
