@@ -17,16 +17,16 @@ class CreateServicesTable extends Migration
 
             $table->id();
             $table->string('name');
-            $table->text('description');
-            $table->string('city');
+            $table->text('description')->nullable();
+            $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('streetAddress')->nullable();
             $table->string('closestBusstop')->nullable();
             $table->string('category')->nullable();
             $table->string('thumbnail')->default('noserviceimage.png')->nullable();
-            $table->string('address');
-            $table->string('experience');
-            $table->string('phone');
+            $table->string('address')->nullable();
+            $table->string('experience')->nullable();
+            $table->string('phone')->nullable();
             $table->string('video_link')->nullable();
             $table->string('min_price')->nullable();
             $table->string('max_price')->nullable();

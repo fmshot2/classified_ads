@@ -47,12 +47,11 @@ function showPosition(position) {
                     services = result.data;
                      console.log('services', services);
                         services.forEach(service => {
-                            console.log('one',service.images)
                             // badge = service.badge_type
                             if (service.badge_type == 'trusted') {
                               service.badge_type == 'truuuue';
                             }
-                            featuredServicesRow.innerHTML += `<a href="" class="property-img">
+                            featuredServicesRow.innerHTML += `<a href="/serviceDetail/`+ service.slug + `" class="property-img">
                                 <div class="col-lg-3 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                     <div class="property-box">
                                         <div class="property-thumbnail">

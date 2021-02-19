@@ -25,7 +25,7 @@
                         <p style="font-weight: 600; margin-bottom: 0;">Choose Distance(in km): <span id="demo"></span></p>
                         <div class="slidecontainer" style="margin-bottom: 15px;">
                             {{-- <input type="range" min="1" max="100" value="50" class="slider form-control" id="myRange2"> --}}
-                            <input type="range" min="1" max="100" name="ranges"  value="50" class="slider" id="myRange">
+                            <input type="range" min="1" max="10" name="ranges"  value="5000" class="slider" id="myRange">
                         </div>
                     </div>
 
