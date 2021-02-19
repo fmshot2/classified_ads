@@ -111,6 +111,7 @@ if ( $request->hasFile('files') ) {
 // _token:_token, name:name,  description:description, experience:experience, phone:phone, min_price:min_price, state:state, city:city, address:address, category:category
 
 
+       $state_details = State::where('name', $data['state'])->first();
 
 
        $service->user_id = Auth::id();
@@ -121,6 +122,8 @@ if ( $request->hasFile('files') ) {
        $service->phone = $data['phone'];
        $service->min_price = $data['min_price'];
        $service->state = $data['state'];
+       $service->latitude = $state_details->latitude;
+       $service->longitude = $state_details->longitude;
        $service->city = $data['city'];
        $service->address = $data['address'];
        $service->max_price = $data['category_id'];

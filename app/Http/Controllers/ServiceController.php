@@ -102,6 +102,7 @@ class ServiceController extends Controller
     $longitude = $request->longitude;
     $radius = 100000;
         // $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
+        // $featuredServices->image();
     $servicesss = Service::selectRaw("id, name, address, image, user_id, badge_type,
      ( 6371000 * acos( cos( radians(?) ) *
      cos( radians( latitude ) )
@@ -109,7 +110,7 @@ class ServiceController extends Controller
      ) + sin( radians(?) ) *
      sin( radians( latitude ) ) )
    ) AS distance", [$latitude, $longitude, $latitude])
-    ->having("distance", "<", $radius)->with('user')
+    ->having("distance", "<", $radius)->with('user')->with('images')
     ->orderBy("distance",'asc')
     ->offset(0)
     ->limit(20)
