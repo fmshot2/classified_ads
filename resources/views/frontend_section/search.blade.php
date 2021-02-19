@@ -12,7 +12,7 @@
                         </div>
                     </div>
 
- 
+
 
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <p style="margin-bottom: 0; font-weight: 600;">Keyword</p>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
 
-                   
+
 
 
                     <div class="col-lg-2 col-md-4 col-sm-6">
@@ -128,10 +128,12 @@
                 success:function(res){
                     if(res){
                       var res = JSON.parse(res);
-                        $("#sub_category ").empty();
+                        // $("#sub_category ").empty();
                         $.each(res,function(key,value){
                         var chosen_value = value;
-                            $("#sub_category").append('<option value="'+key+'">'+chosen_value.name+'</option>');
+                            $("#sub_category").append(
+                                '<option value="'+key+'">'+chosen_value.name+'</option>'
+                            );
                         });
                     }else{
                         $("#sub_category").empty();

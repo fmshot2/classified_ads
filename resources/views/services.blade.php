@@ -155,7 +155,7 @@
                             </div>
                             <!-- Sub Categories -->
                             <div class="widget popular-posts">
-                                <h3 class="sidebar-title">Sub Categories</h3>
+                                <h3 class="sidebar-title">Related Categories</h3>
                                 <div class="s-border"></div>
                                 <div class="m-border"></div>
                                 @if(isset($sub_categories))

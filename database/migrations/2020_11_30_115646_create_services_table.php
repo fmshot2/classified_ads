@@ -16,7 +16,6 @@ class CreateServicesTable extends Migration
         Schema::create('services', function (Blueprint $table) {
 
             $table->id();
-
             $table->string('name');
             $table->text('description');
             $table->string('city');
@@ -24,7 +23,7 @@ class CreateServicesTable extends Migration
             $table->string('streetAddress')->nullable();
             $table->string('closestBusstop')->nullable();
             $table->string('category')->nullable();
-            $table->string('thumbnail')->nullable();
+            $table->string('thumbnail')->default('noserviceimage.png')->nullable();
             $table->string('address');
             $table->string('experience');
             $table->string('phone');
