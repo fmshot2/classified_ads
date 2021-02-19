@@ -493,8 +493,11 @@ h6 {
     font-weight: normal !important;
     font-size: 12px;
 }
-.mbtn-links a {
+.mbtn-links .media-heading a {
     font-family: Poppins-Regular;
+}
+.popular-posts a {
+    font-family: Poppins-Regular !important;
 }
 
 @media only screen and (min-width: 992px) {
