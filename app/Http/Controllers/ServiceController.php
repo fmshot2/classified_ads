@@ -656,7 +656,6 @@ public function search3(Request $request){
   $latitude = $request->input('latitude');
   $longitude = $request->input('longitude');
   $radius = $request->input('ranges');
-  return $radius;
 
   $name = $request->input('name');
 
@@ -674,9 +673,54 @@ public function search3(Request $request){
   //   $query->where('name', 'like', '%' . $keyword . '%');
   // })->get();
 
+ $services1 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+   ( 6371000 * acos( cos( radians(?) ) *
+   cos( radians( latitude ) )
+                       * cos( radians( longitude ) - radians(?)
+   ) + sin( radians(?) ) *
+   sin( radians( latitude ) ) )
+ ) AS distance", [$latitude, $longitude, $latitude])
+  ->having("distance", "<", $radius)->where(function ($query) use ($keyword) {
+    $query->where('name', 'like', '%' . $keyword . '%');
+  })->with('user')
+  ->orderBy("distance",'asc')
+  ->offset(0)
+  ->limit(20)
+  ->get();
+
+   $services2 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+   ( 6371000 * acos( cos( radians(?) ) *
+   cos( radians( latitude ) )
+                       * cos( radians( longitude ) - radians(?)
+   ) + sin( radians(?) ) *
+   sin( radians( latitude ) ) )
+ ) AS distance", [$latitude, $longitude, $latitude])
+  ->having("distance", "<", $radius)->where(function ($query) use ($category) {
+    $query->where('category_id', 'like', '%' . $category . '%');
+  })->with('user')
+  ->orderBy("distance",'asc')
+  ->offset(0)
+  ->limit(20)
+  ->get();
+
+   $services3 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+   ( 6371000 * acos( cos( radians(?) ) *
+   cos( radians( latitude ) )
+                       * cos( radians( longitude ) - radians(?)
+   ) + sin( radians(?) ) *
+   sin( radians( latitude ) ) )
+ ) AS distance", [$latitude, $longitude, $latitude])
+  ->having("distance", "<", $radius)->where(function ($query) use ($state) {
+    $query->where('state', 'like', '%' . $state . '%');
+  })->with('user')
+  ->orderBy("distance",'asc')
+  ->offset(0)
+  ->limit(20)
+  ->get();
 
 
-  $services1 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+
+  $services4 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -696,38 +740,11 @@ public function search3(Request $request){
   ->get();
 // return $service;
 
-  $services2 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
-   ( 6371000 * acos( cos( radians(?) ) *
-   cos( radians( latitude ) )
-                       * cos( radians( longitude ) - radians(?)
-   ) + sin( radians(?) ) *
-   sin( radians( latitude ) ) )
- ) AS distance", [$latitude, $longitude, $latitude])
-  ->having("distance", "<", $radius)->where(function ($query) use ($keyword) {
-    $query->where('name', 'like', '%' . $keyword . '%');
-  })->with('user')
-  ->orderBy("distance",'asc')
-  ->offset(0)
-  ->limit(20)
-  ->get();
+ 
 
+ 
 
-  $services3 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
-   ( 6371000 * acos( cos( radians(?) ) *
-   cos( radians( latitude ) )
-                       * cos( radians( longitude ) - radians(?)
-   ) + sin( radians(?) ) *
-   sin( radians( latitude ) ) )
- ) AS distance", [$latitude, $longitude, $latitude])
-  ->having("distance", "<", $radius)->where(function ($query) use ($category) {
-    $query->where('category_id', 'like', '%' . $category . '%');
-  })->with('user')
-  ->orderBy("distance",'asc')
-  ->offset(0)
-  ->limit(20)
-  ->get();
-
-  $services4 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+  $services5 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -742,6 +759,22 @@ public function search3(Request $request){
   ->limit(20)
   ->get();
 
+  $keywordResponses5 = Service::where(function ($query) use ($keyword) {
+    $query->where('name', 'like', '%' . $keyword . '%');
+  })
+  ->where(function ($query) use ($state) {
+    $query->where('state', '=', $state);
+
+  })->get();
+return$keywordResponses5;
+
+ $keywordResponses4 = Service::where(function ($query) use ($keyword) {
+    $query->where('name', 'like', '%' . $keyword . '%');
+  })
+  ->where(function ($query) use ($category) {
+    $query->where('category_id', '=', $category);
+
+  })->get();
 
 
 
@@ -757,21 +790,9 @@ public function search3(Request $request){
     $query->where('state', '=', $state);
   })->get();
 
-  $keywordResponses4 = Service::where(function ($query) use ($keyword) {
-    $query->where('name', 'like', '%' . $keyword . '%');
-  })
-  ->where(function ($query) use ($category) {
-    $query->where('category_id', '=', $category);
+ 
 
-  })->get();
-
-  $keywordResponses5 = Service::where(function ($query) use ($keyword) {
-    $query->where('name', 'like', '%' . $keyword . '%');
-  })
-  ->where(function ($query) use ($state) {
-    $query->where('state', '=', $state);
-
-  })->get();
+  
 
   $keywordResponses6 = Service::where(function ($query) use ($category) {
     $query->where('category_id', '=', $category);

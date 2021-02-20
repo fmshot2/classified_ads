@@ -25,7 +25,7 @@
                         <p style="font-weight: 600; margin-bottom: 0;">Choose Distance(in km): <span id="demo"></span></p>
                         <div class="slidecontainer" style="margin-bottom: 15px;">
                             {{-- <input type="range" min="1" max="100" value="50" class="slider form-control" id="myRange2"> --}}
-                            <input type="range" min="1" max="10" name="ranges"  value="5000" class="slider" id="myRange">
+                            <input type="range" min="1" max="1000000" name="ranges"  value="5000" class="slider" id="myRange">
                         </div>
                     </div>
 
@@ -80,16 +80,14 @@
 <p id="demo2"></p>
     </div>
                     <div class="col-lg-2 col-md-4 col-sm-6">
-                        <p style="margin-bottom: 0; font-weight: 600;">Keyword</p>
                         <div class="form-group">
-                        <input id="latitude_id" type="text" name="latitude" class="form-control">
+                        <input id="latitude_id" type="hidden" name="latitude" class="form-control">
                         </div>
                     </div>
 
                      <div class="col-lg-2 col-md-4 col-sm-6">
-                        <p style="margin-bottom: 0; font-weight: 600;">Keyword</p>
                         <div class="form-group">
-                        <input id="longitude_id" type="text" name="longitude" class="form-control">
+                        <input id="longitude_id" type="hidden" name="longitude" class="form-control">
                         </div>
                     </div>
 

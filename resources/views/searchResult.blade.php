@@ -201,7 +201,8 @@ Home |
                 </div>
             </div>
             @endforeach
-            @elseif(isset($services2))
+            @endif
+            @if(isset($services2))
             @foreach($services2 as $service2)       
             <div class="col-sm-3 card service-box">
                 <img class="card-img-top" src="{{asset('uploads/services')}}/{{$service2->service_image}}" alt="service" style="min-width: 150px;">
@@ -219,7 +220,8 @@ Home |
                 </div>
             </div>
             @endforeach
-              @elseif(isset($services5))
+            @endif
+              @if(isset($services5))
             @foreach($services5 as $service5)       
             <div class="col-sm-3 card service-box">
                 <img class="card-img-top" src="{{asset('uploads/services')}}/{{$service2->service_image}}" alt="service" style="min-width: 150px;">
@@ -237,7 +239,9 @@ Home |
                 </div>
             </div>
             @endforeach
-            @elseif(isset($services3))
+                        @endif
+
+            @if(isset($services3))
             @foreach($services3 as $service3)       
             <div class="col-sm-3 card service-box">
                 <img class="card-img-top" src="{{asset('uploads/services')}}/{{$service3->service_image}}" alt="service" style="min-width: 150px;">
@@ -255,26 +259,28 @@ Home |
                 </div>
             </div>
             @endforeach 
-            @elseif(isset($services4))
+                        @endif
+            @if(isset($services4))
             @foreach($services4 as $service4)              
             <div class="col-sm-3 card service-box">
                 <img class="card-img-top" src="{{asset('uploads/services')}}/{{$service4->service_image}}" alt="service" style="min-width: 150px;">
                 <div class="card-body detail">
                     <div class="title">
-                        <h4><a href="#" style="font-size: 15px;">{{$service1->user->name}}, &nbsp; {{$service1->name}}</a></h4>
+                        <h4><a href="#" style="font-size: 15px;">{{$service4->user->name}}, &nbsp; {{$service4->name}}</a></h4>
                     </div>
                     <div class="location">
                         <a href="properties-details.html" tabindex="-1">
 
-                        </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$service1->city}}</span>
+                        </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$service4->city}}</span>
                     </div>
 
                     <!--<a href="#" class="read-more">More...</a>-->
                 </div>
             </div>  
-            @endforeach          
+            @endforeach  
+                        @endif
+        
         </div>
-        @else
 
 
 
@@ -285,7 +291,6 @@ Home |
             <p>Please try searching again with a diffenrent keyword this time.</p>
         </div>
     </div>
-    @endif
     <!-- Page navigation start -->
     <div class="pagination-box hidden-mb-45 text-center">
         <nav aria-label="Page navigation example">
