@@ -1,14 +1,69 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 <div id="" class="search-section search-area-2 bg-grea hm-search-form-comp">
+
+
+
+
+
+<div class="w3-container">
+  <h2>Right-aligned Dropdown</h2>
+  <p>Use the w3-right class to float the dropdown to the right, and use CSS to position the dropdown content (right:0 will make the dropdown menu go from right to left).</p>
+
+  
+  
+  <p>Note: Remember to clear floats if you use w3-right or w3-left. Remove the div class="w3-clear" to understand why.</p>
+</div>
+
+
+              <div class="btn-group">
+  <div class="btn-group dropleft" role="group">
+    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <span class="sr-only">Toggle Dropleft</span>
+    </button>
+    <div class="dropdown-menu">
+      <!-- Dropdown menu links -->
+    </div>
+  </div>
+  <button type="button" class="btn btn-secondary">
+    Split dropleft
+  </button>
+</div>
+
+              <div class="btn-group dropleft">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropleft
+  </button>
+  <div class="dropdown-menu">
+    <!-- Dropdown menu links -->
+  </div>
+</div>
+         
     <div class="">
       <div class="search-section-area">
         <div class="search-area-inner">
           <div class="search-contents">
             <form action="{{route('search3')}}" method="GET">
+
+
+
+
+
+   
                 <div class="row justify-content-center align-items-center">
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <p style="margin-bottom: 0; font-weight: 600;">Keyword</p>
                         <div class="form-group">
                         <input type="text" name="keyword" class="form-control" placeholder="e.g. Barber, Saloon">
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-lg-2 col-md-4 col-sm-6">
+                        <p style="margin-bottom: 0; font-weight: 600;">Keyword</p>
+                        <div class="form-group">
+                        <input type="text" name="name" class="form-control" placeholder="e.g. Barber, Saloon">
                         </div>
                     </div>
 
@@ -20,13 +75,43 @@
                         </div>
                     </div>
 
+
                     <div class="col-lg-2 col-md-4 col-sm-6">
+
+
+
+                      <div class="w3-dropdown-hover w3-right">
+                         @if(isset($search_form_categories))
+                                    @foreach($search_form_categories as $category)
+    <button class="w3-button w3-black">{{ $category->name }}</button>
+    <div class="w3-dropdown-content w3-bar-block w3-border" style="right:0">
+      <a href="#" class="w3-bar-item w3-button">Link 1</a>
+      <a href="#" class="w3-bar-item w3-button">Link 2</a>
+      <a href="#" class="w3-bar-item w3-button">Link 3</a>
+    </div>
+  </div>
+
+  <div class="w3-clear"></div>
+
                         <div class="form-group">
                             <p style="margin-bottom: 0; font-weight: 600;">Choose Category</p>
                             <select class="form-control" id="categories" name="category">
                                 <option value="">- Select an Option -</option>
                                 @if(isset($search_form_categories))
                                     @foreach($search_form_categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+
+                         <div class="form-group">
+                            <p style="margin-bottom: 0; font-weight: 600;">Choose Category</p>
+                            <select class="form-control" id="categories" name="category">
+                                <li value="">- Select an Option -</li>
+                                @if(isset($search_form_categories))
+                                    @foreach($search_form_categories as $category)
+                                          <a href="#" class="w3-bar-item w3-button">Link 1</a>
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 @endif
@@ -166,6 +251,49 @@
 
 
 </script>
+
+
+
+<style>
+    .slidecontainer {
+      width: 100%;
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 15px;
+      border-radius: 5px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
+
+    .slider:hover {
+      opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #f0ad4e;
+      cursor: pointer;
+    }
+
+    .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #f0ad4e;
+      cursor: pointer;
+    }
+  </style>
+
 
   <script type="text/javascript">
   $(document).ready( function () {
