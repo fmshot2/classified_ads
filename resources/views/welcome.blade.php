@@ -48,10 +48,10 @@ function showPosition(position) {
                      console.log('services', services);
                         services.forEach(service => {
                             // badge = service.badge_type
-                            if (service.badge_type == 'trusted') {
-                              service.badge_type == 'truuuue';
-                            }
-                            featuredServicesRow.innerHTML += `<a href="/serviceDetail/`+ service.slug + `" class="property-img">
+                            // if (service.badge_type == 'trusted') {
+                            //   service.badge_type == 'truuuue';
+                            // }
+                            featuredServicesRow.innerHTML = `<a href="/serviceDetail/`+ service.slug + `" class="property-img">
                                 <div class="col-lg-3 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                     <div class="property-box">
                                         <div class="property-thumbnail">
@@ -141,10 +141,6 @@ function showPosition(position) {
 </script>
 
 @include('frontend_section/category')
-<div id="nearest" style="display: none;" class="containerdata">
-</div>
-
-
 
 <div class="blog content-area bg-grea-3 hm-feat-ser-mid-sec">
     <div class="container">
@@ -162,9 +158,6 @@ function showPosition(position) {
 
 @include('frontend_section/popular')
 
-<div>
-@include('frontend_section/recent')
-</div>
 {{-- @include('frontend_section/brands') --}}
 
 {{--<div class="partners">
@@ -320,7 +313,6 @@ owl.owlCarousel({
 
 <script type="text/javascript">
   $(document).ready( function () {
-    // alert('ddsdsd');
   getLocation();
 });
 </script>
