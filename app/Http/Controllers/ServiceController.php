@@ -105,7 +105,7 @@ class ServiceController extends Controller
     $radius = 100000;
         // $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
         // $featuredServices->image();
-    $servicesss = Service::selectRaw("id, name, address, thumbnail, user_id, badge_type,
+    $servicesss = Service::selectRaw("id, name, address, thumbnail, user_id, badge_type, slug,
      ( 6371000 * acos( cos( radians(?) ) *
      cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -656,7 +656,8 @@ public function search3(Request $request){
   ]);
   $latitude = $request->input('latitude');
   $longitude = $request->input('longitude');
-  $radius = 100000;
+  $radius = $request->input('ranges');
+
   $name = $request->input('name');
 
   $keyword = $request->input('keyword');
@@ -673,30 +674,7 @@ public function search3(Request $request){
   //   $query->where('name', 'like', '%' . $keyword . '%');
   // })->get();
 
-
-
-  $services1 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
-   ( 6371000 * acos( cos( radians(?) ) *
-   cos( radians( latitude ) )
-                       * cos( radians( longitude ) - radians(?)
-   ) + sin( radians(?) ) *
-   sin( radians( latitude ) ) )
- ) AS distance", [$latitude, $longitude, $latitude])
-  ->having("distance", "<", $radius)->where(function ($query) use ($keyword) {
-    $query->where('name', 'like', '%' . $keyword . '%');
-  })->where(function ($query) use ($category) {
-    $query->where('category_id', 'like', '%' . $category . '%');
-  })->where(function ($query) use ($state) {
-    $query->where('state', 'like', '%' . $state . '%');
-  })->with('user')
-  ->orderBy("distance",'asc')
-  ->offset(0)
-  ->limit(20)
-  ->get();
-
-
-
-  $services2 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+ $services1 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -712,7 +690,10 @@ public function search3(Request $request){
   ->get();
 
 
-  $services3 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+
+if ($category)
+{
+$services2 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -726,8 +707,106 @@ public function search3(Request $request){
   ->offset(0)
   ->limit(20)
   ->get();
+}else{
+  $services2 = null;
+}
 
+  if ($state)
+{
+   $services3 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+   ( 6371000 * acos( cos( radians(?) ) *
+   cos( radians( latitude ) )
+                       * cos( radians( longitude ) - radians(?)
+   ) + sin( radians(?) ) *
+   sin( radians( latitude ) ) )
+ ) AS distance", [$latitude, $longitude, $latitude])
+  ->having("distance", "<", $radius)->where(function ($query) use ($state) {
+    $query->where('state', 'like', '%' . $state . '%');
+  })->with('user')
+  ->orderBy("distance",'asc')
+  ->offset(0)
+  ->limit(20)
+  ->get();
+  }else{
+  $services3 = null;
+}
+
+
+
+
+
+if($category && $state)
+{
   $services4 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+   ( 6371000 * acos( cos( radians(?) ) *
+   cos( radians( latitude ) )
+                       * cos( radians( longitude ) - radians(?)
+   ) + sin( radians(?) ) *
+   sin( radians( latitude ) ) )
+ ) AS distance", [$latitude, $longitude, $latitude])
+  ->having("distance", "<", $radius)->where(function ($query) use ($category) {
+    $query->where('category_id', 'like', '%' . $category . '%');
+  })->where(function ($query) use ($state) {
+    $query->where('state', 'like', '%' . $state . '%');
+  })->with('user')
+  ->orderBy("distance",'asc')
+  ->offset(0)
+  ->limit(20)
+  ->get();
+ }else{
+  $services4 = null;
+}
+
+if($keyword && $state)
+{
+  $services5 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+   ( 6371000 * acos( cos( radians(?) ) *
+   cos( radians( latitude ) )
+                       * cos( radians( longitude ) - radians(?)
+   ) + sin( radians(?) ) *
+   sin( radians( latitude ) ) )
+ ) AS distance", [$latitude, $longitude, $latitude])
+  ->having("distance", "<", $radius)->where(function ($query) use ($keyword) {
+    $query->where('name', 'like', '%' . $keyword . '%');
+  })->where(function ($query) use ($state) {
+    $query->where('state', 'like', '%' . $state . '%');
+  })->with('user')
+  ->orderBy("distance",'asc')
+  ->offset(0)
+  ->limit(20)
+  ->get();
+ }else{
+  $services5 = null;
+}
+
+
+
+if($keyword && $state)
+{
+  $services6 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+   ( 6371000 * acos( cos( radians(?) ) *
+   cos( radians( latitude ) )
+                       * cos( radians( longitude ) - radians(?)
+   ) + sin( radians(?) ) *
+   sin( radians( latitude ) ) )
+ ) AS distance", [$latitude, $longitude, $latitude])
+  ->having("distance", "<", $radius)->where(function ($query) use ($keyword) {
+    $query->where('name', 'like', '%' . $keyword . '%');
+  })->where(function ($query) use ($state) {
+    $query->where('category', 'like', '%' . $category . '%');
+  })->with('user')
+  ->orderBy("distance",'asc')
+  ->offset(0)
+  ->limit(20)
+  ->get();
+ }else{
+  $services6 = null;
+}
+
+
+if($state)
+{
+  $services7 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -742,113 +821,109 @@ public function search3(Request $request){
   ->limit(20)
   ->get();
 
-
-
-
-  $keywordResponses1 = Service::where(function ($query) use ($keyword) {
-    $query->where('name', 'like', '%' . $keyword . '%');
-  })->get();
-
-  $keywordResponses2 = Service::where(function ($query) use ($category) {
-    $query->where('category_id', 'like', '%' . $category . '%');
-  })->get();
-
-  $keywordResponses3 = Service::where(function ($query) use ($state) {
-    $query->where('state', '=', $state);
-  })->get();
-
-  $keywordResponses4 = Service::where(function ($query) use ($keyword) {
-    $query->where('name', 'like', '%' . $keyword . '%');
-  })
-  ->where(function ($query) use ($category) {
-    $query->where('category_id', '=', $category);
-
-  })->get();
-
-  $keywordResponses5 = Service::where(function ($query) use ($keyword) {
-    $query->where('name', 'like', '%' . $keyword . '%');
-  })
-  ->where(function ($query) use ($state) {
-    $query->where('state', '=', $state);
-
-  })->get();
-
-  $keywordResponses6 = Service::where(function ($query) use ($category) {
-    $query->where('category_id', '=', $category);
-  })
-  ->where(function ($query) use ($state) {
-    $query->where('state', '=', $state);
-
-  })->get();
-
-  $keywordResponses7 = Service::where(function ($query) use ($category) {
-    $query->where('category_id', '=', $category);
-  })
-  ->where(function ($query) use ($state) {
-    $query->where('state', '=', $state);
-
-  })->where(function ($query) use ($keyword) {
-    $query->where('name', 'like', '%' . $keyword . '%');
-
-  })->get();
-
-
-// if ($keyword && $category && $state) {
-//   $keywordResponses7 = $keywordResponses;
-//       return response()->json($keywordResponses7);
-
-// }
-
-  // dd($keywordResponses1, $keywordResponses2, $keywordResponses3, $keywordResponses4, $keywordResponses5, $keywordResponses6, $keywordResponses7, $services1, $services2, $services3, $services4);
-
-
-  $keyword_and_Categories = Service::where(function ($query) use ($keyword, $category) {
-    $query->where('name', 'like', '%' . $keyword . '%')
-    ->where('category_id', '=', $category);
-  })->get();
-  // return response()->json($keyword_and_Categories);
-
-  $keyword_and_state = Service::where(function ($query) use ($keyword, $state) {
-    $query->where('name', 'like', '%' . $keyword . '%')
-    ->orWhere('state',  $state);
-  })->get();
-
-  $keyword_and_category_and_state = Service::where(function ($query) use ($keyword, $category, $state) {
-    $query->where('name', 'like', '%' . $keyword . '%')
-    ->orWhere('category_id', 'like', '%' . $category . '%')
-    ->orWhere('state', 'like', '%' . $state . '%');
-  })->get();
-
-  $category_response = Service::where(function ($query) use ($category) {
-    $query->where('category_id', 'like', '%' . $category . '%');
-  })->get();
-
-  // $userSer = Service::where(function ($query) use ($category, $state) {
-
-  //   $query->where('name', 'like', '%' . $category . '%')
-  //   ->orWhere('state', 'like', '%' . $state . '%');
-  // })->get();
-  // return view('searchResult', compact(['featuredServices', 'all_states',
-  //   'keywordResponses', 'keyword_and_Categories', 'keyword_and_state', 'keyword_and_category_and_state', 'services1', 'services2', 'services3', 'services4', 'category_response' ]));
-
-   return view('searchResult', compact(['featuredServices', 'all_states', 'services1', 'services2', 'services3', 'services4', 'category_response' ]));
+  }else{
+  $services7 = null;
 }
 
-    // return view('searchResult')->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
+
+if($category)
+{
+  $services8 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+   ( 6371000 * acos( cos( radians(?) ) *
+   cos( radians( latitude ) )
+                       * cos( radians( longitude ) - radians(?)
+   ) + sin( radians(?) ) *
+   sin( radians( latitude ) ) )
+ ) AS distance", [$latitude, $longitude, $latitude])
+  ->having("distance", "<", $radius)->where(function ($query) use ($category) {
+    $query->where('state', 'like', '%' . $category . '%');
+  })->with('user')
+  ->orderBy("distance",'asc')
+  ->offset(0)
+  ->limit(20)
+  ->get();
+
+  }else{
+  $services8 = null;
+}
+
+
+ //  $keywordResponses5 = Service::where(function ($query) use ($keyword) {
+ //    $query->where('name', 'like', '%' . $keyword . '%');
+ //  })
+ //  ->where(function ($query) use ($state) {
+ //    $query->where('state', '=', $state);
+
+ //  })->get();
+
+ // $keywordResponses4 = Service::where(function ($query) use ($keyword) {
+ //    $query->where('name', 'like', '%' . $keyword . '%');
+ //  })
+ //  ->where(function ($query) use ($category) {
+ //    $query->where('category_id', '=', $category);
+
+ //  })->get();
+
+ // $keywordResponses6 = Service::where(function ($query) use ($category) {
+ //    $query->where('category_id', '=', $category);
+ //  })
+ //  ->where(function ($query) use ($state) {
+ //    $query->where('state', '=', $state);
+
+ //  })->get();
+
+
+ //  $keywordResponses1 = Service::where(function ($query) use ($keyword) {
+ //    $query->where('name', 'like', '%' . $keyword . '%');
+ //  })->get();
+
+ //  $keywordResponses2 = Service::where(function ($query) use ($category) {
+ //    $query->where('category_id', 'like', '%' . $category . '%');
+ //  })->get();
+
+ //  $keywordResponses3 = Service::where(function ($query) use ($state) {
+ //    $query->where('state', '=', $state);
+ //  })->get();
+
+
+ //  $keywordResponses7 = Service::where(function ($query) use ($category) {
+ //    $query->where('category_id', '=', $category);
+ //  })
+ //  ->where(function ($query) use ($state) {
+ //    $query->where('state', '=', $state);
+
+ //  })->where(function ($query) use ($keyword) {
+ //    $query->where('name', 'like', '%' . $keyword . '%');
+
+ //  })->get();
+
+
+ //  $keyword_and_Categories = Service::where(function ($query) use ($keyword, $category) {
+ //    $query->where('name', 'like', '%' . $keyword . '%')
+ //    ->where('category_id', '=', $category);
+ //  })->get();
+ //  // return response()->json($keyword_and_Categories);
+
+ //  $keyword_and_state = Service::where(function ($query) use ($keyword, $state) {
+ //    $query->where('name', 'like', '%' . $keyword . '%')
+ //    ->orWhere('state',  $state);
+ //  })->get();
+
+ //  $keyword_and_category_and_state = Service::where(function ($query) use ($keyword, $category, $state) {
+ //    $query->where('name', 'like', '%' . $keyword . '%')
+ //    ->orWhere('category_id', 'like', '%' . $category . '%')
+ //    ->orWhere('state', 'like', '%' . $state . '%');
+ //  })->get();
+
+ //  $category_response = Service::where(function ($query) use ($category) {
+ //    $query->where('category_id', 'like', '%' . $category . '%');
+ //  })->get();
 
 
 
-//   if (count ( $userSer ) > 0){
-//         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
-//     //return redirect()->to('/')->with('user11', $userSer);
-//     return view('searchResult')->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
+   return view('searchResult', compact(['featuredServices', 'all_states', 'services1', 'services2', 'services3', 'services4', 'services5', 'services5', 'services6', 'services7', 'services8' ]));
+}
 
-
-//   }
-//   else
-//     $userSer = null;
-//   return view ( 'searchResult' )->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
-// }
 
 
 
@@ -864,11 +939,9 @@ public function searchonservices(Request $request){
     $query->where('name', 'like', '%' . $category . '%')
     ->orWhere('state', 'like', '%' . $state . '%');
   })->get();
-//return $query;
 
   if (count ( $userSer ) > 0){
-        //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
-    //return redirect()->to('/')->with('user11', $userSer);
+
     return view('searchResult')->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
 
 
@@ -898,17 +971,11 @@ public function search10(Request $request){
   foreach ($userSer1 as $key => $value) {
     $state2[] = $state;
   }
-//return $state2;
 
-        //$userSer = Service::where('state', $state2)->with('user')->get();
-
-//return $userSer;
 
   if (count ( $userSer ) > 0){
-        //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
 
     return redirect()->to('serviceDetail/'.$serviceDetail_id)->with('userSer', $userSer);
-    //return redirect()->to('/')->with('user11', $userSer);
 
   }
   else
@@ -925,12 +992,9 @@ public function search10(Request $request){
     $services_in_city = Service::where('city', $d_city)->with('user')->get();
     $all_states = State::all();
     $all_categories = Category::all();
-//return $services_in_city;
 
     $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
 
-        //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
-  //return redirect()->to('serviceDetail/'.$serviceDetailId);
     return view('city_services')->with('services_in_city', $services_in_city)->with('featuredServices', $featuredServices)->with('all_states', $all_states)->with('all_categories', $all_categories);
 
   }
@@ -966,7 +1030,6 @@ if (count ( $seller ) > 0){
           $serviceName = $request->name;
           $serviceState =   $request->state;
           $serviceDetailId =   $request->id;
-        // return $request;
           $request->validate([
             "name"     => 'string',
             "state"       => 'string',
@@ -982,8 +1045,6 @@ if (count ( $seller ) > 0){
         }
         $category_services = Service::where('id', $serviceDetailId)->get();
 
-                //return 'jjj';}
-    //return response()->json($user11);
 //return redirect()->to('job_view/'.$id);
         return view ('searchService')->with($serviceDetailId)->with('user11', $user11)
         ->with('serviceName', $serviceName)
@@ -1031,7 +1092,6 @@ public function show($id)
 
      $image = $request->file('image');
 
-     //$slug = Str::of($request->name)->slug('-');
 
      $service = new Service();
 

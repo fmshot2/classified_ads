@@ -46,7 +46,11 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <link href="{{ asset('css/ibiStyles.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/fmstyles.css') }}" rel="stylesheet" type="text/css" />
+
   <link href="{{ asset('css/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('css/bootstrap-dropdownhover.min.css') }}" rel="stylesheet">
+
 
 
  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -171,4 +175,6 @@
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
   <![endif]-->
+      <script src="js/bootstrap-dropdownhover.min.js"></script>
+
 </head>
