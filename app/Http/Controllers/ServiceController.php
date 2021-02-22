@@ -95,14 +95,14 @@ class ServiceController extends Controller
 
 
 
-  public function findNearestRestaurants(Request $request)
+  public function findNearestServices(Request $request)
   {
 
 
   // return $request->radius;
     $latitude = $request->latitude;
     $longitude = $request->longitude;
-    $radius = 100000;
+    $radius = 10000;
         // $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
         // $featuredServices->image();
     $servicesss = Service::selectRaw("id, name, address, thumbnail, user_id, badge_type, slug,
@@ -806,7 +806,6 @@ if($keyword && $state)
 }
 
 
-<<<<<<< HEAD
  $keyword_and_states = Service::where(function ($query) use ($keyword, $state) {
     $query->where('name', 'like', '%' . $keyword . '%')
     ->orWhere('state',  $state);
