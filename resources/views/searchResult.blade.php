@@ -32,7 +32,7 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="form-group name">
-                                            <input type="text" name="name" class="form-control" placeholder="What Service Are You Looking For?">
+                                            <input type="text" name="keyword" class="form-control" placeholder="What Service Are You Looking For?">
                                         </div>
                                     </div>
                                 </div>
