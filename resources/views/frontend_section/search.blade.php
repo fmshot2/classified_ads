@@ -22,72 +22,6 @@
                         </div>
                     </div>
 
-                    <style>
-                        .dropdown-menu {
-                            position: absolute;
-                            top: 100%;
-                            left: 0;
-                            z-index: 1000;
-                            display: none;
-                            float: left;
-                            min-width: 10rem;
-                            padding: 0 !important;
-                            margin: .125rem 0 0;
-                            font-size: 13px;
-                            color: #212529;
-                            text-align: left;
-                            list-style: none;
-                            background-color: #fff;
-                            background-clip: padding-box;
-                            border: 1px solid rgba(0,0,0,.15);
-                            border-radius: 0 !important;
-                        }
-
-                        .multi-level li{
-                            padding: 5px;
-                        }
-                        .dropdown-submenu>a:after {
-                            display: block;
-                            content: " ";
-                            float: right;
-                            width: 0;
-                            height: 0;
-                            border-color: transparent;
-                            border-style: solid;
-                            border-width: 5px 0 5px 5px;
-                            border-left-color: #ccc;
-                            margin-top: 5px;
-                            margin-right: 0;
-                        }
-                        .dropdown-submenu:hover>a:after {
-                            border-left-color: #d6a616;
-                        }
-                        .dropdown-menu a{
-                            display: block;
-                        }
-                        .input-category-mobile{
-                            display: none;
-                        }
-                        .input-sub-category-mobile{
-                            display: none
-                        }
-                        @media (max-width: 768px){
-                            .input-category-mobile{
-                                display: block !important;
-                            }
-                            .input-category-desktop{
-                                display: none !important;
-                            }
-                            .input-sub-category-mobile{
-                                display: block
-                            }
-                            .m-none{
-                                display: none !important;
-                            }
-                        }
-
-                    </style>
-
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <p style="margin-bottom: 0; margin-top: -12px; font-weight: 600;">Choose Category</p>
                         <div class="dropdown category-ddn-menu input-category-desktop">
@@ -98,7 +32,7 @@
                                     @foreach($search_form_categories as $category)
                                         <li class="dropdown-submenu" style="@if (!$loop->last)border-bottom: 1px solid rgba(0,0,0,.15);@endif">
                                             <a onclick="theCatId({{ $category->id }}, ' {{ $category->name }} ')" tabindex="-1" href="#">{{ $category->name }}</a>
-                                            <ul class="dropdown-menu" style="margin-left: 4px;">
+                                            <ul class="dropdown-menu" style="margin-left: 2px;">
                                                 @if(isset($category->sub_categories))
                                                     @foreach($category->sub_categories as $sub_category)
                                                         <li style="@if (!$loop->last)border-bottom: 1px solid rgba(0,0,0,.15);@endif"><a onclick="theSubCatId({{ $sub_category->id }}, ' {{ $sub_category->name }} ')" tabindex="-1" href="#">{{ $sub_category->name }}</a></li>
