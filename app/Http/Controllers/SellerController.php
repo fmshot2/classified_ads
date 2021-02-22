@@ -145,7 +145,12 @@ $service_owner->email = Auth::user()->email;
             $state =  $service->state;
             $slug =  $service->slug;
 
-            Mail::to($service_owner->email)->send(new ServiceCreated($name, $category, $phone, $state, $slug));
+            try{
+                Mail::to($service_owner->email)->send(new ServiceCreated($name, $category, $phone, $state, $slug));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
         }
 
        $present_user = Auth::user();

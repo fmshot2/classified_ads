@@ -1366,7 +1366,12 @@ public function show($id)
         if ($message->save()) {
           $buyer_name = $message->buyer_name;
           $name = 'Your message has been delivered successfully!';
-          Mail::to($message->buyer_email)->send(new SendMailable($name));
+          try{
+            Mail::to($message->buyer_email)->send(new SendMailable($name));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
           return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
         }
         return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>"not saved"]);
