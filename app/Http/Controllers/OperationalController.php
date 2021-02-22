@@ -6,6 +6,7 @@ use App\Advert;
 use App\Service;
 use App\Slider;
 use Illuminate\Http\Request;
+use Symfony\Component\Console\Input\Input;
 
 class OperationalController extends Controller
 {
@@ -189,62 +190,4 @@ class OperationalController extends Controller
         return $featuredServices;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //     public function slider($id)
-    //     {
-    //       $slider = Slider::find($id);
-    //       return $slider;
-    //     }
-
-
-
-    //     public function save_slider(Request $request)
-    //     {
-    //       $id = $request->id;
-    //       $sliderDetails = $request->details;
-    //       $sliderTitle = $request->title;
-    //       $sliderLink = $request->links;
-    //   //$faq = Faq::where('id', $id);
-    //       $slider = Slider::find($id);
-
-    //       if ($slider) {
-    //        $slider->details = $sliderDetails;
-    //        $slider->title = $sliderTitle;
-    //        $slider->links = $sliderLink;
-    //        $slider->save();
-    //        return back()->with('success', 'Task was successful!');
-    //      }
-
-    //      $new_slider = new Slider();
-    //      $new_slider->details = $sliderDetails;
-    //      $new_slider->title = $sliderTitle;
-    //      $new_slider->save();
-    //      return back()->with('success', 'Task was successful!');
-    //    }
-
-
-    //    public function delete_sliders($id)
-    //    {
-    //     $slider = Slider::findOrFail($id);
-    //     $slider->delete();
-    //     return back()->with('success', 'Task was successful!');
-
-    //       //return view ('admin.page_management.faq', compact('faqs') );
-    //   }
 }

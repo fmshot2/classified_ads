@@ -56,7 +56,13 @@ class AuthController extends Controller
 			$origPassword = $request->password;
 			$userRole = $user->role;
 
-			Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+            try{
+                Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+
 
 			if ($link_from_url) {
                 $link = new Refererlink();
