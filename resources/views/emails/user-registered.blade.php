@@ -7,7 +7,7 @@
 <p><strong>Password: </strong> {{ $password ? $password : 'Name not provided!' }}</p>
 <p><strong>Account Type: </strong> {{ $accountType == 'seller' ? 'Service Provider' : 'Service Seeker' }}</p>
 
-@component('mail::button', ['url' => 'login'])
+@component('mail::button', ['url' => route('login')])
 Login Now
 @endcomponent
 

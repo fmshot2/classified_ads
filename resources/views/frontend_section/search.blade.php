@@ -1,10 +1,12 @@
 <div id="" class="search-section search-area-2 bg-grea hm-search-form-comp">
+
     <div class="">
       <div class="search-section-area">
         <div class="search-area-inner">
           <div class="search-contents">
             <form action="{{route('search3')}}" method="GET">
                 <div class="row justify-content-center align-items-center">
+                    <div class="col-lg-1 m-none"></div>
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <p style="margin-bottom: 0; font-weight: 600;">Keyword</p>
                         <div class="form-group">
@@ -21,8 +23,32 @@
                     </div>
 
                     <div class="col-lg-2 col-md-4 col-sm-6">
-                        <div class="form-group">
-                            <p style="margin-bottom: 0; font-weight: 600;">Choose Category</p>
+                        <p style="margin-bottom: 0; margin-top: -12px; font-weight: 600;">Choose Category</p>
+                        <div class="dropdown category-ddn-menu input-category-desktop">
+                            <a id="dLabel" role="button" data-toggle="dropdown" class="btn form-control" data-target="#" href="#">- Select a category -<span class="fa fa-angle-down" style="margin-left: 50px"></span></a>
+
+                            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                @if(isset($search_form_categories))
+                                    @foreach($search_form_categories as $category)
+                                        <li class="dropdown-submenu" style="@if (!$loop->last)border-bottom: 1px solid rgba(0,0,0,.15);@endif">
+                                            <a onclick="theCatId({{ $category->id }}, ' {{ $category->name }} ')" tabindex="-1" href="#">{{ $category->name }}</a>
+                                            <ul class="dropdown-menu" style="margin-left: 2px;">
+                                                @if(isset($category->sub_categories))
+                                                    @foreach($category->sub_categories as $sub_category)
+                                                        <li style="@if (!$loop->last)border-bottom: 1px solid rgba(0,0,0,.15);@endif"><a onclick="theSubCatId({{ $sub_category->id }}, ' {{ $sub_category->name }} ')" tabindex="-1" href="#">{{ $sub_category->name }}</a></li>
+                                                    @endforeach
+                                                @endif
+                                            </ul>
+                                        </li>
+                                    @endforeach
+                                @endif
+
+                                <input type="hidden" name="category" id="theCategory">
+                                <input type="hidden" name="sub_categories" id="theSubCategory">
+                            </ul>
+                        </div>
+
+                        <div class="form-group input-category-mobile">
                             <select class="form-control" id="categories" name="category">
                                 <option value="">- Select an Option -</option>
                                 @if(isset($search_form_categories))
@@ -34,7 +60,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="col-lg-2 col-md-4 col-sm-6 input-sub-category-mobile">
                         <div class="form-group">
                             <p style="margin-bottom: 0; font-weight: 600;">Sub Category</p>
                             <select class="form-control" id="sub_category" name="sub_categories">
@@ -67,9 +93,10 @@
                             </button>
                         </div>
                     </div>
-   <div class="form-group">
-<p id="demo2"></p>
-    </div>
+                    <div class="col-lg-1 m-none"></div>
+                    {{-- <div class="form-group">
+                    <p id="demo2"></p>
+                    </div> --}}
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="form-group">
                         <input id="latitude_id" type="hidden" name="latitude" class="form-control">
@@ -101,10 +128,29 @@
 <script type="text/javascript">
     var slider = document.getElementById("myRange");
     var output = document.getElementById("demo");
+    var theCategoryInput = document.getElementById("theCategory");
+    var theSubCategoryInput = document.getElementById("theSubCategory");
+    var dropDownLabel = document.getElementById("dLabel");
+
+    if (document.documentElement.clientWidth > 768) {
+        document.getElementById("categories").removeAttribute("name");
+        document.getElementById("sub_category").removeAttribute("name");
+    }
+
     output.innerHTML = slider.value;
 
     slider.oninput = function() {
       output.innerHTML = this.value;
+    }
+
+    function theCatId(catId, catName) {
+        theCategoryInput.value = catId
+        dropDownLabel.text = catName
+    }
+
+    function theSubCatId(subCatId, subCatName) {
+        theSubCategoryInput.value = subCatId
+        dropDownLabel.text = subCatName
     }
 
 

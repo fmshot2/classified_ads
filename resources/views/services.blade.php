@@ -39,41 +39,126 @@
                     <div class="col-lg-8 col-md-12 col-xs-12 jobApSerDesktop">
                         <div class="row">
                             @forelse($category_services as $category_service)
-                                <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
-                                    <div class="property-box">
-                                        <div class="property-thumbnail">
-                                            <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
-                                                <div class="listing-badges">
-                                                    <span class="featured bg-warning">featured</span>
-                                                </div>
-                                                <div class="price-ratings-box">
-                                                    <p class="price">
-                                                        {{$category_service->experience}} Yrs Experience
-                                                    </p>
-                                                </div>
-                                                <div class="listing-time opening">{{ $category_service->user->name }}</div>
-                                               <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
-
-                                            </a>
-                                        </div>
-                                        <div class="detail">
-                                            <div>
-                                                <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                @if ($loop->index < 30 && $category_service->badge_type == 1)
+                                    <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
+                                        <div class="property-box">
+                                            <div class="property-thumbnail">
+                                                <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> {{$category_service->is_featured == 1 ? ' Super' : ''}}</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($category_service->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                   <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                </a>
                                             </div>
-
-                                            <ul class="d-flex flex-row justify-content-between info">
-                                                <li>
-                                                    <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
-                                                </li>
-                                                <li>
-                                                    <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
-                                                        <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
-                                                    </a>
-                                                </li>
-                                            </ul>
                                         </div>
                                     </div>
-                                </div>
+                                @elseif($loop->index < 30 && $category_service->badge_type == 2)
+                                    <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
+                                        <div class="property-box">
+                                            <div class="property-thumbnail">
+                                                <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-success"><i class="fa fa-star"></i><i class="fa fa-star"></i> {{$category_service->is_featured == 1 ? ' Moderate' : ''}}</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($category_service->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                </a>
+                                            </div>
+                                            <div class="detail">
+                                                <div>
+                                                    <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                                </div>
+
+                                                <ul class="d-flex flex-row justify-content-between info">
+                                                    <li>
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                    </li>
+                                                    <li>
+                                                        <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
+                                                            <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @elseif($loop->index < 30 && $category_service->badge_type == 3)
+                                    <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
+                                        <div class="property-box">
+                                            <div class="property-thumbnail">
+                                                <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-primary"><i class="fa fa-star"></i> {{$category_service->is_featured == 1 ? ' Basic' : ''}}</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($category_service->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                </a>
+                                            </div>
+
+                                            <div class="detail">
+                                                <div>
+                                                    <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                                </div>
+
+                                                <ul class="d-flex flex-row justify-content-between info">
+                                                    <li>
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                    </li>
+                                                    <li>
+                                                        <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
+                                                            <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
+                                        <div class="property-box">
+                                            <div class="property-thumbnail">
+                                                <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($category_service->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                </a>
+                                            </div>
+
+                                            <div class="detail">
+                                                <div>
+                                                    <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                                </div>
+
+                                                <ul class="d-flex flex-row justify-content-between info">
+                                                    <li>
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                    </li>
+                                                    <li>
+                                                        <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
+                                                            <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
                             @empty
                                 <h6 class="text-muted text-center">There are no services yet within this category</h6>
                             @endforelse
@@ -84,40 +169,142 @@
                     <div class="col-md-12 jobApSerMobile">
                         <div class="row mobile-row">
                             @forelse($category_services as $category_service)
-                                <div class="col-sm-6" data-category="3, 2, 1" style="">
-                                    <div class="property-box">
-                                        <div class="property-thumbnail">
-                                            <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
-                                                <div class="listing-badges">
-                                                    <span class="featured bg-warning">featured</span>
-                                                </div>
-                                                <div class="price-ratings-box">
-                                                    <p class="price">
-                                                        {{$category_service->experience}} Yrs Experience
-                                                    </p>
-                                                </div>
-                                                <div class="listing-time opening">{{ $category_service->user->name }}</div>
-                                                <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
-                                            </a>
-                                        </div>
-                                        <div class="detail">
-                                            <div>
-                                                <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                @if ($loop->index < 30 && $category_service->badge_type == 1)
+                                    <div class="col-sm-6" data-category="3, 2, 1" style="">
+                                        <div class="property-box">
+                                            <div class="property-thumbnail">
+                                                <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> {{$category_service->is_featured == 1 ? ' Super' : ''}}</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($category_service->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                </a>
                                             </div>
+                                            <div class="detail">
+                                                <div>
+                                                    <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                                </div>
 
-                                            <ul class="d-flex flex-row justify-content-between info">
-                                                <li>
-                                                    <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
-                                                </li>
-                                                <li>
-                                                    <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
-                                                        <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
-                                                    </a>
-                                                </li>
-                                            </ul>
+                                                <ul class="d-flex flex-row justify-content-between info">
+                                                    <li>
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                    </li>
+                                                    <li>
+                                                        <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
+                                                            <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @elseif ($loop->index < 30 && $category_service->badge_type == 2)
+                                    <div class="col-sm-6" data-category="3, 2, 1" style="">
+                                        <div class="property-box">
+                                            <div class="property-thumbnail">
+                                                <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-success"><i class="fa fa-star"></i><i class="fa fa-star"></i>{{$category_service->is_featured == 1 ? ' Moderate' : ''}}</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($category_service->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                </a>
+                                            </div>
+                                            <div class="detail">
+                                                <div>
+                                                    <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                                </div>
+
+                                                <ul class="d-flex flex-row justify-content-between info">
+                                                    <li>
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                    </li>
+                                                    <li>
+                                                        <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
+                                                            <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @elseif ($loop->index < 30 && $category_service->badge_type == 3)
+                                    <div class="col-sm-6" data-category="3, 2, 1" style="">
+                                        <div class="property-box">
+                                            <div class="property-thumbnail">
+                                                <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-success"><i class="fa fa-star"></i>{{$category_service->is_featured == 1 ? ' Basic' : ''}}</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($category_service->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                </a>
+                                            </div>
+                                            <div class="detail">
+                                                <div>
+                                                    <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                                </div>
+
+                                                <ul class="d-flex flex-row justify-content-between info">
+                                                    <li>
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                    </li>
+                                                    <li>
+                                                        <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
+                                                            <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="col-sm-6" data-category="3, 2, 1" style="">
+                                        <div class="property-box">
+                                            <div class="property-thumbnail">
+                                                <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($category_service->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                </a>
+                                            </div>
+                                            <div class="detail">
+                                                <div>
+                                                    <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                                </div>
+
+                                                <ul class="d-flex flex-row justify-content-between info">
+                                                    <li>
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                    </li>
+                                                    <li>
+                                                        <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
+                                                            <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                @endif
+
                             @empty
                                 <h6 class="text-muted text-center">There are no services yet within this category</h6>
                             @endforelse
@@ -164,7 +351,7 @@
                                             <div class="media-body align-self-center all-ser-pg-sidebar-feat-ser">
                                                 <h3 class="media-heading">
                                                     <a href="" class="sub_cat_link">
-                                                        <strong style="text-transform: capitalize"><i class="fa fa-long-arrow-right"></i></strong>  {{ $all_sub_category->name }}
+                                                        <strong style="text-transform: capitalize"><i class="fa fa-long-arrow-right" style="color: #FFC107"></i>  {{ $all_sub_category->name }}</strong>
                                                     </a>
                                                 </h3>
                                             </div>

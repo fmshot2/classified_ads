@@ -279,7 +279,7 @@ return $this->index();
 
         $one_category = Category::where('slug', $slug)->first();
         $category_id = $one_category->id;
-        $category_services = Service::where('category_id', $category_id)->get();
+        $category_services = Service::where('category_id', $category_id)->orderBy('badge_type', 'asc')->inRandomOrder()->paginate(100);
 
         $sub_categories = SubCategory::where("category_id",$category_id)->orderBy('name', 'asc')->get();
 

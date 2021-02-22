@@ -331,10 +331,11 @@ public function serviceDetail($slug)
 public function allServices()
 {
   $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
-  $approvedServices = Service::with('user')->paginate(6);
+  $approvedServices = Service::with('user')->orderBy('badge_type', 'asc')->inRandomOrder()->paginate(100);
   $advertServices = Service::where('is_approved', 1)->with('user')->get();
   $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
   $categories = Category::paginate(8);
+  $featuredcategories = Category::orderBy('id', 'asc')->limit(12)->get();
   $all_states = State::all();
       //$serviceDetail_id = $serviceDetail->id;
       //$service_likes = Like::where('service_id', $serviceDetail_id)->count();
@@ -357,7 +358,7 @@ public function allServices()
   }
        //return $userMessages;
 
-  return view('allServices', compact(['approvedServices', 'user111', 'all_states', 'userser3', 'featuredServices', 'featuredServices2']));
+  return view('allServices', compact(['approvedServices', 'user111', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'featuredcategories']));
 }
 
 
@@ -692,7 +693,7 @@ public function search3(Request $request){
 
 
 
-if ($category) 
+if ($category)
 {
 $services2 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
@@ -711,8 +712,8 @@ $services2 = Service::selectRaw("id, name, address, thumbnail, user_id, state, b
 }else{
   $services2 = null;
 }
-  
-  if ($state) 
+
+  if ($state)
 {
    $services3 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
@@ -809,7 +810,7 @@ if($keyword && $state)
     $query->where('name', 'like', '%' . $keyword . '%')
     ->orWhere('state',  $state);
   })->get();
- 
+
 if($state)
 {
   $services7 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
@@ -897,6 +898,15 @@ if($state)
   })->where(function ($query) use ($keyword) {
     $query->where('name', 'like', '%' . $keyword . '%');
 
+ //  $keywordResponses7 = Service::where(function ($query) use ($category) {
+ //    $query->where('category_id', '=', $category);
+ //  })
+ //  ->where(function ($query) use ($state) {
+ //    $query->where('state', '=', $state);
+
+ //  })->where(function ($query) use ($keyword) {
+ //    $query->where('name', 'like', '%' . $keyword . '%');
+
   })->get();
 
 
@@ -955,7 +965,7 @@ if($services3) {
    return view('searchResult', compact(['featuredServices', 'all_states', 'services1', 'services2', 'services3', 'services4', 'services5', 'services5', 'services6', 'services7', 'keyword_and_states', 'keywordResponses5a', 'keywordResponses6',  'keywordResponses7a', 'keywordResponses3', 'search_form_categories', 'states']));
 }
 
- 
+
 
 
 
@@ -972,7 +982,7 @@ public function searchonservices(Request $request){
   })->get();
 
   if (count ( $userSer ) > 0){
-   
+
     return view('searchResult')->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
 
 
@@ -1397,7 +1407,12 @@ public function show($id)
         if ($message->save()) {
           $buyer_name = $message->buyer_name;
           $name = 'Your message has been delivered successfully!';
-          Mail::to($message->buyer_email)->send(new SendMailable($name));
+          try{
+            Mail::to($message->buyer_email)->send(new SendMailable($name));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
           return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
         }
         return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>"not saved"]);

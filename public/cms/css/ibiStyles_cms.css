@@ -19,4 +19,7 @@ span.info-box-icon.push-bottom.bg-warning {
         width: 100px;
         padding: 10px 0;
     }
+    .show-page-vs-btn {
+        margin-top: 10px;
+    }
 }
