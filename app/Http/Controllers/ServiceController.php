@@ -331,10 +331,11 @@ public function serviceDetail($slug)
 public function allServices()
 {
   $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
-  $approvedServices = Service::with('user')->paginate(6);
+  $approvedServices = Service::with('user')->orderBy('badge_type', 'asc')->inRandomOrder()->paginate(100);
   $advertServices = Service::where('is_approved', 1)->with('user')->get();
   $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
   $categories = Category::paginate(8);
+  $featuredcategories = Category::orderBy('id', 'asc')->limit(12)->get();
   $all_states = State::all();
       //$serviceDetail_id = $serviceDetail->id;
       //$service_likes = Like::where('service_id', $serviceDetail_id)->count();
@@ -357,7 +358,7 @@ public function allServices()
   }
        //return $userMessages;
 
-  return view('allServices', compact(['approvedServices', 'user111', 'all_states', 'userser3', 'featuredServices', 'featuredServices2']));
+  return view('allServices', compact(['approvedServices', 'user111', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'featuredcategories']));
 }
 
 
@@ -674,7 +675,7 @@ public function search3(Request $request){
 
 
 
-  $services1 = Service::selectRaw("id, name, address, image, user_id, state, badge_type, category_id,
+  $services1 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -695,7 +696,7 @@ public function search3(Request $request){
 
 
 
-  $services2 = Service::selectRaw("id, name, address, image, user_id, state, badge_type, category_id,
+  $services2 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -711,7 +712,7 @@ public function search3(Request $request){
   ->get();
 
 
-  $services3 = Service::selectRaw("id, name, address, image, user_id, state, badge_type, category_id,
+  $services3 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -726,7 +727,7 @@ public function search3(Request $request){
   ->limit(20)
   ->get();
 
-  $services4 = Service::selectRaw("id, name, address, image, user_id, state, badge_type, category_id,
+  $services4 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
