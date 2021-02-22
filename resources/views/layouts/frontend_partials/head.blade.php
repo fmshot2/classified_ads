@@ -119,7 +119,7 @@
 
         var glide = new Glide('.glide', {
             type: 'carousel',
-            perView: 4,
+            perView: 6,
             gap: 5,
             focusAt: 'center',
             autoplay: 2000,
@@ -127,10 +127,10 @@
             animationDuration: 3000,
             breakpoints: {
                 800: {
-                perView: 2
+                perView: 4
                 },
                 480: {
-                perView: 2
+                perView: 3
                 }
             }
         })

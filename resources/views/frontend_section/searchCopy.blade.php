@@ -302,3 +302,22 @@
 });
 </script>
 
+                       @if(isset($keyword_and_states))
+            @foreach($keyword_and_states as $keyword_and_state)       
+            <div class="col-sm-3 card service-box ky">
+                <img class="card-img-top" src="{{asset('uploads/services')}}/{{$keyword_and_state->service_image}}" alt="service" style="min-width: 150px;">
+                <div class="card-body detail">
+                    <div class="title">
+                        <h4><a href="#" style="font-size: 15px;">{{$keyword_and_state->user->name}}, &nbsp; {{$keyword_and_state->name}}</a></h4>
+                    </div>
+                    <div class="location">
+                        <a href="properties-details.html" tabindex="-1">
+                            
+                        </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$keyword_and_state->state}}</span>
+                    </div>
+                    
+                    <!--<a href="#" class="read-more">More...</a>-->
+                </div>
+            </div>
+            @endforeach
+                        @endif

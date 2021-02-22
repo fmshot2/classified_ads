@@ -35,7 +35,7 @@
 
 
         @if(isset($featuredServices))
-            <div class="row">
+            <div class="row row-flex">
                 @foreach($featuredServices as $featuredService)
                     @if ($loop->index < 30 && $featuredService->badge_type == 1)
                         <a href="{{route('serviceDetail', $featuredService->slug)}}" class="property-img">

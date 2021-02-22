@@ -12,6 +12,7 @@
     .box-heading span{
         font-weight: normal;
     }
+
 </style>
 
 
@@ -85,7 +86,7 @@
                     <br>
                     <center>
                         <button id="submit-all" class="btn btn-success" style="height: 40px;"> Upload all the images</button>
-                        <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger" style="height: 40px; line-height: 29px"> View Service</a>
+                        <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;"> View Service</a>
                     </center>
 
                 </div>
