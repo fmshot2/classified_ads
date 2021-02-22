@@ -145,7 +145,7 @@ function showPosition(position) {
     <div class="container">
             <!-- Main title -->
         <div class="main-title" style="margin-top: -50px;">
-            <h1>Services Close To Yous </h1>
+            <h1>Services Close To You </h1>
         </div>
 <div class="row" id="featuredServicesRow"></div>
         </div>
