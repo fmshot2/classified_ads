@@ -1139,6 +1139,7 @@ h6 {
 .input-sub-category-mobile {
     display: none;
 }
+
 @media (max-width: 768px) {
     .input-category-mobile {
         display: block !important;
