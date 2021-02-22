@@ -671,8 +671,6 @@ public function search3(Request $request){
   $states = State::all();
 
 
-
-
   // $keywordResponses = Service::where(function ($query) use ($keyword, $category, $state) {
   //   $query->where('name', 'like', '%' . $keyword . '%');
   // })->get();

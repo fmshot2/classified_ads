@@ -22,8 +22,6 @@ Home |
     </div>
 
 
-@include('frontend_section/search')
-
 
     <!-- Properties section body start -->
     <div class="properties-section content-area">
@@ -384,12 +382,6 @@ Home |
 </div>
 </div>
 </div>
-
-
-
-
-
-
 
 
 @endsection
