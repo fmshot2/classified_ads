@@ -20,6 +20,11 @@ Home |
             </div>
         </div>
     </div>
+
+
+@include('frontend_section/search')
+
+
     <!-- Properties section body start -->
     <div class="properties-section content-area">
         <div class="container">
@@ -63,7 +68,7 @@ Home |
 
                                         @foreach($all_states as $state)
 
-                                        <option value="{{$state->id}}"> {{ $state->name }}  </option> 
+                                        <option value="{{$state->name}}"> {{ $state->name }}  </option> 
                                         @endforeach
                                         @endif                         
 
@@ -168,26 +173,7 @@ Home |
         <div class="col-md-12">
             <div class="row">
 
-               @if(isset($services1))
-               @foreach($services1 as $service1)
-
-               <div class="col-sm-3 card service-box 1">
-                <img class="card-img-top" src="{{asset('uploads/services')}}/{{$service1->service_image}}" alt="service" style="min-width: 150px;">
-                <div class="card-body detail">
-                    <div class="title">
-                        <h4><a href="#" style="font-size: 15px;">{{$service1->user->name}}, &nbsp; {{$service1->name}}</a></h4>
-                    </div>
-                    <div class="location">
-                        <a href="properties-details.html" tabindex="-1">
-
-                        </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$service1->city}}</span>
-                    </div>
-
-                    <!--<a href="#" class="read-more">More...</a>-->
-                </div>
-            </div>
-            @endforeach
-            @endif
+              
             @if(isset($services2))
             @foreach($services2 as $service2)       
             <div class="col-sm-3 card service-box 2">
@@ -251,7 +237,7 @@ Home |
                               @if(isset($services5))
             @foreach($services5 as $service5)       
             <div class="col-sm-3 card service-box 5">
-                <img class="card-img-top" src="{{asset('uploads/services')}}/{{$service2->service_image}}" alt="service" style="min-width: 150px;">
+                <img class="card-img-top" src="{{asset('uploads/services')}}/{{$service5->service_image}}" alt="service" style="min-width: 150px;">
                 <div class="card-body detail">
                     <div class="title">
                         <h4><a href="#" style="font-size: 15px;">{{$service5->user->name}}, &nbsp; {{$service5->name}}</a></h4>
@@ -266,7 +252,113 @@ Home |
                 </div>
             </div>
             @endforeach
+                        @endif  
+
+                                  @if(isset($keywordResponses6))
+            @foreach($keywordResponses6 as $keywordResponse6)       
+            <div class="col-sm-3 card service-box ky1">
+                <img class="card-img-top" src="{{asset('uploads/services')}}/{{$keywordResponse6->service_image}}" alt="service" style="min-width: 150px;">
+                <div class="card-body detail">
+                    <div class="title">
+                        <h4><a href="#" style="font-size: 15px;">{{$keywordResponse6->user->name}}, &nbsp; {{$keywordResponse6->name}}</a></h4>
+                    </div>
+                    <div class="location">
+                        <a href="properties-details.html" tabindex="-1">
+                            
+                        </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$keywordResponse6->state}}</span>
+                    </div>
+                    
+                    <!--<a href="#" class="read-more">More...</a>-->
+                </div>
+            </div>
+            @endforeach
                         @endif
+
+
+                            @if(isset($keywordResponses5a))
+            @foreach($keywordResponses5a as $keywordResponse5a)       
+            <div class="col-sm-3 card service-box ky2">
+                <img class="card-img-top" src="{{asset('uploads/services')}}/{{$keywordResponse5a->service_image}}" alt="service" style="min-width: 150px;">
+                <div class="card-body detail">
+                    <div class="title">
+                        <h4><a href="#" style="font-size: 15px;">{{$keywordResponse5a->user->name}}, &nbsp; {{$keywordResponse5a->name}}</a></h4>
+                    </div>
+                    <div class="location">
+                        <a href="properties-details.html" tabindex="-1">
+                            
+                        </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$keywordResponse5a->state}}</span>
+                    </div>
+                    
+                    <!--<a href="#" class="read-more">More...</a>-->
+                </div>
+            </div>
+            @endforeach
+                        @endif
+
+                                      @if(isset($keywordResponses7a))
+            @foreach($keywordResponses7a as $keywordResponse7)       
+            <div class="col-sm-3 card service-box ky3">
+                <img class="card-img-top" src="{{asset('uploads/services')}}/{{$keywordResponse7->service_image}}" alt="service" style="min-width: 150px;">
+                <div class="card-body detail">
+                    <div class="title">
+                        <h4><a href="#" style="font-size: 15px;">{{$keywordResponse7->user->name}}, &nbsp; {{$keywordResponse7->name}}</a></h4>
+                    </div>
+                    <div class="location">
+                        <a href="properties-details.html" tabindex="-1">
+                            
+                        </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$keywordResponse7->state}}</span>
+                    </div>
+                    
+                    <!--<a href="#" class="read-more">More...</a>-->
+                </div>
+            </div>
+            @endforeach
+                        @endif
+
+
+                                  @if(isset($keywordResponses3))
+               @foreach($keywordResponses3 as $keywordResponse3)
+
+               <div class="col-sm-3 card service-box 1">
+                <img class="card-img-top" src="{{asset('uploads/services')}}/{{$keywordResponse3->service_image}}" alt="service" style="min-width: 150px;">
+                <div class="card-body detail">
+                    <div class="title">
+                        <h4><a href="#" style="font-size: 15px;">{{$keywordResponse3->user->name}}, &nbsp; {{$keywordResponse3->name}}</a></h4>
+                    </div>
+                    <div class="location">
+                        <a href="properties-details.html" tabindex="-1">
+
+                        </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$keywordResponse3->state}}</span>
+                    </div>
+
+                    <!--<a href="#" class="read-more">More...</a>-->
+                </div>
+            </div>
+            @endforeach
+            @endif
+
+                         @if(isset($services1))
+               @foreach($services1 as $service1)
+
+               <div class="col-sm-3 card service-box 1">
+                <img class="card-img-top" src="{{asset('uploads/services')}}/{{$service1->service_image}}" alt="service" style="min-width: 150px;">
+                <div class="card-body detail">
+                    <div class="title">
+                        <h4><a href="#" style="font-size: 15px;">{{$service1->user->name}}, &nbsp; {{$service1->name}}</a></h4>
+                    </div>
+                    <div class="location">
+                        <a href="properties-details.html" tabindex="-1">
+
+                        </a><i class="fa fa-map-marker" style="font-size: 15px;"></i><span>{{$service1->state}}</span>
+                    </div>
+
+                    <!--<a href="#" class="read-more">More...</a>-->
+                </div>
+            </div>
+            @endforeach
+            @endif
+
+                        
         
         </div>
 
@@ -292,6 +384,13 @@ Home |
 </div>
 </div>
 </div>
+
+
+
+
+
+
+
 
 @endsection
 
