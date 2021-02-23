@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
 use App\Mail\UserRegistered;
 use App\Refererlink;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 
@@ -19,7 +21,9 @@ class AuthController extends Controller
 
 	public function createUser (Request $request)
 	{
-		$link_from_url = $request->refer;
+        // dd(str_replace(url('/'), '', Session::get('url.intended')));
+
+        $link_from_url = $request->refer;
 		// dd($usrerere);
 		// $LGA = User::find(['refererLink'=>$usrerere]);
 		// dd($LGA);
@@ -82,11 +86,11 @@ class AuthController extends Controller
 			if ( $request->role == 'seller' )
 				return redirect()->route('seller.dashboard');;
 
-		} else {
-			return view('/');
-		}
-		return redirect()->intended('/');
-	}
+            } else {
+                return Redirect::to(Session::get('url.intended'));
+            }
+            return redirect()->intended('/');
+        }
 
 
 
@@ -111,7 +115,11 @@ $referlink = $refer;
 
 	public function showRegister (Request $request)
 	{
-		  $param = $request->input('invite');
+
+        $request->session()->forget('url.intended');
+        session(['url.intended' => url()->previous()]);
+
+        $param = $request->input('invite');
 
 		//$param = $request->query('param');
 		if($param){

@@ -26,7 +26,7 @@
                         <div class="row row-flex searchResults 1">
                             @foreach($services1 as $services1)
                                 @if ($loop->index < 30 && $services1->badge_type == 1)
-                                    <a href="{{ route('serviceDetail', $services1) }}" class="property-img">
+                                    <a href="{{ route('serviceDetail', $services1->slug) }}" class="property-img">
                                         <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                             <div class="property-box">
                                                 <div class="property-thumbnail">
@@ -171,7 +171,7 @@
                         <div class="row row-flex searchResults 2">
                             @foreach($services2 as $services2)
                                 @if ($loop->index < 30 && $services2->badge_type == 1)
-                                    <a href="{{ route('serviceDetail', $services2) }}" class="property-img">
+                                    <a href="{{ route('serviceDetail', $services2->slug) }}" class="property-img">
                                         <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                             <div class="property-box">
                                                 <div class="property-thumbnail">
@@ -316,7 +316,7 @@
                         <div class="row row-flex searchResults 3">
                             @foreach($services3 as $services3)
                                 @if ($loop->index < 30 && $services3->badge_type == 1)
-                                    <a href="{{ route('serviceDetail', $services3) }}" class="property-img">
+                                    <a href="{{ route('serviceDetail', $services3->slug) }}" class="property-img">
                                         <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                             <div class="property-box">
                                                 <div class="property-thumbnail">
@@ -461,7 +461,7 @@
                         <div class="row row-flex searchResults 4">
                             @foreach($services4 as $services4)
                                 @if ($loop->index < 30 && $services4->badge_type == 1)
-                                    <a href="{{ route('serviceDetail', $services4) }}" class="property-img">
+                                    <a href="{{ route('serviceDetail', $services4->slug) }}" class="property-img">
                                         <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                             <div class="property-box">
                                                 <div class="property-thumbnail">
@@ -606,7 +606,7 @@
                         <div class="row row-flex searchResults 5">
                             @foreach($services5 as $services5)
                                 @if ($loop->index < 30 && $services5->badge_type == 1)
-                                    <a href="{{ route('serviceDetail', $services5) }}" class="property-img">
+                                    <a href="{{ route('serviceDetail', $services5->slug) }}" class="property-img">
                                         <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                             <div class="property-box">
                                                 <div class="property-thumbnail">
