@@ -857,8 +857,7 @@ if($category)
 
   })->get();
 
-         return response()->json(['response'=> $keywordResponses5 ]);
-
+}
 
  // $keywordResponses4 = Service::where(function ($query) use ($keyword) {
  //    $query->where('name', 'like', '%' . $keyword . '%');
