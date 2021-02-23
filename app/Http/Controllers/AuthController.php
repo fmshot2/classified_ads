@@ -156,7 +156,8 @@ $referlink = $refer;
 		} else if (Auth::user()->role == 'buyer')
 		{
 			session()->flash('success', ' Login Succesfull');
-			return redirect()->route('buyer.dashboard');
+			// return redirect()->route('buyer.dashboard');
+            return Redirect::to(Session::get('url.intended'));
 		} else
 		{
 			return redirect()->route('admin.dashboard');;
