@@ -9,12 +9,12 @@
     <div class="container" id="scroll-top">
         <div class="row">
             <div class="col-lg-6 col-md-8 col-sm-7">
-                <div class="list-inline">
+                <div class="list-inline" style="margin-top:5px;">
                     <a href="tel: {{ $check_general_info == 0 ? $general_info->hot_line : '' }} ">
-                        Need Support? {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
+                        Need Support? <i class="fa fa-phone"></i> {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
                     </a>
                     <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
-                        |&emsp;<i class="fa fa-whatsapp"></i> {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
+                        |&emsp;<i class="fa fa-whatsapp" style="color:#5af8ac; font-size: 16px"></i> WhatsApp
                     </a>
                     <a href="mailto: {{ $check_general_info == 0 ? $general_info->support_email : ''}}">
                         |&emsp;<i class="fa fa-envelope"></i> {{ $check_general_info == 0 ? $general_info->support_email : ''}}

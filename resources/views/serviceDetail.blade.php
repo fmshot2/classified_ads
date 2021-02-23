@@ -22,7 +22,7 @@
                 <h1>Service Detail</h1>
                 <ul>
                     <li><a href="{{route('home')}}">Home</a></li>
-                    <li><span>/</span>Service Detail</li>
+                    <li><span>/</span>{{ $serviceDetail->name }}</li>
                 </ul>
             </div>
         </div>
@@ -290,7 +290,7 @@
                     <div class="sidebar-right">
                         <!-- Advanced search start -->
                         <div class="contact-1 financing-calculator widget">
-                            <h5 class="sidebar-title">Chat With <span style="text-transform: uppercase">{{ $the_provider_f_name }}</span></h5>
+                            <h5 class="sidebar-title">Contact <span style="text-transform: uppercase">{{ $the_provider_f_name }}</span></h5>
                             <div class="s-border"></div>
                             <div class="m-border" style="margin-bottom: 2px"></div>
                             <div class="s-border" style="margin-bottom: 15px"></div>
@@ -383,7 +383,7 @@
                                     </div>
 
                                     <div class="form-group message">
-                                        <textarea class="text-dark form-control" id="description" name="description" placeholder="Write message"></textarea>
+                                        <textarea class="text-dark form-control" id="description" name="description" placeholder="Write message to {{ $serviceDetail->user->name }}"></textarea>
                                         @if ($errors->has('description'))
                                             <span>
                                                 <strong class="text-danger">{{ $errors->first('description') }}</strong>

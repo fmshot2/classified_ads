@@ -1139,6 +1139,7 @@ h6 {
 .input-sub-category-mobile {
     display: none;
 }
+
 @media (max-width: 768px) {
     .input-category-mobile {
         display: block !important;
@@ -1150,6 +1151,43 @@ h6 {
         display: block;
     }
     .m-none {
+        display: none !important;
+    }
+}
+
+.property-box .title {
+    text-transform: capitalize;
+}
+.searchResults .property-box .title {
+    text-transform: capitalize;
+    font-size: 15px;
+    font-weight: 600;
+}
+.searchResults .property-box .detail .info {
+    text-transform: capitalize;
+    font-size: 12px;
+}
+
+@media (max-width: 768px) {
+    .searchResultPage {
+        margin-top: 0 !important;
+    }
+    .searchResultPage .col-sm-6 {
+        width: 50%;
+    }
+    .searchResultPage .listing-badges {
+        margin-top: -20px;
+    }
+    .searchResults .property-box .detail .info {
+        font-size: 11px;
+    }
+    .searchResults .property-box .title {
+        font-size: 13px;
+    }
+    .searchResults .property-box .price {
+        font-size: 10px;
+    }
+    .sub-banner-text-content ul {
         display: none !important;
     }
 }
