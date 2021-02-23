@@ -657,6 +657,7 @@
                 likebtn.style.display = 'block';
                 $('#loader').hide();
                 liketab.innerHTML = like;
+                console.log(like);
             }
         });
 
