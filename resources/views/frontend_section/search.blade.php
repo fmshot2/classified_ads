@@ -131,29 +131,22 @@
     var theCategoryInput = document.getElementById("theCategory");
     var theSubCategoryInput = document.getElementById("theSubCategory");
     var dropDownLabel = document.getElementById("dLabel");
-
     if (document.documentElement.clientWidth > 768) {
         document.getElementById("categories").removeAttribute("name");
         document.getElementById("sub_category").removeAttribute("name");
     }
-
     output.innerHTML = slider.value;
-
     slider.oninput = function() {
       output.innerHTML = this.value;
     }
-
     function theCatId(catId, catName) {
         theCategoryInput.value = catId
         dropDownLabel.text = catName
     }
-
     function theSubCatId(subCatId, subCatName) {
         theSubCategoryInput.value = subCatId
         dropDownLabel.text = subCatName
     }
-
-
     $('#categories').on('change',function(){
         var categoryID = $(this).val();
         if(categoryID){
@@ -179,8 +172,6 @@
             $("#sub_category").empty();
         }
     });
-
-
     $('#state').on('change',function(){
         var state_name = $(this).val();
         if(state_name){
@@ -195,7 +186,6 @@
                         $.each(res,function(key,value){
                             $("#city").append('<option value="'+key+'">'+value+'</option>');
                         });
-
                     }else{
                         $("#city").empty();
                     }
@@ -204,13 +194,12 @@
         }else{
             $("#city").empty();
         }
-
     });
-
-
-
-
-
 </script>
 
-
+  <script type="text/javascript">
+  $(document).ready( function () {
+    // alert('ddsdsd');
+  getLocation();
+});
+</script>

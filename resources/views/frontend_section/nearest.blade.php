@@ -68,8 +68,6 @@
         }
 {{-- @if(isset($superServices))
                 @foreach($superServices as $superService)
-
-
                  <a href="{{route('serviceDetail', $superService->slug)}}" class="property-img">
                         <div class="col-lg-3 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                             <div class="property-box">
@@ -77,7 +75,6 @@
                                     <div class="listing-badges">
                                         <span class="featured"><i class="fa fa-star"></i>Super</span>
                                     </div>
-
                                     <div class="price-ratings-box">
                                         <p class="price">
                                         {{ Str::limit($superService->experience, 5) }} Yrs Experience
@@ -90,7 +87,6 @@
                                     <div>
                                         <a class="title" href="{{route('serviceDetail', $superService->slug)}}">{{ Str::limit($superService->name, 50) }}</a>
                                     </div>
-
                                     <ul class="d-flex flex-row justify-content-between info">
                                         <li>
                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$superService->likes->count()}} Likes
@@ -121,4 +117,3 @@
         </div>
     </div> --}}
 </div>
-

@@ -580,7 +580,6 @@ public function index()
     if (count ( $user11 ) > 0){
         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
         return redirect()->to('home')->with('user11', $user11);
-
     }
     else
         return 'ddddd';
@@ -690,7 +689,6 @@ public function search3(Request $request){
   ->offset(0)
   ->limit(20)
   ->get();
-
 
 
 if ($category)
@@ -863,6 +861,9 @@ if($state)
     $query->where('state', '=', $state);
 
   })->get();
+
+         return response()->json(['response'=> $keywordResponses5 ]);
+
 
  // $keywordResponses4 = Service::where(function ($query) use ($keyword) {
  //    $query->where('name', 'like', '%' . $keyword . '%');
@@ -1045,21 +1046,16 @@ public function search10(Request $request){
 /*public function searchSeller(Request $request){
     $seller = $request->input('seller');
     $state = $request->input('state');
-
 $seller = User::where(function ($query) use ($seller, $state) {
-
         $query->where('seller', 'like', '%' . $seller . '%')
           ->orWhere('state', 'like', '%' . $state . '%');
       })->get();
-
 if (count ( $seller ) > 0){
         //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
         return redirect()->to('home')->with('seller', $seller);
-
     }
     else
         return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );}
-
         */
 
 
@@ -1099,7 +1095,6 @@ if (count ( $seller ) > 0){
 /*
 public function show($id)
     {
-
         $one_category = Category::find($id);
         $category_services = Service::where('id', $id)->get();
         //$category_city = Service::all()->pluck("city");
@@ -1108,11 +1103,8 @@ public function show($id)
         $all_categories = Category::all();
         //$category_id = $id;
         //return $category_city;
-
         return view ('services', compact('category_services', 'one_category', 'category_city', 'all_categories', 'all_states') );
     }
-
-
 */
 
 
