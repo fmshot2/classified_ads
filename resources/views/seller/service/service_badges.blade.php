@@ -359,6 +359,7 @@ Create Service |
   }); */
 </script>
 <script> 
+  base_Url = "{{url('/')}}"
  var _token = $("input[name='_token']").val();
 
  var email1 = $("#email-address1").val();
@@ -371,6 +372,8 @@ Create Service |
  function payWithPaystack1(){
   var new_id = document.getElementById("form_service_id").value;
   console.log(new_id);
+      console.log(base_Url);
+
 
   var handler = PaystackPop.setup({
     key: 'pk_test_cb0fc910bb9fd127519794aa4128be0fd2c354d4',
@@ -401,7 +404,7 @@ Create Service |
     type:'POST',
     {{--url: "{{ route('user.message2') }}",--}}
                     //data: $('#myform').serialize(),
-                    url: '/seller/service/createpay/',
+                    url: base_Url + '/seller/service/createpay/',
                     data: {_token:_token, email:email1, amount:amount1, seller_id:seller_id1, badge_type:badge_type1, seller_name:seller_name1, phone:phone1, ref_no:ref_no1, service_id: new_id
                       },
                     success: function(data) {
