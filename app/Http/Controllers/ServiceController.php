@@ -1246,7 +1246,8 @@ public function show($id)
            Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
            $likecount = Like::where(['service_id'=>$id])->count();
            // return redirect()->to('serviceDetail/'.$service_slug);
-           return back()->with('liked', 'Unliked');
+        //    return back()->with('liked', 'Unliked', );
+            return $likecount;
 
         //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
         //return redirect('/home');
@@ -1257,7 +1258,8 @@ public function show($id)
            $like->save();
            $likecount = Like::where(['service_id'=>$id])->count();
            // return redirect()->to('serviceDetail/'.$service_slug);
-           return back();
+        //    return back();
+            return $likecount;
 
         //return 'Heyyyyy22222'. $likecount;
          }

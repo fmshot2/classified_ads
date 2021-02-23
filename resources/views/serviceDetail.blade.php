@@ -3,6 +3,22 @@
 
 @section('title', $serviceDetail->name . ' | ')
 
+<style>
+    .loader {
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
 @section('content')
 <!-- Sub banner start -->
 <div class="sub-banner" style="background-image:url({{asset('OurBackend/img/hometeacher.jpg')}})">
@@ -104,7 +120,7 @@
                                     <a class="nav-link" id="five-tab" data-toggle="tab" href="#five" role="tab" aria-controls="five" aria-selected="true">Location</a>
                                 </li> --}}
                                 <li class="nav-item">
-                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }}
+                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true" >Like{{  $service_likes > 1 ? 's' : '' }}
                                         <span class="pull-right-container">
                                             <small id="likeTab" class="label pull-right" style="background-color: #ffc107">{{ $service_likes }}</small>
                                         </span>
@@ -268,7 +284,16 @@
                                         {{-- </a>  @else HAPPY WITH THE SERVICE RENDERED? GIVE THIS PROVIDER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!</span> @endif
                                         </a> --}}
 
-                                        <a onclick="likeService({{ $serviceDetail->id }})" href="#" id="likeBtn"><i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning"> Like!</span></a>
+                                        @auth
+                                            <div id="likeBtn">
+                                                Do you like this service? Give it a <a onclick="likeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-up text-primary" style="font-size: 19px;"></i><span class="text-primary"> Like!</span></a> <div id="loader" class="loader"></div>
+                                            </div>
+
+                                            <div id="dislikeBtn">
+                                                You have liked this service already. <a onclick="disLikeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger"> Dislike!</span></a> <div id="loader" class="loader"></div>
+                                            </div>
+
+                                        @endauth
                                     </h5>
                                 </div>
                                     {{--              @if (session('success2'))
@@ -593,15 +618,45 @@
             });
         });
 
+        $('#dislikeBtn').hide();
+        $('#loader').hide();
+
     });
 
     function likeService(id) {
-        $likebtn = document.getElementById('likeBtn');
-        $likeTab = document.getElementById('likeTab');
+        likebtn = document.getElementById('likeBtn');
+        dislikebtn = document.getElementById('dislikeBtn');
+        liketab = document.getElementById('likeTab');
+        loader = document.getElementById('loader');
+        $('#loader').show();
+
         $.ajax({
             url: '/admin2/like/' + id,
             method: 'GET',
             success: function(like){
+                dislikebtn.style.display = 'block';
+                likebtn.style.display = 'none';
+                $('#loader').hide();
+                liketab.innerHTML = like;
+            }
+        });
+
+    }
+
+    function disLikeService(id) {
+        likebtn = document.getElementById('likeBtn');
+        dislikebtn = document.getElementById('dislikeBtn');
+        likeTab = document.getElementById('likeTab');
+        loader = document.getElementById('loader');
+        $('#loader').show();
+        $.ajax({
+            url: '/admin2/like/' + id,
+            method: 'GET',
+            success: function(like){
+                dislikebtn.style.display = 'none';
+                likebtn.style.display = 'block';
+                $('#loader').hide();
+                liketab.innerHTML = like;
                 console.log(like);
             }
         });
