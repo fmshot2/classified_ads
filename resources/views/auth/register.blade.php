@@ -50,13 +50,13 @@
                             </div>
 
                             <p>
-                                <h6>Account Type</h6>
+                                <h6>What do you want to do?</h6>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="role" required>
                                             <option selected> Choose... </option>
-                                            <option value="seller"> Service Provider </option>
-                                            <option value="buyer"> Service Seeker </option>
+                                            <option value="seller"> Provide a service </option>
+                                            <option value="buyer"> I'm looking for a service </option>
                                         </select>
                                     </div>
                                 </div>

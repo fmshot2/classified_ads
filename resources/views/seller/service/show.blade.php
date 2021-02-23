@@ -81,11 +81,14 @@
 
                     <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
                         @csrf
-                        <div class="dz-default dz-message">Drop your service images here</div>
+                        <div class="dz-default dz-message">
+                            Click here to add your images <br>
+                            <small style="color: rgb(182, 66, 66) !important">When you are done click the upload button down below!</small>
+                        </div>
                     </form>
                     <br>
                     <center>
-                        <button id="submit-all" class="btn btn-success" style="height: 40px;"> Upload all the images</button>
+                        <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
                         <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;"> View Service</a>
                     </center>
 
