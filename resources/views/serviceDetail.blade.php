@@ -106,7 +106,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }}
                                         <span class="pull-right-container">
-                                            <small class="label pull-right" style="background-color: #ffc107">{{ $service_likes }}</small>
+                                            <small id="likeTab" class="label pull-right" style="background-color: #ffc107">{{ $service_likes }}</small>
                                         </span>
                                     </a>
 
@@ -261,14 +261,14 @@
                                 </span> @endif --}}
 
                             @auth
-                            @if(Auth::user()->role == 'buyer')
                                 <div class="container mb-5 mt-0">
                                     <h5>
-                                    @if (session('liked')) YOU HAVE LIKED THIS SERVICE  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger">Unlike</span>
+                                    @if (session('liked')) YOU HAVE LIKED THIS SERVICE  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger">Unlike</span>@endif
 
-                                        </a>  @else HAPPY WITH THE SERVICE RENDERED? GIVE THIS PROVIDER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!</span> @endif
+                                        {{-- </a>  @else HAPPY WITH THE SERVICE RENDERED? GIVE THIS PROVIDER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!</span> @endif
+                                        </a> --}}
 
-                                        </a>
+                                        <a onclick="likeService({{ $serviceDetail->id }})" href="#" id="likeBtn"><i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning"> Like!</span></a>
                                     </h5>
                                 </div>
                                     {{--              @if (session('success2'))
@@ -278,8 +278,6 @@
                                         </button>
                                         </div>
                                         @endif --}}
-
-                            @endif
                         @endauth
 
                     </div>
@@ -560,7 +558,7 @@
 
 
 <script type="text/javascript">
-        $(document).ready(function() {
+    $(document).ready(function() {
         document.getElementById("complaint_notification").hidden = true;
         $(".btn-submit3").click(function(e){
         e.preventDefault();
@@ -573,9 +571,9 @@
         var buyer_email = $("#buyer_email_report").val();
         var description = $("#description_report").val();
         function greet(){
-                    document.getElementById("complaint_notification").hidden = true;
-                    document.getElementById("complaint_notification").innerHTML = "";
-                }
+            document.getElementById("complaint_notification").hidden = true;
+            document.getElementById("complaint_notification").innerHTML = "";
+        }
          function set(){
               setTimeout(greet, 20000);
          }
@@ -596,4 +594,17 @@
         });
 
     });
+
+    function likeService(id) {
+        $likebtn = document.getElementById('likeBtn');
+        $likeTab = document.getElementById('likeTab');
+        $.ajax({
+            url: '/admin2/like/' + id,
+            method: 'GET',
+            success: function(like){
+                console.log(like);
+            }
+        });
+
+    }
 </script>
