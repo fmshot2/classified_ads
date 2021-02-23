@@ -342,7 +342,7 @@
                             </div>
                             <!-- Sub Categories -->
                             <div class="widget popular-posts">
-                                <h3 class="sidebar-title">Related Categories</h3>
+                                <h3 class="sidebar-title">Related Sub Categories</h3>
                                 <div class="s-border"></div>
                                 <div class="m-border"></div>
                                 @if(isset($sub_categories))
@@ -389,36 +389,37 @@
                             </div>
 
                             <!-- Helping Center start -->
-                            <div class="widget helping-center">
-                                <h3 class="sidebar-title">Helping Center</h3>
-                                <div class="s-border"></div>
-                                <div class="m-border"></div>
-                                <ul class="contact-link">
-                                    <li>
-                                        <i class="flaticon-technology-1"></i>
-                                        <a href="tel:+0700-6258244">
-                                            0700-625-8244
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-technology-1"></i>
-                                        <a href="tel:+0807-9000286">
-                                            0807-900-0286
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
-                                            <i class="fa fa-whatsapp"></i> {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <i class="flaticon-envelope"></i>
-                                        <a href="mailto:info@efcontact.com">
-                                            info@efcontact.com
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                        <div class="widget helping-center">
+                            <h3 class="sidebar-title">Helping Center</h3>
+                            <div class="s-border"></div>
+                            <div class="m-border"></div>
+                            <ul class="contact-link">
+                                <li>
+                                    <i class="flaticon-technology-1"></i>
+                                    <a href="tel:{{ $check_general_info == 0 ? $general_info->hot_line : '' }}">
+                                        {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <i class="flaticon-technology-1"></i>
+                                    <a href="tel:{{ $check_general_info == 0 ? $general_info->hot_line_2 : '' }}">
+                                        {{ $check_general_info == 0 ? $general_info->hot_line_2 : '' }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a style="color: #05cc6c" href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services.">
+                                        <i class="fa fa-whatsapp" style="color: #05cc6c"></i>
+                                        WhatsApp Message
+                                    </a>
+                                </li>
+                                <li>
+                                    <i class="flaticon-envelope"></i>
+                                    <a href="mailto:{{ $check_general_info == 0 ? $general_info->header_email : '' }}">
+                                        {{ $check_general_info == 0 ? $general_info->header_email : '' }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                         </div>
                     </div>
                 </div>

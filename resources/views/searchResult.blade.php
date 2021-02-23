@@ -841,6 +841,37 @@ Home |
                                     <a href="#">{{$featuredService->user->name}}, {{$featuredService->name}}, {{$featuredService->city}}</a>
                                 </h3>
                             </div>
+                        <!-- Helping Center start -->
+                        <div class="widget helping-center">
+                            <h3 class="sidebar-title">Helping Center</h3>
+                            <div class="s-border"></div>
+                            <div class="m-border"></div>
+                            <ul class="contact-link">
+                                <li>
+                                    <i class="flaticon-technology-1"></i>
+                                    <a href="tel:{{ $check_general_info == 0 ? $general_info->hot_line : '' }}">
+                                        {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <i class="flaticon-technology-1"></i>
+                                    <a href="tel:{{ $check_general_info == 0 ? $general_info->hot_line_2 : '' }}">
+                                        {{ $check_general_info == 0 ? $general_info->hot_line_2 : '' }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a style="color: #05cc6c" href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services.">
+                                        <i class="fa fa-whatsapp" style="color: #05cc6c"></i>
+                                        WhatsApp Message
+                                    </a>
+                                </li>
+                                <li>
+                                    <i class="flaticon-envelope"></i>
+                                    <a href="mailto:{{ $check_general_info == 0 ? $general_info->header_email : '' }}">
+                                        {{ $check_general_info == 0 ? $general_info->header_email : '' }}
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                         @endforeach
                         @endif
