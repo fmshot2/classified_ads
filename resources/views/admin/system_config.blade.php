@@ -1,9 +1,5 @@
-
 @extends('layouts.admin')
-
-@section('title')
-System Config | 
-@endsection
+@section('title', 'System Config | ')
 
 
 @section('content')
@@ -11,15 +7,13 @@ System Config |
 
 <div class="content-wrapper" style="min-height: 868px;">
 
-    <br>
-
     <div class="container">
         @include('layouts.backend_partials.status')
     </div>
 
 
     <!-- Main content -->
-    
+
     <section class="content">
         <div class="row">
           <div class="col-md-12">
@@ -73,7 +67,7 @@ System Config |
 
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="site_name" class="control-label">Hot-line3</label>
+                                                <label for="site_name" class="control-label">WhatsApp Number</label>
                                                 <input type="text" name="hotline3" id="hot_line_3" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->hot_line_3 : ''}}">
                                             </div>
                                         </div>
@@ -276,7 +270,7 @@ System Config |
                                         <br><br>
                                     </li>
                                     <li>
-                                        <b class="text-uppercase">Hotline3: </b> {{ $check_general_info == 0 ? $general_info->hot_line_3 : ''}}
+                                        <b class="text-uppercase">WhatsApp: </b> {{ $check_general_info == 0 ? $general_info->hot_line_3 : ''}}
                                         <br><br>
                                     </li>
 
