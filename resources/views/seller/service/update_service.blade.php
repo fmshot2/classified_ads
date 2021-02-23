@@ -1,16 +1,9 @@
 
 @extends('layouts.seller')
 
-@section('title')
-Update Service | 
-@endsection
+@section('title', 'Update Service | ')
 
 @section('content')
-
-<br>
-<hr>
-
-
 
 <div class="content-wrapper" style="min-height: 868px;">
 
@@ -140,11 +133,11 @@ Update Service |
                     <div class="body">
                       <input class="form-control"  name="files[]" multiple type="file">
                       <span class="helper-text" data-error="wrong" data-success="right">Upload one or more images</span>
-                      <small class="text-danger">required*</small>                      
+                      <small class="text-danger">required*</small>
                     </div>
                   </div> --}}
 
-                  
+
 
                   <div class="form-group">
                     <label>Select Category</label>
@@ -154,7 +147,7 @@ Update Service |
                       <option value=" {{ $categories->id }} "> {{ $categories->name }} </option>
                       @endforeach
                     </select>
-                    <small class="text-danger">required*</small>                    
+                    <small class="text-danger">required*</small>
                   </div>
 
                 </div>
@@ -234,12 +227,12 @@ Update Service |
 
                 <tr>
                   <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                 
+
   <form class="" method="GET" action="{{route('service.updateImage', $image )}}" enctype="multipart/form-data">
             {{ csrf_field() }}
-                              <td> 
+                              <td>
                                 <img src="{{asset('uploads/services')}}/{{$image->image_path}}" alt="service image" width="60" class="img-responsive img-rounded">
-                          
+
                             </td>
                   <td><button type="submit" class="btn-danger">Delete</button></td>
                   </form>
@@ -247,7 +240,7 @@ Update Service |
                 @endforeach
 
               </tbody>
-            </table>   
+            </table>
             @endif
 
           </div>
@@ -276,11 +269,14 @@ Update Service |
 
                     <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
                         @csrf
-                        <div class="dz-default dz-message">Drop your service images here</div>
+                        <div class="dz-default dz-message">
+                            Click here to add your images <br>
+                            <small style="color: rgb(182, 66, 66)">When you are done click the upload button down below!</small>
+                        </div>
                     </form>
                     <br>
                     <center>
-                        <button id="submit-all" class="btn btn-success" style="height: 40px;"> Upload all the images</button>
+                        <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
                     </center>
 
                 </div>

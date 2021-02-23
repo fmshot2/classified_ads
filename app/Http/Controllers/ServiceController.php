@@ -793,7 +793,7 @@ if($keyword && $state)
   ->having("distance", "<", $radius)->where(function ($query) use ($keyword) {
     $query->where('name', 'like', '%' . $keyword . '%');
   })->where(function ($query) use ($state) {
-    $query->where('category', 'like', '%' . $category . '%');
+    $query->where('state', 'like', '%' . $state . '%');
   })->with('user')
   ->orderBy("distance",'asc')
   ->offset(0)
