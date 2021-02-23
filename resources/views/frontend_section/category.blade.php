@@ -13,6 +13,7 @@
                     </div>
 
                     <div class="popular-posts featured-service-hm">
+                         @if(isset($featuredServices))
                         @foreach($featuredServices as $featuredService)
                             <div class="media p-2">
                                 <a href="{{route('serviceDetail', $featuredService->slug)}}">
@@ -27,6 +28,7 @@
                                 </div>
                             </div>
                         @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -63,7 +65,7 @@
 
             <div class="col-lg-6 mobile-cat-col">
                 <div class="main-title">
-                    <h1>What service are you looking for?</h1>
+                    <h2>What service are you looking for?</h2>
                 </div>
                 <div class="sidebar-right" style="width: 100%; padding: 15px;">
                     <div class="row wow animated" style="visibility: visible;" style="margin: 0; padding: 0; width: 100%">
@@ -165,6 +167,7 @@
                     </div>
 
                     <div class="popular-posts featured-ad-hm-list" style="margin-top: -10px">
+                        @if(isset($trendingServices))
                         @foreach ($trendingServices as $trendingService)
                             @if ($loop->index < 9)
                                 <div class="media p-2">
@@ -181,28 +184,7 @@
                                 </div>
                             @endif
                         @endforeach
-
-                        {{-- <div class="media p-2">
-                            <div class="media-left">
-                                <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'enugu-2.jpg'}}" alt="First slide">
-                            </div>
-                            <div class="media-body align-self-center">
-                                <p class="fea-ad-hm-location"><strong>Bricklayer Inc.</strong>
-                                </p>
-                                <p class="fea-ad-hm-location"><strong>Location:</strong> Abuja</a></p>
-                            </div>
-                        </div>
-                        <div class="media p-2">
-                            <div class="media-left">
-                               <a href="{{ route('allcities') }}"> <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'abuja-1.jpg'}}" alt="First slide"></a>
-                           </div>
-                           <div class="media-body align-self-center">
-                                <a href="{{ route('allcities') }}">
-                                    <p class="fea-ad-hm-location"><strong>School Teacher</strong></p>
-                                    <p class="fea-ad-hm-location"><strong>Location:</strong> Port Harcourt</a></p>
-                                </a>
-                            </div>
-                        </div> --}}
+                        @endif
                     </div>
                 </div>
             </div>
