@@ -181,11 +181,9 @@
     </div>
 
     <div id="" class="search-section search-area-2">
-        <div class="row justify-content-center">
-            <div class="col-lg-2 col-md-6 col-sm-6 col-6">
-                <div class="form-group">
-                    <a href="{{route('allSellers')}}" class="btn font-weight-bold btn-outline-warning">See all Featured Providers</a>
-                </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a href="{{route('allSellers')}}" class="btn font-weight-bold btn-outline-warning">See all Featured Services</a>
             </div>
         </div>
     </div>
