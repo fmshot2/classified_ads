@@ -290,6 +290,7 @@ public function serviceDetail($slug)
         // dd($images_4_service);
   $serviceDetail_state = $serviceDetail->state;
   $service_likes = Like::where('service_id', $serviceDetail_id)->count();
+  $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$serviceDetail_id])->first();
   $service_category_id = $serviceDetail->category_id;
   $similarProducts = Service::where([['category_id', $service_category_id], ['state', $serviceDetail_state] ])->inRandomOrder()->limit(8)->get();
 
@@ -322,7 +323,7 @@ public function serviceDetail($slug)
     $user111 = null;
   }
 
-  return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages', 'images_4_service', 'the_provider_f_name']));
+  return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages', 'images_4_service', 'the_provider_f_name', 'likecheck']));
 }
 
 

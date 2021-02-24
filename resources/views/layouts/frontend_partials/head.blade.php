@@ -119,7 +119,7 @@
 
         var glide = new Glide('.glide', {
             type: 'carousel',
-            perView: 6,
+            perView: 3,
             gap: 5,
             focusAt: 'center',
             autoplay: 2000,
