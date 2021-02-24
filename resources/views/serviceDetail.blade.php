@@ -171,7 +171,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true" >Like{{  $service_likes > 1 ? 's' : '' }}
                                         <span class="pull-right-container">
-                                            <small id="likeTab" class="label pull-right" style="background-color: #ffc107">{{ $service_likes }}</small>
+                                            <small id="likeTab" class="label pull-right" style="background-color: #f85858">{{ $service_likes }}</small>
                                         </span>
                                     </a>
 
@@ -380,7 +380,7 @@
                                 </div>
 
                                 @guest
-                                    <p style="margin-bottom: 5px"><a href="{{route('home')}}"><strong style="color: #28a745">Login</strong></a> to view contact provider</p>
+                                    <p style="margin-bottom: 5px"><a href="{{route('login')}}"><strong style="color: #28a745">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #ee6363">Register</strong></a> to view <strong>{{ $the_provider_f_name }}</strong> contact details</p>
                                 @endguest
                             </div>
 
