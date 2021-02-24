@@ -31,7 +31,7 @@ function getLocation() {
 
 function showPosition(position) { 
 
-    console.log('ccc', position.coords.latitude);
+    console.log('latitude', position.coords.latitude);
 
         var lat = document.getElementById("latitude_id").value = position.coords.latitude;
     console.log('lat', lat);
@@ -48,7 +48,16 @@ function showPosition(position) {
                      console.log('services', services);
                      console.log('sdsd')
                         services.forEach(service => {
-                            // badge = service.badge_type
+                            badge = service.badge_type
+                            if (badge == 1) {
+                              badge = 'super';
+                            }
+                             if (badge == 2) {
+                              badge = 'moderate';
+                            }
+                             if (badge == 3) {
+                              badge = 'basic';
+                            }
                             // if (service.badge_type == 'trusted') {
                             //   service.badge_type == 'truuuue';
                             // }
@@ -57,7 +66,7 @@ function showPosition(position) {
                                     <div class="property-box">
                                         <div class="property-thumbnail">
                                             <div class="listing-badges">`+
-                                                service.badge_type
+                                                badge
                                             +`</div>
                                             <div class="price-ratings-box">
                                                 <p class="price" style="text-transform: capitalize">
