@@ -95,7 +95,7 @@ class ServiceController extends Controller
 
 
 
-  public function findNearestRestaurants(Request $request)
+  public function findNearestServices(Request $request)
   {
 
 
