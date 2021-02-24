@@ -3,14 +3,15 @@
         @else
             <li id="comment-{{ $comment->id }}" class="media">
                 @endif
-                <img class="mr-3" src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email) }}.jpg?s=64"
+                <img class="mr-3" src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email) }}.jpg?s=54"
                      alt="{{ $comment->commenter->name }} Avatar">
                 <div class="media-body">
-                    <h5 class="mt-0 mb-1">
+                    <h6 class="mt-0 mb-1">
                         {{ $comment->commenter->name }}
                         <small class="text-muted">- {{ $comment->created_at->diffForHumans() }}</small>
-                    </h5>
-                    <div style="white-space: pre-wrap;">
+                    </h6>
+                    {{-- <div style="white-space: pre-wrap;"> --}}
+                    <div>
                         {!! $comment->comment!!}
                     </div>
 
@@ -46,7 +47,7 @@
                             </button>
                         </form>
                     @endcan
-                    rating: {{$comment->rating()}}
+                    Rating: {{$comment->rating()}}
                     @can('comments.vote', $comment)
 
                         <form action="{{route('comments.vote', $comment->id)  }}" method="POST"

@@ -183,6 +183,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="six" aria-selected="true">Comments</a>
+                                    {{-- {{ $serviceDetail->comments->count() }} --}}
                                 </li>
                             </ul>
                             <div class="tab-content" id="carTabContent">

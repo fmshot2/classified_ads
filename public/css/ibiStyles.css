@@ -234,6 +234,26 @@ body {
 .top-header-links a {
     color: #fff !important;
 }
+.top-header-links a:hover {
+    color: rgb(206, 206, 206) !important;
+    text-decoration: none;
+}
+.top-header .list-inline a:hover {
+    color: rgb(206, 206, 206) !important;
+    text-decoration: none;
+}
+.top-header-links {
+    margin-bottom: 0 !important;
+}
+
+.my-properties .inner h5 a {
+    color: rgb(8, 8, 8) !important;
+}
+
+.my-properties .inner h5 a:hover {
+    color: rgb(61, 61, 61) !important;
+    text-decoration: none;
+}
 
 .pulsePostBtn:hover {
     animation: none;
@@ -243,7 +263,10 @@ body {
     border-radius: 0 !important;
     background-color: #ffc107 !important;
     /* background-color: #ca8309; */
-    color: #fff;
+    color: #fff !important;
+}
+.nav-tabs .nav-link {
+    color: rgb(24, 24, 24) !important;
 }
 
 .lightboxOverlay {
