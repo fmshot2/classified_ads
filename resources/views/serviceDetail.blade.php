@@ -3,22 +3,6 @@
 
 @section('title', $serviceDetail->name . ' | ')
 
-<style>
-    .loader {
-        border: 16px solid #f3f3f3; /* Light grey */
-        border-top: 16px solid #3498db; /* Blue */
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        animation: spin 2s linear infinite;
-    }
-
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-</style>
-
 @section('content')
 <!-- Sub banner start -->
 <div class="sub-banner" style="background-image:url({{asset('OurBackend/img/hometeacher.jpg')}})">
@@ -82,9 +66,68 @@
                         <div class="container" style="padding: 0; margin-top: -20px">
                             @if ($images_4_service->count() != 0)
                                 @if ($images_4_service->count() == 1)
-                                    @foreach($images_4_service as $key => $image)
-                                        <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid" alt="properties-small" style="height: 200px">
-                                    @endforeach
+                                    <div class="glide">
+                                        <div class="glide__track" data-glide-el="track">
+                                            <ul class="glide__slides">
+                                                @foreach($images_4_service as $key => $image)
+                                                    <li class="glide__slide">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                                @for ($i = 1; $i < 4; $i++)
+                                                    <li class="glide__slide">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
+                                                        </a>
+                                                    </li>
+                                                @endfor
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @elseif ($images_4_service->count() == 2)
+                                    <div class="glide">
+                                        <div class="glide__track" data-glide-el="track">
+                                            <ul class="glide__slides">
+                                                @foreach($images_4_service as $key => $image)
+                                                    <li class="glide__slide">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                                @for ($i = 1; $i < 3; $i++)
+                                                    <li class="glide__slide">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
+                                                        </a>
+                                                    </li>
+                                                @endfor
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @elseif ($images_4_service->count() == 3)
+                                    <div class="glide">
+                                        <div class="glide__track" data-glide-el="track">
+                                            <ul class="glide__slides">
+                                                @foreach($images_4_service as $key => $image)
+                                                    <li class="glide__slide">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                                @for ($i = 1; $i < 2; $i++)
+                                                    <li class="glide__slide">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
+                                                        </a>
+                                                    </li>
+                                                @endfor
+                                            </ul>
+                                        </div>
+                                    </div>
                                 @else
                                     <div class="glide">
                                         <div class="glide__track" data-glide-el="track">
@@ -92,7 +135,7 @@
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid" alt="properties-small" style="height: 100px;width:auto">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
                                                         </a>
                                                     </li>
                                                 @endforeach
@@ -101,7 +144,13 @@
                                     </div>
                                 @endif
                             @else
-                                <img src="{{asset('noserviceimage.png')}}" class="img-fluid" alt="properties-small" style="height: 200px">
+                                @for ($i = 1; $i <= 4; $i++)
+                                    <li class="glide__slide">
+                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
+                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
+                                        </a>
+                                    </li>
+                                @endfor
                             @endif
                         </div>
 
@@ -122,7 +171,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true" >Like{{  $service_likes > 1 ? 's' : '' }}
                                         <span class="pull-right-container">
-                                            <small id="likeTab" class="label pull-right" style="background-color: #ffc107">{{ $service_likes }}</small>
+                                            <small id="likeTab" class="label pull-right" style="background-color: #f85858">{{ $service_likes }}</small>
                                         </span>
                                     </a>
 
@@ -279,20 +328,19 @@
                             @auth
                                 <div class="container mb-5 mt-0">
                                     <h5>
-                                    @if (session('liked')) YOU HAVE LIKED THIS SERVICE  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger">Unlike</span>@endif
 
                                         {{-- </a>  @else HAPPY WITH THE SERVICE RENDERED? GIVE THIS PROVIDER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!</span> @endif
                                         </a> --}}
 
                                         @auth
-                                            <div id="likeBtn">
-                                                Do you like this service? Give it a <a onclick="likeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-up text-primary" style="font-size: 19px;"></i><span class="text-primary"> Like!</span></a> <div id="loader" class="loader"></div>
+                                            <div id="likeBtn" class="{{ !$likecheck ? 'likeBtnShow' : '' }}">
+                                                Do you like this service? Give it a <a onclick="likeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-up text-primary" style="font-size: 19px;"></i><span class="text-primary"> Like!</span></a>
+                                                {{-- <span id="loader" class="loader"></span> --}}
                                             </div>
-
-                                            <div id="dislikeBtn">
-                                                You have liked this service already. <a onclick="disLikeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger"> Dislike!</span></a> <div id="loader" class="loader"></div>
+                                            <div id="dislikeBtn" class="{{ $likecheck ? 'disLikeBtnShow' : '' }}">
+                                                You have liked this service already. <a onclick="disLikeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger"> Dislike!</span></a>
+                                                {{-- <span id="loader" class="loader"></span> --}}
                                             </div>
-
                                         @endauth
                                     </h5>
                                 </div>
@@ -332,7 +380,7 @@
                                 </div>
 
                                 @guest
-                                    <p style="margin-bottom: 5px"><a href="{{route('home')}}"><strong style="color: #28a745">Login</strong></a> to view contact provider</p>
+                                    <p style="margin-bottom: 5px"><a href="{{route('login')}}"><strong style="color: #28a745">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #ee6363">Register</strong></a> to view <strong>{{ $the_provider_f_name }}</strong> contact details</p>
                                 @endguest
                             </div>
 
@@ -619,6 +667,9 @@
         });
 
         $('#dislikeBtn').hide();
+        $('#likeBtn').hide();
+        $('.likeBtnShow').show();
+        $('.disLikeBtnShow').show();
         $('#loader').hide();
 
     });
@@ -628,7 +679,6 @@
         dislikebtn = document.getElementById('dislikeBtn');
         liketab = document.getElementById('likeTab');
         loader = document.getElementById('loader');
-        $('#loader').show();
 
         $.ajax({
             url: '/admin2/like/' + id,
@@ -636,7 +686,6 @@
             success: function(like){
                 dislikebtn.style.display = 'block';
                 likebtn.style.display = 'none';
-                $('#loader').hide();
                 liketab.innerHTML = like;
             }
         });
@@ -648,14 +697,13 @@
         dislikebtn = document.getElementById('dislikeBtn');
         likeTab = document.getElementById('likeTab');
         loader = document.getElementById('loader');
-        $('#loader').show();
+
         $.ajax({
             url: '/admin2/like/' + id,
             method: 'GET',
             success: function(like){
                 dislikebtn.style.display = 'none';
                 likebtn.style.display = 'block';
-                $('#loader').hide();
                 liketab.innerHTML = like;
                 console.log(like);
             }
