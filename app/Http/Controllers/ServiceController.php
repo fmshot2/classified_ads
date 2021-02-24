@@ -105,7 +105,7 @@ class ServiceController extends Controller
     $radius = 100000;
         // $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
         // $featuredServices->image();
-    $servicesss = Service::selectRaw("id, name, address, thumbnail, user_id, badge_type, slug,
+    $servicesss = Service::selectRaw("id, name, address, thumbnail, user_id, badge_type, slug, state,
      ( 6371000 * acos( cos( radians(?) ) *
      cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -1399,9 +1399,7 @@ public function show($id)
       public function createpay(Request $request)
       {
        $data = $request->all();
-       //return 'nnn';
 
-        //return $data['service_id'];
        $badge_service_id = $data['service_id'];
 
 
@@ -1410,7 +1408,6 @@ public function show($id)
         'email' => 'required',
       ]);
        $service_check = Service::where(['id'=>$badge_service_id])->first();
-       //return $service_check->badge_type;
        $service_check->badge_type = $data['badge_type'];
        $service_check->save();
        $badge_check = Badge::where(['service_id'=>$badge_service_id])->first();
@@ -1419,8 +1416,7 @@ public function show($id)
         $badge_check->badge_type = $data['badge_type'];
 
         $badge_check->amount = $data['amount'];
-        $badge_check->ref_no = $data['ref_no'];
-  //$badge_check->service_id = $data['service_id'];
+        $badge_check->ref_no = 1234;
 
         $badge_check->save();
         return "Badge Updated successfully!";
@@ -1432,8 +1428,7 @@ public function show($id)
        $badge->amount = $data['amount'];
        $badge->seller_name = $data['seller_name'];
        $badge->phone = $data['phone'];
-       $badge->ref_no = $data['ref_no'];
-        //$badge->service_id = $data['service_id'];
+       $badge->ref_no = 1234;
 
        $badge->save();
        return "Badge created successfully";

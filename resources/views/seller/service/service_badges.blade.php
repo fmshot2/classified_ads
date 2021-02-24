@@ -171,13 +171,13 @@ Create Service |
                     <script src="https://js.paystack.co/v1/inline.js"></script>
                     {{--  @if(isset($service_select))--}}
 
-                    <button id="paystack_btn_control1" type="button" class="btn btn-warning" onclick="payWithPaystack1()"> MAKE PAYMENT </button>
+                    <button id="paystack_btn_control1" type="button" class="btn btn-warning" onclick="payWithoutPaystack()"> MAKE PAYMENT </button>
                     <small id="error_msg_paystack1" class="text-danger"></small>
                     
                     {{--@endif--}}
         {{-- @if(!isset($service_select))
 
-  <button type="button" disabled class="btn btn-warning" onclick="payWithPaystack1()"> You need to choose a service before you can submit </button> 
+  <button type="button" disabled class="btn btn-warning" onclick="payWithoutPaystack()"> You need to choose a service before you can submit </button> 
   @endif--}}
 
   {{--<button type="button" class="btn btn-submit2 btn-warning"> MAKE confirm </button> --}}
@@ -358,6 +358,43 @@ Create Service |
     }
   }); */
 </script>
+
+<script>
+  base_Url = "{{url('/')}}";
+
+ var _token = $("input[name='_token']").val();
+
+var email1 = $("#email-address1").val();
+var amount1 = $("#amount1").val();
+var seller_id1 = $("#seller_id1").val();
+var badge_type1 = $("#badge_type1").val();
+var seller_name1 = $("#seller_name1").val();
+var phone1 = $("#phone1").val();
+function payWithoutPaystack(){
+  var new_id = document.getElementById("form_service_id").value;
+
+  $.ajax({
+    type:'POST',
+    {{--url: "{{ route('user.message2') }}",--}}
+                    url: base_Url + '/provider/service/createpay/',
+                    data: {_token:_token, email:email1, 
+                    amount:amount1, seller_id:seller_id1,
+                     badge_type:badge_type1, seller_name:seller_name1, 
+                     phone:phone1,
+                     service_id: new_id
+                      },
+                    success: function(data) {
+                      alert(data);
+                      console.log('data');
+                    }
+                  });
+
+}                  
+     //       console.log(response);
+       //   alert('success. transaction ref is ' + response.reference);
+</script>
+
+
 <script> 
   base_Url = "{{url('/')}}"
  var _token = $("input[name='_token']").val();
@@ -393,13 +430,7 @@ Create Service |
     callback: function(response){
       var ref_no1 = response.reference;
       console.log(ref_no1);
-       /* $.ajax({
-    url: 'http://www.yoururl.com/verify_transaction?reference='+ response.reference,
-    method: 'get',
-    success: function (response) {
-      // the transaction status is in response.data.status
-    }
-  });*/
+     
   $.ajax({
     type:'POST',
     {{--url: "{{ route('user.message2') }}",--}}

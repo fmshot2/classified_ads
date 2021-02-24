@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
+use App\Image as ServiceImage;
 use App\Service;
 use Illuminate\Http\Request;
+use Image;
 
 class ServiceImageController extends Controller
 {
@@ -19,7 +20,7 @@ class ServiceImageController extends Controller
         ]);
     }
 
-    public function imagesStore(Request $request, $service_id)
+  public function imagesStore(Request $request, $service_id)
     {
         $image = $request->file('file');
         $fileInfo = $image->getClientOriginalName();
@@ -37,10 +38,9 @@ class ServiceImageController extends Controller
 
     }
 
-
     public function imagesDelete($id)
     {
-        $image = Image::find($id);
+        $image = ServiceImage::find($id);
         $filename = $image->image_path;
         $image->delete();
 
