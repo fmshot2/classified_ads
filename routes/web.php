@@ -331,7 +331,7 @@ $longitude = $json['longitude'];
 
 Route::get ( 'geolo',  'AdminController@geo')->name('geolo');
 
-Route::get ( 'findgeo',  'ServiceController@findNearestRestaurants');
+Route::get ( 'findgeo',  'ServiceController@findNearestServices');
 Route::get ( 'findLat',  'AdminController@findNearestRestaurants');
 
 
