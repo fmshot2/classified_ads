@@ -43,7 +43,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -78,7 +79,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -113,7 +115,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -145,7 +148,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -188,7 +192,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -223,7 +228,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -258,7 +264,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -290,7 +297,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -333,7 +341,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -368,7 +377,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -403,7 +413,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 50) }}</a>
+                                                        <a class="title" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 30) }}</a>
+                                                        <a class="title" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -435,7 +446,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -478,7 +490,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -513,7 +526,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 30) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -548,7 +562,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -580,7 +595,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -623,7 +639,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -658,7 +675,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -693,7 +711,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services5->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services5->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services5->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -725,7 +744,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">

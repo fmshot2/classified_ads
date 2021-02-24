@@ -241,7 +241,7 @@ body {
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-link:hover {
     border-radius: 0 !important;
-    background-color: #ffc107;
+    background-color: #ffc107 !important;
     /* background-color: #ca8309; */
     color: #fff;
 }
@@ -1190,6 +1190,9 @@ h6 {
     height: 200px;
     width: auto;
 }
+.title-mb {
+    display: none;
+}
 @media (max-width: 768px) {
     .searchResultPage {
         margin-top: 0 !important;
@@ -1215,5 +1218,12 @@ h6 {
     .glide-img {
         height: 100px;
         width: auto;
+    }
+    .title-mb {
+        display: block;
+        font-size: 14px !important;
+    }
+    .title-dk {
+        display: none;
     }
 }

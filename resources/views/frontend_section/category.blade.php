@@ -14,20 +14,22 @@
 
                     <div class="popular-posts featured-service-hm">
                          @if(isset($featuredServices))
-                        @foreach($featuredServices as $featuredService)
-                            <div class="media p-2">
-                                <a href="{{route('serviceDetail', $featuredService->slug)}}">
-                                    <div class="media-left">
-                                        <img class="media-object" src="{{asset('uploads/services')}}/{{ $featuredService->service_image}}" alt="sub-properties">
-                                    </div>
-                                </a>
-                                <div class="media-body align-self-center">
-                                    <h3 class="media-heading"><a href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 30)}}</a></h3>
+                            @foreach($featuredServices as $featuredService)
+                                @if ($loop->index < 20)
+                                    <div class="media p-2">
+                                        <a href="{{route('serviceDetail', $featuredService->slug)}}">
+                                            <div class="media-left">
+                                                <img class="media-object" src="{{asset('uploads/services')}}/{{ $featuredService->service_image}}" alt="sub-properties">
+                                            </div>
+                                        </a>
+                                        <div class="media-body align-self-center">
+                                            <h3 class="media-heading"><a href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 30)}}</a></h3>
 
-                                    <p class="fea-ad-hm-location"><strong>Location:</strong> <a href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->state, 30)}}</a></p>
-                                </div>
-                            </div>
-                        @endforeach
+                                            <p class="fea-ad-hm-location"><strong>Location:</strong> <a href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->state, 30)}}</a></p>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
                         @endif
                     </div>
                 </div>
@@ -46,7 +48,7 @@
                                         <div class="cat-image-icon">
                                             <a href="{{route('services', $category->slug)}}" >
                                                 <div style="border-radius: 50px;">
-                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px;" alt="properties">
+                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px;" alt="{{$category->name}}">
                                                 </div>
                                             </a>
 
@@ -76,7 +78,7 @@
                                         <div class="cat-image-icon">
                                             <a href="{{route('services', $category->slug)}}" >
                                                 <div style="border-radius: 50px">
-                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="properties">
+                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="{{$category->name}}">
                                                 </div>
                                             </a>
 
@@ -105,7 +107,7 @@
                                         <div class="cat-image-icon">
                                             <a href="{{route('services', $category->slug)}}" >
                                                 <div style="border-radius: 50px">
-                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="properties">
+                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="{{$category->name}}">
                                                 </div>
                                             </a>
 
@@ -169,7 +171,7 @@
                     <div class="popular-posts featured-ad-hm-list" style="margin-top: -10px">
                         @if(isset($trendingServices))
                         @foreach ($trendingServices as $trendingService)
-                            @if ($loop->index < 9)
+                            @if ($loop->index < 20)
                                 <div class="media p-2">
                                     <a href="{{ route('serviceDetail', $trendingService->slug) }}">
                                         <div class="media-left">
