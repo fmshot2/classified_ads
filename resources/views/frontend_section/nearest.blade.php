@@ -40,7 +40,7 @@
                                         </p>
                                     </div>
                                     <div class="listing-time opening">{{ Str::limit($nearestService->user->name, 10) }}</div>
-                                       <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$nearestService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                       <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$nearestService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $nearestService->name }}">
                                  {{--    <img class="d-block w-100" src="{{asset('images')}}/{{$featuredService->image[0] ?? ''}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties"> --}}
 
                                 </div>
@@ -84,7 +84,7 @@
                                         </p>
                                     </div>
                                     <div class="listing-time opening">{{ Str::limit($superService->user->name, 10) }}</div>
-                                       <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$superService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">                              
+                                       <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$superService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                                 </div>
                                 <div class="detail">
                                     <div>

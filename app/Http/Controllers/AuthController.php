@@ -184,8 +184,11 @@ $referlink = $refer;
 				return redirect()->route('seller.dashboard');
 			} else if (Auth::user()->role == 'buyer')
 			{
-				session()->flash('success', ' Login Succesfull');
-				return redirect()->route('buyer.dashboard');
+				// session()->flash('success', ' Login Succesfull');
+				// return redirect()->route('buyer.dashboard');
+
+                return Redirect::to(Session::get('url.intended'));
+
 			} else
 			{
 				return redirect()->route('admin.dashboard');
@@ -197,9 +200,12 @@ $referlink = $refer;
 
 	}
 
-	public function showLogin ()
+	public function showLogin (Request $request)
 	{
-		if (Auth::check()) {
+		$request->session()->forget('url.intended');
+        session(['url.intended' => url()->previous()]);
+
+        if (Auth::check()) {
 			return view ('welcome');
 		}
 		return view ('auth/login');

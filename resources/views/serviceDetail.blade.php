@@ -181,6 +181,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="six-tab" data-toggle="tab" href="#six" role="tab" aria-controls="six" aria-selected="true">Similar Services</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="six" aria-selected="true">Comments</a>
+                                    {{-- {{ $serviceDetail->comments->count() }} --}}
+                                </li>
                             </ul>
                             <div class="tab-content" id="carTabContent">
                                 <div class="tab-pane fade active show" id="one" role="tabpanel" aria-labelledby="one-tab">
@@ -205,14 +209,6 @@
                                         <iframe width="560" height="315" src="{{$serviceDetail->video_link}}" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                 </div>
-                                {{-- <div class="tab-pane fade " id="five" role="tabpanel" aria-labelledby="five-tab">
-                                    <div class="properties-description mb-50">
-                                        <h3 class="heading-2">
-                                            Address
-                                        </h3>
-                                        <p>{{$serviceDetail->streetAddress}} | {{$serviceDetail->city}} | &nbsp; {{$serviceDetail->state}}</p>
-                                    </div>
-                                </div> --}}
                                 <div class="tab-pane fade" id="six" role="tabpanel" aria-labelledby="six-tab">
                                     <div class="properties-description mb-50">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -278,6 +274,12 @@
                                                 <strong><i class="fa fa-map-marker"></i> Address:</strong> {{$serviceDetail->streetAddress}} | {{$serviceDetail->city}} | &nbsp; {{$serviceDetail->state}}
                                             </p>
                                         @endauth
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade " id="comment" role="tabpanel" aria-labelledby="five-tab">
+                                    <div class="properties-description mb-50">
+                                        {{-- {{ $serviceDetail->comments }} --}}
+                                        <x-comments :model="$serviceDetail"/>
                                     </div>
                                 </div>
                             </div>
@@ -380,7 +382,7 @@
                                 </div>
 
                                 @guest
-                                    <p style="margin-bottom: 5px"><a href="{{route('login')}}"><strong style="color: #28a745">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #ee6363">Register</strong></a> to view <strong>{{ $the_provider_f_name }}</strong> contact details</p>
+                                    <p style="margin-bottom: 5px"><a href="{{route('login')}}"><strong style="color: #28a745">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #ee6363">Register</strong></a> to view <strong>{{ $the_provider_f_name }}</strong> contact details.</p>
                                 @endguest
                             </div>
 
