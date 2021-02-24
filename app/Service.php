@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 
-class Service extends Model implements Viewable
+use tizis\laraComments\Contracts\ICommentable;
+use tizis\laraComments\Traits\Commentable;
+
+class Service extends Model implements Viewable, ICommentable
 {
-    use InteractsWithViews;
+    use InteractsWithViews, Commentable;
 
     protected $removeViewsOnDelete = true;
     protected $guarded = [];

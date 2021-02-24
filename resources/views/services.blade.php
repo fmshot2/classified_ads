@@ -52,7 +52,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                   <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                   <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
                                         </div>
@@ -70,7 +70,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
                                             <div class="detail">
@@ -104,7 +104,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
 
@@ -136,7 +136,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
 
@@ -182,7 +182,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
                                             <div class="detail">
@@ -216,7 +216,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
                                             <div class="detail">
@@ -250,7 +250,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
                                             <div class="detail">
@@ -281,7 +281,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
                                             <div class="detail">

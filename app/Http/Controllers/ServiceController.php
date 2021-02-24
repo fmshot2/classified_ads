@@ -105,7 +105,7 @@ class ServiceController extends Controller
     $radius = 100000;
         // $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
         // $featuredServices->image();
-    $servicesss = Service::selectRaw("id, name, address, thumbnail, user_id, badge_type, slug, state,
+    $servicesss = Service::selectRaw("id, name, address, state, thumbnail, user_id, badge_type, slug,
      ( 6371000 * acos( cos( radians(?) ) *
      cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
