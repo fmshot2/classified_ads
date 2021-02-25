@@ -35,7 +35,7 @@
                     </form>
                     @endcan
                     </p>
-                    <p>
+                    {{-- <p>
                     @can('comments.vote', $comment)
 
                         <form action="{{route('comments.vote', $comment->id)  }}" method="POST"
@@ -58,8 +58,8 @@
                                 +1
                             </button>
                         </form>
-                        @endcan
-                        </p>
+                    @endcan
+                    </p> --}}
 
 
                         @include('comments::components.comment.forms')
