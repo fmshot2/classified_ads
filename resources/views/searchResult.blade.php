@@ -38,12 +38,13 @@
                                                             {{ Str::limit($services1->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services1->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services1->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -73,12 +74,13 @@
                                                             {{ Str::limit($services1->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services1->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services1->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -108,12 +110,13 @@
                                                             {{ Str::limit($services1->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services1->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services1->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -140,12 +143,13 @@
                                                             {{ Str::limit($services1->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services1->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services1->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -183,12 +187,13 @@
                                                             {{ Str::limit($services2->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services2->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services2->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -218,12 +223,13 @@
                                                             {{ Str::limit($services2->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services2->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services2->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -253,12 +259,13 @@
                                                             {{ Str::limit($services2->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services2->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services2->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -285,12 +292,13 @@
                                                             {{ Str::limit($services2->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services2->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services2->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -328,12 +336,13 @@
                                                             {{ Str::limit($services3->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services3->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services3->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -363,12 +372,13 @@
                                                             {{ Str::limit($services3->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services3->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services3->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -398,12 +408,13 @@
                                                             {{ Str::limit($services3->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services3->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services3->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 50) }}</a>
+                                                        <a class="title" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 30) }}</a>
+                                                        <a class="title" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -430,12 +441,13 @@
                                                             {{ Str::limit($services3->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services3->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services3->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -473,12 +485,13 @@
                                                             {{ Str::limit($services4->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services4->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services4->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -508,12 +521,13 @@
                                                             {{ Str::limit($services4->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services4->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services4->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 30) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -543,12 +557,13 @@
                                                             {{ Str::limit($services4->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services4->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services4->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -575,12 +590,13 @@
                                                             {{ Str::limit($services4->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services4->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services4->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -618,12 +634,13 @@
                                                             {{ Str::limit($services5->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services5->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services5->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -653,12 +670,13 @@
                                                             {{ Str::limit($services5->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services5->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services5->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -688,12 +706,13 @@
                                                             {{ Str::limit($services5->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services5->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services5->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services5->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services5->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services5->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -720,12 +739,13 @@
                                                             {{ Str::limit($services5->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services5->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services5->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">

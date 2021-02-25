@@ -105,7 +105,7 @@ class ServiceController extends Controller
     $radius = 100000;
         // $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
         // $featuredServices->image();
-    $servicesss = Service::selectRaw("id, name, address, thumbnail, user_id, badge_type, slug,
+    $servicesss = Service::selectRaw("id, name, address, state, thumbnail, user_id, badge_type, slug,
      ( 6371000 * acos( cos( radians(?) ) *
      cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -290,6 +290,7 @@ public function serviceDetail($slug)
         // dd($images_4_service);
   $serviceDetail_state = $serviceDetail->state;
   $service_likes = Like::where('service_id', $serviceDetail_id)->count();
+  $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$serviceDetail_id])->first();
   $service_category_id = $serviceDetail->category_id;
   $similarProducts = Service::where([['category_id', $service_category_id], ['state', $serviceDetail_state] ])->inRandomOrder()->limit(8)->get();
 
@@ -322,7 +323,7 @@ public function serviceDetail($slug)
     $user111 = null;
   }
 
-  return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages', 'images_4_service', 'the_provider_f_name']));
+  return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages', 'images_4_service', 'the_provider_f_name', 'likecheck']));
 }
 
 
@@ -464,6 +465,12 @@ public function index()
       return view ('seller.addService', compact(['categories']));
     }
 
+    public function dropzone()
+    {
+
+      return view ('seller.service.create_blade_copy');
+    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -1246,7 +1253,8 @@ public function show($id)
            Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
            $likecount = Like::where(['service_id'=>$id])->count();
            // return redirect()->to('serviceDetail/'.$service_slug);
-           return back()->with('liked', 'Unliked');
+        //    return back()->with('liked', 'Unliked', );
+            return $likecount;
 
         //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
         //return redirect('/home');
@@ -1257,7 +1265,8 @@ public function show($id)
            $like->save();
            $likecount = Like::where(['service_id'=>$id])->count();
            // return redirect()->to('serviceDetail/'.$service_slug);
-           return back();
+        //    return back();
+            return $likecount;
 
         //return 'Heyyyyy22222'. $likecount;
          }

@@ -23,8 +23,12 @@ function getLocation() {
    var res = "Geolocation is not supported by this browser.";
   }
 }
-function showPosition(position) { 
-    console.log('ccc', position.coords.latitude);
+
+
+function showPosition(position) {
+
+    console.log('latitude', position.coords.latitude);
+
         var lat = document.getElementById("latitude_id").value = position.coords.latitude;
     console.log('lat', lat);
      var long = document.getElementById("longitude_id").value = position.coords.longitude;
@@ -37,7 +41,19 @@ function showPosition(position) {
                     services = result.data;
                      console.log('services', services);
                         services.forEach(service => {
-                            // badge = service.badge_type
+                            badge = service.badge_type
+                            if (badge == 1) {
+                              badge = '<span class="featured bg-warning" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Super</span>';
+                            }
+                            if (badge == 2) {
+                              badge = '<span class="featured bg-success" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i><i class="fa fa-star"></i> Moderate</span>';
+                            }
+                            if (badge == 3) {
+                              badge = '<span class="featured bg-primary" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Basic</span>';
+                            }
+                            if (badge == 4) {
+                              badge = '';
+                            }
                             // if (service.badge_type == 'trusted') {
                             //   service.badge_type == 'truuuue';
                             // }
@@ -46,7 +62,7 @@ function showPosition(position) {
                                     <div class="property-box">
                                         <div class="property-thumbnail">
                                             <div class="listing-badges">`+
-                                                service.badge_type
+                                                badge
                                             +`</div>
                                             <div class="price-ratings-box">
                                                 <p class="price" style="text-transform: capitalize">
@@ -57,16 +73,12 @@ function showPosition(position) {
                                         </div>
                                         <div class="detail">
                                             <div>
-                                                <a class="title" href="">`+ service.name + `</a>
+                                                <a class="title title-dk" href="">`+ service.name.substring(0, 30) + `</a>
+                                                <a class="title title-mb" href="">`+ service.name.substring(0, 15) + "..." + `</a>
                                             </div>
                                             <ul class="d-flex flex-row justify-content-between info">
                                                 <li>
-                                                    <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> Likes
-                                                </li>
-                                                <li>
-                                                    <a class="pull-right" href="">
-                                                        <i class="fa fa-map-marker text-warning"></i> `+ service.state + `
-                                                    </a>
+                                                    <i class="fa fa-map-marker text-warning"></i> `+ service.state.substring(0, 5) + `
                                                 </li>
                                             </ul>
                                         </div>

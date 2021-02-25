@@ -21,6 +21,7 @@
         "malhal/laravel-geographical": "^1.0",
         "mews/captcha": "^3.2",
         "spatie/geocoder": "^3.10",
+        "tizis/lara-comments": "^3.0",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

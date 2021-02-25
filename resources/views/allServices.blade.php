@@ -94,11 +94,12 @@
                                                             {{ Str::limit($approvedService->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$approvedService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$approvedService->service_image}}" alt="{{ $approvedService->name }}">
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -107,7 +108,7 @@
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('serviceDetail', $approvedService->slug)}}">
-                                                                <i class="fa fa-map-marker text-warning"></i> {{$approvedService->state}}
+                                                                <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($approvedService->state, 5) }}
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -128,11 +129,12 @@
                                                             {{ Str::limit($approvedService->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$approvedService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$approvedService->service_image}}" alt="{{ $approvedService->name }}">
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -141,7 +143,7 @@
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('serviceDetail', $approvedService->slug)}}">
-                                                                <i class="fa fa-map-marker text-warning"></i> {{$approvedService->state}}
+                                                                <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($approvedService->state, 5) }}
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -162,11 +164,12 @@
                                                             {{ Str::limit($approvedService->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$approvedService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$approvedService->service_image}}" alt="{{ $approvedService->name }}">
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -175,7 +178,7 @@
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('serviceDetail', $approvedService->slug)}}">
-                                                                <i class="fa fa-map-marker text-warning"></i> {{$approvedService->state}}
+                                                                <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($approvedService->state, 5) }}
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -193,11 +196,12 @@
                                                             {{ Str::limit($approvedService->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$approvedService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$approvedService->service_image}}" alt="{{ $approvedService->name }}">
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 50) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 30) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -206,7 +210,7 @@
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('serviceDetail', $approvedService->slug)}}">
-                                                                <i class="fa fa-map-marker text-warning"></i> {{$approvedService->state}}
+                                                                <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($approvedService->state, 5) }}
                                                             </a>
                                                         </li>
                                                     </ul>

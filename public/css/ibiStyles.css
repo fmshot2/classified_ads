@@ -234,6 +234,26 @@ body {
 .top-header-links a {
     color: #fff !important;
 }
+.top-header-links a:hover {
+    color: rgb(206, 206, 206) !important;
+    text-decoration: none;
+}
+.top-header .list-inline a:hover {
+    color: rgb(206, 206, 206) !important;
+    text-decoration: none;
+}
+.top-header-links {
+    margin-bottom: 0 !important;
+}
+
+.my-properties .inner h5 a {
+    color: rgb(8, 8, 8) !important;
+}
+
+.my-properties .inner h5 a:hover {
+    color: rgb(61, 61, 61) !important;
+    text-decoration: none;
+}
 
 .pulsePostBtn:hover {
     animation: none;
@@ -241,9 +261,12 @@ body {
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-link:hover {
     border-radius: 0 !important;
-    background-color: #ffc107;
+    background-color: #ffc107 !important;
     /* background-color: #ca8309; */
-    color: #fff;
+    color: #fff !important;
+}
+.nav-tabs .nav-link {
+    color: rgb(24, 24, 24) !important;
 }
 
 .lightboxOverlay {
@@ -691,8 +714,11 @@ h6 {
     .content-area {
         margin-top: 150px !important;
     }
-    img.d-block.w-100 {
+    .homepage-top-banner .carousel-inner img.d-block.w-100 {
         height: auto !important;
+    }
+    img.d-block.w-100 {
+        height: 140px !important;
     }
     .home-recently-properties .hm-top-row {
         width: 100%;
@@ -1167,6 +1193,46 @@ h6 {
     text-transform: capitalize;
     font-size: 12px;
 }
+.loader {
+    display: inline-block;
+    border: 5px solid #f3f3f3; /* Light grey */
+    border-top: 5px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.glide-img {
+    height: 200px;
+    width: auto;
+}
+.title-mb {
+    display: none;
+}
+
+.service_images {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+.likeBtnShow a:hover {
+    text-decoration: none !important;
+    color: rgb(144, 183, 255) !important;
+}
+#dislikeBtn a:hover {
+    text-decoration: none !important;
+    color: rgb(247, 148, 148) !important;
+}
 
 @media (max-width: 768px) {
     .searchResultPage {
@@ -1189,5 +1255,16 @@ h6 {
     }
     .sub-banner-text-content ul {
         display: none !important;
+    }
+    .glide-img {
+        height: 100px;
+        width: auto;
+    }
+    .title-mb {
+        display: block;
+        font-size: 14px !important;
+    }
+    .title-dk {
+        display: none;
     }
 }

@@ -66,9 +66,68 @@
                         <div class="container" style="padding: 0; margin-top: -20px">
                             @if ($images_4_service->count() != 0)
                                 @if ($images_4_service->count() == 1)
-                                    @foreach($images_4_service as $key => $image)
-                                        <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid" alt="properties-small" style="height: 200px">
-                                    @endforeach
+                                    <div class="glide">
+                                        <div class="glide__track" data-glide-el="track">
+                                            <ul class="glide__slides">
+                                                @foreach($images_4_service as $key => $image)
+                                                    <li class="glide__slide">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                                @for ($i = 1; $i < 4; $i++)
+                                                    <li class="glide__slide">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
+                                                        </a>
+                                                    </li>
+                                                @endfor
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @elseif ($images_4_service->count() == 2)
+                                    <div class="glide">
+                                        <div class="glide__track" data-glide-el="track">
+                                            <ul class="glide__slides">
+                                                @foreach($images_4_service as $key => $image)
+                                                    <li class="glide__slide">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                                @for ($i = 1; $i < 3; $i++)
+                                                    <li class="glide__slide">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
+                                                        </a>
+                                                    </li>
+                                                @endfor
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @elseif ($images_4_service->count() == 3)
+                                    <div class="glide">
+                                        <div class="glide__track" data-glide-el="track">
+                                            <ul class="glide__slides">
+                                                @foreach($images_4_service as $key => $image)
+                                                    <li class="glide__slide">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                                @for ($i = 1; $i < 2; $i++)
+                                                    <li class="glide__slide">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
+                                                        </a>
+                                                    </li>
+                                                @endfor
+                                            </ul>
+                                        </div>
+                                    </div>
                                 @else
                                     <div class="glide">
                                         <div class="glide__track" data-glide-el="track">
@@ -76,7 +135,7 @@
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid" alt="properties-small" style="height: 100px;width:auto">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
                                                         </a>
                                                     </li>
                                                 @endforeach
@@ -85,7 +144,13 @@
                                     </div>
                                 @endif
                             @else
-                                <img src="{{asset('noserviceimage.png')}}" class="img-fluid" alt="properties-small" style="height: 200px">
+                                @for ($i = 1; $i <= 4; $i++)
+                                    <li class="glide__slide">
+                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
+                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
+                                        </a>
+                                    </li>
+                                @endfor
                             @endif
                         </div>
 
@@ -104,9 +169,9 @@
                                     <a class="nav-link" id="five-tab" data-toggle="tab" href="#five" role="tab" aria-controls="five" aria-selected="true">Location</a>
                                 </li> --}}
                                 <li class="nav-item">
-                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }}
+                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true" >Like{{  $service_likes > 1 ? 's' : '' }}
                                         <span class="pull-right-container">
-                                            <small class="label pull-right" style="background-color: #ffc107">{{ $service_likes }}</small>
+                                            <small id="likeTab" class="label pull-right" style="background-color: #f85858">{{ $service_likes }}</small>
                                         </span>
                                     </a>
 
@@ -115,6 +180,10 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="six-tab" data-toggle="tab" href="#six" role="tab" aria-controls="six" aria-selected="true">Similar Services</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="six" aria-selected="true">Comments</a>
+                                    {{-- {{ $serviceDetail->comments->count() }} --}}
                                 </li>
                             </ul>
                             <div class="tab-content" id="carTabContent">
@@ -140,14 +209,6 @@
                                         <iframe width="560" height="315" src="{{$serviceDetail->video_link}}" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                 </div>
-                                {{-- <div class="tab-pane fade " id="five" role="tabpanel" aria-labelledby="five-tab">
-                                    <div class="properties-description mb-50">
-                                        <h3 class="heading-2">
-                                            Address
-                                        </h3>
-                                        <p>{{$serviceDetail->streetAddress}} | {{$serviceDetail->city}} | &nbsp; {{$serviceDetail->state}}</p>
-                                    </div>
-                                </div> --}}
                                 <div class="tab-pane fade" id="six" role="tabpanel" aria-labelledby="six-tab">
                                     <div class="properties-description mb-50">
                                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -215,6 +276,12 @@
                                         @endauth
                                     </div>
                                 </div>
+                                <div class="tab-pane fade " id="comment" role="tabpanel" aria-labelledby="five-tab">
+                                    <div class="properties-description mb-50">
+                                        {{-- {{ $serviceDetail->comments }} --}}
+                                        <x-comments :model="$serviceDetail"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -261,14 +328,22 @@
                                 </span> @endif --}}
 
                             @auth
-                            @if(Auth::user()->role == 'buyer')
                                 <div class="container mb-5 mt-0">
                                     <h5>
-                                    @if (session('liked')) YOU HAVE LIKED THIS SERVICE  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger">Unlike</span>
 
-                                        </a>  @else HAPPY WITH THE SERVICE RENDERED? GIVE THIS PROVIDER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!</span> @endif
+                                        {{-- </a>  @else HAPPY WITH THE SERVICE RENDERED? GIVE THIS PROVIDER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!</span> @endif
+                                        </a> --}}
 
-                                        </a>
+                                        @auth
+                                            <div id="likeBtn" class="{{ !$likecheck ? 'likeBtnShow' : '' }}">
+                                                Do you like this service? Give it a <a onclick="likeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-up text-primary" style="font-size: 19px;"></i><span class="text-primary"> Like!</span></a>
+                                                {{-- <span id="loader" class="loader"></span> --}}
+                                            </div>
+                                            <div id="dislikeBtn" class="{{ $likecheck ? 'disLikeBtnShow' : '' }}">
+                                                You have liked this service already. <a onclick="disLikeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger"> Dislike!</span></a>
+                                                {{-- <span id="loader" class="loader"></span> --}}
+                                            </div>
+                                        @endauth
                                     </h5>
                                 </div>
                                     {{--              @if (session('success2'))
@@ -278,8 +353,6 @@
                                         </button>
                                         </div>
                                         @endif --}}
-
-                            @endif
                         @endauth
 
                     </div>
@@ -309,7 +382,7 @@
                                 </div>
 
                                 @guest
-                                    <p style="margin-bottom: 5px"><a href="{{route('home')}}"><strong style="color: #28a745">Login</strong></a> to view contact provider</p>
+                                    <p style="margin-bottom: 5px"><a href="{{route('login')}}"><strong style="color: #28a745">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #ee6363">Register</strong></a> to view <strong>{{ $the_provider_f_name }}</strong> contact details.</p>
                                 @endguest
                             </div>
 
@@ -560,7 +633,7 @@
 
 
 <script type="text/javascript">
-        $(document).ready(function() {
+    $(document).ready(function() {
         document.getElementById("complaint_notification").hidden = true;
         $(".btn-submit3").click(function(e){
         e.preventDefault();
@@ -573,9 +646,9 @@
         var buyer_email = $("#buyer_email_report").val();
         var description = $("#description_report").val();
         function greet(){
-                    document.getElementById("complaint_notification").hidden = true;
-                    document.getElementById("complaint_notification").innerHTML = "";
-                }
+            document.getElementById("complaint_notification").hidden = true;
+            document.getElementById("complaint_notification").innerHTML = "";
+        }
          function set(){
               setTimeout(greet, 20000);
          }
@@ -595,5 +668,48 @@
             });
         });
 
+        $('#dislikeBtn').hide();
+        $('#likeBtn').hide();
+        $('.likeBtnShow').show();
+        $('.disLikeBtnShow').show();
+        $('#loader').hide();
+
     });
+
+    function likeService(id) {
+        likebtn = document.getElementById('likeBtn');
+        dislikebtn = document.getElementById('dislikeBtn');
+        liketab = document.getElementById('likeTab');
+        loader = document.getElementById('loader');
+
+        $.ajax({
+            url: '/admin2/like/' + id,
+            method: 'GET',
+            success: function(like){
+                dislikebtn.style.display = 'block';
+                likebtn.style.display = 'none';
+                liketab.innerHTML = like;
+            }
+        });
+
+    }
+
+    function disLikeService(id) {
+        likebtn = document.getElementById('likeBtn');
+        dislikebtn = document.getElementById('dislikeBtn');
+        likeTab = document.getElementById('likeTab');
+        loader = document.getElementById('loader');
+
+        $.ajax({
+            url: '/admin2/like/' + id,
+            method: 'GET',
+            success: function(like){
+                dislikebtn.style.display = 'none';
+                likebtn.style.display = 'block';
+                liketab.innerHTML = like;
+                console.log(like);
+            }
+        });
+
+    }
 </script>

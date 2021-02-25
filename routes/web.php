@@ -123,6 +123,9 @@ Route::get('/privacy', 'PageController@privacy')->name('privacy');
 
 Route::get('/admin2/like/{id}', 'ServiceController@saveLike2')->name('admin2.like');
 
+Route::get('/drop', 'ServiceController@dropzone')->name('admin2.like');
+
+
 Route::post('/admin/like', 'ServiceController@saveLike')->name('admin.like');
 
 
