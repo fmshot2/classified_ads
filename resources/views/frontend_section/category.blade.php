@@ -15,7 +15,7 @@
                     <div class="popular-posts featured-service-hm">
                          @if(isset($featuredServices))
                             @foreach($featuredServices as $featuredService)
-                                @if ($loop->index < 20)
+                                @if ($loop->index < 16)
                                     <div class="media p-2">
                                         <a href="{{route('serviceDetail', $featuredService->slug)}}">
                                             <div class="media-left">
@@ -171,7 +171,7 @@
                     <div class="popular-posts featured-ad-hm-list" style="margin-top: -10px">
                         @if(isset($trendingServices))
                         @foreach ($trendingServices as $trendingService)
-                            @if ($loop->index < 20)
+                            @if ($loop->index < 14)
                                 <div class="media p-2">
                                     <a href="{{ route('serviceDetail', $trendingService->slug) }}">
                                         <div class="media-left">
