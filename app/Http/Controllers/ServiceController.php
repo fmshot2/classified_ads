@@ -465,6 +465,12 @@ public function index()
       return view ('seller.addService', compact(['categories']));
     }
 
+    public function dropzone()
+    {
+
+      return view ('seller.service.create_blade_copy');
+    }
+    
 
     /**
      * Store a newly created resource in storage.
