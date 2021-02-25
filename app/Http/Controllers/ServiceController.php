@@ -95,7 +95,7 @@ class ServiceController extends Controller
 
 
 
-  public function findNearestServices(Request $request)
+  public function findNearestRestaurants(Request $request)
   {
 
 
@@ -465,6 +465,12 @@ public function index()
       return view ('seller.addService', compact(['categories']));
     }
 
+    public function dropzone()
+    {
+
+      return view ('seller.service.create_blade_copy');
+    }
+    
 
     /**
      * Store a newly created resource in storage.

@@ -714,6 +714,9 @@ h6 {
     .content-area {
         margin-top: 150px !important;
     }
+    .homepage-top-banner .carousel-inner img.d-block.w-100 {
+        height: auto !important;
+    }
     img.d-block.w-100 {
         height: 140px !important;
     }
@@ -1221,6 +1224,14 @@ h6 {
     width: 100%;
     height: 15vw;
     object-fit: cover;
+}
+.likeBtnShow a:hover {
+    text-decoration: none !important;
+    color: rgb(144, 183, 255) !important;
+}
+#dislikeBtn a:hover {
+    text-decoration: none !important;
+    color: rgb(247, 148, 148) !important;
 }
 
 @media (max-width: 768px) {

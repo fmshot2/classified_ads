@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('title', 'The largest service place in the Nigeria | ')
@@ -17,9 +16,6 @@
 var x = document.getElementById("demo2");
 var y = document.getElementById("latitude_id");
 var z = document.getElementById("longitude_id");
-
-
-
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
@@ -37,16 +33,13 @@ function showPosition(position) {
     console.log('lat', lat);
      var long = document.getElementById("longitude_id").value = position.coords.longitude;
     console.log('long', long);
-
    $.ajax({
             type:'GET',
             url: 'findgeo',
             data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
            success: function(result){
-
                     services = result.data;
                      console.log('services', services);
-                     console.log('sdsd')
                         services.forEach(service => {
                             badge = service.badge_type
                             if (badge == 1) {
@@ -64,7 +57,7 @@ function showPosition(position) {
                             // if (service.badge_type == 'trusted') {
                             //   service.badge_type == 'truuuue';
                             // }
-                            $('#featuredServicesRow').append(`<a href="/serviceDetail/`+ service.slug + `" class="property-img">
+                            featuredServicesRow.innerHTML = `<a href="/serviceDetail/`+ service.slug + `" class="property-img">
                                 <div class="col-lg-3 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                     <div class="property-box">
                                         <div class="property-thumbnail">
@@ -76,15 +69,13 @@ function showPosition(position) {
                                                     `+ service.user.name + `
                                                 </p>
                                             </div>
-                                            <img class="d-block w-100 service_images" src="/uploads/services/`+ service.thumbnail + `" alt="properties">
-
+                                            <img class="d-block w-100" src="/uploads/services/`+ service.thumbnail + `" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
                                         </div>
                                         <div class="detail">
                                             <div>
                                                 <a class="title title-dk" href="">`+ service.name.substring(0, 30) + `</a>
                                                 <a class="title title-mb" href="">`+ service.name.substring(0, 15) + "..." + `</a>
                                             </div>
-
                                             <ul class="d-flex flex-row justify-content-between info">
                                                 <li>
                                                     <i class="fa fa-map-marker text-warning"></i> `+ service.state.substring(0, 5) + `
@@ -94,13 +85,9 @@ function showPosition(position) {
                                     </div>
                                 </div>
                             </a>`
-)
-
                         });
                 }
-
-
-
+          
             });
 }
 </script>
@@ -113,7 +100,6 @@ function showPosition(position) {
         document.getElementById("complaint_notification").hidden = true;
         $(".btn-submit3").click(function(e){
         e.preventDefault();
-
         var _token = $("input[name='_token']").val();
         var buyer_id = $("#buyer_id_report").val();
         var buyer_name = $("#buyer_name_report").val();
@@ -128,8 +114,6 @@ function showPosition(position) {
          function set(){
               setTimeout(greet, 20000);
          }
-
-
         $.ajax({
             type:'POST',
             url: '/buyer/createcomplaint',
@@ -139,11 +123,9 @@ function showPosition(position) {
                     document.getElementById("complaint_notification").innerHTML = "Your complaint was sent successfully";
             //   greet();
             set();
-
                 }
             });
         });
-
     });
 </script>
 
@@ -194,72 +176,55 @@ function showPosition(position) {
 <!----------HTML code starts here------->
 {{--<div class="container">
 <div class="owl-carousel owl-theme owl-loaded owl-drag">
-
        <div class="owl-stage-outer">
-
          <div class="owl-stage" style="transform: translate3d(-1527px, 0px, 0px); transition: all 0.25s ease 0s; width: 3334px;">
-
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>1</h4>
             </div>
          </div>
-
          <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>2</h4>
             </div></div>
-
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>3</h4>
             </div></div>
-
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>4</h4>
             </div></div>
-
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>5</h4>
             </div></div>
-
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>6</h4>
             </div></div>
-
            <div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>7</h4>
             </div></div><div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>8</h4>
             </div></div>
-
            <div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>9</h4>
             </div></div>
-
            <div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>10</h4>
             </div></div><div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>11</h4>
             </div></div>
-
            <div class="owl-item active" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>12</h4>
             </div></div>
-
            <div class="owl-item active" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>13</h4>
             </div></div>
-
            <div class="owl-item active" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>14</h4>
             </div></div>
-
            <div class="owl-item active" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>15</h4>
             </div></div>
-
            <div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>16</h4>
             </div></div>
-
            <div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>17</h4>
             </div>
@@ -267,47 +232,38 @@ function showPosition(position) {
             <div class="owl-item" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>18</h4>
             </div></div>
-
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>19</h4>
             </div></div>
-
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>20</h4>
             </div></div>
-
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>21</h4>
             </div></div>
-
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>22</h4>
             </div></div>
-
            <div class="owl-item cloned" style="width: 128.906px; margin-right: 10px;"><div class="item">
               <h4>23</h4>
             </div></div>
-
            <div class="owl-item cloned" style=""><div class="item">
               <h4>24</h4>
             </div></div></div></div><div class="owl-nav disabled">
-
   </div>
-
 </div>
 </div>--}}
 
 
 <style type="text/css">
-	.owl-item {width: 128.906px; margin-right: 10px; background:powderblue; }
+  .owl-item {width: 128.906px; margin-right: 10px; background:powderblue; }
 </style>
 
 <script type="text/javascript">
-	var owl = $('.owl-carousel');
+  var owl = $('.owl-carousel');
 owl.owlCarousel({
     items:4,
   // items change number for slider display on desktop
-
     loop:true,
     margin:10,
     autoplay:true,
