@@ -76,7 +76,7 @@ function showPosition(position) {
                                                     `+ service.user.name + `
                                                 </p>
                                             </div>
-                                            <img class="d-block w-100" src="/uploads/services/`+ service.thumbnail + `" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                            <img class="d-block w-100 service_images" src="/uploads/services/`+ service.thumbnail + `" alt="properties">
 
                                         </div>
                                         <div class="detail">
@@ -87,7 +87,7 @@ function showPosition(position) {
 
                                             <ul class="d-flex flex-row justify-content-between info">
                                                 <li>
-                                                    <i class="fa fa-map-marker text-warning"></i> `+ service.state + `
+                                                    <i class="fa fa-map-marker text-warning"></i> `+ service.state.substring(0, 5) + `
                                                 </li>
                                             </ul>
                                         </div>

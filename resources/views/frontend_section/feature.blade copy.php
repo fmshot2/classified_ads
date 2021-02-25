@@ -50,7 +50,7 @@
                                                 {{ Str::limit($featuredService->user->name, 20) }}
                                             </p>
                                         </div>
-                                        <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" alt="{{ $featuredService->name }}">
+                                        <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $featuredService->name }}">
 
                                     </div>
                                     <div class="detail">
@@ -65,7 +65,7 @@
                                             </li>
                                             <li>
                                                 <a class="pull-right" href="{{route('serviceDetail', $featuredService->slug)}}">
-                                                    <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($featuredService->state, 5) }}
+                                                    <i class="fa fa-map-marker text-warning"></i> {{$featuredService->state}}
                                                 </a>
                                             </li>
                                         </ul>
@@ -86,7 +86,7 @@
                                                 {{ Str::limit($featuredService->user->name, 20) }}
                                             </p>
                                         </div>
-                                        <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" alt="{{ $featuredService->name }}">
+                                        <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $featuredService->name }}">
 
                                     </div>
                                     <div class="detail">
@@ -101,7 +101,7 @@
                                             </li>
                                             <li>
                                                 <a class="pull-right" href="{{route('serviceDetail', $featuredService->slug)}}">
-                                                    <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($featuredService->state, 5) }}
+                                                    <i class="fa fa-map-marker text-warning"></i> {{$featuredService->state}}
                                                 </a>
                                             </li>
                                         </ul>
@@ -122,7 +122,7 @@
                                                 {{ Str::limit($featuredService->user->name, 20) }}
                                             </p>
                                         </div>
-                                        <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" alt="{{ $featuredService->name }}">
+                                        <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $featuredService->name }}">
 
                                     </div>
                                     <div class="detail">
@@ -137,7 +137,7 @@
                                             </li>
                                             <li>
                                                 <a class="pull-right" href="{{route('serviceDetail', $featuredService->slug)}}">
-                                                    <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($featuredService->state, 5) }}
+                                                    <i class="fa fa-map-marker text-warning"></i> {{$featuredService->state}}
                                                 </a>
                                             </li>
                                         </ul>
@@ -155,7 +155,7 @@
                                                 {{ Str::limit($featuredService->user->name, 20) }}
                                             </p>
                                         </div>
-                                        <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" style="width: 100%; object-fit: cover;" alt="{{ $featuredService->name }}">
+                                        <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $featuredService->name }}">
 
                                     </div>
                                     <div class="detail">
@@ -170,7 +170,7 @@
                                             </li>
                                             <li>
                                                 <a class="pull-right" href="{{route('serviceDetail', $featuredService->slug)}}">
-                                                    <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($featuredService->state, 5) }}
+                                                    <i class="fa fa-map-marker text-warning"></i> {{$featuredService->state}}
                                                 </a>
                                             </li>
                                         </ul>
