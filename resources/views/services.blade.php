@@ -52,7 +52,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                   <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
+                                                   <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
                                         </div>
@@ -70,7 +70,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
+                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
                                             <div class="detail">
@@ -84,7 +84,7 @@
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
-                                                            <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                            <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($category_service->state, 5) }}
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -104,7 +104,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
+                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
 
@@ -119,7 +119,7 @@
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
-                                                            <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                            <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($category_service->state, 5) }}
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -136,7 +136,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
+                                                <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
 
@@ -151,7 +151,7 @@
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
-                                                            <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                            <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($category_service->state, 5) }}
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -182,7 +182,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
                                             <div class="detail">
@@ -196,7 +196,7 @@
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
-                                                            <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                            <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($category_service->state, 5) }}
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -216,7 +216,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
                                             <div class="detail">
@@ -230,7 +230,7 @@
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
-                                                            <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                            <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($category_service->state, 5) }}
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -250,7 +250,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
                                             <div class="detail">
@@ -264,7 +264,7 @@
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
-                                                            <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                            <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($category_service->state, 5) }}
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -281,7 +281,7 @@
                                                             {{ Str::limit($category_service->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $category_service->name }}">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
                                             <div class="detail">
@@ -295,7 +295,7 @@
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
-                                                            <i class="fa fa-map-marker text-warning"></i> {{$category_service->state}}
+                                                            <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($category_service->state, 5) }}
                                                         </a>
                                                     </li>
                                                 </ul>

@@ -17,7 +17,7 @@
                                     <a class="title title-dk hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 30) }}</a>
                                     <a class="title title-mb hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 15) }}</a>
 
-                                    <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $hotService->name }}">
+                                    <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" alt="{{ $hotService->name }}">
                                     </a>
                                 </div>
                             @elseif($hotService->badge_type == 2)
@@ -28,7 +28,7 @@
                                     <a class="title title-dk hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 30) }}</a>
                                     <a class="title title-mb hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 15) }}</a>
 
-                                    <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $hotService->name }}">
+                                    <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" alt="{{ $hotService->name }}">
                                     </a>
                                 </div>
                             @elseif($hotService->badge_type == 3)
@@ -39,7 +39,7 @@
                                     <a class="title title-dk hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 30) }}</a>
                                     <a class="title title-mb hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 15) }}</a>
 
-                                    <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $hotService->name }}">
+                                    <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" alt="{{ $hotService->name }}">
                                     </a>
                                 </div>
                             @else
@@ -49,7 +49,7 @@
                                     <a class="title title-dk hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 30) }}</a>
                                     <a class="title title-mb hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 15) }}</a>
 
-                                    <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="{{ $hotService->name }}">
+                                    <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" alt="{{ $hotService->name }}">
                                     </a>
                                 </div>
                             @endif

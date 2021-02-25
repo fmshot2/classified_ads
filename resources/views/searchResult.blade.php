@@ -38,7 +38,7 @@
                                                             {{ Str::limit($services1->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services1->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services1->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -74,7 +74,7 @@
                                                             {{ Str::limit($services1->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services1->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services1->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -110,7 +110,7 @@
                                                             {{ Str::limit($services1->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services1->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services1->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -143,7 +143,7 @@
                                                             {{ Str::limit($services1->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services1->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services1->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -187,7 +187,7 @@
                                                             {{ Str::limit($services2->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services2->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services2->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -223,7 +223,7 @@
                                                             {{ Str::limit($services2->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services2->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services2->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -259,7 +259,7 @@
                                                             {{ Str::limit($services2->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services2->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services2->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -292,7 +292,7 @@
                                                             {{ Str::limit($services2->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services2->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services2->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -336,7 +336,7 @@
                                                             {{ Str::limit($services3->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services3->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services3->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -372,7 +372,7 @@
                                                             {{ Str::limit($services3->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services3->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services3->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -408,7 +408,7 @@
                                                             {{ Str::limit($services3->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services3->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services3->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -441,7 +441,7 @@
                                                             {{ Str::limit($services3->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services3->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services3->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -485,7 +485,7 @@
                                                             {{ Str::limit($services4->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services4->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services4->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -521,7 +521,7 @@
                                                             {{ Str::limit($services4->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services4->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services4->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -557,7 +557,7 @@
                                                             {{ Str::limit($services4->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services4->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services4->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -590,7 +590,7 @@
                                                             {{ Str::limit($services4->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services4->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services4->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -634,7 +634,7 @@
                                                             {{ Str::limit($services5->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services5->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services5->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -670,7 +670,7 @@
                                                             {{ Str::limit($services5->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services5->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services5->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -706,7 +706,7 @@
                                                             {{ Str::limit($services5->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services5->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services5->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
@@ -739,7 +739,7 @@
                                                             {{ Str::limit($services5->user->name, 20) }}
                                                         </p>
                                                     </div>
-                                                    <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$services5->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$services5->service_image}}" alt="properties">
 
                                                 </div>
                                                 <div class="detail">
