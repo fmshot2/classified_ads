@@ -115,7 +115,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
+              <h5 class="modal-title">Request for Badge</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -136,7 +136,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary pd-x-20">Make Payment</button>
+                        <button type="submit" class="btn btn-danger pd-x-20">Make Payment</button>
                         <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Close</button>
                     </div>
                 </form>
