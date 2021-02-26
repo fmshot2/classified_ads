@@ -81,7 +81,7 @@ function showPosition(position) {
                                         </div>
                                         <div class="detail">
                                             <div>
-                                                <a class="title title-dk" href="">`+ service.name.substring(0, 30) + `</a>
+                                                <a class="title title-dk" href="">`+ service.name.substring(0, 22) + "..." + `</a>
                                                 <a class="title title-mb" href="">`+ service.name.substring(0, 15) + "..." + `</a>
                                             </div>
 

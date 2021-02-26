@@ -98,7 +98,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 30) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 22) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
@@ -133,7 +133,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 30) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 22) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
@@ -168,7 +168,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 30) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 22) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
@@ -200,7 +200,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 30) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 22) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
@@ -376,26 +376,26 @@
                         <ul class="contact-link">
                             <li>
                                 <i class="flaticon-technology-1"></i>
-                                <a href="tel:+0700-6258244">
-                                    0700-6258244
+                                <a href="tel:{{ $check_general_info == 0 ? $general_info->hot_line : '' }}">
+                                    {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
                                 </a>
                             </li>
                             <li>
                                 <i class="flaticon-technology-1"></i>
-                                <a href="tel:+0807-9000286">
-                                    0807-9000286
+                                <a href="tel:{{ $check_general_info == 0 ? $general_info->hot_line_2 : '' }}">
+                                    {{ $check_general_info == 0 ? $general_info->hot_line_2 : '' }}
                                 </a>
                             </li>
                             <li>
-                                <i class="flaticon-technology-1"></i>
-                                <a href="tel:+080567654345">
-                                    080567654345
+                                <a style="color: #05cc6c" href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services.">
+                                    <i class="fa fa-whatsapp" style="color: #05cc6c"></i>
+                                    WhatsApp Message
                                 </a>
                             </li>
                             <li>
                                 <i class="flaticon-envelope"></i>
-                                <a href="mailto:info@efcontact.com">
-                                    info@efcontact.com
+                                <a href="mailto:{{ $check_general_info == 0 ? $general_info->header_email : '' }}">
+                                    {{ $check_general_info == 0 ? $general_info->header_email : '' }}
                                 </a>
                             </li>
                         </ul>

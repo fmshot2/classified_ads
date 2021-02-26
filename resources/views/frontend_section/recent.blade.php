@@ -13,15 +13,15 @@
                             <div class="property-thumbnail">
                                 <div class="price-ratings-box">
                                     <p class="price" style="text-transform: capitalize">
-                                        {{ Str::limit($recentService->user->name, 20) }}
+                                        {{ Str::limit($recentService->user->name, 15) }}
                                     </p>
                                 </div>
                                 <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$recentService->service_image}}" alt="{{$recentService->name}}">
                             </div>
                             <div class="detail">
                                 <div>
-                                    <a class="title title-dk" href="{{route('serviceDetail', $recentService->slug)}}">{{$recentService->name}}</a>
-                                    <a class="title title-mb" href="{{route('serviceDetail', $recentService->slug)}}">{{$recentService->name}}</a>
+                                    <a class="title title-dk" href="{{ route('serviceDetail', $recentService->slug)}}">{{ Str::limit($recentService->name, 22) }}</a>
+                                    <a class="title title-mb" href="{{ route('serviceDetail', $recentService->slug)}}">{{ Str::limit($recentService->name, 15) }}</a>
                                 </div>
                                 <ul class="d-flex flex-row justify-content-between info">
                                     <li>
