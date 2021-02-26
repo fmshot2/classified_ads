@@ -21,6 +21,9 @@ use App\Service;
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 Route::get ( 'findgeo2',  'ServiceController@findNearestRestaurants');
+Route::get( '/catpagesortby/{letter}',  'OperationalController@catPageSortBy');
+Route::get( '/requestbadge/{id}',  'OperationalController@requestbadge');
+Route::post( '/requestbadge/{id}',  'OperationalController@requestbadge')->name('badge.request');
 
 Route::get('email', function () {
     return new App\Mail\UserRegistered();

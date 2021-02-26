@@ -14,7 +14,7 @@
                         Need Support? <i class="fa fa-phone"></i> {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
                     </a>
                     <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
-                        |&emsp;<i class="fa fa-whatsapp" style="color:#5af8ac; font-size: 16px"></i> WhatsApp
+                        |&emsp;<i class="fa fa-whatsapp animate__animated animate__heartBeat animate__infinite" style="color:#5af8ac; font-size: 16px"></i> WhatsApp
                     </a>
                     <a href="mailto: {{ $check_general_info == 0 ? $general_info->support_email : ''}}">
                         |&emsp;<i class="fa fa-envelope"></i> {{ $check_general_info == 0 ? $general_info->support_email : ''}}

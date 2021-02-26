@@ -169,14 +169,16 @@
                                     <a class="nav-link" id="five-tab" data-toggle="tab" href="#five" role="tab" aria-controls="five" aria-selected="true">Location</a>
                                 </li> --}}
                                 <li class="nav-item">
-                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true" >Like{{  $service_likes > 1 ? 's' : '' }}
+                                    {{-- <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true" >Like{{  $service_likes > 1 ? 's' : '' }}
                                         <span class="pull-right-container">
                                             <small id="likeTab" class="label pull-right" style="background-color: #f85858">{{ $service_likes }}</small>
                                         </span>
+                                    </a> --}}
+
+
+                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }}
+                                        <span>({{ $service_likes != 0 ? $service_likes : '0'}})</span>
                                     </a>
-
-
-                                    {{-- <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }} <span style="background-color: #ca8309; color:#fff; border-radius: 50%; padding: 5px; width: 10px; height:10px">{{ $service_likes != 0 ? $service_likes : ''}}</span></a> --}}
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="six-tab" data-toggle="tab" href="#six" role="tab" aria-controls="six" aria-selected="true">Similar Services</a>
@@ -219,9 +221,9 @@
                                                     <table class="table brd-none">
                                                         <thead>
                                                             <tr>
-                                                            <th>Service</th>
-                                                            <th>Name</th>
-                                                            <th class="hedin-div">Address</th>
+                                                            <th>Image</th>
+                                                            <th>Service Name</th>
+                                                            <th class="hedin-div">Location</th>
                                                             <th><span class="hedin-div">Likes</span></th>
                                                             </tr>
                                                         </thead>
