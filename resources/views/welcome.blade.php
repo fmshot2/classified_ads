@@ -46,7 +46,7 @@ function showPosition(position) {
 
                     services = result.data;
                      console.log('services', services);
-                     console.log('sdsd')
+                     console.log('sdsd');
                         services.forEach(service => {
                             badge = service.badge_type
                             if (badge == 1) {

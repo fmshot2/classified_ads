@@ -20,7 +20,7 @@ class ServiceImageController extends Controller
         ]);
     }
 
-    public function imagesStore(Request $request, $service_id)
+  public function imagesStore(Request $request, $service_id)
     {
         $image       = $request->file('file');
         $fileInfo = $image->getClientOriginalName();
@@ -44,7 +44,6 @@ class ServiceImageController extends Controller
         return redirect()->back();
 
     }
-
 
     public function imagesDelete($id)
     {

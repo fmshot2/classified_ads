@@ -126,7 +126,7 @@ Route::get('/privacy', 'PageController@privacy')->name('privacy');
 
 Route::get('/admin2/like/{id}', 'ServiceController@saveLike2')->name('admin2.like');
 
-Route::get('/drop', 'ServiceController@dropzone')->name('admin2.like');
+Route::get('/drop', 'ServiceController@dropzone');
 
 
 Route::post('/admin/like', 'ServiceController@saveLike')->name('admin.like');
@@ -338,6 +338,8 @@ $longitude = $json['longitude'];
 Route::get ( 'geolo',  'AdminController@geo')->name('geolo');
 
 Route::get ( 'findgeo',  'ServiceController@findNearestServices');
+Route::get ( 'findLat2',  'ServiceController@findNearestServices2');
+
 Route::get ( 'findLat',  'AdminController@findNearestRestaurants');
 
 

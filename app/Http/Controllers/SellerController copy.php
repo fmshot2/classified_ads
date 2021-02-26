@@ -16,7 +16,10 @@ use App\Mail\SendMailable;
 
 use Illuminate\Support\Str;
 use App\ImageUpload;
-
+// use App\Image;
+// use Image as InterventionImage;
+use App\Image as ModelImage;
+use App\Mail\ServiceCreated;
 
 class SellerController extends Controller
 {
@@ -31,10 +34,12 @@ class SellerController extends Controller
 
    public function storeService(Request $request)
     {
+        // return response()->json(['success'=>"working", 'data'=>'done it' ]);
       //dd('llll');
       //dd($user);
 
 
+    $data = $request->all();
 
 
  // $validator = Validator::make($request->only('file_input'), [
@@ -69,15 +74,11 @@ class SellerController extends Controller
 /*
    if ( $request->hasFile('files') ) {
                 $names = array();
-
 foreach($request->file('files') as $image)
     {
-
                 $image_name = $image->getClientOriginalName();
-
         $image->move(public_path('images'),$image_name);
         array_push($names, $image_name);
-
         }
             $category->image = json_encode($names);
 }
@@ -101,19 +102,29 @@ if ( $request->hasFile('files') ) {
            }
            $service->image = json_encode($names);
        }
+
+
+// _token:_token, name:name,  description:description, experience:experience, phone:phone, min_price:min_price, state:state, city:city, address:address, category:category
+
+
+       $state_details = State::where('name', $data['state'])->first();
+
+
        $service->user_id = Auth::id();
-       $service->category_id = $request->category_id;
-       $service->name = $request->name;
-       $service->phone = $request->phone;
-       $service->city = $request->city;
-       $service->experience = $request->experience;
-       $service->address = $request->address;
-       $service->min_price = $request->min_price;
-       $service->max_price = $request->max_price;
+       $service->category_id = $data['category_id'];
+       $service->name = $data['name'];
+       $service->description = $data['description'];
+       $service->experience = $data['experience'];
+       $service->phone = $data['phone'];
+       $service->min_price = $data['min_price'];
+       $service->state = $data['state'];
+       $service->latitude = $state_details->latitude;
+       $service->longitude = $state_details->longitude;
+       $service->city = $data['city'];
+       $service->address = $data['address'];
+       $service->max_price = $data['category_id'];
        $service->slug = $slug;
-       $service->video_link = $request->video_link;
-       $service->description = $request->description;
-       $service->state = $request->state;
+       // $service->video_link = $request->video_link;$data['category_id'];
        $service->save();
        $latest_service = Service::where('user_id', Auth::id())->latest()->first();
 $latest_service_id = $latest_service->id;
@@ -124,22 +135,33 @@ $service_owner->email = Auth::user()->email;
 
 
         if ($service->save()) {
-      $name = " Hi $service_owner->name, You just created a new service called: $service->name. Wishing you all the best. Have a great time enjoying our services!";
+            $name =  $service->name;
+            $category =  $service->category->name;
+            $phone =  $service->phone;
+            $state =  $service->state;
+            $slug =  $service->slug;
 
-      Mail::to($service_owner->email)->send(new SendMailable($name));
-     }
+            try{
+                Mail::to($service_owner->email)->send(new ServiceCreated($name, $category, $phone, $state, $slug));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+        }
 
        $present_user = Auth::user();
         $user_hasUploadedService = $present_user->hasUploadedService;
         //dd($user_hasUploadedService);
         if ($user_hasUploadedService == 1) {
-        //dd('dddddd');
        $request->session()->flash('status', 'Task was successful!');
-        //dd(Auth::user());
-       //$this->saveReferLink();
-       // dd($latest_service_id);
+
        // return $this->allService();
-       return back()->with('service_id', $latest_service_id);
+        // return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service]);
+       // return back()->with('service_id', $latest_service_id, 'service', $latest_service);
+        // /service/{id}
+         // return redirect()->route('seller/service/' . $latest_service_id);
+         return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
+
         }
         //dd($user);
         $present_user->hasUploadedService = 1;
@@ -160,13 +182,22 @@ $service_owner->email = Auth::user()->email;
          $request->session()->flash('status', 'Task was successful!');
        //$this->saveReferLink();
          // dd($latest_service_id);
-      return back()->with('service_id', $latest_service_id);
+        // return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service]);
+        // return redirect()->route('seller/service/' . $latest_service_id);
+                  return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
+
+
+      // return back()->with('service_id', $latest_service_id, 'service', $latest_service);
        // return $this->allService();
         }
 
                  // dd($latest_service_id);
+        // return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service, 'success', 'Your message has been sent!']);
 
-              return back()->with('service_id', $latest_service_id, 'success', 'Your message has been sent!');
+                 return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
+
+
+              // return back()->with('service_id', $latest_service_id, 'service', $latest_service, 'success', 'Your message has been sent!');
 
        //      $request->session()->flash('status', 'Task was successful!');
        // return $this->allService();
@@ -318,18 +349,17 @@ public function pendingService()
 
 public function allService()
 {
-    $all_services = Service::where('user_id', Auth::id())->paginate(5);
 
-    return view ('seller.service.all_service', [
-        'all_services' => $all_services
-     ]);
+    $all_services = Service::where('user_id', Auth::id() )->get();
+         return view ('seller.service.all_service', compact('all_services') );
 }
 
 public function viewServiceUpdate($slug)
 {
     $category = Category::all();
     $serviceDetail = Service::where('slug', $slug)->first();
-    $images_4_service = $serviceDetail->image;
+    // $images_4_service = $serviceDetail->image;
+    $images_4_service = ModelImage::where('imageable_id', $serviceDetail->id)->get();
     $service = Service::where('slug', $slug)->first();
     return view ('seller.service.update_service', compact('service', 'category', 'images_4_service') );
 }
