@@ -13,7 +13,7 @@
                             <div class="property-thumbnail">
                                 <div class="price-ratings-box">
                                     <p class="price" style="text-transform: capitalize">
-                                        {{ Str::limit($recentService->user->name, 15) }}
+                                        {{ Str::limit($recentService->user->name, 13) }}
                                     </p>
                                 </div>
                                 <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$recentService->service_image}}" alt="{{$recentService->name}}">
