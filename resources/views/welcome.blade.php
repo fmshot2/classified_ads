@@ -43,10 +43,7 @@ function showPosition(position) {
             url: 'findgeo',
             data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
            success: function(result){
-
                     services = result.data;
-                     console.log('services', services);
-                     console.log('sdsd');
                         services.forEach(service => {
                             badge = service.badge_type
                             if (badge == 1) {
@@ -56,7 +53,7 @@ function showPosition(position) {
                               badge = '<span class="featured bg-success" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i><i class="fa fa-star"></i> Moderate</span>';
                             }
                             if (badge == 3) {
-                              badge = '<span class="featured bg-primary" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Basic</span>';
+                              badge = '<span class="featured bg-primary" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i> Basic</span>';
                             }
                             if (badge == 4) {
                               badge = '';
@@ -81,7 +78,7 @@ function showPosition(position) {
                                         </div>
                                         <div class="detail">
                                             <div>
-                                                <a class="title title-dk" href="">`+ service.name.substring(0, 30) + `</a>
+                                                <a class="title title-dk" href="">`+ service.name.substring(0, 22) + "..." + `</a>
                                                 <a class="title title-mb" href="">`+ service.name.substring(0, 15) + "..." + `</a>
                                             </div>
 

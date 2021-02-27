@@ -98,7 +98,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 30) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 22) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
@@ -133,7 +133,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 30) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 22) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
@@ -168,7 +168,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 30) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 22) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
@@ -200,7 +200,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 30) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 22) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
@@ -358,47 +358,74 @@
                             </ul>
                         </div>
  --}}
-                        <div class="widget helping-center">
+                        <div class="footer-item clearfix container-fluid">
+                            <br/>
+                            <div class="s-border" style="margin-top: -15px;"></div>
+                            <div class="m-border"></div>
+                            <h5 style="margin-top: -15px; text-transform: uppercase">Featured Adverts</h5>
                             <div class="s-border"></div>
                             <div class="m-border"></div>
-                            <div class="media">
-                                <div class="">
-                                    <img style="width: 100%; height: auto; margin: 0 auto; border-radius: 10px" src="{{asset('images')}}/{{'MTN-apptitude.jpg'}}" alt="advert" class="img-fluid">
+                        </div>
+                        <div class="popular-posts featured-ad-hm-list">
+                            <div class="container">
+                                <div id="carouselExampleControls" class="carousel vert slide" data-ride="carousel" data-interval="4000">
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <img class="d-block mx-auto img-fluid" src="{{asset('images')}}/{{'do_smart_business.png'}}" alt="First slide">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img class="d-block mx-auto img-fluid" src="{{asset('images')}}/{{'efskyviewSidebarSlider.png'}}" alt="Second slide">
+                                        </div>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Helping Center start -->
-                    <div class="widget helping-center">
-                        <h3 class="sidebar-title">Helping Center</h3>
-                        <div class="s-border"></div>
-                        <div class="m-border"></div>
-                        <ul class="contact-link">
-                            <li>
-                                <i class="flaticon-technology-1"></i>
-                                <a href="tel:+0700-6258244">
-                                    0700-6258244
-                                </a>
-                            </li>
-                            <li>
-                                <i class="flaticon-technology-1"></i>
-                                <a href="tel:+0807-9000286">
-                                    0807-9000286
-                                </a>
-                            </li>
-                            <li>
-                                <i class="flaticon-technology-1"></i>
-                                <a href="tel:+080567654345">
-                                    080567654345
-                                </a>
-                            </li>
-                            <li>
-                                <i class="flaticon-envelope"></i>
-                                <a href="mailto:info@efcontact.com">
-                                    info@efcontact.com
-                                </a>
-                            </li>
-                        </ul>
+                        <!-- Helping Center start -->
+                        <div class="widget helping-center">
+                            <h3 class="sidebar-title">Helping Center</h3>
+                            <div class="s-border"></div>
+                            <div class="m-border"></div>
+                            <ul class="contact-link">
+                                <li>
+                                    <i class="flaticon-technology-1"></i>
+                                    <a href="tel:{{ $check_general_info == 0 ? $general_info->hot_line : '' }}">
+                                        {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <i class="flaticon-technology-1"></i>
+                                    <a href="tel:{{ $check_general_info == 0 ? $general_info->hot_line_2 : '' }}">
+                                        {{ $check_general_info == 0 ? $general_info->hot_line_2 : '' }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a style="color: #05cc6c" href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services.">
+                                        <i class="fa fa-whatsapp" style="color: #05cc6c"></i>
+                                        WhatsApp Message
+                                    </a>
+                                </li>
+                                <li>
+                                    <i class="flaticon-envelope"></i>
+                                    <a href="mailto:{{ $check_general_info == 0 ? $general_info->header_email : '' }}">
+                                        {{ $check_general_info == 0 ? $general_info->header_email : '' }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
