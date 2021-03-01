@@ -7,11 +7,13 @@
                     <img class="d-block w-100" src="{{ asset('uploads/sliders') }}/{{ $slider->image ?? '' }}" alt="{{ $slider->title ?? '' }}">
                     <div class="carousel-caption banner-slider-inner d-flex h-100 text-center">
                         <div class="carousel-content container">
+                              @if ($slider->links)
                             <div class="text-center">
                                 <div class="btn-sections">
-                                    <a href="{{ $slider->links ?? ''}}" class="btn btn-lg btn-warning text-white">Learn More</a>
+                                    <a href="{{ $slider->links ?? ''}}" class="btn btn-lg bg-dark text-white">Go To &nbsp; {{$slider->title}}</a>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
