@@ -1,5 +1,5 @@
 <div class="recently-properties content-area-12 hm-cl-recently-properties">
-    <div class="container">
+    <div class="service-detail-container">
         <!-- Main title -->
         <div class="main-title">
             <h1> Recently Added Services </h1>
@@ -8,7 +8,7 @@
         @if(isset($recentServices))
             <div class="row">
                 @foreach($recentServices as $recentService)
-                    <div class="col-lg-3 col-md-4 col-sm-6 filtr-item">
+                    <div class="col-lg-2 col-md-4 col-sm-6 filtr-item">
                         <div class="property-box">
                             <div class="property-thumbnail">
                                 <div class="price-ratings-box">
@@ -20,8 +20,8 @@
                             </div>
                             <div class="detail">
                                 <div>
-                                    <a class="title title-dk" href="{{ route('serviceDetail', $recentService->slug)}}">{{ Str::limit($recentService->name, 22) }}</a>
-                                    <a class="title title-mb" href="{{ route('serviceDetail', $recentService->slug)}}">{{ Str::limit($recentService->name, 15) }}</a>
+                                    <a class="title title-dk" href="{{ route('serviceDetail', $recentService->slug)}}">{{ Str::limit($recentService->name, 18) }}</a>
+                                    <a class="title title-mb" href="{{ route('serviceDetail', $recentService->slug)}}">{{ Str::limit($recentService->name, 10) }}</a>
                                 </div>
                                 <ul class="d-flex flex-row justify-content-between info">
                                     <li>

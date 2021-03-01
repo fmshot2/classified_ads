@@ -61,8 +61,8 @@ function showPosition(position) {
                             // if (service.badge_type == 'trusted') {
                             //   service.badge_type == 'truuuue';
                             // }
-                            $('#featuredServicesRow').append(`<a href="/serviceDetail/`+ service.slug + `" class="property-img">
-                                <div class="col-lg-3 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                            $('#servicesCloseToYouRow').append(`<a href="/serviceDetail/`+ service.slug + `" class="property-img">
+                                <div class="col-lg-2 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                     <div class="property-box">
                                         <div class="property-thumbnail">
                                             <div class="listing-badges">`+
@@ -70,7 +70,7 @@ function showPosition(position) {
                                             +`</div>
                                             <div class="price-ratings-box">
                                                 <p class="price" style="text-transform: capitalize">
-                                                    `+ service.user.name + `
+                                                    `+ service.user.name.substring(0, 10) + "..." + `
                                                 </p>
                                             </div>
                                             <img class="d-block w-100 service_images" src="/uploads/services/`+ service.thumbnail + `" alt="properties">
@@ -78,8 +78,8 @@ function showPosition(position) {
                                         </div>
                                         <div class="detail">
                                             <div>
-                                                <a class="title title-dk" href="">`+ service.name.substring(0, 22) + "..." + `</a>
-                                                <a class="title title-mb" href="">`+ service.name.substring(0, 15) + "..." + `</a>
+                                                <a class="title title-dk" href="">`+ service.name.substring(0, 18) + "..." + `</a>
+                                                <a class="title title-mb" href="">`+ service.name.substring(0, 10) + "..." + `</a>
                                             </div>
 
                                             <ul class="d-flex flex-row justify-content-between info">
@@ -147,14 +147,14 @@ function showPosition(position) {
 @include('frontend_section/category')
 
 <div class="blog content-area bg-grea-3 hm-feat-ser-mid-sec">
-    <div class="container">
+    <div class="service-detail-container">
             <!-- Main title -->
         <div class="main-title" style="margin-top: -50px;">
             <h1>Services Close To You </h1>
         </div>
-<div class="row" id="featuredServicesRow"></div>
-        </div>
-      </div>
+        <div class="row" id="servicesCloseToYouRow"></div>
+    </div>
+</div>
 
 @include('frontend_section/feature')
 
