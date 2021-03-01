@@ -10,7 +10,7 @@
                               @if ($slider->links)
                             <div class="text-center">
                                 <div class="btn-sections">
-                                    <a href="{{ $slider->links ?? ''}}" class="btn btn-lg bg-dark text-white">Go To &nbsp; {{$slider->title}}</a>
+                                    <a href="{{ $slider->links ?? ''}}" class="btn btn-lg bg-dark text-white">View Advert</a>
                                 </div>
                             </div>
                             @endif
