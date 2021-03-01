@@ -67,7 +67,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href=" {{ route('seller.service.create') }} "><i class="fa fa-circle-o"></i> Create New Service</a></li>
-          <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> All Services </a></li>
+          <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> My Services </a></li>
         </ul>
       </li>
 
@@ -92,18 +92,18 @@
       </li>
       --}}
 
-<li style="{{ url()->current() == route('seller.post_advert') ? 'background-color: #f8d053' : '' }}">
+{{-- <li style="{{ url()->current() == route('seller.post_advert') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{ route ('seller.service.adverts') }} ">
           <i class="fa fa-plus"></i> <span> Post Advert </span>
           <span class="pull-right-container">
           </span>
-        </a>
+        </a> --}}
       </li>
 
 
         <li style="{{ url()->current() == route('seller.service.badges') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{ route ('seller.service.badges') }} ">
-          <i class="fa fa-certificate"></i> <span> Verification Badges </span>
+          <i class="fa fa-certificate"></i> <span> Request for Badge </span>
           <span class="pull-right-container">
           </span>
         </a>

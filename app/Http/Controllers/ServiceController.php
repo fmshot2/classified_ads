@@ -93,8 +93,6 @@ class ServiceController extends Controller
 
 
 
-
-
   public function findNearestServices(Request $request)
   {
 
@@ -102,10 +100,10 @@ class ServiceController extends Controller
   // return $request->radius;
     $latitude = $request->latitude;
     $longitude = $request->longitude;
-    $radius = 10000;
+    $radius = 100000;
         // $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
         // $featuredServices->image();
-    $servicesss = Service::selectRaw("id, name, address, thumbnail, user_id, badge_type, slug,
+    $servicesss = Service::selectRaw("id, name, address, state, thumbnail, user_id, badge_type, slug,
      ( 6371000 * acos( cos( radians(?) ) *
      cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -290,6 +288,7 @@ public function serviceDetail($slug)
         // dd($images_4_service);
   $serviceDetail_state = $serviceDetail->state;
   $service_likes = Like::where('service_id', $serviceDetail_id)->count();
+  $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$serviceDetail_id])->first();
   $service_category_id = $serviceDetail->category_id;
   $similarProducts = Service::where([['category_id', $service_category_id], ['state', $serviceDetail_state] ])->inRandomOrder()->limit(8)->get();
 
@@ -322,7 +321,7 @@ public function serviceDetail($slug)
     $user111 = null;
   }
 
-  return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages', 'images_4_service', 'the_provider_f_name']));
+  return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages', 'images_4_service', 'the_provider_f_name', 'likecheck']));
 }
 
 
@@ -464,6 +463,12 @@ public function index()
       return view ('seller.addService', compact(['categories']));
     }
 
+    public function dropzone()
+    {
+
+      return view ('seller.service.create_blade_copy');
+    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -475,16 +480,7 @@ public function index()
 
     public function storeService(Request $request)
     {
-/*        $validatedData = $request->validate([
-      'name' => ['required', 'string', 'max:255'],
-      'category' => ['string', 'max:255'],
-            'experience' => ['required', 'max:255'],
-      'description' => ['required', 'string'],
-      'streetAddress' => ['required', 'string'],
-      'city' => ['required', 'string'],
-      'state' => ['required', 'string'],
-      'phone' => ['required'],
-*/
+
       $validatedData = $request->validate([
         'name' => ['required', 'string', 'max:255'],
         'category' => ['string', 'max:255'],
@@ -668,15 +664,13 @@ public function search3(Request $request){
   $all_states = State::all();
   $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
   $keywordResponses = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
-  $search_form_categories = Category::orderBy('name')->get();
-  $states = State::all();
 
 
   // $keywordResponses = Service::where(function ($query) use ($keyword, $category, $state) {
   //   $query->where('name', 'like', '%' . $keyword . '%');
   // })->get();
 
- $services1 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+ $services1 = Service::selectRaw("id, name, slug, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -695,7 +689,7 @@ public function search3(Request $request){
 
 if ($category)
 {
-$services2 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+$services2 = Service::selectRaw("id, name, slug, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -715,7 +709,7 @@ $services2 = Service::selectRaw("id, name, address, thumbnail, user_id, state, b
 
   if ($state)
 {
-   $services3 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+   $services3 = Service::selectRaw("id, name, slug, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -739,7 +733,7 @@ $services2 = Service::selectRaw("id, name, address, thumbnail, user_id, state, b
 
 if($category && $state)
 {
-  $services4 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+  $services4 = Service::selectRaw("id, name, slug, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -761,7 +755,7 @@ if($category && $state)
 
 if($keyword && $state)
 {
-  $services5 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+  $services5 = Service::selectRaw("id, name, slug, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -785,7 +779,7 @@ if($keyword && $state)
 
 if($keyword && $state)
 {
-  $services6 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+  $services6 = Service::selectRaw("id, name, slug, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -806,15 +800,9 @@ if($keyword && $state)
 }
 
 
- $keyword_and_states = Service::where(function ($query) use ($keyword, $state) {
-    $query->where('name', 'like', '%' . $keyword . '%')
-    ->orWhere('state',  $state);
-  })->get();
-
-
 if($state)
 {
-  $services7 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
+  $services7 = Service::selectRaw("id, name, slug, address, thumbnail, user_id, state, badge_type, category_id,
    ( 6371000 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
@@ -834,35 +822,35 @@ if($state)
 }
 
 
-// if($category)
-// {
-//   $services8 = Service::selectRaw("id, name, address, thumbnail, user_id, state, badge_type, category_id,
-//    ( 6371000 * acos( cos( radians(?) ) *
-//    cos( radians( latitude ) )
-//                        * cos( radians( longitude ) - radians(?)
-//    ) + sin( radians(?) ) *
-//    sin( radians( latitude ) ) )
-//  ) AS distance", [$latitude, $longitude, $latitude])
-//   ->having("distance", "<", $radius)->where(function ($query) use ($category) {
-//     $query->where('state', 'like', '%' . $category . '%');
-//   })->with('user')
-//   ->orderBy("distance",'asc')
-//   ->offset(0)
-//   ->limit(20)
-//   ->get();
+if($category)
+{
+  $services8 = Service::selectRaw("id, name, slug, address, thumbnail, user_id, state, badge_type, category_id,
+   ( 6371000 * acos( cos( radians(?) ) *
+   cos( radians( latitude ) )
+                       * cos( radians( longitude ) - radians(?)
+   ) + sin( radians(?) ) *
+   sin( radians( latitude ) ) )
+ ) AS distance", [$latitude, $longitude, $latitude])
+  ->having("distance", "<", $radius)->where(function ($query) use ($category) {
+    $query->where('state', 'like', '%' . $category . '%');
+  })->with('user')
+  ->orderBy("distance",'asc')
+  ->offset(0)
+  ->limit(20)
+  ->get();
 
-//   }else{
-//   $services8 = null;
-// }
+  }else{
+  $services8 = null;
+}
 
 
-  $keywordResponses5 = Service::where(function ($query) use ($keyword) {
-    $query->where('name', 'like', '%' . $keyword . '%');
-  })
-  ->where(function ($query) use ($state) {
-    $query->where('state', '=', $state);
+ //  $keywordResponses5 = Service::where(function ($query) use ($keyword) {
+ //    $query->where('name', 'like', '%' . $keyword . '%');
+ //  })
+ //  ->where(function ($query) use ($state) {
+ //    $query->where('state', '=', $state);
 
-  })->get();
+ //  })->get();
 
  // $keywordResponses4 = Service::where(function ($query) use ($keyword) {
  //    $query->where('name', 'like', '%' . $keyword . '%');
@@ -872,13 +860,13 @@ if($state)
 
  //  })->get();
 
- $keywordResponses6 = Service::where(function ($query) use ($category) {
-    $query->where('category_id', '=', $category);
-  })
-  ->where(function ($query) use ($state) {
-    $query->where('state', '=', $state);
+ // $keywordResponses6 = Service::where(function ($query) use ($category) {
+ //    $query->where('category_id', '=', $category);
+ //  })
+ //  ->where(function ($query) use ($state) {
+ //    $query->where('state', '=', $state);
 
-  })->get();
+ //  })->get();
 
 
  //  $keywordResponses1 = Service::where(function ($query) use ($keyword) {
@@ -889,15 +877,10 @@ if($state)
  //    $query->where('category_id', 'like', '%' . $category . '%');
  //  })->get();
 
-  $keywordResponses3 = Service::where(function ($query) use ($state) {
-    $query->where('state', '=', $state);
-  })->get();
+ //  $keywordResponses3 = Service::where(function ($query) use ($state) {
+ //    $query->where('state', '=', $state);
+ //  })->get();
 
- 
-  $keywordResponses7 = Service::where(function ($query) use ($category) {
-    $query->where('category_id', '=', $category);
-  })->where(function ($query) use ($keyword) {
-    $query->where('name', 'like', '%' . $keyword . '%');
 
  //  $keywordResponses7 = Service::where(function ($query) use ($category) {
  //    $query->where('category_id', '=', $category);
@@ -908,7 +891,7 @@ if($state)
  //  })->where(function ($query) use ($keyword) {
  //    $query->where('name', 'like', '%' . $keyword . '%');
 
-  })->get();
+ //  })->get();
 
 
  //  $keyword_and_Categories = Service::where(function ($query) use ($keyword, $category) {
@@ -917,7 +900,10 @@ if($state)
  //  })->get();
  //  // return response()->json($keyword_and_Categories);
 
- 
+ //  $keyword_and_state = Service::where(function ($query) use ($keyword, $state) {
+ //    $query->where('name', 'like', '%' . $keyword . '%')
+ //    ->orWhere('state',  $state);
+ //  })->get();
 
  //  $keyword_and_category_and_state = Service::where(function ($query) use ($keyword, $category, $state) {
  //    $query->where('name', 'like', '%' . $keyword . '%')
@@ -929,41 +915,9 @@ if($state)
  //    $query->where('category_id', 'like', '%' . $category . '%');
  //  })->get();
 
-if(!$keywordResponses6 && !$keywordResponses7) {
-  $keywordResponses5a = $keywordResponses5;
-}else{
-  $keywordResponses5a = null;
-}
-
-if(!$keywordResponses6 && !$keywordResponses5) {
-  $keywordResponses7a = $keywordResponses7;
-}else{
-  $keywordResponses7a = null;
-}
-
-if($services5) {
-  $services3 = null;
-}
-
-if($services4) {
-  $services1 = null;
-  $services2 = null;
-  $services3 = null;
-  $services5 = null;
-  $services6 = null;
-  $services7 = null;
-}
-
-if($services3) {
-  $services1 = null;
-  $services2 = null;
-  $services5 = null;
-  $services6 = null;
-  $services7 = null;
-}
 
 
-   return view('searchResult', compact(['featuredServices', 'all_states', 'services1', 'services2', 'services3', 'services4', 'services5', 'services5', 'services6', 'services7', 'keyword_and_states', 'keywordResponses5a', 'keywordResponses6',  'keywordResponses7a', 'keywordResponses3', 'search_form_categories', 'states']));
+   return view('searchResult', compact(['featuredServices', 'all_states', 'services1', 'services2', 'services3', 'services4', 'services5', 'services5', 'services6', 'services7', 'services8' ]));
 }
 
 
@@ -1288,7 +1242,8 @@ public function show($id)
            Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
            $likecount = Like::where(['service_id'=>$id])->count();
            // return redirect()->to('serviceDetail/'.$service_slug);
-           return back()->with('liked', 'Unliked');
+        //    return back()->with('liked', 'Unliked', );
+            return $likecount;
 
         //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
         //return redirect('/home');
@@ -1299,7 +1254,8 @@ public function show($id)
            $like->save();
            $likecount = Like::where(['service_id'=>$id])->count();
            // return redirect()->to('serviceDetail/'.$service_slug);
-           return back();
+        //    return back();
+            return $likecount;
 
         //return 'Heyyyyy22222'. $likecount;
          }
@@ -1438,9 +1394,7 @@ public function show($id)
       public function createpay(Request $request)
       {
        $data = $request->all();
-       //return 'nnn';
 
-        //return $data['service_id'];
        $badge_service_id = $data['service_id'];
 
 
@@ -1449,7 +1403,6 @@ public function show($id)
         'email' => 'required',
       ]);
        $service_check = Service::where(['id'=>$badge_service_id])->first();
-       //return $service_check->badge_type;
        $service_check->badge_type = $data['badge_type'];
        $service_check->save();
        $badge_check = Badge::where(['service_id'=>$badge_service_id])->first();
@@ -1458,8 +1411,7 @@ public function show($id)
         $badge_check->badge_type = $data['badge_type'];
 
         $badge_check->amount = $data['amount'];
-        $badge_check->ref_no = $data['ref_no'];
-  //$badge_check->service_id = $data['service_id'];
+        $badge_check->ref_no = 1234;
 
         $badge_check->save();
         return "Badge Updated successfully!";
@@ -1471,8 +1423,7 @@ public function show($id)
        $badge->amount = $data['amount'];
        $badge->seller_name = $data['seller_name'];
        $badge->phone = $data['phone'];
-       $badge->ref_no = $data['ref_no'];
-        //$badge->service_id = $data['service_id'];
+       $badge->ref_no = 1234;
 
        $badge->save();
        return "Badge created successfully";

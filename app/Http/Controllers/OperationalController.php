@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Advert;
+use App\Category;
 use App\Service;
 use App\Slider;
 use Illuminate\Http\Request;
@@ -188,6 +189,50 @@ class OperationalController extends Controller
     {
         $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(5);
         return $featuredServices;
+    }
+
+
+    public function catPageSortBy($letter)
+    {
+        $collection = Category::get();
+        $grouped = $collection->groupBy(function ($item, $key) {
+            $aphal = $item->name[0];
+            if (ctype_alpha($aphal)) {
+                return $aphal;
+            }
+
+        });
+
+        if ($letter == 'all') {
+            return $collection;
+        }
+        return $grouped[$letter];
+    }
+
+    public function requestbadge(Request $request, $id)
+    {
+        $user_id = $request->user()->id;
+
+        if ($id == 1) {
+            $badge = [
+                'badge_type' => 'Super',
+                'badge_cost' => '20000'
+            ];
+        }
+        elseif ($id == 2) {
+            $badge = [
+                'badge_type' => 'Moderate',
+                'badge_cost' => '10000'
+            ];
+        }
+        elseif ($id == 3) {
+            $badge = [
+                'badge_type' => 'Super',
+                'badge_cost' => '5000'
+            ];
+        }
+
+        return $badge;
     }
 
 }

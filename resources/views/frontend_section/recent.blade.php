@@ -1,5 +1,5 @@
 <div class="recently-properties content-area-12 hm-cl-recently-properties">
-    <div class="container">
+    <div class="service-detail-container">
         <!-- Main title -->
         <div class="main-title">
             <h1> Recently Added Services </h1>
@@ -8,19 +8,20 @@
         @if(isset($recentServices))
             <div class="row">
                 @foreach($recentServices as $recentService)
-                    <div class="col-lg-3 col-md-4 col-sm-6 filtr-item">
+                    <div class="col-lg-2 col-md-4 col-sm-6 filtr-item">
                         <div class="property-box">
                             <div class="property-thumbnail">
                                 <div class="price-ratings-box">
                                     <p class="price" style="text-transform: capitalize">
-                                        {{ Str::limit($recentService->user->name, 20) }}
+                                        {{ Str::limit($recentService->user->name, 13) }}
                                     </p>
                                 </div>
-                                <img class="d-block w-100" src="{{asset('uploads/services')}}/{{$recentService->service_image}}" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$recentService->service_image}}" alt="{{$recentService->name}}">
                             </div>
                             <div class="detail">
                                 <div>
-                                    <a class="title" href="{{route('serviceDetail', $recentService->slug)}}">{{$recentService->name}}</a>
+                                    <a class="title title-dk" href="{{ route('serviceDetail', $recentService->slug)}}">{{ Str::limit($recentService->name, 18) }}</a>
+                                    <a class="title title-mb" href="{{ route('serviceDetail', $recentService->slug)}}">{{ Str::limit($recentService->name, 10) }}</a>
                                 </div>
                                 <ul class="d-flex flex-row justify-content-between info">
                                     <li>
@@ -28,7 +29,7 @@
                                     </li>
                                     <li>
                                         <a class="pull-right" href="{{route('serviceDetail', $recentService->slug)}}">
-                                            <i class="fa fa-map-marker text-warning"></i> {{$recentService->state}}
+                                            <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($recentService->state, 5) }}
                                         </a>
                                     </li>
                                 </ul>

@@ -9,10 +9,15 @@
         text-transform: uppercase;
         color: #515151;
         position: relative;
-        top: -52px;
+        top: -58px;
         left: 60px;
-        margin-right: 20px;
+        /* margin-right: 20px; */
         display: inline-block;
+        padding: 10px;
+    }
+    .letters:hover{
+        cursor: pointer;
+        color: #ca8309;
     }
     @media (max-width: 768px){
         .alphabets{
@@ -50,44 +55,35 @@
                                 </span>
                                 {{-- <span class="title-name">All Categories</span> --}}
                                 <div class="alphabets">
-                                    <a href="" class="letters">A</a>
-                                    <a href="" class="letters">B</a>
-                                    <a href="" class="letters">C</a>
-                                    <a href="" class="letters">D</a>
-                                    <a href="" class="letters">E</a>
-                                    <a href="" class="letters">F</a>
-                                    <a href="" class="letters">G</a>
-                                    <a href="" class="letters">H</a>
-                                    <a href="" class="letters">I</a>
-                                    <a href="" class="letters">J</a>
-                                    <a href="" class="letters">K</a>
-                                    <a href="" class="letters">L</a>
-                                    <a href="" class="letters">M</a>
-                                    <a href="" class="letters">N</a>
-                                    <a href="" class="letters">O</a>
-                                    <a href="" class="letters">P</a>
-                                    <a href="" class="letters">Q</a>
-                                    <a href="" class="letters">R</a>
-                                    <a href="" class="letters">S</a>
-                                    <a href="" class="letters">T</a>
-                                    <a href="" class="letters">U</a>
-                                    <a href="" class="letters">V</a>
-                                    <a href="" class="letters">W</a>
-                                    <a href="" class="letters">X</a>
-                                    <a href="" class="letters">Y</a>
-                                    <a href="" class="letters">Z</a>
+                                    <a onclick="catAlphSort('all')" href="#" class="letters">ALL</a>
+                                    <p onclick="catAlphSort('A')" class="letters">A</p>
+                                    <p onclick="catAlphSort('B')" class="letters">B</p>
+                                    <p onclick="catAlphSort('C')" class="letters">C</p>
+                                    <p onclick="catAlphSort('D')" class="letters">D</p>
+                                    <p onclick="catAlphSort('E')" class="letters">E</p>
+                                    <p onclick="catAlphSort('F')" class="letters">F</p>
+                                    <p onclick="catAlphSort('G')" class="letters">G</p>
+                                    <p onclick="catAlphSort('H')" class="letters">H</p>
+                                    <p onclick="catAlphSort('I')" class="letters">I</p>
+                                    <p onclick="catAlphSort('J')" class="letters">J</p>
+                                    <p onclick="catAlphSort('K')" class="letters">K</p>
+                                    <p onclick="catAlphSort('L')" class="letters">L</p>
+                                    <p onclick="catAlphSort('M')" class="letters">M</p>
+                                    <p onclick="catAlphSort('N')" class="letters">N</p>
+                                    <p onclick="catAlphSort('O')" class="letters">O</p>
+                                    <p onclick="catAlphSort('P')" class="letters">P</p>
+                                    <p onclick="catAlphSort('Q')" class="letters">Q</p>
+                                    <p onclick="catAlphSort('R')" class="letters">R</p>
+                                    <p onclick="catAlphSort('S')" class="letters">S</p>
+                                    <p onclick="catAlphSort('T')" class="letters">T</p>
+                                    <p onclick="catAlphSort('U')" class="letters">U</p>
+                                    <p onclick="catAlphSort('V')" class="letters">V</p>
+                                    <p onclick="catAlphSort('W')" class="letters">W</p>
+                                    <p onclick="catAlphSort('X')" class="letters">X</p>
+                                    <p onclick="catAlphSort('Y')" class="letters">Y</p>
+                                    <p onclick="catAlphSort('Z')" class="letters">Z</p>
                                 </div>
                             </h4>
-                        </div>
-                        <div class="float-right cod-pad ">
-                            <div class="sorting-options">
-                                {{-- <select class="sorting">
-                                    <option>New To Old</option>
-
-                                </select>
-                                <a href="properties-list-fullwidth.html" class="change-view-btn bg-warning"><i class="fa fa-th-list"></i></a>
-                                <a href="properties-grid-fullwidth.html" class="change-view-btn bg-warning"><i class="fa fa-th-large"></i></a> --}}
-                            </div>
                         </div>
                     </div>
                     <!-- grid properties start -->
@@ -98,12 +94,12 @@
                         <h5>What service are you looking for?</h5>
                     </div>
                     @if(isset($categories))
-                        <div class="row wow animated" style="visibility: visible;">
+                        <div class="row wow animated" id="categoryColumn">
                             @foreach($categories as $category)
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 defaultData">
                                     <a href="{{ route('services', $category->slug) }}">
                                         <div class="service-info-5 animate__animated animate__fadeInUp">
-                                            <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px; margin-bottom: 20px" alt="properties">
+                                            <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px; margin-bottom: 20px" alt="{{$category->name}}">
                                             <h4>{{$category->name}}</h4>
                                         </div>
                                     </a>
@@ -122,5 +118,37 @@
     </div>
 </div>
 
+
+<script>
+    column = document.getElementById('categoryColumn')
+
+    function catAlphSort(letter) {
+        $('.defaultData').remove()
+        $.ajax({
+            url: '/catpagesortby/' + letter,
+            method: 'GET',
+            success: function(data){
+                categories = data
+                console.log(categories)
+
+                categories.forEach(category => {
+                    column.innerHTML += `<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 defaultData">
+                            <a href="/services/`+ category.slug +`">
+                                <div class="service-info-5 animate__animated animate__fadeInUp">
+                                    <img class="" src="/images/` + category.image +`" style=" border-radius: 10px; width: 50px; margin-bottom: 20px" alt="` + category.name +`">
+                                    <h4>`+ category.name +`</h4>
+                                </div>
+                            </a>
+                        </div>`
+                })
+            },
+            statusCode: {
+                500: function() {
+                    column.innerHTML += `<h4 class="defaultData" style="text-align:center; width:100%">No category in the list!</h4>`
+                }
+            }
+        });
+    }
+</script>
 
 @endsection

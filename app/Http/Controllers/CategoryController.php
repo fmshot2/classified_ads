@@ -216,8 +216,8 @@ class CategoryController extends Controller
                 $thumbnailImage = Image::make($request->file);
                 $thumbnailImage->resize(100,100);
                 $thumbnailImage_name = $slug2.'.'.time().'.'.$request->file->getClientOriginalExtension();
-$destinationPath = 'images/';
-        $thumbnailImage->save($destinationPath . $thumbnailImage_name);
+                $destinationPath = 'images/';
+                $thumbnailImage->save($destinationPath . $thumbnailImage_name);
         $category->image = $thumbnailImage_name;
 
 /*

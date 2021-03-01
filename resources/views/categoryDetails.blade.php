@@ -33,7 +33,7 @@
                                  <div class="slick-slide-item slick-carousel col-4">
                     <div class="property-box-5">
                         <div class="property-photo">
-                            <img class="img-fluid" src="{{asset('img/properties/properties-1.jpg')}}" alt="properties">
+                            <img class="img-fluid" src="{{asset('img/properties/properties-1.jpg')}}" alt="{{ $category->name }}">
                             <div class="date-box bg-warning">{{$category->is_approved ? 'verified' : 'Not verified'}}</div>
                         </div>
                         <div class="detail">
@@ -58,7 +58,7 @@
 
                             </div>
                         </div>
-                   
+
                     </div>
                     <!-- Advanced search start -->
                     <div class="widget-2 sidebar advanced-search-2">
@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <div class="dropdown bootstrap-select search-fields"><select class="selectpicker search-fields" name="property-sdtatus" tabindex="-98">
                                     <option>Property Status</option>
-                               
+
                                 </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="button" title="Property Status"><div class="filter-option"><div class="filter-option-inner">Property Status</div></div>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
                             </div>
                             <div class="form-group">
@@ -158,7 +158,7 @@
                             </div>
                         </form>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="col-lg-4 col-md-12">
@@ -279,7 +279,7 @@
                             <li><a href="#">Other <span>(22) </span></a></li>
                         </ul>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

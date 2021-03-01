@@ -21,6 +21,9 @@ use App\Service;
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 Route::get ( 'findgeo2',  'ServiceController@findNearestRestaurants');
+Route::get( '/catpagesortby/{letter}',  'OperationalController@catPageSortBy');
+Route::get( '/requestbadge/{id}',  'OperationalController@requestbadge');
+Route::post( '/requestbadge/{id}',  'OperationalController@requestbadge')->name('badge.request');
 
 Route::get('email', function () {
     return new App\Mail\UserRegistered();
@@ -122,6 +125,9 @@ Route::get('/privacy', 'PageController@privacy')->name('privacy');
 
 
 Route::get('/admin2/like/{id}', 'ServiceController@saveLike2')->name('admin2.like');
+
+Route::get('/drop', 'ServiceController@dropzone');
+
 
 Route::post('/admin/like', 'ServiceController@saveLike')->name('admin.like');
 
@@ -332,6 +338,8 @@ $longitude = $json['longitude'];
 Route::get ( 'geolo',  'AdminController@geo')->name('geolo');
 
 Route::get ( 'findgeo',  'ServiceController@findNearestServices');
+Route::get ( 'findLat2',  'ServiceController@findNearestServices2');
+
 Route::get ( 'findLat',  'AdminController@findNearestRestaurants');
 
 

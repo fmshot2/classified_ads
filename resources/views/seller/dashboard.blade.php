@@ -30,8 +30,11 @@
             @endif
 
             <ol class="breadcrumb mt-5">
-                <li><span style="font-size: 15px"><i class="fa fa-money"></i> Referral Bonus: &#8358 <span style="font-weight: 600; font-size: 16px">{{$accruedAmount ?? 0}}</span></span></li>
-                <button class="btn btn-success btn-sm" style="cursor: pointer; display: block; margin-top: 5px;" data-toggle="modal" data-target="#exampleModal">Make Withdrawal</button>
+                {{-- <li><span style="font-size: 15px"><i class="fa fa-money"></i> Referral Bonus: &#8358; <span style="font-weight: 600; font-size: 16px"></span></span></li>
+                <button class="btn btn-success btn-sm" style="cursor: pointer; display: block; margin-top: 5px;" data-toggle="modal" data-target="#exampleModal">Make Withdrawal</button> --}}
+                <li class="navbar-top-post-btn">
+                    <a style="font-size: 15px !important;color:#fff" class="btn btn-success" href="{{ route('seller.service.create') }}"><i class="fa fa-plus"></i> <span >Post A Service</span></a>
+                </li>
             </ol>
         </section>
 
@@ -74,7 +77,7 @@
                                 <span class="info-box-text"> My Service{{ $service_count > 1 ? 's' : '' }} </span>
                                 <span class="info-box-number"> {{ $service_count }} </span>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-blue" style="width: {{ $service_count}}%"></div>
+                                    <div class="progress-bar progress-bar-danger" style="width: {{ $service_count}}%"></div>
                                 </div>
                                 <span class="progress-description">
                                     <!-- Extra content can go here -->
@@ -94,7 +97,7 @@
                             <span class="info-box-text"> Pending Service{{ $pending_service_count > 1 ? 's' : '' }} </span>
                             <span class="info-box-number"> {{ $pending_service_count }} </span>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-blue" style="width: {{ $pending_service_count }}%"></div>
+                                <div class="progress-bar progress-bar-danger" style="width: {{ $pending_service_count }}%"></div>
                             </div>
                             <span class="progress-description">
                                 <!-- Extra content can go here -->
@@ -113,7 +116,7 @@
                             <span class="info-box-text"> Active Service{{ $active_service_count > 1 ? 's' : '' }} </span>
                             <span class="info-box-number"> {{ $active_service_count }} </span>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-success" style="width: {{ $active_service_count }}%"></div>
+                                <div class="progress-bar progress-bar-danger" style="width: {{ $active_service_count }}%"></div>
                             </div>
                             <span class="progress-description">
                                 <!-- Extra content can go here -->
@@ -132,7 +135,7 @@
                             <span class="info-box-text"> Liked Service{{ $all_notification_count > 1 ? 's' : '' }} </span>
                             <span class="info-box-number"> {{ $all_notification_count }} </span>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-primary" style="width: {{ $all_notification_count }}%"></div>
+                                <div class="progress-bar progress-bar-danger" style="width: {{ $all_notification_count }}%"></div>
                             </div>
                             <span class="progress-description">
                                 <!-- Extra content can go here -->
@@ -154,7 +157,7 @@
                                 <span class="info-box-text"> My Message{{ $message_count > 1 ? 's' : '' }} </span>
                                 <span class="info-box-number"> {{ $message_count }} </span>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-success" style="width: {{ $message_count}}%"></div>
+                                    <div class="progress-bar progress-bar-danger" style="width: {{ $message_count}}%"></div>
                                 </div>
                                 <span class="progress-description">
                                     <!-- Extra content can go here -->
@@ -162,27 +165,6 @@
                             </div>
                             <!-- /.info-box-content -->
                         </a>
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
-
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon push-bottom bg-warning">
-                            <i class="fa fa-commenting text-white" aria-hidden="true"></i>
-                        </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text"> Read Message{{ $read_message_count > 1 ? 's' : '' }} </span>
-                            <span class="info-box-number"> {{ $read_message_count }} </span>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-primary" style="width: {{ $read_message_count }}%"></div>
-                            </div>
-                            <span class="progress-description">
-                            <!-- 85% Increase in 28 Days -->
-                            </span>
-                        </div>
-                        <!-- /.info-box-content -->
                     </div>
                     <!-- /.info-box -->
                 </div>
@@ -216,7 +198,7 @@
                             <span class="info-box-text"> General Notice{{ $all_notification_count > 1 ? 's' : '' }}</span>
                             <span class="info-box-number"> {{ $all_notification_count }} </span>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-primary" style="width: {{ $all_notification_count }}%"></div>
+                                <div class="progress-bar progress-bar-danger" style="width: {{ $all_notification_count }}%"></div>
                             </div>
                             <span class="progress-description">
                                 <!-- Extra content can go here -->
@@ -226,6 +208,27 @@
                     </div>
                     <!-- /.info-box -->
                 </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon push-bottom bg-warning">
+                            <i class="fa fa-money text-white" aria-hidden="true"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text"> Referral Bonus </span>
+                            <span class="info-box-number"> &#8358;{{$accruedAmount ?? 0}} </span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-danger" style="width: {{$accruedAmount ?? 0}}%"></div>
+                            </div>
+                            <span class="progress-description">
+                                <button class="btn btn-success btn-sm" style="cursor: pointer; display: block; margin-top: 5px;" data-toggle="modal" data-target="#exampleModal">Make Withdrawal</button>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
             </div>
 
             @include('seller/section/badge_notification')

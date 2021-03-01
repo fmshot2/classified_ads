@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
+use App\Image as ServiceImage;
 use App\Service;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class ServiceImageController extends Controller
 {
@@ -19,15 +20,22 @@ class ServiceImageController extends Controller
         ]);
     }
 
-    public function imagesStore(Request $request, $service_id)
+  public function imagesStore(Request $request, $service_id)
     {
-        $image = $request->file('file');
+        $image       = $request->file('file');
         $fileInfo = $image->getClientOriginalName();
         $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
         $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
         $file_name= $filename.'-'.time().'.'.$extension;
-        $image->move(public_path('uploads/services'),$file_name);
 
+        //Fullsize
+        $image->move(public_path('uploads/services/'),$file_name);
+
+        $image_resize = Image::make(public_path('uploads/services/').$file_name);
+        $image_resize->fit(300, 300);
+        $image_resize->save(public_path('uploads/services/' .$file_name));
+
+        // Saving it with this service
         $service = Service::find($service_id);
         $service->images()->create(['image_path' => $file_name]);
         $service->thumbnail = $service->images()->first()->image_path;
@@ -37,10 +45,9 @@ class ServiceImageController extends Controller
 
     }
 
-
     public function imagesDelete($id)
     {
-        $image = Image::find($id);
+        $image = ServiceImage::find($id);
         $filename = $image->image_path;
         $image->delete();
 

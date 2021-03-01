@@ -13,27 +13,31 @@
                     </div>
 
                     <div class="popular-posts featured-service-hm">
-                        @foreach($featuredServices as $featuredService)
-                            <div class="media p-2">
-                                <a href="{{route('serviceDetail', $featuredService->slug)}}">
-                                    <div class="media-left">
-                                        <img class="media-object" src="{{asset('uploads/services')}}/{{ $featuredService->service_image}}" alt="sub-properties">
-                                    </div>
-                                </a>
-                                <div class="media-body align-self-center">
-                                    <h3 class="media-heading"><a href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 30)}}</a></h3>
+                         @if(isset($featuredServices))
+                            @foreach($featuredServices as $featuredService)
+                                @if ($loop->index < 16)
+                                    <div class="media p-2">
+                                        <a href="{{route('serviceDetail', $featuredService->slug)}}">
+                                            <div class="media-left">
+                                                <img class="media-object" src="{{asset('uploads/services')}}/{{ $featuredService->service_image}}" alt="sub-properties">
+                                            </div>
+                                        </a>
+                                        <div class="media-body align-self-center">
+                                            <h3 class="media-heading"><a href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 30)}}</a></h3>
 
-                                    <p class="fea-ad-hm-location"><strong>Location:</strong> <a href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->state, 30)}}</a></p>
-                                </div>
-                            </div>
-                        @endforeach
+                                            <p class="fea-ad-hm-location"><strong>Location:</strong> <a href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->state, 30)}}</a></p>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-6 desktop-cat-col">
                 <div class="main-title">
-                    <h1>What service are you looking for?</h1>
+                    <h3>What service are you looking for?</h3>
                 </div>
                 <div class="">
                     <div class="row" style="visibility: visible;">
@@ -44,11 +48,11 @@
                                         <div class="cat-image-icon">
                                             <a href="{{route('services', $category->slug)}}" >
                                                 <div style="border-radius: 50px;">
-                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px;" alt="properties">
+                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px;" alt="{{$category->name}}">
                                                 </div>
                                             </a>
 
-                                            <a href="{{route('services', $category->slug)}}" >
+                                            <a style="font-weight: 500 !important" href="{{route('services', $category->slug)}}" >
                                                 <h6>{{$category->name}}</h6>
                                             </a>
                                         </div>
@@ -63,7 +67,7 @@
 
             <div class="col-lg-6 mobile-cat-col">
                 <div class="main-title">
-                    <h1>What service are you looking for?</h1>
+                    <h2>What service are you looking for?</h2>
                 </div>
                 <div class="sidebar-right" style="width: 100%; padding: 15px;">
                     <div class="row wow animated" style="visibility: visible;" style="margin: 0; padding: 0; width: 100%">
@@ -74,7 +78,7 @@
                                         <div class="cat-image-icon">
                                             <a href="{{route('services', $category->slug)}}" >
                                                 <div style="border-radius: 50px">
-                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="properties">
+                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="{{$category->name}}">
                                                 </div>
                                             </a>
 
@@ -103,7 +107,7 @@
                                         <div class="cat-image-icon">
                                             <a href="{{route('services', $category->slug)}}" >
                                                 <div style="border-radius: 50px">
-                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="properties">
+                                                    <img class="" src="{{asset('images')}}/{{$category->image}}" style=" border-radius: 10px; width: 50px" alt="{{$category->name}}">
                                                 </div>
                                             </a>
 
@@ -165,8 +169,9 @@
                     </div>
 
                     <div class="popular-posts featured-ad-hm-list" style="margin-top: -10px">
+                        @if(isset($trendingServices))
                         @foreach ($trendingServices as $trendingService)
-                            @if ($loop->index < 9)
+                            @if ($loop->index < 14)
                                 <div class="media p-2">
                                     <a href="{{ route('serviceDetail', $trendingService->slug) }}">
                                         <div class="media-left">
@@ -181,28 +186,7 @@
                                 </div>
                             @endif
                         @endforeach
-
-                        {{-- <div class="media p-2">
-                            <div class="media-left">
-                                <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'enugu-2.jpg'}}" alt="First slide">
-                            </div>
-                            <div class="media-body align-self-center">
-                                <p class="fea-ad-hm-location"><strong>Bricklayer Inc.</strong>
-                                </p>
-                                <p class="fea-ad-hm-location"><strong>Location:</strong> Abuja</a></p>
-                            </div>
-                        </div>
-                        <div class="media p-2">
-                            <div class="media-left">
-                               <a href="{{ route('allcities') }}"> <img class="d-block mx-auto img-fluid" src="{{asset('img/popular-places')}}/{{'abuja-1.jpg'}}" alt="First slide"></a>
-                           </div>
-                           <div class="media-body align-self-center">
-                                <a href="{{ route('allcities') }}">
-                                    <p class="fea-ad-hm-location"><strong>School Teacher</strong></p>
-                                    <p class="fea-ad-hm-location"><strong>Location:</strong> Port Harcourt</a></p>
-                                </a>
-                            </div>
-                        </div> --}}
+                        @endif
                     </div>
                 </div>
             </div>

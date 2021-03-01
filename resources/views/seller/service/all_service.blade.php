@@ -36,10 +36,9 @@
                                         <th> Featured </th>
                                         <th> Date </th>
                                         <th>Comments</th>
-                                        <th>Badge Type</th>
+                                        {{-- <th>Badge Type</th> --}}
                                         <th>Likes</th>
-{{--                                         <th>Images</th>
- --}}                                        <th> Action </th>
+                                        <th> Action </th>
                                     </tr>
                                 </thead>
 
@@ -56,20 +55,14 @@
                                             <td> {{ $all_service->state }} </td>
                                             <td> {{ $all_service->featured == 1 ? 'Yes' : 'No' }} </td>
                                             <td> {{ $all_service->created_at->diffForHumans() }} </td>
-                                            <td><span><i class="fa fa-comments">  comments</i> {{$all_service->messages->count()}}</span> </td>
-                                            <td> {{$all_service->badge_type ? $all_service->badge_type : 'No Badges'}}</td>
+                                            <td><span><i class="fa fa-comments"> </i> {{ $all_service->comments->count() }}</span> </td>
+                                            {{-- <td> {{$all_service->badge_type ? $all_service->badge_type : 'No Badges'}}</td> --}}
                                             <td> {{$all_service->likes->count()}}</td>
-                                           {{--  <td>
-
-                                                <a href="#">
-                                                    <img src="{{asset('images')}}/{{$all_service->first_image }}"  alt="service image" width="60" class="img-responsive img-rounded">
-                                                </a>
-                                            </td> --}}
 
                                             <td class="center">
                                                 <a href="{{ route('service.view', $all_service->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
                                                 <a href="{{ route('service.update.view', $all_service->slug) }}" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></a>
-                                                <a href="{{ route('seller.service.destroy', $all_service->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                                <a onclick="deleteService({{ $all_service->id }})" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -95,6 +88,27 @@
 
 	</div>
 </section>
+
+
+<script>
+    function deleteService(id) {
+        event.preventDefault();
+
+        if (confirm("Are you sure?")) {
+
+            $.ajax({
+                url: '/service/' + id,
+                method: 'get',
+                success: function(result){
+                    window.location.assign(window.location.href);
+                }
+            });
+
+        } else {
+            console.log('Delete process cancelled');
+        }
+    }
+</script>
 
 @endsection
 

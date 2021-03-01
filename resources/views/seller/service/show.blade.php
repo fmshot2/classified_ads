@@ -31,20 +31,52 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <h6 class="box-heading">Service Name: <span>{{ $service->name }}</span></h6>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span class="right"><strong>Service Name: </strong> {{ $service->name }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="right"><strong>Posted: </strong> {{ $service->created_at->diffForHumans() }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="right"><strong>Description: </strong> {{ $service->description  }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="right"><strong>Category: </strong> {{ $category->name }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="right"><strong>Amount Charge: </strong> {{ $service->min_price }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Country : </strong>
+                            <span class="right">Nigeria</span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>State : </strong>
+                            <span class="right"> {{ $service->state }} </span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>City : </strong>
+                            <span class="right"> {{ $service->city }}</span>
+                        </li>
 
-                    <h6 class="box-heading">Service Description: <span>{{ $service->description }}</span></h6>
+                        <li class="list-group-item">
+                            <strong>Address : </strong>
+                            <span class="left"> {{ $service->address }}</span>
+                        </li>
 
-                    <h6 class="box-heading">Service City: <span>{{ $service->city }}</span></h6>
-
-                    <h6 class="box-heading">Service State: <span>{{ $service->state }}</span></h6>
-
-                    <h6 class="box-heading">Service Street Address: <span>{{ $service->address }}</span></h6>
-
-                    <h6 class="box-heading">Service Experience: <span>{{ $service->experience }}</span></h6>
-
-                    <h3 class="box-heading">Service Phone No: <span>{{ $service->phone }}</span></h3>
-
+                        <li class="list-group-item">
+                            <strong>Images </strong>
+                            <div class="images">
+                                @foreach ($service->images as $image)
+                                    <div class="image-list">
+                                        <img src="{{ asset('uploads/services/'.$image->image_path) }}" alt="{{ $service->name }}">
+                                    </div>
+                                @endforeach
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -81,12 +113,15 @@
 
                     <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
                         @csrf
-                        <div class="dz-default dz-message">Drop your service images here</div>
+                        <div class="dz-default dz-message">
+                            Click here to add your images <br>
+                            <small style="color: rgb(182, 66, 66) !important">When you are done click the upload button down below!</small>
+                        </div>
                     </form>
                     <br>
                     <center>
-                        <button id="submit-all" class="btn btn-success" style="height: 40px;"> Upload all the images</button>
-                        <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;"> View Service</a>
+                        <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
+                        <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
                     </center>
 
                 </div>

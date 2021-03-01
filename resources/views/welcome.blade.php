@@ -29,9 +29,9 @@ function getLocation() {
 }
 
 
-function showPosition(position) { 
+function showPosition(position) {
 
-    console.log('ccc', position.coords.latitude);
+    console.log('latitude', position.coords.latitude);
 
         var lat = document.getElementById("latitude_id").value = position.coords.latitude;
     console.log('lat', lat);
@@ -43,43 +43,48 @@ function showPosition(position) {
             url: 'findgeo',
             data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
            success: function(result){
-
                     services = result.data;
-                     console.log('services', services);
-                     console.log('sdsd')
                         services.forEach(service => {
-                            // badge = service.badge_type
+                            badge = service.badge_type
+                            if (badge == 1) {
+                              badge = '<span class="featured bg-warning" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Super</span>';
+                            }
+                            if (badge == 2) {
+                              badge = '<span class="featured bg-success" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i><i class="fa fa-star"></i> Moderate</span>';
+                            }
+                            if (badge == 3) {
+                              badge = '<span class="featured bg-primary" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i> Basic</span>';
+                            }
+                            if (badge == 4) {
+                              badge = '';
+                            }
                             // if (service.badge_type == 'trusted') {
                             //   service.badge_type == 'truuuue';
                             // }
-                            $('#featuredServicesRow').append(`<a href="/serviceDetail/`+ service.slug + `" class="property-img">
-                                <div class="col-lg-3 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                            $('#servicesCloseToYouRow').append(`<a href="/serviceDetail/`+ service.slug + `" class="property-img">
+                                <div class="col-lg-2 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                     <div class="property-box">
                                         <div class="property-thumbnail">
                                             <div class="listing-badges">`+
-                                                service.badge_type
+                                                badge
                                             +`</div>
                                             <div class="price-ratings-box">
                                                 <p class="price" style="text-transform: capitalize">
-                                                    `+ service.user.name + `
+                                                    `+ service.user.name.substring(0, 10) + "..." + `
                                                 </p>
                                             </div>
-                                            <img class="d-block w-100" src="/uploads/services/`+ service.thumbnail + `" style="width: 100%; height: 15vw; object-fit: cover;" alt="properties">
+                                            <img class="d-block w-100 service_images" src="/uploads/services/`+ service.thumbnail + `" alt="properties">
 
                                         </div>
                                         <div class="detail">
                                             <div>
-                                                <a class="title" href="">`+ service.name + `</a>
+                                                <a class="title title-dk" href="">`+ service.name.substring(0, 18) + "..." + `</a>
+                                                <a class="title title-mb" href="">`+ service.name.substring(0, 10) + "..." + `</a>
                                             </div>
 
                                             <ul class="d-flex flex-row justify-content-between info">
                                                 <li>
-                                                    <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> Likes
-                                                </li>
-                                                <li>
-                                                    <a class="pull-right" href="">
-                                                        <i class="fa fa-map-marker text-warning"></i> `+ service.state + `
-                                                    </a>
+                                                    <i class="fa fa-map-marker text-warning"></i> `+ service.state.substring(0, 5) + `
                                                 </li>
                                             </ul>
                                         </div>
@@ -87,11 +92,11 @@ function showPosition(position) {
                                 </div>
                             </a>`
 )
-                  
+
                         });
                 }
 
-          
+
 
             });
 }
@@ -142,14 +147,14 @@ function showPosition(position) {
 @include('frontend_section/category')
 
 <div class="blog content-area bg-grea-3 hm-feat-ser-mid-sec">
-    <div class="container">
+    <div class="service-detail-container">
             <!-- Main title -->
         <div class="main-title" style="margin-top: -50px;">
             <h1>Services Close To You </h1>
         </div>
-<div class="row" id="featuredServicesRow"></div>
-        </div>
-      </div>
+        <div class="row" id="servicesCloseToYouRow"></div>
+    </div>
+</div>
 
 @include('frontend_section/feature')
 
