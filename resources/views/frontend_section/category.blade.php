@@ -52,7 +52,7 @@
                                                 </div>
                                             </a>
 
-                                            <a href="{{route('services', $category->slug)}}" >
+                                            <a style="font-weight: 500 !important" href="{{route('services', $category->slug)}}" >
                                                 <h6>{{$category->name}}</h6>
                                             </a>
                                         </div>
