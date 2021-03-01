@@ -144,13 +144,19 @@
                                     </div>
                                 @endif
                             @else
-                                @for ($i = 1; $i <= 4; $i++)
-                                    <li class="glide__slide">
-                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
-                                        </a>
-                                    </li>
-                                @endfor
+                                <div class="glide">
+                                    <div class="glide__track" data-glide-el="track">
+                                        <ul class="glide__slides">
+                                            @for ($i = 1; $i <= 4; $i++)
+                                                <li class="glide__slide">
+                                                    <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
+                                                        <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
+                                                    </a>
+                                                </li>
+                                            @endfor
+                                        </ul>
+                                    </div>
+                                </div>
                             @endif
                         </div>
 
@@ -485,11 +491,11 @@
                                 <div class="s-border"></div>
                                 <div class="m-border"></div>
                                 <ul class="list-unstyled list-cat">
-                                    <li><span style="color: red">*</span> Do not pay in advance even for the delivery.</li>
-                                    <li><span style="color: red">*</span> Try to meet at a safe, public location.</li>
-                                    <li><span style="color: red">*</span> Check the item BEFORE you buy it.</li>
-                                    <li><span style="color: red">*</span> Pay only after collecting the item.</li>
-                                    <li><span style="color: red">*</span> You pay only the listed price without any hidden costs.</li>
+                                    <li><span style="color: red">*</span> Check the Service Provider profile to ensure they offer the serivices you need/required.</li>
+                                    <li><span style="color: red">*</span> Contact Service Providers only when certain you need their services.</li>
+                                    <li><span style="color: red">*</span> Ensure you check authenticity of all products at all times.</li>
+                                    <li><span style="color: red">*</span> Confirm identity of person/persons or organisation you are transacting with.</li>
+                                    <li><span style="color: red">*</span> Check and ensure that all transactions, services, products are legitimate and legal.</li>
                                     <li>
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#exampleModalCenter">
