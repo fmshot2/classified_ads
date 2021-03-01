@@ -187,7 +187,8 @@ body {
 }
 .cat-image-icon a h6 {
     font-family: Poppins-Regular;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 500 !important;
 }
 
 .footer .footer-inner .Subscribe-box form .btn {
@@ -523,6 +524,10 @@ h6 {
     font-family: Poppins-Regular !important;
 }
 
+.service-detail-container {
+    margin: 0 20px;
+}
+
 @media only screen and (min-width: 992px) {
     .banner {
         margin: 0 180px;
@@ -588,6 +593,9 @@ h6 {
     }
     #page_scroller {
         margin-right: 60px;
+    }
+    .service-detail-container {
+        margin: 0 150px;
     }
 }
 

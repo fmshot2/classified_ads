@@ -92,12 +92,12 @@
       </li>
       --}}
 
-<li style="{{ url()->current() == route('seller.post_advert') ? 'background-color: #f8d053' : '' }}">
+{{-- <li style="{{ url()->current() == route('seller.post_advert') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{ route ('seller.service.adverts') }} ">
           <i class="fa fa-plus"></i> <span> Post Advert </span>
           <span class="pull-right-container">
           </span>
-        </a>
+        </a> --}}
       </li>
 
 

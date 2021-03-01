@@ -157,7 +157,7 @@
                                             <div class="property-box">
                                                 <div class="property-thumbnail">
                                                     <div class="listing-badges">
-                                                        <span class="featured bg-primary"><i class="fa fa-star"></i><i class="fa fa-star"></i> {{$approvedService->is_featured == 1 ? ' Basic' : ''}}</span>
+                                                        <span class="featured bg-primary"><i class="fa fa-star"></i> {{$approvedService->is_featured == 1 ? ' Basic' : ''}}</span>
                                                     </div>
                                                     <div class="price-ratings-box">
                                                         <p class="price" style="text-transform: capitalize">
@@ -240,7 +240,7 @@
                     <div class="sidebar-right">
                         <!-- Advanced search start -->
                         <div class="sidebar widget advanced-search none-992">
-                            <h3 class="sidebar-title">Advanced Search</h3>
+                            <h3 class="sidebar-title">Search</h3>
                             <div class="s-border"></div>
                             <div class="m-border"></div>
                             <form action="{{route('search3')}}" method="POST" enctype="multipart/form-data">

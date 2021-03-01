@@ -45,7 +45,7 @@
 
     <!-- Properties Details page start -->
     <div class="properties-details-page content-area-7 service-page-sidebar">
-        <div class="container">
+        <div class="service-detail-container">
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12" style="background-color: #fff">
                     <div class="properties-details-section" style="padding-top: 15px;">
