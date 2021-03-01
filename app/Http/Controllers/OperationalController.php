@@ -6,6 +6,7 @@ use App\Advert;
 use App\Category;
 use App\Service;
 use App\Slider;
+use App\UserFeedback;
 use Illuminate\Http\Request;
 use Symfony\Component\Console\Input\Input;
 
@@ -233,6 +234,18 @@ class OperationalController extends Controller
         }
 
         return $badge;
+    }
+
+    public function feedbackform(Request $request)
+    {
+        $this->validate($request, [
+            'userfeedback'=> 'string|max:300'
+        ]);
+
+        $feedback = new UserFeedback;
+        $data = ['feedback' => $request->userfeedback];
+        $feedback->create($data);
+        return $request;
     }
 
 }

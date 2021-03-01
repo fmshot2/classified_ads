@@ -37,7 +37,7 @@
 
     <!-- Properties Details page start -->
     <div class="properties-details-page content-area-7 all-services-page">
-        <div class="container">
+        <div class="service-detail-container">
             <div class="row">
                 <div class="col-lg-8 col-md-8">
                     <!-- Option bar start -->
@@ -98,7 +98,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 18) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
@@ -133,7 +133,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 18) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
@@ -168,7 +168,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 18) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 
@@ -200,7 +200,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 18) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $approvedService->slug)}}">{{ Str::limit($approvedService->name, 15) }}</a>
                                                     </div>
 

@@ -99,13 +99,13 @@ body {
 }
 
 #sellerContact {
-    display: none;
+    /* display: none; */
     margin-top: 15px;
 }
-.sellerContactFormShow {
+/* .sellerContactFormShow {
     display: block !important;
     transition: display 1s;
-}
+} */
 .service-page-sidebar .sidebar-right .sidebar-title {
     text-transform: uppercase;
     font-weight: 500;
@@ -1129,7 +1129,7 @@ h6 {
     position: absolute;
     top: 100%;
     left: 0;
-    z-index: 1000;
+    z-index: 99999;
     display: none;
     float: left;
     min-width: 10rem;

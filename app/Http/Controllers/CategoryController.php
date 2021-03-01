@@ -273,6 +273,7 @@ return $this->index();
         $categories = Category::orderBy('id', 'asc')->paginate(35);
         $states = State::all();
         $local_governments = Local_government::all();
+        $search_form_categories = Category::orderBy('name')->get();
 
 
 
@@ -294,7 +295,7 @@ return $this->index();
         //$category_id = $id;
         //return $category_city;
 
-        return view ('services', compact('category_services', 'toShowOtherSearch', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices', 'categories', 'states', 'local_governments', 'sub_categories') );
+        return view ('services', compact('category_services', 'toShowOtherSearch', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices', 'categories', 'states', 'local_governments', 'sub_categories', 'search_form_categories') );
     }
 
 

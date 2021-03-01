@@ -74,7 +74,7 @@
 
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <div class="form-group">
-                          <p style="margin-bottom: 0; font-weight: 600;">Choose State</p>
+                          <p style="margin-bottom: 0; font-weight: 600;">Choose Location</p>
                           <select class="form-control" id="state" name="state">
                             <option value="">- Select an Option -</option>
                             @if(isset($states))

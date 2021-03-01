@@ -384,7 +384,7 @@
                                 </div>
 
                                 @guest
-                                    <p style="margin-bottom: 5px"><a href="{{route('login')}}"><strong style="color: #28a745">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #ee6363">Register</strong></a> to view <strong>{{ $the_provider_f_name }}</strong> contact details.</p>
+                                    <p style="margin-bottom: 5px"><a href="{{route('login')}}"><strong style="color: #28a745">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #ee6363">Register</strong></a> to view <strong class="tt-capitalize">{{ $the_provider_f_name }}</strong> contact details.</p>
                                 @endguest
                             </div>
 
@@ -405,7 +405,7 @@
                                 </p>
                             @endauth
 
-                            <button class="btn btn-outline-success" id="showContactSellerForm">Show Contact Form</button>
+                            {{-- <button class="btn btn-outline-success" id="showContactSellerForm">Show Contact Form</button> --}}
 
                             <div id="sellerContact" class="sellerContactDiv">
                                 <form id="myform">
@@ -417,7 +417,7 @@
                                     <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">
                                     <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="text-dark form-control">
 
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label class="form-label">Full Name</label>
                                         <input type="text" id="buyer_name" name="buyer_name" class="text-dark form-control" placeholder=" Your Name">
                                         @if ($errors->has('buyer_name'))
@@ -455,7 +455,7 @@
                                                 <strong class="text-danger">{{ $errors->first('subject') }}</strong>
                                             </span>
                                         @endif
-                                    </div>
+                                    </div> --}}
 
                                     <div class="form-group message">
                                         <textarea class="text-dark form-control" id="description" name="description" placeholder="Write message to {{ $serviceDetail->user->name }}"></textarea>
@@ -619,17 +619,17 @@
             }
         }
 
-        $("#showContactSellerForm").click(function(e){
-            e.preventDefault();
-            $("#sellerContact").toggleClass('sellerContactFormShow');
-            // $(".sellerContactDiv").classList.add('animate__animated', 'animate__hinge');
+        // $("#showContactSellerForm").click(function(e){
+        //     e.preventDefault();
+        //     $("#sellerContact").toggleClass('sellerContactFormShow');
+        //     // $(".sellerContactDiv").classList.add('animate__animated', 'animate__hinge');
 
-            if ($("#showContactSellerForm").text() == 'Hide Contact Form') {
-                $("#showContactSellerForm").text('Show Contact Form')
-            } else {
-                $("#showContactSellerForm").text('Hide Contact Form')
-            }
-        });
+        //     if ($("#showContactSellerForm").text() == 'Hide Contact Form') {
+        //         $("#showContactSellerForm").text('Show Contact Form')
+        //     } else {
+        //         $("#showContactSellerForm").text('Hide Contact Form')
+        //     }
+        // });
     });
 </script>
 

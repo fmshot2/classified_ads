@@ -20,10 +20,14 @@
                     <h4 style="text-transform:uppercase">My Referral Link</h4>
                     <div class="referralContainer">
                         <div>
-                            <button class="btn btn-danger" onclick="myFunction()">Click here to copy link</button>
+                            <button class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="{{ url('/register') . '/' . '?' . 'invite' . '=' . $linkcheck->refererlink}}" onclick="copyToClipboard('#refererlinkText') ">
+                                Click here to copy link
+                            </button>
                         </div>
                         <div>
-                            <input type="text" readonly hidden class="text-muted" value="{{url('/register') . '/' . '?' . 'invite' . '=' . $linkcheck->refererlink}}" id="myInput2">
+                            {{-- <input type="text" readonly class="text-muted" value="{{url('/register') . '/' . '?' . 'invite' . '=' . $linkcheck->refererlink}}" id="myInput2"> --}}
+
+                            <p id="refererlinkText" hidden>{{ url('/register') . '/' . '?' . 'invite' . '=' . $linkcheck->refererlink }}</p>
                         </div>
                     </div>
                 </div>
@@ -268,11 +272,20 @@
 
 
  <script>
-    function myFunction() {
-        var copyText = document.getElementById("myInput2");
-        copyText.select();
-        copyText.setSelectionRange(0, 99999)
+    // function myFunction() {
+    //     var copyText = document.getElementById("myInput2");
+    //     copyText.select();
+    //     copyText.setSelectionRange(0, 99999)
+    //     document.execCommand("copy");
+    //     alert("Referral Link Copied: " + copyText.value);
+    // }
+
+    function copyToClipboard(element) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).text()).select();
         document.execCommand("copy");
-        alert("Referral Link Copied: " + copyText.value);
+        $temp.remove();
+
     }
 </script>
