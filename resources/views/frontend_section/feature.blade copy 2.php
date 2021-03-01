@@ -1,9 +1,36 @@
 <div class="blog content-area bg-grea-3 hm-feat-ser-mid-sec">
-    <div class="service-detail-container">
+    <div class="container">
             <!-- Main title -->
         <div class="main-title" style="margin-top: -50px;">
             <h1> Featured Services </h1>
         </div>
+
+
+{{--  <div>Country: <span id="country"></span>
+    <div>State: <span id="state"></span>
+    <div>City: <span id="city"></span>
+    <div>Latitude: <span id="latitude"></span>
+    <div>Longitude: <span id="longitude"></span>
+    <div>IP: <span id="IPv4"></span>
+        <button class="btn btn-success" onclick="check()">click</button>
+    <script>
+        function check(){
+    $.ajax({
+        url: "https://geolocation-db.com/jsonp",
+        jsonpCallback: "callback",
+        dataType: "jsonp",
+        success: function( location ) {
+            $('#country').html(location.country_name);
+            $('#state').html(location.state);
+            $('#city').html(location.city);
+            $('#latitude').html(location.latitude);
+            $('#longitude').html(location.longitude);
+            $('#ip').html(location.IPv4);
+        }
+    });
+    }
+    </script> --}}
+
 
 
 
@@ -12,7 +39,7 @@
                 @foreach($featuredServices as $featuredService)
                     @if ($loop->index < 30 && $featuredService->badge_type == 1)
                         <a href="{{route('serviceDetail', $featuredService->slug)}}" class="property-img">
-                            <div class="col-lg-2 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                            <div class="col-lg-3 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                 <div class="property-box">
                                     <div class="property-thumbnail">
                                         <div class="listing-badges">
@@ -20,7 +47,7 @@
                                         </div>
                                         <div class="price-ratings-box">
                                             <p class="price" style="text-transform: capitalize;">
-                                                {{ Str::limit($featuredService->user->name, 10) }}
+                                                {{ Str::limit($featuredService->user->name, 20) }}
                                             </p>
                                         </div>
                                         <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" alt="{{ $featuredService->name }}">
@@ -28,8 +55,8 @@
                                     </div>
                                     <div class="detail">
                                         <div>
-                                            <a class="title title-dk" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 18) }}</a>
-                                            <a class="title title-mb" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 10) }}</a>
+                                            <a class="title title-dk" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 22) }}</a>
+                                            <a class="title title-mb" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 15) }}</a>
                                         </div>
 
                                         <ul class="d-flex flex-row justify-content-between info">
@@ -48,7 +75,7 @@
                         </a>
                     @elseif ($loop->index < 30 && $featuredService->badge_type == 2)
                         <a href="{{route('serviceDetail', $featuredService->slug)}}" class="property-img">
-                            <div class="col-lg-2 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                            <div class="col-lg-3 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                 <div class="property-box">
                                     <div class="property-thumbnail">
                                         <div class="listing-badges">
@@ -56,7 +83,7 @@
                                         </div>
                                         <div class="price-ratings-box">
                                             <p class="price" style="text-transform: capitalize">
-                                                {{ Str::limit($featuredService->user->name, 10) }}
+                                                {{ Str::limit($featuredService->user->name, 20) }}
                                             </p>
                                         </div>
                                         <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" alt="{{ $featuredService->name }}">
@@ -64,8 +91,8 @@
                                     </div>
                                     <div class="detail">
                                         <div>
-                                            <a class="title title-dk" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 18) }}</a>
-                                            <a class="title title-mb" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 10) }}</a>
+                                            <a class="title title-dk" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 22) }}</a>
+                                            <a class="title title-mb" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 15) }}</a>
                                         </div>
 
                                         <ul class="d-flex flex-row justify-content-between info">
@@ -84,7 +111,7 @@
                         </a>
                     @elseif ($loop->index < 30 && $featuredService->badge_type == 3)
                         <a href="{{route('serviceDetail', $featuredService->slug)}}" class="property-img">
-                            <div class="col-lg-2 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                            <div class="col-lg-3 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                 <div class="property-box">
                                     <div class="property-thumbnail">
                                         <div class="listing-badges">
@@ -92,7 +119,7 @@
                                         </div>
                                         <div class="price-ratings-box">
                                             <p class="price" style="text-transform: capitalize">
-                                                {{ Str::limit($featuredService->user->name, 10) }}
+                                                {{ Str::limit($featuredService->user->name, 20) }}
                                             </p>
                                         </div>
                                         <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" alt="{{ $featuredService->name }}">
@@ -100,8 +127,8 @@
                                     </div>
                                     <div class="detail">
                                         <div>
-                                            <a class="title title-dk" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 18) }}</a>
-                                            <a class="title title-mb" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 10) }}</a>
+                                            <a class="title title-dk" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 22) }}</a>
+                                            <a class="title title-mb" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 15) }}</a>
                                         </div>
 
                                         <ul class="d-flex flex-row justify-content-between info">
@@ -120,21 +147,21 @@
                         </a>
                     @else
                         <a href="{{route('serviceDetail', $featuredService->slug)}}" class="property-img">
-                            <div class="col-lg-2 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                            <div class="col-lg-3 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                 <div class="property-box">
                                     <div class="property-thumbnail">
                                         <div class="price-ratings-box">
                                             <p class="price" style="text-transform: capitalize">
-                                                {{ Str::limit($featuredService->user->name, 10) }}
+                                                {{ Str::limit($featuredService->user->name, 20) }}
                                             </p>
                                         </div>
-                                        <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" alt="{{ $featuredService->name }}">
+                                        <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" style="width: 100%; object-fit: cover;" alt="{{ $featuredService->name }}">
 
                                     </div>
                                     <div class="detail">
                                         <div>
-                                            <a class="title title-dk" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 18) }}</a>
-                                            <a class="title title-mb" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 10) }}</a>
+                                            <a class="title title-dk" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 22) }}</a>
+                                            <a class="title title-mb" href="{{route('serviceDetail', $featuredService->slug)}}">{{ Str::limit($featuredService->name, 15) }}</a>
                                         </div>
 
                                         <ul class="d-flex flex-row justify-content-between info">
