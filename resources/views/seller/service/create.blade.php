@@ -24,45 +24,42 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                         <label class="form-label">Service Name </label><small class="text-danger">*</small>
-                                        <input id='name' type="text" required name="name" value="{{ old('name') }}" class="form-control" placeholder="Enter the name of the service you want to render.">
+                                        <input id='name' type="text" required name="name" value="{{ old('name') }}" class="form-control" placeholder="Enter the name of the service you want to offer (e.g. Hair Stylist)">
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">Description</label>
-                                            <textarea id='description' name="description" value="{{ old('description') }}" class="form-control" placeholder="Give this service a brief description.">
-                                                {{ old('description') }}
-                                            </textarea>
+                                            <textarea id='description' name="description" class="form-control" placeholder="Tell us about your service.">{{ old('description') }}</textarea>
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label"> Experience (in years)</label><small class="text-danger">*</small>
-                                            <input id='experience' type="number"  value="{{ old('experience') }}" name="experience" placeholder="How many years of experience do you have for this service?" class="form-control" value="">
+                                            <label class="form-label"> Experience (in years)</label>
+                                            <input id='experience' type="number"  value="{{ old('experience') }}" name="experience" placeholder="How many years of experience do you have for this service? (e.g. 5)" class="form-control" value="">
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">Phone</label><small class="text-danger">*</small>
-                                            <input id="phone" required type="number"  class="form-control" value="{{ old('phone') }}" placeholder="Enter your phone number e.g. 09023456789" name="phone" value=" {{ Auth::user()->phone }}">
+                                            <input id="phone" required type="number"  class="form-control" value="{{ old('phone') }}" placeholder="Enter your phone number (e.g. 09023456789)" name="phone" value=" {{ Auth::user()->phone }}">
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-label">Amount Charge</label>
-                                            <input id="min_price" type="text" value="{{ old('min_price') }}" placeholder="Enter the amount you want on this service e.g. 20000" name="min_price" class="form-control">
+                                            <input id="min_price" type="text" value="{{ old('min_price') }}" placeholder="Enter the amount you want on this service (e.g. 20000)" name="min_price" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-check">
-                                            <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable" id="defaultCheck1">
-                                            <label class="form-check-label" for="defaultCheck1">
-                                        Negotiable  </label>
+                                            <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable">
+                                            <label class="form-check-label" for="negotiable"> Negotiable</label>
                                         </div>
                                     </div>
 
@@ -83,7 +80,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-label">Local Government</label><small class="text-danger">*</small>
-                                            <select class="form-control" id="city" name="city">
+                                            <select class="form-control" id="city" name="city" required>
                                                 <option disabled selected>- Select a State -</option>
                                             </select>
                                         </div>
@@ -118,9 +115,8 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Sub Category</label>
-                                        <small class="text-danger">*</small>
-                                        <select name="sub_category[]" required class="form-control show-tick" id="sub_categories" multiple>
+                                        <label>Sub Category <small class="text-info">(You can select multiple)</small></label>
+                                        <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple>
                                             <option value="">-- Please select --</option>
                                             @foreach($subcategory as $categories)
                                                 <option id="category_id" value=" {{ $categories->id }} "> {{ $categories->name }} </option>

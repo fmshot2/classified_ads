@@ -19,7 +19,7 @@
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="form-group form-box">
-                                <input id="name" type="text" class="input-text" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name">
+                                <input id="name" type="text" class="input-text" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
                                 @if ($errors->has('name'))
                                     <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                         <strong class="text-danger">{{ $errors->first('name') }}</strong>
