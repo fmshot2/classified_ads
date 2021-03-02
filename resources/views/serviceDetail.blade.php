@@ -626,9 +626,13 @@
                     $("#successMessage").text('Message sent successfully!')
                     $(".btn-submit2").text('Send Message')
                     $("#btn-submit2").css({"opacity": "1", "cursor":"pointer"});
+
+
+                    toastr.success('Message sent successfully!')
                     // alert(data.success2);
                 },
                 error: function(error){
+                    toastr.error('Message not sent! Try again.')
                     console.log(error)
                 }
             });
@@ -679,7 +683,7 @@
             document.getElementById("complaint_notification").innerHTML = "";
         }
          function set(){
-              setTimeout(greet, 20000);
+              setTimeout(greet, 2000);
          }
 
 

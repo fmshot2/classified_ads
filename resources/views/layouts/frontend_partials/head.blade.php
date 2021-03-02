@@ -50,6 +50,7 @@
 
   <link href="{{ asset('css/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('css/bootstrap-dropdownhover.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
 
 
 
@@ -88,6 +89,7 @@
 <script src="{{ asset('glide/glide.min.js') }}"></script>
 <script src="{{ asset('lightbox/lightbox-plus-jquery.min.js') }}"></script>
 {{-- <script src="{{ asset('js/efScript.js') }}"></script> --}}
+<script src="{{ asset('toastr/toastr.min.js') }}"></script>
 
 
 

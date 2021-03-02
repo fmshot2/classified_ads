@@ -528,6 +528,7 @@ h6 {
 
 @media only screen and (min-width: 992px) {
     .banner {
+        margin: 0 150px;
         height: 63vh;
     }
     .banner .carousel-inner {

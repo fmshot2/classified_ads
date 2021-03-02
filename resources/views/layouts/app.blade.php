@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" onclick="submitFeedback()" class="btn btn-info" data-dismiss="modal">Send</button>
+                        <button type="button" onclick="submitFeedback()" class="btn btn-warning" data-dismiss="modal">Send</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </form>
@@ -93,7 +93,11 @@
                 data: $('form#feedbackForm').serialize(),
                 success: function(data) {
                     $('#userfeedback').val('')
-                    alert('Feedback sent! Thank You.')
+                    toastr.success('Feedback sent! Thank You.')
+                },
+                error: function(error){
+                    toastr.error('Feedback not sent! Try again.')
+                    console.log(error)
                 }
             });
         }
