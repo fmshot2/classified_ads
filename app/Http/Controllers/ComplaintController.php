@@ -17,12 +17,12 @@ class ComplaintController extends Controller
 	{
 
 		$data = $request->all();
-		$this->validate($request,[
-			'buyer_name' => 'required',
-			'buyer_email' => 'required',
-			'description' => 'required',
+		// $this->validate($request,[
+		// 	'buyer_name' => 'required',
+		// 	'buyer_email' => 'required',
+		// 	'description' => 'required',
 
-		]);
+		// ]);
         /*$message->buyer_id = $request->buyer_id;
         $message->service_id = $request->service_id;
         $message->description = $request->description;*/
@@ -31,9 +31,9 @@ class ComplaintController extends Controller
         $complaint = new Complaint();
 
                 //$message->service_id = $data['id'];
-        $complaint->buyer_id = $data['buyer_id'];
-        $complaint->buyer_name = $data['buyer_name'];
-        $complaint->buyer_email = $data['buyer_email'];
+        $complaint->buyer_id = $request->user()->id;
+        $complaint->buyer_name = $request->user()->name;
+        $complaint->buyer_email = $request->user()->email;
         $complaint->slug = $slug;
         $complaint->service_id = $data['service_id'];
         $complaint->service_user_id = $data['service_user_id'];
