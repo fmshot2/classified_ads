@@ -12,4 +12,10 @@ class SubCategory extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+
+    public function services()
+    {
+        return $this->morphedByMany(Service::class, 'sub_categorable');
+    }
 }

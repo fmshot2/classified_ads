@@ -144,13 +144,19 @@
                                     </div>
                                 @endif
                             @else
-                                @for ($i = 1; $i <= 4; $i++)
-                                    <li class="glide__slide">
-                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
-                                        </a>
-                                    </li>
-                                @endfor
+                                <div class="glide">
+                                    <div class="glide__track" data-glide-el="track">
+                                        <ul class="glide__slides">
+                                            @for ($i = 1; $i <= 4; $i++)
+                                                <li class="glide__slide">
+                                                    <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
+                                                        <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
+                                                    </a>
+                                                </li>
+                                            @endfor
+                                        </ul>
+                                    </div>
+                                </div>
                             @endif
                         </div>
 
@@ -384,7 +390,7 @@
                                 </div>
 
                                 @guest
-                                    <p style="margin-bottom: 5px"><a href="{{route('login')}}"><strong style="color: #28a745">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #ee6363">Register</strong></a> to view <strong>{{ $the_provider_f_name }}</strong> contact details.</p>
+                                    <p style="margin-bottom: 5px"><a href="{{route('login')}}"><strong style="color: #28a745">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #ee6363">Register</strong></a> to view <strong class="tt-capitalize">{{ $the_provider_f_name }}</strong> contact details.</p>
                                 @endguest
                             </div>
 
@@ -405,7 +411,7 @@
                                 </p>
                             @endauth
 
-                            <button class="btn btn-outline-success" id="showContactSellerForm">Show Contact Form</button>
+                            {{-- <button class="btn btn-outline-success" id="showContactSellerForm">Show Contact Form</button> --}}
 
                             <div id="sellerContact" class="sellerContactDiv">
                                 <form id="myform">
@@ -417,7 +423,7 @@
                                     <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">
                                     <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="text-dark form-control">
 
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label class="form-label">Full Name</label>
                                         <input type="text" id="buyer_name" name="buyer_name" class="text-dark form-control" placeholder=" Your Name">
                                         @if ($errors->has('buyer_name'))
@@ -455,7 +461,7 @@
                                                 <strong class="text-danger">{{ $errors->first('subject') }}</strong>
                                             </span>
                                         @endif
-                                    </div>
+                                    </div> --}}
 
                                     <div class="form-group message">
                                         <textarea class="text-dark form-control" id="description" name="description" placeholder="Write message to {{ $serviceDetail->user->name }}"></textarea>
@@ -485,11 +491,11 @@
                                 <div class="s-border"></div>
                                 <div class="m-border"></div>
                                 <ul class="list-unstyled list-cat">
-                                    <li><span style="color: red">*</span> Do not pay in advance even for the delivery.</li>
-                                    <li><span style="color: red">*</span> Try to meet at a safe, public location.</li>
-                                    <li><span style="color: red">*</span> Check the item BEFORE you buy it.</li>
-                                    <li><span style="color: red">*</span> Pay only after collecting the item.</li>
-                                    <li><span style="color: red">*</span> You pay only the listed price without any hidden costs.</li>
+                                    <li><span style="color: red">*</span> Check the Service Provider profile to ensure they offer the serivices you need/required.</li>
+                                    <li><span style="color: red">*</span> Contact Service Providers only when certain you need their services.</li>
+                                    <li><span style="color: red">*</span> Ensure you check authenticity of all products at all times.</li>
+                                    <li><span style="color: red">*</span> Confirm identity of person/persons or organisation you are transacting with.</li>
+                                    <li><span style="color: red">*</span> Check and ensure that all transactions, services, products are legitimate and legal.</li>
                                     <li>
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#exampleModalCenter">
@@ -619,17 +625,17 @@
             }
         }
 
-        $("#showContactSellerForm").click(function(e){
-            e.preventDefault();
-            $("#sellerContact").toggleClass('sellerContactFormShow');
-            // $(".sellerContactDiv").classList.add('animate__animated', 'animate__hinge');
+        // $("#showContactSellerForm").click(function(e){
+        //     e.preventDefault();
+        //     $("#sellerContact").toggleClass('sellerContactFormShow');
+        //     // $(".sellerContactDiv").classList.add('animate__animated', 'animate__hinge');
 
-            if ($("#showContactSellerForm").text() == 'Hide Contact Form') {
-                $("#showContactSellerForm").text('Show Contact Form')
-            } else {
-                $("#showContactSellerForm").text('Hide Contact Form')
-            }
-        });
+        //     if ($("#showContactSellerForm").text() == 'Hide Contact Form') {
+        //         $("#showContactSellerForm").text('Show Contact Form')
+        //     } else {
+        //         $("#showContactSellerForm").text('Hide Contact Form')
+        //     }
+        // });
     });
 </script>
 

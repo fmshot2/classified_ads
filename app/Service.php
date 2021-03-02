@@ -140,4 +140,9 @@ public function scopeSearchCategory($query, $category)
         return json_decode($value);
     }
 
+    public function sub_categories()
+    {
+        return $this->morphToMany(SubCategory::class, 'sub_categorable');
+    }
+
 }

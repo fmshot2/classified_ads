@@ -17,30 +17,18 @@
                 </div>
             </div>
         </div>
-        @include('frontend_section/search')
 
-        {{-- <div class="pull-right">
-            <h3>
-                <span class="text-right">
-                    <div class="posts-by-category widget">
-                        <!--<h3 class="sidebar-title">Cities</h3>-->
-                        <ul class="list-unstyled list-cat">
-                            <a href="{{route('home')}}" class="btn btn-outline-warning"><i class="fa fa-home">Back To Home</i></a>
-                        </ul>
-                    </div>
-                </span>
-            </h3>
-        </div> --}}
+        @include('frontend_section/search')
 
         <!-- Properties Details page start -->
         <div class="properties-details-page content-area-7 job-ap-services-page" style="margin-top: -20px">
-            <div class="container">
+            <div class="service-detail-container">
                 <div class="row job-ap-services-page-row">
-                    <div class="col-lg-8 col-md-12 col-xs-12 jobApSerDesktop">
+                    <div class="col-lg-9 col-md-12 col-xs-12 jobApSerDesktop">
                         <div class="row">
                             @forelse($category_services as $category_service)
                                 @if ($loop->index < 30 && $category_service->badge_type == 1)
-                                    <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
                                         <div class="property-box">
                                             <div class="property-thumbnail">
                                                 <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
@@ -55,10 +43,27 @@
                                                    <a  href="{{route('serviceDetail', $category_service->slug)}}"> <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$category_service->service_image}}" alt="{{ $category_service->name }}">
                                                 </a>
                                             </div>
+                                            <div class="detail">
+                                                <div>
+                                                    <a class="title title-dk" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 18) }}</a>
+                                                    <a class="title title-mb" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 15) }}</a>
+                                                </div>
+
+                                                <ul class="d-flex flex-row justify-content-between info">
+                                                    <li>
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                    </li>
+                                                    <li>
+                                                        <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
+                                                            <i class="fa fa-map-marker text-warning"></i> {{ Str::limit($category_service->state, 5) }}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 @elseif($loop->index < 30 && $category_service->badge_type == 2)
-                                    <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
                                         <div class="property-box">
                                             <div class="property-thumbnail">
                                                 <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
@@ -75,7 +80,8 @@
                                             </div>
                                             <div class="detail">
                                                 <div>
-                                                    <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                                    <a class="title title-dk" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 18) }}</a>
+                                                    <a class="title title-mb" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 15) }}</a>
                                                 </div>
 
                                                 <ul class="d-flex flex-row justify-content-between info">
@@ -92,7 +98,7 @@
                                         </div>
                                     </div>
                                 @elseif($loop->index < 30 && $category_service->badge_type == 3)
-                                    <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
                                         <div class="property-box">
                                             <div class="property-thumbnail">
                                                 <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
@@ -110,7 +116,8 @@
 
                                             <div class="detail">
                                                 <div>
-                                                    <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                                    <a class="title title-dk" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 18) }}</a>
+                                                    <a class="title title-mb" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 15) }}</a>
                                                 </div>
 
                                                 <ul class="d-flex flex-row justify-content-between info">
@@ -127,7 +134,7 @@
                                         </div>
                                     </div>
                                 @else
-                                    <div class="col-lg-4 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
                                         <div class="property-box">
                                             <div class="property-thumbnail">
                                                 <a href="{{route('serviceDetail', $category_service->slug)}}" class="property-img">
@@ -142,7 +149,8 @@
 
                                             <div class="detail">
                                                 <div>
-                                                    <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                                    <a class="title title-dk" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 18) }}</a>
+                                                    <a class="title title-mb" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 15) }}</a>
                                                 </div>
 
                                                 <ul class="d-flex flex-row justify-content-between info">
@@ -187,7 +195,7 @@
                                             </div>
                                             <div class="detail">
                                                 <div>
-                                                    <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                                    <a class="title title-mb" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 15) }}</a>
                                                 </div>
 
                                                 <ul class="d-flex flex-row justify-content-between info">
@@ -221,7 +229,7 @@
                                             </div>
                                             <div class="detail">
                                                 <div>
-                                                    <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                                    <a class="title title-mb" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 15) }}</a>
                                                 </div>
 
                                                 <ul class="d-flex flex-row justify-content-between info">
@@ -255,7 +263,7 @@
                                             </div>
                                             <div class="detail">
                                                 <div>
-                                                    <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                                    <a class="title title-mb" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 15) }}</a>
                                                 </div>
 
                                                 <ul class="d-flex flex-row justify-content-between info">
@@ -286,7 +294,7 @@
                                             </div>
                                             <div class="detail">
                                                 <div>
-                                                    <a class="title" href="{{route('serviceDetail', $category_service->slug)}}">{{ Str::limit($category_service->name, 50) }}</a>
+                                                    <a class="title title-mb" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 15) }}</a>
                                                 </div>
 
                                                 <ul class="d-flex flex-row justify-content-between info">
@@ -312,8 +320,27 @@
                     </div>
 
 
-                    <div class="col-lg-4 col-md-12">
+                    <div class="col-lg-3 col-md-12">
                         <div class="sidebar-right">
+                            <!-- Sub Categories -->
+                            <div class="widget popular-posts">
+                                <h3 class="sidebar-title">Related Sub Categories</h3>
+                                <div class="s-border"></div>
+                                <div class="m-border"></div>
+                                @if(isset($sub_categories))
+                                    @foreach($sub_categories as $key => $all_sub_category)
+                                        <div class="media">
+                                            <div class="media-body align-self-center all-ser-pg-sidebar-feat-ser">
+                                                <h3 class="media-heading">
+                                                    <a href="" class="sub_cat_link">
+                                                        <strong style="text-transform: capitalize"><i class="fa fa-long-arrow-right" style="color: #FFC107"></i>  {{ $all_sub_category->name }}</strong>
+                                                    </a>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
 
                             <!-- Popular posts start -->
                             <div class="widget popular-posts">
@@ -333,25 +360,6 @@
                                                         <strong style="text-transform: capitalize">{{ $featuredService->name }}</strong>
                                                         <br>
                                                         <span style="text-transform: capitalize">{{ $featuredService->user->name }}</span>
-                                                    </a>
-                                                </h3>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                @endif
-                            </div>
-                            <!-- Sub Categories -->
-                            <div class="widget popular-posts">
-                                <h3 class="sidebar-title">Related Sub Categories</h3>
-                                <div class="s-border"></div>
-                                <div class="m-border"></div>
-                                @if(isset($sub_categories))
-                                    @foreach($sub_categories as $key => $all_sub_category)
-                                        <div class="media">
-                                            <div class="media-body align-self-center all-ser-pg-sidebar-feat-ser">
-                                                <h3 class="media-heading">
-                                                    <a href="" class="sub_cat_link">
-                                                        <strong style="text-transform: capitalize"><i class="fa fa-long-arrow-right" style="color: #FFC107"></i>  {{ $all_sub_category->name }}</strong>
                                                     </a>
                                                 </h3>
                                             </div>

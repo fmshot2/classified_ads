@@ -25,6 +25,7 @@ Route::get ( 'findgeo2',  'ServiceController@findNearestRestaurants');
 Route::get( '/catpagesortby/{letter}',  'OperationalController@catPageSortBy');
 Route::get( '/requestbadge/{id}',  'OperationalController@requestbadge');
 Route::post( '/requestbadge/{id}',  'OperationalController@requestbadge')->name('badge.request');
+Route::post( '/user-feedback',  'OperationalController@feedbackform')->name('feedback.form');
 
 Route::get('email', function () {
     return new App\Mail\UserRegistered();
