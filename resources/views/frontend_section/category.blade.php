@@ -37,7 +37,7 @@
 
             <div class="col-lg-6 desktop-cat-col">
                 <div class="main-title">
-                    <h1>What service are you looking for?</h1>
+                    <h3>What service are you looking for?</h3>
                 </div>
                 <div class="">
                     <div class="row" style="visibility: visible;">
