@@ -7,6 +7,8 @@ use App\Service;
 use App\Badge;
 use App\Advert;
 use App\Advertrequest;
+use App\User;
+
 
 
 
@@ -64,8 +66,28 @@ class BadgeController extends Controller
 	}
 
 
-	public function gt_response(Request $request, $user_id, $badge_type){
+	public function gt_response2(Request $request, $user_id, $badge_type){
 			dd($request, $user_id, $badge_type);
+
+			$new_Badge = new Badge();
+	}
+
+
+
+
+	public function gt_response(Request $request, $user_id, $badge_type)
+	{              
+		$user = User::where('id', $user_id)->first();
+		// Auth::user()->name;
+			$badge = new Badge();
+			$badge->seller_id = $user_id;   
+			$badge->badge_type = $badge_type;
+			// $badge->amount = $request->gtpay_tranx_amt;/
+			$badge->ref_no = $request->gtpay_tranx_id;
+			$badge->seller_name = $user->name;
+			$badge->save();
+			// dd($badge);
+		return redirect('provider/dashboard');
 	}
 
 	public function badges() {
