@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Advert;
 use App\Category;
+use App\Mail\UsersFeedback;
 use App\Service;
 use App\Slider;
 use App\UserFeedback;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Console\Input\Input;
 
 class OperationalController extends Controller
@@ -239,12 +241,20 @@ class OperationalController extends Controller
     public function feedbackform(Request $request)
     {
         $this->validate($request, [
-            'userfeedback'=> 'string|max:300'
+            'userfeedback'=> 'string'
         ]);
 
         $feedback = new UserFeedback;
         $data = ['feedback' => $request->userfeedback];
         $feedback->create($data);
+
+        try{
+            Mail::to('info@efcontact.com')->send(new UsersFeedback($request->userfeedback));
+        }
+        catch(\Exception $e){
+            $failedtosendmail = 'Failed to Mail!.';
+        }
+
         return $request;
     }
 
