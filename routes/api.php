@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\BadgeController;
 use App\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post('gt_payment_details/{user_id}/{badge_type}', 'BadgeController@gt_response');
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

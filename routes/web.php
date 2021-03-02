@@ -20,6 +20,7 @@ use App\Service;
 
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
+Route::post('gtPAy', 'BadgeController@gtPAy');
 Route::get ( 'findgeo2',  'ServiceController@findNearestRestaurants');
 Route::get( '/catpagesortby/{letter}',  'OperationalController@catPageSortBy');
 Route::get( '/requestbadge/{id}',  'OperationalController@requestbadge');
