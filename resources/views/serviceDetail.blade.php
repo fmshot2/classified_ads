@@ -4,6 +4,19 @@
 @section('title', $serviceDetail->name . ' | ')
 
 @section('content')
+
+<style>
+    .btn-submit2{
+        color: #fff !important;
+        background-color: #CA8309 !important;
+    }
+    .comment-content {
+        margin: 0 0 20px 50px;
+    }
+    .comments {
+        padding: 0 20px;
+    }
+</style>
 <!-- Sub banner start -->
 <div class="sub-banner" style="background-image:url({{asset('OurBackend/img/hometeacher.jpg')}})">
     <div class="container">
@@ -301,9 +314,8 @@
                                             @foreach($userMessages as $userMessage)
                                                 <div class="comment">
                                                     <div class="comment-author">
-                                                        <a href="#">
+                                                        {{-- <img src="{{ asset('nouserimage.png') }}" alt=""> --}}
                                                         <i class="fa fa-user fa-2x"></i>
-                                                        </a>
                                                     </div>
                                                     <div class="comment-content">
                                                         <div class="comment-meta">
@@ -441,7 +453,7 @@
                                                 <strong class="text-danger">{{ $errors->first('buyer_email') }}</strong>
                                             </span>
                                         @endif
-                                    </div>
+                                    </div> --}}
 
                                     <div class="form-group">
                                         <label class="form-label">Phone</label>
@@ -453,7 +465,7 @@
                                         @endif
                                     </div>
 
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label class="form-label">Subject</label>
                                         <input type="text" id="subject" name="subject" class="form-control text-dark" placeholder="Subject">
                                         @if ($errors->has('subject'))
@@ -479,7 +491,8 @@
                                     @auth
                                         <div class="col-lg-12 col-md-12">
                                             <div class="send-btn">
-                                                <button type="submit" class="btn btn-md btn-submit2 btn-warning">Send Message</button>
+                                                <button type="submit" class="btn btn-md btn-submit2 btn-warning" id="btn-submit2">Send Message</button>
+                                                <p class="text-success" style="font-size: 15px" id="successMessage"></p>
                                             </div>
                                         </div>
                                     @endauth
@@ -522,7 +535,7 @@
                                                                 <input type="hidden" id="buyer_id_report" value="{{Auth::id()}}" name="buyer_id_report" class="text-dark form-control">
 
                                                                 <div class="form-group">
-                                                                    Why are you reporting this provider? (<strong>Be specific!</strong>)
+                                                                    Why are you reporting this provider?
                                                                 </div>
 
                                                                 <div class="form-group">
@@ -590,6 +603,9 @@
         $(".btn-submit2").click(function(e){
             e.preventDefault();
 
+            $(".btn-submit2").text('Please wait, sending!!!')
+            $("#btn-submit2").css({"opacity": "0.5", "cursor":"default"});
+
             var _token = $("input[name='_token']").val();
             var buyer_id = $("#buyer_id").val();
             var buyer_name = $("#buyer_name").val();
@@ -605,9 +621,18 @@
                 method:'POST',
                 data: {_token:_token, buyer_id:buyer_id, service_id:service_id, service_user_id:service_user_id, description:description, subject:subject, buyer_name, buyer_email, phone },
                 success: function(data) {
-                    alert(data.success2);
+                    $("#phone").val('')
+                    $("#description").val('')
+                    $("#successMessage").text('Message sent successfully!')
+                    $(".btn-submit2").text('Send Message')
+                    $("#btn-submit2").css({"opacity": "1", "cursor":"pointer"});
+
+
+                    toastr.success('Message sent successfully!')
+                    // alert(data.success2);
                 },
                 error: function(error){
+                    toastr.error('Message not sent! Try again.')
                     console.log(error)
                 }
             });
@@ -658,7 +683,7 @@
             document.getElementById("complaint_notification").innerHTML = "";
         }
          function set(){
-              setTimeout(greet, 20000);
+              setTimeout(greet, 2000);
          }
 
 

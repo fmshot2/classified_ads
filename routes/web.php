@@ -81,6 +81,7 @@ Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard')
 Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile');
 Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messages');
 Route::get('services/{slug}','CategoryController@show')->name('services');
+Route::get('/services/sub/{slug}','CategoryController@subcategory')->name('services.subcategory');
 Route::get('/categoryDetail/{id}', 'CategoryController@categoryDetail')->name('categoryDetail');
 Route::get('/catdet/{id}', 'CategoryController@show')->name('catdet');
 

@@ -1,11 +1,35 @@
-
 @extends('layouts.seller')
 
 @section('title', 'Provider\'s Dashboard | ')
 
-
-
 @section('content')
+    <style>
+        .content-header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+        .navbar-top-post-btn a{
+            font-size: 15px !important;
+            color:#fff
+        }
+        @media (max-width: 768px){
+            .content-header{
+                padding: 0 5px 10px 10px;
+            }
+            .refererArea h4{
+                font-size: 14px;
+            }
+            .refererArea .btn{
+                font-size: 11px;
+            }
+            .navbar-top-post-btn a{
+                font-size: 11px !important;
+                margin-top: 40px
+            }
+        }
+    </style>
 
     <div class="wrapper">
 
@@ -16,7 +40,7 @@
 
         <section class="content-header">
             @if(isset($linkcheck->refererlink))
-                <div class="">
+                <div class="refererArea">
                     <h4 style="text-transform:uppercase">My Referral Link</h4>
                     <div class="referralContainer">
                         <div>
@@ -25,21 +49,16 @@
                             </button>
                         </div>
                         <div>
-                            {{-- <input type="text" readonly class="text-muted" value="{{url('/register') . '/' . '?' . 'invite' . '=' . $linkcheck->refererlink}}" id="myInput2"> --}}
-
                             <p id="refererlinkText" hidden>{{ url('/register') . '/' . '?' . 'invite' . '=' . $linkcheck->refererlink }}</p>
                         </div>
                     </div>
                 </div>
             @endif
-
-            <ol class="breadcrumb mt-5">
-                {{-- <li><span style="font-size: 15px"><i class="fa fa-money"></i> Referral Bonus: &#8358; <span style="font-weight: 600; font-size: 16px"></span></span></li>
-                <button class="btn btn-success btn-sm" style="cursor: pointer; display: block; margin-top: 5px;" data-toggle="modal" data-target="#exampleModal">Make Withdrawal</button> --}}
-                <li class="navbar-top-post-btn">
-                    <a style="font-size: 15px !important;color:#fff" class="btn btn-success" href="{{ route('seller.service.create') }}"><i class="fa fa-plus"></i> <span >Post A Service</span></a>
-                </li>
-            </ol>
+            <div>
+                <p class="navbar-top-post-btn">
+                    <a class="btn btn-success" href="{{ route('seller.service.create') }}"><i class="fa fa-plus"></i> <span >Post A Service</span></a>
+                </p>
+            </div>
         </section>
 
         <!-- Modal -->
@@ -267,25 +286,21 @@
     </div>
 
 
+
+
+
+    <script>
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+
+            toastr.success("Refererlink Copied!")
+
+            $temp.remove();
+
+        }
+    </script>
+
 @endsection
-
-
-
- <script>
-    // function myFunction() {
-    //     var copyText = document.getElementById("myInput2");
-    //     copyText.select();
-    //     copyText.setSelectionRange(0, 99999)
-    //     document.execCommand("copy");
-    //     alert("Referral Link Copied: " + copyText.value);
-    // }
-
-    function copyToClipboard(element) {
-        var $temp = $("<input>");
-        $("body").append($temp);
-        $temp.val($(element).text()).select();
-        document.execCommand("copy");
-        $temp.remove();
-
-    }
-</script>

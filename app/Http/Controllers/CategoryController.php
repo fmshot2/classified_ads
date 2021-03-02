@@ -299,6 +299,22 @@ return $this->index();
     }
 
 
+    public function subcategory($slug)
+    {
+        $one_category = SubCategory::where('slug', $slug)->first();
+        $category_services = $one_category->services;
+        $category_services = $one_category->services;
+        $category_id = $one_category->category->id;
+        $sub_categories = SubCategory::where("category_id",$category_id)->orderBy('name', 'asc')->get();
+
+        return view('services_subcategory', [
+            'category_services' => $category_services,
+            'one_category'      => $one_category,
+            'sub_categories'    => $sub_categories
+        ]);
+    }
+
+
 
     /**
      * Show the form for editing the specified resource.

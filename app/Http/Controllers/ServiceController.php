@@ -468,7 +468,7 @@ public function index()
 
       return view ('seller.service.create_blade_copy');
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -1324,16 +1324,16 @@ public function show($id)
 
       public function storeComment2(Request $request)
       {
-          // return response()->json(['success2'=>'Ajax request submitted successfully']);
-       $data = $request->all();
+        // return response()->json(['success2'=>'Ajax request submitted successfully']);
+        $data = $request->all();
 
-       $this->validate($request,[
-        'buyer_name' => 'required',
-        'buyer_email' => 'required',
-        'phone' => 'required',
-        'description' => 'required',
+        //    $this->validate($request,[
+        //     'buyer_name' => 'required',
+        //     'buyer_email' => 'required',
+        //     'phone' => 'required',
+        //     'description' => 'required',
 
-      ]);
+        //   ]);
 
         #create or update your data here
         //$request->photo_id; // array of all selected photo id's
@@ -1345,13 +1345,13 @@ public function show($id)
         $slug = Str::random(10);
 
                 //$message->service_id = $data['id'];
-        $message->buyer_id = $data['buyer_id'];
-        $message->buyer_name = $data['buyer_name'];
-        $message->buyer_email = $data['buyer_email'];
+        $message->buyer_id = $request->user()->id;
+        $message->buyer_name = $request->user()->name;
+        $message->buyer_email = $request->user()->email;
         $message->phone = $data['phone'];
         $message->slug = $slug;
         $message->service_id = $data['service_id'];
-        $message->subject = $data['subject'];
+        // $message->subject = $data['subject'];
         $message->service_user_id = $data['service_user_id'];
         $message->description = $data['description'];
 
@@ -1362,15 +1362,15 @@ public function show($id)
         // $slug = $random = Str::random(40);
         //$message->slug = $slug;
         if ($message->save()) {
-          $buyer_name = $message->buyer_name;
-          $name = 'Your message has been delivered successfully!';
-          try{
-            Mail::to($message->buyer_email)->send(new SendMailable($name));
+            $buyer_name = $message->buyer_name;
+            $name = 'Your message has been delivered successfully!';
+            try{
+                Mail::to($message->buyer_email)->send(new SendMailable($name));
             }
             catch(\Exception $e){
                 $failedtosendmail = 'Failed to Mail!.';
             }
-          return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
+            return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
         }
         return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>"not saved"]);
 
