@@ -1,18 +1,6 @@
 <div class="banner homepage-top-banner" id="banner">
 	<div id="bannerCarousole" class="carousel slide" data-ride="carousel" data-interval="5000">
 		<div class="carousel-inner">
-<<<<<<< Updated upstream
-                @if ($sliders ?? '')
-                @forelse ($sliders ?? '' as $slider)                
-                <div class="carousel-item banner-max-height {{ $loop->index == 1 ? 'active' : '' }}">
-                    <img class="d-block w-100" src="{{ asset('uploads/sliders') }}/{{ $slider->image ?? '' }}" alt="{{ $slider->title ?? '' }}">
-                    <div class="carousel-caption banner-slider-inner d-flex h-100 text-center">
-                        <div class="carousel-content container">
-                              @if ($slider->links)
-                            <div class="text-center">
-                                <div class="btn-sections">
-                                    <a href="{{ $slider->links ?? ''}}" class="btn btn-lg bg-dark text-white">View Advert</a>
-=======
             <div class="carousel-item banner-max-height active">
 				<img class="d-block w-100" src="{{ asset('mech2.jpg') }}" alt="banner">
 				<div class="carousel-caption banner-slider-inner d-flex h-100 text-center">
@@ -89,10 +77,8 @@
                                     <div class="btn-sections">
                                         <a href="{{ $slider->links ?? ''}}" class="btn btn-lg btn-warning text-white">Learn More</a>
                                     </div>
->>>>>>> Stashed changes
                                 </div>
                             </div>
-                            @endif
                         </div>
                     </div>
                 @empty
