@@ -19,7 +19,7 @@
 
     <!-- Properties section body start -->
     <div class="properties-section content-area searchResultPage">
-        <div class="container">
+        <div class="service-detail-container">
             <div class="row">
                 <div class="col-lg-8 col-md-12">
                     @if ($services1)
