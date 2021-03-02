@@ -27,7 +27,7 @@
             <div class="box box-default">
                 <div class="box-header">
                     <div>
-                        <img src="{{ $service->thumbnail ? asset('uploads/services/'.$service->thumbnail) : asset('images/00_SEO-and-Digital-Marketing-Agency-Mega-Stationery-Branding-Identity-Design-Template-scaled.jpg') }}" style="width: 100%; height: auto; margin: 0 auto">
+                        <img src="{{ $service->thumbnail ? asset('uploads/services/'.$service->thumbnail) : asset('images/00_SEO-and-Digital-Marketing-Agency-Mega-Stationery-Branding-Identity-Design-Template-scaled.jpg') }}" style="width: 70%; height: auto; margin: 0 auto">
                     </div>
                 </div>
                 <div class="box-body">
@@ -42,7 +42,7 @@
                             <span class="right"><strong>Description: </strong> {{ $service->description  }}</span>
                         </li>
                         <li class="list-group-item">
-                            <span class="right"><strong>Category: </strong> {{ $category->name }}</span>
+                            <span class="right"><strong>Category: </strong> {{ $service->category->name }}</span>
                         </li>
                         <li class="list-group-item">
                             <span class="right"><strong>Amount Charge: </strong> {{ $service->min_price }}</span>
@@ -79,20 +79,8 @@
                 </div>
             </div>
         </div>
-    </div>
-        <div class="col-md-7">
-          {{--   <div class="box box-default">
-                <div class="box-header">
-                    <h2 class="box-title" style="font-weight: 700">Service Thumbnail</h2>
-                    <p>This is what will show on your service showcase page.</p>
-                    <div>
-                        <img src="{{ asset('images/00_SEO-and-Digital-Marketing-Agency-Mega-Stationery-Branding-Identity-Design-Template-scaled.jpg') }}" alt="{{ $service->name }}" style="width: 100%; height: auto; margin: 0 auto">
-                    </div>
-                </div>
-                <div class="box-body">
 
-                </div>
-            </div> --}}
+        <div class="col-md-7">
             <div class="box box-default">
                 <div class="box-header">
                     <h2 class="box-title" style="font-weight: 700">Service Images</h2>
@@ -129,5 +117,7 @@
         </div>
     </div>
   </section>
+
+</div>
 
 @endsection

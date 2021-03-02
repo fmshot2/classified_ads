@@ -20,6 +20,7 @@ use App\ImageUpload;
 // use Image as InterventionImage;
 use App\Image as ModelImage;
 use App\Mail\ServiceCreated;
+use App\SubCategory;
 
 class SellerController extends Controller
 {
@@ -28,8 +29,9 @@ class SellerController extends Controller
     public function createService()
     {
         $category = Category::all();
+        $subcategory = SubCategory::all();
         $states = State::all();
-        return view ('seller.service.create', compact('category', 'states') );
+        return view ('seller.service.create', compact('category', 'states', 'subcategory') );
     }
 
    public function storeService(Request $request)
@@ -110,32 +112,33 @@ if ( $request->hasFile('files') ) {
 
 // _token:_token, name:name,  description:description, experience:experience, phone:phone, min_price:min_price, state:state, city:city, address:address, category:category
 
+        $state_details = State::where('name', $data['state'])->first();
 
-       $state_details = State::where('name', $data['state'])->first();
 
+        $service->user_id = Auth::id();
+        $service->category_id = $data['category_id'];
+        $service->name = $data['name'];
+        $service->description = $data['description'];
+        $service->experience = $data['experience'];
+        $service->phone = $data['phone'];
+        $service->min_price = $data['min_price'];
+        $service->state = $data['state'];
+        $service->latitude = $state_details->latitude;
+        $service->longitude = $state_details->longitude;
+        $service->city = $data['city'];
+        $service->address = $data['address'];
+        $service->max_price = $data['category_id'];
+        $service->slug = $slug;
+        // $service->video_link = $request->video_link;$data['category_id'];
+        $service->save();
+        $latest_service = Service::where('user_id', Auth::id())->latest()->first();
+        $latest_service_id = $latest_service->id;
 
-       $service->user_id = Auth::id();
-       $service->category_id = $data['category_id'];
-       $service->name = $data['name'];
-       $service->description = $data['description'];
-       $service->experience = $data['experience'];
-       $service->phone = $data['phone'];
-       $service->min_price = $data['min_price'];
-       $service->state = $data['state'];
-       $service->latitude = $state_details->latitude;
-       $service->longitude = $state_details->longitude;
-       $service->city = $data['city'];
-       $service->address = $data['address'];
-       $service->max_price = $data['category_id'];
-       $service->slug = $slug;
-       // $service->video_link = $request->video_link;$data['category_id'];
-       $service->save();
-       $latest_service = Service::where('user_id', Auth::id())->latest()->first();
-$latest_service_id = $latest_service->id;
+        $service->sub_categories()->attach($request->sub_category);
 
-$service_owner = Auth::user();
-$service_owner->name = Auth::user()->name;
-$service_owner->email = Auth::user()->email;
+        $service_owner = Auth::user();
+        $service_owner->name = Auth::user()->name;
+        $service_owner->email = Auth::user()->email;
 
 
         if ($service->save()) {

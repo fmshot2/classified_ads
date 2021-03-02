@@ -110,9 +110,19 @@
                                     <div class="form-group">
                                         <label>Select Category</label>
                                         <small class="text-danger">*</small>
-                                        <select name="category_id" required class="form-control show-tick">
+                                        <select name="category_id" required class="form-control show-tick" id="categories">
                                             <option value="">-- Please select --</option>
                                             @foreach($category as $categories)
+                                                <option id="category_id" value=" {{ $categories->id }} "> {{ $categories->name }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Sub Category</label>
+                                        <small class="text-danger">*</small>
+                                        <select name="sub_category[]" required class="form-control show-tick" id="sub_categories" multiple>
+                                            <option value="">-- Please select --</option>
+                                            @foreach($subcategory as $categories)
                                                 <option id="category_id" value=" {{ $categories->id }} "> {{ $categories->name }} </option>
                                             @endforeach
                                         </select>
@@ -254,6 +264,33 @@
       $(document).ready(function() {
         var service_id
       });
+
+
+      $('#categories').on('change',function(){
+        var categoryID = $(this).val();
+        if(categoryID){
+            $.ajax({
+                type:"GET",
+                url: '/api/get-category-list/'+categoryID,
+                success:function(res){
+                    if(res){
+                      var res = JSON.parse(res);
+                        $("#sub_categories ").empty();
+                        $.each(res, function(key,value){
+                        var chosen_value = value;
+                            $("#sub_categories").append(
+                                '<option value="'+chosen_value.id+'">'+chosen_value.name+'</option>'
+                            );
+                        });
+                    }else{
+                        $("#sub_categories").empty();
+                    }
+                }
+            });
+        }else{
+            $("#sub_categories").empty();
+        }
+    });
     </script>
 
 
