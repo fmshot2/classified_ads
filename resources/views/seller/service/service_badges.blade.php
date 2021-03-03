@@ -121,7 +121,7 @@
               </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('badge.request') }}" method="POST">
+                <form action="{{ url('gtPAy') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
@@ -134,6 +134,8 @@
                                 <label for="">Amount: </label> &#8358;<span id="badgeCost"></span>
                             </div>
                         </div>
+                        <input id="badge_type" type="text" name="badge_type" value="">
+                        <input id="amount" type="text" name="amount" value="">
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-danger pd-x-20">Make Payment</button>
@@ -154,7 +156,9 @@
                 success: function(data){
                     console.log(data)
                     $('#badgeType').text(data.badge_type)
+                    $('#badge_type').val(id)
                     $('#badgeCost').text(data.badge_cost)
+                    $('#amount').val(data.badge_cost)
 
                     // Show modal
                     $('#badgeRequestModal').modal('show')

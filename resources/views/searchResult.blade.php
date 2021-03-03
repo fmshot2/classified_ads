@@ -43,8 +43,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1->slug)}}">{{ Str::limit($services1->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1->slug)}}">{{ Str::limit($services1->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -52,7 +52,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services1->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services1)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services1->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services1->state}}
                                                             </a>
                                                         </li>
@@ -62,7 +62,7 @@
                                         </div>
                                     </a>
                                 @elseif ($loop->index < 30 && $services1->badge_type == 2)
-                                    <a href="{{route('serviceDetail', $services1)}}" class="property-img">
+                                    <a href="{{route('serviceDetail', $services1->slug)}}" class="property-img">
                                         <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                             <div class="property-box">
                                                 <div class="property-thumbnail">
@@ -79,8 +79,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1->slug)}}">{{ Str::limit($services1->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1->slug)}}">{{ Str::limit($services1->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -88,7 +88,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services1->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services1)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services1->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services1->state}}
                                                             </a>
                                                         </li>
@@ -98,7 +98,7 @@
                                         </div>
                                     </a>
                                 @elseif ($loop->index < 30 && $services1->badge_type == 3)
-                                    <a href="{{route('serviceDetail', $services1)}}" class="property-img">
+                                    <a href="{{route('serviceDetail', $services1->slug)}}" class="property-img">
                                         <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                             <div class="property-box">
                                                 <div class="property-thumbnail">
@@ -115,8 +115,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1->slug)}}">{{ Str::limit($services1->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1->slug)}}">{{ Str::limit($services1->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -124,7 +124,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services1->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services1)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services1->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services1->state}}
                                                             </a>
                                                         </li>
@@ -134,7 +134,7 @@
                                         </div>
                                     </a>
                                 @else
-                                    <a href="{{route('serviceDetail', $services1)}}" class="property-img">
+                                    <a href="{{route('serviceDetail', $services1->slug)}}" class="property-img">
                                         <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                             <div class="property-box">
                                                 <div class="property-thumbnail">
@@ -148,8 +148,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1)}}">{{ Str::limit($services1->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services1->slug)}}">{{ Str::limit($services1->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services1->slug)}}">{{ Str::limit($services1->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -157,7 +157,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services1->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services1)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services1->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services1->state}}
                                                             </a>
                                                         </li>
@@ -192,8 +192,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2->slug)}}">{{ Str::limit($services2->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2->slug)}}">{{ Str::limit($services2->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -201,7 +201,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services2->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services2)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services2->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services2->state}}
                                                             </a>
                                                         </li>
@@ -228,8 +228,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2->slug)}}">{{ Str::limit($services2->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2->slug)}}">{{ Str::limit($services2->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -237,7 +237,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services2->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services2)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services2->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services2->state}}
                                                             </a>
                                                         </li>
@@ -264,8 +264,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2->slug)}}">{{ Str::limit($services2->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2->slug)}}">{{ Str::limit($services2->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -273,7 +273,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services2->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services2)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services2->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services2->state}}
                                                             </a>
                                                         </li>
@@ -297,8 +297,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2)}}">{{ Str::limit($services2->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services2->slug)}}">{{ Str::limit($services2->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services2->slug)}}">{{ Str::limit($services2->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -306,7 +306,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services2->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services2)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services2->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services2->state}}
                                                             </a>
                                                         </li>
@@ -341,8 +341,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services3->slug)}}">{{ Str::limit($services3->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services3->slug)}}">{{ Str::limit($services3->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -350,7 +350,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services3->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services3)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services3->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services3->state}}
                                                             </a>
                                                         </li>
@@ -377,8 +377,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services3->slug)}}">{{ Str::limit($services3->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services3->slug)}}">{{ Str::limit($services3->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -386,7 +386,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services3->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services3)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services3->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services3->state}}
                                                             </a>
                                                         </li>
@@ -413,8 +413,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 22) }}</a>
-                                                        <a class="title" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 15) }}</a>
+                                                        <a class="title" href="{{route('serviceDetail', $services3->slug)}}">{{ Str::limit($services3->name, 22) }}</a>
+                                                        <a class="title" href="{{route('serviceDetail', $services3->slug)}}">{{ Str::limit($services3->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -422,7 +422,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services3->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services3)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services3->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services3->state}}
                                                             </a>
                                                         </li>
@@ -446,8 +446,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services3)}}">{{ Str::limit($services3->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services3->slug)}}">{{ Str::limit($services3->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services3->slug)}}">{{ Str::limit($services3->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -455,7 +455,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services3->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services3)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services3->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services3->state}}
                                                             </a>
                                                         </li>
@@ -490,8 +490,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4->slug)}}">{{ Str::limit($services4->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4->slug)}}">{{ Str::limit($services4->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -499,7 +499,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services4->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services4)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services4->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services4->state}}
                                                             </a>
                                                         </li>
@@ -526,8 +526,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 22) }}</a>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4->slug)}}">{{ Str::limit($services4->name, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4->slug)}}">{{ Str::limit($services4->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -535,7 +535,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services4->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services4)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services4->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services4->state}}
                                                             </a>
                                                         </li>
@@ -562,8 +562,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4->slug)}}">{{ Str::limit($services4->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4->slug)}}">{{ Str::limit($services4->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -571,7 +571,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services4->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services4)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services4->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services4->state}}
                                                             </a>
                                                         </li>
@@ -595,8 +595,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services4->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4->slug)}}">{{ Str::limit($services4->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4->slug)}}">{{ Str::limit($services4->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -604,7 +604,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services4->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services4)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services4->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services4->state}}
                                                             </a>
                                                         </li>
@@ -639,8 +639,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services5->slug)}}">{{ Str::limit($services5->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services5->slug)}}">{{ Str::limit($services5->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -648,7 +648,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services5->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services5)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services5->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services5->state}}
                                                             </a>
                                                         </li>
@@ -675,8 +675,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services5->slug)}}">{{ Str::limit($services5->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services5->slug)}}">{{ Str::limit($services5->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -684,7 +684,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services5->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services5)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services5->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services5->state}}
                                                             </a>
                                                         </li>
@@ -694,7 +694,7 @@
                                         </div>
                                     </a>
                                 @elseif ($loop->index < 30 && $services5->badge_type == 3)
-                                    <a href="{{route('serviceDetail', $services5)}}" class="property-img">
+                                    <a href="{{route('serviceDetail', $services5->slug)}}" class="property-img">
                                         <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                             <div class="property-box">
                                                 <div class="property-thumbnail">
@@ -711,8 +711,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services5->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services4)}}">{{ Str::limit($services5->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services5->slug)}}">{{ Str::limit($services5->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services5->slug)}}">{{ Str::limit($services5->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -720,7 +720,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services5->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services5)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services5->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services5->state}}
                                                             </a>
                                                         </li>
@@ -730,7 +730,7 @@
                                         </div>
                                     </a>
                                 @else
-                                    <a href="{{route('serviceDetail', $services5)}}" class="property-img">
+                                    <a href="{{route('serviceDetail', $services5->slug)}}" class="property-img">
                                         <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                             <div class="property-box">
                                                 <div class="property-thumbnail">
@@ -744,8 +744,8 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 22) }}</a>
-                                                        <a class="title title-mb" href="{{route('serviceDetail', $services5)}}">{{ Str::limit($services5->name, 15) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $services5->slug)}}">{{ Str::limit($services5->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $services5->slug)}}">{{ Str::limit($services5->name, 15) }}</a>
                                                     </div>
 
                                                     <ul class="d-flex flex-row justify-content-between info">
@@ -753,7 +753,7 @@
                                                             <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$services5->likes->count()}} Likes
                                                         </li>
                                                         <li>
-                                                            <a class="pull-right" href="{{route('serviceDetail', $services5)}}">
+                                                            <a class="pull-right" href="{{route('serviceDetail', $services5->slug)}}">
                                                                 <i class="fa fa-map-marker text-warning"></i> {{$services5->state}}
                                                             </a>
                                                         </li>
