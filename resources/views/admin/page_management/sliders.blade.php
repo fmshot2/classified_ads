@@ -208,7 +208,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for=""> Buttton Text </label>
-                                        <input type="text" name="buttontext" class="form-control" placeholder="Get Started!" required>
+                                        <input type="text" name="buttontext" class="form-control" placeholder="Get Started!">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
