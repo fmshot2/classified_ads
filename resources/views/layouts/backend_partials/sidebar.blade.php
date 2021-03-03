@@ -52,6 +52,15 @@
         </ul>
       </li>
 
+      <li class="" style=" {{ url()->current() == route('admin.users.feedback') ? 'background-color: rgb(202, 131, 9)' : '' }}">
+        <a href=" {{route ('admin.users.feedback') }}">
+          <i class="fa fa-bell"></i> <span> Feedbacks </span>
+          <span class="pull-right-container">
+            <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small>
+          </span>
+        </a>
+      </li>
+
       <li class="" style=" {{ url()->current() == route('admin.notification.all') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('admin.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
