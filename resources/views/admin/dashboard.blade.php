@@ -1,11 +1,8 @@
 @extends('layouts.admin')
 
-@section('title')
-Admin |
-@endsection
+@section('title', 'Admin | ')
 
 @section('content')
-
 
 <div class="wrapper">
 
@@ -128,7 +125,6 @@ Admin |
     </div>
     <!-- /.col -->
 
-
     <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
         <span class="info-box-icon push-bottom bg-warning">  <i class="fa fa-ban text-white" aria-hidden="true"></i> </span>
@@ -149,6 +145,28 @@ Admin |
       <!-- /.info-box -->
     </div>
     <!-- /.col -->
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon push-bottom bg-warning">  <i class="fa fa-comments-o text-white" aria-hidden="true"></i> </span>
+
+        <div class="info-box-content">
+          <span class="info-box-text"> Users Feedbacks </span>
+          <span class="info-box-number"> {{ $pending_service_count }} </span>
+
+          <div class="progress">
+            <div class="progress-bar progress-bar-danger" style="width:  {{ $pending_service_count }}%"></div>
+          </div>
+          <span class="progress-description">
+            <!-- Extra content can go here -->
+          </span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+
   </div>
 
   <div class="row">

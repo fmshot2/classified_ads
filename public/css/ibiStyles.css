@@ -525,8 +525,13 @@ h6 {
     background-color: rgb(202, 131, 9);
     border: 3px solid #fff;
 }
-
 @media only screen and (min-width: 992px) {
+    .desktop-top-search-form {
+        display: block;
+    }
+    .mobile-top-search-form {
+        display: none;
+    }
     .banner {
         margin: 0 150px;
         height: 63vh;
@@ -606,6 +611,12 @@ h6 {
 }
 
 @media only screen and (max-width: 992px) {
+    .desktop-top-search-form {
+        display: none;
+    }
+    .mobile-top-search-form {
+        display: block;
+    }
     .home-recently-properties {
         margin-top: -90px !important;
         margin-right: 0 !important;

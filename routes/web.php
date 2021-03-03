@@ -311,6 +311,8 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('seller/service/badges/badger','BadgeController@getBadgeList')->name('fff');
     ///seller/service/admin/get-badge-list/2 404 (Not Found)
 
+    Route::get('admin/usersfeedback','AdminController@usersfeedback')->name('admin.users.feedback');
+
 
 
 }); //Admin Middleware protection end here

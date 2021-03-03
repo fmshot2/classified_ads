@@ -4,7 +4,7 @@
       <div class="search-section-area">
         <div class="search-area-inner">
           <div class="search-contents">
-            <form action="{{route('search3')}}" method="GET">
+            <form action="{{route('search3')}}" method="GET" class="desktop-top-search-form">
                 <div class="row justify-content-center align-items-center">
                     <div class="col-lg-1 m-none"></div>
                     <div class="col-lg-2 col-md-4 col-sm-6">
@@ -111,13 +111,47 @@
 
                 </div>
             </form>
+
+            <form action="{{route('search3')}}" method="GET" class="mobile-top-search-form">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-lg-6 col-md-4 col-sm-6">
+                        <p style="margin-bottom: 0; font-weight: 600;">Keyword</p>
+                        <div class="form-group">
+                        <input type="text" name="keyword" class="form-control" placeholder="e.g. Barber, Saloon">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-4 col-sm-6">
+                        <div class="form-group">
+                          <p style="margin-bottom: 0; font-weight: 600;">Choose Location</p>
+                          <select class="form-control" id="state" name="state">
+                            <option value="">- Select an Option -</option>
+                            @if(isset($states))
+                                @foreach($states as $state)
+                                    <option value="{{$state->name}}"> {{ $state->name }}  </option>
+                                @endforeach
+                            @endif
+                          </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: -20px">
+                    <div class="col-md-6 text-center">
+                        <div class="form-group">
+                            <button class="btn btn-block bg-warning font-weight-bold text-white btn-warning" style="margin-top: 25px">Search
+                                <i class="fa fa-search ml-2" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
 </div>
 
-<header class="top-header top-header-ads-mobile" style="display: flex; justify-content: center; background: linear-gradient(90deg, rgba(251,219,35,1) 52%, rgba(243,163,27,1) 66%); width: 100%; margin: 0">
+<header class="top-header top-header-ads-mobile" style="display: flex; justify-content: center; background: linear-gradient(90deg, rgba(251,219,35,1) 52%, rgba(243,163,27,1) 66%); width: 100%; margin: 20px 0 0 0">
     <a href="https://efskyview.com/">
       <img src="{{ asset('images/skyviewstickyads.gif') }}" alt="" style="width: 100%; height: 35px">
     </a>
