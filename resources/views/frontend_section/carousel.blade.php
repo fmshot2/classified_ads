@@ -11,15 +11,15 @@
                                     @if ($slider->buttonlocation != 'nobutton')
                                         @if ($slider->buttonlocation == 'left')
                                             <div class="btn-sections btn-sections-left">
-                                                <a href="{{ $slider->links ?? ''}}" class="btn btn-lg btn-warning text-white">Learn More</a>
+                                                <a href="{{ $slider->links ?? ''}}" class="btn btn-lg btn-warning text-white">{{ $slider->buttontext ?? ''}}</a>
                                             </div>
                                         @elseif ($slider->buttonlocation == 'right')
                                             <div class="btn-sections btn-sections-right">
-                                                <a href="{{ $slider->links ?? ''}}" class="btn btn-lg btn-warning text-white">Learn More</a>
+                                                <a href="{{ $slider->links ?? ''}}" class="btn btn-lg btn-warning text-white">{{ $slider->buttontext ?? ''}}</a>
                                             </div>
                                         @else
                                             <div class="btn-sections btn-sections-center">
-                                                <a href="{{ $slider->links ?? ''}}" class="btn btn-lg btn-warning text-white">Learn More</a>
+                                                <a href="{{ $slider->links ?? ''}}" class="btn btn-lg btn-warning text-white">{{ $slider->buttontext ?? ''}}</a>
                                             </div>
                                         @endif
                                     @endif
