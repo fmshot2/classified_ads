@@ -52,11 +52,11 @@
         </ul>
       </li>
 
-      <li class="" style=" {{ url()->current() == route('admin.users.feedback') ? 'background-color: rgb(202, 131, 9)' : '' }}">
+      <li class="" style=" {{ url()->current() == route('admin.users.feedback') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('admin.users.feedback') }}">
           <i class="fa fa-bell"></i> <span> Feedbacks </span>
           <span class="pull-right-container">
-            <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small>
+            <small class="label pull-right bg-warning"> {{ $unread_notification_count }}  </small>
           </span>
         </a>
       </li>
