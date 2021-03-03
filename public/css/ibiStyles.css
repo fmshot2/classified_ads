@@ -518,12 +518,30 @@ h6 {
 }
 
 .banner .banner-slider-inner {
-    background-color: rgba(0, 0, 0, 0.507) !important;
+    background-color: transparent !important;
+    /* background-color: rgba(0, 0, 0, 0.507) !important; */
 }
 
 .homepage-top-banner .btn-sections a {
     background-color: rgb(202, 131, 9);
     border: 3px solid #fff;
+}
+.btn-sections-left {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 200px;
+    margin-left: 100px;
+}
+.btn-sections-right {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 200px;
+    margin-right: 100px;
+}
+.btn-sections-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
 }
 @media only screen and (min-width: 992px) {
     .desktop-top-search-form {
@@ -542,10 +560,6 @@ h6 {
     .banner .carousel-inner img {
         height: auto;
         width: 100%;
-    }
-    .banner .carousel-content {
-        margin-top: -80px;
-        align-self: unset;
     }
 
     .navbar-toggler {

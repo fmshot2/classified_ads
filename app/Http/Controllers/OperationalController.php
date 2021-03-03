@@ -33,6 +33,8 @@ class OperationalController extends Controller
             'title' => $request->title,
             'details' => $request->details,
             'links' => $request->link,
+            'buttonlocation' => $request->buttonlocation,
+            'buttontext' => $request->buttontext,
             'image' => $file_name
         ];
 
@@ -62,6 +64,8 @@ class OperationalController extends Controller
                 'title' => $request->title,
                 'details' => $request->details,
                 'links' => $request->link,
+                'buttonlocation' => $request->buttonlocation,
+                'buttontext' => $request->buttontext,
                 'image' => $file_name
             ];
         }
@@ -70,6 +74,8 @@ class OperationalController extends Controller
                 'title' => $request->title,
                 'details' => $request->details,
                 'links' => $request->link,
+                'buttonlocation' => $request->buttonlocation,
+                'buttontext' => $request->buttontext
             ];
         }
 

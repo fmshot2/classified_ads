@@ -151,11 +151,11 @@
         <span class="info-box-icon push-bottom bg-warning">  <i class="fa fa-comments-o text-white" aria-hidden="true"></i> </span>
 
         <div class="info-box-content">
-          <span class="info-box-text"> Users Feedbacks </span>
-          <span class="info-box-number"> {{ $pending_service_count }} </span>
+          <span class="info-box-text"> User Feedbacks </span>
+          <span class="info-box-number"> {{ $feedbacks->count() }} </span>
 
           <div class="progress">
-            <div class="progress-bar progress-bar-danger" style="width:  {{ $pending_service_count }}%"></div>
+            <div class="progress-bar progress-bar-danger" style="width:  {{ $feedbacks->count() }}%"></div>
           </div>
           <span class="progress-description">
             <!-- Extra content can go here -->

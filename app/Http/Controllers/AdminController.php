@@ -27,7 +27,37 @@ use Geocoder;
 
 class AdminController extends Controller
 {
-  public function geo(){
+
+    public function usersfeedback()
+    {
+        $feedbacks = UserFeedback::all();
+
+        return view('admin.feedbacks', [
+            'feedbacks' => $feedbacks
+        ]);
+    }
+    public function userfeedback($id)
+    {
+        $feedback = UserFeedback::findOrFail($id);
+        return $feedback;
+    }
+    public function feedbackDelete($id)
+    {
+        $feedback = UserFeedback::findOrFail($id);
+        $feedback->delete();
+        session()->flash('status', 'Task was successful!');
+        return redirect()->back();
+    }
+    public function treatfeedback($id)
+    {
+        $feedback = UserFeedback::findOrFail($id);
+        $feedback->treated = 1;
+        $feedback->update();
+        session()->flash('status', 'Task was successful!');
+        return redirect()->back();
+    }
+
+    public function geo(){
 
      $myGeo =  Geocoder::getCoordinatesForAddress('Infinite Loop 1, Cupertino');
      return $myGeo;
@@ -612,14 +642,4 @@ public function save_faq(Request $request)
      // }
    }
 
-   }
-
-
-   public function usersfeedback()
-   {
-       $feedbacks = UserFeedback::all();
-
-       return view('admin.feedbacks', [
-           'feedback' => $feedbacks
-       ]);
    }

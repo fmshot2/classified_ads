@@ -313,6 +313,9 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     ///seller/service/admin/get-badge-list/2 404 (Not Found)
 
     Route::get('admin/usersfeedback','AdminController@usersfeedback')->name('admin.users.feedback');
+    Route::get('admin/userfeedback/{id}','AdminController@userfeedback')->name('admin.user.feedback');
+    Route::put('admin/userfeedback/treat/{id}','AdminController@treatfeedback')->name('admin.user.feedback.treat');
+    Route::get('admin/userfeedback/delete/{id}','AdminController@feedbackDelete')->name('admin.user.feedback.delete');
 
 
 
