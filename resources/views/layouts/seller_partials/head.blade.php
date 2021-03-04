@@ -89,6 +89,15 @@
 <script src="{{ asset('js/jquery-2.2.0.min.js') }}"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
 <script src="{{ asset('toastr/toastr.min.js') }}"></script>
+<script>
+    // $('#showTour').on('click', () => {
+    //     $('#yt-player').attr('src', 'https://www.youtube.com/embed/n1S66UhdIwA?modestbranding=0&controls=0&rel=0');
+    // });
+    $('#closeytplayer').on('click', () => {
+        $('#yt-player').attr('src', '');
+        $('#vid-player').attr('src', '');
+    });
+</script>
 
 </head>
 

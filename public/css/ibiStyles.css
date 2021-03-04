@@ -553,7 +553,7 @@ h6 {
         margin-right: 20px;
     }
     .btn-sections-center {
-        margin-top: 90px;
+        margin-top: 100px;
     }
     .btn-sections a {
         font-size: 10px !important;
@@ -1289,6 +1289,9 @@ h6 {
 #dislikeBtn a:hover {
     text-decoration: none !important;
     color: rgb(247, 148, 148) !important;
+}
+.title-dk {
+    font-size: 13px !important;
 }
 
 @media (max-width: 768px) {
