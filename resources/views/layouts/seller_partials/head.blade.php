@@ -90,12 +90,12 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
 <script src="{{ asset('toastr/toastr.min.js') }}"></script>
 <script>
-    // $('#showTour').on('click', () => {
-    //     $('#yt-player').attr('src', 'https://www.youtube.com/embed/n1S66UhdIwA?modestbranding=0&controls=0&rel=0');
-    // });
+    $('#showTour').on('click', () => {
+        $('#yt-player').attr('src', 'https://www.youtube.com/embed/n1S66UhdIwA?showinfo=0&controls=1&rel=0&autoplay=1');
+    });
     $('#closeytplayer').on('click', () => {
         $('#yt-player').attr('src', '');
-        $('#vid-player').attr('src', '');
+        // $('#vid-player').attr('src', '');
     });
 </script>
 
