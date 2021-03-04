@@ -1,3 +1,33 @@
+    <style>
+        .tour-label{
+            animation: pulsePostBtn 1s infinite;
+        }
+        @-webkit-keyframes pulsePostBtn {
+            0% {
+                -webkit-box-shadow: 0 0 0 0 rgba(241, 95, 95, 0.9);
+            }
+            70% {
+                -webkit-box-shadow: 0 0 0 10px rgba(43, 207, 112, 0);
+            }
+            100% {
+                -webkit-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
+            }
+        }
+        @keyframes pulsePostBtn {
+            0% {
+                -moz-box-shadow: 0 0 0 0 rgba(241, 95, 95, 0.9);
+                box-shadow: 0 0 0 0 rgba(241, 95, 95, 0.9);
+            }
+            70% {
+                -moz-box-shadow: 0 0 0 10px rgba(39, 230, 118, 0);
+                box-shadow: 0 0 0 10px rgba(43, 202, 109, 0);
+            }
+            100% {
+                -moz-box-shadow: 0 0 0 0 rgba(43, 207, 112, 0);
+                box-shadow: 0 0 0 0 rgba(43, 207, 112, 0);
+            }
+        }
+    </style>
   <header class="main-header ">
     <!-- Logo -->
     <a href="index.html" class="logo">
@@ -15,6 +45,12 @@
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
+            <li>
+                <a id="showTour" data-toggle="modal" data-target="#tourGuideModal" href="#">
+                    <i class="fa fa-camera"></i>
+                    <span class="label label-danger tour-label">!</span>
+                </a>
+            </li>
           <!-- User Account -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -139,3 +175,34 @@
 </div>
 </nav>
 </header>
+<style>
+    .modal-body .youtube{
+        height: 315px;
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 */
+    }
+    .modal-body iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<div id="tourGuideModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body" style="margin:0; padding:0">
+                <video id="vid-player" src="{{ asset('videos/Youtube-Subscribe.mp4') }}" autoplay controls style="width: 100%; margin:0; padding:0"></video>
+                {{-- <div class="youtube">
+                    <iframe id="yt-player" src="https://www.youtube.com/embed/n1S66UhdIwA?showinfo=0&rel=0" frameborder="0" style="width: 100%; height: 100%; margin:0; padding:0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div> --}}
+            </div>
+            <div class="modal-footer" style="margin: -10px 0 0 0; background-color: #000000">
+                <button id="closeytplayer" type="button" class="btn btn-default" data-dismiss="modal" style="background-color: rgb(0, 0, 0); border:2px solid #fff;color:#fff; border-radius: 25px; margin-top: 10px">Close</button>
+            </div>
+        </div>
+        {{-- &autoplay=1 --}}
+    </div>
+</div>

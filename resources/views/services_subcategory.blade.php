@@ -45,7 +45,7 @@
                                             </div>
                                             <div class="detail">
                                                 <div>
-                                                    <a class="title title-dk" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 18) }}</a>
+                                                    <a class="title title-dk" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 21) }}</a>
                                                     <a class="title title-mb" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 15) }}</a>
                                                 </div>
 
@@ -80,7 +80,7 @@
                                             </div>
                                             <div class="detail">
                                                 <div>
-                                                    <a class="title title-dk" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 18) }}</a>
+                                                    <a class="title title-dk" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 21) }}</a>
                                                     <a class="title title-mb" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 15) }}</a>
                                                 </div>
 
@@ -116,7 +116,7 @@
 
                                             <div class="detail">
                                                 <div>
-                                                    <a class="title title-dk" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 18) }}</a>
+                                                    <a class="title title-dk" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 21) }}</a>
                                                     <a class="title title-mb" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 15) }}</a>
                                                 </div>
 
@@ -149,7 +149,7 @@
 
                                             <div class="detail">
                                                 <div>
-                                                    <a class="title title-dk" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 18) }}</a>
+                                                    <a class="title title-dk" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 21) }}</a>
                                                     <a class="title title-mb" href="{{ route('serviceDetail', $category_service->slug) }}">{{ Str::limit($category_service->name, 15) }}</a>
                                                 </div>
 
