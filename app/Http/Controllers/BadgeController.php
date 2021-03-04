@@ -61,7 +61,7 @@ class BadgeController extends Controller
 
 
         ];
-
+// dd($gtPay_Data);
 		return view('gttPayView', $gtPay_Data );
 	}
 
@@ -80,14 +80,14 @@ class BadgeController extends Controller
 		$user = User::where('id', $user_id)->first();
 		// Auth::user()->name;
 			$badge = new Badge();
-			$badge->seller_id = $user_id;   
+			$badge->user_id = $user_id;   
 			$badge->badge_type = $badge_type;
 			// $badge->amount = $request->gtpay_tranx_amt;/
 			$badge->ref_no = $request->gtpay_tranx_id;
 			$badge->seller_name = $user->name;
 			$badge->save();
 			// dd($badge);
-		return redirect('provider/dashboard');
+		return redirect('provider/dashboard')->with('success', 'Your payment has been made successfully!');
 	}
 
 	public function badges() {

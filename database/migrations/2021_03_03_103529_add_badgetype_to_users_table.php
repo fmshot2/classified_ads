@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBadgesToUsersTable extends Migration
+class AddBadgetypeToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddBadgesToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('badges')->default(4)->after('status');
+            $table->integer('badgetype')->default(0)->after('status');
         });
     }
 
@@ -26,7 +26,7 @@ class AddBadgesToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('badges');
+            $table->dropColumn('badgetype');
         });
     }
 }

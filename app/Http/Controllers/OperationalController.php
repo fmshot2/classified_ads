@@ -219,19 +219,19 @@ class OperationalController extends Controller
         if ($id == 1) {
             $badge = [
                 'badge_type' => 'Super',
-                'badge_cost' => 2
+                'badge_cost' => 4
             ];
         }
         elseif ($id == 2) {
             $badge = [
                 'badge_type' => 'Moderate',
-                'badge_cost' => 1
+                'badge_cost' => 5
             ];
         }
         elseif ($id == 3) {
             $badge = [
                 'badge_type' => 'Super',
-                'badge_cost' => 3
+                'badge_cost' => 6
             ];
         }
 
