@@ -530,7 +530,7 @@ h6 {
     display: flex;
     justify-content: flex-start;
     margin-top: 200px;
-    margin-left: 120px;
+    margin-left: 100px;
 }
 .btn-sections-right {
     display: flex;
@@ -546,7 +546,7 @@ h6 {
 @media (max-width: 768px) {
     .btn-sections-left {
         margin-top: 85px;
-        margin-left: 20px;
+        margin-left: 25px;
     }
     .btn-sections-right {
         margin-top: 85px;
