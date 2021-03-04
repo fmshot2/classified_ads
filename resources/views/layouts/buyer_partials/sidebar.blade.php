@@ -46,7 +46,7 @@
         <a href=" {{route ('buyer.message.all') }}">
           <i class="fa fa-briefcase"></i> <span> Message </span>
           <span class="pull-right-container">
-            <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small> 
+            <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small>
           </span>
         </a>
       </li>
@@ -57,7 +57,7 @@
           <i class="fa fa-envelope"></i> <span> Message </span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
-            <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small> 
+            <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small>
           </span>
         </a>
         <ul class="treeview-menu">
@@ -89,7 +89,7 @@
         <a href=" {{route ('buyer.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
           <span class="pull-right-container">
-            <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small> 
+            <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small>
           </span>
         </a>
       </li>
@@ -103,8 +103,8 @@
       </li>
 
       <li>
-        <a href=" {{ route ('home') }} ">
-          <i class="fa fa-globe"></i> <span> Main Website </span>
+        <a href=" {{ route ('home') }} " target="_blank">
+          <i class="fa fa-globe"></i> <span> Visit Site </span>
           <span class="pull-right-container">
           </span>
         </a>
@@ -141,7 +141,7 @@
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
        @csrf
      </form>
-     <i class="fa fa-power-off"></i></a> 
+     <i class="fa fa-power-off"></i></a>
 
    </div>
  </aside>

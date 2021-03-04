@@ -546,14 +546,14 @@ h6 {
 @media (max-width: 768px) {
     .btn-sections-left {
         margin-top: 85px;
-        margin-left: 20px;
+        margin-left: 25px;
     }
     .btn-sections-right {
         margin-top: 85px;
         margin-right: 20px;
     }
     .btn-sections-center {
-        margin-top: 85px;
+        margin-top: 90px;
     }
     .btn-sections a {
         font-size: 10px !important;

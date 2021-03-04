@@ -130,8 +130,8 @@
       </li>
 
       <li>
-        <a href=" {{ route ('home') }} ">
-          <i class="fa fa-globe"></i> <span> Homepage </span>
+        <a href=" {{ route ('home') }}" target="_blank">
+          <i class="fa fa-globe"></i> <span> Vist Site </span>
           <span class="pull-right-container">
           </span>
         </a>
