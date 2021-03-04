@@ -194,15 +194,14 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-body" style="margin:0; padding:0">
-                <video id="vid-player" src="{{ asset('videos/Youtube-Subscribe.mp4') }}" autoplay controls style="width: 100%; margin:0; padding:0"></video>
-                {{-- <div class="youtube">
+                {{-- <video id="vid-player" src="{{ asset('videos/Youtube-Subscribe.mp4') }}" autoplay controls style="width: 100%; margin:0; padding:0"></video> --}}
+                <div class="youtube">
                     <iframe id="yt-player" src="https://www.youtube.com/embed/n1S66UhdIwA?showinfo=0&rel=0" frameborder="0" style="width: 100%; height: 100%; margin:0; padding:0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div> --}}
+                </div>
             </div>
             <div class="modal-footer" style="margin: -10px 0 0 0; background-color: #000000">
                 <button id="closeytplayer" type="button" class="btn btn-default" data-dismiss="modal" style="background-color: rgb(0, 0, 0); border:2px solid #fff;color:#fff; border-radius: 25px; margin-top: 10px">Close</button>
             </div>
         </div>
-        {{-- &autoplay=1 --}}
     </div>
 </div>
