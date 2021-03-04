@@ -3,7 +3,7 @@
 		<div class="carousel-inner">
             @if ($sliders ?? '')
                 @forelse ($sliders ?? '' as $slider)
-                    <div class="carousel-item banner-max-height {{ $loop->index == 1 ? 'active' : '' }}">
+                    <div class="carousel-item banner-max-height {{ $loop->index == 0 ? 'active' : '' }}">
                         <img class="d-block w-100" src="{{ asset('uploads/sliders') }}/{{ $slider->image ?? '' }}" alt="{{ $slider->title ?? '' }}">
                         <div class="carousel-caption banner-slider-inner d-flex h-100 text-center">
                             <div class="carousel-content container">
