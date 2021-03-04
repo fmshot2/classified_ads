@@ -18,7 +18,7 @@
     }
 </style>
 <!-- Sub banner start -->
-<div class="sub-banner" style="background-image:url({{asset('OurBackend/img/hometeacher.jpg')}})">
+<div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/servicedetail.jpg')}})">
     <div class="container">
         <div class="page-name">
             @if(isset($ww2))
@@ -69,7 +69,7 @@
                                     <div class="col-md-12">
                                         <h3 class="service-name">{{$serviceDetail->name}}</h3>
                                         <p><span><i class="fa fa-map-marker"></i> Location:</span> <span style="color: #ca8309" class="tt-capitalize">{{$serviceDetail->state}}</span></p>
-                                        <p><span><i class="fa fa-user"></i> Service Providers: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->user->name}}</span></p>
+                                        <p><span><i class="fa fa-user"></i> Service Provider: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->user->name}}</span></p>
                                     </div>
                                 </div>
                             </div>

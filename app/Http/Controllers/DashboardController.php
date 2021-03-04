@@ -10,6 +10,7 @@ use App\Message;
 use App\Service;
 use App\Notification;
 use App\Refererlink;
+use App\UserFeedback;
 use Illuminate\Support\Str;
 
 
@@ -148,8 +149,9 @@ public function admin()
     $buyer = User::where('role', 'buyer')->take(5)->get();
     $active_service = Service::where('status', 1)->take(5)->get();
     $pending_service = Service::where('status', 0)->take(5);
+    $feedbacks = UserFeedback::all();
 
-    return view ('admin.dashboard', compact('all_service_count', 'all_categories_count', 'all_sellers_count', 'all_buyers_count', 'active_service_count', 'pending_service_count', 'category', 'active_service', 'seller', 'buyer', 'all_service'));
+    return view ('admin.dashboard', compact('all_service_count', 'all_categories_count', 'all_sellers_count', 'all_buyers_count', 'active_service_count', 'pending_service_count', 'category', 'active_service', 'seller', 'buyer', 'all_service', 'feedbacks'));
 }
 
 

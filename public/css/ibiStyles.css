@@ -518,15 +518,55 @@ h6 {
 }
 
 .banner .banner-slider-inner {
-    background-color: rgba(0, 0, 0, 0.507) !important;
+    background-color: transparent !important;
+    /* background-color: rgba(0, 0, 0, 0.507) !important; */
 }
 
 .homepage-top-banner .btn-sections a {
     background-color: rgb(202, 131, 9);
     border: 3px solid #fff;
 }
-
+.btn-sections-left {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 200px;
+    margin-left: 100px;
+}
+.btn-sections-right {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 200px;
+    margin-right: 100px;
+}
+.btn-sections-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+}
+@media (max-width: 768px) {
+    .btn-sections-left {
+        margin-top: 85px;
+        margin-left: 20px;
+    }
+    .btn-sections-right {
+        margin-top: 85px;
+        margin-right: 20px;
+    }
+    .btn-sections-center {
+        margin-top: 85px;
+    }
+    .btn-sections a {
+        font-size: 10px !important;
+        padding: 2px 10px !important;
+    }
+}
 @media only screen and (min-width: 992px) {
+    .desktop-top-search-form {
+        display: block;
+    }
+    .mobile-top-search-form {
+        display: none;
+    }
     .banner {
         margin: 0 150px;
         height: 63vh;
@@ -537,10 +577,6 @@ h6 {
     .banner .carousel-inner img {
         height: auto;
         width: 100%;
-    }
-    .banner .carousel-content {
-        margin-top: -80px;
-        align-self: unset;
     }
 
     .navbar-toggler {
@@ -606,6 +642,12 @@ h6 {
 }
 
 @media only screen and (max-width: 992px) {
+    .desktop-top-search-form {
+        display: none;
+    }
+    .mobile-top-search-form {
+        display: block;
+    }
     .home-recently-properties {
         margin-top: -90px !important;
         margin-right: 0 !important;

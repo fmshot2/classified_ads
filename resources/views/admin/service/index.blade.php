@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
-@section('title')
-All Service Table |
-@endsection
+@section('title', 'All Service Table | ')
 
 @section('content')
 
@@ -50,7 +48,7 @@ All Service Table |
 								<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 								<td>
 									<a href="#">
-										<img src="{{asset('images')}}/{{$all_services->image[0]}}" alt="classic crib" width="60" class="img-responsive img-rounded">
+										<img src="{{asset('uploads/services')}}/{{$all_services->service_image}}" alt="{{ $all_services->name }}" width="60" class="img-responsive img-rounded">
 									</a>
 								</td>
 								<td> {{ $all_services->name }} </td>

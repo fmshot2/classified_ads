@@ -123,52 +123,6 @@
         </section>
 
 
-        <div id="editSlideModal" class="modal fade">
-            <div class="modal-dialog modal-dialog-vertical-center" role="document">
-                <div class="modal-content tx-size-sm">
-                    <div class="modal-header pd-x-20">
-                        <h4 class="tx-17 mg-b-0 tx-uppercase tx-inverse tx-bold">Edit Slider</h4>
-                    </div>
-                    <div class="modal-body pd-20">
-                        <form id="editSliderForm" action="" method="POST" enctype="multipart/form-data">
-                            {{csrf_field()}}
-                            <input type="hidden" name="_method" value="PUT">
-                            <input type="hidden" name="id" value="">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for=""> Title <span class="tx-danger">*</span></label>
-                                        <input type="text" name="title" id="editTitle" class="form-control" placeholder="Edit Title">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="">Details <span class="tx-danger">*</span></label>
-                                        <input type="text" name="details" id="editDetails" class="form-control" placeholder="Edit Details">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="">Link <span class="tx-danger">*</span></label>
-                                        <input type="text" name="link" id="editLinks" class="form-control" placeholder="Edit Link">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="image">Slider Image</label>
-                                        <input type="file" name="image" id="editImage" class="form-control" placeholder="Select Image">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary pd-x-20">Update Slider</button>
-                                <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Close</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div><!-- modal-dialog -->
-        </div><!-- modal -->
 
         <div id="addSlideModal" class="modal fade">
             <div class="modal-dialog modal-dialog-vertical-center" role="document">
@@ -181,16 +135,33 @@
                             {{csrf_field()}}
                             <input type="hidden" name="id" value="">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-9">
                                     <div class="form-group">
                                         <label for=""> Title <span class="tx-danger">*</span></label>
-                                        <input type="text" name="title" class="form-control" placeholder="Title">
+                                        <input type="text" name="title" class="form-control" placeholder="Title" required>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for=""> Buttton Text <span class="tx-danger">*</span></label>
+                                        <input type="text" name="buttontext" class="form-control" placeholder="Get Started!" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="">Details <span class="tx-danger">*</span></label>
-                                        <input type="text" name="details" class="form-control" placeholder="Details">
+                                        <input type="text" name="details" class="form-control" placeholder="Slider Details">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Button Location <span class="tx-danger">*</span></label>
+                                        <select name="buttonlocation" class="form-control" required>
+                                            <option value="nobutton">No Button</option>
+                                            <option value="left">Left</option>
+                                            <option value="right">Right</option>
+                                            <option value="center">Center</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -202,12 +173,76 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="image">Slider Image</label>
-                                        <input type="file" name="image" class="form-control" placeholder="Select Image">
+                                        <input type="file" name="image" class="form-control" placeholder="Select Image"  required>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-success pd-x-20">Add Slide</button>
+                                <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- modal-dialog -->
+        </div><!-- modal -->
+
+        <div id="editSlideModal" class="modal fade">
+            <div class="modal-dialog modal-dialog-vertical-center" role="document">
+                <div class="modal-content tx-size-sm">
+                    <div class="modal-header pd-x-20">
+                        <h4 class="tx-17 mg-b-0 tx-uppercase tx-inverse tx-bold">Edit Slider</h4>
+                    </div>
+                    <div class="modal-body pd-20">
+                        <form id="editSliderForm" action="" method="POST" enctype="multipart/form-data">
+                            {{csrf_field()}}
+                            <input type="hidden" name="_method" value="PUT">
+                            <input type="hidden" name="id" value="">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for=""> Title</label>
+                                        <input type="text" name="title" id="editTitle" class="form-control" placeholder="Edit Title">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for=""> Buttton Text </label>
+                                        <input type="text" name="buttontext" class="form-control" placeholder="Get Started!">
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="">Details</label>
+                                        <input type="text" name="details" id="editDetails" class="form-control" placeholder="Edit Details">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Button Location</label>
+                                        <select name="buttonlocation" id="editButtonLocation" class="form-control">
+                                            <option value="nobutton">No Button</option>
+                                            <option value="left">Left</option>
+                                            <option value="right">Right</option>
+                                            <option value="center">Center</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Link</label>
+                                        <input type="text" name="link" id="editLinks" class="form-control" placeholder="Edit Link">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="image">Slider Image</label>
+                                        <input type="file" name="image" id="editImage" class="form-control" placeholder="Select Image">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary pd-x-20">Update Slider</button>
                                 <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Close</button>
                             </div>
                         </form>
@@ -398,6 +433,7 @@
                         $('#editTitle').val(result.title);
                         $('#editDetails').val(result.details);
                         $('#editLinks').val(result.links);
+                        $('#editButtonLocation').val(result.buttonlocation);
                         $('#editSlider_id').val(result.id);
                         var url = '/admin/update/slider/' + id;
                         $('form#editSliderForm').attr('action', url);

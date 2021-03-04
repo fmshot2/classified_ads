@@ -17,6 +17,7 @@ use App\Slider;
 use App\Advertrequest;
 use App\Event;
 use App\Subscription;
+use App\UserFeedback;
 use Illuminate\Support\Str;
 use Geocoder;
 
@@ -26,7 +27,37 @@ use Geocoder;
 
 class AdminController extends Controller
 {
-  public function geo(){
+
+    public function usersfeedback()
+    {
+        $feedbacks = UserFeedback::all();
+
+        return view('admin.feedbacks', [
+            'feedbacks' => $feedbacks
+        ]);
+    }
+    public function userfeedback($id)
+    {
+        $feedback = UserFeedback::findOrFail($id);
+        return $feedback;
+    }
+    public function feedbackDelete($id)
+    {
+        $feedback = UserFeedback::findOrFail($id);
+        $feedback->delete();
+        session()->flash('status', 'Task was successful!');
+        return redirect()->back();
+    }
+    public function treatfeedback($id)
+    {
+        $feedback = UserFeedback::findOrFail($id);
+        $feedback->treated = 1;
+        $feedback->update();
+        session()->flash('status', 'Task was successful!');
+        return redirect()->back();
+    }
+
+    public function geo(){
 
      $myGeo =  Geocoder::getCoordinatesForAddress('Infinite Loop 1, Cupertino');
      return $myGeo;
@@ -34,7 +65,7 @@ class AdminController extends Controller
   }
 
 
-  
+
   public function lat()
   {
 
@@ -45,7 +76,7 @@ $longitude = $json['longitude'];
       return response()->json(['success'=>'updated done', 'latitude'=>$latitude, 'longitude'=>$longitude]);
 
 
-if ($data = @file_get_contents("https://www.geoip-db.com/json"))    
+if ($data = @file_get_contents("https://www.geoip-db.com/json"))
 {
         $json = json_decode($data, true);
         $latitude = $json['latitude'];
@@ -69,11 +100,11 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
 //     //   'buyer_email' => 'required',
 //     //   'description' => 'required',
 
-//     // ]); 
-       
+//     // ]);
+
 //         $success = 'Your message was sent successfully. Thank you!';
 //         // $slug = Str::random(10);
-//         $complaint = new Complaint();   
+//         $complaint = new Complaint();
 //         $user->lat = $data['lat'];
 //         $user->long = $data['long'];
 //         $complaint->save();
@@ -101,16 +132,16 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
     $longitude = $request->longitude;
     $radius = 100;
     // $keyword = $request->radius,
-    // $categories = $request->categories, 
-    // $sub_category = $request->sub_category, 
-    // $myRange = $request->myRange, 
-    // $state =  $request->state, 
+    // $categories = $request->categories,
+    // $sub_category = $request->sub_category,
+    // $myRange = $request->myRange,
+    // $state =  $request->state,
     // $city = $request->city
 // $latitude = Auth::user()->latitude;
 // $longitude = Auth::user()->longitude;
 // Auth::user()->save();
    // return $latitude . $longitude;
-    // $latitude = 
+    // $latitude =
     $services = Service::selectRaw("id, name, address,
                      ( 6371000 * acos( cos( radians(?) ) *
                        cos( radians( latitude ) )
