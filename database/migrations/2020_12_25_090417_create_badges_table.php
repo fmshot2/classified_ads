@@ -16,7 +16,7 @@ class CreateBadgesTable extends Migration
         Schema::create('badges', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('seller_id')->nullable();
+            $table->integer('user_id')->nullable();
             $table->string('badge_type')->nullable();
             $table->string('email')->nullable();
             $table->string('amount')->nullable();

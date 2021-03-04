@@ -194,9 +194,7 @@ class ServiceController extends Controller
     $serviceName = session()->get('serviceName');
     $serviceState = session()->get('serviceState');
 
-    // $nearestServices = $this->findNearestRestaurants()->services;
-    // $nearestServices = $this->servicesss;
-    //         $nearestServices = $this->brandsAll();
+   
 
     if($user11){
       $user111 = $user11;
@@ -210,7 +208,6 @@ class ServiceController extends Controller
     $radius = 100000;
 
     if ($latitude) {
-          // return response()->json(['html'=>$latitude]);
 
      $nearestServices = Service::selectRaw("id, name, address,
        ( 6371000 * acos( cos( radians(?) ) *
@@ -225,13 +222,6 @@ class ServiceController extends Controller
      ->limit(20)
      ->get();
 
-  //       return $nearestServices;
-
-  //        $title2 = "HDTuto.com";
-
-  // $view = view("nearest", compact('title2'))->render();
-
-  //   return response()->json(['html'=>$view]);
 
      $view = view('welcome', compact(['featuredServices', 'recentServices',
       'approvedServices', 'user111', 'categories', 'search_form_categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'hotServices', 'nearestServices' ]))->render();
@@ -240,28 +230,16 @@ class ServiceController extends Controller
 
 
    }else{
-      // $nearestServices = null;
 
     return view('welcome', compact(['featuredServices', 'recentServices',
       'approvedServices', 'user111', 'categories', 'search_form_categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'hotServices' ]));
   }
 
-    // if($nearestServices){
-    //   $nearestServices = $nearestServices;
-
-    //   // return $nearestServices;
-    // }else{
+   
 
 }
-    // return $nearestServices;
+   
 
-
-// return $nearestServices;
-
-
-
-    // return view('welcome', compact(['featuredServices', 'recentServices',
-    //   'approvedServices', 'user111', 'categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'superServices', 'basicServices', 'hotServices', 'moderateServices' ]));
 
 
 public function services()
