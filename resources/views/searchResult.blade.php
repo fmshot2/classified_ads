@@ -763,6 +763,10 @@
                                         </div>
                                     </a>
                                 @endif
+
+
+
+                        
                             @endforeach
                         </div>
                     @endif
@@ -889,7 +893,7 @@
 
                         <!-- Helping Center start -->
                         <div class="widget helping-center">
-                            <h3 class="sidebar-title">Helping Center</h3>
+                            <h3 class="sidebar-title">Help Center</h3>
                             <div class="s-border"></div>
                             <div class="m-border"></div>
                             <ul class="contact-link">

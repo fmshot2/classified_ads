@@ -168,8 +168,8 @@ class ServiceController extends Controller
       ['is_approved', '=', 1] ])->inRandomOrder()->get();
 
     foreach ($allServices as $key => $serv) {
-      // this is assigning a new field callled total_likes to alservices
-      //not, the total_likes is coming from a function in the model
+      // this is assigning a new field called total_likes to allservices
+      //note, the total_likes is coming from a function in the model
       $allServices[$key]->total_likes = $serv->total_likes;
     }
 
@@ -649,7 +649,7 @@ public function search3(Request $request){
   // })->get();
 
  $services1 = Service::selectRaw("id, name, slug, address, thumbnail, user_id, state, badge_type, category_id,
-   ( 6371000 * acos( cos( radians(?) ) *
+   ( 6371 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
    ) + sin( radians(?) ) *
@@ -668,7 +668,7 @@ public function search3(Request $request){
 if ($category)
 {
 $services2 = Service::selectRaw("id, name, slug, address, thumbnail, user_id, state, badge_type, category_id,
-   ( 6371000 * acos( cos( radians(?) ) *
+   ( 6371 * acos( cos( radians(?) ) *
    cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
    ) + sin( radians(?) ) *
