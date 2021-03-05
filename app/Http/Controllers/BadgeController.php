@@ -72,7 +72,19 @@ class BadgeController extends Controller
 			$new_Badge = new Badge();
 	}
 
+	// public function test_new_badge()
+	// {              
+	// 	$user_id = 7;
+	// 	$badge_type = 5;
+	// 		$the_service = Service::where('user_id', $user_id)->get();
+	// 		foreach ($the_service as $servi) {
+				
+	// 			$servi->badge_type = $badge_type;
+	// 		  }		
 
+	// 		 dd($the_service);
+	// 	return redirect('provider/dashboard')->with('success', 'Your payment has been made successfully!');
+	// }
 
 
 	public function gt_response(Request $request, $user_id, $badge_type)
@@ -86,7 +98,13 @@ class BadgeController extends Controller
 			$badge->ref_no = $request->gtpay_tranx_id;
 			$badge->seller_name = $user->name;
 			$badge->save();
-			// dd($badge);
+			$the_service = Service::where('user_id', $user_id)->get();
+			foreach ($the_service as $servi) {
+				
+				$servi->badge_type = $badge_type;
+				$servi->save();
+			  }		
+			  // dd($badge);
 		return redirect('provider/dashboard')->with('success', 'Your payment has been made successfully!');
 	}
 
