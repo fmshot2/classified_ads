@@ -133,36 +133,6 @@ class ServiceController extends Controller
 
   public function index2(Request $request)
   {
-
-     // $category_city = Service::all()->random(4);
-     // dd($category_city);
- // $latitude = session()->get('latitude');
- //    $longitude = session()->get('longitude');
-
-// return $latitude;
-
-
-
-
-
- //    $radius = 100;
- //    $nearestServices = Service::selectRaw("id, name, address,
- //                     ( 6371000 * acos( cos( radians(?) ) *
- //                       cos( radians( latitude ) )
- //                       * cos( radians( longitude ) - radians(?)
- //                       ) + sin( radians(?) ) *
- //                       sin( radians( latitude ) ) )
- //                     ) AS distance", [$latitude, $longitude, $latitude])
- //        ->having("distance", "<", $radius)
- //        ->orderBy("distance",'asc')
- //        ->offset(0)
- //        ->limit(20)
- //        ->get();
-
-
-
-
-
     $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
     $allServices = Service::where([
       ['is_approved', '=', 1] ])->inRandomOrder()->get();
