@@ -82,10 +82,10 @@
                         <a href="{{ route('home') }}"  class="nav-link" >Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('allServices') }}"  class="nav-link">Services</a>
+                        <a href="{{ route('allCategories') }}"  class="nav-link">Categories</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('allCategories') }}"  class="nav-link">Categories</a>
+                        <a href="{{ route('allServices') }}"  class="nav-link">Services</a>
                     </li>
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="{{route('seller.sellers')}}" id="">Providers</a>
