@@ -43,6 +43,7 @@ function showPosition(position) {
             url: 'findgeo',
             data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
            success: function(result){
+            document.getElementById("closeServices").hidden = false;
                     services = result.data;
                         services.forEach(service => {
                             badge = service.badge_type
@@ -146,7 +147,7 @@ function showPosition(position) {
 
 @include('frontend_section/category')
 
-<div class="blog content-area bg-grea-3 hm-feat-ser-mid-sec">
+<div id ="closeServices" class="blog content-area bg-grea-3 hm-feat-ser-mid-sec">
     <div class="service-detail-container">
             <!-- Main title -->
         <div class="main-title" style="margin-top: -50px;">
@@ -317,6 +318,7 @@ owl.owlCarousel({
 
 <script type="text/javascript">
   $(document).ready( function () {
+    document.getElementById("closeServices").hidden = true;
   getLocation();
 });
 </script>

@@ -104,7 +104,6 @@ class BadgeController extends Controller
 				$servi->badge_type = $badge_type;
 				$servi->save();
 			  }		
-			  // dd($badge);
 		return redirect('provider/dashboard')->with('success', 'Your payment has been made successfully!');
 	}
 
@@ -122,20 +121,13 @@ class BadgeController extends Controller
 
 	public function saveService4Badge(Request $request)
 	{
-      	  //return 'ddd';
-      	//return $request->input('service_id');
+      	
       	 $data = $request->all();
-       //return 'nnn';
-
-        //return $data['service_id'];
-          //$badge_service_id = $data['service_id']; 
 
 
 		$service_id = $data['service_id'];          
-		//$service_id = $request->input('service_id');
       	  $service_select = "This Service selected for upgrade";
 
-  			//return $the_Service = Badge::where('service_id', $service_id)->get();
 
 		$badge_check = Badge::where(['service_id'=>$service_id])->first();
 		
@@ -144,7 +136,6 @@ class BadgeController extends Controller
 
 			$badge_check->save();
 			return response()->json(['success'=>'updated done', 'id'=>$service_id]);
-			 /*return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);*/
 
 		}else{
 			$badge = new Badge();
@@ -158,9 +149,7 @@ class BadgeController extends Controller
 
 		public function saveService4Advert(Request $request)
 	{
-	//return $request->input('service_id');
       	 $data = $request->all();
-       //return 'nnn';
 
 
 		$service_id = $data['service_id'];          
@@ -193,9 +182,7 @@ class BadgeController extends Controller
  public function createpay4Advert(Request $request)
       {
        $data = $request->all();
-       //return 'nnn';
 
-        //return $data['service_id'];
        $badge_service_id = $data['service_id'];    
 
 
@@ -227,7 +214,6 @@ class BadgeController extends Controller
        $badge->seller_name = $data['seller_name'];
        $badge->phone = $data['phone'];
        $badge->ref_no = $data['ref_no'];
-        //$badge->service_id = $data['service_id'];
 
        $badge->save();
        return "Badge created successfully";   
@@ -241,7 +227,6 @@ class BadgeController extends Controller
 
      if ($badge->save()) {
       return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
-        //return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
     }else{
       return response()->json(['success2', 'Your message was not sent!']);
     }
@@ -251,8 +236,7 @@ class BadgeController extends Controller
      Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
      $likecount = Like::where(['service_id'=>$id])->count();
      return redirect()->to('serviceDetail/'.$service_slug);
-        //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
-        //return redirect('/home');   
+       
    }else{
      $like = new Like();
      $like->user_id = Auth::id();
@@ -260,7 +244,7 @@ class BadgeController extends Controller
      $like->save();
      $likecount = Like::where(['service_id'=>$id])->count();
      return redirect()->to('serviceDetail/'.$service_slug);
-        //return 'Heyyyyy22222'. $likecount;    
+      
    }
 
  }
