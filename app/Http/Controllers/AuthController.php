@@ -78,6 +78,81 @@ class AuthController extends Controller
 
 
 
+			public function createUser (Request $request)
+	{
+
+        $link_from_url = $request->refer;
+		// dd($usrerere);
+		// $LGA = User::find(['refererLink'=>$usrerere]);
+		// dd($LGA);
+		// $Link_owner = User::where('refererLink', $usrerere)->first();
+
+		$validatedData = $request->validate([
+			'name' => ['required', 'string', 'max:255'],
+			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+			'state' => ['string'],
+			'password' => ['required', 'string', 'min:6', 'confirmed'],
+			// 'captcha' => 'required|captcha',
+			'role' => 'required'
+		]);
+
+			$saveIdOfRefree = User::where(['refererLink'=>$link_from_url])->first();
+		if($saveIdOfRefree){
+		$refererId = $saveIdOfRefree->id;
+		}
+		$user = new User;
+		$user->name = $request->name;
+		$user->email = $request->email;
+		$user->password = Hash::make($request->password);
+		$user->role = 'agent';
+		if($saveIdOfRefree){
+		$user->idOfReferer = $refererId;
+		}
+
+		//$user->state = $request->state;
+		$user->save();
+		 	if ($user->save()) {
+			$name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+			$name = $user->name;
+			$email = $user->email;
+			$origPassword = $request->password;
+			$userRole = 'agent';
+
+            try{
+                Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+
+
+			if ($link_from_url) {
+                $link = new Refererlink();
+                $link->refererlink = $link_from_url;
+                $link->save();
+            }
+
+		}
+
+
+
+		session()->flash('success', ' Succesfull!');
+
+		$credentials = $request->only('email', 'password');
+
+		if (Auth::attempt($credentials)) {
+			if ( $request->role == 'seller' )
+				return redirect()->route('seller.dashboard');;
+
+            } else {
+                return Redirect::to(Session::get('url.intended'));
+            }
+            return redirect()->intended('/');
+        }
+
+
+
+
 		session()->flash('success', ' Succesfull!');
 
 		$credentials = $request->only('email', 'password');
@@ -102,20 +177,36 @@ class AuthController extends Controller
 
 	public function showRegisterforRefer($refer)
 	{
-		//dd('fgfgfgfg');
-$referlink = $refer;
-		//dd($referlink);
-
-
+		$referlink = $refer;
 
 		return view ('auth/register', compact('referlink'));
 	}
 
+	public function showAgentRegister(Request $request)
+	{
+		$request->session()->forget('url.intended');
+        session(['url.intended' => url()->previous()]);
 
+        $param = $request->input('invite');
+
+		if($param){
+			$referParam = $param;
+		}else{
+			$referParam = null;
+		}
+		$states = State::all();
+
+		if (Auth::check()) {
+			return redirect()->intended('/');
+		}
+
+		return view ('auth/agentRegister', compact('states', 'referParam'));
+
+	}
+	
 
 	public function showRegister (Request $request)
 	{
-
         $request->session()->forget('url.intended');
         session(['url.intended' => url()->previous()]);
 

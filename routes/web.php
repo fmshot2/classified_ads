@@ -118,7 +118,10 @@ Route::get('/email/verify', function () {
 })->middleware('auth');
 Route::get('/home', 'AuthController@loginformail')->name('loginformail');
 */
+
 Route::get('/register', 'AuthController@showRegister')->name('register');
+Route::get('/agent-register', 'AuthController@showAgentRegister')->name('agentRegister');
+
 Route::post('/register', 'AuthController@createUser')->name('register');
 Route::get('/login', 'AuthController@showLogin')->name('login');
 Route::post('/login', 'AuthController@login')->name('login');
@@ -326,6 +329,30 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
 
 
+
+
+
+
+
+
+
+
+
+
+Route::middleware(['agent'])->group(function () { //Agent Middleware protection start here
+   
+
+
+}); //Agent Middleware protection end here
+
+
+
+
+
+
+
+
+
 Route::post ( '/searchonservices',  'ServiceController@searchonservices')->name('searchonservices');
 
 // Route::get ( '/searchresults',  'ServiceController@search')->name('search3');
@@ -352,29 +379,6 @@ Route::get ( 'findgeo',  'ServiceController@findNearestServices');
 Route::get ( 'findLat2',  'ServiceController@findNearestServices2');
 
 Route::get ( 'findLat',  'AdminController@findNearestRestaurants');
-
-
-
-// Route::get ('getgeo',   function ($latitude, $longitude, $radius = 400)
-// {
-
-//     $restaurants = Restaurant::selectRaw("id, name, address, latitude, longitude, rating, zone ,
-//                      ( 6371000 * acos( cos( radians(?) ) *
-//                        cos( radians( latitude ) )
-//                        * cos( radians( longitude ) - radians(?)
-//                        ) + sin( radians(?) ) *
-//                        sin( radians( latitude ) ) )
-//                      ) AS distance", [$latitude, $longitude, $latitude])
-//         ->where('active', '=', 1)
-//         ->having("distance", "<", $radius)
-//         ->orderBy("distance",'asc')
-//         ->offset(0)
-//         ->limit(20)
-//         ->get();
-
-//     return $restaurants;
-// })
-
 
 
 

@@ -11,8 +11,14 @@
                         <h3>Create an account</h3>
                         <div class="btn-section clearfix">
                             <a href="{{route('login')}}" class="link-btn active btn-1 default-bg">Login</a>
-                            <a href="{{route('register')}}" class="link-btn btn-2 active-bg">Register</a>
+                            <a href="{{route('register')}}" class="link-btn  btn-1 active-bg">Register</a>
+
+                            <a href="{{route('agentRegister')}}" class="link-btn active btn-2 default-bg"> Be an Agent</a>
+
+
+
                         </div>
+
 
                         <div class="clearfix"></div>
 
