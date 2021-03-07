@@ -8,10 +8,13 @@ use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 use tizis\laraComments\Traits\Commenter;
+use Illuminate\Support\Facades\URL;
 
 class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 {
     use Notifiable, Commenter;
+
+    protected $appends = ['image_url'];
 
     /**
      * The attributes that are mass assignable.
@@ -66,5 +69,11 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+
+    public function getImageUrlAttribute()
+    {
+        return $this->image ? URL::to('storage/profile_images/' . $this->image) : null;
     }
 }

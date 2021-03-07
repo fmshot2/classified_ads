@@ -19,7 +19,7 @@
 
                     <div class="clearfix"></div>
 
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('agentRegister') }}">
                         @csrf
                         <div class="form-group form-box">
                             <input id="name" type="text" class="input-text" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
@@ -71,18 +71,18 @@
 
                         <div class="form-group form-box">
                             <!-- <label class="form-label">Local Government</label><small class="text-danger">*</small> -->
-                            <select class="form-control" id="city" name="city" required>
+                            <select class="form-control" id="city" name="city" >
                                 <option disabled selected>- Select Local Government -</option>
                             </select>
                         </div>
 
                         <div class="form-group form-box">
-                            <input id="address" type="text"  value="{{ old('address') }}" class="form-control" name="address" placeholder="Enter your address here.">
+                            <input id="address" type="text" required value="{{ old('address') }}" class="form-control" name="address" placeholder="Enter your address here.">
                         </div>
                         <p>
                             <h6>Upload Driver's Licence, National Id or Voter's Card</h6>
                             <div class="form-group form-box">
-                                <input id="add" type="file"  class="input-text" name="file" required>
+                                <input id="add" type="file"  class="input-text" name="file">
                                 @if ($errors->has('file'))
                                 <span class="helper-text" data-error="wrong" data-success="right">
                                     <strong class="text-danger">{{ $errors->first('file') }}</strong>
@@ -93,6 +93,10 @@
 
                         <div class="form-group form-box">
                             <input type="hidden" class="input-text" name="refer" value="{{$referParam}}">
+                        </div>
+                          <div class="form-group form-box">
+                            <small>Insert Agent  Code</small>
+                            <input type="text" class="input-text" name="agentCode" value="{{ old('agentCode') }}">
                         </div>
                         <p>
                             <label>

@@ -120,14 +120,16 @@ Route::get('/home', 'AuthController@loginformail')->name('loginformail');
 */
 
 Route::get('/register', 'AuthController@showRegister')->name('register');
-Route::get('/agent-register', 'AuthController@showAgentRegister')->name('agentRegister');
-
 Route::post('/register', 'AuthController@createUser')->name('register');
 Route::get('/login', 'AuthController@showLogin')->name('login');
 Route::post('/login', 'AuthController@login')->name('login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::get('/refreshcaptcha', 'AuthController@refreshCaptcha')->name('refreshcaptcha');
+
+Route::get('/agent-register', 'AuthController@showAgentRegister')->name('agentRegister');
+Route::post('/agent-register', 'AuthController@createAgent')->name('agentRegister');
+
 
 Route::get('/terms', 'PageController@terms')->name('terms');
 Route::get('/privacy', 'PageController@privacy')->name('privacy');
@@ -339,11 +341,12 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
 
 
-Route::middleware(['agent'])->group(function () { //Agent Middleware protection start here
+// Route::middleware(['agent'])->group(function () { //Agent Middleware protection start here
    
+        Route::get('/agent-dashboard', 'DashboardController@agent')->name('agent.dashboard');
 
 
-}); //Agent Middleware protection end here
+// }); //Agent Middleware protection end here
 
 
 

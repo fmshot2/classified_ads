@@ -155,6 +155,27 @@ public function admin()
 }
 
 
+public function agent()
+{
+
+    $all_service_count = Service::all()->count();
+    $all_categories_count = Category::all()->count();
+    $all_sellers_count = User::where('role', 'seller')->count();
+    $all_buyers_count = User::where('role', 'buyer')->count();
+    $active_service_count = Service::where('status', 1)->count();
+    $pending_service_count = Service::where('status', 0)->count();
+
+    $all_service = Service::take(5)->get();
+    $category = Category::orderBy('id', 'desc')->take(5)->get();
+    $seller = User::where('role', 'seller')->take(5)->get();
+    $buyer = User::where('role', 'buyer')->take(5)->get();
+    $active_service = Service::where('status', 1)->take(5)->get();
+    $pending_service = Service::where('status', 0)->take(5);
+    $feedbacks = UserFeedback::all();
+
+    return view ('agent.dashboard', compact('all_service_count', 'all_categories_count', 'all_sellers_count', 'all_buyers_count', 'active_service_count', 'pending_service_count', 'category', 'active_service', 'seller', 'buyer', 'all_service', 'feedbacks'));
+}
+
 public function make_withdrawal_request($refer_id){
             $seller = User::where('refererlink', $refer_id)->first();
             //dd($seller);
