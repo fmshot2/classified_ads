@@ -217,7 +217,7 @@ $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
 			return redirect()->intended('/');
 		}
 
-		return view ('auth/regi ter', compact('states', 'referParam'));
+		return view ('auth/register', compact('states', 'referParam'));
 	}
 
 
