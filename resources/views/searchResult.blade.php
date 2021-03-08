@@ -771,6 +771,907 @@
                         </div>
                     @endif
 
+
+
+
+                     @if (isset($keywordResponses1))
+                        <div class="row row-flex searchResults k1">
+                            @foreach($keywordResponses1 as $keywordResponses1)
+                                @if ($loop->index < 30 && $keywordResponses1->badge_type == 1)
+                                    <a href="{{ route('serviceDetail', $keywordResponses1->slug) }}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Super</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($keywordResponses1->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses1->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses1->slug)}}">{{ Str::limit($keywordResponses1->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses1->slug)}}">{{ Str::limit($keywordResponses1->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses1->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses1->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses1->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @elseif ($loop->index < 30 && $keywordResponses1->badge_type == 2)
+                                    <a href="{{route('serviceDetail', $keywordResponses1)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-success"><i class="fa fa-star"></i><i class="fa fa-star"></i> Moderate</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keywordResponses1->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses1->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses1->slug)}}">{{ Str::limit($keywordResponses1->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses1->slug)}}">{{ Str::limit($keywordResponses1->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses1->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses1->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses1->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @elseif ($loop->index < 30 && $keywordResponses1->badge_type == 3)
+                                    <a href="{{route('serviceDetail', $keywordResponses1->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-primary"><i class="fa fa-star"></i> Basic</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keywordResponses1->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses1->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses1->slug)}}">{{ Str::limit($keywordResponses1->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses1->slug)}}">{{ Str::limit($keywordResponses1->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses1->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses1->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses1->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @else
+                                    <a href="{{route('serviceDetail', $keywordResponses1->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keywordResponses1->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses1->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses1->slug)}}">{{ Str::limit($keywordResponses1->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses1->slug)}}">{{ Str::limit($keywordResponses1->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses1->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses1->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses1->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endif                        
+                            @endforeach
+                        </div>
+                    @endif
+
+                    @if (isset($keywordResponses2))
+                        <div class="row row-flex searchResults k2">
+                            @foreach($keywordResponses2 as $keywordResponses2)
+                                @if ($loop->index < 30 && $keywordResponses2->badge_type == 1)
+                                    <a href="{{ route('serviceDetail', $keywordResponses2->slug) }}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Super</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($keywordResponses2->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses2->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses2->slug)}}">{{ Str::limit($keywordResponses2->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses2->slug)}}">{{ Str::limit($keywordResponses2->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses2->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses2->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses2->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @elseif ($loop->index < 30 && $keywordResponses2->badge_type == 2)
+                                    <a href="{{route('serviceDetail', $keywordResponses2)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-success"><i class="fa fa-star"></i><i class="fa fa-star"></i> Moderate</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keywordResponses2->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses2->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses2->slug)}}">{{ Str::limit($keywordResponses2->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses2->slug)}}">{{ Str::limit($keywordResponses2->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses2->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses2->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses2->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @elseif ($loop->index < 30 && $keywordResponses2->badge_type == 3)
+                                    <a href="{{route('serviceDetail', $keywordResponses2->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-primary"><i class="fa fa-star"></i> Basic</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keywordResponses2->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses2->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses2->slug)}}">{{ Str::limit($keywordResponses2->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses2->slug)}}">{{ Str::limit($keywordResponses2->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses2->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses2->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses2->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @else
+                                    <a href="{{route('serviceDetail', $keywordResponses2->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keywordResponses2->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses2->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses2->slug)}}">{{ Str::limit($keywordResponses2->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses2->slug)}}">{{ Str::limit($keywordResponses2->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses2->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses2->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses2->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endif                        
+                            @endforeach
+                        </div>
+                    @endif
+
+                   
+                    @if (isset($keywordResponses3))
+                        <div class="row row-flex searchResults k3">
+                            @foreach($keywordResponses3 as $keywordResponses3)
+                                @if ($loop->index < 30 && $keywordResponses3->badge_type == 1)
+                                    <a href="{{ route('serviceDetail', $keywordResponses3->slug) }}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Super</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($keywordResponses3->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses3->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses3->slug)}}">{{ Str::limit($keywordResponses3->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses3->slug)}}">{{ Str::limit($keywordResponses3->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses3->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses3->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses3->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @elseif ($loop->index < 30 && $keywordResponses3->badge_type == 2)
+                                    <a href="{{route('serviceDetail', $keywordResponses3)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-success"><i class="fa fa-star"></i><i class="fa fa-star"></i> Moderate</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keywordResponses3->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses3->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses3->slug)}}">{{ Str::limit($keywordResponses3->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses3->slug)}}">{{ Str::limit($keywordResponses3->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses3->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses3->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses3->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @elseif ($loop->index < 30 && $keywordResponses3->badge_type == 3)
+                                    <a href="{{route('serviceDetail', $keywordResponses1->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-primary"><i class="fa fa-star"></i> Basic</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keywordResponses3->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses3->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses3->slug)}}">{{ Str::limit($keywordResponses3->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses3->slug)}}">{{ Str::limit($keywordResponses3->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses3->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses3->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses3->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @else
+                                    <a href="{{route('serviceDetail', $keywordResponses3->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keywordResponses3->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses3->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses1->slug)}}">{{ Str::limit($keywordResponses3->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses1->slug)}}">{{ Str::limit($keywordResponses3->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses3->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses3->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses3->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endif                        
+                            @endforeach
+                        </div>
+                    @endif
+
+
+                    @if (isset($keywordResponses6))
+                        <div class="row row-flex searchResults k6">
+                            @foreach($keywordResponses6 as $keywordResponses6)
+                                @if ($loop->index < 30 && $keywordResponses6->badge_type == 1)
+                                    <a href="{{ route('serviceDetail', $keywordResponses6->slug) }}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Super</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($keywordResponses6->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses6->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses6->slug)}}">{{ Str::limit($keywordResponses6->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses6->slug)}}">{{ Str::limit($keywordResponses6->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses6->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses6->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses6->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @elseif ($loop->index < 30 && $keywordResponses6->badge_type == 2)
+                                    <a href="{{route('serviceDetail', $keywordResponses6)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-success"><i class="fa fa-star"></i><i class="fa fa-star"></i> Moderate</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keywordResponses6->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses6->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses6->slug)}}">{{ Str::limit($keywordResponses6->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses6->slug)}}">{{ Str::limit($keywordResponses6->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses6->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses6->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses6->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @elseif ($loop->index < 30 && $keywordResponses6->badge_type == 3)
+                                    <a href="{{route('serviceDetail', $keywordResponses6->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-primary"><i class="fa fa-star"></i> Basic</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keywordResponses6->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses6->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses6->slug)}}">{{ Str::limit($keywordResponses6->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses6->slug)}}">{{ Str::limit($keywordResponses6->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses6->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses6->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses6->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @else
+                                    <a href="{{route('serviceDetail', $keywordResponses6->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keywordResponses6->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keywordResponses6->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keywordResponses6->slug)}}">{{ Str::limit($keywordResponses6->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keywordResponses6->slug)}}">{{ Str::limit($keywordResponses6->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keywordResponses6->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keywordResponses6->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keywordResponses6->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endif                        
+                            @endforeach
+                        </div>
+                    @endif
+
+
+                    @if (isset($keyword_and_Categories))
+                        <div class="row row-flex searchResults k7">
+                            @foreach($keyword_and_Categories as $keyword_and_Categories)
+                                @if ($loop->index < 30 && $keyword_and_Categories->badge_type == 1)
+                                    <a href="{{ route('serviceDetail', $keyword_and_Categories->slug) }}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Super</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($keyword_and_Categories->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keyword_and_Categories->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keyword_and_Categories->slug)}}">{{ Str::limit($keyword_and_Categories->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keyword_and_Categories->slug)}}">{{ Str::limit($keyword_and_Categories->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keyword_and_Categories->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keyword_and_Categories->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keyword_and_Categories->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @elseif ($loop->index < 30 && $keyword_and_Categories->badge_type == 2)
+                                    <a href="{{route('serviceDetail', $keyword_and_Categories)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-success"><i class="fa fa-star"></i><i class="fa fa-star"></i> Moderate</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keyword_and_Categories->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keyword_and_Categories->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keyword_and_Categories->slug)}}">{{ Str::limit($keyword_and_Categories->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keyword_and_Categories->slug)}}">{{ Str::limit($keyword_and_Categories->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keyword_and_Categories->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keyword_and_Categories->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keyword_and_Categories->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @elseif ($loop->index < 30 && $keyword_and_Categories->badge_type == 3)
+                                    <a href="{{route('serviceDetail', $keyword_and_Categories->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-primary"><i class="fa fa-star"></i> Basic</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keyword_and_Categories->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keyword_and_Categories->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keyword_and_Categories->slug)}}">{{ Str::limit($keyword_and_Categories->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keyword_and_Categories->slug)}}">{{ Str::limit($keyword_and_Categories->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keyword_and_Categories->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keyword_and_Categories->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keyword_and_Categories->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @else
+                                    <a href="{{route('serviceDetail', $keyword_and_Categories->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keyword_and_Categories->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keyword_and_Categories->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keyword_and_Categories->slug)}}">{{ Str::limit($keyword_and_Categories->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keyword_and_Categories->slug)}}">{{ Str::limit($keyword_and_Categories->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keyword_and_Categories->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keyword_and_Categories->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keyword_and_Categories->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endif                        
+                            @endforeach
+                        </div>
+                    @endif
+
+
+                    @if (isset($keyword_and_state))
+                        <div class="row row-flex searchResults k7">
+                            @foreach($keyword_and_state as $keyword_and_state)
+                                @if ($loop->index < 30 && $keyword_and_state->badge_type == 1)
+                                    <a href="{{ route('serviceDetail', $keyword_and_state->slug) }}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Super</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($keyword_and_state->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keyword_and_state->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keyword_and_state->slug)}}">{{ Str::limit($keyword_and_state->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keyword_and_state->slug)}}">{{ Str::limit($keyword_and_state->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keyword_and_state->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keyword_and_state->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keyword_and_state->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @elseif ($loop->index < 30 && $keyword_and_state->badge_type == 2)
+                                    <a href="{{route('serviceDetail', $keyword_and_state)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-success"><i class="fa fa-star"></i><i class="fa fa-star"></i> Moderate</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keyword_and_state->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keyword_and_state->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keyword_and_state->slug)}}">{{ Str::limit($keyword_and_state->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keyword_and_state->slug)}}">{{ Str::limit($keyword_and_state->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keyword_and_state->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keyword_and_state->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keyword_and_state->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @elseif ($loop->index < 30 && $keyword_and_state->badge_type == 3)
+                                    <a href="{{route('serviceDetail', $keyword_and_state->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-primary"><i class="fa fa-star"></i> Basic</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keyword_and_state->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keyword_and_state->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keyword_and_state->slug)}}">{{ Str::limit($keyword_and_state->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keyword_and_state->slug)}}">{{ Str::limit($keyword_and_state->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keyword_and_state->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keyword_and_state->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keyword_and_state->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @else
+                                    <a href="{{route('serviceDetail', $keyword_and_state->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($keyword_and_state->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$keyword_and_state->service_image}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $keyword_and_state->slug)}}">{{ Str::limit($keyword_and_state->name, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('serviceDetail', $keyword_and_state->slug)}}">{{ Str::limit($keyword_and_state->name, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$keyword_and_state->likes->count()}} Likes
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('serviceDetail', $keyword_and_state->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$keyword_and_state->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endif                        
+                            @endforeach
+                        </div>
+                    @endif
+
                     @if(!$services1 and !$services2 and !$services3 and !$services4 and !$services5)
                         <div class="info">
                             <h4>Ooops, The Item Could Not Be Found!</h4>
