@@ -114,20 +114,9 @@ class ServiceController extends Controller
     ->orderBy("distance",'asc')
     ->offset(0)
      ->inRandomOrder()->limit(20)->get();
-        // dd($servicesss);
-        // Session::put('servicesss', $servicesss);
+      
     return response()->json(['data'=>$servicesss]);
-        // return $servicesss;
-        // $nearestServices = json_encode($servicesss);
-        // return $nearestServices;
-        // $view = view("nearest",compact('nearestServices'))->render();
-
-    // return response()->json(['html'=>$view]);
-
-      // return redirect('/')->with('latitude', $latitude)->with('longitude', $longitude);
-              // return redirect()->to('/')->with('servicesss', $servicesss);
-
-    // return $servicesss;
+      
   }
 
 
@@ -546,83 +535,56 @@ public function index()
       return view ('categoryDetails');
     }
 
-   /*public function search2(Request $request) {
-            //return redirect('/login');
-    $q = $request->q;
-    //$q = Input::get ( 'q' );
-    $user11 = Service::where( 'name', 'LIKE', '%' . $q . '%' )->orWhere('state', 'LIKE', '%' . $q . '%' )->get ();
-    if (count ( $user11 ) > 0){
-        //return view ( 'welcome' )->withDetails( $user )->withQuery ( $q );
-        return redirect()->to('home')->with('user11', $user11);
-
-    }
-    else
-        return 'ddddd';
-}
-*/
+   
 
 
 
 
-public function search(Request $request)
-{
-          // $serviceName = $request->name;
-          // $serviceState =   $request->state;
-          // $category = $request->category;
+// public function search(Request $request)
+// {
+   
 
- $keyword = $request->input('keyword');
- $category = $request->input('category');
- $state = $request->input('state');
- $ranges = $request->input('ranges');
-        // return $request;
-          // $request->validate([
-          //   "name"     => 'string',
-          //   "state"       => 'string',
-          // ]);
-//          $user11 = Service::searchName($request->name)->searchCategory($request->category)->
-//            searchState($request->state)->get();
-//            $user12 = Service::searchName($request->name)->searchCategory($request->category)->get();
-//               $user13 = Service::searchName($request->name)->get();
-// if ($user11) {
-//     return response()->json(['a', $user11]);
+//  $keyword = $request->input('keyword');
+//  $category = $request->input('category');
+//  $state = $request->input('state');
+//  $ranges = $request->input('ranges');
+
+//  $keywordResponses = Service::where(function ($query) use ($keyword, $category, $state) {
+//   $query->where('name', 'like', '%' . $keyword . '%');
+// })->get();
+//      // return response()->json(['a', $keywordResponses]);
+
+//  $keyword_and_Categories = Service::where(function ($query) use ($keyword, $category) {
+//   $query->where('name', 'like', '%' . $keyword . '%')
+//   ->orWhere('category_id', 'like', '%' . $category . '%');
+// })->get();
+//  return response()->json(['a', $keyword_and_Categories]);
+
+//  $vehsearch = "%{$vehsearch}%";
+
+//  $query->where(function ($query) use ($vehsearch) {
+//   $query->orWhere('vehmod', 'like', $vehsearch);
+//   $query->orWhere('vehmark', 'like', $vehsearch);
+//   $query->orWhereRaw("CONCAT(vehmod, ' ', vehmark) LIKE ?", [$vehsearch]);
+// });
+//  return response()->json(['d', $user11]);
+
+//             // $user11->each(function ($item, $key) {
+//             //   $item->name;
+//             //   $item->state;
+
+//             // });
 // }
 
- $keywordResponses = Service::where(function ($query) use ($keyword, $category, $state) {
-  $query->where('name', 'like', '%' . $keyword . '%');
-})->get();
-     // return response()->json(['a', $keywordResponses]);
+//     // //return response()->json($user11);
+//     //     return redirect()->to('/')->with('user11', $user11)
+//     //     ->with('serviceName', $serviceName)
+//     //     ->with('serviceState', $serviceState);
+//     //             //return 'jjj';
 
- $keyword_and_Categories = Service::where(function ($query) use ($keyword, $category) {
-  $query->where('name', 'like', '%' . $keyword . '%')
-  ->orWhere('category_id', 'like', '%' . $category . '%');
-})->get();
- return response()->json(['a', $keyword_and_Categories]);
+//     //   }
 
- $vehsearch = "%{$vehsearch}%";
-
- $query->where(function ($query) use ($vehsearch) {
-  $query->orWhere('vehmod', 'like', $vehsearch);
-  $query->orWhere('vehmark', 'like', $vehsearch);
-  $query->orWhereRaw("CONCAT(vehmod, ' ', vehmark) LIKE ?", [$vehsearch]);
-});
- return response()->json(['d', $user11]);
-
-            // $user11->each(function ($item, $key) {
-            //   $item->name;
-            //   $item->state;
-
-            // });
-}
-
-    // //return response()->json($user11);
-    //     return redirect()->to('/')->with('user11', $user11)
-    //     ->with('serviceName', $serviceName)
-    //     ->with('serviceState', $serviceState);
-    //             //return 'jjj';
-
-    //   }
-
-public function search3(Request $request){
+public function homepage_search(Request $request){
 
   $validatedData = $request->validate([
     'keyword' => ['max:255'],
@@ -904,58 +866,58 @@ if($category)
 
 
 
-public function searchonservices(Request $request){
-  $category = $request->input('name');
-  $state = $request->input('state');
-  $all_states = State::all();
-  $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+// public function searchonservices(Request $request){
+//   $category = $request->input('name');
+//   $state = $request->input('state');
+//   $all_states = State::all();
+//   $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
 
-  $userSer = Service::where(function ($query) use ($category, $state) {
+//   $userSer = Service::where(function ($query) use ($category, $state) {
 
-    $query->where('name', 'like', '%' . $category . '%')
-    ->orWhere('state', 'like', '%' . $state . '%');
-  })->get();
+//     $query->where('name', 'like', '%' . $category . '%')
+//     ->orWhere('state', 'like', '%' . $state . '%');
+//   })->get();
 
-  if (count ( $userSer ) > 0){
+//   if (count ( $userSer ) > 0){
 
-    return view('searchResult')->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
-
-
-  }
-  else
-    $userSer = null;
-  return view ( 'searchResult' )->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
-}
+//     return view('searchResult')->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
 
 
+//   }
+//   else
+//     $userSer = null;
+//   return view ( 'searchResult' )->with('userSer', $userSer)->with('all_states', $all_states)->with('featuredServices', $featuredServices);
+// }
 
 
-public function search10(Request $request){
-  $category = $request->input('name');
-  $state = $request->input('state');
-  $serviceDetail_id = $request->input('serviceDetail_id');
-
-  $userSer1 = Service::where('state', $state)->with('user')->get();
 
 
-  $userSer = userSer1::where(function ($query) use ($category) {
+// public function search10(Request $request){
+//   $category = $request->input('name');
+//   $state = $request->input('state');
+//   $serviceDetail_id = $request->input('serviceDetail_id');
 
-    $query->where('name', 'like', '%' . $category . '%');
-  })->get();
-  $state2[] = array();
-
-  foreach ($userSer1 as $key => $value) {
-    $state2[] = $state;
-  }
+//   $userSer1 = Service::where('state', $state)->with('user')->get();
 
 
-  if (count ( $userSer ) > 0){
+//   $userSer = userSer1::where(function ($query) use ($category) {
 
-    return redirect()->to('serviceDetail/'.$serviceDetail_id)->with('userSer', $userSer);
+//     $query->where('name', 'like', '%' . $category . '%');
+//   })->get();
+//   $state2[] = array();
 
-  }
-  else
-    return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );}
+//   foreach ($userSer1 as $key => $value) {
+//     $state2[] = $state;
+//   }
+
+
+//   if (count ( $userSer ) > 0){
+
+//     return redirect()->to('serviceDetail/'.$serviceDetail_id)->with('userSer', $userSer);
+
+//   }
+//   else
+//     return view ( 'welcome' )->withMessage ( 'No Details found. Try to search again !' );}
 
 
 
