@@ -75,25 +75,11 @@ class AuthController extends Controller
             }
 
 		}
-
-		session()->flash('success', ' Succesfull!');
-
-		$credentials = $request->only('email', 'password');
-
-		if (Auth::attempt($credentials)) {
-			if ( $request->role == 'seller' ) {
-				return redirect()->route('seller.dashboard');;
-			} else {
-                return Redirect::to(Session::get('url.intended'));
-            }
-            return redirect()->intended('/');
-        }
-
-}
+	}
 
 
 
-public function createAgent (Request $request)
+			public function createAgent (Request $request)
 	{
 
         $link_from_url = $request->refer;
@@ -107,14 +93,13 @@ public function createAgent (Request $request)
 			'password' => ['required', 'string', 'min:6', 'confirmed'],
 			// 'captcha' => 'required|captcha',
 		]);
-			$is_agent = '1';
+
 			$saveIdOfRefree = User::where(['refererLink'=>$link_from_url])->first();
 			$saveIdOfAgent = User::where(['is_agent'=>$request->agent_code])->first();
 			$state = $request->state;
 			$result = substr($state, 0, 3);
 			$ist_3_result = strtoupper($result);
 			$randomCode = Str::random(4);
-
 			$length = 1;    
 $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
 
@@ -126,16 +111,14 @@ $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
 		$user->email = $request->email;
 		$user->password = Hash::make($request->password);
 		$user->state = $request->state;
-		$user->role = 'agent';
-		$user->is_agent = $is_agent;
-		$user->agent_code = $ist_3_result . "-" . $randomCode . $last_letter;
+		$user->is_agent = '1';
+		$user->agent_code = $result . $randomCode . $last_letter;
 		if($saveIdOfRefree){
 		$user->idOfReferer = $refererId;
 		}
 
 		
 		$user->save();
-		// dd($user);
 		 	if ($user->save()) {
 			$name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
 			$name = $user->name;
@@ -164,17 +147,16 @@ $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
 		session()->flash('success', ' Succesfull!');
 
 		$credentials = $request->only('email', 'password');
-	if (Auth::attempt($credentials)) {
-			if ( Auth::user()->role == 'agent' ) {
-				return redirect()->route('agent.dashboard');;
-			} else {
+
+		if (Auth::attempt($credentials)) {
+			if ( $request->role == 'agent' )
+				return redirect()->route('agent.dashboard');
+
+            }else {
                 return Redirect::to(Session::get('url.intended'));
             }
             return redirect()->intended('/');
         }
-        }
-
-
 
 
 
@@ -192,8 +174,6 @@ $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
 
 		return view ('auth/register', compact('referlink'));
 	}
-
-
 
 	public function showAgentRegister(Request $request)
 	{
@@ -237,7 +217,7 @@ $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
 			return redirect()->intended('/');
 		}
 
-		return view ('auth/register', compact('states', 'referParam'));
+		return view ('auth/regi ter', compact('states', 'referParam'));
 	}
 
 

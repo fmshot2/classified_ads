@@ -1,8 +1,4 @@
-@extends('layouts.admin')
 
-@section('title', 'Admin | ')
-
-@section('content')
 
 <div class="wrapper">
 
@@ -194,6 +190,3 @@
 
 </div>
 <!-- ./wrapper -->
-
-
-@endsection
