@@ -21,6 +21,14 @@ use App\Service;
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 
+Route::middleware(['agent'])->group(function () {
+    Route::get('/agent/dashboard', 'OperationalController@agentDashboard')->name('agent.dashboard');
+});
+
+Route::post('advertisement/create', 'OperationalController@advertCreate')->name('advertisement.create');
+
+Route::view('referral-program/', 'referralprogram')->name('referralprogram');
+
 Route::get('test_new_badge', 'BadgeController@test_new_badge');
 
 Route::post('gtPAy', 'BadgeController@gtPAy');

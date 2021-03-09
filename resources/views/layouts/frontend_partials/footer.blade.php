@@ -56,16 +56,16 @@
                             <a href="{{route('faq')}}" class="grey-text text-lighten-3">FAQs</a>
                         </li>
 
-                        <li class="">
-                            <a href="{{route('allServices')}}" class="grey-text text-lighten-3">Services</a>
-                        </li>
-
                         <li class=" ">
                             <a href="{{route('contact')}}" class="grey-text text-lighten-3">Contact Us</a>
                         </li>
 
+                        <li class="">
+                            <a href="{{route('terms-of-use')}}" class="grey-text text-lighten-3">Terms of Use</a>
+                        </li>
+
                         <li class=" ">
-                            <a href="{{route('seller.sellers')}}" class="grey-text text-lighten-3">Service Providers</a>
+                            <a href="{{route('terms-of-use')}}" class="grey-text text-lighten-3">Privacy Policy</a>
                         </li>
 
                          <li class="">
@@ -73,7 +73,7 @@
                         </li>
 
                         <li class="">
-                            <a href="{{route('allcities')}}" class="grey-text text-lighten-3">Places in Nigeria</a>
+                            <a href="{{route('allcities')}}" class="grey-text text-lighten-3">Tourism in Nigeria</a>
                         </li>
 
                     </ul>
@@ -82,7 +82,7 @@
 
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
                 <div class="footer-item clearfix">
-                    <h4>Recent Services</h4>
+                    <h4>Advertisement</h4>
                     <div class="s-border"></div>
                     <div class="m-border"></div>
                     <div class="popular-posts">
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         @endforeach
-                        </div>
+                    </div>
                 </div>
             </div>
  <form action="" method="POST">
