@@ -120,6 +120,7 @@ Route::get('/home', 'AuthController@loginformail')->name('loginformail');
 */
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register', 'AuthController@createUser')->name('register');
+Route::post('/agent/register', 'AuthController@createAgent')->name('agent.register');
 Route::get('/login', 'AuthController@showLogin')->name('login');
 Route::post('/login', 'AuthController@login')->name('login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');

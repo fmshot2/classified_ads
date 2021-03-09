@@ -87,7 +87,8 @@
                         <h5 class="modal-title" style="text-transform: uppercase">Become our Agent</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('agent.register') }}">
+                        @csrf
                         <div class="modal-body">
                             <div class="tabbing tabbing-box agent-registration-modal">
                                 <ul class="nav nav-tabs" id="carTab" role="tablist">
@@ -149,7 +150,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label class="form-label">Your Full Name</label><small class="text-danger">*</small>
-                                                            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
+                                                            <input type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
                                                             @if ($errors->has('name'))
                                                                 <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                                                     <strong class="text-danger">{{ $errors->first('name') }}</strong>
@@ -158,7 +159,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="form-label">Phone Number</label><small class="text-danger">*</small>
-                                                            <input id="phone" type="phone" placeholder="Phone Number" class="form-control" name="phone" value="{{ old('phone') }}" required>
+                                                            <input type="phone" placeholder="Phone Number" class="form-control" name="phone" value="{{ old('phone') }}" required>
                                                             @if ($errors->has('phone'))
                                                                 <span class="helper-text" data-error="wrong" data-success="right">
                                                                     <strong class="text-danger">{{ $errors->first('phone') }}</strong>
@@ -167,9 +168,22 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="email">Email Address</label>
-                                                            <input type="email" class="form-control" id="email" value="{{ old('email') }}">
+                                                            <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Your email address">
                                                         </div>
+
                                                         <div class="form-group">
+                                                            <label class="form-label">Select your State</label><small class="text-danger">*</small>
+                                                            <select class="form-control" required id="state" name="state" required>
+                                                                <option value="">-- Select State --</option>
+                                                                @if(isset($states))
+                                                                    @foreach($states as $state)
+                                                                        <option value="{{$state->name}}"> {{ $state->name }}  </option>
+                                                                    @endforeach
+                                                                @endif
+                                                            </select>
+                                                        </div>
+
+                                                        {{-- <div class="form-group">
                                                             <label class="form-label">Mode of Identification</label><small class="text-danger">*</small>
                                                             <small class="form-text text-muted" style="margin-top: -10px">Upload Driver's Licence, National ID or Voter's Card</small>
                                                             <input id="add" type="file"  class="form-control" name="file" required>
@@ -178,29 +192,18 @@
                                                                 <strong class="text-danger">{{ $errors->first('file') }}</strong>
                                                             </span>
                                                             @endif
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label class="form-label">Select your State</label><small class="text-danger">*</small>
-                                                            <select class="form-control" required id="state" name="state" required>
-                                                                <option value="">-- Select State --</option>
-                                                                @if(isset($states))
-                                                                    @foreach($states as $state)
-                                                                        <option id="state" value="{{$state->name}}"> {{ $state->name }}  </option>
-                                                                    @endforeach
-                                                                @endif
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
                                                             <label class="form-label">LGA</label><small class="text-danger">*</small>
-                                                            <select class="form-control" id="city" name="city" required>
+                                                            <select class="form-control" id="lgas" name="lga" required>
                                                                 <option disabled selected>- Select Local Government -</option>
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="form-label">Choose Password</label><small class="text-danger">*</small>
-                                                            <input id="password" type="password" class="form-control" name="password" placeholder="Password (min: 6 characters)" required>
+                                                            <input type="password" class="form-control" name="password" placeholder="Password (min: 6 characters)" required>
                                                             @if ($errors->has('password'))
                                                             <span class="helper-text" data-error="wrong" data-success="right">
                                                                 <strong class="text-danger">{{ $errors->first('password') }}</strong>
@@ -309,6 +312,32 @@
 
 
 	<a id="page_scroller" href="#scroll-top" style="position: fixed; z-index: 2147483647;"><i class="fa fa-chevron-up"></i></a>
+
+
+    <script>
+        $('#state').on('change',function(){
+            var stateID = $(this).val();
+            if(stateID){
+                $.ajax({
+                    type:"GET",
+                    url: '/api/get-city-list/'+stateID,
+                    success:function(res){
+                        if(res){
+                            $("#lgas").empty();
+                            $.each(res,function(key,value){
+                                $("#lgas").append('<option value="'+value+'">'+value+'</option>');
+                            });
+
+                        }else{
+                            $("#lgas").empty();
+                        }
+                    }
+                });
+            }else{
+                $("#lgas").empty();
+            }
+        });
+    </script>
 
 </body>
 
