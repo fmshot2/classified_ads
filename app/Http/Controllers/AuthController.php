@@ -121,84 +121,84 @@ class AuthController extends Controller
 
 
 
-			public function createAgent (Request $request)
-	{
+// 			public function createAgent (Request $request)
+// 	{
 
-        $link_from_url = $request->refer;
+//         $link_from_url = $request->refer;
 	
 
-		$validatedData = $request->validate([
-			'name' => ['required', 'string', 'max:255'],
-			'phone' => ['required', 'string', 'max:255'],
-			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-			'state' => ['string'],
-			'password' => ['required', 'string', 'min:6', 'confirmed'],
-			// 'captcha' => 'required|captcha',
-		]);
+// 		$validatedData = $request->validate([
+// 			'name' => ['required', 'string', 'max:255'],
+// 			'phone' => ['required', 'string', 'max:255'],
+// 			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+// 			'state' => ['string'],
+// 			'password' => ['required', 'string', 'min:6', 'confirmed'],
+// 			// 'captcha' => 'required|captcha',
+// 		]);
 
-			$saveIdOfRefree = User::where(['refererLink'=>$link_from_url])->first();
-			$saveIdOfAgent = User::where(['is_agent'=>$request->agent_code])->first();
-			$state = $request->state;
-			$result = substr($state, 0, 3);
-			$ist_3_result = strtoupper($result);
-			$randomCode = Str::random(4);
-			$length = 1;    
-$last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
+// 			$saveIdOfRefree = User::where(['refererLink'=>$link_from_url])->first();
+// 			$saveIdOfAgent = User::where(['is_agent'=>$request->agent_code])->first();
+// 			$state = $request->state;
+// 			$result = substr($state, 0, 3);
+// 			$ist_3_result = strtoupper($result);
+// 			$randomCode = Str::random(4);
+// 			$length = 1;    
+// $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
 
-		if($saveIdOfRefree){
-		$refererId = $saveIdOfRefree->id;
-		}
-		$user = new User;
-		$user->name = $request->name;
-		$user->email = $request->email;
-		$user->password = Hash::make($request->password);
-		$user->state = $request->state;
-		$user->is_agent = '1';
-		$user->agent_code = $result . $randomCode . $last_letter;
-		if($saveIdOfRefree){
-		$user->idOfReferer = $refererId;
-		}
+// 		if($saveIdOfRefree){
+// 		$refererId = $saveIdOfRefree->id;
+// 		}
+// 		$user = new User;
+// 		$user->name = $request->name;
+// 		$user->email = $request->email;
+// 		$user->password = Hash::make($request->password);
+// 		$user->state = $request->state;
+// 		$user->is_agent = '1';
+// 		$user->agent_code = $result . $randomCode . $last_letter;
+// 		if($saveIdOfRefree){
+// 		$user->idOfReferer = $refererId;
+// 		}
 
 		
-		$user->save();
-		 	if ($user->save()) {
-			$name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
-			$name = $user->name;
-			$email = $user->email;
-			$origPassword = $request->password;
-			$userRole = 'agent';
+// 		$user->save();
+// 		 	if ($user->save()) {
+// 			$name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+// 			$name = $user->name;
+// 			$email = $user->email;
+// 			$origPassword = $request->password;
+// 			$userRole = 'agent';
 
-            try{
-                Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
-            }
-            catch(\Exception $e){
-                $failedtosendmail = 'Failed to Mail!.';
-            }
-
-
-			if ($link_from_url) {
-                $link = new Refererlink();
-                $link->refererlink = $link_from_url;
-                $link->save();
-            }
-
-		}
+//             try{
+//                 Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+//             }
+//             catch(\Exception $e){
+//                 $failedtosendmail = 'Failed to Mail!.';
+//             }
 
 
+// 			if ($link_from_url) {
+//                 $link = new Refererlink();
+//                 $link->refererlink = $link_from_url;
+//                 $link->save();
+//             }
 
-		session()->flash('success', ' Succesfull!');
+// 		}
 
-		$credentials = $request->only('email', 'password');
 
-		if (Auth::attempt($credentials)) {
-			if ( $request->role == 'agent' )
-				return redirect()->route('agent.dashboard');
 
-            }else {
-                return Redirect::to(Session::get('url.intended'));
-            }
-            return redirect()->intended('/');
-        }
+// 		session()->flash('success', ' Succesfull!');
+
+// 		$credentials = $request->only('email', 'password');
+
+// 		if (Auth::attempt($credentials)) {
+// 			if ( $request->role == 'agent' )
+// 				return redirect()->route('agent.dashboard');
+
+//             }else {
+//                 return Redirect::to(Session::get('url.intended'));
+//             }
+//             return redirect()->intended('/');
+//         }
 
 
 
