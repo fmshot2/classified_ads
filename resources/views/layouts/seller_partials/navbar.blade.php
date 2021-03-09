@@ -203,7 +203,7 @@
         <div class="modal-body" style="margin:0; padding:0">
             {{-- <video id="vid-player" src="{{ asset('videos/Youtube-Subscribe.mp4') }}" autoplay controls style="width: 100%; margin:0; padding:0"></video> --}}
             <div class="youtube">
-                <iframe id="yt-player" src="https://www.youtube.com/embed/n1S66UhdIwA?showinfo=0&rel=0" frameborder="0" style="width: 100%; height: 100%; margin:0; padding:0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe id="yt-player" frameborder="0" style="width: 100%; height: 100%; margin:0; padding:0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
         <div class="modal-footer" style="margin: -10px 0 0 0; background-color: #000000">
@@ -212,3 +212,14 @@
     </div>
 </div>
 </div>
+
+
+<script>
+    $('#showTour').on('click', () => {
+        $('#yt-player').attr('src', 'https://www.youtube.com/embed/058hRtaCWC0?showinfo=0&controls=0&rel=0&autoplay=1');
+    });
+    $('#closeytplayer').on('click', () => {
+        $('#yt-player').attr('src', '');
+        $('#vid-player').attr('src', '');
+    });
+</script>
