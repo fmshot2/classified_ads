@@ -120,10 +120,6 @@ class AuthController extends Controller
 	}
 
 
-
-// 			public function createAgent (Request $request)
-// 	{
-
 //         $link_from_url = $request->refer;
 	
 
