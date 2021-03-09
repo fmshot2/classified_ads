@@ -773,7 +773,8 @@
 
 
 
-                    @if (isset($keywordResponses1))
+
+                     @if (isset($keywordResponses1))
                         <div class="row row-flex searchResults k1">
                             @foreach($keywordResponses1 as $keywordResponses1)
                                 @if ($loop->index < 30 && $keywordResponses1->badge_type == 1)

@@ -121,6 +121,7 @@ Route::get('/home', 'AuthController@loginformail')->name('loginformail');
 
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register', 'AuthController@createUser')->name('register');
+Route::post('/agent/register', 'AuthController@createAgent')->name('agent.register');
 Route::get('/login', 'AuthController@showLogin')->name('login');
 Route::post('/login', 'AuthController@login')->name('login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -359,7 +360,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 Route::post ( '/searchonservices',  'ServiceController@searchonservices')->name('searchonservices');
 
 // Route::get ( '/searchresults',  'ServiceController@search')->name('search3');
-Route::get ( '/searchresults',  'ServiceController@search3')->name('search3');
+Route::get ( '/searchresults',  'ServiceController@homepage_search')->name('search3');
 
 
 

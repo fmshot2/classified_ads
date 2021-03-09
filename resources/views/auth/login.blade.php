@@ -66,7 +66,7 @@ Login
                 <div class="info clearfix">
                     <div class="logo-2">
                         <a href="{{url('/')}}">
-                            <img src="{{asset('logos/efcontactlogo.png')}}"  class="cm-logo" alt="black-logo">
+                            <img src="images/{{$check_general_info == 0 ? $general_info->logo : '' }}"  class="cm-logo" alt="black-logo">
                         </a>
                     </div>
                     <div class="social-list">

@@ -2,7 +2,7 @@
     <div class="service-detail-container">
         <!-- Main title -->
         <div class="main-title">
-            <h1>Hot Businesses</h1>
+            <h1>Hot Services</h1>
         </div>
         @if(isset($hotServices))
             <div class="row wow animated" style="visibility: visible;">
@@ -63,7 +63,7 @@
 
 
 
-<div class="blog content-area home-advert-section">
+{{-- <div class="blog content-area home-advert-section">
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
@@ -96,7 +96,7 @@
                     </div>
         <p>Got a content and need an <a href="{{route('advertisement')}}"><strong>ADVERT</strong></a> on this page? click<strong> <a href="{{route('advertisement')}}"> HERE</a></strong></p>
     </div>
-</div>
+</div> --}}
 
 
 
@@ -106,7 +106,7 @@
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
-            <h1>Most Popular Places in Nigeria</h1>
+            <h1>Tourism in Nigeria</h1>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-2 col-md-6 col-sm-6 col-6">

@@ -5,8 +5,18 @@
 
 @section('content')
 
+<style>
+    .form-text{
+        display: block
+    }
+</style>
+
 <div class="content-wrapper" style="min-height: 868px;">
     @include('layouts.backend_partials.status')
+    <section class="content-header">
+        <h3>Create Service</h3>
+        <p>You can create a service here.</p>
+    </section>
 
     <section class="content">
         <div class="row">
@@ -24,7 +34,8 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                         <label class="form-label">Service Name </label><small class="text-danger">*</small>
-                                        <input id='name' type="text" required name="name" value="{{ old('name') }}" class="form-control" placeholder="Enter the name of the service you want to offer (e.g. Hair Stylist)">
+                                        <input readonly type="text" name="countdown" size="1" value="20" style="border: 0; padding: 0;margin-right: -25px"> chars left
+                                        <input id='name' type="text" required name="name" value="{{ old('name') }}" class="form-control" placeholder="Enter the name of the service you want to offer (e.g. Hair Stylist)" onkeydown="limitText(this.form.name,this.form.countdown,20);" onkeyup='limitText(this.form.name,this.form.countdown,20);'>
                                         </div>
                                     </div>
 
@@ -51,7 +62,7 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Amount Charge</label>
+                                            <label class="form-label">How much do you want to charge for this service?</label>
                                             <input id="min_price" type="text" value="{{ old('min_price') }}" placeholder="Enter the amount you want on this service (e.g. 20000)" name="min_price" class="form-control">
                                         </div>
                                     </div>
@@ -115,11 +126,11 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>Sub Category <small class="text-info">(You can select multiple)</small></label>
+                                        <label>Sub Category <small class="text-info">(You can select multiple sub category)</small></label>
                                         <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple>
-                                            <option value="">-- Please select --</option>
-                                            @foreach($subcategory as $categories)
-                                                <option id="category_id" value=" {{ $categories->id }} "> {{ $categories->name }} </option>
+                                            <option value="">-- Please select a category to populate this --</option>
+                                            @foreach($subcategory as $subcategories)
+                                                <option id="category_id" value=" {{ $subcategories->id }} "> {{ $subcategories->name }} </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -197,65 +208,6 @@
 
 </script>
 
-
-
-{{--
-  <script type="text/javascript">
-    $(document).ready(function() {
-        // document.getElementById("complaint_notification").hidden = true;
-        $(".btn-submit_service").click(function(e){
-          document.getElementById("save_btn").style.display = 'none';
-          $("#save_btn").addClass("disabled");
-        // document.getElementById("loading").style.display = 'block';
-        e.preventDefault();
-
-        var _token = $("input[name='_token']").val();
-        var name = $("#name").val();
-        var description = $("#description").val();
-        var experience = $("#experience").val();
-        var phone = $("#phone").val();
-        var min_price = $("#min_price").val();
-        var state = $("#state").val();
-        var city = $("#city").val();
-        var address = $("#address").val();
-        var category_id = $("#category_id").val();
-        // function greet(){
-        //             document.getElementById("complaint_notification").hidden = true;
-        //             document.getElementById("complaint_notification").innerHTML = "";
-        //         }
-        //  function set(){
-        //       setTimeout(greet, 20000);
-        //  }
-
-
-        $.ajax({
-          type:'POST',
-          url: '/service/store',
-          data: {_token:_token, name:name,  description:description, experience:experience, phone:phone, min_price:min_price, state:state, city:city, address:address, category_id:category_id },
-          success: function(data) {
-            console.log(data);
-            alert('qqq');
-                  // document.getElementById("ww").hidden = false;
-                  document.getElementById("drag_image").style.removeProperty('display');
-                  document.getElementById("show_form").style.display = 'none';
-                  document.getElementById("loading").style.removeProperty('display');
-                  document.getElementById("loading_btn").style.display = 'block';
-
-
-                        // document.getElementById("drag_image").style.removeProperty('display');
-
-            //         document.getElementById("complaint_notification").innerHTML = "Your complaint was sent successfully";
-            // //   greet();
-            // set();
-
-          }
-        });
-      });
-
-      });
-    </script>
-    --}}
-
     <script type="text/javascript">
       $(document).ready(function() {
         var service_id
@@ -330,195 +282,24 @@
           return false;
         }
       };
-    </script>
 
-    {{--
-      <p>Click the button to get your coordinates.</p>
 
-      <button onclick="getLocation()">Try It</button>
 
-      <p id="demo"></p>
-
-      <script>
-        var x = document.getElementById("demo");
-
-        function getLocation() {
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition, showError);
+      function limitText(limitField, limitCount, limitNum) {
+          if (limitField.value.length > limitNum) {
+            limitField.value = limitField.value.substring(0, limitNum);
           } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
+            limitCount.value = limitNum - limitField.value.length;
+
+            if (limitCount.value == 0) {
+                limitField.style.border = '1px solid red'
+                limitCount.style.color = 'red'
+            }else{
+                limitField.style.border = '1px solid #d2d6de'
+                limitCount.style.color = '#333333'
+            }
           }
         }
-
-        function showPosition(position) {
-          x.innerHTML = "Latitude: " + position.coords.latitude +
-          "<br>Longitude: " + position.coords.longitude;
-        }
-
-        function showError(error) {
-          switch(error.code) {
-            case error.PERMISSION_DENIED:
-            x.innerHTML = "User denied the request for Geolocation."
-            break;
-            case error.POSITION_UNAVAILABLE:
-            x.innerHTML = "Location information is unavailable."
-            break;
-            case error.TIMEOUT:
-            x.innerHTML = "The request to get user location timed out."
-            break;
-            case error.UNKNOWN_ERROR:
-            x.innerHTML = "An unknown error occurred."
-            break;
-          }
-        }
-      </script>
-
-      <script type="text/javascript">
-        $(document).ready( function () {
-    // alert('ddsdsd');
-    getLocation();
-  });
-</script>
-
---}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{{--
-
-  <form action="{{route('service.save')}}" method="post" name="file" files="true" enctype="multipart/form-data" class="dropzone" id="image-upload">
-    @csrf
-    <div>
-      <h3 class="text-center">Upload Multiple Images</h3>
-    </div>
-    <button type="submit"> Upload Img</button>
-  </form>
-
-
-  <script type="text/javascript">
-    Dropzone.options.imageUpload = {
-      maxFilesize: 5,
-      acceptedFiles: ".jpeg,.jpg,.png,.gif,.svg"
-    };
-  </script>
-
-  --}}
-
-
-
+    </script>
 
   @endsection

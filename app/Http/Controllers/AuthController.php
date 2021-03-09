@@ -19,7 +19,49 @@ use Illuminate\Support\Str;
 class AuthController extends Controller
 {
 
-	public function createUser (Request $request)
+	public function createAgent(Request $request)
+    {
+        $request->validate([
+			'name'     => ['required', 'string', 'max:255'],
+			'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+			'phone'    => ['required', 'numeric', 'unique:users'],
+			'state'    => ['string'],
+			'lga'      => ['string'],
+			'password' => ['required', 'string', 'min:6', 'confirmed'],
+		]);
+
+        $data = [
+            'name'       => $request->name,
+            'email'      => $request->email,
+            'phone'      => $request->phone,
+            'state'      => $request->state,
+            'lga'        => $request->lga,
+            'is_agent'   => 1,
+            'agent_code' => 'ABJ1234boc',
+            'role'       => 'agent',
+            'status'     => 1,
+            'password'   => Hash::make($request->password)
+        ];
+
+        $user = User::create($data);
+
+        if ($user) {
+            return redirect()->route('home');
+            $credentials = $request->only('email', 'password');
+
+            if (Auth::attempt($credentials)) {
+                if ( $request->role == 'agent' ){
+                    return redirect()->route('agent.dashboard');;
+
+                } else {
+                    return Redirect::to(Session::get('url.intended'));
+                }
+                return redirect()->intended('/');
+            }
+        }
+    }
+
+    public function createUser (Request $request)
 	{
         // dd(str_replace(url('/'), '', Session::get('url.intended')));
 

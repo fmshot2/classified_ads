@@ -10,6 +10,8 @@ use App\Message;
 use App\Service;
 use App\Notification;
 use App\Refererlink;
+use App\State;
+use App\SubCategory;
 use App\UserFeedback;
 use Illuminate\Support\Str;
 
@@ -55,6 +57,11 @@ class DashboardController extends Controller
     $count_badge =  $all_service2->Where('badge_type', null)->count();
     //$active_service_count = $active_service->count();
 
+
+    $categories = Category::orderBy('name', 'asc')->get();
+    $subcategories = SubCategory::orderBy('name', 'asc')->get();
+    $states = State::all();
+
     $slug3 = Str::random(8);
     // $user->randomLink = $slug3;
     // $referLink = new Refererlink;
@@ -69,7 +76,7 @@ $accruedAmount = Auth::user()->refererAmount;
     $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
     if ($linkcheck) {
 
-        return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service'));
+        return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service', 'categories', 'subcategories', 'states'));
 
     }else{
      $link = new Refererlink();
@@ -99,7 +106,7 @@ $accruedAmount = Auth::user()->refererAmount;
 //         //return 'Heyyyyy22222'. $likecount;
 //    }
 
-     return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service'));
+     return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service', 'categories', 'subcategories', 'states'));
            //dd($linkcount);
  }
 
