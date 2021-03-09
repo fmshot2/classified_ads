@@ -16,6 +16,12 @@
     .comments {
         padding: 0 20px;
     }
+    p{
+        font-size: 16px;
+    }
+    form label{
+        font-size: 16px !important;
+    }
 </style>
 <!-- Sub banner start -->
 <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/servicedetail.jpg')}})">
@@ -402,7 +408,7 @@
                                 </div>
 
                                 @guest
-                                    <p style="margin-bottom: 5px"><a href="{{route('login')}}"><strong style="color: #28a745">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #ee6363">Register</strong></a> to view <strong class="tt-capitalize">{{ $the_provider_f_name }}</strong> contact details.</p>
+                                    <p style="margin-bottom: 5px; font-size: 16px;"><a href="{{route('login')}}"><strong style="color: #CA8309; font-size: 16px;">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #28a745">Register</strong></a> to view <strong class="tt-capitalize">{{ $the_provider_f_name }}</strong> contact details.</p>
                                 @endguest
                             </div>
 

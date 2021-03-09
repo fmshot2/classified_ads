@@ -93,6 +93,11 @@ class OperationalController extends Controller
         return redirect()->back();
     }
 
+    public function advertCreate(Request $request)
+    {
+
+    }
+
 
 
 

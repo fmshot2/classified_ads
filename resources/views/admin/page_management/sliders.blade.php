@@ -74,7 +74,7 @@
 
                                 <div class="col-md-5">
                                     <div class="box-body">
-                                        <h3 class="box-title">Advert Slider <a data-toggle="modal" data-target="#addAdvertSlideModal" onclick="addAdvertSlide()" class="btn btn-sm btn-success">Add Slide</a></h3>
+                                        <h3 class="box-title">Advert Slider <a data-toggle="modal" data-target="#addAdvertSlideModal" onclick="addAdvertSlide()" class="btn btn-sm btn-success">Add Advert</a></h3>
 
                                         <div class="table-responsive">
                                             <table class="display table table-bordered">
@@ -341,65 +341,72 @@
             <div class="modal-dialog modal-dialog-vertical-center" role="document">
                 <div class="modal-content tx-size-sm">
                     <div class="modal-header pd-x-20">
-                        <h4 class="tx-17 mg-b-0 tx-uppercase tx-inverse tx-bold">Add Slider</h4>
+                        <h4 class="tx-17 mg-b-0 tx-uppercase tx-inverse tx-bold">Add Advert</h4>
                     </div>
                     <div class="modal-body pd-20">
-                        <form action="{{ route('admin.advert.save_slider' ) }}" method="POST" enctype="multipart/form-data">
-                            {{csrf_field()}}
+                        <form action="{{ route('advertisement.create' ) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <input type="hidden" name="id" value="">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="seller_name">Seller Name <span class="tx-danger">*</span></label>
-                                        <input type="text" name="seller_name" class="form-control" placeholder="Seller Name">
+                                        <label for="brand_name">Brand Name <span class="tx-danger">*</span></label>
+                                        <input type="text" name="brand_name" class="form-control" placeholder="Enter the brand name">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="seller_id">Seller ID <span class="tx-danger">*</span></label>
-                                        <input type="text" name="seller_id" class="form-control" placeholder="Seller ID">
+                                        <label for="website_link">Website Link</label>
+                                        <input type="text" name="website_link" class="form-control" placeholder="Enter the brand website link">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="email">E-mail Address <span class="tx-danger">*</span></label>
-                                        <input type="email" name="email" class="form-control" placeholder="Seller ID">
+                                        <label for="client_name">Client Name <span class="tx-danger">*</span></label>
+                                        <input type="text" name="client_name" class="form-control" placeholder="Enter client name">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="phone">Phone Number <span class="tx-danger">*</span></label>
-                                        <input type="number" name="phone" class="form-control" placeholder="Phone Number">
+                                        <label for="client_email">E-mail Address <span class="tx-danger">*</span></label>
+                                        <input type="email" name="client_email" class="form-control" placeholder="Enter client email">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="ref_no">Ref No. <span class="tx-danger">*</span></label>
-                                        <input type="text" name="ref_no" class="form-control" placeholder="Ref No.">
+                                        <label for="client_phone">Phone Number <span class="tx-danger">*</span></label>
+                                        <input type="number" name="client_phone" class="form-control" placeholder="Client Phone Number">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="startDate">Start Date <span class="tx-danger">*</span></label>
-                                        <input type="date" name="startDate" class="form-control" placeholder="Start Date">
+                                        <label for="client_address">Client Address</label>
+                                        <input type="text" name="client_address" class="form-control" placeholder="The client physical address">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="endDate">End Date <span class="tx-danger">*</span></label>
-                                        <input type="date" name="endDate" class="form-control" placeholder="End Date">
+                                        <label for="start_date">Start Date <span class="tx-danger">*</span></label>
+                                        <input type="date" name="start_date" class="form-control" placeholder="The AD start date">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="category">Category <span class="tx-danger">*</span></label>
-                                        <input type="text" name="category" class="form-control" placeholder="Advert Category">
+                                        <label for="end_date">End Date <span class="tx-danger">*</span></label>
+                                        <input type="date" name="end_date" class="form-control" placeholder="AD end date">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="links">Link <span class="tx-danger">*</span></label>
-                                        <input type="text" name="links" class="form-control" placeholder="Ad Link">
+                                        <label for="category">Advert Location</label>
+                                        <select name="advert_location" class="form-control">
+                                            <option value="1">Top Nav Banner</option>
+                                            <option value="2">Home Page Banner</option>
+                                            <option value="3">Featured Advert Banner</option>
+                                            <option value="4">Footer Advertisement Banner</option>
+                                            <option value="5">Search Result Page Banner</option>
+                                            <option value="6">Category Advertisement Banner</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
