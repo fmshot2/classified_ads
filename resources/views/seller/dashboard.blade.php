@@ -69,11 +69,11 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         @include('layouts.backend_partials.status')
-        <div>
-                <h4>
+        <section class="content-header">
+                <p style="font-size: 19px">
                     Here, You Have A Preview Of All The Activities On Your Dashboard
-                </h4>
-            </div>
+                </p>
+                </section>
         <section class="content-header">
     
             @if(isset($linkcheck->refererlink))

@@ -14,7 +14,9 @@ Update Profile |
 
   @include('layouts.backend_partials.status')
 
-
+  <section class="content-header">
+        <p style="font-size: 20px">Here Is Where You Can Update Your Profile.</p>
+    </section>
 
 	<section class="content">
 

@@ -45,8 +45,9 @@
         @include('layouts.backend_partials.status')
 
         <section class="content-header">
+        <p style="font-size: 18px">Here, You Can Request For A Badge.</p>
+
             <h3>Get a Badge <small class="infoLinkNote">(<a data-toggle="modal" data-target="#theinfoModal">How it works?</a>)</small></h3>
-            <p>This page is for badges.</p>
         </section>
 
         <section class="content">
