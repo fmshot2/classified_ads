@@ -50,7 +50,7 @@ class AuthController extends Controller
 
             if (Auth::attempt($credentials)) {
                 if ( $request->role == 'agent' ){
-                    return redirect()->route('agent.dashboard');;
+                    return redirect()->route('agent.dashboard');
 
                 } else {
                     return Redirect::to(Session::get('url.intended'));
@@ -125,7 +125,7 @@ class AuthController extends Controller
 
 		if (Auth::attempt($credentials)) {
 			if ( $request->role == 'seller' )
-				return redirect()->route('seller.dashboard');;
+				return redirect()->route('seller.dashboard');
 
             } else {
                 return Redirect::to(Session::get('url.intended'));
@@ -143,9 +143,7 @@ class AuthController extends Controller
 
 	public function showRegisterforRefer($refer)
 	{
-		//dd('fgfgfgfg');
 $referlink = $refer;
-		//dd($referlink);
 
 
 
@@ -182,8 +180,7 @@ $referlink = $refer;
 	public function loginformail(Request $request)
 
 	{
-	//dd(Auth::user());
-		//use
+	
 		if (Auth::user()->email_verified_at == null) {
 			return redirect()->intended('/email/verify');
 		}
