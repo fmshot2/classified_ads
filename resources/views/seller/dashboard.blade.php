@@ -365,7 +365,7 @@
                                                 <textarea type="text" class="form-control" name="description" placeholder="Tell us about your service." rows="3"></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Amount Charge</label>
+                                                <label for="exampleInputEmail1">How much do you want to charge for this service?</label>
                                                 <small class="form-text text-muted">Enter the amount you want on this service.</small>
                                                 <input type="number" name="min_price" class="form-control" onkeydown="limitText(this.form.message,this.form.countdown,20);" onkeyup='limitText(this.form.message,this.form.countdown,20);' placeholder="e.g. 20000">
                                             </div>

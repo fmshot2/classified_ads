@@ -62,7 +62,7 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label">Amount Charge</label>
+                                            <label class="form-label">How much do you want to charge for this service?</label>
                                             <input id="min_price" type="text" value="{{ old('min_price') }}" placeholder="Enter the amount you want on this service (e.g. 20000)" name="min_price" class="form-control">
                                         </div>
                                     </div>
