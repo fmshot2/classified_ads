@@ -11,30 +11,22 @@ use App\UserFeedback;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Console\Input\Input;
+use App\Refererlink;
+use Illuminate\Support\Facades\Auth;
+
 
 class OperationalController extends Controller
 {
     public function agentDashboard(Request $request)
     {
-        $service_count = Refererlink::where('user_id', Auth::id() )->count();
 
-        $Agent_Code_Check = Refererlink::where(['user_id'=>Auth::id()])->first();
-        if ($Agent_Code_Check) {
-    
+
+        $service_count = Refererlink::where('user_id', Auth::id() )->count();    
             return view ('agent.dashboard', compact('service_count'));
     
-        }else{
-         $Agent_Code = new Refererlink();
-         $Agent_Code->user_id = Auth::id();
-         $Agent_Code->agent_code = $slug3;
-         $Agent_Code->save();
-         $user = Auth::user();
-         $user->agent_code = $slug3;
-         $user->save();
-         $Agent_Code_Check = Refererlink::where(['user_id'=>Auth::id()])->first();
-        return view('agent.dashboard', compact('Agent_Code_Check') );
+
+        
     }
-}
 
     public function sliderCreate(Request $request)
     {

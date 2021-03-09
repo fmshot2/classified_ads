@@ -76,7 +76,9 @@ $accruedAmount = Auth::user()->refererAmount;
     $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
     if ($linkcheck) {
 
-        return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service', 'categories', 'subcategories', 'states'));
+        return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count',
+         'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service',
+          'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service', 'categories', 'subcategories', 'states'));
 
     }else{
      $link = new Refererlink();

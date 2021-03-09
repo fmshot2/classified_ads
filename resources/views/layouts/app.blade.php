@@ -172,6 +172,10 @@
                                                         </div>
 
                                                         <div class="form-group">
+                                                            <input type="hidden" class="form-control" name="role" value="agent" >
+                                                        </div>
+
+                                                        <div class="form-group">
                                                             <label class="form-label">Select your State</label><small class="text-danger">*</small>
                                                             <select class="form-control" required id="state" name="state" required>
                                                                 <option value="">-- Select State --</option>
