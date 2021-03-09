@@ -120,7 +120,7 @@ class AuthController extends Controller
 
 
 
-		session()->flash('success', ' Succesfull!');
+		session()->flash('success', ' succesfull!');
 
 		$credentials = $request->only('email', 'password');
 
