@@ -28,8 +28,8 @@ class SellerController extends Controller
 
     public function createService()
     {
-        $category = Category::all();
-        $subcategory = SubCategory::all();
+        $category = Category::orderBy('name', 'asc')->get();
+        $subcategory = SubCategory::orderBy('name', 'asc')->get();
         $states = State::all();
         return view ('seller.service.create', compact('category', 'states', 'subcategory') );
     }

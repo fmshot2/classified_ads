@@ -50,7 +50,8 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand logos" href="/">
-                <img src="{{asset('logos/efcontactlogo.png')}}" style="height: 45px;" alt="logo">
+                <img src="images/{{$check_general_info == 0 ? $general_info->logo : '' }}" style="height: 45px;" alt="logo">
+                {{-- <img src="{{asset('logos/efcontactlogo.png')}}" style="height: 45px;" alt="logo"> --}}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -82,17 +83,21 @@
                         <a href="{{ route('home') }}"  class="nav-link" >Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('allServices') }}"  class="nav-link">Services</a>
-                    </li>
-                    <li class="nav-item">
                         <a href="{{ route('allCategories') }}"  class="nav-link">Categories</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="{{route('faq')}}" id="">How EFC Works?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle="modal" data-target="#launchAgentModal" href="{{ route('allServices') }}"  class="nav-link">Become our Agent</a>
+                    </li>
+
+                    {{-- <li class="nav-item">
+                        <a href="{{ route('allServices') }}"  class="nav-link">Services</a>
+                    </li> --}}
                     {{-- <li class="nav-item">
                         <a class="nav-link" href="{{route('seller.sellers')}}" id="">Providers</a>
                     </li> --}}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="{{route('faq')}}" id="">How To Use</a>
-                    </li>
                 </ul>
                 @auth
                     @if(Auth::user()->role == 'seller')

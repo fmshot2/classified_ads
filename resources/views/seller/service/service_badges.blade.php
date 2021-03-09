@@ -45,7 +45,8 @@
         @include('layouts.backend_partials.status')
 
         <section class="content-header">
-            <h3>Get a Badge</h3>
+            <h3>Get a Badge <small class="infoLinkNote">(<a data-toggle="modal" data-target="#theinfoModal">How it works?</a>)</small></h3>
+            <p>This page is for badges.</p>
         </section>
 
         <section class="content">
@@ -60,13 +61,14 @@
                         <div class="box-body box-profile text-center">
                             <h4>Super</h4>
                             <ol class="text-left">
-                                <li>You service(s) get featured and show first on efcontact pages.</li>
-                                <li>Upload as much as right (8) images of your services.</li>
+                                <li>Your service(s) will be featured and show first on efcontact pages.</li>
+                                <li>Upload as much as (8) images of your services.</li>
                                 <li>Appear on the top when inquirers search for services related to yours</li>
+                                <li>Cost: &#8358;5,000</li>
                             </ol>
                         </div>
                         <div class="box-footer box-profile text-center">
-                            <a onclick="requestBadge(1)" class="btn">Make Request</a>
+                            <a onclick="requestBadge(1)" class="btn">Click here to apply</a>
                         </div>
                     </div>
                 </div>
@@ -79,13 +81,14 @@
                         <div class="box-body box-profile text-center">
                             <h4>Moderate</h4>
                             <ol class="text-left">
-                                <li>You service(s) get featured and show second on efcontact pages.</li>
-                                <li>Upload as much as right (6) images of your services.</li>
+                                <li>Your service(s) will be featured and show second on efcontact pages.</li>
+                                <li>Upload as much as (6) images of your services.</li>
                                 <li>Appear after <b>Super</b> when inquirers search for services related to yours</li>
+                                <li>Cost: &#8358;10,000</li>
                             </ol>
                         </div>
                         <div class="box-footer box-profile text-center">
-                            <a onclick="requestBadge(2)" class="btn">Make Request</a>
+                            <a onclick="requestBadge(2)" class="btn">Click here to apply</a>
                         </div>
                     </div>
                 </div>
@@ -97,13 +100,14 @@
                         <div class="box-body box-profile text-center">
                             <h4>Basic</h4>
                             <ol class="text-left">
-                                <li>You service(s) get featured and show third to moderate on efcontact pages.</li>
-                                <li>Upload as much as right (4) images of your services.</li>
+                                <li>Your service(s) will be  featured and show third to moderate on efcontact pages.</li>
+                                <li>Upload as much as (4) images of your services.</li>
                                 <li>Appear after <b>Moderate</b> when inquirers search for services related to yours</li>
+                                <li>Cost: &#8358;20,000</li>
                             </ol>
                         </div>
                         <div class="box-footer box-profile text-center">
-                            <a onclick="requestBadge(3)" class="btn">Make Request</a>
+                            <a onclick="requestBadge(3)" class="btn">Click here to apply</a>
                         </div>
                     </div>
                 </div>
@@ -111,42 +115,63 @@
         </section>
     </div>
 
-    <div class="modal fade" id="badgeRequestModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Request for Badge</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ url('gtPAy') }}" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="">Badge Type: </label> <span id="badgeType"></span>
+    <div>
+        <div class="modal fade" id="badgeRequestModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Make Payment</h5>
+                  {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button> --}}
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url('gtPAy') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="">Badge Type: </label> <span id="badgeType"></span> Badge
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="">Amount: </label> &#8358;<span id="badgeCost"></span>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="">Amount: </label> &#8358;<span id="badgeCost"></span>
+                                </div>
                             </div>
+                            <input id="badge_type" type="text" name="badge_type" value="">
+                            <input id="amount" type="text" name="amount" value="">
                         </div>
-                        <input id="badge_type" type="text" name="badge_type" value="">
-                        <input id="amount" type="text" name="amount" value="">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger pd-x-20">Make Payment</button>
-                        <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info pd-x-20">Click to make payment</button>
+                            <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
             </div>
+
         </div>
     </div>
 
-
+    <div>
+        <div class="modal fade" id="theinfoModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(67, 211, 139); color: #fff">
+                <h4 class="modal-title">Badge Info</h5>
+                {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button> --}}
+                </div>
+                <div class="modal-body">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto modi nobis natus ab atque dicta laborum beatae ratione nihil voluptatem odit totam delectus consequuntur, iure sunt dolore ad tenetur fuga!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         function requestBadge(id) {
