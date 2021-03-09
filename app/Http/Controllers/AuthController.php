@@ -37,7 +37,7 @@ class AuthController extends Controller
             'state'      => $request->state,
             'lga'        => $request->lga,
             'is_agent'   => 1,
-            'agent_code' => 'ABJ1234boc',
+            'agent_code' => 'ABJ1234baoc',
             'role'       => 'agent',
             'status'     => 1,
             'password'   => Hash::make($request->password)
@@ -46,7 +46,6 @@ class AuthController extends Controller
         $user = User::create($data);
 
         if ($user) {
-            return redirect()->route('home');
             $credentials = $request->only('email', 'password');
 
             if (Auth::attempt($credentials)) {
@@ -230,6 +229,10 @@ $referlink = $refer;
 				// return redirect()->route('buyer.dashboard');
 
                 return Redirect::to(Session::get('url.intended'));
+
+			} else if (Auth::user()->role == 'agent')
+			{
+                return redirect()->route('agent.dashboard');
 
 			} else
 			{

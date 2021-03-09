@@ -14,6 +14,11 @@ use Symfony\Component\Console\Input\Input;
 
 class OperationalController extends Controller
 {
+    public function agentDashboard(Request $request)
+    {
+        return view('agent.dashboard');
+    }
+
     public function sliderCreate(Request $request)
     {
         $this->validate($request, [

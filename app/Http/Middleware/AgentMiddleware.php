@@ -24,11 +24,11 @@ class AgentMiddleware
     {
 
 
-        // if (Auth::check() && Auth::user()->role == 'agent' ) {
-        //     return $next($request);
-        // }  else {
-        //     return redirect()->route('home');
-        // }
+        if (Auth::check() && Auth::user()->role == 'agent' ) {
+            return $next($request);
+        }  else {
+            return redirect()->route('home');
+        }
 
 
     }
