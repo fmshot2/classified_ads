@@ -369,11 +369,11 @@
                                                 <small class="form-text text-muted">Enter the amount you want on this service.</small>
                                                 <input type="number" name="min_price" class="form-control" onkeydown="limitText(this.form.message,this.form.countdown,20);" onkeyup='limitText(this.form.message,this.form.countdown,20);' placeholder="e.g. 20000">
                                             </div>
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label class="form-label"> Experience (in years)</label>
                                                 <small class="form-text text-muted">How many years of experience do you have for this service?</small>
                                                 <input id='experience' type="number"  value="{{ old('experience') }}" name="experience" placeholder="e.g. 5" class="form-control" value="">
-                                            </div>
+                                            </div> --}}
                                             <div class="form-group">
                                                 <label for="">Phone</label><small class="text-danger">*</small>
                                                 <small class="form-text text-muted">Enter your phone number.</small>
@@ -381,7 +381,7 @@
                                             </div>
                                             <div class="form-check">
                                                 <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable">
-                                                <label class="form-check-label" for="negotiable"> Negotiable</label>
+                                                <label class="form-check-label" for="negotiable"> Is this price negotiable?</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
