@@ -49,6 +49,7 @@
 
         .tabbing-box .nav-item .nav-link{
             border: 1px solid #CA8309;
+            margin-right: 3px;
         }
         .tabbing-box .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
             color: #fff !important;

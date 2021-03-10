@@ -8,12 +8,6 @@
     .adp_img{
         width: 100% !important;
     }
-    @media (min-width: 768px) {
-        .row.equal {
-            display: flex;
-            flex-wrap: wrap;
-        }
-    }
 </style>
 
     <div class="main">
@@ -44,7 +38,7 @@
                     EFContact platform.
                 </p>
                 <h2>BANNER AD SIZES</h2> <hr>
-                <div class="row equal">
+                <div class="row">
                     @if ($advert_locations)
                         @foreach($advert_locations as $advert_location)
                             <div class="col-xl-4 col-lg-4 col-md-12">
