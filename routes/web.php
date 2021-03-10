@@ -298,6 +298,12 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::put('/admin/update/slider/{id}', 'OperationalController@sliderUpdate')->name('admin.update.slider');
     Route::get('/admin/delete/sliders/{id}', 'AdminController@delete_sliders')->name('admin.delete_sliders');
 
+    //Tourism
+    Route::get('/admin/cities', 'TourismController@cities')->name('admin.cities');
+    Route::get('/admin/city/{slug}', 'TourismController@city')->name('admin.city');
+    Route::post('/admin/save_city', 'TourismController@save_city')->name('admin.save_city');
+    Route::put('/admin/add_city_images/{slug}', 'TourismController@add_city_images')->name('add_city_images');
+
     // Advertisement
     // Route::get('/admin/sliders', 'AdminController@sliders')->name('admin.sliders');
     Route::get('/admin/sponsored/slider/{id}', 'OperationalController@get_advert_slider')->name('admin.advert.slider');

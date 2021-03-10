@@ -110,6 +110,19 @@
         </ul>
       </li>
 
+      <li class="treeview" style=" {{ url()->current() == route('admin.cities') ? 'background-color: #f8d053' : '' }}">
+        <a href="#">
+          <i class="fa fa-file"></i>
+          <span> Tourism </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href=" {{ route('admin.cities') }}"><i class="fa fa-circle-o"></i> All Cities </a></li>
+        </ul>
+      </li>
+
 
 
 <li class="treeview" style=" {{ url()->current() == route('pending_advert_requests') ? 'background-color: #f8d053' : '' }}
