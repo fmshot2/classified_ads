@@ -766,7 +766,7 @@
 
 
 
-                        
+
                             @endforeach
                         </div>
                     @endif
@@ -918,7 +918,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                @endif                        
+                                @endif
                             @endforeach
                         </div>
                     @endif
@@ -1067,12 +1067,12 @@
                                             </div>
                                         </div>
                                     </a>
-                                @endif                        
+                                @endif
                             @endforeach
                         </div>
                     @endif
 
-                   
+
                     @if (isset($keywordResponses3))
                         <div class="row row-flex searchResults k3">
                             @foreach($keywordResponses3 as $keywordResponses3)
@@ -1217,7 +1217,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                @endif                        
+                                @endif
                             @endforeach
                         </div>
                     @endif
@@ -1367,7 +1367,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                @endif                        
+                                @endif
                             @endforeach
                         </div>
                     @endif
@@ -1517,7 +1517,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                @endif                        
+                                @endif
                             @endforeach
                         </div>
                     @endif
@@ -1667,7 +1667,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                @endif                        
+                                @endif
                             @endforeach
                         </div>
                     @endif
@@ -1767,18 +1767,23 @@
                         <div class="popular-posts featured-ad-hm-list">
                             <div class="container">
                                 <div id="carouselExampleControls" class="carousel vert slide" data-ride="carousel" data-interval="4000">
-                                    <ol class="carousel-indicators">
+                                    {{-- <ol class="carousel-indicators">
                                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                                    </ol>
+                                    </ol> --}}
                                     <div class="carousel-inner">
-                                        <div class="carousel-item active">
-                                            <img class="d-block mx-auto img-fluid" src="{{asset('images')}}/{{'do_smart_business.png'}}" alt="First slide">
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img class="d-block mx-auto img-fluid" src="{{asset('images')}}/{{'efskyviewSidebarSlider.png'}}" alt="Second slide">
-                                        </div>
+                                        @if ($advertisements)
+                                            @foreach($advertisements as $advertisement)
+                                                @if ($advertisement->advert_location == 5)
+                                                    <div class="carousel-item {{ $loop->index == 0 ? 'active' : '' }}">
+                                                        <img class="d-block mx-auto img-fluid" src="{{asset('uploads/sponsored/'.$advertisement->banner_img)}}" alt="{{ $advertisement->brand_name }}">
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        @else
+                                            <p>No Advert here!</p>
+                                        @endif
                                     </div>
                                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                                         <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>

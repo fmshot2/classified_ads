@@ -1,16 +1,41 @@
 <header class="top-header none-992" style="display: flex; justify-content: center; background: linear-gradient(90deg, rgba(251,219,35,1) 52%, rgba(243,163,27,1) 66%);">
     @if ($advertisements)
-        @foreach ($advertisements as $advertisement)
-            @if ($advertisement->advert_location == 1)
-                <a href="{{ $advertisement->website_link ? $advertisement->website_link : '#' }}">
-                    <img src="{{ asset('uploads/sponsored/'.$advertisement->banner_img) }}" alt="" style="margin: 0 auto">
-                </a>
-            @endif
-        @endforeach
+        <div class="animate__animated animate__fadeInLeft">
+            @foreach ($advertisements as $advertisement)
+                @if ($advertisement->advert_location == 1)
+                    <a class="topnav-advert-slides topnav-advert-slides-hidden animate__animated animate__fadeInLeft" href="{{ $advertisement->website_link ? $advertisement->website_link : '#' }}">
+                        <img src="{{ asset('uploads/sponsored/'.$advertisement->banner_img) }}" alt="" style="margin: 0 auto">
+                    </a>
+                @endif
+            @endforeach
+        </div>
     @else
         <p>No Advert here</p>
     @endif
 </header>
+
+<style>
+    /* Referral Image Slider  */
+    .topnav-advert-slides { width: 100%; }
+    .topnav-advert-slides-hidden { display : none; }
+    /* Referral Image Slider Ends */
+</style>
+
+<script>
+    /* Top Nav Slider  */
+    addEventListener("load",() => { // "load" is safe but "DOMContentLoaded" starts earlier
+        var index = 0;
+        const slides = document.querySelectorAll(".topnav-advert-slides");
+        const classHide = "topnav-advert-slides-hidden", count = slides.length;
+        nextSlide();
+        function nextSlide() {
+            slides[(index ++) % count].classList.add(classHide);
+            slides[index % count].classList.remove(classHide);
+            setTimeout(nextSlide, 5000);
+        }
+    });
+    /* Top Nav Slider Ends */
+</script>
 
 <!-- Top header start -->
 <header class="top-header none-992" id="top-header-2" style="background-color: rgb(202, 131, 9);">
