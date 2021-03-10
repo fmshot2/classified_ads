@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use App\General_Info;
 use App\Service;
 use App\State;
+use App\Tourism;
 use Illuminate\Support\Facades\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
@@ -49,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
 
             $view->with('allStates', State::all());
+            $view->with('tourist_attractions', Tourism::all());
         });
     }
 
