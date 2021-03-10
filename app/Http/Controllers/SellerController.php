@@ -181,7 +181,7 @@ if ( $request->hasFile('files') ) {
         $referer = User::where('id', $user_referer_id)->first();
         //dd($referer->refererAmount);
         if ($referer) {
-        $referer->refererAmount = ($referer->refererAmount + 1) * 20;
+        $referer->refererAmount = $referer->refererAmount + 50;
         $referer->save();
                 //dd($referer->refererAmount);
 

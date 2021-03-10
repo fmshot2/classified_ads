@@ -46,8 +46,8 @@
                     <div class="info-box">
                         <span class="info-box-icon push-bottom bg-warning">  <i class="fa fa-clock-o text-white" aria-hidden="true"></i> </span>
                         <div class="info-box-content">
-                            <span class="info-box-text"> Pending Service </span>
-                            <span class="info-box-number">  </span>
+                            <span class="info-box-text"> My Accrued Amount </span>
+                            <span class="info-box-number"> {{ $service_count }} </span>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style=""></div>
                             </div>
