@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Refererlink;
+use Illuminate\Support\Facades\Auth;
 
 class AgentController extends Controller
 {
@@ -20,6 +22,6 @@ class AgentController extends Controller
 
     public function allReferals()
     {
-        
+
     }
 }
