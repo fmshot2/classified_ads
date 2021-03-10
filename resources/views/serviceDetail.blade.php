@@ -417,14 +417,12 @@
 
                             @auth
                                 <p style="text-align: center">
-                                    <a class="btn btn-warning animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309">
-                                        <i class="fa fa-phone"></i> {{$serviceDetail->phone}}
+                                    <a class="btn btn-warning animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309; margin-bottom: 4px">
+                                        <i class="fa fa-phone"></i> Call: {{$serviceDetail->phone}}
                                     </a>
-                                </p>
 
-                                <p style="text-align: center">
                                     <a href="https://wa.me/{{$serviceDetail->phone}}/?text=Good%20day.%20I%20am%20interested%20in%your%20service." class="btn btn-success animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff;">
-                                        <i class="fa fa-whatsapp"></i> {{$serviceDetail->phone}}
+                                        <i class="fa fa-whatsapp"></i> WhatsApp {{ ucfirst($the_provider_f_name) }}
                                     </a>
                                 </p>
                             @endauth

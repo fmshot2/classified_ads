@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Advertisement;
+use App\Category;
 use Illuminate\Support\ServiceProvider;
 use App\General_Info;
+use App\Service;
 use App\State;
 use Illuminate\Support\Facades\View;
 use Illuminate\Database\Eloquent\Model;
@@ -24,11 +27,15 @@ class AppServiceProvider extends ServiceProvider
             $general_info = General_Info::first();
             $check_general_info = collect($general_info)->isEmpty();
 
-            $view->with( compact('general_info', 'check_general_info'));
+            $advertisements = Advertisement::all();
+            $services = Service::all();
+            $categories = Category::orderBy('name', 'asc')->get();
+
+            $view->with( compact('general_info', 'check_general_info', 'advertisements', 'categories'));
         });
 
     }
-    
+
 
     /**
      * Bootstrap any application services.
@@ -45,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
-    
+
 
 
 }

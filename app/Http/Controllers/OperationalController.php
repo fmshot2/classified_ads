@@ -28,7 +28,8 @@ class OperationalController extends Controller
             return view ('agent.dashboard', compact('service_count', 'agent_code_check'));
     
 
-        
+
+
     }
 
     public function sliderCreate(Request $request)
@@ -164,12 +165,12 @@ class OperationalController extends Controller
         $adlocationid = $request->advert_location;
         $location_name = AdvertLocation::find($adlocationid);
 
-        if ( $request->hasFile('image')) {
-            $image = $request->file('image');
+        if ($request->hasFile('ad_image')) {
+            $image = $request->file('ad_image');
             $fileInfo = $image->getClientOriginalName();
             $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
             $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
-            $file_name= $filename.'-'.time().'.'.$extension;
+            $file_name = $filename.'-'.time().'.'.$extension;
             $image->move(public_path('uploads/sponsored'),$file_name);
 
             $data = [
@@ -285,6 +286,15 @@ class OperationalController extends Controller
         }
 
         return $request;
+    }
+
+
+
+
+
+    public function advertisement() {
+        $advert_locations = AdvertLocation::all();
+        return view('advertisement', compact('advert_locations'));
     }
 
 }

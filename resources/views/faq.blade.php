@@ -4,6 +4,16 @@
 
 @section('content')
 
+<style>
+    @media (max-width: 768px){
+        .content-area{
+            padding: 40px 10px;
+        }
+        .main-title{
+            display: none;
+        }
+    }
+</style>
 
 <div class="main">
         <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/faqbg.jpg')}})">

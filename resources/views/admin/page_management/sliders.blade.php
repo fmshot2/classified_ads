@@ -328,8 +328,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="image">Ad Image</label>
-                                        <input type="file" name="image" id="editAdvertImage" class="form-control" placeholder="Select Image">
+                                        <label for="ad_image">Ad Image</label>
+                                        <input type="file" name="ad_image" id="editAdvertImage" class="form-control" placeholder="Select Image">
                                     </div>
                                 </div>
                             </div>
