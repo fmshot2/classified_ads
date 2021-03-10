@@ -125,7 +125,7 @@ public function buyer()
     $unread_message =   $reply_message_unread->Where('status', 0);
     $check_unread_message_table = collect($unread_message)->isEmpty();
     $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
-    $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
+    $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(10)->get();
 
     $reply_message_read = Message::where('reply', 'yes' );
     $read_message =  $reply_message_read->Where('status', 1);
@@ -133,7 +133,7 @@ public function buyer()
     $read_message_count = $check_read_message_table == true ? 0 : $read_message->count();
     $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();
 
-    $unread_notification = Notification::where('status', 0)->orderBy('id', 'desc')->take(5)->get();
+    $unread_notification = Notification::where('status', 0)->orderBy('id', 'desc')->take(10)->get();
     $all_notification_count = Notification::count();
 
     $all_service = Service::take(6)->get();

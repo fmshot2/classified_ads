@@ -7,9 +7,18 @@ All Message Table |
 @section('content')
 
 
+    <!-- Content Header (Page header) -->
+    
 
 <div class="content-wrapper" style="min-height: 518px;">
-
+	<section class="content-header">
+      <h1>
+        All Messages      </h1>
+      <ol class="breadcrumb">
+        <li><a href=" {{ route('buyer.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">All Messages</li>
+      </ol>
+    </section>
 	<div class="container">
 		@include('layouts.backend_partials.status')
 	</div>
