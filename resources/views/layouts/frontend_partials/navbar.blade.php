@@ -1,7 +1,15 @@
 <header class="top-header none-992" style="display: flex; justify-content: center; background: linear-gradient(90deg, rgba(251,219,35,1) 52%, rgba(243,163,27,1) 66%);">
-    <a href="https://efskyview.com/">
-        <img src="{{ asset('images/skyviewstickyads.gif') }}" alt="" style="margin: 0 auto">
-    </a>
+    @if ($advertisements)
+        @foreach ($advertisements as $advertisement)
+            @if ($advertisement->advert_location == 1)
+                <a href="{{ $advertisement->website_link ? $advertisement->website_link : '#' }}">
+                    <img src="{{ asset('uploads/sponsored/'.$advertisement->banner_img) }}" alt="" style="margin: 0 auto">
+                </a>
+            @endif
+        @endforeach
+    @else
+        <p>No Advert here</p>
+    @endif
 </header>
 
 <!-- Top header start -->

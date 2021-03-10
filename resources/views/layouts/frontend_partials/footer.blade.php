@@ -86,20 +86,19 @@
                     <div class="s-border"></div>
                     <div class="m-border"></div>
                     <div class="popular-posts">
-                        @foreach($service as $services)
-                                                <div class="media">
-                            <div class="media-left">
-                                <a class="title" href="{{route('serviceDetail', $services->slug)}}"  style="font-size: 14px;"><img class="media-object" src=" {{asset('uploads/services')}}/{{ $services->service_image}} " alt="sub-properties"></a>
-
-                            </div>
-                            <div class="media-body align-self-center">
-                                <h3 class="media-heading">
-                                    </h3><h6><a href="{{route('serviceDetail', $services->slug)}}">{{ Str::limit($services->name, 35)}}</a></h6>
-
-                                <p>{{ Str::limit($services->state, 25)}}</p>
-                            </div>
-                        </div>
-                        @endforeach
+                        @if ($advertisements)
+                            @foreach($advertisements as $advertisement)
+                                @if ($advertisement->advert_location == 4 && $loop->index != 3)
+                                    <div class="media">
+                                        <div class="media-body align-self-center">
+                                            <a class="title" href="{{ $advertisement->website_link ? route('serviceDetail', $advertisement->website_link) : '#' }}"  style="font-size: 14px;"><img class="media-object" src="{{ asset('uploads/sponsored/'.$advertisement->banner_img) }}" alt="{{ $advertisement->title }}" style="width: 250px; height: 65px"></a>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @else
+                            <p>No advert here!</p>
+                        @endif
                     </div>
                 </div>
             </div>
