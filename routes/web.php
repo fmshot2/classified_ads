@@ -22,7 +22,9 @@ use App\Service;
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 
 Route::middleware(['agent'])->group(function () {
-    Route::get('/agent/dashboard', 'OperationalController@agentDashboard')->name('agent.dashboard');
+    Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
+    Route::get('/referal/all', 'AgentController@allMessage')->name('seller.referal.all');
+
 });
 
 Route::post('advertisement/create', 'OperationalController@advertCreate')->name('advertisement.create');

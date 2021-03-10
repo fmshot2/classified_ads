@@ -61,7 +61,17 @@
                                     </div>
                                 </div>
                             </p>
-
+                            <p>
+                            <div class="form-group form-box">
+                            <h6>Where you referred by our agent?</h6>
+                                <input id="agent_code" type="text" placeholder="Enter Agent Code (If Available)" class="input-text" name="agent_code" value="{{ old('agent_code') }}" required>
+                                @if ($errors->has('agent_code'))
+                                <span class="helper-text" data-error="wrong" data-success="right">
+                                    <strong class="text-danger">{{ $errors->first('agent_code') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                            </p>
                             <p>
                                 <label>
                                     <input type="checkbox" name="terms" class="filled-in" required/>
