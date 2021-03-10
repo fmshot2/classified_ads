@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\General_Info;
+use App\State;
 use Illuminate\Support\Facades\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
     }
+    
 
     /**
      * Bootstrap any application services.
@@ -36,6 +38,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        View::composer('*', function ($view) {
+
+            $view->with('allStates', State::all());
+        });
     }
+
+    
+
 
 }

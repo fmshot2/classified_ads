@@ -30,6 +30,14 @@ class AuthController extends Controller
 			'password' => ['required', 'string', 'min:6', 'confirmed'],
 		]);
 
+
+		$state = $request->state;
+		$result = substr($state, 0, 3);
+		$ist_3_result = strtoupper($result);
+		$randomCode = Str::random(4);
+		$length = 1;
+		$last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
+
         $data = [
             'name'       => $request->name,
             'email'      => $request->email,
@@ -37,8 +45,8 @@ class AuthController extends Controller
             'state'      => $request->state,
             'lga'        => $request->lga,
             'is_agent'   => 1,
-            'agent_code' => 'ABJ1234bloc',
-            'role'       => 'agent',
+            'agent_code' => $result . $randomCode . $last_letter,
+            'role'       =>  'agent',
             'status'     => 1,
             'password'   => Hash::make($request->password)
         ];
@@ -48,15 +56,14 @@ class AuthController extends Controller
         if ($user) {
             $credentials = $request->only('email', 'password');
 
-            if (Auth::attempt($credentials)) {
-                if ( $request->role == 'agent' ){
-                    return redirect()->route('agent.dashboard');;
+			if (Auth::attempt($credentials)) {
+				if ( $request->role == 'agent' )
+					return redirect()->route('agent.dashboard');
 
-                } else {
-                    return Redirect::to(Session::get('url.intended'));
-                }
-                return redirect()->intended('/');
-            }
+				} else {
+					return Redirect::to(Session::get('url.intended'));
+				}
+				return redirect()->intended('/');
         }
     }
 
@@ -119,13 +126,13 @@ class AuthController extends Controller
 
 
 
-		session()->flash('success', ' Succesfull!');
+		session()->flash('success', ' succesfull!');
 
 		$credentials = $request->only('email', 'password');
 
 		if (Auth::attempt($credentials)) {
 			if ( $request->role == 'seller' )
-				return redirect()->route('seller.dashboard');;
+				return redirect()->route('seller.dashboard');
 
             } else {
                 return Redirect::to(Session::get('url.intended'));
@@ -143,9 +150,7 @@ class AuthController extends Controller
 
 	public function showRegisterforRefer($refer)
 	{
-		//dd('fgfgfgfg');
 $referlink = $refer;
-		//dd($referlink);
 
 
 
@@ -182,8 +187,7 @@ $referlink = $refer;
 	public function loginformail(Request $request)
 
 	{
-	//dd(Auth::user());
-		//use
+
 		if (Auth::user()->email_verified_at == null) {
 			return redirect()->intended('/email/verify');
 		}

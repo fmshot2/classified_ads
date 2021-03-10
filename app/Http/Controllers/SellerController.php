@@ -158,7 +158,6 @@ if ( $request->hasFile('files') ) {
 
        $present_user = Auth::user();
         $user_hasUploadedService = $present_user->hasUploadedService;
-        //dd($user_hasUploadedService);
         if ($user_hasUploadedService == 1) {
        $request->session()->flash('status', 'Task was successful!');
 

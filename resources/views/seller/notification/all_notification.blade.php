@@ -13,7 +13,9 @@ All Notification |
 	<div class="container">
 		@include('layouts.backend_partials.status')
 	</div>
-
+	<section class="content-header">
+        <p style="font-size: 20px">This Page Is To Notify You Of Updates And Changes From The EFContact Company.</p>
+    </section>
 	<section class="content">
 
 		<div class="row">

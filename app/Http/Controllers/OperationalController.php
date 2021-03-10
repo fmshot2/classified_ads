@@ -13,12 +13,21 @@ use App\UserFeedback;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Console\Input\Input;
+use App\Refererlink;
+use Illuminate\Support\Facades\Auth;
+
 
 class OperationalController extends Controller
 {
     public function agentDashboard(Request $request)
     {
-        return view('agent.dashboard');
+
+
+        $service_count = Refererlink::where('user_id', Auth::id() )->count();    
+            return view ('agent.dashboard', compact('service_count'));
+    
+
+        
     }
 
     public function sliderCreate(Request $request)
