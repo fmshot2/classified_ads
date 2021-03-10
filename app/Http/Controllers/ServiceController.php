@@ -153,6 +153,7 @@ class ServiceController extends Controller
 
 
     $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
+    dd($featuredServices);
     $allServices = Service::where([
       ['is_approved', '=', 1] ])->inRandomOrder()->get();
 

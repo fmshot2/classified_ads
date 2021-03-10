@@ -179,8 +179,8 @@
                                                             <label class="form-label">Select your State</label><small class="text-danger">*</small>
                                                             <select class="form-control" required id="state" name="state" required>
                                                                 <option value="">-- Select State --</option>
-                                                                @if(isset($states))
-                                                                    @foreach($states as $state)
+                                                                @if(isset($allStates))
+                                                                    @foreach($allStates as $state)
                                                                         <option value="{{$state->name}}"> {{ $state->name }}  </option>
                                                                     @endforeach
                                                                 @endif
