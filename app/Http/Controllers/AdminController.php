@@ -166,11 +166,6 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
     return view ('admin.service.index', compact('all_service') );
   }
 
-
-  public function advertisement() {
-    return view('advertisement');
-  }
-
   public function activeService()
   {
     $active_service = Service::where('status', 1)->paginate(20);

@@ -322,29 +322,16 @@
 
                     <div class="col-lg-3 col-md-12">
                         <div class="sidebar-right">
-                            <!-- Sub Categories -->
-                            <div class="widget popular-posts">
-                                <h3 class="sidebar-title">Related Sub Categories</h3>
+                            <div class="footer-item clearfix container-fluid">
+                                <br/>
+                                <div class="s-border" style="margin-top: -15px;"></div>
+                                <div class="m-border"></div>
+                                <h5 style="margin-top: -15px; text-transform: uppercase">Featured Adverts</h5>
                                 <div class="s-border"></div>
                                 <div class="m-border"></div>
-                                @if(isset($sub_categories))
-                                    @foreach($sub_categories as $key => $all_sub_category)
-                                        <div class="media">
-                                            <div class="media-body align-self-center all-ser-pg-sidebar-feat-ser">
-                                                <h3 class="media-heading">
-                                                    <a href="{{ route('services.subcategory', $all_sub_category->slug) }}" class="sub_cat_link">
-                                                        <strong style="text-transform: capitalize"><i class="fa fa-long-arrow-right" style="color: #FFC107"></i>  {{ $all_sub_category->name }}</strong>
-                                                    </a>
-                                                </h3>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                @endif
                             </div>
-
                             <div class="popular-posts featured-ad-hm-list">
                                 <div class="container">
-                                    <h3 class="sidebar-title">Featured Adverts</h3>
                                     <div id="carouselExampleControls" class="carousel vert slide" data-ride="carousel" data-interval="4000">
                                         {{-- <ol class="carousel-indicators">
                                             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -374,6 +361,26 @@
                                         </a>
                                     </div>
                                 </div>
+                            </div>
+
+                            <!-- Sub Categories -->
+                            <div class="widget popular-posts">
+                                <h3 class="sidebar-title">Related Sub Categories</h3>
+                                <div class="s-border"></div>
+                                <div class="m-border"></div>
+                                @if(isset($sub_categories))
+                                    @foreach($sub_categories as $key => $all_sub_category)
+                                        <div class="media">
+                                            <div class="media-body align-self-center all-ser-pg-sidebar-feat-ser">
+                                                <h3 class="media-heading">
+                                                    <a href="{{ route('services.subcategory', $all_sub_category->slug) }}" class="sub_cat_link">
+                                                        <strong style="text-transform: capitalize"><i class="fa fa-long-arrow-right" style="color: #FFC107"></i>  {{ $all_sub_category->name }}</strong>
+                                                    </a>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
 
                             <!-- Popular posts start -->

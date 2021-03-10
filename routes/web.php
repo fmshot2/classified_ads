@@ -72,7 +72,7 @@ Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service
 Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');
 Route::get('/service-providers', 'ServiceController@allSellers')->name('seller.sellers');
 Route::get('/terms-of-use', 'ServiceController@termsOfUse')->name('terms-of-use');
-Route::get('/advertisement', 'AdminController@advertisement')->name('advertisement');
+Route::get('/advertisement', 'OperationalController@advertisement')->name('advertisement');
 
 Route::post('/store_contact_form', 'ContactController@store_contact_form')->name('store_contact_form');
 Route::post('/store_advert_form', 'AdvertController@store_advert_form')->name('store_advert_form');

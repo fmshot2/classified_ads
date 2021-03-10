@@ -31,7 +31,7 @@
         function nextSlide() {
             slides[(index ++) % count].classList.add(classHide);
             slides[index % count].classList.remove(classHide);
-            setTimeout(nextSlide, 5000);
+            setTimeout(nextSlide, 10000);
         }
     });
     /* Top Nav Slider Ends */

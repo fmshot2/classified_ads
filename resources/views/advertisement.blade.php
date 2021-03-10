@@ -4,6 +4,18 @@
 @section('title', 'Advertise with us | ')
 
 @section('content')
+<style>
+    .adp_img{
+        width: 100% !important;
+    }
+    @media (min-width: 768px) {
+        .row.equal {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+</style>
+
     <div class="main">
         <div class="sub-banner" style="background-image:url({{asset('OurBackend/img/makeupartist.jfif')}})">
             <div class="container">
@@ -22,65 +34,50 @@
             <div class="container text-center" style="background-color: #fff; padding-top: 30px">
                 <p class="text-center">
                     Experience rapid boost in exposure of your business and services by placing Banner adverts on <br>
-                    Nigeria’s leading property platform.
+                    EFContact platform.
                 </p>
-                <h2>WHY EFContacts?</h2>
+                <h2>WHY EFContact?</h2>
                 <em><strong>"Your brand deserves the right audience"</strong></em>
                 <p>
-                    With over half a million dedicated monthly visitors and 7 million monthly page-views,<br>
+                    With over half a million dedicated monthly visitors and 5-7 million monthly page-views,<br>
                     your business, product &amp; services are placed right in front of dedicated audience of<br>
-                    Nigeria's most leading property platform.
+                    EFContact platform.
                 </p>
                 <h2>BANNER AD SIZES</h2> <hr>
-                <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-12">
-                        <div class="pricing-3 popular">
-                            <div class="title" style="font-weight: 600">Home Page Banner</div>
-                            <div class="content text-left" style="padding: 20px">
-                                <p>
-                                    <strong>Location:</strong> On the homepage of the website, <br>visible to all site visitors.<br>
-                                    <strong>Dimensions:</strong> 720 X 90 pixels
-                                </p>
+                <div class="row equal">
+                    @if ($advert_locations)
+                        @foreach($advert_locations as $advert_location)
+                            <div class="col-xl-4 col-lg-4 col-md-12">
+                                <div class="pricing-3 popular">
+                                    <div class="title" style="font-weight: 600">{{ $advert_location->title }}</div>
+                                    <div style="margin-top: 5px">
+                                        @if ($advert_location->id == 1)
+                                            <img src="{{ asset('topnav.jpg') }}" alt="{{ $advert_location->title }}" class="img-fluid adp_img" />
+                                        @elseif ($advert_location->id == 2)
+                                            <img src="{{ asset('bigslider.jpg') }}" alt="{{ $advert_location->title }}" class="img-fluid adp_img" />
+                                        @elseif ($advert_location->id == 3)
+                                            <img src="{{ asset('featuredad.jpg') }}" alt="{{ $advert_location->title }}" class="img-fluid adp_img" />
+                                        @elseif ($advert_location->id == 4)
+                                            <img src="{{ asset('bigslider.jpg') }}" alt="{{ $advert_location->title }}" class="img-fluid adp_img" />
+                                        @elseif ($advert_location->id == 5)
+                                            <img src="{{ asset('featuredad.jpg') }}" alt="{{ $advert_location->title }}" class="img-fluid adp_img" />
+                                        @elseif ($advert_location->id == 6)
+                                            <img src="{{ asset('bigslider.jpg') }}" alt="{{ $advert_location->title }}" class="img-fluid adp_img" />
+                                        @endif
+                                    </div>
+                                    <div class="content text-left" style="padding: 20px">
+
+                                        <p>
+                                            <strong>Location:</strong> {{ $advert_location->location }}<br>
+                                            <strong>Dimensions:</strong> {{ $advert_location->size }} pixels
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-12">
-                        <div class="pricing-3 popular">
-                            <div class="title" style="font-weight: 600">Search Result Banner</div>
-                            <div class="content text-left" style="padding: 20px">
-                                <p>
-                                    <strong>Location(Medium-Page):</strong> On the top of the property search result pages.<br>
-                                    <strong>Dimensions (Medium-Page):</strong> 720 X 90 pixels
-                                </p>
-                                <p>
-                                    <strong>Location(Square Size):</strong> On the right hand side of property search result pages.<br>
-                                    <strong>Dimensions (Square Size):</strong> 350 x 290 pixels
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-12">
-                        <div class="pricing-3 popular">
-                            <div class="title" style="font-weight: 600">Property Page Banner</div>
-                            <div class="content text-left">
-                                <p>
-                                    <strong>Location(Leaderboard):</strong> On the top of the property detail pages.<br>
-                                    <strong>Dimensions (Leaderboard):</strong> 720 X 115 pixels
-                                </p>
-                                <p>
-                                    <strong>Location(Square Size):</strong> On the right hand side of property detail pages.<br>
-                                    <strong>Dimensions (Square Size):</strong> 350 x 290 pixels
-                                </p>
-                                <p>
-                                    <strong>Location(Bottom-Page):</strong> On the bottom of the property detail pages.<br>
-                                    <strong>Dimensions (Bottom-Page):</strong> 720 X 90 pixels
-                                </p>
-                            </div>
-                            <div class="button btn-outline-warning" style="margin-top: 10px">
-                                <a href="/doc/price.pdf" class="btn btn-outline pricing-btn button-theme">DOWNLOAD AD RATE CARD</a>
-                            </div>
-                        </div>
-                    </div>
+                        @endforeach
+                    @else
+                        <p>No Advert Location Yet!</p>
+                    @endif
                 </div>
 
                 <div class="row">
