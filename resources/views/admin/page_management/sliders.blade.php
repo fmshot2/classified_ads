@@ -82,20 +82,22 @@
                                                     <tr>
                                                         <th> SL </th>
                                                         <th> Slider </th>
-                                                        <th> Link </th>
+                                                        <th> Location </th>
                                                         <th> Action </th>
                                                     </tr>
                                                 </thead>
 
                                                 <tbody>
-                                                    @if (isset($AdvertSliders))
-                                                        @foreach($AdvertSliders as $key => $adslider)
+                                                    @if (isset($advertisements))
+                                                        @foreach($advertisements as $key => $adslider)
                                                             <tr>
                                                                 <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                                                 <td>
-                                                                    <img src="{{ asset('uploads/sponsored') }}/{{ $adslider->image }}"  alt="{{ $adslider->title }}" width="60" class="img-responsive img-rounded">
+                                                                    <img src="{{ asset('uploads/sponsored') }}/{{ $adslider->banner_img }}"  alt="{{ $adslider->title }}" width="60" class="img-responsive img-rounded">
                                                                 </td>
-                                                                <td> <a href="{{ $adslider->links }}">{{ $adslider->links }}</a> </td>
+                                                                <td>
+                                                                    {{ $adslider->location_name }}
+                                                                </td>
 
                                                                 <td class="center">
                                                                     <a  onclick="updateAdvert({{$adslider->id}})" class="btn btn-sm btn-info "><i class="fa fa-pencil-square-o"></i></a>
@@ -268,56 +270,60 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="seller_name">Seller Name <span class="tx-danger">*</span></label>
-                                        <input type="text" name="seller_name" id="editAdvertSellerName" class="form-control" placeholder="Seller Name">
+                                        <label for="brand_name">Brand Name</label>
+                                        <input type="text" name="brand_name" id="editbrand_name" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="seller_id">Seller ID <span class="tx-danger">*</span></label>
-                                        <input type="text" name="seller_id" id="editAdvertSellerID" class="form-control" placeholder="Seller ID">
+                                        <label for="website_link">Website Link</label>
+                                        <input type="text" name="website_link" id="editwebsite_link" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="email">Seller ID <span class="tx-danger">*</span></label>
-                                        <input type="email" name="email" id="editAdvertEmail" class="form-control" placeholder="E-mail Address">
+                                        <label for="client_name">Client Name</label>
+                                        <input type="text" name="client_name" id="editclient_name" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="phone">Phone Number <span class="tx-danger">*</span></label>
-                                        <input type="number" name="phone" id="editAdvertPhone" class="form-control" placeholder="Phone Number">
+                                        <label for="client_email">Client Email</label>
+                                        <input type="email" name="client_email" id="editclient_email" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="ref_no">Ref No. <span class="tx-danger">*</span></label>
-                                        <input type="text" name="ref_no" id="editAdvertRefNo" class="form-control" placeholder="Ref No.">
+                                        <label for="client_phone">Phone Number</label>
+                                        <input type="number" name="client_phone" id="editclient_phone" class="form-control" placeholder="Phone Number">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="startDate">Start Date <span class="tx-danger">*</span></label>
-                                        <input type="date" name="startDate" id="editAdvertStartDate" class="form-control" placeholder="Start Date">
+                                        <label for="start_date">Start Date <span class="tx-danger">*</span></label>
+                                        <input type="date" name="start_date" id="editstart_date" class="form-control" placeholder="Start Date">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="endDate">End Date <span class="tx-danger">*</span></label>
-                                        <input type="date" name="endDate" id="editAdvertEndDate" class="form-control" placeholder="End Date">
+                                        <label for="end_date">End Date</label>
+                                        <input type="date" name="end_date" id="editend_date" class="form-control" placeholder="End Date">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="category">Category <span class="tx-danger">*</span></label>
-                                        <input type="text" name="category" id="editAdvertCategory" class="form-control" placeholder="Advert Category">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="link">Link <span class="tx-danger">*</span></label>
-                                        <input type="text" name="links" id="editAdvertLinks" class="form-control" placeholder="Ad Link">
+                                        <label for="category">Advert Location</label>
+                                        <select name="advert_location" id="editadvert_location" class="form-control" required>
+                                            <option selected disabled>- Select a location -</option>
+                                            @if ($advertlocations)
+                                                @foreach ($advertlocations as $advertlocation)
+                                                    <option value="{{ $advertlocation->id }}">{{ $advertlocation->title }}</option>
+                                                @endforeach
+
+                                            @else
+                                                <p>No location</p>
+                                            @endif
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -398,21 +404,24 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="category">Advert Location</label>
-                                        <select name="advert_location" class="form-control">
-                                            <option value="1">Top Nav Banner</option>
-                                            <option value="2">Home Page Banner</option>
-                                            <option value="3">Featured Advert Banner</option>
-                                            <option value="4">Footer Advertisement Banner</option>
-                                            <option value="5">Search Result Page Banner</option>
-                                            <option value="6">Category Advertisement Banner</option>
+                                        <label for="category">Advert Location <span class="tx-danger">*</span></label>
+                                        <select name="advert_location" class="form-control" required>
+                                            <option selected disabled>- Select a location -</option>
+                                            @if ($advertlocations)
+                                                @foreach ($advertlocations as $advertlocation)
+                                                    <option value="{{ $advertlocation->id }}">{{ $advertlocation->title }}</option>
+                                                @endforeach
+
+                                            @else
+                                                <p>No location</p>
+                                            @endif
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="image">Slider Image</label>
-                                        <input type="file" name="image" class="form-control" placeholder="Select Image">
+                                        <input type="file" name="image" class="form-control" placeholder="Select Banner Image">
                                     </div>
                                 </div>
                             </div>
@@ -478,15 +487,15 @@
                     method: 'get',
                     success: function(result){
                         console.log(result);
-                        $('#editAdvertSellerName').val(result.seller_name);
-                        $('#editAdvertSellerID').val(result.seller_id);
-                        $('#editAdvertPhone').val(result.phone);
-                        $('#editAdvertEmail').val(result.email);
-                        $('#editAdvertRefNo').val(result.ref_no);
-                        $('#editAdvertCategory').val(result.category);
-                        $('#editAdvertStartDate').val(result.startDate);
-                        $('#editAdvertEndDate').val(result.endDate);
-                        $('#editAdvertLinks').val(result.links);
+                        $('#editbrand_name').val(result.brand_name);
+                        $('#editwebsite_link').val(result.website_link);
+                        $('#editclient_email').val(result.client_email);
+                        $('#editclient_name').val(result.client_name);
+                        $('#editclient_phone').val(result.client_phone);
+                        $('#editclient_address').val(result.client_address);
+                        $('#editstart_date').val(result.start_date);
+                        $('#editend_date').val(result.end_date);
+                        $('#editadvert_location').val(result.advert_location);
                         var url = '/admin/advert/update_slider/' + id;
                         $('form#editAdvertForm').attr('action', url);
                         $('#editAdvertSlideModal').modal('show');

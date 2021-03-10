@@ -38,12 +38,10 @@
         width: 250px;
     }
 
-    #navbar {
-        background-color: #333; /* Black background color */
-        position: fixed; /* Make it stick/fixed */
-        top: 0; /* Stay on top */
-        width: 100%; /* Full width */
-        transition: top 0.3s; /* Transition effect when sliding down (and up) */
+    @media (max-width: 768px){
+        .float-referrer{
+            display: none;
+        }
     }
 
     /* Referral Image Slider  */
