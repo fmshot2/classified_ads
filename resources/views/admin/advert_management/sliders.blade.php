@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'Sliders')
+@section('title', 'Advertisement | ')
 
 @section('content')
     <div class="content-wrapper" style="min-height: 868px;">

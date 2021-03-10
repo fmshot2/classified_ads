@@ -37,7 +37,7 @@ class AuthController extends Controller
             'state'      => $request->state,
             'lga'        => $request->lga,
             'is_agent'   => 1,
-            'agent_code' => 'ABJ1234baoc',
+            'agent_code' => 'ABJ1234bloc',
             'role'       => 'agent',
             'status'     => 1,
             'password'   => Hash::make($request->password)
