@@ -17,12 +17,15 @@ class CreateAdvertisementsTable extends Migration
             $table->id();
             $table->string('brand_name');
             $table->string('website_link')->nullable();
-            $table->string('banner');
+            $table->string('banner_img');
             $table->string('client_name');
             $table->string('client_email');
             $table->string('client_phone');
             $table->string('client_address')->nullable();
             $table->integer('advert_location');
+            $table->string('location_name')->nullable();
+            $table->string('start_date');
+            $table->string('end_date');
             $table->timestamps();
         });
     }

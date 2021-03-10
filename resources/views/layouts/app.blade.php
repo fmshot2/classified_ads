@@ -87,8 +87,6 @@
                         <h5 class="modal-title" style="text-transform: uppercase">Become our Agent</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <form method="POST" action="{{ route('agent.register') }}">
-                        @csrf
                         <div class="modal-body">
                             <div class="tabbing tabbing-box agent-registration-modal">
                                 <ul class="nav nav-tabs" id="carTab" role="tablist">
@@ -146,87 +144,113 @@
                                     <div class="tab-pane fade" id="agentRegister" role="tabpanel" aria-labelledby="two-tab">
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Your Full Name</label><small class="text-danger">*</small>
-                                                            <input type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
-                                                            @if ($errors->has('name'))
-                                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                                                    <strong class="text-danger">{{ $errors->first('name') }}</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="form-label">Phone Number</label><small class="text-danger">*</small>
-                                                            <input type="phone" placeholder="Phone Number" class="form-control" name="phone" value="{{ old('phone') }}" required>
-                                                            @if ($errors->has('phone'))
-                                                                <span class="helper-text" data-error="wrong" data-success="right">
-                                                                    <strong class="text-danger">{{ $errors->first('phone') }}</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="email">Email Address</label>
-                                                            <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Your email address">
-                                                        </div>
 
-                                                        <div class="form-group">
-                                                            <input type="hidden" class="form-control" name="role" value="agent" >
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label class="form-label">Select your State</label><small class="text-danger">*</small>
-                                                            <select class="form-control" required id="state" name="state" required>
-                                                                <option value="">-- Select State --</option>
-                                                                @if(isset($allStates))
-                                                                    @foreach($allStates as $state)
-                                                                        <option value="{{$state->name}}"> {{ $state->name }}  </option>
-                                                                    @endforeach
+                                                <form method="POST" action="{{ route('agent.register') }}">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">Your Full Name</label><small class="text-danger">*</small>
+                                                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
+                                                                @if ($errors->has('name'))
+                                                                    <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                                        <strong class="text-danger">{{ $errors->first('name') }}</strong>
+                                                                    </span>
                                                                 @endif
-                                                            </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="form-label">Phone Number</label><small class="text-danger">*</small>
+                                                                <input type="phone" placeholder="Phone Number" class="form-control" name="phone" value="{{ old('phone') }}" required>
+                                                                @if ($errors->has('phone'))
+                                                                    <span class="helper-text" data-error="wrong" data-success="right">
+                                                                        <strong class="text-danger">{{ $errors->first('phone') }}</strong>
+                                                                    </span>
+                                                                @endif
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="email">Email Address</label><small class="text-danger">*</small>
+                                                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Your email address" required>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="form-label">Select your State</label><small class="text-danger">*</small>
+                                                                <select class="form-control" required id="state" name="state" required>
+                                                                    <option value="">-- Select State --</option>
+                                                                    @if(isset($states))
+                                                                        @foreach($states as $state)
+                                                                            <option value="{{$state->name}}"> {{ $state->name }}  </option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </select>
+                                                            </div>
+
+                                                            {{-- <div class="form-group">
+                                                                <label class="form-label">Mode of Identification</label><small class="text-danger">*</small>
+                                                                <small class="form-text text-muted" style="margin-top: -10px">Upload Driver's Licence, National ID or Voter's Card</small>
+                                                                <input id="add" type="file"  class="form-control" name="file" required>
+                                                                @if ($errors->has('file'))
+                                                                <span class="helper-text" data-error="wrong" data-success="right">
+                                                                    <strong class="text-danger">{{ $errors->first('file') }}</strong>
+                                                                </span>
+                                                                @endif
+                                                            </div> --}}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="form-label">LGA</label><small class="text-danger">*</small>
+                                                                <select class="form-control" id="lgas" name="lga" required>
+                                                                    <option disabled selected>- Select Local Government -</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-7">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label" for="identification_type">Identification Type</label><small class="text-danger">*</small>
+                                                                        <select class="form-control" name="identification_type" required>
+                                                                            <option selected disabled>- Select an option -</option>
+                                                                            <option value="national_id">National ID</option>
+                                                                            <option value="driver_license">Driver License</option>
+                                                                            <option value="voter_id">Voter's Card</option>
+                                                                            <option value="international_passport">International Passport</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="form-group">
+                                                                        <label class="form-label">ID Number</label><small class="text-danger">*</small>
+                                                                        <input type="text" class="form-control" name="identification_id" value="{{ old('identification_id') }}" placeholder="ID Number" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="form-label">Choose Password</label><small class="text-danger">*</small>
+                                                                <input type="password" class="form-control" name="password" placeholder="Password (min: 6 characters)" required>
+                                                                @if ($errors->has('password'))
+                                                                <span class="helper-text" data-error="wrong" data-success="right">
+                                                                    <strong class="text-danger">{{ $errors->first('password') }}</strong>
+                                                                </span>
+                                                                @endif
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="form-label">Confirm Password</label><small class="text-danger">*</small>
+                                                                <input class="form-control" placeholder="Confirm Password" type="password" name="password_confirmation" required>
+                                                            </div>
                                                         </div>
 
-                                                        {{-- <div class="form-group">
-                                                            <label class="form-label">Mode of Identification</label><small class="text-danger">*</small>
-                                                            <small class="form-text text-muted" style="margin-top: -10px">Upload Driver's Licence, National ID or Voter's Card</small>
-                                                            <input id="add" type="file"  class="form-control" name="file" required>
-                                                            @if ($errors->has('file'))
-                                                            <span class="helper-text" data-error="wrong" data-success="right">
-                                                                <strong class="text-danger">{{ $errors->first('file') }}</strong>
-                                                            </span>
-                                                            @endif
-                                                        </div> --}}
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="form-label">LGA</label><small class="text-danger">*</small>
-                                                            <select class="form-control" id="lgas" name="lga" required>
-                                                                <option disabled selected>- Select Local Government -</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="form-label">Choose Password</label><small class="text-danger">*</small>
-                                                            <input type="password" class="form-control" name="password" placeholder="Password (min: 6 characters)" required>
-                                                            @if ($errors->has('password'))
-                                                            <span class="helper-text" data-error="wrong" data-success="right">
-                                                                <strong class="text-danger">{{ $errors->first('password') }}</strong>
-                                                            </span>
-                                                            @endif
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="form-label">Confirm Password</label><small class="text-danger">*</small>
-                                                            <input class="form-control" placeholder="Confirm Password" type="password" name="password_confirmation" required>
+                                                        <div class="col-md-12">
+                                                            <label>
+                                                                <input type="checkbox" name="terms" class="filled-in" required/>
+                                                                <span>By registering you accept our <a href="{{route('terms')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
+                                                            </label>
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-12">
-                                                        <label>
-                                                            <input type="checkbox" name="terms" class="filled-in" required/>
-                                                            <span>By registering you accept our <a href="{{route('terms')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
-                                                        </label>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <button type="submit" class="btn btn-lg btn-warning pull-right text-white">Register</button>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -235,10 +259,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-warning">Create Account</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-md btn-default text-dark" data-dismiss="modal">Close</button>
                         </div>
-                    </form>
                 </div>
 
             </div>

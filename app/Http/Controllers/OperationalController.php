@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Advert;
+use App\Advertisement;
+use App\AdvertLocation;
 use App\Category;
 use App\Mail\UsersFeedback;
 use App\Service;
@@ -104,7 +106,42 @@ class OperationalController extends Controller
 
     public function advertCreate(Request $request)
     {
+        $this->validate($request, [
+            'image'=> 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
 
+        $adlocationid = $request->advert_location;
+        $location_name = AdvertLocation::find($adlocationid);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $fileInfo = $image->getClientOriginalName();
+            $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
+            $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
+            $file_name= $filename.'-'.time().'.'.$extension;
+            $image->move(public_path('uploads/sponsored'),$file_name);
+        }
+
+        $data = [
+            'brand_name'      => $request->brand_name,
+            'website_link'    => $request->website_link,
+            'banner_img'      => $file_name,
+            'client_name'     => $request->client_name,
+            'client_email'    => $request->client_email,
+            'client_phone'    => $request->client_phone,
+            'client_address'  => $request->client_address,
+            'start_date'      => $request->start_date,
+            'end_date'        => $request->end_date,
+            'advert_location' => $request->advert_location,
+            'location_name'   => $location_name->title
+        ];
+
+
+        $advert = new Advertisement();
+
+        $advert->create($data);
+
+        return redirect()->back();
     }
 
 
@@ -112,45 +149,8 @@ class OperationalController extends Controller
 
     public function get_advert_slider($id)
     {
-        $advert = Advert::find($id);
+        $advert = Advertisement::find($id);
         return $advert;
-    }
-
-    public function create_advert_sliders(Request $request)
-    {
-
-        $this->validate($request, [
-            'image'=> 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-
-        if ( $request->hasFile('image')) {
-            $image = $request->file('image');
-            $fileInfo = $image->getClientOriginalName();
-            $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
-            $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
-            $file_name= $filename.'-'.time().'.'.$extension;
-            $image->move(public_path('uploads/adverts'),$file_name);
-        }
-
-        $data = [
-            'seller_name' => $request->seller_name,
-            'seller_id' => $request->seller_id,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'ref_no' => $request->ref_no,
-            'startDate' => $request->startDate,
-            'endDate' => $request->endDate,
-            'category' => $request->category,
-            'links' => $request->links,
-            'image' => $file_name
-        ];
-
-
-        $advert = new Advert();
-
-        $advert->create($data);
-
-        return redirect()->back();
     }
 
     public function update_advert_sliders(Request $request, $id)
@@ -159,6 +159,9 @@ class OperationalController extends Controller
         $this->validate($request, [
             'image'=> 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
+
+        $adlocationid = $request->advert_location;
+        $location_name = AdvertLocation::find($adlocationid);
 
         if ( $request->hasFile('image')) {
             $image = $request->file('image');
@@ -169,36 +172,36 @@ class OperationalController extends Controller
             $image->move(public_path('uploads/sponsored'),$file_name);
 
             $data = [
-                'seller_name' => $request->seller_name,
-                'seller_id'  => $request->seller_id,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'ref_no' => $request->ref_no,
-                'startDate' => $request->startDate,
-                'endDate' => $request->endDate,
-                'category' => $request->category,
-                'links' => $request->links,
-                'image' => $file_name
+                'brand_name'      => $request->brand_name,
+                'website_link'    => $request->website_link,
+                'banner_img'      => $file_name,
+                'client_name'     => $request->client_name,
+                'client_email'    => $request->client_email,
+                'client_phone'    => $request->client_phone,
+                'client_address'  => $request->client_address,
+                'start_date'      => $request->start_date,
+                'end_date'        => $request->end_date,
+                'advert_location' => $request->advert_location,
+                'location_name'   => $location_name->title
             ];
         }
         else{
             $data = [
-                'seller_name' => $request->seller_name,
-                'seller_id'  => $request->seller_id,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'ref_no' => $request->ref_no,
-                'startDate' => $request->startDate,
-                'endDate' => $request->endDate,
-                'category' => $request->category,
-                'links' => $request->links
+                'brand_name'      => $request->brand_name,
+                'website_link'    => $request->website_link,
+                'client_name'     => $request->client_name,
+                'client_email'    => $request->client_email,
+                'client_phone'    => $request->client_phone,
+                'client_address'  => $request->client_address,
+                'start_date'      => $request->start_date,
+                'end_date'        => $request->end_date,
+                'advert_location' => $request->advert_location,
+                'location_name'   => $location_name->title
             ];
         }
 
 
-
-
-        $advert = Advert::find($id);
+        $advert = Advertisement::find($id);
         $advert->update($data);
 
         return redirect()->back();
@@ -206,7 +209,7 @@ class OperationalController extends Controller
 
     public function delete_advert_slider($id)
     {
-        $advert = Advert::find($id);
+        $advert = Advertisement::find($id);
         $advert->delete();
         return back()->with('success', 'Task was successful!');
     }

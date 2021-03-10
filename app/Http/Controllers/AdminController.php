@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Advert;
+use App\Advertisement;
+use App\AdvertLocation;
 use Illuminate\Http\Request;
 use App\Service;
 use App\User;
@@ -534,9 +536,10 @@ public function save_faq(Request $request)
 
         public function sliders()
         {
-          $sliders = Slider::paginate(10);
-          $AdvertSliders = Advert::paginate(10);
-          return view ('admin.page_management.sliders', compact(['sliders', 'AdvertSliders']) );
+          $sliders = Slider::all();
+          $advertisements = Advertisement::all();
+          $advertlocations = AdvertLocation::all();
+          return view ('admin.page_management.sliders', compact(['sliders', 'advertisements', 'advertlocations']) );
         }
 
         public function slider($id)

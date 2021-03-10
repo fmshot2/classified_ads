@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Advertisement;
 use Illuminate\Http\Request;
 use App\Service;
 use App\User;
@@ -114,9 +115,9 @@ class ServiceController extends Controller
     ->orderBy("distance",'asc')
     ->offset(0)
      ->inRandomOrder()->limit(20)->get();
-      
+
     return response()->json(['data'=>$servicesss]);
-      
+
   }
 
 
@@ -153,7 +154,6 @@ class ServiceController extends Controller
 
 
     $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
-    dd($featuredServices);
     $allServices = Service::where([
       ['is_approved', '=', 1] ])->inRandomOrder()->get();
 
@@ -183,8 +183,9 @@ class ServiceController extends Controller
     $user11 = session()->get('user11');
     $serviceName = session()->get('serviceName');
     $serviceState = session()->get('serviceState');
+    $advertisements = Advertisement::all();
 
-   
+
 
     if($user11){
       $user111 = $user11;
@@ -214,7 +215,7 @@ class ServiceController extends Controller
 
 
      $view = view('welcome', compact(['featuredServices', 'recentServices',
-      'approvedServices', 'user111', 'categories', 'search_form_categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'hotServices', 'nearestServices' ]))->render();
+      'approvedServices', 'user111', 'categories', 'search_form_categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'hotServices', 'nearestServices', 'advertisements' ]))->render();
 
      return response()->json(['html'=>$view]);
 
@@ -222,13 +223,13 @@ class ServiceController extends Controller
    }else{
 
     return view('welcome', compact(['featuredServices', 'recentServices',
-      'approvedServices', 'user111', 'categories', 'search_form_categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'hotServices' ]));
+      'approvedServices', 'user111', 'categories', 'search_form_categories', 'states', 'local_governments', 'sliders', 'trendingServices', 'hotServices', 'advertisements' ]));
   }
 
-   
+
 
 }
-   
+
 
 
 
@@ -536,14 +537,14 @@ public function index()
       return view ('categoryDetails');
     }
 
-   
+
 
 
 
 
 // public function search(Request $request)
 // {
-   
+
 
 //  $keyword = $request->input('keyword');
 //  $category = $request->input('category');
@@ -859,7 +860,7 @@ if($category)
 
 
    return view('searchResult', compact(['featuredServices', 'all_states', 'services1', 'services2', 'services3', 'services4', 'services5', 'services5', 'services6', 'services7', 'services8',
-   'keywordResponses1', 'keywordResponses2', 'keywordResponses3', 'keywordResponses4', 'keywordResponses5', 'keywordResponses6', 'keywordResponses7', 'keyword_and_Categories', 'keyword_and_state', 
+   'keywordResponses1', 'keywordResponses2', 'keywordResponses3', 'keywordResponses4', 'keywordResponses5', 'keywordResponses6', 'keywordResponses7', 'keyword_and_Categories', 'keyword_and_state',
    'keyword_and_category_and_state', 'category_response' ]));
 }
 

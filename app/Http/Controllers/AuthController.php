@@ -35,7 +35,7 @@ class AuthController extends Controller
 		$result = substr($state, 0, 3);
 		$ist_3_result = strtoupper($result);
 		$randomCode = Str::random(4);
-		$length = 1;    
+		$length = 1;
 		$last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
 
         $data = [
@@ -43,10 +43,12 @@ class AuthController extends Controller
             'email'      => $request->email,
             'phone'      => $request->phone,
             'state'      => $request->state,
+            'identification_type' => $request->identification_type,
+            'identification_id'   => $request->identification_id,
             'lga'        => $request->lga,
             'is_agent'   => 1,
             'agent_code' => $result . $randomCode . $last_letter,
-            'role'       =>  $request->role,
+            'role'       =>  'agent',
             'status'     => 1,
             'password'   => Hash::make($request->password)
         ];
@@ -55,15 +57,13 @@ class AuthController extends Controller
 
         if ($user) {
             $credentials = $request->only('email', 'password');
-			
+
 			if (Auth::attempt($credentials)) {
-				if ( $request->role == 'agent' )
-					return redirect()->route('agent.dashboard');
-	
-				} else {
-					return Redirect::to(Session::get('url.intended'));
-				}
-				return redirect()->intended('/');
+				return redirect()->route('agent.dashboard');
+            }
+            else{
+                return redirect()->intended('/');
+            }
         }
     }
 
@@ -187,7 +187,7 @@ $referlink = $refer;
 	public function loginformail(Request $request)
 
 	{
-	
+
 		if (Auth::user()->email_verified_at == null) {
 			return redirect()->intended('/email/verify');
 		}

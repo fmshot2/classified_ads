@@ -37,7 +37,7 @@
   <!-- mini logo-->
   <span class="logo-mini"><b>EFC</b></span>
   <!-- logo for regular state and mobile devices -->
-  <span class="logo-lg"><img src="images/{{$check_general_info == 0 ? $general_info->logo : '' }}" alt="" style=""></span>
+  <span class="logo-lg"><img src="{{ asset('images/'.$general_info->logo) }}" alt="" style=""></span>
 </a>
 <!-- Header Navbar -->
 <nav class="navbar navbar-static-top" style="background-color: #f8d053">
