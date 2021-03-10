@@ -43,6 +43,8 @@ class AuthController extends Controller
             'email'      => $request->email,
             'phone'      => $request->phone,
             'state'      => $request->state,
+            'identification_type' => $request->identification_type,
+            'identification_id'   => $request->identification_id,
             'lga'        => $request->lga,
             'is_agent'   => 1,
             'agent_code' => $result . $randomCode . $last_letter,
@@ -57,13 +59,11 @@ class AuthController extends Controller
             $credentials = $request->only('email', 'password');
 
 			if (Auth::attempt($credentials)) {
-				if ( $request->role == 'agent' )
-					return redirect()->route('agent.dashboard');
-
-				} else {
-					return Redirect::to(Session::get('url.intended'));
-				}
-				return redirect()->intended('/');
+				return redirect()->route('agent.dashboard');
+            }
+            else{
+                return redirect()->intended('/');
+            }
         }
     }
 
