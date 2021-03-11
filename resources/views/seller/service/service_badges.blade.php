@@ -45,9 +45,8 @@
         @include('layouts.backend_partials.status')
 
         <section class="content-header">
-        <p style="font-size: 18px">Here, You Can Request For A Badge.</p>
-
-            <h3>Get a Badge <small class="infoLinkNote">(<a data-toggle="modal" data-target="#theinfoModal">How it works?</a>)</small></h3>
+            <h3 class="page-title">Get a Badge <small class="infoLinkNote">(<a data-toggle="modal" data-target="#theinfoModal">How it works?</a>)</small></h3>
+            <p class="page-description">Here, You Can Request For A Badge.</p>
         </section>
 
         <section class="content">
@@ -65,7 +64,7 @@
                                 <li>Your service(s) will be featured and show first on efcontact pages.</li>
                                 <li>Upload as much as (8) images of your services.</li>
                                 <li>Appear on the top when inquirers search for services related to yours</li>
-                                <li>Cost: &#8358;5,000</li>
+                                <li>Cost: &#8358;20,000</li>
                             </ol>
                         </div>
                         <div class="box-footer box-profile text-center">
@@ -104,7 +103,7 @@
                                 <li>Your service(s) will be  featured and show third to moderate on efcontact pages.</li>
                                 <li>Upload as much as (4) images of your services.</li>
                                 <li>Appear after <b>Moderate</b> when inquirers search for services related to yours</li>
-                                <li>Cost: &#8358;20,000</li>
+                                <li>Cost: &#8358;5,000</li>
                             </ol>
                         </div>
                         <div class="box-footer box-profile text-center">
@@ -140,11 +139,11 @@
                                     <label for="">Amount: </label> &#8358;<span id="badgeCost"></span>
                                 </div>
                             </div>
-                            <input id="badge_type" type="text" name="badge_type" value="">
-                            <input id="amount" type="text" name="amount" value="">
+                            <input hidden id="badge_type" type="text" name="badge_type" value="">
+                            <input hidden id="amount" type="text" name="amount" value="">
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-info pd-x-20">Click to make payment</button>
+                            <button type="submit" class="btn btn-warning pd-x-20">Click to make payment</button>
                             <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>

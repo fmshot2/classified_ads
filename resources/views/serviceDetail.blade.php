@@ -22,6 +22,55 @@
     form label{
         font-size: 16px !important;
     }
+    .b-provider-online-info {
+        width: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 12px 0;
+        border-top: 1px solid #f2f2f2;
+        border-bottom: 1px solid #f2f2f2;
+    }
+    .b-provider-online-info-block:not(:last-of-type) {
+        border-right: 1px solid #f2f2f2;
+    }
+    .b-provider-online-info-block {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 0;
+        -ms-flex: 1 0;
+        flex: 1 0;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding: 8px 0;
+    }
+    .b-provider-online-title {
+        color: #efac4e;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 3px;
+    }
+    .b-provider-online-aside {
+        color: #464b4f;
+        font-size: 14px;
+        line-height: 1.5;
+    }
 </style>
 <!-- Sub banner start -->
 <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/servicedetail.jpg')}})">
@@ -403,17 +452,34 @@
                             </div>
 
                             <div class="ser-seller-note">
-                                <div>
-                                    <b>Registered:</b>  <i>"{{$serviceDetail->created_at->diffForHumans()}}"</i>
-                                </div>
 
                                 @guest
                                     <p style="margin-bottom: 5px; font-size: 16px;"><a href="{{route('login')}}"><strong style="color: #CA8309; font-size: 16px;">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #28a745">Register</strong></a> to view <strong class="tt-capitalize">{{ $the_provider_f_name }}</strong> contact details.</p>
                                 @endguest
-                            </div>
 
-                            <div class="s-border" style="margin-top: 10px"></div>
-                            <div class="m-border"></div>
+                                <div class="s-border" style="margin-top: 10px"></div>
+                                <div class="m-border"></div>
+
+                                <div class="b-provider-online-info">
+                                    <div class="b-provider-online-info-block">
+                                        <div class="b-provider-online-title">
+                                            {{ $serviceDetail->user->created_at->diffForHumans() }}
+                                        </div>
+                                        <div class="b-provider-online-aside">
+                                            Registered
+                                        </div>
+                                    </div>
+
+                                    <div class="b-provider-online-info-block">
+                                        <div class="b-provider-online-title">
+                                            42 min ago
+                                        </div>
+                                        <div class="b-provider-online-aside">
+                                            Last seen
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             @auth
                                 <p style="text-align: center">

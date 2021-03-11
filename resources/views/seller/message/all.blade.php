@@ -10,7 +10,8 @@
 		@include('layouts.backend_partials.status')
 	</div>
     <section class="content-header">
-        <p style="font-size: 23px">You Can View All Your Messages Here.</p>
+        <h3 class="page-title">All Messages</h3>
+        <p class="page-description">This is where you get all your messages.</p>
     </section>
 	<section class="content">
 
