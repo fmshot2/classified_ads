@@ -73,6 +73,7 @@
         line-height: 1.5;
         font-weight: 600;
     }
+
 </style>
 <!-- Sub banner start -->
 <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/servicedetail.jpg')}})">
