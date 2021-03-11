@@ -40,6 +40,7 @@
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css')}}">
 
 	<link rel="stylesheet" href="{{asset('dropzone/dist/dropzone.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -56,13 +57,6 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
-
-<style type="text/css">
-	.dt-buttons .dt-button {
-		background: #f8d053 !important;
-		color: white !important;
-	}
-</style>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/basic.css" rel="stylesheet" type="text/css" />
 <link href="{{ asset('css/ibiStyles.css') }}" rel="stylesheet" type="text/css" />
@@ -85,6 +79,11 @@
         font-size: 20px;
         text-align: center;
     }
+    .dt-buttons .dt-button {
+        background: #CA8309 !important;
+        color: white !important;
+    }
+
 </style>
 
 

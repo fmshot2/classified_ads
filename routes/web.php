@@ -30,6 +30,7 @@ Route::middleware(['agent'])->group(function () {
 Route::post('advertisement/create', 'OperationalController@advertCreate')->name('advertisement.create');
 
 Route::view('referral-program/', 'referralprogram')->name('referralprogram');
+Route::get('about-us/', 'OperationalController@aboutus')->name('aboutus');
 
 Route::get('test_new_badge', 'BadgeController@test_new_badge');
 
@@ -313,8 +314,8 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::put('/admin/advert/update_slider/{id}', 'OperationalController@update_advert_sliders')->name('admin.advert.update_slider');
     Route::get('/admin/delete/sponsored/{id}', 'OperationalController@delete_advert_slider')->name('admin.advert.delete_sliders');
 
-    Route::get('/admin/pending_advert_requests', 'AdminController@pending_advert_requests')
-    ->name('pending_advert_requests');
+    Route::get('/admin/pending_advert_requests', 'AdminController@pending_advert_requests')->name('pending_advert_requests');
+    Route::get('/admin/all_adverts', 'AdminController@all_adverts')->name('admin.all_adverts');
     Route::get('/admin/treated_advert_requests', 'AdminController@treated_advert_requests')
     ->name('treated_advert_requests');
     Route::get('/admin/active_adverts', 'AdminController@active_adverts')

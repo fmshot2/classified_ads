@@ -38,7 +38,7 @@ class CreateGeneralInfosTable extends Migration
             $table->string('linkedin')->nullable();
             $table->string('twitter')->nullable();
             $table->string('support_email')->nullable();
-            
+
             $table->timestamps();
         });
     }

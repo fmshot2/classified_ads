@@ -44,6 +44,10 @@ span.info-box-icon.push-bottom.bg-warning {
     color: rgb(139, 255, 216);
 }
 
+.box-body thead th{
+    font-weight: 600;
+}
+
 @-webkit-keyframes pulsePostBtn {
     0% {
         -webkit-box-shadow: 0 0 0 0 rgba(255, 103, 103, 0.9);

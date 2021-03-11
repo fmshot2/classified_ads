@@ -8,7 +8,7 @@
       <span class="logo-lg"><b> Yellow</b>Page</span>
     </a>
     <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top" style="background-color: #f8d053">
+    <nav class="navbar navbar-static-top" style="background-color: #CA8309">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -86,7 +86,7 @@
                   <a href="{{ route('seller.message.view',$unread_messages->slug) }}">
 
                     <div class="mail-contnet">
-                      <span style="font-weight: bold;"> {{ Str::limit($unread_messages->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_messages->created_at->diffForHumans() }} </small> </span> 
+                      <span style="font-weight: bold;"> {{ Str::limit($unread_messages->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_messages->created_at->diffForHumans() }} </small> </span>
                   </div>
                 </a>
               </li>
@@ -117,7 +117,7 @@
                   <a href="{{ route('seller.notification.view',$unread_notifications->slug) }}">
 
                     <div class="mail-contnet">
-                      <span style="font-weight: bold;"> {{ Str::limit($unread_notifications->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_notifications->created_at->diffForHumans() }} </small> </span> 
+                      <span style="font-weight: bold;"> {{ Str::limit($unread_notifications->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_notifications->created_at->diffForHumans() }} </small> </span>
                   </div>
                 </a>
               </li>

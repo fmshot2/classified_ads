@@ -24,9 +24,9 @@ class OperationalController extends Controller
 
         $agent_code_check = Refererlink::where(['user_id'=>Auth::id()])->first();
 
-        $service_count = Refererlink::where('user_id', Auth::id() )->count();    
+        $service_count = Refererlink::where('user_id', Auth::id() )->count();
             return view ('agent.dashboard', compact('service_count', 'agent_code_check'));
-    
+
 
 
 
@@ -295,6 +295,11 @@ class OperationalController extends Controller
     public function advertisement() {
         $advert_locations = AdvertLocation::all();
         return view('advertisement', compact('advert_locations'));
+    }
+
+    public function aboutus()
+    {
+        return view('about');
     }
 
 }

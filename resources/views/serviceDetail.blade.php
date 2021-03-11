@@ -31,6 +31,7 @@
         padding: 12px 0;
         border-top: 1px solid #f2f2f2;
         border-bottom: 1px solid #f2f2f2;
+        margin-bottom: 15px;
     }
     .b-provider-online-info-block:not(:last-of-type) {
         border-right: 1px solid #f2f2f2;
@@ -70,6 +71,7 @@
         color: #464b4f;
         font-size: 14px;
         line-height: 1.5;
+        font-weight: 600;
     }
 </style>
 <!-- Sub banner start -->
@@ -125,6 +127,7 @@
                                         <h3 class="service-name">{{$serviceDetail->name}}</h3>
                                         <p><span><i class="fa fa-map-marker"></i> Location:</span> <span style="color: #ca8309" class="tt-capitalize">{{$serviceDetail->state}}</span></p>
                                         <p><span><i class="fa fa-user"></i> Service Provider: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->user->name}}</span></p>
+                                        <p><span><i class="fa fa-clock-o"></i> Posted on: </span><span style="color: #ca8309"> {{ $serviceDetail->created_at->diffForHumans() }}</span></p>
                                     </div>
                                 </div>
                             </div>

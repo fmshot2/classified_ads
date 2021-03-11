@@ -61,7 +61,7 @@
                         <div class="box-body box-profile text-center">
                             <h4>Super</h4>
                             <ol class="text-left">
-                                <li>Your service(s) will be featured and show first on efcontact pages.</li>
+                                <li>Your service(s) will be featured on all efcontact pages.</li>
                                 <li>Upload as much as (8) images of your services.</li>
                                 <li>Appear on the top when inquirers search for services related to yours</li>
                                 <li>Cost: &#8358;20,000</li>
@@ -74,14 +74,14 @@
                 </div>
                 <div class="col-md-4">
                     <div class="box box-primary">
-                        <div class="box-header bg-primary text-center">
+                        <div class="box-header bg-success text-center">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                         </div>
                         <div class="box-body box-profile text-center">
                             <h4>Moderate</h4>
                             <ol class="text-left">
-                                <li>Your service(s) will be featured and show second on efcontact pages.</li>
+                                <li>Your service(s) will be featured on all efcontact pages.</li>
                                 <li>Upload as much as (6) images of your services.</li>
                                 <li>Appear after <b>Super</b> when inquirers search for services related to yours</li>
                                 <li>Cost: &#8358;10,000</li>
@@ -94,13 +94,13 @@
                 </div>
                 <div class="col-md-4">
                     <div class="box box-primary">
-                        <div class="box-header bg-success text-center">
+                        <div class="box-header bg-primary text-center">
                             <i class="fa fa-star"></i>
                         </div>
                         <div class="box-body box-profile text-center">
                             <h4>Basic</h4>
                             <ol class="text-left">
-                                <li>Your service(s) will be  featured and show third to moderate on efcontact pages.</li>
+                                <li>Your service(s) will be  featured on most of efcontact pages..</li>
                                 <li>Upload as much as (4) images of your services.</li>
                                 <li>Appear after <b>Moderate</b> when inquirers search for services related to yours</li>
                                 <li>Cost: &#8358;5,000</li>
@@ -141,6 +141,10 @@
                             </div>
                             <input hidden id="badge_type" type="text" name="badge_type" value="">
                             <input hidden id="amount" type="text" name="amount" value="">
+
+                            <p style="text-align: center; font-size: 17px" class="animate__animated animate__tada animate__infinite">
+                                You will be redirected to GTBank to continue the payment process.
+                            </p>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-warning pd-x-20">Click to make payment</button>

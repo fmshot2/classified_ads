@@ -2,17 +2,19 @@
 @extends('layouts.admin')
 
 @section('title')
-Update Profile | 
+Update Profile |
 @endsection
 
 @section('content')
 
-<br>
-<hr>
-
 <div class="container">
 
 @include('layouts.backend_partials.status')
+
+<section class="content-header">
+    <h3 class="page-title">Your Profile</h3>
+    <p class="page-description">This page is for managing your profile details.</p>
+</section>
 
 	<section class="content">
 
@@ -69,7 +71,7 @@ Update Profile |
 									</div>
 								</div>
 
-			
+
 								<div class="form-group">
 									<label for="inputEmail" class="col-sm-2 control-label">Email</label>
 

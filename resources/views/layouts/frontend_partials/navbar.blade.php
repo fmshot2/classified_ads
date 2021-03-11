@@ -57,6 +57,7 @@
 
             <div class="col-lg-6 col-md-4 col-sm-5">
                 <ul class="list-inline top-header-links pull-right">
+                    <a class="text-warning" href="{{route('aboutus')}}" id=""><i class="fa fa-group"></i> About</a>
                     <a class="text-warning" href="{{route('contact')}}" id=""><i class="fa fa-envelope-open"></i> Contact</a>
                     @guest
                         <a class="text-warning" href="/login"><i class="fa fa-sign-in"></i> Login</a>
