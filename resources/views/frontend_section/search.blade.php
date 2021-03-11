@@ -88,7 +88,7 @@
 
                     <div class="col-lg-2 col-md-4 col-sm-6 text-center">
                         <div class="form-group">
-                            <button class="btn btn-block bg-warning font-weight-bold text-white btn-warning" style="margin-top: 25px">Search
+                            <button class="btn btn-block bg-warning font-weight-bold text-white btn-warning" style="margin-top: 25px; background-color: #CA8309">Search
                                 <i class="fa fa-search ml-2" aria-hidden="true"></i>
                             </button>
                         </div>
