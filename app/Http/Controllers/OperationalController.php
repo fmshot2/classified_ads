@@ -302,4 +302,9 @@ class OperationalController extends Controller
         return view('about');
     }
 
+    public function myreferrals()
+    {
+        return view('seller.myreferrals');
+    }
+
 }

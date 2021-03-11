@@ -28,7 +28,6 @@ Route::middleware(['agent'])->group(function () {
 });
 
 Route::post('advertisement/create', 'OperationalController@advertCreate')->name('advertisement.create');
-
 Route::view('referral-program/', 'referralprogram')->name('referralprogram');
 Route::get('about-us/', 'OperationalController@aboutus')->name('aboutus');
 
@@ -197,6 +196,9 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
 
         Route::get('/dashboard/service/view/{slug}', 'SellerController@viewService')->name('service.view');
         Route::get('/dashboard/service/update/{slug}', 'SellerController@viewServiceUpdate')->name('service.update.view');
+
+
+        Route::get('my-referrals/', 'OperationalController@myreferrals')->name('provider.myreferrals');
 
     });
 
