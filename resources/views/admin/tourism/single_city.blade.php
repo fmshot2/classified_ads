@@ -15,8 +15,9 @@
                         <!-- /.box-header -->
                         <div class="box-body" style="padding: 20px">
                             <!-- form start -->
-                            <form class="form-horizontal form-element" method="POST" action="{{route('admin.save_city')}}" enctype="multipart/form-data">
-                                {{ csrf_field() }}
+                            <form class="form-horizontal form-element" method="POST" action="{{route('add_city_images', ['slug' => $city->slug ])}}" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
                                      <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Name of City: </label>
@@ -38,7 +39,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Description: </label>
-                                        <textarea name="description" id="basic-example" class="form-control">{{ $city->description }}</textarea>  
+                                        <textarea name="description" id="basic-example" class="form-control">{{ $city->description }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">

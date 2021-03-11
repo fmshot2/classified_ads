@@ -1,7 +1,7 @@
 @extends('layouts.buyer')
 
 @section('title')
-All Notification | 
+All Notification |
 @endsection
 
 @section('content')
@@ -13,6 +13,11 @@ All Notification |
 	<div class="container">
 		@include('layouts.backend_partials.status')
 	</div>
+
+    <section class="content-header">
+        <h3 class="page-title">General  Notice</h3>
+        <p class="page-description">This Page Is To Notify You Of Updates And Changes From The EFContact Company.</p>
+    </section>
 
 	<section class="content">
 
@@ -74,7 +79,7 @@ All Notification |
 
 
 			<!-- /.content -->
-		</div>	
+		</div>
 
 
 

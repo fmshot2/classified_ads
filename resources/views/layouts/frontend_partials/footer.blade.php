@@ -198,6 +198,7 @@
             <div class="modal-content" style="border-radius: 0 !important; padding: 0">
                 <div class="modal-body" style="padding: 0">
                     <ul>
+                        <li><a href="{{route('aboutus')}}">About Us</a></li>
                         <li><a href="{{route('contact')}}">Contact Us</a></li>
                         <li><a href="{{route('allServices')}}">All Services</a></li>
                         <li><a href="{{route('allCategories')}}">All Categories</a></li>

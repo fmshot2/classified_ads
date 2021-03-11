@@ -13,9 +13,10 @@
 
 <div class="content-wrapper" style="min-height: 868px;">
     @include('layouts.backend_partials.status')
+
     <section class="content-header">
-    <h3>Create Service Page</h3>
-        <p style="font-size: 23px">You can create a service here.</p>
+        <h3 class="page-title">Create Service Page</h3>
+        <p class="page-description">This is where you can create your service.</p>
     </section>
 
     <section class="content">

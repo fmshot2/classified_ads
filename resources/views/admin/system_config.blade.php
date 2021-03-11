@@ -20,8 +20,7 @@
 
             <div class="box">
               <div class="box-header">
-                <h3 class="box-title">Website Settings
-                </h3>
+                <h3 class="box-title">Website Settings</h3>
                 <!-- tools box -->
                 <div class="pull-right box-tools">
                   <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
@@ -48,6 +47,15 @@
                                             <div class="form-group">
                                                 <label for="site_name" class="control-label">Site Name</label>
                                                 <input type="text" name="site_name" id="site_name" class="form-control" autofocus="" value="{{ $check_general_info == 0 ? $general_info->site_name : ''  }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">About Us</label>
+                                                <textarea name="about_site" id="about-site" class="form-control" rows="7" value="{{ $check_general_info == 0 ? $general_info->about_site : ''  }}" style="border: 1px solid #d2d6de; padding: 10px">
+                                                    {{ $check_general_info == 0 ? $general_info->about_site : ''  }}
+                                                </textarea>
                                             </div>
                                         </div>
 
@@ -120,38 +128,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="register_section_1" class="control-label"> Register Section 1 Title </label>
@@ -182,57 +158,6 @@
                                             <textarea class="form-control" name="register_section_3"> {{ $check_general_info == 0 ? $general_info->register_section_3 : ''}} </textarea>
                                         </div>
                                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                                     <div class="col-lg-12">
@@ -302,12 +227,31 @@
 
                                     <li>
                                         <b>Logo (logo size:207 X 57)</b><br>
-                                        <p><img src="{{asset('images')}}/{{ $check_general_info == 0 ? $general_info->logo : ''}}" alt="" width="30%" style="float: left; margin-right: 20px;"></p>
+                                        <p><img src="{{asset('images')}}/{{ $check_general_info == 0 ? $general_info->logo : ''}}" alt="" width="30%" style="margin-top: 10px;"></p>
                                     </li>
                                 </ul>
 
 
                                 <br>
+                                <hr>
+
+
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box box-solid">
+                                        <div class="box-header with-border">
+                                            <i class="fa fa-text-width"></i>
+
+                                            <h3 class="box-title"> About Us</h3>
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body">
+                                            <dd> {!! $check_general_info == 0 ? Str::limit($general_info->about_site, 380) : '' !!} </dd>
+                                        </dl>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
                                 <hr>
 
                                 <div class="row"> <!-- Row start here -->
@@ -373,10 +317,10 @@
                     <!-- /.box-body -->
                 </div>
                 <!-- /.box -->
+
             </div>
 
         </div> <!-- Row start end here -->
-
 
 
 
@@ -398,7 +342,24 @@
 
 
 
-
+{{-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: 'textarea#about-site',
+        height: 200,
+        menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar: 'undo redo | formatselect | ' +
+        'bold italic backcolor | alignleft aligncenter ' +
+        'alignright alignjustify | bullist numlist outdent indent | ' +
+        'removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+    });
+</script> --}}
 
 
 @endsection

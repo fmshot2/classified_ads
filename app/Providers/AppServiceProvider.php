@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Advertisement;
+use App\AdvertLocation;
 use App\Category;
 use Illuminate\Support\ServiceProvider;
 use App\General_Info;
@@ -29,10 +30,11 @@ class AppServiceProvider extends ServiceProvider
             $check_general_info = collect($general_info)->isEmpty();
 
             $advertisements = Advertisement::all();
+            $advertlocations = AdvertLocation::all();
             $services = Service::all();
             $categories = Category::orderBy('name', 'asc')->get();
 
-            $view->with( compact('general_info', 'check_general_info', 'advertisements', 'categories'));
+            $view->with( compact('general_info', 'check_general_info', 'advertisements', 'categories', 'advertlocations'));
         });
 
     }

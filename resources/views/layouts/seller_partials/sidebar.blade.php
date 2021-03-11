@@ -72,7 +72,7 @@
         </li>
         --}}
 
-      
+
 
 
 
@@ -99,8 +99,16 @@
             <i class="fa fa-plus"></i> <span> Post Advert </span>
             <span class="pull-right-container">
             </span>
-          </a> --}}
-        </li>
+          </a>
+        </li> --}}
+
+        <li style="{{ url()->current() == route('provider.myreferrals') ? 'background-color: #f8d053' : '' }}">
+            <a href=" {{ route ('provider.myreferrals') }} ">
+              <i class="fa fa-group"></i> <span> My Referrals </span>
+              <span class="pull-right-container">
+              </span>
+            </a>
+          </li>
 
 
           <li style="{{ url()->current() == route('seller.service.badges') ? 'background-color: #f8d053' : '' }}">

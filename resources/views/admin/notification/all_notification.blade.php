@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-All Notification | 
+All Notification |
 @endsection
 
 @section('content')
@@ -16,9 +16,14 @@ All Notification |
 		</div>
 	</div>
 
+    <section class="content-header">
+        <h3 class="page-title">General  Notice</h3>
+        <p class="page-description">This Page Is To Notify You Of Updates And Changes From The EFContact Company.</p>
+    </section>
+
 	<section class="content">
 
-	
+
 		<div class="row">
 
 			<div class="col-xs-12">
@@ -82,7 +87,7 @@ All Notification |
 
 
 			<!-- /.content -->
-		</div>	
+		</div>
 
 
 
@@ -92,7 +97,7 @@ All Notification |
 </section>
 
 
-  
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -109,7 +114,7 @@ All Notification |
   <div class="form-group">
     <label for="exampleInputEmail1">Subject</label>
     <input type="text" required class="form-control" name="title" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Message Subject">
-   
+
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Message</label>
