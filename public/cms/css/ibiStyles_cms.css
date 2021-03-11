@@ -16,6 +16,38 @@ span.info-box-icon.push-bottom.bg-warning {
     box-shadow: 0 0 0 rgba(255, 41, 41, 0.4);
     animation: pulsePostBtn 1s infinite;
 }
+.provider .navbar{
+    background-color: #CA8309 !important;
+}
+.skin-blue .main-header .navbar .sidebar-toggle:hover {
+    background-color: #f0b95c !important;
+}
+.dt-buttons .dt-button {
+    background: #CA8309 !important;
+    color: white !important;
+}
+/* CA8309 */
+
+.page-title{
+    font-size: 22px;
+}
+.page-description{
+    font-size: 15px
+}
+.infoLinkNote{
+    color: rgb(39, 228, 165);
+}
+.infoLinkNote a{
+    color: rgb(39, 228, 165);
+}
+.infoLinkNote a:hover{
+    color: rgb(139, 255, 216);
+}
+
+.box-body thead th{
+    font-weight: 600;
+}
+
 @-webkit-keyframes pulsePostBtn {
     0% {
         -webkit-box-shadow: 0 0 0 0 rgba(255, 103, 103, 0.9);

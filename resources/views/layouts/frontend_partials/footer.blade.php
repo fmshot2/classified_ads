@@ -86,20 +86,19 @@
                     <div class="s-border"></div>
                     <div class="m-border"></div>
                     <div class="popular-posts">
-                        @foreach($service as $services)
-                                                <div class="media">
-                            <div class="media-left">
-                                <a class="title" href="{{route('serviceDetail', $services->slug)}}"  style="font-size: 14px;"><img class="media-object" src=" {{asset('uploads/services')}}/{{ $services->service_image}} " alt="sub-properties"></a>
-
-                            </div>
-                            <div class="media-body align-self-center">
-                                <h3 class="media-heading">
-                                    </h3><h6><a href="{{route('serviceDetail', $services->slug)}}">{{ Str::limit($services->name, 35)}}</a></h6>
-
-                                <p>{{ Str::limit($services->state, 25)}}</p>
-                            </div>
-                        </div>
-                        @endforeach
+                        @if ($advertisements)
+                            @foreach($advertisements as $advertisement)
+                                @if ($advertisement->advert_location == 4 && $loop->index != 3)
+                                    <div class="media">
+                                        <div class="media-body align-self-center">
+                                            <a class="title" href="{{ $advertisement->website_link ? route('serviceDetail', $advertisement->website_link) : '#' }}"  style="font-size: 14px;"><img class="media-object" src="{{ asset('uploads/sponsored/'.$advertisement->banner_img) }}" alt="{{ $advertisement->title }}" style="width: 250px; height: 65px"></a>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        @else
+                            <p>No advert here!</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -199,12 +198,14 @@
             <div class="modal-content" style="border-radius: 0 !important; padding: 0">
                 <div class="modal-body" style="padding: 0">
                     <ul>
+                        <li><a href="{{route('aboutus')}}">About Us</a></li>
                         <li><a href="{{route('contact')}}">Contact Us</a></li>
                         <li><a href="{{route('allServices')}}">All Services</a></li>
                         <li><a href="{{route('allCategories')}}">All Categories</a></li>
                         {{-- <li><a href="{{route('allSellers')}}">Service Providers</a></li> --}}
                         <li><a href="{{route('allcities')}}">Places in Nigeria</a></li>
                         <li><a href="{{route('advertisement')}}">Advertise With Us</a></li>
+                        <li><a data-toggle="modal" data-target="#launchAgentModal" href="#">Become our Agent</a></li>
                         <li><a data-toggle="modal" data-target="#subscribeBox" href="#">Subscribe Now!</a></li>
                     </ul>
                 </div>

@@ -26,12 +26,10 @@
             </span>
           </a>
         </li>
-
-
-
+        
         <li class="" style="{{ url()->current() == route('seller.message.all') ? 'background-color: #f8d053' : '' }}">
           <a href=" {{route ('seller.message.all') }}">
-            <i class="fa fa-briefcase"></i> <span> My Messages </span>
+            <i class="fa fa-briefcase"></i> <span> All My Referalls </span>
             <span class="pull-right-container">
               <small class="label pull-right bg-danger">   </small>
             </span>
@@ -48,8 +46,6 @@
             </span>
           </a>
         </li>
-
-
 
 
         <li style="{{ url()->current() == route('seller.profile') ? 'background-color: #f8d053' : '' }}">

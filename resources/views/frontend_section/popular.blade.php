@@ -106,7 +106,7 @@
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
-            <h1>Tourism in Nigeria</h1>
+            <h1>Tourist Sites in Nigeria</h1>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-2 col-md-6 col-sm-6 col-6">
@@ -118,61 +118,57 @@
         <div class="row wow animated" style="visibility: visible;">
             <div class="col-lg-7 col-md-12 col-sm-12">
                 <div class="row">
-                    <div class="col-sm-6 col-pad">
-                        <div class="category">
-                            <div class="category_bg_box cat-1-bg">
-                                <div class="category-overlay">
-                                    <div class="category-content">
-                                        <h3 class="category-title">
-                                            <a href="#">Lagos</a>
-                                        </h3>
+                    @if ($tourist_attractions)
+                        @foreach($tourist_attractions as $tourist_attraction)
+                            @if ($loop->first || $loop->index == 1)
+                                <div class="col-sm-6 col-pad">
+                                    <div class="category">
+                                        <div class="category_bg_box cat-1-bg" style="background-image: url({{ asset('cities_images/'.$tourist_attraction->thumb) }});">
+                                            <div class="category-overlay">
+                                                <div class="category-content">
+                                                    <h3 class="category-title">
+                                                        <a href="#">{{ $tourist_attraction->name }}</a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-pad">
-                        <div class="category">
-                            <div class="category_bg_box cat-2-bg">
-                                <div class="category-overlay">
-                                    <div class="category-content">
-                                        <h3 class="category-title">
-                                            <a href="#">Port Harcourt</a>
-                                        </h3>
+                            @elseif($loop->index == 2)
+                                <div class="col-sm-12 col-pad">
+                                    <div class="category">
+                                        <div class="category_bg_box cat-3-bg" style="background-image: url({{ asset('cities_images/'.$tourist_attraction->thumb) }});">
+                                            <div class="category-overlay">
+                                                <div class="category-content">
+                                                    <h3 class="category-title">
+                                                        <a href="#">{{ $tourist_attraction->name }}</a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
                     </div>
-                    <div class="col-sm-12 col-pad">
-                        <div class="category">
-                            <div class="category_bg_box cat-3-bg">
-                                <div class="category-overlay">
-                                    <div class="category-content">
-                                        <h3 class="category-title">
-                                            <a href="#">Enugu</a>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div class="col-lg-5 col-md-12 col-sm-12 col-pad d-none d-xl-block d-lg-block">
-                <div class="category">
-                    <div class="category_bg_box category_long_bg cat-4-bg">
-                        <div class="category-overlay">
-                            <div class="category-content">
-                                <h3 class="category-title">
-                                    <a href="#">Abuja</a>
-                                </h3>
+                            @elseif($loop->index == 3)
+                                <div class="col-lg-5 col-md-12 col-sm-12 col-pad d-none d-xl-block d-lg-block">
+                                    <div class="category">
+                                        <div class="category_bg_box category_long_bg cat-4-bg" style="background-image: url({{ asset('cities_images/'.$tourist_attraction->thumb) }});">
+                                            <div class="category-overlay">
+                                                <div class="category-content">
+                                                    <h3 class="category-title">
+                                                        <a href="#">{{ $tourist_attraction->name }}</a>
+                                                    </h3>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    @endif
+
         </div>
     </div>
 </div>

@@ -31,7 +31,7 @@
         }
     }
 </style>
-<header class="main-header ">
+<header class="main-header provider">
 <!-- Logo -->
 <a href="index.html" class="logo">
   <!-- mini logo-->
@@ -40,7 +40,7 @@
   <span class="logo-lg"><img src="{{ asset('images/'.$general_info->logo) }}" alt="" style=""></span>
 </a>
 <!-- Header Navbar -->
-<nav class="navbar navbar-static-top" style="background-color: #f8d053">
+<nav class="navbar navbar-static-top">
   <!-- Sidebar toggle button-->
   <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
     <span class="sr-only">Toggle navigation</span>

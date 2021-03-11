@@ -10,7 +10,8 @@
 		@include('layouts.backend_partials.status')
 	</div>
     <section class="content-header">
-        <p style="font-size: 23px">You Can View All Your Services Here.</p>
+        <h3 class="page-title">All Services Page </h3>
+        <p class="page-description">This is whea compiled list of all your service(s).</p>
     </section>
 	<section class="content">
 

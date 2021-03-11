@@ -166,11 +166,6 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
     return view ('admin.service.index', compact('all_service') );
   }
 
-
-  public function advertisement() {
-    return view('advertisement');
-  }
-
   public function activeService()
   {
     $active_service = Service::where('status', 1)->paginate(20);
@@ -192,6 +187,12 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
   {
     $treated_advert_requests = Advertrequest::where('status', 1)->paginate(10);
     return view ('admin.page_management.treated_advert_requests', compact('treated_advert_requests') );
+  }
+
+  public function all_adverts()
+  {
+    $advertisements = Advertrequest::all();
+return view ('admin.advert_management.sliders', compact('advertisements') );
   }
 
   public function active_adverts()
@@ -350,6 +351,7 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
 
     $general_info = $id == 1 ? General_Info::find($id) : New General_Info;
     $general_info->site_name = $request->site_name;
+    $general_info->about_site = $request->about_site;
     $general_info->hot_line = $request->hotline;
     $general_info->hot_line_2 = $request->hotline2;
     $general_info->hot_line_3 = $request->hotline3;
@@ -374,10 +376,15 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
     }
 
 
-    $general_info->save();
-    $request->session()->flash('status', 'Task was successful!');
 
-    return $this->systemConfig();
+    if ($general_info->save()) {
+        $success_notification = array(
+            'message' => 'Config saved successfully!',
+            'alert-type' => 'success'
+        );
+    }
+
+    return redirect()->back()->with($success_notification);
 
   }
 
