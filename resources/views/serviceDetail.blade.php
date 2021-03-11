@@ -475,7 +475,7 @@
 
                                     <div class="b-provider-online-info-block">
                                         <div class="b-provider-online-title">
-                                            42 min ago
+                                            {{ \Carbon\Carbon::parse($serviceDetail->user->last_seen)->diffForHumans() }}
                                         </div>
                                         <div class="b-provider-online-aside">
                                             Last seen
