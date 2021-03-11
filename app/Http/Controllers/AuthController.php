@@ -72,6 +72,9 @@ class AuthController extends Controller
 
 		$link_from_url = $request->refer;
 		$code_of_agent = $request->agent_code;
+		// dd($link_from_url, 'and', $code_of_agent);
+
+		$slug3 = Str::random(8);
 
 		// $LGA = User::find(['refererLink'=>$usrerere]);
 		// $Link_owner = User::where('refererLink', $usrerere)->first();
@@ -85,16 +88,22 @@ class AuthController extends Controller
 			'role' => 'required'
 		]);
 // Get id of owner of $link_from_url of available
-		$saveIdOfRefree = User::where(['refererLink'=>$link_from_url])->first();
-		if($saveIdOfRefree){
+		if($link_from_url){
+			$saveIdOfRefree = User::where('refererLink', $link_from_url)->first();
 			$refererId = $saveIdOfRefree->id;
-		}
+		}else{
+			$refererId = null;
+		}	
 
 		// Get id of owner of $agent code if available
-		$saveIdOfAgent = User::where(['agent_code'=>$code_of_agent])->first();
-		if($saveIdOfAgent){
+		if($code_of_agent){
+			$saveIdOfAgent = User::where('agent_code', $code_of_agent)->first();
+		// dd($saveIdOfAgent);
 			$agent_Id = $saveIdOfAgent->id;
+		}else{
+			$agent_Id = null;
 		}
+		
 
 		//save user
 		$user = new User;
@@ -103,17 +112,14 @@ class AuthController extends Controller
 		$user->password = Hash::make($request->password);
 		$user->role = $request->role;
 		//save id of referer if user was reffererd
-		if($saveIdOfRefree){
 		$user->idOfReferer = $refererId;
-		}
 		//save id of agent if user was brought by agent
-		if($saveIdOfAgent){
 		$user->idOfAgent = $agent_Id;
-		}	
-
+		$user->refererLink = $slug3;
 		//$user->state = $request->state;
 		$user->save();
 		//send mail
+
 		if ($user->save()) {
 			$name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
 			$name = $user->name;
@@ -125,35 +131,61 @@ class AuthController extends Controller
 				Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
 			}
 			catch(\Exception $e){
-				$failedtosendmail = 'Failed to Mail!.';
-			}
-
-			// if referrer link is available, save it to referer table
-			if ($link_from_url) {
-				$link = new Refererlink();
-				$link->refererlink = $link_from_url;
-				$link->save();
-			}
-			// if agent_code is available, save it to referer table
-			if ($code_of_agent) {
-				$link = new Refererlink();
-				$link->agent_code = $code_of_agent;
-				$link->save();
+				$failedtosendmail = 'Failed to Mail!';
 			}
 
 		}
-
 		session()->flash('success', ' succesfull!');
 
 		$credentials = $request->only('email', 'password');
 
 		if (Auth::attempt($credentials)) {
-			if ( $request->role == 'seller' )
-				return redirect()->route('seller.dashboard');
+			$present_user = Auth::user();
+	// 		$user_hasUploadedService = $present_user->hasUploadedService;
+	// 		if ($user_hasUploadedService == 1) {
+	// 			if ( $present_user->role == 'seller' ){
+	// 			return redirect()->route('seller.dashboard');
 
-		} else {
-			return Redirect::to(Session::get('url.intended'));
+	// 	} else {
+	// 		return Redirect::to(Session::get('url.intended'));
+	// 	}
+	// }		
+			
+
+
+		// if referrer link is available, save it to referer table
+
+			$link = new Refererlink();
+			$link->user_id = $present_user->id;
+			$link->refererlink = $present_user->refererLink;
+			$link->save();
+
+			$person_that_refered = $present_user->idOfReferer;
+			// dd($person_that_refered);
+			if($person_that_refered){
+				$referer = User::where('id', $person_that_refered)->first();
+				if ($referer) {
+					$referer->refererAmount = $referer->refererAmount + 50;
+					$referer->save();
+				}
+			}
+
+			$agent_that_refered = $present_user->idOfAgent;
+			if($agent_that_refered){
+				$referer = User::where('id', $agent_that_refered)->first();
+				if ($referer) {
+					$referer->refererAmount = $referer->refererAmount + 100;
+					$referer->save();
+				}
+			}
+
+			if ( $present_user->role == 'seller' ){
+				return redirect()->route('seller.dashboard');
+			} else {
+				return Redirect::to(Session::get('url.intended'));
+			}
 		}
+		
 		return redirect()->intended('/');
 	}
 

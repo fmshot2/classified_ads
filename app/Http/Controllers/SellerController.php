@@ -97,7 +97,7 @@ if ( $request->hasFile('files') ) {
         $service->category_id = $data['category_id'];
         $service->name = $data['name'];
         $service->description = $data['description'];
-        $service->experience = $data['experience'];
+        // $service->experience = $data['experience'];
         $service->phone = $data['phone'];
         $service->min_price = $data['min_price'];
         $service->state = $data['state'];

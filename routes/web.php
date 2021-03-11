@@ -23,7 +23,7 @@ use App\Service;
 
 Route::middleware(['agent'])->group(function () {
     Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
-    Route::get('/referal/all', 'AgentController@allMessage')->name('seller.referal.all');
+    Route::get('/referal/all', 'AgentController@allReferals')->name('seller.referal.all');
 
 });
 
@@ -74,7 +74,7 @@ Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service
 Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');
 Route::get('/service-providers', 'ServiceController@allSellers')->name('seller.sellers');
 Route::get('/terms-of-use', 'ServiceController@termsOfUse')->name('terms-of-use');
-Route::get('/advertisement', 'OperationalController@advertisement')->name('advertisement');
+Route::get('/advertisement', 'AdminController@advertisement')->name('advertisement');
 
 Route::post('/store_contact_form', 'ContactController@store_contact_form')->name('store_contact_form');
 Route::post('/store_advert_form', 'AdvertController@store_advert_form')->name('store_advert_form');
@@ -299,12 +299,6 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::post('/admin/save_slider/', 'AdminController@save_slider')->name('admin.save_slider');
     Route::put('/admin/update/slider/{id}', 'OperationalController@sliderUpdate')->name('admin.update.slider');
     Route::get('/admin/delete/sliders/{id}', 'AdminController@delete_sliders')->name('admin.delete_sliders');
-
-    //Tourism
-    Route::get('/admin/cities', 'TourismController@cities')->name('admin.cities');
-    Route::get('/admin/city/{slug}', 'TourismController@city')->name('admin.city');
-    Route::post('/admin/save_city', 'TourismController@save_city')->name('admin.save_city');
-    Route::put('/admin/add_city_images/{slug}', 'TourismController@add_city_images')->name('add_city_images');
 
     // Advertisement
     // Route::get('/admin/sliders', 'AdminController@sliders')->name('admin.sliders');
