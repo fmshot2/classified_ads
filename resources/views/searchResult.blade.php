@@ -1760,9 +1760,6 @@
                             <br/>
                             <div class="s-border" style="margin-top: -15px;"></div>
                             <div class="m-border"></div>
-                            <h5 style="margin-top: -15px; text-transform: uppercase">Featured Adverts</h5>
-                            <div class="s-border"></div>
-                            <div class="m-border"></div>
                         </div>
                         <div class="popular-posts featured-ad-hm-list">
                             <div class="container">

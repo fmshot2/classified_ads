@@ -73,7 +73,7 @@
                         </li>
 
                         <li class="">
-                            <a href="{{route('allcities')}}" class="grey-text text-lighten-3">Tourism in Nigeria</a>
+                            <a href="{{route('allcities')}}" class="grey-text text-lighten-3">Tourist Sites in Nigeria</a>
                         </li>
 
                     </ul>
