@@ -137,11 +137,15 @@
                                                 <div class="col-lg-12 col-md-12 col-sm-12" style="" class="text-center">
                                                     <div class="form-group">
                                                         <select class="form-control" class="text-center" id="categories" name="category">
-                                                            <option class="text-center" value="">-- Select Advert Type --</option>
-                                                            <option class="text-center" value="Home page banner">Home page banner</option>
-                                                            <option class="text-center" value="Propery page banner">Propery page banner</option>
-                                                            <option class="text-center" value="Search result banner">Search result banner</option>
-                                                            <option class="text-center" value="Email newsletter">Email newsletter</option>
+                                                            <option class="text-center" value="" selected disabled>-- Select Advert Type --</option>
+                                                            @if ($advertlocations)
+                                                                @foreach ($advertlocations as $advertlocation)
+                                                                    <option class="text-center" value="{{ $advertlocation->title }}">{{ $advertlocation->title }}</option>
+                                                                @endforeach
+
+                                                            @else
+                                                                <p>No location</p>
+                                                            @endif
                                                         </select>
                                                     </div>
                                                 </div>

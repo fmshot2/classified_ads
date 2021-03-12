@@ -119,7 +119,7 @@
             <div class="col-lg-7 col-md-12 col-sm-12">
                 <div class="row">
                     @if ($tourist_attractions)
-                        @foreach($tourist_attractions as $tourist_attraction)
+                        @foreach($tourist_attractions->shuffle() as $tourist_attraction)
                             @if ($loop->first || $loop->index == 1)
                                 <div class="col-sm-6 col-pad">
                                     <div class="category">
