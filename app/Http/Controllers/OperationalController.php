@@ -26,10 +26,6 @@ class OperationalController extends Controller
 
         $service_count = Refererlink::where('user_id', Auth::id() )->count();
             return view ('agent.dashboard', compact('service_count', 'agent_code_check'));
-
-
-
-
     }
 
     public function sliderCreate(Request $request)

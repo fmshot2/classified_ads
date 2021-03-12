@@ -21,11 +21,17 @@ use App\Service;
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 
+//Agent Middleware starts here
 Route::middleware(['agent'])->group(function () {
     Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
-    Route::get('/referal/all', 'AgentController@allMessage')->name('seller.referal.all');
+    Route::get('/agent/referal/all', 'AgentController@allReferals')->name('agent.referal.all');
+    Route::get('/agent/profile/', 'AgentController@viewProfile')->name('agent.profile');
+    Route::get('/agent/notification/all', 'AgentController@allNotifications')->name('agent.notification.all');
+    Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
+
 
 });
+//Agent Middleware ends here
 
 Route::post('advertisement/create', 'OperationalController@advertCreate')->name('advertisement.create');
 Route::view('referral-program/', 'referralprogram')->name('referralprogram');
@@ -34,6 +40,8 @@ Route::get('about-us/', 'OperationalController@aboutus')->name('aboutus');
 Route::get('test_new_badge', 'BadgeController@test_new_badge');
 
 Route::post('gtPAy', 'BadgeController@gtPAy');
+Route::post('gtPAyForRegistration', 'BadgeController@gtPAyForRegistration');
+
 Route::get ( 'findgeo2',  'ServiceController@findNearestRestaurants');
 Route::get( '/catpagesortby/{letter}',  'OperationalController@catPageSortBy');
 Route::get( '/requestbadge/{id}',  'OperationalController@requestbadge');
@@ -238,7 +246,8 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
 
 
 
-}); //Auth Middleware protection end here
+}); 
+//Auth Middleware protection end here
 
 
 Route::middleware(['admin'])->group(function () { //Admin Middleware protection start here
