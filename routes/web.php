@@ -33,6 +33,9 @@ Route::middleware(['agent'])->group(function () {
 });
 //Agent Middleware ends here
 
+
+Route::post('logintestPayment', 'AuthController@logintestPayment');
+
 Route::post('advertisement/create', 'OperationalController@advertCreate')->name('advertisement.create');
 Route::view('referral-program/', 'referralprogram')->name('referralprogram');
 Route::get('about-us/', 'OperationalController@aboutus')->name('aboutus');

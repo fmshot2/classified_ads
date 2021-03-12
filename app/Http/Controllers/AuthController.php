@@ -100,7 +100,6 @@ class AuthController extends Controller
 
 
 	public function gtPAyForRegistration(Request $request) {
-		dd($request);
 		$gtpay_mert_id        = 14264; 
 		$gtpay_tranx_id      = $this->gen_transaction_id();
 		$gtpay_tranx_amt      = $request->amount * 100;
@@ -303,58 +302,64 @@ class AuthController extends Controller
 			$email = $user->email;
 			$origPassword = $request->password;
 			$userRole = $user->role;
+			$reg_amount = 1;		
+
+			$credentials = $request->only('email', 'password');
+
+			if (Auth::attempt($credentials)) {
+				$present_user = Auth::user();
+
+				//pay with GTPay
+
+				$gtpay_mert_id        = 14264; 
+				$gtpay_tranx_id      = $this->gen_transaction_id();
+				$gtpay_tranx_amt      = 1 * 100;
+				$gtpay_tranx_curr     = 566;
+				$gtpay_cust_id        = $present_user->id;
+				// $gtpay_tranx_noti_url = "https://yellowpage.test/api/gt_payment_details/{$request->user()->id}/{$request->badge_type}";
+				$gtpay_tranx_noti_url = "https://yellowpage.test/logintestPayment";
+				$gtpay_cust_name      = $present_user->name;
+				$gtpay_tranx_memo     = 'Mobow';
+				$gtpay_echo_data      = "{$present_user->id}";
+				$gtpay_no_show_gtbank = 'yes';
+				$gtpay_gway_name      = 'etranzact';
+				$hashkey = '3EBF9CF6D082C89F88490B01D072B0F4E1EE52E86EC731D9B49538F33B551D486AB70673FE1B876B94EF76EC5E0AA1D3D14BA933424037FB1219662AFAB8FF51';
+
+				$gtpay_hash = $gtpay_mert_id.$gtpay_tranx_id.$gtpay_tranx_amt.$gtpay_tranx_curr.$gtpay_cust_id.$gtpay_tranx_noti_url.$hashkey;
+
+				$hashed = hash('sha512', $gtpay_hash);
+
+				$gtPay_Data = [ 
+					'gtpay_mert_id' => $gtpay_mert_id,
+					'gtpay_tranx_id' => $gtpay_tranx_id,
+					'gtpay_tranx_amt' => $gtpay_tranx_amt,
+					'gtpay_tranx_curr' => $gtpay_tranx_curr,
+					'gtpay_cust_id' =>  $gtpay_cust_id,
+					'gtpay_tranx_noti_url' => $gtpay_tranx_noti_url,
+					'gtpay_cust_name' => $gtpay_cust_name,
+					'gtpay_tranx_memo' => $gtpay_tranx_memo,
+					'gtpay_echo_data'      => $gtpay_echo_data,
+					'gtpay_no_show_gtbank' => $gtpay_no_show_gtbank,
+					'gtpay_gway_name'      => $gtpay_gway_name,
+					'hashkey'              => $hashkey,
+					'hashed'              => $hashed
 
 
-			return redirect()->route('gtPAyForRegistration')->with([
-				'name' => $user->name,
-				'email' => $user->email,
-				'origPassword' => $request->password,
-				'userRole' => $user->role,
-			]);
+				];
+// dd($gtPay_Data);
+				return view('gttPayView', $gtPay_Data );
 
-		}
-		session()->flash('success', ' succesfull!');
-
-		$credentials = $request->only('email', 'password');
-
-		if (Auth::attempt($credentials)) {
-			$present_user = Auth::user();
-
-
-			$link = new Refererlink();
-			$link->user_id = $present_user->id;
-			$link->refererlink = $present_user->refererLink;
-			$link->save();
-
-			$person_that_refered = $present_user->idOfReferer;
-			if($person_that_refered){
-				$referer = User::where('id', $person_that_refered)->first();
-				if ($referer) {
-					$referer->refererAmount = $referer->refererAmount + 50;
-					$referer->save();
-				}
-			}
-
-			$agent_that_refered = $present_user->idOfAgent;
-			if($agent_that_refered){
-				$referer = User::where('id', $agent_that_refered)->first();
-				if ($referer) {
-					$referer->refererAmount = $referer->refererAmount + 100;
-					$referer->save();
-				}
-			}
-
-			if ( $present_user->role == 'seller' ){
-				return redirect()->route('seller.dashboard');
-			} else {
-				return Redirect::to(Session::get('url.intended'));
 			}
 		}
 		
 		return redirect()->intended('/');
 	}
 
-
+	
+	public function logintestPayment()
+	{
+		return view('logintestPayment');
+	}
 
 
 	public function refreshCaptcha()
@@ -540,5 +545,36 @@ class AuthController extends Controller
 		}
 
 	}
+
+
+
+	// $link = new Refererlink();
+	// $link->user_id = $present_user->id;
+	// $link->refererlink = $present_user->refererLink;
+	// $link->save();
+
+	// $person_that_refered = $present_user->idOfReferer;
+	// if($person_that_refered){
+	// 	$referer = User::where('id', $person_that_refered)->first();
+	// 	if ($referer) {
+	// 		$referer->refererAmount = $referer->refererAmount + 50;
+	// 		$referer->save();
+	// 	}
+	// }
+
+	// $agent_that_refered = $present_user->idOfAgent;
+	// if($agent_that_refered){
+	// 	$referer = User::where('id', $agent_that_refered)->first();
+	// 	if ($referer) {
+	// 		$referer->refererAmount = $referer->refererAmount + 100;
+	// 		$referer->save();
+	// 	}
+	// }
+
+	// if ( $present_user->role == 'seller' ){
+	// 	return redirect()->route('seller.dashboard');
+	// } else {
+	// 	return Redirect::to(Session::get('url.intended'));
+	// }
 
 }
