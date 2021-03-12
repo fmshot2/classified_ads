@@ -61,23 +61,15 @@ class TourismController extends Controller
 
         $city->save();
 
-        if ($city->save()) {
+
+        if($city->save())
+        {
             $success_notification = array(
                 'message' => 'City successfully added!',
                 'alert-type' => 'success'
             );
         }
 
-        // if($city)
-        // {
-        //     $city->create($data);
-        // }
-        // else
-        // {
-        //     \Session::flash('error', 'Cannot add city!');
-        // }
-
-        // \Session::flash('success', 'City successfully added!');
         return redirect()->back()->with($success_notification);
 	}
 
@@ -87,6 +79,61 @@ class TourismController extends Controller
         return view('admin.tourism.single_city', [
             'city' => $city
         ]);
+    }
+
+    public function update_city(Request $request, $slug)
+    {
+        $data = array(
+            'name'   => $request->name,
+            'region'   => $request->region,
+            'body' => $request->body,
+            'description'    => $request->description,
+            'thumb' => $request->thumb,
+        );
+
+        if ( $request->hasFile('thumb')) {
+            $image_name = time().'.'.$request->thumb->extension();
+            $request->thumb->move(public_path('cities_images'),$image_name);
+
+            $db_location = 'cities_images/' . $image_name;
+            $request->thumb = $image_name;
+
+            $data['thumb'] = $db_location;
+        }
+
+
+        $validator = \Validator::make($data, [
+            'name'   => 'nullable|string',
+            'region'   => 'nullable|string',
+            'body' => 'nullable|string',
+            'description'    => 'nullable|string',
+            'thumb' => 'nullable'
+
+        ]);
+
+        // $data['slug'] = Str::slug($request->name, '-');
+
+        if($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        }
+
+        $city = Tourism::where('slug', $slug);
+        // dd($city);
+        $city->name = $request->name;
+        $city->region = $request->region;
+        $city->body = $request->body;
+        $city->description = $request->description;
+        $city->slug = Str::slug($request->name, '-');
+
+        $city->update($data);
+
+        $success_notification = array(
+            'message' => 'City successfully updated!',
+                'alert-type' => 'success'
+            );
+        return redirect()->back()->with($success_notification);
+
     }
 
     public function add_city_images(Request $request, $slug)

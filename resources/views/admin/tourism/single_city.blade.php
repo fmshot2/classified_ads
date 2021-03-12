@@ -15,8 +15,8 @@
                         <!-- /.box-header -->
                         <div class="box-body" style="padding: 20px">
                             <!-- form start -->
-                            <form class="form-horizontal form-element" method="POST" action="{{route('add_city_images', ['slug' => $city->slug ])}}" enctype="multipart/form-data">
-                                @csrf
+                            <form class="form-horizontal form-element" method="POST" action="{{route('admin.update.city', $city->slug)}}" enctype="multipart/form-data">
+                                {{ csrf_field() }}
                                 @method('PUT')
                                      <div class="col-md-12">
                                     <div class="form-group">

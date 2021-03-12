@@ -84,7 +84,7 @@
             @endif
             <br>
             <p></p>
-            <form action="{{ route('add_city_images', $city->slug) }}" method="POST" class="" id="" enctype="multipart/form-data">
+            <form action="{{ route('admin.add_city_images', $city->slug) }}" method="POST" class="" id="" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
