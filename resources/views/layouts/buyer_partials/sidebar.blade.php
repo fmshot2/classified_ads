@@ -44,7 +44,7 @@
 
       <li class="" style="{{ url()->current() == route('buyer.message.all') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('buyer.message.all') }}">
-          <i class="fa fa-briefcase"></i> <span> Message </span>
+          <i class="fa fa-briefcase"></i> <span> My Messages </span>
           <span class="pull-right-container">
             <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small>
           </span>
@@ -70,24 +70,24 @@
 
       <li class="" style=" {{ url()->current() == route('buyer.service.all') ? 'background-color: #f8d053' : '' }} ">
         <a href=" {{ route('buyer.service.all') }} ">
-          <i class="fa fa-search"></i> <span> Need A Service </span>
+          <i class="fa fa-search"></i> <span> Request A Service </span>
           <span class="pull-right-container">
           </span>
         </a>
       </li>
 
-      <li class="">
+      {{-- <li class="">
         <a href="/sellers">
           <i class="fa fa-users"></i> <span> View Sellers </span>
           <span class="pull-right-container">
           </span>
         </a>
-      </li>
+      </li> --}}
 
 
       <li class="" style=" {{ url()->current() == route('buyer.notification.all') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('buyer.notification.all') }}">
-          <i class="fa fa-bell"></i> <span> General Notice </span>
+          <i class="fa fa-bell"></i> <span> General Notices </span>
           <span class="pull-right-container">
             <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small>
           </span>

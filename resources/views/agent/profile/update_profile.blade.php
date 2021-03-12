@@ -1,6 +1,4 @@
-
-
-@extends('layouts.buyer')
+@extends('layouts.agent')
 
 @section('title')
 Update Profile |
@@ -8,21 +6,16 @@ Update Profile |
 
 @section('content')
 
-<div class="container">
-<section class="content-header">
-      <h1>
-        My Profile      </h1>
-      <ol class="breadcrumb">
-        <li><a href=" {{ route('buyer.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">My Profile</li>
-      </ol>
-    </section>
-@include('layouts.buyer_partials.status')
-<section class="content-header">
-    <h3 class="page-title">Your Profile</h3>
-    <p class="page-description">This page is for managing your profile details.</p>
-</section>
+<div class="content-wrapper" style="min-height: 868px;">
 
+	@include('layouts.backend_partials.status')
+
+	<section class="content-header">
+		<h3 class="page-title">Your Profile</h3>
+		<p class="page-description">This page is for managing your agent profile details.</p>
+	</section>
+
+	<section class="content">
 
 		<div class="row">
 			<div class="col-md-4">
@@ -30,6 +23,7 @@ Update Profile |
 				<!-- Profile Image -->
 				<div class="box box-warning">
 					<div class="box-body box-profile">
+
 						<img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" alt="User profile picture">
 
 						<h3 class="profile-username text-center"> {{ Auth::user()->name }} </h3>
@@ -172,7 +166,7 @@ Update Profile |
 		</div>
 		<!-- /.row -->
 
-
+	</section>
 
 </div>
 

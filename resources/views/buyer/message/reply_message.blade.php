@@ -12,7 +12,14 @@ View Message |
 <hr>
 
 <div class="container">
-
+<section class="content-header">
+      <h1>
+        Reply Message      </h1>
+      <ol class="breadcrumb">
+        <li><a href=" {{ route('buyer.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Reply Message</li>
+      </ol>
+    </section>
   <section class="content">
 
     <div class="row">

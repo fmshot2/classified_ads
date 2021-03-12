@@ -2,7 +2,8 @@
   <div class="box">
 
     <div class="box-header with-border">
-    <h3 class="box-title"> {{ url()->current() == route('seller.notification.unread') ?  'Notification' : 'Recent Notification' }} {{ $unread_notification->count() }} </h3>
+    <h3 class="box-title"> {{ url()->current() == route('seller.notification.unread') ?  'Notification' : 'General Notice(s)' }} 
+      {{-- {{ $unread_notification->count() }} </h3> --}}
 
       @if (url()->current() == route('seller.message.all') )
       <div class="box-tools">

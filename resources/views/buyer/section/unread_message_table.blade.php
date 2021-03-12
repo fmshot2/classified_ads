@@ -2,7 +2,8 @@
 <div class="box">
 
   <div class="box-header with-border">
-    <h3 class="box-title"> {{ url()->current() == route('buyer.message.unread') ?  'Unread Message' : 'Recent Unread Message' }} {{ $unread_message->count() }} </h3>
+    <h3 class="box-title"> {{ url()->current() == route('buyer.message.unread') ?  'Unread Message' : 'Recent Unread Message(s)' }} 
+      {{-- {{ $unread_message->count() }} </h3> --}}
 
 
     @if (url()->current() == route('buyer.message.all') )

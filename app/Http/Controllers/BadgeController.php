@@ -66,6 +66,50 @@ class BadgeController extends Controller
 	}
 
 
+
+
+
+
+
+	public function gtPAyForRegistration(Request $request) {
+		$gtpay_mert_id        = 14264;
+    	$gtpay_tranx_id      = $this->gen_transaction_id();
+    	$gtpay_tranx_amt      = $request->amount * 100;
+    	$gtpay_tranx_curr     = 566;
+    	$gtpay_cust_id        = $request->user()->id;
+    	$gtpay_tranx_noti_url = "https://yellowpage.test/api/gt_payment_details/{$request->user()->id}/{$request->badge_type}";
+    	$gtpay_cust_name      = $request->user()->name;
+    	$gtpay_tranx_memo     = 'Mobow';
+    	$gtpay_echo_data      = "{$request->user()->id},{$request->badge_type}";
+    	$gtpay_no_show_gtbank = 'yes';
+    	$gtpay_gway_name      = 'etranzact';
+    	$hashkey = '3EBF9CF6D082C89F88490B01D072B0F4E1EE52E86EC731D9B49538F33B551D486AB70673FE1B876B94EF76EC5E0AA1D3D14BA933424037FB1219662AFAB8FF51';
+
+    	 $gtpay_hash = $gtpay_mert_id.$gtpay_tranx_id.$gtpay_tranx_amt.$gtpay_tranx_curr.$gtpay_cust_id.$gtpay_tranx_noti_url.$hashkey;
+
+        $hashed = hash('sha512', $gtpay_hash);
+
+        $gtPay_Data = [
+        	'gtpay_mert_id' => $gtpay_mert_id,
+        	'gtpay_tranx_id' => $gtpay_tranx_id,
+        	'gtpay_tranx_amt' => $gtpay_tranx_amt,
+        	'gtpay_tranx_curr' => $gtpay_tranx_curr,
+        	'gtpay_cust_id' =>  $gtpay_cust_id,
+        	'gtpay_tranx_noti_url' => $gtpay_tranx_noti_url,
+        	'gtpay_cust_name' => $gtpay_cust_name,
+        	'gtpay_tranx_memo' => $gtpay_tranx_memo,
+        	'gtpay_echo_data'      => $gtpay_echo_data,
+        	'gtpay_no_show_gtbank' => $gtpay_no_show_gtbank,
+        	'gtpay_gway_name'      => $gtpay_gway_name,
+        	'hashkey'              => $hashkey,
+        	'hashed'              => $hashed
+
+
+        ];
+		return view('gttPayView4Registration', $gtPay_Data );
+	}
+
+
 	public function gt_response2(Request $request, $user_id, $badge_type){
 			dd($request, $user_id, $badge_type);
 
@@ -122,20 +166,12 @@ class BadgeController extends Controller
 
 	public function saveService4Badge(Request $request)
 	{
-      	  //return 'ddd';
       	//return $request->input('service_id');
-      	 $data = $request->all();
-       //return 'nnn';
-
-        //return $data['service_id'];
-          //$badge_service_id = $data['service_id']; 
-
+      	 $data = $request->all();   
 
 		$service_id = $data['service_id'];          
-		//$service_id = $request->input('service_id');
       	  $service_select = "This Service selected for upgrade";
 
-  			//return $the_Service = Badge::where('service_id', $service_id)->get();
 
 		$badge_check = Badge::where(['service_id'=>$service_id])->first();
 		
@@ -144,7 +180,6 @@ class BadgeController extends Controller
 
 			$badge_check->save();
 			return response()->json(['success'=>'updated done', 'id'=>$service_id]);
-			 /*return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);*/
 
 		}else{
 			$badge = new Badge();
@@ -160,7 +195,6 @@ class BadgeController extends Controller
 	{
 	//return $request->input('service_id');
       	 $data = $request->all();
-       //return 'nnn';
 
 
 		$service_id = $data['service_id'];          
@@ -193,9 +227,8 @@ class BadgeController extends Controller
  public function createpay4Advert(Request $request)
       {
        $data = $request->all();
-       //return 'nnn';
 
-        //return $data['service_id'];
+	   //return $data['service_id'];
        $badge_service_id = $data['service_id'];    
 
 
@@ -237,8 +270,6 @@ class BadgeController extends Controller
      $badge->save();
      return "yyyy";
 
-        //return 
-
      if ($badge->save()) {
       return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
         //return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
@@ -252,7 +283,6 @@ class BadgeController extends Controller
      $likecount = Like::where(['service_id'=>$id])->count();
      return redirect()->to('serviceDetail/'.$service_slug);
         //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
-        //return redirect('/home');   
    }else{
      $like = new Like();
      $like->user_id = Auth::id();
@@ -260,18 +290,9 @@ class BadgeController extends Controller
      $like->save();
      $likecount = Like::where(['service_id'=>$id])->count();
      return redirect()->to('serviceDetail/'.$service_slug);
-        //return 'Heyyyyy22222'. $likecount;    
    }
 
  }
-
-
-
-
-
-
-
-
 
 
 
@@ -325,6 +346,30 @@ class BadgeController extends Controller
 
 	}
 
+    public function requestbadge(Request $request, $id)
+    {
+        $user_id = $request->user()->id;
 
+        if ($id == 1) {
+            $badge = [
+                'badge_type' => 'Super',
+                'badge_cost' => 4
+            ];
+        }
+        elseif ($id == 2) {
+            $badge = [
+                'badge_type' => 'Moderate',
+                'badge_cost' => 5
+            ];
+        }
+        elseif ($id == 3) {
+            $badge = [
+                'badge_type' => 'Super',
+                'badge_cost' => 6
+            ];
+        }
+
+        return $badge;
+    }
 
 }

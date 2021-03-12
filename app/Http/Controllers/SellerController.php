@@ -138,10 +138,7 @@ if ( $request->hasFile('files') ) {
         $user_hasUploadedService = $present_user->hasUploadedService;
         if ($user_hasUploadedService == 1) {
        $request->session()->flash('status', 'Task was successful!');
-
-       // return $this->allService();
         
-         // return redirect()->route('seller/service/' . $latest_service_id);
          return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
 
         }
@@ -174,13 +171,7 @@ public function saveReferLink($refererlink){
            $link->user_id = Auth::id();
            $link->refererlink = $refererlink;
            $link->save();
-//                $user = Auth::user();
-// $user->refererLink = $slug3;
-// $user->save();
-//            $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
-
 }
-
 
    public function storeServiceUpdate(Request $request, $id)
    {

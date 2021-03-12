@@ -26,7 +26,7 @@ class AuthController extends Controller
 			'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
 			'phone'    => ['required', 'numeric', 'unique:users'],
 			'state'    => ['string'],
-			'lga'      => ['string'],
+			// 'lga'      => ['string'],
 			'password' => ['required', 'string', 'min:6', 'confirmed'],
 		]);
 
@@ -38,33 +38,100 @@ class AuthController extends Controller
 		$length = 1;
 		$last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
 
-		$data = [
-			'name'       => $request->name,
-			'email'      => $request->email,
-			'phone'      => $request->phone,
-			'state'      => $request->state,
-			'identification_type' => $request->identification_type,
-			'identification_id'   => $request->identification_id,
-			'lga'        => $request->lga,
-			'is_agent'   => 1,
-			'agent_code' => $result . $randomCode . $last_letter,
-			'role'       =>  'agent',
-			'status'     => 1,
-			'password'   => Hash::make($request->password)
-		];
+		// $data = [
+		// 	'name'       => $request->name,
+		// 	'email'      => $request->email,
+		// 	'phone'      => $request->phone,
+		// 	'state'      => $request->state,
+		// 	'identification_type' => $request->identification_type,
+		// 	'identification_id'   => $request->identification_id,
+		// 	'lga'        => $request->lga,
+		// 	'is_agent'   => 1,
+		// 	'agent_code' => $result . $randomCode . $last_letter,
+		// 	'role'       =>  'agent',
+		// 	'status'     => 1,
+		// 	'password'   => Hash::make($request->password)
+		// ];
 
-		$user = User::create($data);
 
-		if ($user) {
+			//save agent details
+			$user = new User;
+			$user->name = $request->name;
+			$user->email = $request->email;
+			$user->phone = $request->phone;
+			$user->state = $request->state;
+			$user->identification_type = $request->identification_type;
+			$user->identification_id = $request->identification_id;
+			$user->is_agent = 1;
+			$user->agent_code = $result . $randomCode . $last_letter;
+			$user->role = 'agent';
+			$user->status  = 1;
+			$user->password = Hash::make($request->password);
+			$user->save();
+
+
+		
+
+		if ($user->save()) {
 			$credentials = $request->only('email', 'password');
 
 			if (Auth::attempt($credentials)) {
+
+				$present_user = Auth::user();
+
+				$link = new Refererlink();
+				$link->user_id = $present_user->id;
+				$link->agent_code = $present_user->agent_code;
+				$link->save();
+
 				return redirect()->route('agent.dashboard');
 			}
 			else{
 				return redirect()->intended('/');
 			}
 		}
+	}
+
+
+
+
+	public function gtPAyForRegistration(Request $request) {
+		$gtpay_mert_id        = 14264; 
+    	$gtpay_tranx_id      = $this->gen_transaction_id();
+    	$gtpay_tranx_amt      = $request->amount * 100;
+    	$gtpay_tranx_curr     = 566;
+    	$gtpay_cust_id        = $request->user()->id;
+    	$gtpay_tranx_noti_url = "https://yellowpage.test/api/gt_payment_details/{$request->user()->id}/{$request->badge_type}";
+    	$gtpay_cust_name      = $request->user()->name;
+    	$gtpay_tranx_memo     = 'Mobow';
+    	$gtpay_echo_data      = "{$request->user()->id},{$request->badge_type}";
+    	$gtpay_no_show_gtbank = 'yes';
+    	$gtpay_gway_name      = 'etranzact';
+    	$hashkey = '3EBF9CF6D082C89F88490B01D072B0F4E1EE52E86EC731D9B49538F33B551D486AB70673FE1B876B94EF76EC5E0AA1D3D14BA933424037FB1219662AFAB8FF51';
+
+    	 $gtpay_hash = $gtpay_mert_id.$gtpay_tranx_id.$gtpay_tranx_amt.$gtpay_tranx_curr.$gtpay_cust_id.$gtpay_tranx_noti_url.$hashkey;
+
+        $hashed = hash('sha512', $gtpay_hash);
+
+        $gtPay_Data = [
+        	'gtpay_mert_id' => $gtpay_mert_id,
+        	'gtpay_tranx_id' => $gtpay_tranx_id,
+        	'gtpay_tranx_amt' => $gtpay_tranx_amt,
+        	'gtpay_tranx_curr' => $gtpay_tranx_curr,
+        	'gtpay_cust_id' =>  $gtpay_cust_id,
+        	'gtpay_tranx_noti_url' => $gtpay_tranx_noti_url,
+        	'gtpay_cust_name' => $gtpay_cust_name,
+        	'gtpay_tranx_memo' => $gtpay_tranx_memo,
+        	'gtpay_echo_data'      => $gtpay_echo_data,
+        	'gtpay_no_show_gtbank' => $gtpay_no_show_gtbank,
+        	'gtpay_gway_name'      => $gtpay_gway_name,
+        	'hashkey'              => $hashkey,
+        	'hashed'              => $hashed
+
+
+        ];
+// dd($gtPay_Data);
+		return view('gttPayView', $gtPay_Data );
 	}
 
 	public function createUser (Request $request)
@@ -161,9 +228,9 @@ class AuthController extends Controller
 			$link->save();
 
 			$person_that_refered = $present_user->idOfReferer;
-			// dd($person_that_refered);
 			if($person_that_refered){
 				$referer = User::where('id', $person_that_refered)->first();
+				// dd($referer->refererAmount);
 				if ($referer) {
 					$referer->refererAmount = $referer->refererAmount + 50;
 					$referer->save();
@@ -330,7 +397,7 @@ class AuthController extends Controller
 		$user = User::find($id);
 		$validatedData = $request->validate([
 			'name' => ['required', 'string', 'max:255'],
-			'state' => ['string'],
+			// 'state' => ['string'],
 			'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 		]);
 
@@ -345,7 +412,7 @@ class AuthController extends Controller
 
 		$user->name = $request->name;
 		$user->email = $request->email;
-		$user->state = $request->state;
+		// $user->state = $request->state;
 		$user->phone = $request->phone;
 		$user->address = $request->address;
 		$user->about = $request->about;
