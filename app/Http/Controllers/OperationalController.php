@@ -108,7 +108,8 @@ class OperationalController extends Controller
 
     public function advertCreate(Request $request)
     {
-        $this->validate($request, [
+
+        $request->validate([
             'image'=> 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
@@ -143,7 +144,12 @@ class OperationalController extends Controller
 
         $advert->create($data);
 
-        return redirect()->back();
+        $success_notification = array(
+            'message' => 'Advert Created!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($success_notification);
     }
 
 
