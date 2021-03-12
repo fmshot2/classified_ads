@@ -18,9 +18,7 @@ Buyer Dashboard |
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
-        <small>Control panel</small>
-      </h1>
+        Dashboard      </h1>
       <ol class="breadcrumb">
         <li><a href=" {{ route('buyer.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
@@ -55,7 +53,7 @@ Buyer Dashboard |
             <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-commenting text-white" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
-              <span class="info-box-text"> Unread Message </span>
+              <span class="info-box-text"> Unread Messages </span>
               <span class="info-box-number"> {{ $unread_message_count }} </span>
 
               <div class="progress">
@@ -75,7 +73,7 @@ Buyer Dashboard |
             <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-commenting text-white" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
-              <span class="info-box-text"> Read Message </span>
+              <span class="info-box-text"> Read Messages </span>
               <span class="info-box-number"> {{ $read_message_count }} </span>
 
               <div class="progress">
@@ -95,7 +93,7 @@ Buyer Dashboard |
           <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-bell text-white" aria-hidden="true"></i>  </span>
 
           <div class="info-box-content">
-            <span class="info-box-text"> General Notice </span>
+            <span class="info-box-text"> General Notices </span>
             <span class="info-box-number"> {{ $all_notification_count }} </span>
 
             <div class="progress">
@@ -126,11 +124,11 @@ Buyer Dashboard |
  </div>
 
 
- <div class="row">
+{{--  <div class="row">
   <div class="col-md-12 connectedSortable">
    @include('seller/section/all_service_table') 
  </div>
-</div>
+</div> --}}
 <!-- Row end here -->
 
  <div class="row">

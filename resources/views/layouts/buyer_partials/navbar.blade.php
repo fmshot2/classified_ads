@@ -71,7 +71,7 @@
 
 
         <li class="dropdown messages-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-envelope"></i>
             <span class="label label-danger"> {{ $unread_message_count }}  </span>
           </a>
@@ -96,7 +96,7 @@
 
               </ul><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 112.676px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
             </li>
-            <li class="footer"> <a href="{{route('seller.message.all') }}" class="text-warning" style="font-weight: bold;"> See all message </a> </li>
+            <li class="footer"> <a href="{{route('buyer.message.all') }}" class="text-warning" style="font-weight: bold;"> See all message </a> </li>
           </ul>
         </li>
 

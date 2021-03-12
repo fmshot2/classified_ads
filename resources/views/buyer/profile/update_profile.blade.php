@@ -9,7 +9,14 @@ Update Profile |
 @section('content')
 
 <div class="container">
-
+<section class="content-header">
+      <h1>
+        My Profile      </h1>
+      <ol class="breadcrumb">
+        <li><a href=" {{ route('buyer.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">My Profile</li>
+      </ol>
+    </section>
 @include('layouts.buyer_partials.status')
 <section class="content-header">
     <h3 class="page-title">Your Profile</h3>

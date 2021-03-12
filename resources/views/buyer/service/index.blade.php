@@ -9,7 +9,14 @@ All Service Table |
 
 
 <div class="content-wrapper" style="min-height: 518px;">
-
+<section class="content-header">
+      <h1>
+        Request A Service      </h1>
+      <ol class="breadcrumb">
+        <li><a href=" {{ route('buyer.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">All Services</li>
+      </ol>
+    </section>
 	<div class="container">
 		@include('layouts.backend_partials.status')
 	</div>

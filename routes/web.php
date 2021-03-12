@@ -315,8 +315,9 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     //Tourism
     Route::get('/admin/cities', 'TourismController@cities')->name('admin.cities');
     Route::get('/admin/city/{slug}', 'TourismController@city')->name('admin.city');
-    Route::post('/admin/save_city', 'TourismController@save_city')->name('admin.save_city');
-    Route::put('/admin/add_city_images/{slug}', 'TourismController@add_city_images')->name('add_city_images');
+    Route::post('/admin/save-city', 'TourismController@save_city')->name('admin.save_city');
+    Route::put('/admin/update-city/{slug}', 'TourismController@update_city')->name('admin.update.city');
+    Route::put('/admin/add_city_images/{slug}', 'TourismController@add_city_images')->name('admin.add_city_images');
 
     // Advertisement
     // Route::get('/admin/sliders', 'AdminController@sliders')->name('admin.sliders');
