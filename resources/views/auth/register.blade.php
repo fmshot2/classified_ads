@@ -16,7 +16,8 @@
 
                         <div class="clearfix"></div>
 
-                        <form method="POST" action="{{ route('register') }}">
+                        <!-- <form method="POST" action="{{ route('register') }}"> -->
+                        <form method="POST" action="{{ route('gtPAyForRegistration') }}">
                             @csrf
                             <div class="form-group form-box">
                                 <input id="name" type="text" class="input-text" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>

@@ -26,7 +26,7 @@ class AuthController extends Controller
 			'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
 			'phone'    => ['required', 'numeric', 'unique:users'],
 			'state'    => ['string'],
-			'lga'      => ['string'],
+			// 'lga'      => ['string'],
 			'password' => ['required', 'string', 'min:6', 'confirmed'],
 		]);
 
@@ -38,27 +38,52 @@ class AuthController extends Controller
 		$length = 1;
 		$last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
 
-		$data = [
-			'name'       => $request->name,
-			'email'      => $request->email,
-			'phone'      => $request->phone,
-			'state'      => $request->state,
-			'identification_type' => $request->identification_type,
-			'identification_id'   => $request->identification_id,
-			'lga'        => $request->lga,
-			'is_agent'   => 1,
-			'agent_code' => $result . $randomCode . $last_letter,
-			'role'       =>  'agent',
-			'status'     => 1,
-			'password'   => Hash::make($request->password)
-		];
+		// $data = [
+		// 	'name'       => $request->name,
+		// 	'email'      => $request->email,
+		// 	'phone'      => $request->phone,
+		// 	'state'      => $request->state,
+		// 	'identification_type' => $request->identification_type,
+		// 	'identification_id'   => $request->identification_id,
+		// 	'lga'        => $request->lga,
+		// 	'is_agent'   => 1,
+		// 	'agent_code' => $result . $randomCode . $last_letter,
+		// 	'role'       =>  'agent',
+		// 	'status'     => 1,
+		// 	'password'   => Hash::make($request->password)
+		// ];
 
-		$user = User::create($data);
 
-		if ($user) {
+			//save agent details
+			$user = new User;
+			$user->name = $request->name;
+			$user->email = $request->email;
+			$user->phone = $request->phone;
+			$user->state = $request->state;
+			$user->identification_type = $request->identification_type;
+			$user->identification_id = $request->identification_id;
+			$user->is_agent = 1;
+			$user->agent_code = $result . $randomCode . $last_letter;
+			$user->role = 'agent';
+			$user->status  = 1;
+			$user->password = Hash::make($request->password);
+			$user->save();
+
+
+		
+
+		if ($user->save()) {
 			$credentials = $request->only('email', 'password');
 
 			if (Auth::attempt($credentials)) {
+
+				$present_user = Auth::user();
+
+				$link = new Refererlink();
+				$link->user_id = $present_user->id;
+				$link->agent_code = $present_user->agent_code;
+				$link->save();
+
 				return redirect()->route('agent.dashboard');
 			}
 			else{
@@ -161,9 +186,9 @@ class AuthController extends Controller
 			$link->save();
 
 			$person_that_refered = $present_user->idOfReferer;
-			// dd($person_that_refered);
 			if($person_that_refered){
 				$referer = User::where('id', $person_that_refered)->first();
+				// dd($referer->refererAmount);
 				if ($referer) {
 					$referer->refererAmount = $referer->refererAmount + 50;
 					$referer->save();
@@ -330,7 +355,7 @@ class AuthController extends Controller
 		$user = User::find($id);
 		$validatedData = $request->validate([
 			'name' => ['required', 'string', 'max:255'],
-			'state' => ['string'],
+			// 'state' => ['string'],
 			'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 		]);
 
@@ -345,7 +370,7 @@ class AuthController extends Controller
 
 		$user->name = $request->name;
 		$user->email = $request->email;
-		$user->state = $request->state;
+		// $user->state = $request->state;
 		$user->phone = $request->phone;
 		$user->address = $request->address;
 		$user->about = $request->about;
