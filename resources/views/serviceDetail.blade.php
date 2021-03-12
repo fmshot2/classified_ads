@@ -22,6 +22,58 @@
     form label{
         font-size: 16px !important;
     }
+    .b-provider-online-info {
+        width: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 12px 0;
+        border-top: 1px solid #f2f2f2;
+        border-bottom: 1px solid #f2f2f2;
+        margin-bottom: 15px;
+    }
+    .b-provider-online-info-block:not(:last-of-type) {
+        border-right: 1px solid #f2f2f2;
+    }
+    .b-provider-online-info-block {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 0;
+        -ms-flex: 1 0;
+        flex: 1 0;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding: 8px 0;
+    }
+    .b-provider-online-title {
+        color: #efac4e;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 3px;
+    }
+    .b-provider-online-aside {
+        color: #464b4f;
+        font-size: 14px;
+        line-height: 1.5;
+        font-weight: 600;
+    }
+
 </style>
 <!-- Sub banner start -->
 <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/servicedetail.jpg')}})">
@@ -76,6 +128,7 @@
                                         <h3 class="service-name">{{$serviceDetail->name}}</h3>
                                         <p><span><i class="fa fa-map-marker"></i> Location:</span> <span style="color: #ca8309" class="tt-capitalize">{{$serviceDetail->state}}</span></p>
                                         <p><span><i class="fa fa-user"></i> Service Provider: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->user->name}}</span></p>
+                                        <p><span><i class="fa fa-clock-o"></i> Posted on: </span><span style="color: #ca8309"> {{ $serviceDetail->created_at->diffForHumans() }}</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -403,28 +456,43 @@
                             </div>
 
                             <div class="ser-seller-note">
-                                <div>
-                                    <b>Registered:</b>  <i>"{{$serviceDetail->created_at->diffForHumans()}}"</i>
-                                </div>
 
                                 @guest
                                     <p style="margin-bottom: 5px; font-size: 16px;"><a href="{{route('login')}}"><strong style="color: #CA8309; font-size: 16px;">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #28a745">Register</strong></a> to view <strong class="tt-capitalize">{{ $the_provider_f_name }}</strong> contact details.</p>
                                 @endguest
-                            </div>
 
-                            <div class="s-border" style="margin-top: 10px"></div>
-                            <div class="m-border"></div>
+                                <div class="s-border" style="margin-top: 10px"></div>
+                                <div class="m-border"></div>
+
+                                <div class="b-provider-online-info">
+                                    <div class="b-provider-online-info-block">
+                                        <div class="b-provider-online-title">
+                                            {{ $serviceDetail->user->created_at->diffForHumans() }}
+                                        </div>
+                                        <div class="b-provider-online-aside">
+                                            Registered
+                                        </div>
+                                    </div>
+
+                                    <div class="b-provider-online-info-block">
+                                        <div class="b-provider-online-title">
+                                            {{ \Carbon\Carbon::parse($serviceDetail->user->last_seen)->diffForHumans() }}
+                                        </div>
+                                        <div class="b-provider-online-aside">
+                                            Last seen
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             @auth
                                 <p style="text-align: center">
-                                    <a class="btn btn-warning animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309">
-                                        <i class="fa fa-phone"></i> {{$serviceDetail->phone}}
+                                    <a class="btn btn-warning animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309; margin-bottom: 4px">
+                                        <i class="fa fa-phone"></i> Call: {{$serviceDetail->phone}}
                                     </a>
-                                </p>
 
-                                <p style="text-align: center">
                                     <a href="https://wa.me/{{$serviceDetail->phone}}/?text=Good%20day.%20I%20am%20interested%20in%your%20service." class="btn btn-success animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff;">
-                                        <i class="fa fa-whatsapp"></i> {{$serviceDetail->phone}}
+                                        <i class="fa fa-whatsapp"></i> WhatsApp {{ ucfirst($the_provider_f_name) }}
                                     </a>
                                 </p>
                             @endauth
@@ -505,6 +573,15 @@
                                 </form>
                             </div>
 
+                            <div class="google-maps">
+                                <div class="mapouter">
+                                    <div class="gmap_canvas">
+                                        <iframe id="gmap_canvas" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31518.588844000613!2d7.492251300000006!3d9.07982880000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x55e2e606f1c6452e!2sE.F.%20Network%20Ltd!5e0!3m2!1sen!2sng!4v1611820893949!5m2!1sen!2sng" frameborder="0" style="border:0; width: 100%; height: 381px;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
                             <div class="posts-by-category widget ser-pg-safety-tips" style="margin-top: 20px; padding: 0">
                                 <h3 class="sidebar-title">Safety tips</h3>
                                 <div class="s-border"></div>

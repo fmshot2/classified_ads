@@ -21,17 +21,27 @@ use App\Service;
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 
+//Agent Middleware starts here
 Route::middleware(['agent'])->group(function () {
-    Route::get('/agent/dashboard', 'OperationalController@agentDashboard')->name('agent.dashboard');
+    Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
+    Route::get('/agent/referal/all', 'AgentController@allReferals')->name('agent.referal.all');
+    Route::get('/agent/profile/', 'AgentController@viewProfile')->name('agent.profile');
+    Route::get('/agent/notification/all', 'AgentController@allNotifications')->name('agent.notification.all');
+    Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
+
+
 });
+//Agent Middleware ends here
 
 Route::post('advertisement/create', 'OperationalController@advertCreate')->name('advertisement.create');
-
 Route::view('referral-program/', 'referralprogram')->name('referralprogram');
+Route::get('about-us/', 'OperationalController@aboutus')->name('aboutus');
 
 Route::get('test_new_badge', 'BadgeController@test_new_badge');
 
 Route::post('gtPAy', 'BadgeController@gtPAy');
+Route::post('gtPAyForRegistration', 'BadgeController@gtPAyForRegistration');
+
 Route::get ( 'findgeo2',  'ServiceController@findNearestRestaurants');
 Route::get( '/catpagesortby/{letter}',  'OperationalController@catPageSortBy');
 Route::get( '/requestbadge/{id}',  'OperationalController@requestbadge');
@@ -72,7 +82,7 @@ Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service
 Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');
 Route::get('/service-providers', 'ServiceController@allSellers')->name('seller.sellers');
 Route::get('/terms-of-use', 'ServiceController@termsOfUse')->name('terms-of-use');
-Route::get('/advertisement', 'AdminController@advertisement')->name('advertisement');
+Route::get('/advertisement', 'OperationalController@advertisement')->name('advertisement');
 
 Route::post('/store_contact_form', 'ContactController@store_contact_form')->name('store_contact_form');
 Route::post('/store_advert_form', 'AdvertController@store_advert_form')->name('store_advert_form');
@@ -195,6 +205,9 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/dashboard/service/view/{slug}', 'SellerController@viewService')->name('service.view');
         Route::get('/dashboard/service/update/{slug}', 'SellerController@viewServiceUpdate')->name('service.update.view');
 
+
+        Route::get('my-referrals/', 'OperationalController@myreferrals')->name('provider.myreferrals');
+
     });
 
 
@@ -233,7 +246,8 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
 
 
 
-}); //Auth Middleware protection end here
+}); 
+//Auth Middleware protection end here
 
 
 Route::middleware(['admin'])->group(function () { //Admin Middleware protection start here
@@ -312,8 +326,8 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::put('/admin/advert/update_slider/{id}', 'OperationalController@update_advert_sliders')->name('admin.advert.update_slider');
     Route::get('/admin/delete/sponsored/{id}', 'OperationalController@delete_advert_slider')->name('admin.advert.delete_sliders');
 
-    Route::get('/admin/pending_advert_requests', 'AdminController@pending_advert_requests')
-    ->name('pending_advert_requests');
+    Route::get('/admin/pending_advert_requests', 'AdminController@pending_advert_requests')->name('pending_advert_requests');
+    Route::get('/admin/all_adverts', 'AdminController@all_adverts')->name('admin.all_adverts');
     Route::get('/admin/treated_advert_requests', 'AdminController@treated_advert_requests')
     ->name('treated_advert_requests');
     Route::get('/admin/active_adverts', 'AdminController@active_adverts')

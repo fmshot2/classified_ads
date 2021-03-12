@@ -4,7 +4,7 @@
 @section('content')
 
 
-@include('layouts.frontend_partials.status')
+<!-- @include('layouts.frontend_partials.status') -->
 
 @include('frontend_section/carousel')
 
@@ -13,18 +13,11 @@
 
 
 {{-- Avatar MODULE  --}}
-{{-- <a href="#" class="float-referrer  animate__animated animate__fadeInLeft">
-    <img src="{{ asset('refer.png') }}" alt="" id="float-referrer">
-</a> --}}
-<a href="{{ route('referralprogram') }}" id="floatReferrer" class="float-referrer animate__animated animate__fadeInLeft">
+<a href="{{ route('referralprogram') }}" target="_blank" id="floatReferrer" class="float-referrer animate__animated animate__fadeInLeft">
     <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('image 1.png') }}">
     <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('image 2.png') }}">
+    <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('image 3.png') }}">
 </a>
-
-{{-- <section>
-    <img class="slides slides-hidden" src="{{ asset('refer.png') }}">
-    <img class="slides slides-hidden" src="{{ asset('referfd.png') }}">
-</section> --}}
 
 <style>
     .float-referrer{

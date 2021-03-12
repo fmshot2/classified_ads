@@ -20,13 +20,13 @@ class AuthController extends Controller
 {
 
 	public function createAgent(Request $request)
-    {
-        $request->validate([
+	{
+		$request->validate([
 			'name'     => ['required', 'string', 'max:255'],
 			'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
 			'phone'    => ['required', 'numeric', 'unique:users'],
 			'state'    => ['string'],
-			'lga'      => ['string'],
+			// 'lga'      => ['string'],
 			'password' => ['required', 'string', 'min:6', 'confirmed'],
 		]);
 
@@ -38,43 +38,70 @@ class AuthController extends Controller
 		$length = 1;
 		$last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
 
-        $data = [
-            'name'       => $request->name,
-            'email'      => $request->email,
-            'phone'      => $request->phone,
-            'state'      => $request->state,
-            'identification_type' => $request->identification_type,
-            'identification_id'   => $request->identification_id,
-            'lga'        => $request->lga,
-            'is_agent'   => 1,
-            'agent_code' => $result . $randomCode . $last_letter,
-            'role'       =>  'agent',
-            'status'     => 1,
-            'password'   => Hash::make($request->password)
-        ];
+		// $data = [
+		// 	'name'       => $request->name,
+		// 	'email'      => $request->email,
+		// 	'phone'      => $request->phone,
+		// 	'state'      => $request->state,
+		// 	'identification_type' => $request->identification_type,
+		// 	'identification_id'   => $request->identification_id,
+		// 	'lga'        => $request->lga,
+		// 	'is_agent'   => 1,
+		// 	'agent_code' => $result . $randomCode . $last_letter,
+		// 	'role'       =>  'agent',
+		// 	'status'     => 1,
+		// 	'password'   => Hash::make($request->password)
+		// ];
 
-        $user = User::create($data);
 
-        if ($user) {
-            $credentials = $request->only('email', 'password');
+			//save agent details
+			$user = new User;
+			$user->name = $request->name;
+			$user->email = $request->email;
+			$user->phone = $request->phone;
+			$user->state = $request->state;
+			$user->identification_type = $request->identification_type;
+			$user->identification_id = $request->identification_id;
+			$user->is_agent = 1;
+			$user->agent_code = $result . $randomCode . $last_letter;
+			$user->role = 'agent';
+			$user->status  = 1;
+			$user->password = Hash::make($request->password);
+			$user->save();
+
+
+		
+
+		if ($user->save()) {
+			$credentials = $request->only('email', 'password');
 
 			if (Auth::attempt($credentials)) {
+
+				$present_user = Auth::user();
+
+				$link = new Refererlink();
+				$link->user_id = $present_user->id;
+				$link->agent_code = $present_user->agent_code;
+				$link->save();
+
 				return redirect()->route('agent.dashboard');
-            }
-            else{
-                return redirect()->intended('/');
-            }
-        }
-    }
+			}
+			else{
+				return redirect()->intended('/');
+			}
+		}
+	}
 
-    public function createUser (Request $request)
+	public function createUser (Request $request)
 	{
-        // dd(str_replace(url('/'), '', Session::get('url.intended')));
 
-        $link_from_url = $request->refer;
-		// dd($usrerere);
+		$link_from_url = $request->refer;
+		$code_of_agent = $request->agent_code;
+		// dd($link_from_url, 'and', $code_of_agent);
+
+		$slug3 = Str::random(8);
+
 		// $LGA = User::find(['refererLink'=>$usrerere]);
-		// dd($LGA);
 		// $Link_owner = User::where('refererLink', $usrerere)->first();
 
 		$validatedData = $request->validate([
@@ -85,60 +112,107 @@ class AuthController extends Controller
 			// 'captcha' => 'required|captcha',
 			'role' => 'required'
 		]);
+// Get id of owner of $link_from_url of available
+		if($link_from_url){
+			$saveIdOfRefree = User::where('refererLink', $link_from_url)->first();
+			$refererId = $saveIdOfRefree->id;
+		}else{
+			$refererId = null;
+		}	
 
-			$saveIdOfRefree = User::where(['refererLink'=>$link_from_url])->first();
-		if($saveIdOfRefree){
-		$refererId = $saveIdOfRefree->id;
+		// Get id of owner of $agent code if available
+		if($code_of_agent){
+			$saveIdOfAgent = User::where('agent_code', $code_of_agent)->first();
+		// dd($saveIdOfAgent);
+			$agent_Id = $saveIdOfAgent->id;
+		}else{
+			$agent_Id = null;
 		}
+		
+
+		//save user
 		$user = new User;
 		$user->name = $request->name;
 		$user->email = $request->email;
 		$user->password = Hash::make($request->password);
 		$user->role = $request->role;
-		if($saveIdOfRefree){
+		//save id of referer if user was reffererd
 		$user->idOfReferer = $refererId;
-		}
-
+		//save id of agent if user was brought by agent
+		$user->idOfAgent = $agent_Id;
+		$user->refererLink = $slug3;
 		//$user->state = $request->state;
 		$user->save();
-		 	if ($user->save()) {
+		//send mail
+
+		if ($user->save()) {
 			$name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
 			$name = $user->name;
 			$email = $user->email;
 			$origPassword = $request->password;
 			$userRole = $user->role;
 
-            try{
-                Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
-            }
-            catch(\Exception $e){
-                $failedtosendmail = 'Failed to Mail!.';
-            }
-
-
-			if ($link_from_url) {
-                $link = new Refererlink();
-                $link->refererlink = $link_from_url;
-                $link->save();
-            }
+			try{
+				Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+			}
+			catch(\Exception $e){
+				$failedtosendmail = 'Failed to Mail!';
+			}
 
 		}
-
-
-
 		session()->flash('success', ' succesfull!');
 
 		$credentials = $request->only('email', 'password');
 
 		if (Auth::attempt($credentials)) {
-			if ( $request->role == 'seller' )
-				return redirect()->route('seller.dashboard');
+			$present_user = Auth::user();
+	// 		$user_hasUploadedService = $present_user->hasUploadedService;
+	// 		if ($user_hasUploadedService == 1) {
+	// 			if ( $present_user->role == 'seller' ){
+	// 			return redirect()->route('seller.dashboard');
 
-            } else {
-                return Redirect::to(Session::get('url.intended'));
-            }
-            return redirect()->intended('/');
-        }
+	// 	} else {
+	// 		return Redirect::to(Session::get('url.intended'));
+	// 	}
+	// }		
+			
+
+
+		// if referrer link is available, save it to referer table
+
+			$link = new Refererlink();
+			$link->user_id = $present_user->id;
+			$link->refererlink = $present_user->refererLink;
+			$link->save();
+
+			$person_that_refered = $present_user->idOfReferer;
+			if($person_that_refered){
+				$referer = User::where('id', $person_that_refered)->first();
+				// dd($referer->refererAmount);
+				if ($referer) {
+					$referer->refererAmount = $referer->refererAmount + 50;
+					$referer->save();
+				}
+			}
+
+			$agent_that_refered = $present_user->idOfAgent;
+			if($agent_that_refered){
+				$referer = User::where('id', $agent_that_refered)->first();
+				if ($referer) {
+					$referer->refererAmount = $referer->refererAmount + 100;
+					$referer->save();
+				}
+			}
+
+			if ( $present_user->role == 'seller' ){
+				return redirect()->route('seller.dashboard');
+			} else {
+				return Redirect::to(Session::get('url.intended'));
+			}
+		}
+		
+		return redirect()->intended('/');
+	}
 
 
 
@@ -150,7 +224,7 @@ class AuthController extends Controller
 
 	public function showRegisterforRefer($refer)
 	{
-$referlink = $refer;
+		$referlink = $refer;
 
 
 
@@ -162,10 +236,10 @@ $referlink = $refer;
 	public function showRegister (Request $request)
 	{
 
-        $request->session()->forget('url.intended');
-        session(['url.intended' => url()->previous()]);
+		$request->session()->forget('url.intended');
+		session(['url.intended' => url()->previous()]);
 
-        $param = $request->input('invite');
+		$param = $request->input('invite');
 
 		//$param = $request->query('param');
 		if($param){
@@ -202,7 +276,7 @@ $referlink = $refer;
 		{
 			session()->flash('success', ' Login Succesfull');
 			// return redirect()->route('buyer.dashboard');
-            return Redirect::to(Session::get('url.intended'));
+			return Redirect::to(Session::get('url.intended'));
 		} else
 		{
 			return redirect()->route('admin.dashboard');;
@@ -232,11 +306,11 @@ $referlink = $refer;
 				// session()->flash('success', ' Login Succesfull');
 				// return redirect()->route('buyer.dashboard');
 
-                return Redirect::to(Session::get('url.intended'));
+				return Redirect::to(Session::get('url.intended'));
 
 			} else if (Auth::user()->role == 'agent')
 			{
-                return redirect()->route('agent.dashboard');
+				return redirect()->route('agent.dashboard');
 
 			} else
 			{
@@ -252,9 +326,9 @@ $referlink = $refer;
 	public function showLogin (Request $request)
 	{
 		$request->session()->forget('url.intended');
-        session(['url.intended' => url()->previous()]);
+		session(['url.intended' => url()->previous()]);
 
-        if (Auth::check()) {
+		if (Auth::check()) {
 			return view ('welcome');
 		}
 		return view ('auth/login');
@@ -281,7 +355,7 @@ $referlink = $refer;
 		$user = User::find($id);
 		$validatedData = $request->validate([
 			'name' => ['required', 'string', 'max:255'],
-			'state' => ['string'],
+			// 'state' => ['string'],
 			'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 		]);
 
@@ -296,7 +370,7 @@ $referlink = $refer;
 
 		$user->name = $request->name;
 		$user->email = $request->email;
-		$user->state = $request->state;
+		// $user->state = $request->state;
 		$user->phone = $request->phone;
 		$user->address = $request->address;
 		$user->about = $request->about;

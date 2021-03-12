@@ -36,28 +36,9 @@ class SellerController extends Controller
 
    public function storeService(Request $request)
     {
-        // return response()->json(['success'=>"working", 'data'=>'done it' ]);
-      //dd('llll');
-      //dd($user);
 
 
     $data = $request->all();
-
-
- // $validator = Validator::make($request->only('file_input'), [
- //            'file_input' => 'max:20480',
- //        ]);
-
- //        if ($validator->fails()) {
- //            return redirect()
- //                        ->route('your.route.name')
- //                        ->withErrors($validator)
- //                        ->withInput();
- //        }
-
-
-
-
        $this->validate($request,[
         // 'description' => 'required',
         // 'category_id' => 'required',
@@ -109,9 +90,6 @@ if ( $request->hasFile('files') ) {
            $service->image = json_encode($names);
        }
 
-
-// _token:_token, name:name,  description:description, experience:experience, phone:phone, min_price:min_price, state:state, city:city, address:address, category:category
-
         $state_details = State::where('name', $data['state'])->first();
 
 
@@ -119,7 +97,7 @@ if ( $request->hasFile('files') ) {
         $service->category_id = $data['category_id'];
         $service->name = $data['name'];
         $service->description = $data['description'];
-        $service->experience = $data['experience'];
+        // $service->experience = $data['experience'];
         $service->phone = $data['phone'];
         $service->min_price = $data['min_price'];
         $service->state = $data['state'];
@@ -160,54 +138,27 @@ if ( $request->hasFile('files') ) {
         $user_hasUploadedService = $present_user->hasUploadedService;
         if ($user_hasUploadedService == 1) {
        $request->session()->flash('status', 'Task was successful!');
-
-       // return $this->allService();
-        // return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service]);
-       // return back()->with('service_id', $latest_service_id, 'service', $latest_service);
-        // /service/{id}
-         // return redirect()->route('seller/service/' . $latest_service_id);
+        
          return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
 
         }
-        //dd($user);
         $present_user->hasUploadedService = 1;
         $user_referer_id = $present_user->idOfReferer;
         $present_user->save();
-        //dd($user_referer_id);
-        //dd($present_user->hasUploadedService);
-        //dd('xxxxxxxx');
-        //$user_hasUploadedService = 1;
-        // $user_that_referered
+   
         $referer = User::where('id', $user_referer_id)->first();
-        //dd($referer->refererAmount);
         if ($referer) {
         $referer->refererAmount = $referer->refererAmount + 50;
         $referer->save();
-                //dd($referer->refererAmount);
 
          $request->session()->flash('status', 'Task was successful!');
-       //$this->saveReferLink();
-         // dd($latest_service_id);
-        // return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service]);
+       //$this->saveReferLink();       
         // return redirect()->route('seller/service/' . $latest_service_id);
-                  return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
+        return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
 
-
-      // return back()->with('service_id', $latest_service_id, 'service', $latest_service);
-       // return $this->allService();
         }
 
-                 // dd($latest_service_id);
-        // return response()->json(['service_id'=>$latest_service_id, 'service'=>$latest_service, 'success', 'Your message has been sent!']);
-
-                 return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
-
-
-              // return back()->with('service_id', $latest_service_id, 'service', $latest_service, 'success', 'Your message has been sent!');
-
-       //      $request->session()->flash('status', 'Task was successful!');
-       // return $this->allService();
-
+        return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
 
    }
 
@@ -220,13 +171,7 @@ public function saveReferLink($refererlink){
            $link->user_id = Auth::id();
            $link->refererlink = $refererlink;
            $link->save();
-//                $user = Auth::user();
-// $user->refererLink = $slug3;
-// $user->save();
-//            $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
-
 }
-
 
    public function storeServiceUpdate(Request $request, $id)
    {

@@ -47,25 +47,18 @@
             margin-top:22px;
         }
 
-        @media (max-width: 768px){
-            .float-feedback{
-                width:90px;
-                height:30px;
-                font-size: 11px;
-                padding: 7px 10px;
-                top:60px;
-            }
+        .tabbing-box .nav-item .nav-link{
+            border: 1px solid #CA8309;
+            margin-right: 3px;
         }
-    </style>
-
-    <style>
         .tabbing-box .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
             color: #fff !important;
             border-radius: 50px !important;
-            background: #FFC107 !important;
+            background: #CA8309  !important;
         }
         .tabbing-box .nav-tabs .nav-link:hover{
             border-radius: 50px !important;
+            background: #CA8309  !important;
         }
         .agent-registration-modal .form-group label, .checkbox label {
             font-size: 14px !important;
@@ -74,6 +67,19 @@
         .agent-registration-modal .form-group input, .agent-registration-modal .form-group select {
             border-radius: 0;
             font-size: 14px !important;
+        }
+
+        @media (max-width: 768px){
+            .float-feedback{
+                width:90px;
+                height:30px;
+                font-size: 11px;
+                padding: 7px 10px;
+                top:60px;
+            }
+            .tabbing-box .nav-item .nav-link{
+                font-size: 12px;
+            }
         }
     </style>
 
@@ -94,7 +100,7 @@
                                         <a class="nav-link active show" id="one-tab" data-toggle="tab" href="#aboutAgent" role="tab" aria-controls="two" aria-selected="false">Who is an Agent?</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="two-tab" data-toggle="tab" href="#agentRegister" role="tab" aria-controls="one" aria-selected="false">Register Here</a>
+                                        <a class="nav-link" id="two-tab" data-toggle="tab" href="#agentRegister" role="tab" aria-controls="one" aria-selected="false" style="margin-left: 3px">Register Here</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="carTabContent">
@@ -183,17 +189,6 @@
                                                                     @endif
                                                                 </select>
                                                             </div>
-
-                                                            {{-- <div class="form-group">
-                                                                <label class="form-label">Mode of Identification</label><small class="text-danger">*</small>
-                                                                <small class="form-text text-muted" style="margin-top: -10px">Upload Driver's Licence, National ID or Voter's Card</small>
-                                                                <input id="add" type="file"  class="form-control" name="file" required>
-                                                                @if ($errors->has('file'))
-                                                                <span class="helper-text" data-error="wrong" data-success="right">
-                                                                    <strong class="text-danger">{{ $errors->first('file') }}</strong>
-                                                                </span>
-                                                                @endif
-                                                            </div> --}}
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">

@@ -61,28 +61,28 @@
 
 <style type="text/css">
 	.dt-buttons .dt-button {
-		background: #f8d053 !important;
-		color: white !important;
+        background: #CA8309 !important;
+        color: white !important;
     }
     .dz-image img {
-    width: 100%;
-    height: 100%;
-}
-.dropzone.dz-started .dz-message {
-    display: block !important;
-}
-.dropzone {
-    border: 2px dashed #028af4 !important;
-}
-.dropzone .dz-preview.dz-complete .dz-success-mark {
-    opacity: 1;
-}
-.dropzone .dz-preview.dz-error .dz-success-mark {
-    opacity: 0;
-}
-.dropzone .dz-preview .dz-error-message {
-    top: 144px;
-}
+        width: 100%;
+        height: 100%;
+    }
+    .dropzone.dz-started .dz-message {
+        display: block !important;
+    }
+    .dropzone {
+        border: 2px dashed #028af4 !important;
+    }
+    .dropzone .dz-preview.dz-complete .dz-success-mark {
+        opacity: 1;
+    }
+    .dropzone .dz-preview.dz-error .dz-success-mark {
+        opacity: 0;
+    }
+    .dropzone .dz-preview .dz-error-message {
+        top: 144px;
+    }
 
 </style>
 

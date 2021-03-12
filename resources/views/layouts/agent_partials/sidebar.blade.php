@@ -19,41 +19,37 @@
       <!-- sidebar menu-->
       <ul class="sidebar-menu" data-widget="tree">
 
-        <li class="" style="{{ url()->current() == route('seller.dashboard') ? 'background-color: #f8d053' : '' }}">
-          <a href=" {{route ('seller.dashboard') }}">
+        <li class="" style="{{ url()->current() == route('agent.dashboard') ? 'background-color: #f8d053' : '' }}">
+          <a href=" {{route ('agent.dashboard') }}">
             <i class="fa fa-dashboard"></i> <span> Dashboard </span>
             <span class="pull-right-container">
             </span>
           </a>
         </li>
-
-
-
-        <li class="" style="{{ url()->current() == route('seller.message.all') ? 'background-color: #f8d053' : '' }}">
-          <a href=" {{route ('seller.message.all') }}">
-            <i class="fa fa-briefcase"></i> <span> My Messages </span>
-            <span class="pull-right-container">
+        
+        <li class="" style="{{ url()->current() == route('agent.referal.all') ? 'background-color: #f8d053' : '' }}">
+          <a href=" {{route ('agent.referal.all') }}">
+            <i class="fa fa-briefcase"></i> <span> All My Referalls </span>
+            <!-- <span class="pull-right-container">
               <small class="label pull-right bg-danger">   </small>
-            </span>
+            </span> -->
           </a>
         </li>
 
 
 
-        <li class="" style=" {{ url()->current() == route('seller.notification.all') ? 'background-color: #f8d053' : '' }}">
-          <a href=" {{route ('seller.notification.all') }}">
+        <li class="" style=" {{ url()->current() == route('agent.notification.all') ? 'background-color: #f8d053' : '' }}">
+          <a href=" {{route ('agent.notification.all') }}">
             <i class="fa fa-bell"></i> <span> General Notice </span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-primary">   </small>
-            </span>
+            <!-- <span class="pull-right-container">
+              <small class="label pull-right bg-primary">  </small>
+            </span> -->
           </a>
         </li>
 
 
-
-
-        <li style="{{ url()->current() == route('seller.profile') ? 'background-color: #f8d053' : '' }}">
-          <a href=" {{ route ('seller.profile') }} ">
+        <li style="{{ url()->current() == route('agent.profile') ? 'background-color: #f8d053' : '' }}">
+          <a href=" {{ route ('agent.profile') }} ">
             <i class="fa fa-user"></i> <span> Profile </span>
             <span class="pull-right-container">
             </span>

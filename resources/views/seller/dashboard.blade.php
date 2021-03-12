@@ -69,13 +69,9 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         @include('layouts.backend_partials.status')
+
         <section class="content-header">
-                <p style="font-size: 19px">
-                    Here, You Have A Preview Of All The Activities On Your Dashboard
-                </p>
-                </section>
-        <section class="content-header">
-    
+
             @if(isset($linkcheck->refererlink))
             <div class="refererArea">
                 <h4>My Referral Link <small>(<a data-toggle="modal" data-target="#referralInfoModal">How it works?</a>)</small></h4>
@@ -120,7 +116,7 @@
                         @endif
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
 
 
