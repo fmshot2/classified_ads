@@ -40,12 +40,12 @@ Route::get('about-us/', 'OperationalController@aboutus')->name('aboutus');
 Route::get('test_new_badge', 'BadgeController@test_new_badge');
 
 Route::post('gtPAy', 'BadgeController@gtPAy');
-Route::post('gtPAyForRegistration', 'BadgeController@gtPAyForRegistration');
+Route::post('gtPAyForRegistration', 'AuthController@gtPAyForRegistration');
 
 Route::get ( 'findgeo2',  'ServiceController@findNearestRestaurants');
 Route::get( '/catpagesortby/{letter}',  'OperationalController@catPageSortBy');
-Route::get( '/requestbadge/{id}',  'OperationalController@requestbadge');
-Route::post( '/requestbadge/{id}',  'OperationalController@requestbadge')->name('badge.request');
+Route::get( '/requestbadge/{id}',  'BadgeController@requestbadge');
+// Route::post( '/requestbadge/{id}',  'BadgeController@requestbadge')->name('badge.request');
 Route::post( '/user-feedback',  'OperationalController@feedbackform')->name('feedback.form');
 
 Route::get('email', function () {
