@@ -15,8 +15,9 @@
                         <!-- /.box-header -->
                         <div class="box-body" style="padding: 20px">
                             <!-- form start -->
-                            <form class="form-horizontal form-element" method="POST" action="{{route('admin.save_city')}}" enctype="multipart/form-data">
+                            <form class="form-horizontal form-element" method="POST" action="{{route('admin.update.city', $city->slug)}}" enctype="multipart/form-data">
                                 {{ csrf_field() }}
+                                @method('PUT')
                                      <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Name of City: </label>
