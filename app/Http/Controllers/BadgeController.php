@@ -1,4 +1,4 @@
- <?php
+<?php
 
 namespace App\Http\Controllers;
 
@@ -166,20 +166,12 @@ class BadgeController extends Controller
 
 	public function saveService4Badge(Request $request)
 	{
-      	  //return 'ddd';
       	//return $request->input('service_id');
-      	 $data = $request->all();
-       //return 'nnn';
-
-        //return $data['service_id'];
-          //$badge_service_id = $data['service_id']; 
-
+      	 $data = $request->all();   
 
 		$service_id = $data['service_id'];          
-		//$service_id = $request->input('service_id');
       	  $service_select = "This Service selected for upgrade";
 
-  			//return $the_Service = Badge::where('service_id', $service_id)->get();
 
 		$badge_check = Badge::where(['service_id'=>$service_id])->first();
 		
@@ -188,7 +180,6 @@ class BadgeController extends Controller
 
 			$badge_check->save();
 			return response()->json(['success'=>'updated done', 'id'=>$service_id]);
-			 /*return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);*/
 
 		}else{
 			$badge = new Badge();
@@ -204,7 +195,6 @@ class BadgeController extends Controller
 	{
 	//return $request->input('service_id');
       	 $data = $request->all();
-       //return 'nnn';
 
 
 		$service_id = $data['service_id'];          
@@ -237,9 +227,8 @@ class BadgeController extends Controller
  public function createpay4Advert(Request $request)
       {
        $data = $request->all();
-       //return 'nnn';
 
-        //return $data['service_id'];
+	   //return $data['service_id'];
        $badge_service_id = $data['service_id'];    
 
 
@@ -281,8 +270,6 @@ class BadgeController extends Controller
      $badge->save();
      return "yyyy";
 
-        //return 
-
      if ($badge->save()) {
       return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
         //return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
@@ -296,7 +283,6 @@ class BadgeController extends Controller
      $likecount = Like::where(['service_id'=>$id])->count();
      return redirect()->to('serviceDetail/'.$service_slug);
         //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
-        //return redirect('/home');   
    }else{
      $like = new Like();
      $like->user_id = Auth::id();
@@ -304,18 +290,9 @@ class BadgeController extends Controller
      $like->save();
      $likecount = Like::where(['service_id'=>$id])->count();
      return redirect()->to('serviceDetail/'.$service_slug);
-        //return 'Heyyyyy22222'. $likecount;    
    }
 
  }
-
-
-
-
-
-
-
-
 
 
 
@@ -369,6 +346,30 @@ class BadgeController extends Controller
 
 	}
 
+    public function requestbadge(Request $request, $id)
+    {
+        $user_id = $request->user()->id;
 
+        if ($id == 1) {
+            $badge = [
+                'badge_type' => 'Super',
+                'badge_cost' => 4
+            ];
+        }
+        elseif ($id == 2) {
+            $badge = [
+                'badge_type' => 'Moderate',
+                'badge_cost' => 5
+            ];
+        }
+        elseif ($id == 3) {
+            $badge = [
+                'badge_type' => 'Super',
+                'badge_cost' => 6
+            ];
+        }
+
+        return $badge;
+    }
 
 }

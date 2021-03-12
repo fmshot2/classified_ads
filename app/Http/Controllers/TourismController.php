@@ -60,7 +60,6 @@ class TourismController extends Controller
         $city->slug = Str::slug($request->name, '-');
 
         $city->save();
-
         if($city->save())
         {
             $success_notification = array(
