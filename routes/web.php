@@ -40,12 +40,12 @@ Route::get('about-us/', 'OperationalController@aboutus')->name('aboutus');
 Route::get('test_new_badge', 'BadgeController@test_new_badge');
 
 Route::post('gtPAy', 'BadgeController@gtPAy');
-Route::post('gtPAyForRegistration', 'AuthController@gtPAyForRegistration');
+Route::post('gtPAyForRegistration', 'AuthController@gtPAyForRegistration')->name('gtPAyForRegistration');
 
 Route::get ( 'findgeo2',  'ServiceController@findNearestRestaurants');
 Route::get( '/catpagesortby/{letter}',  'OperationalController@catPageSortBy');
 Route::get( '/requestbadge/{id}',  'BadgeController@requestbadge');
-// Route::post( '/requestbadge/{id}',  'BadgeController@requestbadge')->name('badge.request');
+Route::post( '/requestbadge/{id}',  'BadgeController@requestbadge')->name('badge.request');
 Route::post( '/user-feedback',  'OperationalController@feedbackform')->name('feedback.form');
 
 Route::get('email', function () {
@@ -137,7 +137,9 @@ Route::get('/email/verify', function () {
 Route::get('/home', 'AuthController@loginformail')->name('loginformail');
 */
 Route::get('/register', 'AuthController@showRegister')->name('register');
-Route::post('/register', 'AuthController@createUser')->name('register');
+Route::post('/register2', 'AuthController@createUser')->name('register2');
+Route::post('/register', 'AuthController@createUserWithGTPay')->name('register');
+
 Route::post('/agent/register', 'AuthController@createAgent')->name('agent.register');
 Route::get('/login', 'AuthController@showLogin')->name('login');
 Route::post('/login', 'AuthController@login')->name('login');

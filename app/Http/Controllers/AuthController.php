@@ -55,19 +55,19 @@ class AuthController extends Controller
 
 
 			//save agent details
-			$user = new User;
-			$user->name = $request->name;
-			$user->email = $request->email;
-			$user->phone = $request->phone;
-			$user->state = $request->state;
-			$user->identification_type = $request->identification_type;
-			$user->identification_id = $request->identification_id;
-			$user->is_agent = 1;
-			$user->agent_code = $result . $randomCode . $last_letter;
-			$user->role = 'agent';
-			$user->status  = 1;
-			$user->password = Hash::make($request->password);
-			$user->save();
+		$user = new User;
+		$user->name = $request->name;
+		$user->email = $request->email;
+		$user->phone = $request->phone;
+		$user->state = $request->state;
+		$user->identification_type = $request->identification_type;
+		$user->identification_id = $request->identification_id;
+		$user->is_agent = 1;
+		$user->agent_code = $result . $randomCode . $last_letter;
+		$user->role = 'agent';
+		$user->status  = 1;
+		$user->password = Hash::make($request->password);
+		$user->save();
 
 
 		
@@ -92,44 +92,49 @@ class AuthController extends Controller
 		}
 	}
 
+	public function gen_transaction_id()
+	{
+		return mt_rand(1000000000, 9999999999);
+	}
 
 
 
 	public function gtPAyForRegistration(Request $request) {
+		dd($request);
 		$gtpay_mert_id        = 14264; 
-    	$gtpay_tranx_id      = $this->gen_transaction_id();
-    	$gtpay_tranx_amt      = $request->amount * 100;
-    	$gtpay_tranx_curr     = 566;
-    	$gtpay_cust_id        = $request->user()->id;
-    	$gtpay_tranx_noti_url = "https://yellowpage.test/api/gt_payment_details/{$request->user()->id}/{$request->badge_type}";
-    	$gtpay_cust_name      = $request->user()->name;
-    	$gtpay_tranx_memo     = 'Mobow';
-    	$gtpay_echo_data      = "{$request->user()->id},{$request->badge_type}";
-    	$gtpay_no_show_gtbank = 'yes';
-    	$gtpay_gway_name      = 'etranzact';
-    	$hashkey = '3EBF9CF6D082C89F88490B01D072B0F4E1EE52E86EC731D9B49538F33B551D486AB70673FE1B876B94EF76EC5E0AA1D3D14BA933424037FB1219662AFAB8FF51';
+		$gtpay_tranx_id      = $this->gen_transaction_id();
+		$gtpay_tranx_amt      = $request->amount * 100;
+		$gtpay_tranx_curr     = 566;
+		$gtpay_cust_id        = $request->user()->id;
+		$gtpay_tranx_noti_url = "https://yellowpage.test/api/gt_payment_details/{$request->user()->id}/{$request->badge_type}";
+		$gtpay_cust_name      = $request->user()->name;
+		$gtpay_tranx_memo     = 'Mobow';
+		$gtpay_echo_data      = "{$request->user()->id}";
+		$gtpay_no_show_gtbank = 'yes';
+		$gtpay_gway_name      = 'etranzact';
+		$hashkey = '3EBF9CF6D082C89F88490B01D072B0F4E1EE52E86EC731D9B49538F33B551D486AB70673FE1B876B94EF76EC5E0AA1D3D14BA933424037FB1219662AFAB8FF51';
 
-    	 $gtpay_hash = $gtpay_mert_id.$gtpay_tranx_id.$gtpay_tranx_amt.$gtpay_tranx_curr.$gtpay_cust_id.$gtpay_tranx_noti_url.$hashkey;
+		$gtpay_hash = $gtpay_mert_id.$gtpay_tranx_id.$gtpay_tranx_amt.$gtpay_tranx_curr.$gtpay_cust_id.$gtpay_tranx_noti_url.$hashkey;
 
-        $hashed = hash('sha512', $gtpay_hash);
+		$hashed = hash('sha512', $gtpay_hash);
 
-        $gtPay_Data = [
-        	'gtpay_mert_id' => $gtpay_mert_id,
-        	'gtpay_tranx_id' => $gtpay_tranx_id,
-        	'gtpay_tranx_amt' => $gtpay_tranx_amt,
-        	'gtpay_tranx_curr' => $gtpay_tranx_curr,
-        	'gtpay_cust_id' =>  $gtpay_cust_id,
-        	'gtpay_tranx_noti_url' => $gtpay_tranx_noti_url,
-        	'gtpay_cust_name' => $gtpay_cust_name,
-        	'gtpay_tranx_memo' => $gtpay_tranx_memo,
-        	'gtpay_echo_data'      => $gtpay_echo_data,
-        	'gtpay_no_show_gtbank' => $gtpay_no_show_gtbank,
-        	'gtpay_gway_name'      => $gtpay_gway_name,
-        	'hashkey'              => $hashkey,
-        	'hashed'              => $hashed
+		$gtPay_Data = [
+			'gtpay_mert_id' => $gtpay_mert_id,
+			'gtpay_tranx_id' => $gtpay_tranx_id,
+			'gtpay_tranx_amt' => $gtpay_tranx_amt,
+			'gtpay_tranx_curr' => $gtpay_tranx_curr,
+			'gtpay_cust_id' =>  $gtpay_cust_id,
+			'gtpay_tranx_noti_url' => $gtpay_tranx_noti_url,
+			'gtpay_cust_name' => $gtpay_cust_name,
+			'gtpay_tranx_memo' => $gtpay_tranx_memo,
+			'gtpay_echo_data'      => $gtpay_echo_data,
+			'gtpay_no_show_gtbank' => $gtpay_no_show_gtbank,
+			'gtpay_gway_name'      => $gtpay_gway_name,
+			'hashkey'              => $hashkey,
+			'hashed'              => $hashed
 
 
-        ];
+		];
 // dd($gtPay_Data);
 		return view('gttPayView', $gtPay_Data );
 	}
@@ -139,12 +144,8 @@ class AuthController extends Controller
 
 		$link_from_url = $request->refer;
 		$code_of_agent = $request->agent_code;
-		// dd($link_from_url, 'and', $code_of_agent);
 
 		$slug3 = Str::random(8);
-
-		// $LGA = User::find(['refererLink'=>$usrerere]);
-		// $Link_owner = User::where('refererLink', $usrerere)->first();
 
 		$validatedData = $request->validate([
 			'name' => ['required', 'string', 'max:255'],
@@ -154,7 +155,8 @@ class AuthController extends Controller
 			// 'captcha' => 'required|captcha',
 			'role' => 'required'
 		]);
-// Get id of owner of $link_from_url of available
+
+		// Get id of owner of $link_from_url of available
 		if($link_from_url){
 			$saveIdOfRefree = User::where('refererLink', $link_from_url)->first();
 			$refererId = $saveIdOfRefree->id;
@@ -231,6 +233,102 @@ class AuthController extends Controller
 			if($person_that_refered){
 				$referer = User::where('id', $person_that_refered)->first();
 				// dd($referer->refererAmount);
+				if ($referer) {
+					$referer->refererAmount = $referer->refererAmount + 50;
+					$referer->save();
+				}
+			}
+
+			$agent_that_refered = $present_user->idOfAgent;
+			if($agent_that_refered){
+				$referer = User::where('id', $agent_that_refered)->first();
+				if ($referer) {
+					$referer->refererAmount = $referer->refererAmount + 100;
+					$referer->save();
+				}
+			}
+
+			if ( $present_user->role == 'seller' ){
+				return redirect()->route('seller.dashboard');
+			} else {
+				return Redirect::to(Session::get('url.intended'));
+			}
+		}
+		
+		return redirect()->intended('/');
+	}
+
+	public function createUserWithGTPay(Request $request)
+	{
+		$link_from_url = $request->refer;
+		$code_of_agent = $request->agent_code;
+
+		$slug3 = Str::random(8);
+
+		$validatedData = $request->validate([
+			'name' => ['required', 'string', 'max:255'],
+			'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+			'state' => ['string'],
+			'password' => ['required', 'string', 'min:6', 'confirmed'],
+			'role' => 'required'
+		]);
+		if($link_from_url){
+			$saveIdOfRefree = User::where('refererLink', $link_from_url)->first();
+			$refererId = $saveIdOfRefree->id;
+		}else{
+			$refererId = null;
+		}	
+
+		if($code_of_agent){
+			$saveIdOfAgent = User::where('agent_code', $code_of_agent)->first();
+			$agent_Id = $saveIdOfAgent->id;
+		}else{
+			$agent_Id = null;
+		}
+		
+
+		$user = new User;
+		$user->name = $request->name;
+		$user->email = $request->email;
+		$user->password = Hash::make($request->password);
+		$user->role = $request->role;
+		$user->idOfReferer = $refererId;
+		$user->idOfAgent = $agent_Id;
+		$user->refererLink = $slug3;
+		$user->save();
+
+		if ($user->save()) {
+			$name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+			$name = $user->name;
+			$email = $user->email;
+			$origPassword = $request->password;
+			$userRole = $user->role;
+
+
+			return redirect()->route('gtPAyForRegistration')->with([
+				'name' => $user->name,
+				'email' => $user->email,
+				'origPassword' => $request->password,
+				'userRole' => $user->role,
+			]);
+
+		}
+		session()->flash('success', ' succesfull!');
+
+		$credentials = $request->only('email', 'password');
+
+		if (Auth::attempt($credentials)) {
+			$present_user = Auth::user();
+
+
+			$link = new Refererlink();
+			$link->user_id = $present_user->id;
+			$link->refererlink = $present_user->refererLink;
+			$link->save();
+
+			$person_that_refered = $present_user->idOfReferer;
+			if($person_that_refered){
+				$referer = User::where('id', $person_that_refered)->first();
 				if ($referer) {
 					$referer->refererAmount = $referer->refererAmount + 50;
 					$referer->save();
