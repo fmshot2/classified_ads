@@ -27,6 +27,12 @@ span.info-box-icon.push-bottom.bg-warning {
     color: white !important;
 }
 /* CA8309 */
+.btn-success, .alert-success{
+    background-color: #41af0f !important;
+}
+.text-success{
+    color: #41af0f !important;
+}
 
 .page-title{
     font-size: 22px;

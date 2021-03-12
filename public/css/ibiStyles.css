@@ -1102,6 +1102,13 @@ h6 {
     width: 100%;
 }
 
+.btn-success, .alert-success{
+    background-color: #41af0f !important;
+}
+.text-success{
+    color: #41af0f !important;
+}
+
 #pagination-wrap ul li {
     margin: 0 4px;
     display: inline-block;
