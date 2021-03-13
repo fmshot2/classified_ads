@@ -159,7 +159,6 @@
                                                     <h3 class="category-title">
                                                         <a href="#">{{ $tourist_attraction->name }}</a>
                                                     </h3>
-
                                                 </div>
                                             </div>
                                         </div>
