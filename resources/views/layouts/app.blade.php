@@ -164,7 +164,7 @@
                                                                     </span>
                                                                 @endif
                                                             </div>
-                                                            <div class="form-group">
+                                                            <!-- <div class="form-group">
                                                                 <label class="form-label">Phone Number</label><small class="text-danger">*</small>
                                                                 <input type="phone" placeholder="Phone Number" class="form-control" name="phone" value="{{ old('phone') }}" required>
                                                                 @if ($errors->has('phone'))
@@ -172,13 +172,13 @@
                                                                         <strong class="text-danger">{{ $errors->first('phone') }}</strong>
                                                                     </span>
                                                                 @endif
-                                                            </div>
+                                                            </div> -->
                                                             <div class="form-group">
                                                                 <label for="email">Email Address</label><small class="text-danger">*</small>
                                                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Your email address" required>
                                                             </div>
 
-                                                            <div class="form-group">
+                                                         <!--    <div class="form-group">
                                                                 <label class="form-label">Select your State</label><small class="text-danger">*</small>
                                                                 <select class="form-control" required id="state" name="state" required>
                                                                     <option value="">-- Select State --</option>
@@ -188,18 +188,18 @@
                                                                         @endforeach
                                                                     @endif
                                                                 </select>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <div class="form-group">
+                                                           <!--  <div class="form-group">
                                                                 <label class="form-label">LGA</label><small class="text-danger">*</small>
                                                                 <select class="form-control" id="lgas" name="lga" required>
                                                                     <option disabled selected>- Select Local Government -</option>
                                                                 </select>
-                                                            </div>
+                                                            </div> -->
                                                             <div class="row">
                                                                 <div class="col-md-7">
-                                                                    <div class="form-group">
+                                                                  <!--   <div class="form-group">
                                                                         <label class="form-label" for="identification_type">Identification Type</label><small class="text-danger">*</small>
                                                                         <select class="form-control" name="identification_type" required>
                                                                             <option selected disabled>- Select an option -</option>
@@ -208,13 +208,13 @@
                                                                             <option value="voter_id">Voter's Card</option>
                                                                             <option value="international_passport">International Passport</option>
                                                                         </select>
-                                                                    </div>
+                                                                    </div> -->
                                                                 </div>
                                                                 <div class="col-md-5">
-                                                                    <div class="form-group">
+                                                                  <!--   <div class="form-group">
                                                                         <label class="form-label">ID Number</label><small class="text-danger">*</small>
                                                                         <input type="text" class="form-control" name="identification_id" value="{{ old('identification_id') }}" placeholder="ID Number" required>
-                                                                    </div>
+                                                                    </div> -->
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -232,12 +232,12 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-12">
+                                                      <!--   <div class="col-md-12">
                                                             <label>
                                                                 <input type="checkbox" name="terms" class="filled-in" required/>
                                                                 <span>By registering you accept our <a href="{{route('terms')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
                                                             </label>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
 
                                                     <div class="row">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AgentRegistration;
 use Illuminate\Http\Request;
 use App\User;
 use App\State;
@@ -24,10 +25,10 @@ class AuthController extends Controller
 		$request->validate([
 			'name'     => ['required', 'string', 'max:255'],
 			'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
-			'phone'    => ['required', 'numeric', 'unique:users'],
-			'state'    => ['string'],
-			// 'lga'      => ['string'],
-			'password' => ['required', 'string', 'min:6', 'confirmed'],
+			// 'phone'    => ['required', 'numeric', 'unique:users'],
+			// 'state'    => ['string'],
+			// // 'lga'      => ['string'],
+			// 'password' => ['required', 'string', 'min:6', 'confirmed'],
 		]);
 
 
@@ -69,10 +70,22 @@ class AuthController extends Controller
 		$user->password = Hash::make($request->password);
 		$user->save();
 
-
-		
-
 		if ($user->save()) {
+			$name = "$user->name, Your registration was successfull! Please click the link below to complete your registration!";
+			$name = $user->name;
+			$email = $user->email;
+			$origPassword = $request->password;
+			$userRole = $user->role;
+
+			try{
+				Mail::to($user->email)->send(new AgentRegistration($name, $email, $origPassword, $userRole));
+			}
+			catch(\Exception $e){
+				$failedtosendmail = 'Failed to Mail!';
+			}
+
+            return redirect()->route('agent_Complete_Reg')->with('result','Succeffull, Please go to your email to complete the registration');
+
 			$credentials = $request->only('email', 'password');
 
 			if (Auth::attempt($credentials)) {
@@ -92,51 +105,19 @@ class AuthController extends Controller
 		}
 	}
 
+    public function agent_Complete_Reg()
+	{
+        return view('auth.register_agent');
+	}
+
+
 	public function gen_transaction_id()
 	{
 		return mt_rand(1000000000, 9999999999);
 	}
 
 
-
-	public function gtPAyForRegistration(Request $request) {
-		$gtpay_mert_id        = 14264; 
-		$gtpay_tranx_id      = $this->gen_transaction_id();
-		$gtpay_tranx_amt      = $request->amount * 100;
-		$gtpay_tranx_curr     = 566;
-		$gtpay_cust_id        = $request->user()->id;
-		$gtpay_tranx_noti_url = "https://yellowpage.test/api/gt_payment_details/{$request->user()->id}/{$request->badge_type}";
-		$gtpay_cust_name      = $request->user()->name;
-		$gtpay_tranx_memo     = 'Mobow';
-		$gtpay_echo_data      = "{$request->user()->id}";
-		$gtpay_no_show_gtbank = 'yes';
-		$gtpay_gway_name      = 'etranzact';
-		$hashkey = '3EBF9CF6D082C89F88490B01D072B0F4E1EE52E86EC731D9B49538F33B551D486AB70673FE1B876B94EF76EC5E0AA1D3D14BA933424037FB1219662AFAB8FF51';
-
-		$gtpay_hash = $gtpay_mert_id.$gtpay_tranx_id.$gtpay_tranx_amt.$gtpay_tranx_curr.$gtpay_cust_id.$gtpay_tranx_noti_url.$hashkey;
-
-		$hashed = hash('sha512', $gtpay_hash);
-
-		$gtPay_Data = [
-			'gtpay_mert_id' => $gtpay_mert_id,
-			'gtpay_tranx_id' => $gtpay_tranx_id,
-			'gtpay_tranx_amt' => $gtpay_tranx_amt,
-			'gtpay_tranx_curr' => $gtpay_tranx_curr,
-			'gtpay_cust_id' =>  $gtpay_cust_id,
-			'gtpay_tranx_noti_url' => $gtpay_tranx_noti_url,
-			'gtpay_cust_name' => $gtpay_cust_name,
-			'gtpay_tranx_memo' => $gtpay_tranx_memo,
-			'gtpay_echo_data'      => $gtpay_echo_data,
-			'gtpay_no_show_gtbank' => $gtpay_no_show_gtbank,
-			'gtpay_gway_name'      => $gtpay_gway_name,
-			'hashkey'              => $hashkey,
-			'hashed'              => $hashed
-
-
-		];
-// dd($gtPay_Data);
-		return view('gttPayView', $gtPay_Data );
-	}
+	//Registration without payments
 
 	public function createUser (Request $request)
 	{
@@ -161,7 +142,7 @@ class AuthController extends Controller
 			$refererId = $saveIdOfRefree->id;
 		}else{
 			$refererId = null;
-		}	
+		}
 
 		// Get id of owner of $agent code if available
 		if($code_of_agent){
@@ -171,7 +152,7 @@ class AuthController extends Controller
 		}else{
 			$agent_Id = null;
 		}
-		
+
 
 		//save user
 		$user = new User;
@@ -217,8 +198,8 @@ class AuthController extends Controller
 	// 	} else {
 	// 		return Redirect::to(Session::get('url.intended'));
 	// 	}
-	// }		
-			
+	// }
+
 
 
 		// if referrer link is available, save it to referer table
@@ -253,10 +234,12 @@ class AuthController extends Controller
 				return Redirect::to(Session::get('url.intended'));
 			}
 		}
-		
+
 		return redirect()->intended('/');
 	}
 
+
+	//Registration using payments(GTPAY)
 	public function createUserWithGTPay(Request $request)
 	{
 		$link_from_url = $request->refer;
@@ -276,7 +259,7 @@ class AuthController extends Controller
 			$refererId = $saveIdOfRefree->id;
 		}else{
 			$refererId = null;
-		}	
+		}
 
 		if($code_of_agent){
 			$saveIdOfAgent = User::where('agent_code', $code_of_agent)->first();
@@ -284,7 +267,7 @@ class AuthController extends Controller
 		}else{
 			$agent_Id = null;
 		}
-		
+
 
 		$user = new User;
 		$user->name = $request->name;
@@ -302,7 +285,7 @@ class AuthController extends Controller
 			$email = $user->email;
 			$origPassword = $request->password;
 			$userRole = $user->role;
-			$reg_amount = 1;		
+			$reg_amount = 1;
 
 			$credentials = $request->only('email', 'password');
 
@@ -311,13 +294,13 @@ class AuthController extends Controller
 
 				//pay with GTPay
 
-				$gtpay_mert_id        = 14264; 
+				$gtpay_mert_id        = 14264;
 				$gtpay_tranx_id      = $this->gen_transaction_id();
 				$gtpay_tranx_amt      = 1 * 100;
 				$gtpay_tranx_curr     = 566;
 				$gtpay_cust_id        = $present_user->id;
 				// $gtpay_tranx_noti_url = "https://yellowpage.test/api/gt_payment_details/{$request->user()->id}/{$request->badge_type}";
-				$gtpay_tranx_noti_url = "https://yellowpage.test/logintestPayment";
+				$gtpay_tranx_noti_url = "https://yellowpage.test/api/logintestPayment";
 				$gtpay_cust_name      = $present_user->name;
 				$gtpay_tranx_memo     = 'Mobow';
 				$gtpay_echo_data      = "{$present_user->id}";
@@ -329,7 +312,7 @@ class AuthController extends Controller
 
 				$hashed = hash('sha512', $gtpay_hash);
 
-				$gtPay_Data = [ 
+				$gtPay_Data = [
 					'gtpay_mert_id' => $gtpay_mert_id,
 					'gtpay_tranx_id' => $gtpay_tranx_id,
 					'gtpay_tranx_amt' => $gtpay_tranx_amt,
@@ -351,14 +334,46 @@ class AuthController extends Controller
 
 			}
 		}
-		
+
 		return redirect()->intended('/');
 	}
 
-	
-	public function logintestPayment()
+
+	public function logintestPayment($id)
 	{
-		return view('logintestPayment');
+		$id1 = $id;
+
+		$credentials = $id1;
+
+		if (Auth::attempt($credentials)) {
+
+			if (Auth::user()->role == 'seller' )
+			{
+				session()->flash('success', ' Login Succesfull');
+				return redirect()->route('seller.dashboard');
+			} else if (Auth::user()->role == 'buyer')
+			{
+				// session()->flash('success', ' Login Succesfull');
+				// return redirect()->route('buyer.dashboard');
+
+				return Redirect::to(Session::get('url.intended'));
+
+			} else if (Auth::user()->role == 'agent')
+			{
+				return redirect()->route('agent.dashboard');
+
+			} else
+			{
+				return redirect()->route('admin.dashboard');
+			}
+		}
+
+		session()->flash('fail', ' Credential Incorect');
+		return view ('auth/login');
+
+		// return view('logintestPayment', compact('id1'));
+
+		// return redirect()->route('home');
 	}
 
 
@@ -424,7 +439,7 @@ class AuthController extends Controller
 			return Redirect::to(Session::get('url.intended'));
 		} else
 		{
-			return redirect()->route('admin.dashboard');;
+			return redirect()->route('admin.dashboard');
 		}
 		//}
 		session()->flash('fail', ' Credential Incorect');

@@ -22,6 +22,10 @@ use App\Service;
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 
 //Agent Middleware starts here
+
+
+Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg')->name('agent_Complete_Reg');
+
 Route::middleware(['agent'])->group(function () {
     Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
     Route::get('/agent/referal/all', 'AgentController@allReferals')->name('agent.referal.all');
@@ -34,7 +38,7 @@ Route::middleware(['agent'])->group(function () {
 //Agent Middleware ends here
 
 
-Route::post('logintestPayment', 'AuthController@logintestPayment');
+Route::post('api/logintestPayment', 'AuthController@logintestPayment');
 
 Route::post('advertisement/create', 'OperationalController@advertCreate')->name('advertisement.create');
 Route::view('referral-program/', 'referralprogram')->name('referralprogram');
@@ -251,7 +255,7 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
 
 
 
-}); 
+});
 //Auth Middleware protection end here
 
 
