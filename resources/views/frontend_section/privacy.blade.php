@@ -24,7 +24,7 @@ Privacy Policy
                 <!-- Blog box start -->
                 <div class="blog-1 blog-big">
                     <div class="detail">
-                        <p> {!! $general->privacy_policy !!}</p>
+                        <p> {!! $general_info->privacy_policy !!}</p>
                     </div>
                 </div>
 

@@ -69,6 +69,15 @@
             font-size: 14px !important;
         }
 
+        thead tr th{
+            font-size: 14px !important;
+        }
+
+
+        tbody tr td{
+            font-size: 13px !important;
+        }
+
         @media (max-width: 768px){
             .float-feedback{
                 width:90px;
@@ -107,8 +116,80 @@
                                     <div class="tab-pane fade active show" id="aboutAgent" role="tabpanel" aria-labelledby="one-tab">
                                         <div class="card">
                                             <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <ul>
+                                                            <li>1.	When You Are Approved, You Will Receive Your Agent Code Which You Will Use For All Your Transactions, Referrals And Commission Payments.</li>
+                                                            <li>2.	You Will Receive Your Commission Every Two Weeks.</li>
+                                                            <li>3.	You Have A Chance Of Making At Minimum Income Of Between N50,000 To N100,000 Monthly.</li>
+                                                            <li>4.	When You Are Approved, You Can Recruit People Under You (Sub-Agents) Or Refer Them To Us And When Anyone Subscribes You Get N100 Each.  We Will Issue To You A Daily Report On Your Sub-Agents And Activities. See Chart Below For Commission Scales.</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <ul>
+                                                            <li>5.	You Can Work At Anytime You Want, Create Your Schedule Or Use This To Suppliment Your Income.</li>
+                                                            <li>6.	You Can Make An Extra 20% On Any Other Adverts Request By Your Subscribers.  Say For An Example Your Subscriber Buys An Advert Of N100,000 A Month, You Will Make An Additional N20,000.00 Monthly. If That Advert Is For A Year You Will Make N240,000.00 On That Case Alone. If You Have Five Of Such In A Year It Is N24000 X 5= N1,200,000.00. Upon That You Will Still Get Commissions On Adverts And Your Recruits. We Estimated That A Good Agent Should Average N5,000,000.00  Yearly.</li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>WEEKLY SALES  BY YOU</th>
+                                                                        <th>N200 EACH SALE</th>
+                                                                        <th>YOUR  TOTAL RECRUITS</th>
+                                                                        <th>1ST LEVEL N100</th>
+                                                                        <th>2ND LEVEL</th>
+                                                                        <th>N50</th>
+                                                                        <th>TOTAL WEEKLY INCOME</th>
+                                                                    </tr>
+                                                                </thead>
+
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>50 X N200</td>
+                                                                        <td>N10,000</td>
+                                                                        <td>100 X 1 sell </td>
+                                                                        <td>10,000</td>
+                                                                        <td>100 X 50</td>
+                                                                        <td>5000</td>
+                                                                        <td>25,000</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>100 X N200</td>
+                                                                        <td>N20,000</td>
+                                                                        <td>200 X 1 sell</td>
+                                                                        <td>20,000</td>
+                                                                        <td>100 X 50</td>
+                                                                        <td>5000</td>
+                                                                        <td>45,000</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>50 X N200</td>
+                                                                        <td>N40,000</td>
+                                                                        <td>400 X 1 sell </td>
+                                                                        <td>40,000</td>
+                                                                        <td>200 X 50</td>
+                                                                        <td>10,000</td>
+                                                                        <td>90,000</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <p>
+                                                            Efcontact Is A Product Which Anybody Can Sell From Home And Outdoor. Due To The Simplicity Of Enrolling Subscribers Online, By Phone Calls Or Visting Businesses. Our Experience Is That An Average Agent Shall Register 25 Subscribers Daily Or 150 Subscribers Weekly Working 6 Days A Work. <br> If An Agent Can Maintain This, It Will Result In Average Weekly Income Of N30,000.00, Plus Other Incomes From Sub-Agents And Advertisements By Subscribers Which Our Sales Handbook Will Explain More. <br>
+                                                            All These The Agent Will Find On His/Her Own Dashboard- See Daily Income Displayed And Make Commission Withdrawals Request Online. Nothing Hidden And Very Transparent.
+
+                                                        </p>
+                                                    </div>
+
+
+                                                    {{-- <div class="col-md-6">
                                                         @if(isset($general_info->register_section_1_title))
                                                             <h6 class="text-center"> Who is An EFContact Agent? </h6>
                                                             <hr>
@@ -142,7 +223,7 @@
                                                                 To learn more about an agents and payments, please visit <a class="text-warning" href="www.efcontact.com/faq">EFContact FAQ Page</a> or call <a href="tel:123-456-7890">090- 123-456-7890</a>
                                                             </p>
                                                         @endif
-                                                </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>

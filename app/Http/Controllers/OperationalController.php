@@ -309,4 +309,9 @@ class OperationalController extends Controller
         return view('seller.myreferrals');
     }
 
+    public function pagescontents()
+    {
+        return view('admin.page_management.pages_contents');
+    }
+
 }

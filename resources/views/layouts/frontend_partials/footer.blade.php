@@ -65,7 +65,7 @@
                         </li>
 
                         <li class=" ">
-                            <a href="{{route('terms-of-use')}}" class="grey-text text-lighten-3">Privacy Policy</a>
+                            <a href="{{route('privacy')}}" class="grey-text text-lighten-3">Privacy Policy</a>
                         </li>
 
                          <li class="">

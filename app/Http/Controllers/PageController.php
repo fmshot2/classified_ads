@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    
+
 	public function terms()
 	{
 		return view ('terms');
@@ -15,7 +15,7 @@ class PageController extends Controller
 
 	public function privacy()
 	{
-		return view ('privacy');
+		return view('frontend_section.privacy');
 	}
 
 	public function test()
