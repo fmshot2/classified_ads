@@ -15,7 +15,7 @@
                                         <span class="text-warning" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Super</span>
                                     </div>
                                     <a class="title title-dk hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 21) }}</a>
-                                    <a class="title title-mb hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 10) }}</a>
+                                    <a class="title title-mb hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 12) }}</a>
 
                                     <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" alt="{{ $hotService->name }}">
                                     </a>
@@ -26,7 +26,7 @@
                                         <span class="text-success" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i><i class="fa fa-star"></i> Moderate</span>
                                     </div>
                                     <a class="title title-dk hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 21) }}</a>
-                                    <a class="title title-mb hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 10) }}</a>
+                                    <a class="title title-mb hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 12) }}</a>
 
                                     <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" alt="{{ $hotService->name }}">
                                     </a>
@@ -37,7 +37,7 @@
                                         <span class="text-primary" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i> Basic</span>
                                     </div>
                                     <a class="title title-dk hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 21) }}</a>
-                                    <a class="title title-mb hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 10) }}</a>
+                                    <a class="title title-mb hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 12) }}</a>
 
                                     <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" alt="{{ $hotService->name }}">
                                     </a>
@@ -47,7 +47,7 @@
                                     <div class="agenttrusted-badges" style="margin-top: 25px">
                                     </div>
                                     <a class="title title-dk hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 21) }}</a>
-                                    <a class="title title-mb hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 10) }}</a>
+                                    <a class="title title-mb hot-business-name" href="{{route('serviceDetail', $hotService->slug)}}"  style="font-size: 16px;">{{ Str::limit($hotService->name, 12) }}</a>
 
                                     <a href="{{route('serviceDetail', $hotService->slug)}}"><img class="d-block w-100 service_images" src="{{asset('uploads/services')}}/{{$hotService->service_image}}" alt="{{ $hotService->name }}">
                                     </a>
@@ -119,7 +119,7 @@
             <div class="col-lg-7 col-md-12 col-sm-12">
                 <div class="row">
                     @if ($tourist_attractions)
-                        @foreach($tourist_attractions as $tourist_attraction)
+                        @foreach($tourist_attractions->shuffle() as $tourist_attraction)
                             @if ($loop->first || $loop->index == 1)
                                 <div class="col-sm-6 col-pad">
                                     <div class="category">
@@ -159,7 +159,6 @@
                                                     <h3 class="category-title">
                                                         <a href="#">{{ $tourist_attraction->name }}</a>
                                                     </h3>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -168,7 +167,7 @@
                             @endif
                         @endforeach
                     @endif
-
+                </div>
         </div>
     </div>
 </div>

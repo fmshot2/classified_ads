@@ -135,6 +135,18 @@ body {
     margin-top: 30px !important;
 }
 
+.btn.btn-warning{
+    background-color: #CA8309 !important;
+}
+.btn.btn-warning:hover{
+    background-color: #fabe55 !important;
+}
+
+ul li{
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
 /* All Services Page Top City */
 .all-ser-pg-top-ct-mbl {
     display: none;
@@ -1100,6 +1112,13 @@ h6 {
 
 #pagination-wrap ul {
     width: 100%;
+}
+
+.btn-success, .alert-success{
+    background-color: #41af0f !important;
+}
+.text-success{
+    color: #41af0f !important;
 }
 
 #pagination-wrap ul li {

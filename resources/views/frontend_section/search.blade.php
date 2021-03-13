@@ -88,7 +88,7 @@
 
                     <div class="col-lg-2 col-md-4 col-sm-6 text-center">
                         <div class="form-group">
-                            <button class="btn btn-block bg-warning font-weight-bold text-white btn-warning" style="margin-top: 25px">Search
+                            <button class="btn btn-block bg-warning font-weight-bold text-white btn-warning" style="margin-top: 25px; background-color: #CA8309">Search
                                 <i class="fa fa-search ml-2" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -152,9 +152,19 @@
 </div>
 
 <header class="top-header top-header-ads-mobile" style="display: flex; justify-content: center; background: linear-gradient(90deg, rgba(251,219,35,1) 52%, rgba(243,163,27,1) 66%); width: 100%; margin: 20px 0 0 0">
-    <a href="https://efskyview.com/">
-      <img src="{{ asset('images/skyviewstickyads.gif') }}" alt="" style="width: 100%; height: 35px">
-    </a>
+    @if ($advertisements)
+        <div class="animate__animated animate__fadeInLeft">
+            @foreach ($advertisements as $advertisement)
+                @if ($advertisement->advert_location == 1)
+                    <a class="topnav-advert-slides topnav-advert-slides-hidden animate__animated animate__fadeInLeft" href="{{ $advertisement->website_link ? $advertisement->website_link : '#' }}">
+                        <img src="{{ asset('uploads/sponsored/'.$advertisement->banner_img) }}" alt="" style="margin: 0 auto; width: 100%; height: 30px">
+                    </a>
+                @endif
+            @endforeach
+        </div>
+    @else
+        <p>No Advert here</p>
+    @endif
 </header>
 
 

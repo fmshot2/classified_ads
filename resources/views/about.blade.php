@@ -7,7 +7,7 @@
 <style>
     @media (max-width: 768px){
         .content-area{
-            padding: 40px 10px;
+            padding: 40px 0;
         }
         .main-title{
             display: none;
@@ -33,7 +33,7 @@
         <div class="faq faq-page content-area" style="background-color: #fff">
             <div class="container">
                 <div class="row">
-                    <div class="row">
+                    <div class="col-md-12">
                         {!! $check_general_info == 0 ? $general_info->about_site : ''  !!}
                     </div>
                 </div>

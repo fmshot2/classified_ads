@@ -141,7 +141,7 @@ function showPosition(position) {
                                         <div class="detail">
                                             <div>
                                                 <a class="title title-dk" href="">`+ service.name.substring(0, 18) + "..." + `</a>
-                                                <a class="title title-mb" href="">`+ service.name.substring(0, 10) + "..." + `</a>
+                                                <a class="title title-mb" href="">`+ service.name.substring(0, 12) + "..." + `</a>
                                             </div>
 
                                             <ul class="d-flex flex-row justify-content-between info">

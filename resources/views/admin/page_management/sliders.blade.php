@@ -10,6 +10,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="box">
+                        @if ($errors->any())
+                            <div class="alert alert-danger" style="border-radius: 0; background-color: #f15a58">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </div>
+                        @endif
                         <div class="box-header">
                             <!-- tools box -->
                             <div class="pull-right box-tools">
@@ -131,6 +138,11 @@
                                     <div class="form-group">
                                         <label for="image">Slider Image</label>
                                         <input type="file" name="image" class="form-control" placeholder="Select Image"  required>
+                                        @if ($errors->has('image'))
+                                            <span class="helper-text" data-error="wrong" data-success="right">
+                                                <strong class="text-danger">{{ $errors->first('image') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

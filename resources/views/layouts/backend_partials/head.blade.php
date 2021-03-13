@@ -41,6 +41,7 @@
 
 	<link rel="stylesheet" href="{{asset('dropzone/dist/dropzone.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    {{-- <link rel="stylesheet" href="{{ asset('summernote/summernote.css') }}"/> --}}
 
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -86,8 +87,10 @@
 
 </style>
 
-
+<script src="{{ asset('js/jquery-2.2.0.min.js') }}"></script>
 <script src="{{ asset('toastr/toastr.min.js') }}"></script>
+{{-- <script src="{{ asset('summernote/summernote.js') }}"></script> --}}
+
 
     @if(Session::has('message'))
         <script>

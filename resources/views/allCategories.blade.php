@@ -19,17 +19,6 @@
         cursor: pointer;
         color: #ca8309;
     }
-
-    .float-cat-advert{
-        position: fixed;
-        top:25vh;
-        left:0;
-        width: 80px;
-        z-index: 99999;
-    }
-    .float-cat-advert img{
-        width: 150px;
-    }
     /* Referral Image Slider  */
     .refer-slides { width: 100%; }
     .refer-slides-hidden { display : none; }
@@ -42,6 +31,17 @@
         .float-cat-advert{
             display: none;
         }
+    }
+
+    .float-referrer{
+        position: fixed;
+        top:300px;
+        left:0;
+        width: 80px;
+        z-index: 99999;
+    }
+    .float-referrer img{
+        width: 250px;
     }
 </style>
 <script>
@@ -59,6 +59,18 @@
     });
     /* Referral Image Slider Ends */
 </script>
+    <!-- ADVERTISEMENT STARTS  -->
+    @if ($advertisements)
+        @foreach($advertisements as $advertisement)
+            @if ($advertisement->advert_location == 6)
+                <a href="{{ route('referralprogram') }}" target="_blank" id="floatReferrer" class="float-referrer animate__animated animate__fadeInLeft">
+                    <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('uploads/sponsored/'.$advertisement->banner_img) }}">
+                </a>
+            @endif
+        @endforeach
+    @else
+        <p>No Advert here!</p>
+    @endif
 
 <div class="main">
     <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/allcatbg.jpeg')}});">
@@ -75,25 +87,8 @@
         </div>
     </div>
 
-
     <div class="properties-section-body content-area categories-pg-section">
         <div class="container">
-
-            <!-- ADVERTISEMENT STARTS  -->
-            <div>
-                @if ($advertisements)
-                    @foreach($advertisements as $advertisement)
-                        @if ($advertisement->advert_location == 6)
-                            <a href="{{ route('referralprogram') }}" id="floatReferrer" class="float-cat-advert refer-slides refer-slides-hidden animate__animated animate__fadeInLeft">
-                                <img class="animate__animated animate__fadeInLeft" src="{{ asset('Group2.png') }}">
-                            </a>
-                        @endif
-                    @endforeach
-                @else
-                    <p>No Advert here!</p>
-                @endif
-            </div>
-            <!-- ADVERTISEMENT STARTS  -->
 
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-xs-12">

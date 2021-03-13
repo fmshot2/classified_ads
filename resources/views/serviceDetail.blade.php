@@ -73,8 +73,12 @@
         line-height: 1.5;
         font-weight: 600;
     }
+    .nav-link:hover #liketab{
+        color: #fff !important;
+    }
 
 </style>
+
 <!-- Sub banner start -->
 <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/servicedetail.jpg')}})">
     <div class="container">
@@ -255,7 +259,7 @@
 
 
                                     <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }}
-                                        <span>({{ $service_likes != 0 ? $service_likes : '0'}})</span>
+                                        (<span id="likeTab">{{ $service_likes != 0 ? $service_likes : '0'}}</span>)
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -492,7 +496,7 @@
                                     </a>
 
                                     <a href="https://wa.me/{{$serviceDetail->phone}}/?text=Good%20day.%20I%20am%20interested%20in%your%20service." class="btn btn-success animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff;">
-                                        <i class="fa fa-whatsapp"></i> WhatsApp {{ ucfirst($the_provider_f_name) }}
+                                        <i class="fa fa-whatsapp"></i> WhatsApp
                                     </a>
                                 </p>
                             @endauth
@@ -792,11 +796,13 @@
 
     });
 
+
+
+
     function likeService(id) {
-        likebtn = document.getElementById('likeBtn');
+        likebtn    = document.getElementById('likeBtn');
         dislikebtn = document.getElementById('dislikeBtn');
-        liketab = document.getElementById('likeTab');
-        loader = document.getElementById('loader');
+        liketab    = document.getElementById('likeTab');
 
         $.ajax({
             url: '/admin2/like/' + id,
@@ -811,10 +817,9 @@
     }
 
     function disLikeService(id) {
-        likebtn = document.getElementById('likeBtn');
+        likebtn    = document.getElementById('likeBtn');
         dislikebtn = document.getElementById('dislikeBtn');
-        likeTab = document.getElementById('likeTab');
-        loader = document.getElementById('loader');
+        liketab    = document.getElementById('likeTab');
 
         $.ajax({
             url: '/admin2/like/' + id,
