@@ -73,6 +73,10 @@
                         </li>
 
                         <li class="">
+                            <a href="{{route('benefits-of-efcontact')}}" class="grey-text text-lighten-3">Benefits of EFContact</a>
+                        </li>
+
+                        <li class="">
                             <a href="{{route('allcities')}}" class="grey-text text-lighten-3">Tourist Sites in Nigeria</a>
                         </li>
 

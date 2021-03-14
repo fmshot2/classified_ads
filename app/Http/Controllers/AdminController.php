@@ -441,7 +441,39 @@ public function allBadges()
 public function privacyPolicy()
 {
   $all_badges = Badge::paginate(10);
-  return view ('admin.page_management.privacy_policy', compact('all_badges') );
+  $current_privacy_policy = Privacypolicy::orderBy('id', 'desc')
+  ->first();
+  if($current_privacy_policy){
+    $current_privacy_policy_details = $current_privacy_policy->details;
+}
+
+  return view ('admin.page_management.privacy_policy', compact('all_badges', 'current_privacy_policy_details') );
+}
+
+public function save_privacyPolicy(Request $request)
+{
+
+  $privacy = new Privacypolicy;
+  $privacy->details = $request->details;
+  $privacy->save();
+  $current_privacy_policy = Privacypolicy::first();
+  if($current_privacy_policy){
+      $current_privacy_policy_details = $current_privacy_policy->details;
+  }
+
+      //$request->session()->flash('status', 'Task was successful!');
+
+  return back()->with('success', 'Task was successful!')->with('policy', 'current_privacy_policy_details');
+
+}
+
+public function privacy()
+{
+    $privacy = Privacypolicy::orderBy('id', 'desc')
+    ->first();
+    // dd($privacy);
+
+    return view('frontend_section.privacy', compact('privacy'));
 }
 
 public function termsOfUse()
@@ -462,21 +494,6 @@ public function save_termsOfUse(Request $request)
   return back()->with('success', 'Task was successful!');
 
 }
-
-public function save_privacyPolicy(Request $request)
-{
-
-  $privacy = new Privacypolicy;
-  $privacy->details = $request->details;
-  $privacy->save();
-
-      //$request->session()->flash('status', 'Task was successful!');
-
-  return back()->with('success', 'Task was successful!');
-
-}
-
-
 
 public function save_faq(Request $request)
 {

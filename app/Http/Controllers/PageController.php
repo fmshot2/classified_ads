@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Privacypolicy;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -13,10 +13,7 @@ class PageController extends Controller
 	}
 
 
-	public function privacy()
-	{
-		return view('frontend_section.privacy');
-	}
+
 
 	public function test()
 	{

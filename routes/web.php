@@ -132,6 +132,8 @@ Route::get('api/get-category-list/{state_name}','CategoryController@getCategoryL
 Route::get('api/get-like-list/{id}','ServiceController@getLikeList');
 
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
+Route::get('benefits-of-efcontact','FaqController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
+
 
 Route::get('contact-us','ContactController@contact_us')->name('contact');
 
@@ -156,7 +158,6 @@ Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 Route::get('/refreshcaptcha', 'AuthController@refreshCaptcha')->name('refreshcaptcha');
 
 Route::get('/terms', 'PageController@terms')->name('terms');
-Route::get('/privacy', 'PageController@privacy')->name('privacy');
 
 
 Route::get('/admin2/like/{id}', 'ServiceController@saveLike2')->name('admin2.like');
@@ -309,6 +310,8 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/seller/saveBadge/', 'AdminController@saveBadge')->name('save.badge');
     Route::get('/admin/privacy-policy/', 'AdminController@privacyPolicy')->name('admin.privacy.policy');
     Route::post('/admin/save_privacy_policy/', 'AdminController@save_privacyPolicy')->name('admin.save_privacyPolicy');
+    Route::get('/privacy', 'AdminController@privacy')->name('privacy');
+
     Route::get('/admin/terms-of-use/', 'AdminController@termsOfUse')->name('admin.termsOfUse');
     Route::post('/admin/save_terms_of_use/', 'AdminController@save_termsOfUse')->name('admin.save_termsOfUse');
     Route::post('/admin/save_faq/', 'AdminController@save_faq')->name('admin.save_faq');
