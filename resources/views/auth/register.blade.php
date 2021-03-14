@@ -46,6 +46,11 @@
                                 </span>
                                 @endif
                             </div>
+                            <div>
+                                <label for="" style="float: left; margin-top: -15px; margin-bottom: 20px; margin-left: 20px; font-size: 14px">
+                                    <input type="checkbox" onclick="showPassword()" style="float: left;">Show Password
+                                </label>
+                            </div><div class="clearfix"></div>
                             <div class="form-group form-box clearfix">
                                 <input class="input-text" placeholder="Confirm Password" type="password" name="password_confirmation" required>
                             </div>
@@ -138,6 +143,16 @@
         });
     </script>
 
+<script>
+    function showPassword() {
+        var passField = document.getElementById("password");
+        if (passField.type === "password") {
+            passField.type = "text";
+        } else {
+            passField.type = "password";
+        }
+    }
+</script>
 
 
 @endsection
