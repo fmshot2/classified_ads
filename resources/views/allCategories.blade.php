@@ -33,14 +33,14 @@
         }
     }
 
-    .float-referrer{
+    .float-cat-advert{
         position: fixed;
         top:300px;
         left:0;
         width: 80px;
         z-index: 99999;
     }
-    .float-referrer img{
+    .float-cat-advert img{
         width: 250px;
     }
 </style>
@@ -48,8 +48,8 @@
     /* Referral Image Slider  */
     addEventListener("load",() => { // "load" is safe but "DOMContentLoaded" starts earlier
         var index = 0;
-        const slides = document.querySelectorAll(".refer-slides");
-        const classHide = "refer-slides-hidden", count = slides.length;
+        const slides = document.querySelectorAll(".refer-cat-advert");
+        const classHide = "refer-cat-advert-hidden", count = slides.length;
         nextSlide();
         function nextSlide() {
             slides[(index ++) % count].classList.add(classHide);
@@ -63,8 +63,8 @@
     @if ($advertisements)
         @foreach($advertisements as $advertisement)
             @if ($advertisement->advert_location == 6)
-                <a href="{{ route('referralprogram') }}" target="_blank" id="floatReferrer" class="float-referrer animate__animated animate__fadeInLeft">
-                    <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('uploads/sponsored/'.$advertisement->banner_img) }}">
+                <a href="{{ route('referralprogram') }}" target="_blank" id="floatReferrer" class="float-cat-advert animate__animated animate__fadeInLeft">
+                    <img class="refer-cat-advert refer-cat-advert-hidden animate__animated animate__fadeInLeft" src="{{ asset('uploads/sponsored/'.$advertisement->banner_img) }}">
                 </a>
             @endif
         @endforeach
