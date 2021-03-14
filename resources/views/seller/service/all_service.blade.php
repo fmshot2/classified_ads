@@ -104,6 +104,7 @@
                 method: 'get',
                 success: function(result){
                     window.location.assign(window.location.href);
+                    toastr.error('Service Deleted Successfully!')
                 }
             });
 

@@ -137,24 +137,29 @@ if ( $request->hasFile('files') ) {
        $present_user = Auth::user();
         $user_hasUploadedService = $present_user->hasUploadedService;
         if ($user_hasUploadedService == 1) {
-       $request->session()->flash('status', 'Task was successful!');
-        
-         return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
+            $success_notification = array(
+                'message' => 'Service created successfully!',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('seller.service.show.service', ['id' => $latest_service_id])->with($success_notification);
 
         }
         $present_user->hasUploadedService = 1;
         $user_referer_id = $present_user->idOfReferer;
         $present_user->save();
-   
+
         $referer = User::where('id', $user_referer_id)->first();
         if ($referer) {
         $referer->refererAmount = $referer->refererAmount + 50;
         $referer->save();
 
-         $request->session()->flash('status', 'Task was successful!');
-       //$this->saveReferLink();       
+        $success_notification = array(
+            'message' => 'Task was successful!',
+            'alert-type' => 'success'
+        );
+       //$this->saveReferLink();
         // return redirect()->route('seller/service/' . $latest_service_id);
-        return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
+        return redirect()->route('seller.service.show.service', ['id' => $latest_service_id])->with($success_notification);
 
         }
 
@@ -229,8 +234,12 @@ public function saveReferLink($refererlink){
 
     $service->save();
 
-    $request->session()->flash('status', 'Task was successful!');
-    return $this->allService();
+    $success_notification = array(
+        'message' => 'Service created successfully!',
+        'alert-type' => 'success'
+    );
+
+    return $this->allService()->with($success_notification);
 
 }
 
@@ -329,7 +338,6 @@ public function storeReplyMessage(Request $request)
     ]);
 
     $slug = Str::random(3);
-    $request->session()->flash('status', 'Task was successful!');
 
     $message = New Message();
     $message->subject = $request->subject;
@@ -343,7 +351,11 @@ public function storeReplyMessage(Request $request)
     $message->phone = $request->phone;
     $message->slug = $slug;
     $message->save();
-    return $this->allMessage();
+    $success_notification = array(
+        'message' => 'Reply saved!',
+        'alert-type' => 'success'
+    );
+    return $this->allMessage()->with($success_notification);
 }
 
 public function viewNotification($slug)

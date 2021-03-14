@@ -70,7 +70,7 @@ class AuthController extends Controller
 			$user->save();
 
 
-		
+
 
 		if ($user->save()) {
 			$credentials = $request->only('email', 'password');
@@ -96,7 +96,7 @@ class AuthController extends Controller
 
 
 	public function gtPAyForRegistration(Request $request) {
-		$gtpay_mert_id        = 14264; 
+		$gtpay_mert_id        = 14264;
     	$gtpay_tranx_id      = $this->gen_transaction_id();
     	$gtpay_tranx_amt      = $request->amount * 100;
     	$gtpay_tranx_curr     = 566;
@@ -160,7 +160,7 @@ class AuthController extends Controller
 			$refererId = $saveIdOfRefree->id;
 		}else{
 			$refererId = null;
-		}	
+		}
 
 		// Get id of owner of $agent code if available
 		if($code_of_agent){
@@ -170,7 +170,7 @@ class AuthController extends Controller
 		}else{
 			$agent_Id = null;
 		}
-		
+
 
 		//save user
 		$user = new User;
@@ -202,7 +202,11 @@ class AuthController extends Controller
 			}
 
 		}
-		session()->flash('success', ' succesfull!');
+
+		$success_notification = array(
+            'message' => 'User Created successfully!',
+            'alert-type' => 'success'
+        );
 
 		$credentials = $request->only('email', 'password');
 
@@ -216,8 +220,8 @@ class AuthController extends Controller
 	// 	} else {
 	// 		return Redirect::to(Session::get('url.intended'));
 	// 	}
-	// }		
-			
+	// }
+
 
 
 		// if referrer link is available, save it to referer table
@@ -247,12 +251,12 @@ class AuthController extends Controller
 			}
 
 			if ( $present_user->role == 'seller' ){
-				return redirect()->route('seller.dashboard');
+				return redirect()->route('seller.dashboard')->with($success_notification);
 			} else {
-				return Redirect::to(Session::get('url.intended'));
+				return Redirect::to(Session::get('url.intended'))->with($success_notification);
 			}
 		}
-		
+
 		return redirect()->intended('/');
 	}
 
@@ -312,20 +316,30 @@ class AuthController extends Controller
 		//if (Auth::attempt($credentials)) {
 		if (Auth::user()->role == 'seller' )
 		{
-			session()->flash('success', ' Login Succesfull');
-			return redirect()->route('seller.dashboard');
+            $success_notification = array(
+                'message' => 'You are successfully logged in!',
+                'alert-type' => 'success'
+            );
+			return redirect()->route('seller.dashboard')->with($success_notification);
+
 		} else if (Auth::user()->role == 'buyer')
 		{
-			session()->flash('success', ' Login Succesfull');
 			// return redirect()->route('buyer.dashboard');
-			return Redirect::to(Session::get('url.intended'));
+            $success_notification = array(
+                'message' => 'You are successfully logged in!',
+                'alert-type' => 'success'
+            );
+			return Redirect::to(Session::get('url.intended'))->with($success_notification);
 		} else
 		{
 			return redirect()->route('admin.dashboard');;
 		}
 		//}
-		session()->flash('fail', ' Credential Incorect');
-		return view('auth/login');
+        $success_notification = array(
+            'message' => 'Incorrect credentials! Try again.',
+            'alert-type' => 'error'
+        );
+		return view('auth/login')->with($success_notification);
 
 	}
 
@@ -341,18 +355,29 @@ class AuthController extends Controller
 
 			if (Auth::user()->role == 'seller' )
 			{
-				session()->flash('success', ' Login Succesfull');
-				return redirect()->route('seller.dashboard');
+                $success_notification = array(
+                    'message' => 'You are successfully logged in!',
+                    'alert-type' => 'success'
+                );
+				return redirect()->route('seller.dashboard')->with($success_notification);
 			} else if (Auth::user()->role == 'buyer')
 			{
 				// session()->flash('success', ' Login Succesfull');
 				// return redirect()->route('buyer.dashboard');
+                $success_notification = array(
+                    'message' => 'You are successfully logged in!',
+                    'alert-type' => 'success'
+                );
 
-				return Redirect::to(Session::get('url.intended'));
+				return Redirect::to(Session::get('url.intended'))->with($success_notification);
 
 			} else if (Auth::user()->role == 'agent')
 			{
-				return redirect()->route('agent.dashboard');
+				$success_notification = array(
+                    'message' => 'You are successfully logged in!',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('agent.dashboard')->with($success_notification);
 
 			} else
 			{
@@ -360,8 +385,11 @@ class AuthController extends Controller
 			}
 		}
 
-		session()->flash('fail', ' Credential Incorect');
-		return view ('auth/login');
+        $success_notification = array(
+            'message' => 'Incorrect credentials! Try again.',
+            'alert-type' => 'success'
+        );
+		return view ('auth/login')->with($success_notification);
 
 	}
 
@@ -401,8 +429,6 @@ class AuthController extends Controller
 			'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 		]);
 
-		session()->flash('status', ' Succesfull');
-
         // Image set up
 		if ( $request->hasFile('file') ) {
 			$image_name = time().'.'.$request->file->extension();
@@ -416,8 +442,20 @@ class AuthController extends Controller
 		$user->phone = $request->phone;
 		$user->address = $request->address;
 		$user->about = $request->about;
-		$user->save();
-		return back();
+
+        if ($user->save()) {
+            $success_notification = array(
+                'message' => 'Profile successfully updated!',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($success_notification);
+        }
+
+        $success_notification = array(
+            'message' => 'Profile could not be updated! Try again',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($success_notification);
 	}
 
 	public function updatePassword (Request $request, $id)
@@ -434,13 +472,49 @@ class AuthController extends Controller
             // Authentication passed...
 			$user->password = Hash::make($request->new_password);
 			$user->save();
-			session()->flash('status', ' Succesfull');
-			return back();
+
+			$success_notification = array(
+                'message' => 'Password successfully changed!',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($success_notification);
+
 		} else {
-			session()->flash('fail', ' Failed');
-			return back();
+			$success_notification = array(
+                'message' => 'Password could not be updated!! Try again',
+                'alert-type' => 'error'
+            );
+
+            return redirect()->back()->with($success_notification);
 		}
 
 	}
+
+    public function updateAccount(Request $request, $id)
+    {
+        $user = User::find($id);
+		$validatedData = $request->validate([
+			'bank_name' => ['required', 'string'],
+			'account_number' => ['required', 'numeric'],
+		]);
+
+        $user->bank_name = $request->bank_name;
+        $user->account_number = $request->account_number;
+
+        if ($user->save()) {
+            $success_notification = array(
+                'message' => 'Account details successfully updated!',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->back()->with($success_notification);
+        }
+
+        $success_notification = array(
+            'message' => 'Account details could not be updated!! Try again',
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($success_notification);
+    }
 
 }

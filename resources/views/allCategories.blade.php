@@ -35,13 +35,13 @@
 
     .float-cat-advert{
         position: fixed;
-        top:300px;
+        top:35vh;
         left:0;
         width: 80px;
         z-index: 99999;
     }
     .float-cat-advert img{
-        width: 250px;
+        width: 200px;
     }
 </style>
 <script>

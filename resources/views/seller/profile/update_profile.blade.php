@@ -2,9 +2,7 @@
 
 @extends('layouts.seller')
 
-@section('title')
-Update Profile |
-@endsection
+@section('title', 'Update Profile | ')
 
 @section('content')
 
@@ -56,10 +54,10 @@ Update Profile |
 
 						<li class="active"><a href="#timeline" data-toggle="tab">Update Profile</a></li>
 						<li><a href="#password" data-toggle="tab">Change Password</a></li>
+						<li><a href="#bankaccount" data-toggle="tab">Account Details</a></li>
 					</ul>
 
 					<div class="tab-content">
-
 						<div class="active tab-pane" id="timeline">
 
 							<form class="form-horizontal form-element" method="POST" action="{{route('profile.update', Auth::id() )}}" enctype="multipart/form-data">
@@ -124,8 +122,7 @@ Update Profile |
 						</div>
 						<!-- /.tab-pane -->
 
-
-							<div class="tab-pane" id="password">
+						<div class="tab-pane" id="password">
 							<form class="form-horizontal form-element" method="POST" action="{{route('profile.update.password', Auth::id() )}}" enctype="multipart/form-data">
 								{{ csrf_field() }}
 
@@ -148,6 +145,33 @@ Update Profile |
 
 									<div class="col-sm-10">
 										<input class="form-control" name="password_confirmation" type="password" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-warning">Update <i class="fa fa-refresh"></i></button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="bankaccount">
+							<form class="form-horizontal form-element" method="POST" action="{{route('profile.update.account', Auth::id() )}}">
+								@csrf
+								<div class="form-group">
+									<label for="bank_name" class="col-sm-2 control-label">Bank Name</label>
+									<div class="col-sm-10">
+										<input type="text" id="bank_name" class="form-control" name="bank_name" value=" {{ Auth::user()->bank_name }} ">
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label for="account_number" class="col-sm-2 control-label">Account Number</label>
+									<div class="col-sm-10">
+										<input type="number" class="form-control" name="account_number" value="{{Auth::user()->account_number }}">
 									</div>
 								</div>
 
