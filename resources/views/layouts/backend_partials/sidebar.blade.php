@@ -144,31 +144,22 @@
             </ul>
         </li>
 
-
-
-
-
-
-
-
-
-      <li>
-        <a href=" {{ route ('system.config') }} ">
-          <i class="fa fa-globe"></i> <span> System Config </span>
-          <span class="pull-right-container">
-          </span>
-        </a>
-      </li>
-
+        <li>
+            <a href=" {{ route ('system.config') }} ">
+            <i class="fa fa-globe"></i> <span> System Config </span>
+            <span class="pull-right-container">
+            </span>
+            </a>
+        </li>
 
 
         <li>
-        <a href=" {{ route ('badge.request') }} ">
-          <i class="fa fa-globe"></i> <span> Badge Requests </span>
-          <span class="pull-right-container">
-          </span>
-        </a>
-      </li>
+            <a href=" {{ route ('badge.request') }} ">
+            <i class="fa fa-globe"></i> <span> Badge Requests </span>
+            <span class="pull-right-container">
+            </span>
+            </a>
+        </li>
 
       <li>
         <a href=" {{ route ('home') }} " target="_blank">

@@ -116,7 +116,7 @@
                         @endif
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
 
 
@@ -330,13 +330,20 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        Referral Info
+                        <h4 class="modal-title">How the Referral Works</h4>
                     </div>
                     <div class="modal-body">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente accusantium officia, perferendis optio alias, expedita dignissimos repellat nemo in atque animi quas aliquam. Laboriosam ab aliquid vero aspernatur quam molestiae.
+                        A refer is a person that uses his or her referral link to invite people using online to register on efcontact. <br>
+
+                        All you have to do is copy and share your link to your friends , family , clients or anyone through WhatsApp, Facebook, sms, mms, Instagram, Twitter etc... <br>
+                        when they click your link and register , you automatically get 50 naira . The more people register using your link the more your bonuses increases. <br>
+                        When it gets to 1000 naira, you can request for a cashout or live it and keep inviting people to register using your link. <br>
+                        <strong>Note:</strong> you can only request withdrawal from monday to Thursday only. <br>
+                        Friday is pay day to all our customers. <br>
+                        <strong>Have fun and keep sharing 😃</strong>
                     </div>
                     <div class="modal-footer">
-                        <button id="closeytplayer" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
