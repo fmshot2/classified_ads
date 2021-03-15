@@ -37,6 +37,19 @@ Route::middleware(['agent'])->group(function () {
 });
 //Agent Middleware ends here
 
+//Accountant Middleware starts here
+Route::middleware(['accountant'])->group(function() {
+    Route::get('/accountant/dashboard', 'AccountantController@accountantDashboard')->name('accountant.dashboard');
+    Route::get('/accountant/all-payments', 'AccountantController@allPayments')->name('accountant.all.payments');
+    Route::get('/accountant/successful-payments', 'AccountantController@successfulPayments')->name('accountant.successful.payments');
+    Route::get('/accountant/unsuccessful-payments', 'AccountantController@unsuccessfulPayments')->name('accountant.unsuccessful.payments');
+    Route::get('/accountant/all-referrals', 'AccountantController@allReferrals')->name('accountant.all.referrals');
+    Route::get('/accountant/successful-referrals', 'AccountantController@successfulReferrals')->name('accountant.successful.referrals');
+    Route::get('/accountant/unsuccessful-referrals', 'AccountantController@unsuccessfulReferrals')->name('accountant.unsuccessful.referrals');
+    Route::get('/accountant/profile', 'AccountantController@accountantProfile')->name('accountant.profile');
+});
+//Accountant Middleware ends here
+
 
 Route::post('api/logintestPayment', 'AuthController@logintestPayment');
 
@@ -333,6 +346,10 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::put('/admin/update-city/{slug}', 'TourismController@update_city')->name('admin.update.city');
     Route::put('/admin/add_city_images/{slug}', 'TourismController@add_city_images')->name('admin.add_city_images');
 
+    //add accountant
+    Route::get('/admin/add-accountant', 'AccountantController@add_accountant')->name('add-accountant');
+    Route::post('/admin/submit-accountant', 'AccountantController@submit_accountant')->name('submit_accountant');
+
     // Advertisement
     // Route::get('/admin/sliders', 'AdminController@sliders')->name('admin.sliders');
     Route::get('/admin/sponsored/slider/{id}', 'OperationalController@get_advert_slider')->name('admin.advert.slider');
@@ -368,6 +385,9 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('admin/pages-contents', 'OperationalController@pagescontents')->name('admin.pagescontents');
 
 
+    //accountant routes
+    Route::get('/admin/all-accountants', 'AdminController@allAccountants')->name('all_accountants');
+
 
 }); //Admin Middleware protection end here
 
@@ -399,6 +419,8 @@ Route::get ( 'findgeo',  'ServiceController@findNearestServices');
 Route::get ( 'findLat2',  'ServiceController@findNearestServices2');
 
 Route::get ( 'findLat',  'AdminController@findNearestRestaurants');
+
+
 
 
 
