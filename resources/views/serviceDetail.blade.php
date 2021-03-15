@@ -266,7 +266,7 @@
                                     <a class="nav-link" id="six-tab" data-toggle="tab" href="#six" role="tab" aria-controls="six" aria-selected="true">Similar Services</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="six" aria-selected="true">Comments</a>
+                                    <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="six" aria-selected="true">Client Feedback</a>
                                     {{-- {{ $serviceDetail->comments->count() }} --}}
                                 </li>
                             </ul>

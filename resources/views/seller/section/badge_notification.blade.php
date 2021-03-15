@@ -21,14 +21,14 @@
     <div class="pad margin no-print">
         <div class="callout callout-info bg-warning text-warning" style="margin-bottom: 0!important;background-color: #fec30bbb;">
             <h4><i class="fa fa-info text-danger"></i> Note:</h4>
-            Hello! {{Auth::User()->name}} <br />
+             <h4 class="text-black">Hello! {{Auth::User()->name}}</h4>
 
-            @if (!Auth::User()->services)
+            @if (Auth::User()->services->count() == 0)
                 <p style=" color: black;"><strong> You have not created a service yet!.</strong></p>
-                <a href="{{ route('seller.service.create') }}"> Click here to create a new service</a>
+                <a href="#" data-toggle="modal" data-target="#postServiceModal" class="text-success"> Click here to create a new service</a>
             @else
                 <p>You have a service</p>
-                <a href="{{ route('seller.service.create') }}" style=" color: black;"> <strong>Click here to create a new service</strong></a>
+                <a href="#" data-toggle="modal" data-target="#postServiceModal" class="text-success"> <strong>Click here to create a new service</strong></a>
             @endif
         </div>
     </div>

@@ -254,6 +254,7 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
 
     Route::post('/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
     Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
+    Route::post('/profile/update/account/{id}', 'AuthController@updateAccount')->name('profile.update.account');
 
 
 

@@ -41,7 +41,11 @@ class ServiceImageController extends Controller
         $service->thumbnail = $service->images()->first()->image_path;
         $service->save();
 
-        return redirect()->back();
+        $success_notification = array(
+            'message' => 'Image(s) uploaded successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($success_notification);
 
     }
 
@@ -55,6 +59,11 @@ class ServiceImageController extends Controller
         if (file_exists($path)) {
             unlink($path);
         }
-        return redirect()->back();
+
+        $success_notification = array(
+            'message' => 'Image deleted successfully!',
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($success_notification);
     }
 }

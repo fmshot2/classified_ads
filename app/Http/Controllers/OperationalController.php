@@ -55,9 +55,19 @@ class OperationalController extends Controller
 
         $slider = new Slider();
 
-        $slider->create($data);
+        if ($slider->create($data)) {
+            $success_notification = array(
+                'message' => 'Slider created succesfully!',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($success_notification);
+        }
 
-        return redirect()->back();
+        $success_notification = array(
+            'message' => 'Something went wrong! Try again.',
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($success_notification);
     }
 
     public function sliderUpdate(Request $request, $id)
@@ -97,9 +107,18 @@ class OperationalController extends Controller
 
         $slider = Slider::find($id);
 
-        $slider->update($data);
-
-        return redirect()->back();
+        if ($slider->update($data)) {
+            $success_notification = array(
+                'message' => 'Slider updated succesfully!',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($success_notification);
+        }
+        $success_notification = array(
+            'message' => 'Something went wrong! Try again.',
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($success_notification);
     }
 
     public function advertCreate(Request $request)
@@ -206,16 +225,38 @@ class OperationalController extends Controller
 
 
         $advert = Advertisement::find($id);
-        $advert->update($data);
 
-        return redirect()->back();
+        if ($advert->update($data)) {
+            $success_notification = array(
+                'message' => 'Advert updated succesfully!',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($success_notification);
+        }
+
+        $success_notification = array(
+            'message' => 'Something went wrong! Try again.',
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($success_notification);
     }
 
     public function delete_advert_slider($id)
     {
         $advert = Advertisement::find($id);
-        $advert->delete();
-        return back()->with('success', 'Task was successful!');
+
+        if ($advert->delete()) {
+            $success_notification = array(
+                'message' => 'Advert Deleted Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($success_notification);
+        }
+        $success_notification = array(
+            'message' => 'Something went wrong! Try again.',
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($success_notification);
     }
 
 
