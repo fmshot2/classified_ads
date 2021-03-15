@@ -91,7 +91,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="mobile-top-navbar" id="scroll-top">
+            <div class="mobile-top-navbar">
                 <ul class="mbtn-links">
                     @guest
                         <a href="/login" class="sign-in">Login</a> or
