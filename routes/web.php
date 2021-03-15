@@ -366,6 +366,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
 
     Route::get('admin/pages-contents', 'OperationalController@pagescontents')->name('admin.pagescontents');
+    Route::post('admin/pages-contents/privacy', 'OperationalController@savePrivacyPolicy')->name('admin.pagescontents.save.privacy');
 
 
 

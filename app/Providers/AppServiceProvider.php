@@ -7,6 +7,7 @@ use App\AdvertLocation;
 use App\Category;
 use Illuminate\Support\ServiceProvider;
 use App\General_Info;
+use App\PageContent;
 use App\Service;
 use App\State;
 use App\Tourism;
@@ -28,13 +29,15 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function($view) {
             $general_info = General_Info::first();
             $check_general_info = collect($general_info)->isEmpty();
+            $pages_contents = PageContent::first();
+            $pages_contents_page = collect($pages_contents)->isEmpty();
 
             $advertisements = Advertisement::all();
             $advertlocations = AdvertLocation::all();
             $services = Service::all();
             $categories = Category::orderBy('name', 'asc')->get();
 
-            $view->with( compact('general_info', 'check_general_info', 'advertisements', 'categories', 'advertlocations'));
+            $view->with( compact('general_info', 'check_general_info', 'advertisements', 'categories', 'advertlocations', 'pages_contents', 'pages_contents_page'));
         });
 
     }

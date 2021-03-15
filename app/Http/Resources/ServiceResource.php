@@ -27,7 +27,7 @@ class ServiceResource extends JsonResource
             'video_link' => $this->video_link,
             'slug' => $this->slug,
             'category' => $this->category,
-            'images' => $this->images
+            'images' => ImageResource::collection($this->images)
         ];
 
     }

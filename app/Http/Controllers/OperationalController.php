@@ -7,6 +7,7 @@ use App\Advertisement;
 use App\AdvertLocation;
 use App\Category;
 use App\Mail\UsersFeedback;
+use App\PageContent;
 use App\Service;
 use App\Slider;
 use App\UserFeedback;
@@ -353,6 +354,19 @@ class OperationalController extends Controller
     public function pagescontents()
     {
         return view('admin.page_management.pages_contents');
+    }
+
+    public function savePrivacyPolicy(Request $request)
+    {
+        $page_contents = PageContent::find(1);
+
+        $page_contents->privacy_policy = $request->privacy_policy;
+        $page_contents->update();
+
+        return redirect()->back()->with([
+            'message' => 'Privacy Policy Updated!',
+            'alert-type' => 'success'
+        ]);
     }
 
 }
