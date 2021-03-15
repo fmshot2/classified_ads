@@ -103,7 +103,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="{{ route('admin.sliders') }}"><i class="fa fa-circle-o"></i> Slider </a></li>
-          <li><i href="{{ route('events') }}"><i class="fa fa-circle-o"></i> Events </a></li>
+          <li><a href="{{ route('events') }}"><i class="fa fa-circle-o"></i> Events </a></li>
           <li><a href="{{ route('admin.show_faq') }}"><i class="fa fa-circle-o"></i> FAQs </a></li>
           <li><a href="{{ route('admin.privacy.policy') }}"><i class="fa fa-circle-o"></i> Privacy </a></li>
           <li><a href="{{ route('admin.termsOfUse') }}"><i class="fa fa-circle-o"></i> Terms Of Use </a></li>
