@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Payment;
+use App\Badge;
+use App\AdvertPayment;
+use App\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -68,10 +71,27 @@ class AccountantController extends Controller
 
     public function unsuccessfulReferrals()
     {
-    	$all_payments = Payment::all();
+    	$all_payments = User::all();
     	return view('accountant.referrals.unpaid_referrals', [
     		'all_payments' => $all_payments
     	]);
+    }
+
+    public function badgeRequests()
+    {
+        $all_badges = Badge::all();
+        return view('accountant.badges.badges', [
+            'all_badges' => $all_badges
+        ]);
+    }
+
+    public function adRequests()
+    {
+        $ads = AdvertPayment::all();
+
+        return view('accountant.ads.ads', [
+            'ads' => $ads
+        ]);
     }
 
 

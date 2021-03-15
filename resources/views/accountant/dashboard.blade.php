@@ -90,5 +90,5 @@
         </section>
     </div>
 </div>
-
+    @include('accountant.modal.pay_ad')
     @endsection

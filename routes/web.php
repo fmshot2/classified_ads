@@ -33,13 +33,12 @@ Route::middleware(['agent'])->group(function () {
     Route::get('/agent/notification/all', 'AgentController@allNotifications')->name('agent.notification.all');
     Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
 
-
 });
 //Agent Middleware ends here
 
 //Accountant Middleware starts here
 Route::middleware(['accountant'])->group(function() {
-    Route::get('/accountant/dashboard', 'AccountantController@accountantDashboard')->name('accountant.dashboard');
+    Route::get('/accountant', 'AccountantController@accountantDashboard')->name('accountant.dashboard');
     Route::get('/accountant/all-payments', 'AccountantController@allPayments')->name('accountant.all.payments');
     Route::get('/accountant/successful-payments', 'AccountantController@successfulPayments')->name('accountant.successful.payments');
     Route::get('/accountant/unsuccessful-payments', 'AccountantController@unsuccessfulPayments')->name('accountant.unsuccessful.payments');
@@ -47,6 +46,11 @@ Route::middleware(['accountant'])->group(function() {
     Route::get('/accountant/successful-referrals', 'AccountantController@successfulReferrals')->name('accountant.successful.referrals');
     Route::get('/accountant/unsuccessful-referrals', 'AccountantController@unsuccessfulReferrals')->name('accountant.unsuccessful.referrals');
     Route::get('/accountant/profile', 'AccountantController@accountantProfile')->name('accountant.profile');
+
+    Route::get('/accountant/advertisements', 'AccountantController@adRequests')->name('accountant.ad.requests');
+    Route::post('/accountant/save-ad', 'AdvertPaymentController@save_ad')->name('accountant.save.ad');
+    Route::post('/accountant/update-ad/{id}', 'AdvertPaymentController@update_ad')->name('accountant.update.ad');
+    Route::get('/accountant/badge-requests', 'AccountantController@badgeRequests')->name('accountant.badges');
 });
 //Accountant Middleware ends here
 

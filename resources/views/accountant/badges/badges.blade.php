@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-All unpaid Referrals | 
+Successful Badge Payment  | 
 @endsection
 
 @section('content')
@@ -24,7 +24,7 @@ All unpaid Referrals |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> All unpaid Referrals</h3>
+						<h3 class="box-title"> Successful Badge Payment</h3>
 					</div>
 
 					<!-- /.box-header -->
@@ -33,24 +33,27 @@ All unpaid Referrals |
 							<thead>
 								<tr>
 									<th> # </th>
-									<th> Username </th>
-									<th> Referral Link </th>
-									<th> Amount </th>
-									<th> Bank </th>
-									<th> Account Number </th>	
+									<th> Name of Seller </th>
+									<th> Reference Number </th>
+									<th> Amount Paid </th>
+									<th> Badge </th>
+									<th> Date of Payment </th>
 									<th> Action </th>									
 								</tr>	
 							</thead>
 							<tbody>
-								@forelse($all_payments as $key => $user)
+								@forelse($all_badges as $key => $payment)
 								<tr>
-									<td>{{ ++$key }}</td>
-									<td> {{ $user->name }} </td>
-									<td><span class="text-muted"> {{ $user->refererLink }} </span> </td>
-									<td> {{ $user->refererAmount }} </td>
-									<td> {{ $user->bank_name }} </span></td>
-									<td> <span class="text text-success">{{ $user->account_number }}</span> </span></td>
-									<td><button class="btn btn-success">View All Info</button> </td>
+									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
+									<td><span class="text-muted"> </i> {{ $payment->seller_name }}</span> </td>
+									<td> {{ $payment->ref_no }} </td>
+									<td> #{{ $payment->amount }} </td>
+									<td> {{ $payment->badge_type }} </span></td>
+									<td> <span class="text text-success">{{ $payment->created_at }}</span> </span></td>
+									<td class="center">
+						                <a type="button" class="btn btn-default btn-outline btn-sm" href=""><i class="fa fa-pencil"></i></a>
+
+						            </td>
 								</tr>
 
 								@empty
