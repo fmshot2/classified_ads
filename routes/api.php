@@ -20,9 +20,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('gt_payment_details/{user_id}/{badge_type}', 'BadgeController@gt_response');
-Route::post('logintestPayment/{user_id}', 'AuthController@gt_response');
+Route::post('logintestPayment/{user_id}', 'AuthController@logintestPayment');
 
-"https://yellowpage.test/api/logintestPayment";
+
+Route::post('create_user', 'AuthController@create_user');
+
+Route::post('logintestPayment', 'AuthController@gt_response');
+
+
+// "https://yellowpage.test/api/logintestPayment";
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
