@@ -20,7 +20,18 @@ class AccountantController extends Controller
 	public function accountantDashboard()
 	{
 
-		return view('accountant.dashboard');
+        $ads_count = AdvertPayment::count();
+        $badge_count = Badge::count();
+        $payment_count = PaymentRequest::count();
+        $payments = PaymentRequest::orderBy('created_at', 'asc')->paginate(5);
+        $ads = AdvertPayment::orderBy('created_at', 'asc')->paginate(5);
+		return view('accountant.dashboard', [
+            'ads_count' => $ads_count,
+            'badge_count' => $badge_count,
+            'payment_count' => $payment_count,
+            'payments' => $payments,
+            'ads' => $ads
+        ]);
 
 	}
 

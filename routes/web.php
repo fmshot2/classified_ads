@@ -134,8 +134,8 @@ Route::get('/catdet/{id}', 'CategoryController@show')->name('catdet');
 
 Route::get('/saveLike2','ServiceController@saveLike2')->name('saveLike2');
 
-Route::get('buyer/payment-request', 'PaymentRequestController@getBuyerPage')->name('buyer.make.request');
-Route::post('/buyer/submit-request', 'PaymentRequestController@submitRequest')->name('buyer.submit.payemnt.request');
+Route::get('payment-request', 'PaymentRequestController@getBuyerPage')->name('buyer.make.request');
+Route::post('submit-request', 'PaymentRequestController@submitRequest')->name('buyer.submit.payemnt.request');
 
 
 //add service Routes

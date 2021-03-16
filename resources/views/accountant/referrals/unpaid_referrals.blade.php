@@ -133,94 +133,70 @@ All unpaid Referrals |
 	            method: 'POST',
 	            success: function(result)
 	            {
-	            	console.log('success')
+	            	toastr.success("{{ Session::get('message') }}")
+	            	location.reload()
 	            }
 
 	        }); 
 
        } else {
-       		console.log('failed')
+        	toastr.error("{{ Session::get('message') }}")
+       		location.reload()
        }
         
     }
     
 </script>
 
+<script type="text/javascript">
+function makepayment1(id) {
+	swal({
+	title: "Are you sure you want to pay this user?",
+	text: "Please be sure and then confirm!",
+	type: "warning",
+	showCancelButton: !0,
+	confirmButtonText: "Yes, pay!",
+	cancelButtonText: "No, dont bother!",
+	cancelButtonColor: '#dc3545',
+	reverseButtons: !0
+	}).then(function (e) {
+		if (e.value === true) {
 
-<script>
-        function activateUser22(id) {
-
-    event.preventDefault();
-    if (confirm("Are you sure you want to change this user's status?")) {
-
-        $.ajax({
-            url: '/activate_user/' + id,
-            method: 'get',
-            success: function(result){
-              alert('successfull');
-                window.location.assign(window.location.href);
-            }
-        });
-// '/admin/delete/faqs/{id}'
-
-    } else {
-              alert('failed');
-
-        console.log('Delete process cancelled');
-
-    }
-
-    }
-    </script>
-
-
-
-    <script type="text/javascript">
-function activateUser(id) {
-swal({
-title: "Change this user's status?",
-text: "Please be sure and then confirm!",
-type: "warning",
-showCancelButton: !0,
-confirmButtonText: "Yes, change it!",
-cancelButtonText: "No, dont bother!",
-cancelButtonColor: '#dc3545',
-reverseButtons: !0
-}).then(function (e) {
-if (e.value === true) {
-
-$.ajax({
-            url: '/activate_user/' + id,
-            method: 'get',
+		$.ajax({
+			headers: {
+		    	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		  	},
+            url: "/accountant/make-payment/"+user_id,
+            method: 'post',
             success: function(results){
-            	alert(results);
+            	// alert(results);
             	console.log(results);
             	if (results.success === true)  {
-swal("Done!", results.message, "success");
-document.getElementById("activate").innerHTML = results.message;
-document.getElementById("active_text").innerHTML = results.status_message;
-if (results.message === 'Activate') {
-	document.getElementById("active_text").style.color='#dc3545';
+					swal("Done!", results.message, "success");
+					document.getElementById("activate").innerHTML = results.message;
+					document.getElementById("active_text").innerHTML = results.status_message;
+					if (results.message === 'Activate') {
+					document.getElementById("active_text").style.color='#dc3545';
 
-} else {
-		document.getElementById("active_text").style.color='blue';
+					} else {
+					document.getElementById("active_text").style.color='blue';
 
-}
+				}
 
-window.location.assign(window.location.href);
-} else {
-swal("Error!", results.message, "error");
-}
+					window.location.assign(window.location.href);
+				} else {
+					swal("Error!", results.message, "error");
+				}
 
-            }
+	        }
         });
 
-} else {
-e.dismiss;
-}
-}, function (dismiss) {
-return false;
-})
+		} else {
+			e.dismiss;
+		}
+	}, function (dismiss) {
+		return false;
+	})
 }
 </script>
 
