@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
+=======
+use App\Agent;
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
 use App\Mail\AgentRegistration;
 use Illuminate\Http\Request;
 use App\User;
@@ -72,6 +76,7 @@ class AuthController extends Controller
         $user->save();
 
         if ($user->save()) {
+<<<<<<< HEAD
             $messages = "$user->name, Your registration was successfull! Please click the link below to complete your registration!";
             $name = $user->name;
             $email = $user->email;
@@ -90,6 +95,21 @@ class AuthController extends Controller
             return redirect()->back()->with($success_notification);
 
             // return back()->route('agent_Complete_Reg')->with('result', 'Successfull, Please go to your email to complete the registration');
+=======
+            $name = "$user->name, Your registration was successfull! Please click the link below to complete your registration!";
+            $name = $user->name;
+            $email = $user->email;
+            $origPassword = $request->password;
+            $userRole = $user->role;
+
+            try {
+                Mail::to($user->email)->send(new AgentRegistration($name, $email, $origPassword, $userRole));
+            } catch (\Exception $e) {
+                $failedtosendmail = 'Failed to Mail!';
+            }
+
+            return redirect()->route('agent_Complete_Reg')->with('result', 'Succeffull, Please go to your email to complete the registration');
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
 
             $credentials = $request->only('email', 'password');
 
@@ -246,6 +266,7 @@ class AuthController extends Controller
 
     public function pay_with_gtpay(Request $request)
     {
+<<<<<<< HEAD
         $link_from_url = $request->refer;
         $code_of_agent = $request->agent_code;
 
@@ -264,6 +285,8 @@ class AuthController extends Controller
         } else {
             $agent_Id = null;
         }
+=======
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
 
         $request->validate([
             'name'     => ['required', 'string', 'max:255'],
@@ -278,15 +301,26 @@ class AuthController extends Controller
         $gtpay_tranx_amt      = 1 * 100;
         $gtpay_tranx_curr     = 566;
         $gtpay_cust_id        = '1';
+<<<<<<< HEAD
         $gtpay_tranx_noti_url = url('create_user');
         $gtpay_cust_name      = $request->name . '{?#?#}' . $request->email . '{?#?#}' . $request->password . '{?#?#}' . $slug3 . '{?#?#}' . $agent_Id . '{?#?#}' . $refererId . '{?#?#}' . $request->role;
         $gtpay_tranx_memo     = 'Mobow';
         $gtpay_echo_data      = $request->name . '{?#?#}' . $request->email . '{?#?#}' . $request->password . '{?#?#}' . $slug3 . '{?#?#}' . $agent_Id .  '{?#?#}' . $refererId . '{?#?#}' . $request->role;
+=======
+        $gtpay_tranx_noti_url = url('api/create_user');
+        $gtpay_cust_name      = $request->name . '{?#?#}' . $request->email . '{?#?#}' . $request->password . '{?#?#}' . $request->role;
+        $gtpay_tranx_memo     = 'Mobow';
+        $gtpay_echo_data      = $request->name . '{?#?#}' . $request->email . '{?#?#}' . $request->password . '{?#?#}' . $request->role;
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
         $gtpay_no_show_gtbank = 'yes';
         $gtpay_gway_name      = 'etranzact';
         $hashkey              = '3EBF9CF6D082C89F88490B01D072B0F4E1EE52E86EC731D9B49538F33B551D486AB70673FE1B876B94EF76EC5E0AA1D3D14BA933424037FB1219662AFAB8FF51';
         $gtpay_hash           = $gtpay_mert_id . $gtpay_tranx_id . $gtpay_tranx_amt . $gtpay_tranx_curr . $gtpay_cust_id . $gtpay_tranx_noti_url . $hashkey;
         $hashed               = hash('sha512', $gtpay_hash);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
         $gtPay_Data = [
             'gtpay_mert_id'        => $gtpay_mert_id,
             'gtpay_tranx_id'       => $gtpay_tranx_id,
@@ -302,17 +336,26 @@ class AuthController extends Controller
             'hashkey'              => $hashkey,
             'hashed'               => $hashed
         ];
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
         return view('gttPayView', $gtPay_Data);
     }
 
     public function create_user(Request $request)
     {
         $returned_data = explode('{?#?#}', $request->gtpay_echo_data);
+<<<<<<< HEAD
         dd($returned_data);
+=======
+
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
         $user              = new User;
         $user->name        = $returned_data[0];
         $user->email       = $returned_data[1];
         $user->password    = Hash::make($returned_data[2]);
+<<<<<<< HEAD
         $user->refererLink = $returned_data[3];
         $user->idOfAgent   = $returned_data[4];
         $user->idOfReferer   = $returned_data[5];
@@ -330,16 +373,51 @@ class AuthController extends Controller
                 }
             }
             session()->flash('fail', ' Credential Incorect');
+=======
+        $user->role        = $returned_data[3];
+
+        if ($user->save()) {
+
+            Auth::login($user);
+
+            if (Auth::check()) {
+
+                if (Auth::user()->role == 'seller') {
+                    session()->flash('success', ' Login Succesfull');
+                    return redirect()->route('seller.dashboard');
+                } else if (Auth::user()->role == 'buyer') {
+                    // session()->flash('success', ' Login Succesfull');
+                    // return redirect()->route('buyer.dashboard');
+
+                    return Redirect::to(Session::get('url.intended'));
+                } else {
+                    return redirect()->route('admin.dashboard');
+                }
+            }
+
+            session()->flash('fail', ' Credential Incorect');
+
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
             return view('auth/login');
         }
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
     //Registration using payments(GTPAY)
     public function createUserWithGTPay(Request $request)
     {
         $link_from_url = $request->refer;
         $code_of_agent = $request->agent_code;
+<<<<<<< HEAD
         $slug3 = Str::random(8);
+=======
+
+        $slug3 = Str::random(8);
+
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
         $validatedData = $request->validate([
             'name'     => ['required', 'string', 'max:255'],
             'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -347,18 +425,31 @@ class AuthController extends Controller
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'role'     => 'required'
         ]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
         if ($link_from_url) {
             $saveIdOfRefree = User::where('refererLink', $link_from_url)->first();
             $refererId = $saveIdOfRefree->id;
         } else {
             $refererId = null;
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
         if ($code_of_agent) {
             $saveIdOfAgent = User::where('agent_code', $code_of_agent)->first();
             $agent_Id = $saveIdOfAgent->id;
         } else {
             $agent_Id = null;
         }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
@@ -368,6 +459,10 @@ class AuthController extends Controller
         $user->idOfAgent = $agent_Id;
         $user->refererLink = $slug3;
         $user->save();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
         if ($user->save()) {
             $name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
             $name = $user->name;
@@ -375,6 +470,10 @@ class AuthController extends Controller
             $origPassword = $request->password;
             $userRole = $user->role;
             $reg_amount = 1;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3eff0343281618e64b81f0630ec788bd09c5f6fd
             $credentials = $request->only('email', 'password');
 
             if (Auth::attempt($credentials)) {
