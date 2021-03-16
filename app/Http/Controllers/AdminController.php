@@ -440,14 +440,7 @@ public function allBadges()
 }
 public function privacyPolicy()
 {
-  $all_badges = Badge::paginate(10);
-  $current_privacy_policy = Privacypolicy::orderBy('id', 'desc')
-  ->first();
-  if($current_privacy_policy){
-    $current_privacy_policy_details = $current_privacy_policy->details;
-}
-
-  return view ('admin.page_management.privacy_policy', compact('all_badges', 'current_privacy_policy_details') );
+  return view ('admin.page_management.privacy_policy');
 }
 
 public function save_privacyPolicy(Request $request)

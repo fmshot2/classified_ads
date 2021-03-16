@@ -50,8 +50,8 @@ Login
                             @endif
                         </div>
                         <div>
-                            <label for="" style="float: left; margin-top: -15px; margin-bottom: 20px; margin-left: 20px; font-size: 14px">
-                                <input type="checkbox" onclick="showPassword()" style="float: left;">Show Password
+                            <label for="showpasswordtoggle" style="float: left; margin-top: -15px; margin-bottom: 20px; margin-left: 20px; font-size: 14px">
+                                <input type="checkbox" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()" style="float: left;">Show Password
                             </label>
                         </div><div class="clearfix"></div>
                         <p>

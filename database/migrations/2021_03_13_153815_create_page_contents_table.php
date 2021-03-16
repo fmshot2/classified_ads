@@ -16,6 +16,7 @@ class CreatePageContentsTable extends Migration
         Schema::create('page_contents', function (Blueprint $table) {
             $table->id();
             $table->text('agent_modal');
+            $table->text('privacy_policy');
             $table->timestamps();
         });
     }

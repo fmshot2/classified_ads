@@ -166,7 +166,7 @@ Route::get('/home', 'AuthController@loginformail')->name('loginformail');
 */
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register2', 'AuthController@createUser')->name('register2');
-Route::post('/register', 'AuthController@createUserWithGTPay')->name('register');
+Route::post('/register', 'AuthController@pay_with_gtpay')->name('register');
 
 Route::post('/agent/register', 'AuthController@createAgent')->name('agent.register');
 Route::get('/login', 'AuthController@showLogin')->name('login');
@@ -388,6 +388,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
 
     Route::get('admin/pages-contents', 'OperationalController@pagescontents')->name('admin.pagescontents');
+    Route::post('admin/pages-contents/privacy', 'OperationalController@savePrivacyPolicy')->name('admin.pagescontents.save.privacy');
 
 
     //accountant routes
