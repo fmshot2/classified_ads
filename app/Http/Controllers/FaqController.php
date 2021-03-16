@@ -12,4 +12,11 @@ class FaqController extends Controller
     	$all_faqs = Faq::all();
         return view ('faq', compact('all_faqs'));
     }
+
+    public function get_benefits_of_efcontact()
+    {
+    	$benefits = Faq::where('title', 'benefits')->first();
+        $benefits_details = $benefits->details;
+        return view ('benefits', compact('benefits_details'));
+    }
 }

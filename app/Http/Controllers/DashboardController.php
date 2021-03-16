@@ -57,6 +57,10 @@ class DashboardController extends Controller
     $count_badge =  $all_service2->Where('badge_type', null)->count();
     //$active_service_count = $active_service->count();
 
+    // $all_likes = $all_service2->likes()->count();
+
+    // dd($all_likes);
+
 
     $categories = Category::orderBy('name', 'asc')->get();
     $subcategories = SubCategory::orderBy('name', 'asc')->get();
@@ -66,24 +70,25 @@ class DashboardController extends Controller
 
     $status = "hghgcc";
 
-$accruedAmount = Auth::user()->refererAmount;
+    $accruedAmount = Auth::user()->refererAmount;
 
     $linkcheck2 = Refererlink::where(['user_id'=>Auth::id()])->first();
     if ($linkcheck2) {
     $linkcheck = $linkcheck2;
-    
+
         return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count',
          'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service',
-          'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service', 'categories', 'subcategories', 'states'));
+          'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2',
+          'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service', 'categories', 'subcategories', 'states'));
 
     }else{
-     
+
      $linkcheck = null;
 
 
-     return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 
+     return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count',
      'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification',
-      'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 
+      'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount',
       'pending_service', 'categories', 'subcategories', 'states'));
  }
 
@@ -156,9 +161,9 @@ $accruedAmount = Auth::user()->refererAmount;
    $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
 
 
-   return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 
+   return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count',
    'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification',
-    'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 
+    'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount',
     'pending_service', 'categories', 'subcategories', 'states'));
          //dd($linkcount);
 }

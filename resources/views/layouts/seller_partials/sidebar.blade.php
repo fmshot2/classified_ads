@@ -121,7 +121,7 @@
 
         <li class="" style=" {{ url()->current() == route('seller.notification.all') ? 'background-color: #f8d053' : '' }}">
           <a href=" {{route ('seller.notification.all') }}">
-            <i class="fa fa-bell"></i> <span> General Notice </span>
+            <i class="fa fa-bell"></i> <span> Clients Feedback </span>
             <span class="pull-right-container">
               <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small>
             </span>

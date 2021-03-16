@@ -60,8 +60,6 @@ class TourismController extends Controller
         $city->slug = Str::slug($request->name, '-');
 
         $city->save();
-
-
         if($city->save())
         {
             $success_notification = array(
@@ -69,10 +67,9 @@ class TourismController extends Controller
                 'alert-type' => 'success'
             );
         }
-
         return redirect()->back()->with($success_notification);
 	}
-
+    
     public function city($slug)
     {
         $city = Tourism::where('slug', $slug)->first();
@@ -148,21 +145,15 @@ class TourismController extends Controller
                 $name=$file->getClientOriginalName();
                 $location = $file->move('cities_images', $name);
                 $images[]=$name;
-
+                
             }
         }
 
-        $city = Tourism::where('slug', $slug)->first();
-
-        if ($city->update(['images' => json_encode($images)])) {
-            $success_notification = array(
-                'message' => 'Images successfully added to city!',
-                'alert-type' => 'success'
-            );
-        }
-
-
-
+        Tourism::where('slug', $slug)->update(['images' => json_encode($images)]);
+        $success_notification = array(
+            'message' => 'Images successfully added to city!',
+            'alert-type' => 'success'
+        );
         // \Session::flash('success', 'City successfully added!');
         return redirect()->back()->with($success_notification);
         // $city->images = json_decode($images);

@@ -42,13 +42,18 @@ Login
                             @endif
                         </div>
                         <div class="form-group form-box clearfix">
-                            <input type="password" name="password" class="input-text" placeholder="Password" required>
+                                <input type="password" name="password" id="passwordField" class="input-text" placeholder="Password" required>
                             @if ($errors->has('password'))
                             <span class="helper-text" data-error="wrong" data-success="right">
                                 <strong class="text-danger">{{ $errors->first('password') }}</strong>
                             </span>
                             @endif
                         </div>
+                        <div>
+                            <label for="showpasswordtoggle" style="float: left; margin-top: -15px; margin-bottom: 20px; margin-left: 20px; font-size: 14px">
+                                <input type="checkbox" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()" style="float: left;">Show Password
+                            </label>
+                        </div><div class="clearfix"></div>
                         <p>
                             <label>
                                 <input type="checkbox" name="remember" class="filled-in" {{ old('remember') ? 'checked' : '' }} />
@@ -88,5 +93,16 @@ Login
         </div>
     </div>
 </div>
+
+<script>
+    function showPassword() {
+        var passField = document.getElementById("passwordField");
+        if (passField.type === "password") {
+            passField.type = "text";
+        } else {
+            passField.type = "password";
+        }
+    }
+</script>
 
 @endsection

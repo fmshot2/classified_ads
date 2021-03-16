@@ -39,7 +39,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Description: </label>
-                                        <textarea name="description" id="basic-example" class="form-control">{{ $city->description }}</textarea>
+                                        <textarea name="description" id="basic-example" class="form-control">{{ $city->description }}</textarea>  
                                     </div>
                                 </div>
                                 <div class="form-group">

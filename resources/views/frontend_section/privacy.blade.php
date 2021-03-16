@@ -1,7 +1,6 @@
 @extends('layouts.app')
-@section('title')
-Privacy Policy
-@endsection
+
+@section('title', 'Privacy Policy | ')
 
 @section('content')
 <div class="blog-banner">
@@ -18,13 +17,13 @@ Privacy Policy
 </div>
 <!-- Blog body start -->
 <div class="blog-body content-area">
-    <div class="container">
+    <div class="container" style=" background-color: #fff">
         <div class="row">
-            <div class="col-lg-8 col-md-12">
+            <div class="col-lg-12 col-md-12">
                 <!-- Blog box start -->
                 <div class="blog-1 blog-big">
                     <div class="detail">
-                        <p> {!! $general->privacy_policy !!}</p>
+                        <p> {!! $pages_contents->privacy_policy !!}</p>
                     </div>
                 </div>
 

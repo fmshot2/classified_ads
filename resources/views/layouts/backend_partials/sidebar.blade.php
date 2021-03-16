@@ -102,11 +102,12 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href=" {{ route('events') }}"i class="fa fa-circle-o"></i> Events </a></li>
-          <li><a href=" {{ route('admin.show_faq') }}"><i class="fa fa-circle-o"></i> FAQs </a></li>
+          <li><a href="{{ route('admin.sliders') }}"><i class="fa fa-circle-o"></i> Slider </a></li>
+          <li><a href="{{ route('events') }}"><i class="fa fa-circle-o"></i> Events </a></li>
+          <li><a href="{{ route('admin.show_faq') }}"><i class="fa fa-circle-o"></i> FAQs </a></li>
           <li><a href="{{ route('admin.privacy.policy') }}"><i class="fa fa-circle-o"></i> Privacy </a></li>
           <li><a href="{{ route('admin.termsOfUse') }}"><i class="fa fa-circle-o"></i> Terms Of Use </a></li>
-          <li><a href="{{ route('admin.sliders') }}"><i class="fa fa-circle-o"></i> Slider </a></li>
+          <li><a href="{{ route('admin.pagescontents') }}"><i class="fa fa-circle-o"></i> Pages Contents</a></li>
         </ul>
       </li>
 
@@ -143,31 +144,22 @@
             </ul>
         </li>
 
-
-
-
-
-
-
-
-
-      <li>
-        <a href=" {{ route ('system.config') }} ">
-          <i class="fa fa-globe"></i> <span> System Config </span>
-          <span class="pull-right-container">
-          </span>
-        </a>
-      </li>
-
+        <li>
+            <a href=" {{ route ('system.config') }} ">
+            <i class="fa fa-globe"></i> <span> System Config </span>
+            <span class="pull-right-container">
+            </span>
+            </a>
+        </li>
 
 
         <li>
-        <a href=" {{ route ('badge.request') }} ">
-          <i class="fa fa-globe"></i> <span> Badge Requests </span>
-          <span class="pull-right-container">
-          </span>
-        </a>
-      </li>
+            <a href=" {{ route ('badge.request') }} ">
+            <i class="fa fa-globe"></i> <span> Badge Requests </span>
+            <span class="pull-right-container">
+            </span>
+            </a>
+        </li>
 
       <li>
         <a href=" {{ route ('home') }} " target="_blank">

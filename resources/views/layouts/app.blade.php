@@ -21,6 +21,9 @@
     </a>
 
     <style>
+        h1, h2, h3, h5, h6{
+            font-family: Poppins-Regular !important;
+        }
         .float-feedback{
             position:fixed;
             width:120px;
@@ -69,6 +72,19 @@
             font-size: 14px !important;
         }
 
+        ul li{
+            font-size: 14px !important;
+        }
+
+        thead tr th{
+            font-size: 14px !important;
+        }
+
+
+        tbody tr td{
+            font-size: 13px !important;
+        }
+
         @media (max-width: 768px){
             .float-feedback{
                 width:90px;
@@ -107,8 +123,27 @@
                                     <div class="tab-pane fade active show" id="aboutAgent" role="tabpanel" aria-labelledby="one-tab">
                                         <div class="card">
                                             <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
+                                                <p>An Efcontact Agent is anyone who wishes to make extra cash via the EFContact Platform by becoming a promoter of the EFContact platform.</p>
+
+                                                <h4>How it works</h4>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <ul>
+                                                            <li>1.	When You Are Approved, You Will Receive Your Agent Code Which You Will Use For All Your Transactions, Referrals And Commission Payments.</li>
+                                                            <li>2.	You Will Receive Your Commission Every Two Weeks.</li>
+                                                            <li>3.	You Have A Chance Of Making At Minimum Income Of Between N50,000 To N100,000 Monthly.</li>
+                                                            <li>4.	When You Are Approved, You Can Recruit People Under You (Sub-Agents) Or Refer Them To Us And When Anyone Subscribes You Get N100 Each.  We Will Issue To You A Daily Report On Your Sub-Agents And Activities. See Chart Below For Commission Scales.</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <ul>
+                                                            <li>5.	You Can Work At Anytime You Want, Create Your Schedule Or Use This To Suppliment Your Income.</li>
+                                                            <li>6.	You Can Make An Extra 20% On Any Other Adverts Request By Your Subscribers.  Say For An Example Your Subscriber Buys An Advert Of N100,000 A Month, You Will Make An Additional N20,000.00 Monthly. If That Advert Is For A Year You Will Make N240,000.00 On That Case Alone. If You Have Five Of Such In A Year It Is N24000 X 5= N1,200,000.00. Upon That You Will Still Get Commissions On Adverts And Your Recruits. We Estimated That A Good Agent Should Average N5,000,000.00  Yearly.</li>
+                                                        </ul>
+                                                    </div>
+
+
+                                                    {{-- <div class="col-md-6">
                                                         @if(isset($general_info->register_section_1_title))
                                                             <h6 class="text-center"> Who is An EFContact Agent? </h6>
                                                             <hr>
@@ -142,7 +177,7 @@
                                                                 To learn more about an agents and payments, please visit <a class="text-warning" href="www.efcontact.com/faq">EFContact FAQ Page</a> or call <a href="tel:123-456-7890">090- 123-456-7890</a>
                                                             </p>
                                                         @endif
-                                                </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -154,7 +189,7 @@
                                                 <form method="POST" action="{{ route('agent.register') }}">
                                                     @csrf
                                                     <div class="row">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label class="form-label">Your Full Name</label><small class="text-danger">*</small>
                                                                 <input type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
@@ -164,7 +199,7 @@
                                                                     </span>
                                                                 @endif
                                                             </div>
-                                                            <div class="form-group">
+                                                            <!-- <div class="form-group">
                                                                 <label class="form-label">Phone Number</label><small class="text-danger">*</small>
                                                                 <input type="phone" placeholder="Phone Number" class="form-control" name="phone" value="{{ old('phone') }}" required>
                                                                 @if ($errors->has('phone'))
@@ -172,13 +207,22 @@
                                                                         <strong class="text-danger">{{ $errors->first('phone') }}</strong>
                                                                     </span>
                                                                 @endif
-                                                            </div>
+                                                            </div> -->
                                                             <div class="form-group">
-                                                                <label for="email">Email Address</label><small class="text-danger">*</small>
-                                                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Your email address" required>
+                                                                <label for="email">Email Address</label> <small class="text-success">Please Click The Verification
+                                                                    Link In Your Email To Complete Your Registration</small>
+                                                                <input type="email" class="form-control" name="email" value="{{ old('email') }}"
+                                                                placeholder="Your email address" required>
+                                                                <small class="text-danger">If You Do Not Recieve A Verification
+                                                                    Link In Your Email In The Next 10 Minutes, Please Contact Us Via Any of The Following Means:</small>
+                                                                    <div>
+                                                                        <li>Call Us: 090123456789</li>
+                                                                        <li>Whatsapp Us: 090123456789</li>
+                                                                        <li>Email: support@efcontact.com</li>
+                                                                    </div>
                                                             </div>
 
-                                                            <div class="form-group">
+                                                         <!--    <div class="form-group">
                                                                 <label class="form-label">Select your State</label><small class="text-danger">*</small>
                                                                 <select class="form-control" required id="state" name="state" required>
                                                                     <option value="">-- Select State --</option>
@@ -188,18 +232,18 @@
                                                                         @endforeach
                                                                     @endif
                                                                 </select>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <div class="form-group">
+                                                           <!--  <div class="form-group">
                                                                 <label class="form-label">LGA</label><small class="text-danger">*</small>
                                                                 <select class="form-control" id="lgas" name="lga" required>
                                                                     <option disabled selected>- Select Local Government -</option>
                                                                 </select>
-                                                            </div>
+                                                            </div> -->
                                                             <div class="row">
                                                                 <div class="col-md-7">
-                                                                    <div class="form-group">
+                                                                  <!--   <div class="form-group">
                                                                         <label class="form-label" for="identification_type">Identification Type</label><small class="text-danger">*</small>
                                                                         <select class="form-control" name="identification_type" required>
                                                                             <option selected disabled>- Select an option -</option>
@@ -208,16 +252,16 @@
                                                                             <option value="voter_id">Voter's Card</option>
                                                                             <option value="international_passport">International Passport</option>
                                                                         </select>
-                                                                    </div>
+                                                                    </div> -->
                                                                 </div>
                                                                 <div class="col-md-5">
-                                                                    <div class="form-group">
+                                                                  <!--   <div class="form-group">
                                                                         <label class="form-label">ID Number</label><small class="text-danger">*</small>
                                                                         <input type="text" class="form-control" name="identification_id" value="{{ old('identification_id') }}" placeholder="ID Number" required>
-                                                                    </div>
+                                                                    </div> -->
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group">
+                                                            {{-- <div class="form-group">
                                                                 <label class="form-label">Choose Password</label><small class="text-danger">*</small>
                                                                 <input type="password" class="form-control" name="password" placeholder="Password (min: 6 characters)" required>
                                                                 @if ($errors->has('password'))
@@ -230,20 +274,24 @@
                                                                 <label class="form-label">Confirm Password</label><small class="text-danger">*</small>
                                                                 <input class="form-control" placeholder="Confirm Password" type="password" name="password_confirmation" required>
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
 
-                                                        <div class="col-md-12">
+                                                      <!--   <div class="col-md-12">
                                                             <label>
                                                                 <input type="checkbox" name="terms" class="filled-in" required/>
                                                                 <span>By registering you accept our <a href="{{route('terms')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
                                                             </label>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
 
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <button type="submit" class="btn btn-lg btn-warning pull-right text-white">Register</button>
+                                                            <button type="submit" class="btn btn-lg btn-warning text-white">Register</button>
                                                         </div>
+                                                       <div class="col-md-12">
+                                                           <small class="text-danger">Did Not Recieve Link, <a href="">CLICK HERE</a> To Resend</small>
+                                                       </div>
+
                                                     </div>
                                                 </form>
                                             </div>
@@ -332,7 +380,7 @@
     @endif
 
 
-	<a id="page_scroller" href="#scroll-top" style="position: fixed; z-index: 2147483647;"><i class="fa fa-chevron-up"></i></a>
+	<a class="scrollToTopBtn" id="page_scroller" style="position: fixed; z-index: 2147483647;"><i class="fa fa-chevron-up"></i></a>
 
 
     <script>
@@ -356,6 +404,37 @@
                 });
             }else{
                 $("#lgas").empty();
+            }
+        });
+
+
+        $(function() {
+            document.addEventListener("scroll", handleScroll);
+            // get a reference to our predefined button
+            var scrollToTopBtn = document.querySelector(".scrollToTopBtn");
+
+            function handleScroll() {
+                var scrollableHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                var GOLDEN_RATIO = 0.5;
+
+                if ((document.documentElement.scrollTop / scrollableHeight ) > GOLDEN_RATIO) {
+                    //show button
+                    scrollToTopBtn.style.display = "block";
+                } else {
+                    //hide button
+                    scrollToTopBtn.style.display = "none";
+                }
+            }
+
+            scrollToTopBtn.addEventListener("click", scrollToTop);
+
+            function scrollToTop() {
+                // window.scrollTo({
+                //     top: 0,
+                //     behavior: "smooth"
+                // });
+
+                $('body').animate({ scrollTop: top }, {duration: 2000});
             }
         });
     </script>

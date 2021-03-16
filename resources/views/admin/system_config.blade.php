@@ -53,7 +53,7 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label for="site_name" class="control-label">About Us</label>
-                                                <textarea name="about_site" id="about-site" class="form-control" rows="7" value="{{ $check_general_info == 0 ? $general_info->about_site : ''  }}" style="border: 1px solid #d2d6de; padding: 10px">
+                                                <textarea name="about_site" id="summernote" class="form-control" rows="7" value="{{ $check_general_info == 0 ? $general_info->about_site : ''  }}" style="border: 1px solid #d2d6de; padding: 10px">
                                                     {{ $check_general_info == 0 ? $general_info->about_site : ''  }}
                                                 </textarea>
                                             </div>
@@ -340,6 +340,13 @@
 </section></div>
 
 
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script type="text/javascript">
+    $('#summernote').summernote({
+        height:200
+    });
+</script>
 
 
 {{-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
@@ -360,6 +367,9 @@
         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
     });
 </script> --}}
+
+
+
 
 
 @endsection

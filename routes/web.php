@@ -22,6 +22,11 @@ use App\Service;
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 
 //Agent Middleware starts here
+Route::post('create_user', 'AuthController@create_user');
+
+
+Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg')->name('agent_Complete_Reg');
+
 Route::middleware(['agent'])->group(function () {
     Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
     Route::get('/agent/referal/all', 'AgentController@allReferals')->name('agent.referal.all');
@@ -33,6 +38,9 @@ Route::middleware(['agent'])->group(function () {
 });
 //Agent Middleware ends here
 
+
+Route::post('api/logintestPayment', 'AuthController@logintestPayment');
+
 Route::post('advertisement/create', 'OperationalController@advertCreate')->name('advertisement.create');
 Route::view('referral-program/', 'referralprogram')->name('referralprogram');
 Route::get('about-us/', 'OperationalController@aboutus')->name('aboutus');
@@ -40,12 +48,12 @@ Route::get('about-us/', 'OperationalController@aboutus')->name('aboutus');
 Route::get('test_new_badge', 'BadgeController@test_new_badge');
 
 Route::post('gtPAy', 'BadgeController@gtPAy');
-Route::post('gtPAyForRegistration', 'AuthController@gtPAyForRegistration');
+Route::post('gtPAyForRegistration', 'AuthController@gtPAyForRegistration')->name('gtPAyForRegistration');
 
 Route::get ( 'findgeo2',  'ServiceController@findNearestRestaurants');
 Route::get( '/catpagesortby/{letter}',  'OperationalController@catPageSortBy');
 Route::get( '/requestbadge/{id}',  'BadgeController@requestbadge');
-// Route::post( '/requestbadge/{id}',  'BadgeController@requestbadge')->name('badge.request');
+Route::post( '/requestbadge/{id}',  'BadgeController@requestbadge')->name('badge.request');
 Route::post( '/user-feedback',  'OperationalController@feedbackform')->name('feedback.form');
 
 Route::get('email', function () {
@@ -125,19 +133,24 @@ Route::get('api/get-category-list/{state_name}','CategoryController@getCategoryL
 Route::get('api/get-like-list/{id}','ServiceController@getLikeList');
 
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
+Route::get('benefits-of-efcontact','FaqController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
+
 
 Route::get('contact-us','ContactController@contact_us')->name('contact');
 
 /*the next 3 routes are for implementing verify by email. they are working well. thanks.
 just add middleware ->middleware(['verified']); to the end to any route to ensure only email verified users can access that.
 Auth::routes(['verify' => true]);
+
 Route::get('/email/verify', function () {
     return view('auth.verify');
 })->middleware('auth');
 Route::get('/home', 'AuthController@loginformail')->name('loginformail');
 */
 Route::get('/register', 'AuthController@showRegister')->name('register');
-Route::post('/register', 'AuthController@createUser')->name('register');
+Route::post('/register2', 'AuthController@createUser')->name('register2');
+Route::post('/register', 'AuthController@pay_with_gtpay')->name('register');
+
 Route::post('/agent/register', 'AuthController@createAgent')->name('agent.register');
 Route::get('/login', 'AuthController@showLogin')->name('login');
 Route::post('/login', 'AuthController@login')->name('login');
@@ -146,7 +159,6 @@ Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 Route::get('/refreshcaptcha', 'AuthController@refreshCaptcha')->name('refreshcaptcha');
 
 Route::get('/terms', 'PageController@terms')->name('terms');
-Route::get('/privacy', 'PageController@privacy')->name('privacy');
 
 
 Route::get('/admin2/like/{id}', 'ServiceController@saveLike2')->name('admin2.like');
@@ -243,10 +255,11 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
 
     Route::post('/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
     Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
+    Route::post('/profile/update/account/{id}', 'AuthController@updateAccount')->name('profile.update.account');
 
 
 
-}); 
+});
 //Auth Middleware protection end here
 
 
@@ -299,6 +312,8 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/seller/saveBadge/', 'AdminController@saveBadge')->name('save.badge');
     Route::get('/admin/privacy-policy/', 'AdminController@privacyPolicy')->name('admin.privacy.policy');
     Route::post('/admin/save_privacy_policy/', 'AdminController@save_privacyPolicy')->name('admin.save_privacyPolicy');
+    Route::get('/privacy', 'AdminController@privacy')->name('privacy');
+
     Route::get('/admin/terms-of-use/', 'AdminController@termsOfUse')->name('admin.termsOfUse');
     Route::post('/admin/save_terms_of_use/', 'AdminController@save_termsOfUse')->name('admin.save_termsOfUse');
     Route::post('/admin/save_faq/', 'AdminController@save_faq')->name('admin.save_faq');
@@ -349,6 +364,10 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('admin/userfeedback/{id}','AdminController@userfeedback')->name('admin.user.feedback');
     Route::put('admin/userfeedback/treat/{id}','AdminController@treatfeedback')->name('admin.user.feedback.treat');
     Route::get('admin/userfeedback/delete/{id}','AdminController@feedbackDelete')->name('admin.user.feedback.delete');
+
+
+    Route::get('admin/pages-contents', 'OperationalController@pagescontents')->name('admin.pagescontents');
+    Route::post('admin/pages-contents/privacy', 'OperationalController@savePrivacyPolicy')->name('admin.pagescontents.save.privacy');
 
 
 

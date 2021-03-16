@@ -130,7 +130,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h3 class="service-name">{{$serviceDetail->name}}</h3>
-                                        <p><span><i class="fa fa-map-marker"></i> Location:</span> <span style="color: #ca8309" class="tt-capitalize">{{$serviceDetail->state}}</span></p>
+                                        <p><span><i class="fa fa-map-marker"></i> Location:</span> <span style="color: #ca8309" class="tt-capitalize" id="userAddress">{{$serviceDetail->state}}</span></p>
                                         <p><span><i class="fa fa-user"></i> Service Provider: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->user->name}}</span></p>
                                         <p><span><i class="fa fa-clock-o"></i> Posted on: </span><span style="color: #ca8309"> {{ $serviceDetail->created_at->diffForHumans() }}</span></p>
                                     </div>
@@ -266,7 +266,7 @@
                                     <a class="nav-link" id="six-tab" data-toggle="tab" href="#six" role="tab" aria-controls="six" aria-selected="true">Similar Services</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="six" aria-selected="true">Comments</a>
+                                    <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="six" aria-selected="true">Client Feedback</a>
                                     {{-- {{ $serviceDetail->comments->count() }} --}}
                                 </li>
                             </ul>
@@ -576,7 +576,8 @@
                                     @endauth
                                 </form>
                             </div>
-
+                            @if($serviceDetail->address != '')
+                            {{-- <div class="map" style="border:0; width: 100%; height: 381px;"></div> --}}
                             <div class="google-maps">
                                 <div class="mapouter">
                                     <div class="gmap_canvas">
@@ -584,7 +585,9 @@
                                     </div>
                                 </div>
                             </div>
-
+                            @else
+                            <p class="text text-danger">No address provided.</p>
+                            @endif
                             <hr>
                             <div class="posts-by-category widget ser-pg-safety-tips" style="margin-top: 20px; padding: 0">
                                 <h3 class="sidebar-title">Safety tips</h3>
@@ -833,4 +836,43 @@
         });
 
     }
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var address = document.getElementById('userAddress').innerHTML;
+
+        console.log(address);
+
+        function initMap(address) {
+
+            var geocoder = new google.maps.Geocoder();
+        
+            geocoder.geocode({ 'address': address}, function(results, status) {
+                if(status == google.maps.GeocoderStatus.OK) {
+                    var longitude = results[0].geometry.location.lng();
+                    var latitude = results[0].geometry.location.lat();
+                }
+
+                console.log(results[0]);
+
+                var MyLngLat = {lat: latitude, lng: longitude};
+
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 4,
+                    center: MyLngLat
+                });
+
+                var marker = new google.maps.Marker({
+                    position: MyLngLat,
+                    map: map,
+                    title: 'Location of service provider'
+                });
+            });
+        }
+    });
+    
+    
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY2buDtbYIot8Llm_FkQXHW36f0Cme6TI&callback=initMap">
 </script>

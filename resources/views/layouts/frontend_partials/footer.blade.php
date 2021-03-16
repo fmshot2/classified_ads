@@ -65,7 +65,7 @@
                         </li>
 
                         <li class=" ">
-                            <a href="{{route('terms-of-use')}}" class="grey-text text-lighten-3">Privacy Policy</a>
+                            <a href="{{route('privacy')}}" class="grey-text text-lighten-3">Privacy Policy</a>
                         </li>
 
                          <li class="">
@@ -73,7 +73,11 @@
                         </li>
 
                         <li class="">
-                            <a href="{{route('allcities')}}" class="grey-text text-lighten-3">Tourism in Nigeria</a>
+                            <a href="{{route('benefits-of-efcontact')}}" class="grey-text text-lighten-3">Benefits of EFContact</a>
+                        </li>
+
+                        <li class="">
+                            <a href="{{route('allcities')}}" class="grey-text text-lighten-3">Tourist Sites in Nigeria</a>
                         </li>
 
                     </ul>

@@ -10,11 +10,23 @@
         background-color: #f5a824 !important;
         cursor: pointer;
     }
+    .card-body h5{
+        font-family: Poppins-Regular;
+        font-weight: 600;
+        font-size: 18px;
+        margin-top: 10px
+    }
+    .card-body p{
+        font-size: 15px;
+    }
 
     @media (max-width: 768px){
         .col-lg-12.col-md-12.col-xs-12{
             padding-left: 0 !important;
             padding-right: 0 !important;
+        }
+        ul div img{
+            width: 100%;
         }
     }
 </style>
@@ -55,10 +67,39 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <div style="padding-bottom: 30px;">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, sequi. Enim obcaecati veniam voluptate, ipsa id error expedita asperiores molestias adipisci at omnis! Et, officiis doloremque repellat minus ad facilis possimus, cupiditate sit aliquid libero magnam, facere ab? Dignissimos eaque, sit expedita sapiente in aliquam perferendis eligendi ex pariatur consequatur molestias? Distinctio ea itaque doloribus eius vitae asperiores, ipsum harum maxime molestiae alias, aut ducimus modi. Rem voluptas animi consequuntur eos odio assumenda similique consectetur excepturi molestias soluta. Veritatis quod dignissimos excepturi repudiandae ad doloremque iste enim inventore eius eos voluptatum, expedita harum, modi reiciendis temporibus minima dolores?
+                                                <p>Get rewarded up to N50 for every person you refer to register on EFContact.com</p>
+                                                <ul style="list-style: none">
+                                                    <li>* No referral limits - You can refer as many people as you want.</li>
+                                                    <li>* Bonus credited instantly - You will receive your bonus immediately once your friend completes the registration.</li>
+                                                </ul>
+
+                                                <h5>How do I get started?</h5>
+                                                <ul style="list-style: none">
+                                                    <li>* Register your account - You don't need to have a service or product to sell before you can register on EFContact, you can also register as "Looking for a service" and you will get your referral link and start earning.</li>
+                                                    <li>* Fill the registration form</li>
+                                                    <li>* Payment - If you register as a "Service provider", you will be redirected to our secured payment page where you will pay a sum of N200 for 1 Month subscription, or N1200 for 6 Months subscription, or 2400 for 1-year subscription.</li>
+                                                </ul>
+                                                <p><strong>Note that this step does not apply to you if you register as "Looking for a service"</strong></p>
+
+                                                <h5>How do I refer people to register on EFContact?</h5>
+                                                <p>Once your registration is complete, you can follow the steps below to refer people to register.</p>
+
+                                                <ul style="list-style: none">
+                                                    <li>Step 1. Get your referral link - Log in to your efcontact.com account and navigate to your dashboard</li>
+                                                    <div style="width: 100%"><img src="{{ asset('referbtn.jpg') }}" alt=""></div>
+                                                    <li>Step 2. Copy your referral link</li>
+                                                    <div style="width: 100%"><img src="{{ asset('referlink.jpg') }}" alt=""></div>
+                                                </ul>
+                                                <p>Now you can share your referral link on WhatsApp, Facebook, Twitter or anywhere</p>
+
+                                                <h5>How do I get paid?</h5>
+                                                <p>You will get a notification on your dashboard once your earning has reached the withdrawal threshold</p>
+
+                                                <h5>How much is the minimum earning threshold?</h5>
+                                                <p>N1000 is the minimum earning threshold and you can withdraw only on any Friday. <br> For more information about our Referral Program, send us an email at info@efcontact.com</p>
+                                                <p>What are you waiting for? Fill the form below and start earning</p>
                                             </div>
 
-                                            <hr>
                                             <h5 style="text-transform: uppercase; padding-bottom: 5px;">Create Account</h5>
                                             <form method="POST" action="{{ route('register') }}">
                                                 @csrf

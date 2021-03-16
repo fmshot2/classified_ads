@@ -17,7 +17,7 @@
                         <div class="clearfix"></div>
 
                         <!-- <form method="POST" action="{{ route('register') }}"> -->
-                        <form method="POST" action="{{ route('gtPAyForRegistration') }}">
+                        <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="form-group form-box">
                                 <input id="name" type="text" class="input-text" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
@@ -46,6 +46,11 @@
                                 </span>
                                 @endif
                             </div>
+                            <div>
+                                <label for="showpasswordtoggle" style="float: left; margin-top: -15px; margin-bottom: 20px; margin-left: 20px; font-size: 14px">
+                                    <input type="checkbox" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()" style="float: left;">Show Password
+                                </label>
+                            </div><div class="clearfix"></div>
                             <div class="form-group form-box clearfix">
                                 <input class="input-text" placeholder="Confirm Password" type="password" name="password_confirmation" required>
                             </div>
@@ -138,6 +143,16 @@
         });
     </script>
 
+<script>
+    function showPassword() {
+        var passField = document.getElementById("password");
+        if (passField.type === "password") {
+            passField.type = "text";
+        } else {
+            passField.type = "password";
+        }
+    }
+</script>
 
 
 @endsection
