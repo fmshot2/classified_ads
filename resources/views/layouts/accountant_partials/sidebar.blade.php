@@ -51,9 +51,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=" {{ route('accountant.unsuccessful.referrals') }} " style="{{ url()->current() == route('accountant.unsuccessful.referrals') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> Pending Payment </a></li>
-            <li><a href=" {{ route('accountant.successful.referrals') }} " style="{{ url()->current() == route('accountant.successful.referrals') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> Paid </a></li>
-            <li><a href=" {{ route('accountant.all.referrals') }} " style="{{ url()->current() == route('accountant.all.referrals') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> All Referrals </a></li>
+            <li><a href=" {{ route('accountant.unsuccessful.referrals') }}" ><i class="fa fa-circle-o"></i> Pending Payment </a></li>
+            <li><a href=" {{ route('accountant.successful.referrals') }}" ><i class="fa fa-circle-o"></i> Paid </a></li>
+            <li><a href=" {{ route('accountant.all.referrals') }}"><i class="fa fa-circle-o"></i> All Referrals </a></li>
           </ul>
         </li>
         <li class="treeview" style=" {{ url()->current() == route('admin.buyer') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.seller') ? 'background-color: #f8d053' : '' }}">

@@ -7,10 +7,12 @@ use App\User;
 use App\Payment;
 use App\Badge;
 use App\AdvertPayment;
-use App\User;
+use App\PaymentRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Carbon;
 
 class AccountantController extends Controller
 {
@@ -55,7 +57,7 @@ class AccountantController extends Controller
 
     public function allReferrals()
     {
-    	$all_payments = Payment::all();
+    	$all_payments = PaymentRequest::all();
     	return view('accountant.referrals.all_referrals', [
     		'all_payments' => $all_payments
     	]);
@@ -63,7 +65,7 @@ class AccountantController extends Controller
 
     public function successfulReferrals()
     {
-    	$all_payments = Payment::all();
+    	$all_payments = PaymentRequest::where('is_paid', '=', 1)->get();
     	return view('accountant.referrals.paid_referrals', [
     		'all_payments' => $all_payments
     	]);	
@@ -71,7 +73,7 @@ class AccountantController extends Controller
 
     public function unsuccessfulReferrals()
     {
-    	$all_payments = User::all();
+    	$all_payments = PaymentRequest::where('is_paid', '=', 0)->get();
     	return view('accountant.referrals.unpaid_referrals', [
     		'all_payments' => $all_payments
     	]);
@@ -138,6 +140,40 @@ class AccountantController extends Controller
 
     public function accountantProfile(){
     	return view('accountant.profile.update_profile');
+    }
+
+    public function makePayment(Request $request, $id)
+    {
+        $success = true;
+        $message = "Payment is pending";
+        $status_message = "pending";
+
+        $payment = PaymentRequest::where('id' , $id)->first();
+        if ($payment->is_paid == 1) {
+            $payment->is_paid = 0;
+            $payment->update();
+
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+                'status_message' => $status_message,
+            ]);
+       
+        }
+        if ($payment->is_paid == 0) {
+              $message = "Payment successful";
+              $status_message = "Paid";
+
+            $payment->is_paid = 1;
+            $payment->update();
+
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+                'status_message' => $status_message,
+
+            ]);
+        }
     }
 }
 

@@ -33,24 +33,24 @@ All Paid Referrals |
 							<thead>
 								<tr>
 									<th> # </th>
-									<th> Name of User </th>
-									<th> Email </th>
-									<th> Phone </th>
-									<th> Payment Type </th>
-									<th> Payment Status</th>	
-									<th> Action </th>									
+									<th> Name </th>
+									<th> Amount Requested </th>
+									<th> Total Remaining Balance </th>
+									<th> Bank </th>
+									<th> Account Number </th>
+									<th> Payment Status </th>									
 								</tr>	
 							</thead>
 							<tbody>
-								@forelse($all_payments as $key => $payment)
+								@forelse($all_payments as $key => $all_payment)
 								<tr>
-									{{-- <td><a href="javascript:void(0)"> 1 </a></td>
-									<td> Random User </td>
-									<td><span class="text-muted"> </i> random@user.com</span> </td>
-									<td> 0998678267 </td>
-									<td> Payment for advertisement </span></td>
-									<td> <span class="text text-success">Successful</span> </span></td>
-									<td><button class="btn btn-success">View All Info</button> </td> --}}
+									<td>{{ ++$key }}</td>
+									<td> {{ $all_payment->user->name }} </td>
+									<td>₦<span class="text-muted">{{ $all_payment->amount_requested }} </span> </td>
+									<td> ₦{{ $all_payment->user->refererAmount }} </td>
+									<td> {{ $all_payment->user->bank_name }} </span></td>
+									<td> <span class="text text-success">{{ $all_payment->user->account_number }}</span> </span></td>
+										<td> <span class="text text-success">Paid</span></td>
 								</tr>
 
 								@empty
