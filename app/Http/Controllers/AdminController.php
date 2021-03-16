@@ -565,6 +565,15 @@ public function save_faq(Request $request)
           return $slider;
         }
 
+        public function allAccountants()
+        {
+          $accountants = User::where('role', '=', 'accountant')->get();
+
+          return view('admin.user.accountant', [
+            'accountants' => $accountants
+          ]);
+        }
+
 
 
         public function save_slider(Request $request)

@@ -31,7 +31,7 @@
               <td class="center">
                 <a type="button" class="btn btn-default btn-outline btn-sm" href="{{ route('admin.city', $city->slug) }}"><i class="fa fa-pencil"></i></a>
 
-                <a href="{{ route('admin.category.delete',$city->slug) }} " class="btn btn-danger "><i class="fa fa-trash"></i></a>
+                <a href="{{ route('admin.delete.city',$city->slug) }} " class="btn btn-danger "><i class="fa fa-trash"></i></a>
               </td>
 
             </tr>

@@ -113,16 +113,34 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Current Total Amount :  {{$accruedAmount ?? 0}}
+                        Current Total Amount :  {{$refererAmount ?? 0}}
+                        <p></p>
+                        <br>
+                        <form class="form-horizontal form-element" method="POST" action="{{route('buyer.submit.payemnt.request')}}" enctype="multipart/form-data">
+                      {{ csrf_field() }}
+                       <div class="col-md-12">
+                          <div class="form-group">
+                              <label for="">Withdrawal Amount: </label>
+                              <input type="text" name="amount_requested" id="editSubCategoryName" class="form-control">
+                          </div>
+                      </div>
+                      <!-- /.box-body -->
+                      <div class="box-footer">
+                          <button type="submit" class="btn btn-warning pull-right"> Submit Request </button>
+                      </div>
+                      <!-- /.box-footer -->
+                  </form>
+
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        @if(isset($linkcheck->refererlink))
+
+                    {{-- <div class="modal-footer"> --}}
+                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+                        {{-- @if(isset($linkcheck->refererlink))
                         <a class="btn btn-primary" href="{{route('seller.make_withdrawal_request', $linkcheck->refererlink)}}">
                             Make Request
                         </a>
-                        @endif
-                    </div>
+                        @endif --}}
+                    {{-- </div> --}}
                 </div>
             </div>
         </div>
@@ -285,14 +303,14 @@
                             <i class="fa fa-money text-white" aria-hidden="true"></i>
                         </span>
                         <div class="info-box-content">
-                            <span class="info-box-text"> Referral Bonus </span>
-                            <span class="info-box-number"> &#8358;{{$accruedAmount ?? 0}} </span>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-danger" style="width: {{$accruedAmount ?? 0}}%"></div>
-                            </div>
+                            <span class="info-box-text"> Referral Bonus: &#8358;{{$accruedAmount ?? 0}}</span>
                             <span class="progress-description">
                                 <button class="btn btn-success btn-sm" style="cursor: pointer; display: block; margin-top: 5px;" data-toggle="modal" data-target="#exampleModal">Make Withdrawal</button>
                             </span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-danger" style="width: {{$accruedAmount ?? 0}}%"></div>
+                            </div>
+                            
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -300,8 +318,6 @@
                 </div>
                 <!-- /.col -->
             </div>
-
-            @include('seller/section/badge_notification')
 
 
             <div class="row">
