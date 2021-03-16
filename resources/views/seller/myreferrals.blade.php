@@ -61,47 +61,5 @@
         </section>
     </div>
 
-    <div>
-        <div class="modal fade" id="badgeRequestModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title">Make Payment</h5>
-                  {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button> --}}
-                </div>
-                <div class="modal-body">
-                    <form action="{{ url('gtPAy') }}" method="POST">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="">Badge Type: </label> <span id="badgeType"></span> Badge
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="">Amount: </label> &#8358;<span id="badgeCost"></span>
-                                </div>
-                            </div>
-                            <input hidden id="badge_type" type="text" name="badge_type" value="">
-                            <input hidden id="amount" type="text" name="amount" value="">
-
-                            <p style="text-align: center; font-size: 17px" class="animate__animated animate__tada animate__infinite">
-                                You will be redirected to GTBank to continue the payment process.
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-warning pd-x-20">Click to make payment</button>
-                            <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
 
 @endsection

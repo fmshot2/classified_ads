@@ -220,6 +220,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('my-referrals/', 'OperationalController@myreferrals')->name('provider.myreferrals');
         Route::get('client-feedbacks/', 'OperationalController@clientfeedbacks')->name('provider.clientfeedbacks.all');
         Route::get('totalservicelikes/', 'OperationalController@sellerLikesCount')->name('provider.totalservicelikes');
+        Route::get('my-favourites/', 'OperationalController@myFavourites')->name('provider.myfavourites');
 
     });
 
