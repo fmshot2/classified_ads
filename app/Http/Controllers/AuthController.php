@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Agent;
 use App\Mail\AgentRegistration;
 use Illuminate\Http\Request;
 use App\User;
@@ -55,30 +56,30 @@ class AuthController extends Controller
 		// ];
 
 
-			//save agent details
-		$user = new User;
-		$user->name = $request->name;
-		$user->email = $request->email;
-		$user->phone = $request->phone;
-		$user->state = $request->state;
-		$user->identification_type = $request->identification_type;
-		$user->identification_id = $request->identification_id;
-		$user->is_agent = 1;
-		$user->agent_code = $result . $randomCode . $last_letter;
-		$user->role = 'agent';
-		$user->status  = 1;
-		$user->password = Hash::make($request->password);
-		$user->save();
+		//save agent details
+		$agent                      = new Agent();
+		$agent->name                = $request->name;
+		$agent->email               = $request->email;
+		$agent->phone               = $request->phone;
+		$agent->state               = $request->state;
+		$agent->identification_type = $request->identification_type;
+		$agent->identification_id   = $request->identification_id;
+		// $agent->is_agent            = 1;
+		$agent->agent_code          = $result . $randomCode . $last_letter;
+		// $agent->role                = 'agent';
+		$agent->status              = 1;
+		$agent->password            = Hash::make($request->password);
+		$agent->save();
 
-		if ($user->save()) {
-			$name = "$user->name, Your registration was successfull! Please click the link below to complete your registration!";
-			$name = $user->name;
-			$email = $user->email;
+		if ($agent->save()) {
+			$name         = "$agent->name, Your registration was successfull! Please click the link below to complete your registration!";
+			$name         = $agent->name;
+			$email        = $agent->email;
 			$origPassword = $request->password;
-			$userRole = $user->role;
+			$agentRole    = $agent->role;
 
 			try{
-				Mail::to($user->email)->send(new AgentRegistration($name, $email, $origPassword, $userRole));
+				Mail::to($agent->email)->send(new AgentRegistration($name, $email, $origPassword, $agentRole));
 			}
 			catch(\Exception $e){
 				$failedtosendmail = 'Failed to Mail!';
@@ -88,12 +89,12 @@ class AuthController extends Controller
 
 			$credentials = $request->only('email', 'password');
 
-			if (Auth::attempt($credentials)) {
+			if (Auth::guard('agent')->attempt($credentials)) {
 
 				$present_user = Auth::user();
 
-				$link = new Refererlink();
-				$link->user_id = $present_user->id;
+				$link             = new Refererlink();
+				$link->user_id    = $present_user->id;
 				$link->agent_code = $present_user->agent_code;
 				$link->save();
 

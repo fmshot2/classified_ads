@@ -41,6 +41,11 @@ return [
             'provider' => 'users',
         ],
 
+        'agent' => [
+            'driver' => 'session',
+            'provider' => 'agents',
+        ],
+
         'api' => [
             'driver' => 'jwt',
             'provider' => 'users',
@@ -71,6 +76,11 @@ return [
             'model' => App\User::class,
         ],
 
+        'agents' => [
+            'driver' => 'eloquent',
+            'model' => App\Agent::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -95,6 +105,13 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        
+        'agents' => [
+            'provider' => 'agents',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
