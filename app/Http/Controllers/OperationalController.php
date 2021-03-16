@@ -6,6 +6,7 @@ use App\Advert;
 use App\Advertisement;
 use App\AdvertLocation;
 use App\Category;
+use App\General_Info;
 use App\Mail\UsersFeedback;
 use App\PageContent;
 use App\Service;
@@ -286,32 +287,6 @@ class OperationalController extends Controller
         return $grouped[$letter];
     }
 
-    public function requestbadge(Request $request, $id)
-    {
-        $user_id = $request->user()->id;
-
-        if ($id == 1) {
-            $badge = [
-                'badge_type' => 'Super',
-                'badge_cost' => 4
-            ];
-        }
-        elseif ($id == 2) {
-            $badge = [
-                'badge_type' => 'Moderate',
-                'badge_cost' => 5
-            ];
-        }
-        elseif ($id == 3) {
-            $badge = [
-                'badge_type' => 'Super',
-                'badge_cost' => 6
-            ];
-        }
-
-        return $badge;
-    }
-
     public function feedbackform(Request $request)
     {
         $this->validate($request, [
@@ -346,6 +321,14 @@ class OperationalController extends Controller
         return view('about');
     }
 
+    public function privacypolicy()
+    {
+        $page_contents = PageContent::find(1);
+        $privacy = $page_contents->privacy_policy;
+
+        return view('frontend_section.privacy', compact('privacy'));
+    }
+
     public function myreferrals()
     {
         return view('seller.myreferrals');
@@ -359,6 +342,25 @@ class OperationalController extends Controller
     public function pagescontents()
     {
         return view('admin.page_management.pages_contents');
+    }
+
+    public function saveAboutUs(Request $request)
+    {
+        $general_info = General_Info::find(1);
+
+        $general_info->about_site = $request->about_site;
+
+        if ($general_info->update()) {
+            return redirect()->back()->with([
+                'message' => 'About Page Updated!',
+                'alert-type' => 'success'
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'message' => 'About page could not be updated!',
+            'alert-type' => 'error'
+        ]);
     }
 
     public function savePrivacyPolicy(Request $request)
@@ -376,7 +378,7 @@ class OperationalController extends Controller
 
         return redirect()->back()->with([
             'message' => 'Privacy Policy could not be updated!',
-            'alert-type' => 'success'
+            'alert-type' => 'error'
         ]);
     }
 
@@ -397,6 +399,61 @@ class OperationalController extends Controller
             'message' => 'Benefits of EFContact could not be updated!',
             'alert-type' => 'error'
         ]);
+    }
+
+    public function saveTermOfUse(Request $request)
+    {
+        $page_contents = PageContent::find(1);
+
+        $page_contents->term_of_use = $request->term_of_use;
+
+        if ($page_contents->update()) {
+            return redirect()->back()->with([
+                'message' => 'Term of Use Updated!',
+                'alert-type' => 'success'
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'message' => 'Term of Usecould not be updated!',
+            'alert-type' => 'error'
+        ]);
+    }
+
+
+    public function clientfeedbacks()
+    {
+        $all_services = Service::where('user_id', Auth::id() )->get();
+
+        $this->thecomments = [];
+
+        foreach ($all_services as $key => $all_service) {
+            foreach ($all_service->comments as $key => $thecomments) {
+                $this->thecomments[] = $thecomments;
+            }
+        }
+        $allcomments = $this->thecomments;
+
+        return view ('seller.feedbacks.all', compact('all_services', 'allcomments') );
+    }
+
+
+    public function sellerLikesCount()
+    {
+        $all_services = Service::where('user_id', Auth::id() )->get();
+
+        $this->thecomments = [];
+
+        foreach ($all_services as $key => $all_service) {
+            foreach ($all_service->comments as $key => $thecomments) {
+                $this->thecomments[] = $thecomments;
+            }
+        }
+
+        $allcomments = $this->thecomments;
+        dd($allcomments);
+
+        return view ('seller.feedbacks.all', compact('all_services', 'allcomments') );
     }
 
 }

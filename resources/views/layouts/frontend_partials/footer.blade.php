@@ -65,7 +65,7 @@
                         </li>
 
                         <li class=" ">
-                            <a href="{{route('privacy')}}" class="grey-text text-lighten-3">Privacy Policy</a>
+                            <a href="{{route('privacy-policy')}}" class="grey-text text-lighten-3">Privacy Policy</a>
                         </li>
 
                          <li class="">
@@ -95,7 +95,7 @@
                                 @if ($advertisement->advert_location == 4 && $loop->index != 3)
                                     <div class="media">
                                         <div class="media-body align-self-center">
-                                            <a class="title" href="{{ $advertisement->website_link ? route('serviceDetail', $advertisement->website_link) : '#' }}"  style="font-size: 14px;"><img class="media-object" src="{{ asset('uploads/sponsored/'.$advertisement->banner_img) }}" alt="{{ $advertisement->title }}" style="width: 250px; height: 65px"></a>
+                                            <a class="title" href="{{ $advertisement->website_link ? $advertisement->website_link : '#' }}"  style="font-size: 14px;"><img class="media-object" src="{{ asset('uploads/sponsored/'.$advertisement->banner_img) }}" alt="{{ $advertisement->title }}" style="width: 250px; height: 65px"></a>
                                         </div>
                                     </div>
                                 @endif
@@ -130,7 +130,7 @@
         </div>
         <div class="row">
             <div class="col-xl-12">
-                <p class="copy">© 2021 EFContact <a href="https://www.efnetworks.com">Powered by EF Network Ltd. </a><a href="{{route('terms-of-use')}}"> TERMS</a> | <a href="{{route('terms-of-use')}}"> POLICIES</a></p>
+                <p class="copy">© 2021 EFContact <a href="https://www.efnetworks.com">Powered by EF Network Ltd. </a><a href="{{route('terms-of-use')}}"> TERMS</a> | <a href="{{route('privacy-policy')}}"> POLICIES</a></p>
             </div>
         </div>
     </div>

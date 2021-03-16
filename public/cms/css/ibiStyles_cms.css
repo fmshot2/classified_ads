@@ -58,6 +58,7 @@ span.info-box-icon.push-bottom.bg-warning {
 }
 .infoLinkNote a:hover{
     color: rgb(139, 255, 216);
+    cursor: pointer;
 }
 
 .box-body thead th{

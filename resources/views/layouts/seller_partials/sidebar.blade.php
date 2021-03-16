@@ -119,9 +119,15 @@
           </a>
         </li>
 
-        <li class="{{ url()->current() == route('seller.notification.all') ? 'active' : '' }}">
+        <li class="{{ url()->current() == route('provider.clientfeedbacks.all') ? 'active' : '' }}">
+          <a href=" {{route ('provider.clientfeedbacks.all') }}">
+            <i class="fa fa-comments"></i> <span> Clients Feedback </span>
+          </a>
+        </li>
+
+        <li class="" style=" {{ url()->current() == route('seller.notification.all') ? 'background-color: #f8d053' : '' }}">
           <a href=" {{route ('seller.notification.all') }}">
-            <i class="fa fa-bell"></i> <span> Clients Feedback </span>
+            <i class="fa fa-bell"></i> <span> General Notice </span>
             <span class="pull-right-container">
               <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small>
             </span>
