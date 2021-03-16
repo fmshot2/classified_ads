@@ -19,7 +19,7 @@
       <!-- sidebar menu-->
       <ul class="sidebar-menu" data-widget="tree">
 
-        <li class="" style="{{ url()->current() == route('seller.dashboard') ? 'background-color: #f8d053' : '' }}">
+        <li class="{{ url()->current() == route('seller.dashboard') ? 'active' : '' }}" style="">
           <a href=" {{route ('seller.dashboard') }}">
             <i class="fa fa-dashboard"></i> <span> Dashboard </span>
             <span class="pull-right-container">
@@ -27,7 +27,7 @@
           </a>
         </li>
 
-        <li class="treeview" style=" {{ url()->current() == route('seller.service.create') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('seller.service.all') ? 'background-color: #f8d053' : '' }} ">
+        <li class="treeview {{ url()->current() == route('seller.service.create') ? 'active' : '' }} {{ url()->current() == route('seller.service.all') ? 'background-color: #cc8a19' : '' }}">
           <a href="#">
             <i class="fa fa-home"></i>
             <span> My Services </span>
@@ -44,7 +44,7 @@
 
 
 
-        <li class="" style="{{ url()->current() == route('seller.message.all') ? 'background-color: #f8d053' : '' }}">
+        <li class="{{ url()->current() == route('seller.message.all') ? 'active' : '' }}">
           <a href=" {{route ('seller.message.all') }}">
             <i class="fa fa-briefcase"></i> <span> My Messages </span>
             <span class="pull-right-container">
@@ -102,7 +102,7 @@
           </a>
         </li> --}}
 
-        <li style="{{ url()->current() == route('provider.myreferrals') ? 'background-color: #f8d053' : '' }}">
+        <li class="{{ url()->current() == route('provider.myreferrals') ? 'active' : '' }}">
             <a href=" {{ route ('provider.myreferrals') }} ">
               <i class="fa fa-group"></i> <span> My Referrals </span>
               <span class="pull-right-container">
@@ -111,7 +111,7 @@
           </li>
 
 
-          <li style="{{ url()->current() == route('seller.service.badges') ? 'background-color: #f8d053' : '' }}">
+          <li class="{{ url()->current() == route('seller.service.badges') ? 'active' : '' }}">
           <a href=" {{ route ('seller.service.badges') }} ">
             <i class="fa fa-certificate"></i> <span> Apply for Badge </span>
             <span class="pull-right-container">
@@ -119,9 +119,15 @@
           </a>
         </li>
 
+        <li class="{{ url()->current() == route('provider.clientfeedbacks.all') ? 'active' : '' }}">
+          <a href=" {{route ('provider.clientfeedbacks.all') }}">
+            <i class="fa fa-comments"></i> <span> Clients Feedback </span>
+          </a>
+        </li>
+
         <li class="" style=" {{ url()->current() == route('seller.notification.all') ? 'background-color: #f8d053' : '' }}">
           <a href=" {{route ('seller.notification.all') }}">
-            <i class="fa fa-bell"></i> <span> Clients Feedback </span>
+            <i class="fa fa-bell"></i> <span> General Notice </span>
             <span class="pull-right-container">
               <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small>
             </span>
@@ -131,7 +137,7 @@
 
 
 
-        <li style="{{ url()->current() == route('seller.profile') ? 'background-color: #f8d053' : '' }}">
+        <li class="{{ url()->current() == route('seller.profile') ? 'active' : '' }}">
           <a href=" {{ route ('seller.profile') }} ">
             <i class="fa fa-user"></i> <span> Profile </span>
             <span class="pull-right-container">

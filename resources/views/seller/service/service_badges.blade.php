@@ -147,7 +147,7 @@
                             </p>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-warning pd-x-20">Click to make payment</button>
+                            <button type="submit" class="btn pd-x-20" style="background-color: #cc8a19; color: #fff">Click to make payment</button>
                             <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>
@@ -161,17 +161,24 @@
         <div class="modal fade" id="theinfoModal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="background-color: rgb(67, 211, 139); color: #fff">
+                <div class="modal-header" style="background-color: #cc8a19; color: #fff">
                 <h4 class="modal-title">Badge Info</h5>
                 {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button> --}}
                 </div>
                 <div class="modal-body">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto modi nobis natus ab atque dicta laborum beatae ratione nihil voluptatem odit totam delectus consequuntur, iure sunt dolore ad tenetur fuga!
+                    A badge is a verification tag that is given to service providers on E.F Contact. Service providers with E.F badges have the following advantages:
+                    <ol>
+                        <li>Appear to customers/clients before other service providers</li>
+                        <li>Potential customers/clients tend to go for service providers with the badge.</li>
+                        <li>Service providers with a badge appear on all search pages and appear first.</li>
+                        <li>Service providers with badges are given bonus subsequently.</li>
+                    </ol>
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn pd-x-20" data-dismiss="modal" style="background-color: #cc8a19; color: #fff">Cancel</button>
                 </div>
             </div>
         </div>

@@ -40,12 +40,12 @@
                         <td> {{ $unread_notifications->created_at->diffForHumans() }} </td>
 
                         <td>
-                            <button type="button" class="btn btn-success">
+                            <button onclick="notificationRead()" type="button" class="btn btn-success">
                                 <i class="fa fa-check"></i>
                             </button>
-                            <button type="button" class="btn btn-danger">
+                            {{-- <button type="button" class="btn btn-danger">
                                 <i class="fa fa-trash"></i>
-                            </button>
+                            </button> --}}
                         </td>
                     </tr>
                 @endforeach
@@ -63,6 +63,12 @@
 
 </div>
 @endif
+
+<script>
+    function notificationRead(){
+        toastr.success('Notification Read!');
+    }
+</script>
 
 </div>
 

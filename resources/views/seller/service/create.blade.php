@@ -49,13 +49,6 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-label"> Experience (in years)</label>
-                                            <input id='experience' type="number"  value="{{ old('experience') }}" name="experience" placeholder="How many years of experience do you have for this service? (e.g. 5)" class="form-control" value="">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group">
                                             <label for="">Phone</label><small class="text-danger">*</small>
                                             <input id="phone" required type="number"  class="form-control" value="{{ old('phone') }}" placeholder="Enter your phone number (e.g. 09023456789)" name="phone" value=" {{ Auth::user()->phone }}">
                                         </div>
@@ -71,7 +64,7 @@
                                     <div class="col-md-12">
                                         <div class="form-check">
                                             <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable">
-                                            <label class="form-check-label" for="negotiable"> Negotiable</label>
+                                            <label class="form-check-label" for="negotiable"> Is this service negotiable?</label>
                                         </div>
                                     </div>
 
@@ -142,9 +135,9 @@
                                     <div class="form-group form-float">
                                         <div class="form-line">
                                             <input type="text" class="form-control" name="video_link">
-                                            <label class="form-label">Video</label>
+                                            <label class="form-label">Video (Youtube)</label>
                                         </div>
-                                        <div class="help-info">Youtube Link</div>
+                                        <div class="help-info">Youtube video Link</div>
 
                                     </div>
                                 </div>

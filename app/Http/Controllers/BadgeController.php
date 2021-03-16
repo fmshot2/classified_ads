@@ -27,7 +27,7 @@ class BadgeController extends Controller
 
 
 	public function gtPAy(Request $request) {
-		$gtpay_mert_id        = 14264; 
+		$gtpay_mert_id        = 14264;
     	$gtpay_tranx_id      = $this->gen_transaction_id();
     	$gtpay_tranx_amt      = $request->amount * 100;
     	$gtpay_tranx_curr     = 566;
@@ -117,14 +117,14 @@ class BadgeController extends Controller
 	}
 
 	// public function test_new_badge()
-	// {              
+	// {
 	// 	$user_id = 7;
 	// 	$badge_type = 5;
 	// 		$the_service = Service::where('user_id', $user_id)->get();
 	// 		foreach ($the_service as $servi) {
-				
+
 	// 			$servi->badge_type = $badge_type;
-	// 		  }		
+	// 		  }
 
 	// 		 dd($the_service);
 	// 	return redirect('provider/dashboard')->with('success', 'Your payment has been made successfully!');
@@ -132,11 +132,11 @@ class BadgeController extends Controller
 
 
 	public function gt_response(Request $request, $user_id, $badge_type)
-	{              
+	{
 		$user = User::where('id', $user_id)->first();
 		// Auth::user()->name;
 			$badge = new Badge();
-			$badge->user_id = $user_id;   
+			$badge->user_id = $user_id;
 			$badge->badge_type = $badge_type;
 			// $badge->amount = $request->gtpay_tranx_amt;/
 			$badge->ref_no = $request->gtpay_tranx_id;
@@ -144,22 +144,22 @@ class BadgeController extends Controller
 			$badge->save();
 			$the_service = Service::where('user_id', $user_id)->get();
 			foreach ($the_service as $servi) {
-				
+
 				$servi->badge_type = $badge_type;
 				$servi->save();
-			  }		
+			  }
 			  // dd($badge);
 		return redirect('provider/dashboard')->with('success', 'Your payment has been made successfully!');
 	}
 
 	public function badges() {
-		$services_dropdown_check = 1; 
+		$services_dropdown_check = 1;
 		$services = Service::where('user_id', Auth::id() )->get();
 		return view('seller.service.service_badges', compact('services'));
 	}
 
 	public function adverts() {
-		$services_dropdown_check = 1; 
+		$services_dropdown_check = 1;
 		$adverts = Advert::all();
 		return view('seller.service.service_adverts', compact('adverts'));
 	}
@@ -167,23 +167,23 @@ class BadgeController extends Controller
 	public function saveService4Badge(Request $request)
 	{
       	//return $request->input('service_id');
-      	 $data = $request->all();   
+      	 $data = $request->all();
 
-		$service_id = $data['service_id'];          
+		$service_id = $data['service_id'];
       	  $service_select = "This Service selected for upgrade";
 
 
 		$badge_check = Badge::where(['service_id'=>$service_id])->first();
-		
+
 		if ($badge_check) {
-			$badge_check->service_id = $service_id;  
+			$badge_check->service_id = $service_id;
 
 			$badge_check->save();
 			return response()->json(['success'=>'updated done', 'id'=>$service_id]);
 
 		}else{
 			$badge = new Badge();
-			$badge->service_id = $service_id;       
+			$badge->service_id = $service_id;
 			$badge->save();
 			return response()->json(['success'=>'new id done', 'id'=>$service_id]);
 		}
@@ -197,24 +197,24 @@ class BadgeController extends Controller
       	 $data = $request->all();
 
 
-		$service_id = $data['service_id'];          
+		$service_id = $data['service_id'];
       	  $service_select = "This Service selected for upgrade";
 
 
 
 		$badge_check = Advertrequest::where('user_id', Auth::id() )->first();
-			
+
 		if ($badge_check) {
-			$badge_check->advert_type = $service_id;  
+			$badge_check->advert_type = $service_id;
 
 			$badge_check->save();
 			return response()->json(['success'=>'updated done', 'id'=>$service_id]);
-			
+
 
 		}else{
 			$badge = new Advertrequest();
-			$badge->advert_type = $service_id; 
-						$badge->user_id = Auth::id();             
+			$badge->advert_type = $service_id;
+						$badge->user_id = Auth::id();
 			$badge->save();
 
 			return response()->json(['success'=>'new id done', 'id'=>$badge]);
@@ -229,12 +229,12 @@ class BadgeController extends Controller
        $data = $request->all();
 
 	   //return $data['service_id'];
-       $badge_service_id = $data['service_id'];    
+       $badge_service_id = $data['service_id'];
 
 
        $this->validate($request,[
         'amount' => 'required',
-        'email' => 'required',      
+        'email' => 'required',
       ]);
       /* $service_check = Service::where(['id'=>$badge_service_id])->first();
        //return $service_check->badge_type;
@@ -246,8 +246,8 @@ class BadgeController extends Controller
         $badge_check->badge_type = $data['badge_type'];
 
         $badge_check->amount = $data['amount'];
-        $badge_check->ref_no = $data['ref_no'];  
-  //$badge_check->service_id = $data['service_id'];    
+        $badge_check->ref_no = $data['ref_no'];
+  //$badge_check->service_id = $data['service_id'];
 
         $badge_check->save();
         return "Badge Updated successfully!";
@@ -263,7 +263,7 @@ class BadgeController extends Controller
         //$badge->service_id = $data['service_id'];
 
        $badge->save();
-       return "Badge created successfully";   
+       return "Badge created successfully";
      //}
 
 
@@ -308,7 +308,7 @@ class BadgeController extends Controller
 		$service_check = $service_badge->service_id;
 		return back()->with('service_check', $service_check);
 		return response()->json(['success'=>$service_check, 'services_dropdown_check'=>$services_dropdown_check ]);
-		$services_dropdown_check = null; 
+		$services_dropdown_check = null;
 		return response()->json(['success'=>$service_check, 'services_dropdown_check'=>$services_dropdown_check ]);
 
 		$sub_categories = DB::table("sub_categories")
@@ -337,7 +337,7 @@ class BadgeController extends Controller
 
 
 
-		$service->user_id = Auth::id();      
+		$service->user_id = Auth::id();
 
 		$service->save();
 		$likecount = Like::where(['service_id'=>$request->id])->count();
@@ -364,7 +364,7 @@ class BadgeController extends Controller
         }
         elseif ($id == 3) {
             $badge = [
-                'badge_type' => 'Super',
+                'badge_type' => 'Basic',
                 'badge_cost' => 6
             ];
         }

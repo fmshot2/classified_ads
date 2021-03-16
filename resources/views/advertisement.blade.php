@@ -52,11 +52,13 @@
                                         @elseif ($advert_location->id == 3)
                                             <img src="{{ asset('featuredad.jpg') }}" alt="{{ $advert_location->title }}" class="img-fluid adp_img" />
                                         @elseif ($advert_location->id == 4)
-                                            <img src="{{ asset('bigslider.jpg') }}" alt="{{ $advert_location->title }}" class="img-fluid adp_img" />
+                                            <img src="{{ asset('footeradfreespace.png') }}" alt="{{ $advert_location->title }}" class="img-fluid adp_img" />
                                         @elseif ($advert_location->id == 5)
                                             <img src="{{ asset('featuredad.jpg') }}" alt="{{ $advert_location->title }}" class="img-fluid adp_img" />
                                         @elseif ($advert_location->id == 6)
-                                            <img src="{{ asset('bigslider.jpg') }}" alt="{{ $advert_location->title }}" class="img-fluid adp_img" />
+                                            <img src="{{ asset('categoriesad.png') }}" alt="{{ $advert_location->title }}" class="img-fluid adp_img" style="height: 350px; width: auto !important; margin: 0 auto;" />
+                                        @elseif ($advert_location->id == 7)
+                                            <img src="{{ asset('newsletterad.png') }}" alt="{{ $advert_location->title }}" class="img-fluid adp_img" />
                                         @endif
                                     </div>
                                     <div class="content text-left" style="padding: 20px">

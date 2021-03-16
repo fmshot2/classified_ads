@@ -34,6 +34,14 @@
     .form-text{
         display: block
     }
+    ul{
+        list-style-type: disc;
+        -webkit-margin-before: 1em;
+        -webkit-margin-after: 1em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        -webkit-padding-start: 40px;
+    }
     @media (max-width: 768px){
         .content-header{
             padding: 0 5px 10px 10px;
@@ -194,8 +202,8 @@
                     <div class="info-box">
                         <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-thumbs-up text-white" aria-hidden="true"></i>  </span>
                         <div class="info-box-content">
-                            <span class="info-box-text"> Liked Service{{ $all_notification_count > 1 ? 's' : '' }} </span>
-                            <span class="info-box-number"> {{ $all_notification_count }} </span>
+                            <span class="info-box-text"> My Service{{ $service_count > 1 ? 's' : '' }} Likes </span>
+                            <span class="info-box-number"> {{ $servicesLikeCounter }} </span>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style="width: {{ $all_notification_count }}%"></div>
                             </div>
@@ -329,21 +337,30 @@
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="background-color: #cc8a19; color: #fff">
                         <h4 class="modal-title">How the Referral Works</h4>
                     </div>
                     <div class="modal-body">
-                        A refer is a person that uses his or her referral link to invite people using online to register on efcontact. <br>
-
-                        All you have to do is copy and share your link to your friends , family , clients or anyone through WhatsApp, Facebook, sms, mms, Instagram, Twitter etc... <br>
-                        when they click your link and register , you automatically get 50 naira . The more people register using your link the more your bonuses increases. <br>
-                        When it gets to 1000 naira, you can request for a cashout or live it and keep inviting people to register using your link. <br>
-                        <strong>Note:</strong> you can only request withdrawal from monday to Thursday only. <br>
-                        Friday is pay day to all our customers. <br>
-                        <strong>Have fun and keep sharing 😃</strong>
+                        <p>A refer is a person that uses his or her referral link to invite people online to register on efcontact.</p>
+                        <ul>
+                            <li>
+                                All you have to do is copy and share your link to your friends , family , clients or anyone through WhatsApp, Facebook, sms, mms, Instagram, Twitter etc...
+                            </li>
+                            <li>
+                                when they click your link and register , you automatically get 50 naira . The more people register using your link the more your bonuses increases.
+                            </li>
+                            <li>
+                                When it gets to 1000 naira, you can request for a cashout or live it and keep inviting people to register using your link.
+                            </li>
+                            <li>
+                                <strong>Note:</strong> you can only request withdrawal from monday to Thursday only. <br>
+                                Friday is pay day to all our customers.
+                            </li>
+                        </ul>
+                        <p><strong>Have fun and keep sharing 😃</strong></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn" style="background-color: #cc8a19; color: #fff" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -355,7 +372,7 @@
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
-                    <div class="modal-header" style="background-color: rgb(67, 211, 139); color: #fff">
+                    <div class="modal-header" style="background-color: #cc8a19; color: #fff">
                         <h4 class="modal-title">Post A Service</h4>
                     </div>
                     <form action="{{ route('service.save') }}" method="post" enctype="multipart/form-data">
@@ -366,7 +383,7 @@
                                     <div class="form-group">
                                         <label for="name">Service Name</label><small class="text-danger">*</small>
                                         <small class="form-text text-muted">Enter the name of the service you want to offer. <input readonly type="text" name="countdown" size="1" value="20" style="border: 0; padding: 0;margin-right: -25px"> chars left</small>
-                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" onkeydown="limitText(this.form.name,this.form.countdown,20);" onkeyup='limitText(this.form.name,this.form.countdown,20);' placeholder="e.g. Hair Stylist" required>
+                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" onkeydown="limitText(this.form.name,this.form.countdown,20);" onkeyup='limitText(this.form.name,this.form.countdown,20);' placeholder="e.g. Adamu Boutique..." required>
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
@@ -389,7 +406,7 @@
                                     </div>
                                     <div class="form-check">
                                         <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable">
-                                        <label class="form-check-label" for="negotiable"> Is this price negotiable?</label>
+                                        <label class="form-check-label" for="negotiable"> Is this service negotiable?</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -414,8 +431,8 @@
                                     </div>
 
                                     <div class="form-group form-float">
-                                        <label class="form-label">Video</label>
-                                        <small class="form-text text-muted">Your video link.</small>
+                                        <label class="form-label">Video (Youtube)</label>
+                                        <small class="form-text text-muted">Your youtube video link.</small>
                                         <input type="text" class="form-control" name="video_link">
                                     </div>
 
@@ -445,7 +462,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" style="background-color: rgb(67, 211, 139); color: #fff; border:1px solid rgb(67, 211, 139);">Create Service</button>
+                            <button type="submit" class="btn btn-primary" style="background-color: #cc8a19; color: #fff; border:1px solid #cc8a19;">Create Service</button>
                             <button id="closeytplayer" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </form>

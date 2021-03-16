@@ -19,6 +19,14 @@
     .card-body p{
         font-size: 15px;
     }
+    .tabbing-box .card-body ul{
+        list-style-type: disc;
+        -webkit-margin-before: 1em;
+        -webkit-margin-after: 1em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        -webkit-padding-start: 40px;
+    }
 
     @media (max-width: 768px){
         .col-lg-12.col-md-12.col-xs-12{
@@ -73,7 +81,7 @@
                                                     <li>* Bonus credited instantly - You will receive your bonus immediately once your friend completes the registration.</li>
                                                 </ul>
 
-                                                <h5>How do I get started?</h5>
+                                                <h6>How do I get started?</h6>
                                                 <ul style="list-style: none">
                                                     <li>* Register your account - You don't need to have a service or product to sell before you can register on EFContact, you can also register as "Looking for a service" and you will get your referral link and start earning.</li>
                                                     <li>* Fill the registration form</li>
@@ -81,21 +89,21 @@
                                                 </ul>
                                                 <p><strong>Note that this step does not apply to you if you register as "Looking for a service"</strong></p>
 
-                                                <h5>How do I refer people to register on EFContact?</h5>
+                                                <h6>How do I refer people to register on EFContact?</h6>
                                                 <p>Once your registration is complete, you can follow the steps below to refer people to register.</p>
 
                                                 <ul style="list-style: none">
-                                                    <li>Step 1. Get your referral link - Log in to your efcontact.com account and navigate to your dashboard</li>
-                                                    <div style="width: 100%"><img src="{{ asset('referbtn.jpg') }}" alt=""></div>
-                                                    <li>Step 2. Copy your referral link</li>
-                                                    <div style="width: 100%"><img src="{{ asset('referlink.jpg') }}" alt=""></div>
+                                                    <li><strong>Step 1.</strong> Get your referral link - Log in to your efcontact.com account and navigate to your dashboard</li>
+                                                    <div style="width: 100%; margin-bottom: 20px"><img src="{{ asset('referbtn.jpg') }}" alt=""></div>
+                                                    <li><strong>Step 2.</strong> Copy your referral link</li>
+                                                    <div style="width: 100% margin-bottom: 20px"><img src="{{ asset('referlink.jpg') }}" alt=""></div>
                                                 </ul>
-                                                <p>Now you can share your referral link on WhatsApp, Facebook, Twitter or anywhere</p>
+                                                <p><strong>Now you can share your referral link on WhatsApp, Facebook, Twitter or anywhere</strong></p>
 
-                                                <h5>How do I get paid?</h5>
+                                                <h6>How do I get paid?</h6>
                                                 <p>You will get a notification on your dashboard once your earning has reached the withdrawal threshold</p>
 
-                                                <h5>How much is the minimum earning threshold?</h5>
+                                                <h6>How much is the minimum earning threshold?</h6>
                                                 <p>N1000 is the minimum earning threshold and you can withdraw only on any Friday. <br> For more information about our Referral Program, send us an email at info@efcontact.com</p>
                                                 <p>What are you waiting for? Fill the form below and start earning</p>
                                             </div>
@@ -139,24 +147,20 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group form-box clearfix">
-                                                            <label for="password_confirmation">Choose a Password</label>
+                                                            <label for="password_confirmation">Confirm Password</label>
                                                             <input class="form-control" placeholder="Confirm Password" type="password" name="password_confirmation" required>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <h6>What do you want to do?</h6>
-                                                        <div class="form-group">
-                                                            <select class="form-control custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="role" required>
-                                                                <option selected> Choose... </option>
-                                                                <option value="seller"> Provide a service </option>
-                                                                <option value="buyer"> I'm looking for a service </option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
+
+                                                    <select hidden class="form-control custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="role" required>
+                                                        <option selected> Choose... </option>
+                                                        <option value="seller" selected> Provide a service </option>
+                                                    </select>
+
                                                     <div class="col-md-6">
                                                         <label>
                                                             <input type="checkbox" name="terms" class="filled-in" required/>
-                                                            <span>By registering you accept our <a href="{{route('terms')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
+                                                            <span>By registering you accept our <a href="{{route('terms-of-use')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy-policy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -171,7 +175,25 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <div style="padding-bottom: 30px;">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, sequi. Enim obcaecati veniam voluptate, ipsa id error expedita asperiores molestias adipisci at omnis! Et, officiis doloremque repellat minus ad facilis possimus, cupiditate sit aliquid libero magnam, facere ab? Dignissimos eaque, sit expedita sapiente in aliquam perferendis eligendi ex pariatur consequatur molestias? Distinctio ea itaque doloribus eius vitae asperiores, ipsum harum maxime molestiae alias, aut ducimus modi. Rem voluptas animi consequuntur eos odio assumenda similique consectetur excepturi molestias soluta. Veritatis quod dignissimos excepturi repudiandae ad doloremque iste enim inventore eius eos voluptatum, expedita harum, modi reiciendis temporibus minima dolores?
+                                                <p>An Efcontact Agent is anyone who wishes to make extra cash via the EFContact Platform by becoming a promoter of the EFContact platform.</p>
+
+                                                <h5>How it works</h5>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <ul>
+                                                            <li>1.	When You Are Approved, You Will Receive Your Agent Code Which You Will Use For All Your Transactions, Referrals And Commission Payments.</li>
+                                                            <li>2.	You Will Receive Your Commission Every Two Weeks.</li>
+                                                            <li>3.	You Have A Chance Of Making At Minimum Income Of Between N50,000 To N100,000 Monthly.</li>
+                                                            <li>4.	When You Are Approved, You Can Recruit People Under You (Sub-Agents) Or Refer Them To Us And When Anyone Subscribes You Get N100 Each.  We Will Issue To You A Daily Report On Your Sub-Agents And Activities. See Chart Below For Commission Scales.</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <ul>
+                                                            <li>5.	You Can Work At Anytime You Want, Create Your Schedule Or Use This To Suppliment Your Income.</li>
+                                                            <li>6.	You Can Make An Extra 20% On Any Other Adverts Request By Your Subscribers.  Say For An Example Your Subscriber Buys An Advert Of N100,000 A Month, You Will Make An Additional N20,000.00 Monthly. If That Advert Is For A Year You Will Make N240,000.00 On That Case Alone. If You Have Five Of Such In A Year It Is N24000 X 5= N1,200,000.00. Upon That You Will Still Get Commissions On Adverts And Your Recruits. We Estimated That A Good Agent Should Average N5,000,000.00  Yearly.</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <hr>
@@ -260,7 +282,7 @@
                                                     <div class="col-md-12">
                                                         <label>
                                                             <input type="checkbox" name="terms" class="filled-in" required/>
-                                                            <span>By registering you accept our <a href="{{route('terms')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
+                                                            <span>By registering you accept our <a href="{{route('terms-of-use')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy-policy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
                                                         </label>
                                                     </div>
                                                 </div>

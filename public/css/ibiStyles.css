@@ -137,13 +137,13 @@ body {
 }
 
 .btn.btn-warning{
-    background-color: #CA8309 !important;
+    background-color: #cc8a19 !important;
 }
 .btn.btn-warning:hover{
     background-color: #fabe55 !important;
 }
 
-ul li{
+ul li, ol li{
     font-size: 15px;
     margin-bottom: 10px;
 }

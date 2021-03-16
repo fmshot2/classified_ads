@@ -63,7 +63,7 @@
 
 <style type="text/css">
 	.dt-buttons .dt-button {
-        background: #CA8309 !important;
+        background: #cc8a19 !important;
         color: white !important;
     }
     .dz-image img {

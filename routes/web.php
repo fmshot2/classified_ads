@@ -90,6 +90,7 @@ Route::post('/searchOnServiceDetail', 'ServiceController@search')->name('service
 Route::get('/search_by_city/{city}', 'ServiceController@search_by_city')->name('search_by_city');
 Route::get('/service-providers', 'ServiceController@allSellers')->name('seller.sellers');
 Route::get('/terms-of-use', 'ServiceController@termsOfUse')->name('terms-of-use');
+Route::get('/privacy-policy', 'OperationalController@privacypolicy')->name('privacy-policy');
 Route::get('/advertisement', 'OperationalController@advertisement')->name('advertisement');
 
 Route::post('/store_contact_form', 'ContactController@store_contact_form')->name('store_contact_form');
@@ -133,7 +134,6 @@ Route::get('api/get-category-list/{state_name}','CategoryController@getCategoryL
 Route::get('api/get-like-list/{id}','ServiceController@getLikeList');
 
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
-Route::get('benefits-of-efcontact','FaqController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
 
 
 Route::get('contact-us','ContactController@contact_us')->name('contact');
@@ -219,6 +219,8 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
 
 
         Route::get('my-referrals/', 'OperationalController@myreferrals')->name('provider.myreferrals');
+        Route::get('client-feedbacks/', 'OperationalController@clientfeedbacks')->name('provider.clientfeedbacks.all');
+        Route::get('totalservicelikes/', 'OperationalController@sellerLikesCount')->name('provider.totalservicelikes');
 
     });
 
@@ -366,8 +368,14 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('admin/userfeedback/delete/{id}','AdminController@feedbackDelete')->name('admin.user.feedback.delete');
 
 
+    // PAGES CONTENTS TABLE
     Route::get('admin/pages-contents', 'OperationalController@pagescontents')->name('admin.pagescontents');
     Route::post('admin/pages-contents/privacy', 'OperationalController@savePrivacyPolicy')->name('admin.pagescontents.save.privacy');
+    Route::post('admin/pages-contents/about', 'OperationalController@saveAboutUs')->name('admin.pagescontents.save.aboutus');
+    Route::post('admin/pages-contents/benefitsofefc', 'OperationalController@saveBenefitsofEfcontact')->name('admin.pagescontents.save.benefitsofefc');
+    Route::post('admin/pages-contents/termofuse', 'OperationalController@saveTermOfUse')->name('admin.pagescontents.save.termofuse');
+
+    Route::get('benefits-of-efcontact','OperationalController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
 
 
 
