@@ -168,7 +168,14 @@
                 </button> --}}
                 </div>
                 <div class="modal-body">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto modi nobis natus ab atque dicta laborum beatae ratione nihil voluptatem odit totam delectus consequuntur, iure sunt dolore ad tenetur fuga!
+                    A badge is a verification tag that is given to service providers on E.F Contact. Service providers with E.F badges have the following advantages:
+                    <ol>
+                        <li>Appear to customers/clients before other service providers</li>
+                        <li>Potential customers/clients tend to go for service providers with the badge.</li>
+                        <li>Service providers with a badge appear on all search pages and appear first.</li>
+                        <li>Service providers with badges are given bonus subsequently.</li>
+                    </ol>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn pd-x-20" data-dismiss="modal" style="background-color: #cc8a19; color: #fff">Cancel</button>
