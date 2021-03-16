@@ -351,6 +351,11 @@ class OperationalController extends Controller
         return view('seller.myreferrals');
     }
 
+    public function get_benefits_of_efcontact()
+    {
+        return view('benefits');
+    }
+
     public function pagescontents()
     {
         return view('admin.page_management.pages_contents');
@@ -361,11 +366,36 @@ class OperationalController extends Controller
         $page_contents = PageContent::find(1);
 
         $page_contents->privacy_policy = $request->privacy_policy;
-        $page_contents->update();
+
+        if ($page_contents->update()) {
+            return redirect()->back()->with([
+                'message' => 'Privacy Policy Updated!',
+                'alert-type' => 'success'
+            ]);
+        }
 
         return redirect()->back()->with([
-            'message' => 'Privacy Policy Updated!',
+            'message' => 'Privacy Policy could not be updated!',
             'alert-type' => 'success'
+        ]);
+    }
+
+    public function saveBenefitsofEfcontact(Request $request)
+    {
+        $page_contents = PageContent::find(1);
+
+        $page_contents->benefit_of_efcontact = $request->benefit_of_efcontact;
+
+        if ($page_contents->update()) {
+            return redirect()->back()->with([
+                'message' => 'Benefits of EFContact Updated!',
+                'alert-type' => 'success'
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'message' => 'Benefits of EFContact could not be updated!',
+            'alert-type' => 'error'
         ]);
     }
 

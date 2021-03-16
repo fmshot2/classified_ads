@@ -116,7 +116,7 @@
                 </div>
             </div>
 
-            <!-- Become our Agent Modal -->
+            <!-- Privacy Policy Page -->
             <div class="col-md-4">
                 <div class="box pad">
                     <div class="box-header">
@@ -151,6 +151,54 @@
 
                                                 <div class="col-lg-12">
                                                     <button type="submit" class="btn btn-warning btn-sm"> Save Privacy Policy </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                    </div>
+                    <!-- /.box -->
+                </div>
+            </div>
+
+            <!-- Become our Agent Modal -->
+            <div class="col-md-4">
+                <div class="box pad">
+                    <div class="box-header">
+                        <h3 class="box-title">Benefits of EFContact</h3>
+                        <!-- tools box -->
+                        <div class="pull-right box-tools">
+                            <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
+                                <i class="fa fa-times"></i></button>
+                        </div>
+                        <!-- /. tools -->
+                    </div>
+
+                    <!-- /.box-header -->
+                    <div class="box-body pad">
+                        <div class="card">
+                            <div class="form-layout">
+                                <div class="row mg-b-25">
+                                    <div class="col-md-12 col-sm-12">
+                                        <form class="form-horizontal form-element" method="POST" action="{{route('admin.pagescontents.save.benefitsofefc')}}" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label for="benefit_of_efcontact" class="control-label">Content</label>
+                                                        <textarea name="benefit_of_efcontact" class="form-control summernote" rows="7" value="{{ $pages_contents_page == 0 ? $pages_contents->benefit_of_efcontact : ''  }}" style="border: 1px solid #d2d6de; padding: 10px">
+                                                            {{ $pages_contents_page == 0 ? $pages_contents->benefit_of_efcontact : ''  }}
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12">
+                                                    <button type="submit" class="btn btn-warning btn-sm"> Save Benefits </button>
                                                 </div>
                                             </div>
                                         </form>

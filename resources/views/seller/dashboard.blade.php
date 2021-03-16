@@ -333,7 +333,7 @@
                         <h4 class="modal-title">How the Referral Works</h4>
                     </div>
                     <div class="modal-body">
-                        A refer is a person that uses his or her referral link to invite people using online to register on efcontact. <br>
+                        A refer is a person that uses his or her referral link to invite people online to register on efcontact. <br>
 
                         All you have to do is copy and share your link to your friends , family , clients or anyone through WhatsApp, Facebook, sms, mms, Instagram, Twitter etc... <br>
                         when they click your link and register , you automatically get 50 naira . The more people register using your link the more your bonuses increases. <br>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Frequently Asked Questions | ')
+@section('title', 'Benefits Of EFContact | ')
 
 @section('content')
 
@@ -20,29 +20,23 @@
             <div class="container">
                 <div class="page-name">
                     <div class="sub-banner-text-content">
-                        <h1>Frequently Asked Questions</h1>
+                        <h1>Benefits Of EFContact</h1>
                         <ul>
                             <li><a href="https://efcontact.com">Home</a></li>
-                            <li><span>/</span>Faqs</li>
+                            <li><span>/</span>Benefits Of EFContact</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Faq start -->
-        <div class="faq faq-page content-area" style="background-color: #fff">
-            <div class="container">
-                <!-- Main title -->
-                <div class="main-title">
-                    <h1>Benefits Of EFContact</h1>
-                </div>
+        <div class="faq faq-page content-area">
+            <div class="container" style="background-color: #fff;">
                 <div class="row">
-                    <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-30">
-                                    <p>{!! $benefits_details !!}</p>
-                                </div>
-                            </div>
+                    <div class="col-md-12">
+                        <div class="mb-30" style="padding-top: 15px">
+                            <p>{!! $pages_contents_page == 0 ? $pages_contents->benefit_of_efcontact : ''  !!}</p>
+                        </div>
                     </div>
                 </div>
             </div>

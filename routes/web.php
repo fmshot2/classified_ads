@@ -132,7 +132,6 @@ Route::get('api/get-category-list/{state_name}','CategoryController@getCategoryL
 Route::get('api/get-like-list/{id}','ServiceController@getLikeList');
 
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
-Route::get('benefits-of-efcontact','FaqController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
 
 
 Route::get('contact-us','ContactController@contact_us')->name('contact');
@@ -365,8 +364,12 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('admin/userfeedback/delete/{id}','AdminController@feedbackDelete')->name('admin.user.feedback.delete');
 
 
+    // PAGES CONTENTS TABLE
     Route::get('admin/pages-contents', 'OperationalController@pagescontents')->name('admin.pagescontents');
     Route::post('admin/pages-contents/privacy', 'OperationalController@savePrivacyPolicy')->name('admin.pagescontents.save.privacy');
+    Route::post('admin/pages-contents/benefitsofefc', 'OperationalController@saveBenefitsofEfcontact')->name('admin.pagescontents.save.benefitsofefc');
+
+    Route::get('benefits-of-efcontact','OperationalController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
 
 
 
