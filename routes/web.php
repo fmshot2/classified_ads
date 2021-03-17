@@ -23,8 +23,10 @@ use App\Service;
 
 //Agent Middleware starts here
 Route::post('create_user', 'AuthController@create_user');
+Route::post('create_agent', 'AuthController@create_agent');
 
-Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg')->name('agent_Complete_Reg');
+
+Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg_page')->name('agent_Complete_Reg');
 Route::post('/agent/agent_Complete_Reg', 'AuthController@agent_save_complete_reg')->name('agent_Complete_Reg');
 
 
