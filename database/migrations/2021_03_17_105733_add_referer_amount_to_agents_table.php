@@ -14,7 +14,7 @@ class AddRefererAmountToAgentsTable extends Migration
     public function up()
     {
         Schema::table('agents', function (Blueprint $table) {
-            //
+            $table->text('refererAmount')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddRefererAmountToAgentsTable extends Migration
     public function down()
     {
         Schema::table('agents', function (Blueprint $table) {
-            //
+            $table->dropColumn('refererAmount');
         });
     }
 }
