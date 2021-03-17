@@ -11,7 +11,7 @@
 	</div>
     <section class="content-header">
         <h3 class="page-title">All Feedbacks</h3>
-        <p class="page-description">This is where you get all your messages.</p>
+        <p class="page-description">This is where you get all your feedbacks from clients.</p>
     </section>
 	<section class="content">
 
@@ -37,9 +37,7 @@
                                 </thead>
 
                                 <tbody>
-
                                     @foreach($allcomments as  $key => $allcomment)
-
                                     <tr role="row" class="odd">
                                         <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                         <td> {!! $allcomment->comment !!} </td>
@@ -54,9 +52,7 @@
                                             </form>
                                         </td>
                                     </tr>
-
                                     @endforeach
-
                                 </tbody>
 
 

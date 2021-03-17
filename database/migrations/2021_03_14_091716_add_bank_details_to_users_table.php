@@ -27,7 +27,7 @@ class AddBankDetailsToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('about_site');
+            $table->dropColumn('bank_name');
             $table->dropColumn('account_number');
         });
     }
