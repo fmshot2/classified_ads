@@ -25,12 +25,22 @@ class AccountantController extends Controller
         $payment_count = PaymentRequest::count();
         $payments = PaymentRequest::orderBy('created_at', 'asc')->paginate(5);
         $ads = AdvertPayment::orderBy('created_at', 'asc')->paginate(5);
+        $total_ads = DB::table('advert_payments')->sum('amount');
+        $total_badges = DB::table('badges')->sum('amount');
+        $total_ref_requested = DB::table('payment_requests')->sum('amount_requested');
+        $total_ref_paid = DB::table('payment_requests')->where('is_paid', '=', 1)->sum('amount_requested');
+        $total_ref_pending = DB::table('payment_requests')->where('is_paid', '=', 0)->sum('amount_requested');
 		return view('accountant.dashboard', [
             'ads_count' => $ads_count,
             'badge_count' => $badge_count,
             'payment_count' => $payment_count,
             'payments' => $payments,
-            'ads' => $ads
+            'ads' => $ads,
+            'total_ads' => $total_ads,
+            'total_badges' => $total_badges,
+            'total_ref_requested' => $total_ref_requested,
+            'total_ref_paid' => $total_ref_paid,
+            'total_ref_pending' => $total_ref_pending
         ]);
 
 	}
