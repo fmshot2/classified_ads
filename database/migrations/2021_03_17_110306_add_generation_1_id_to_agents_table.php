@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRefererAmountToAgentsTable extends Migration
+class AddGeneration1IdToAgentsTable extends Migration
 {
     /**
      * Run the migrations.
