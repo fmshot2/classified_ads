@@ -57,6 +57,7 @@ class PaymentRequestController extends Controller
 			    	$payment->user_id = $user->id;
 			    	$payment->is_paid = 0;
 			    	$payment->amount_requested = $request->amount_requested;
+                    $payment->user_type = auth()->user()->role;
 			    	$payment->save();
 			    	
 			    	$new_balance = $total_balance - $converted_amount;
@@ -77,5 +78,24 @@ class PaymentRequestController extends Controller
     		return redirect()->back()->with('fail', 'You have insufficient balance!');
     	}
 
+    }
+
+    public function buyerPaymentHistory()
+    {
+        $user = auth()->user();
+        $user_id = $user->id;
+        $payment_history = PaymentRequest::where('user_id', $user_id)->get();
+
+        $total_balance = DB::table('payment_requests')->where('user_id', $user_id)->sum('amount_requested') + $user->refererAmount;
+        $total_requested = DB::table('payment_requests')->where(['user_id' => $user_id, 'is_paid' => 1])->sum('amount_requested');
+        $total_pending = DB::table('payment_requests')->where(['user_id' => $user_id, 'is_paid' => 0])->sum('amount_requested');
+        $balance = $user->refererAmount;
+        return view('buyer.payment_history', [
+            'payment_history' => $payment_history,
+            'total_balance' => $total_balance,
+            'total_requested' => $total_requested,
+            'balance' => $balance,
+            'total_pending' => $total_pending
+        ]);
     }
 }

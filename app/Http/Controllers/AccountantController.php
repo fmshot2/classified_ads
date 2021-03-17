@@ -196,5 +196,25 @@ class AccountantController extends Controller
             ]);
         }
     }
+
+    public function viewPayment($id)
+    {
+        $history = PaymentRequest::where('user_id', $id)->get();
+
+        $user = PaymentRequest::where('user_id', $id)->first();
+
+        // $user = $history->user_id;
+        // dd($user->user_id);
+
+        return view('accountant.payment_details', [
+            'history' => $history,
+            'user' => $user
+        ]); 
+    }
+
+    public function printHistory()
+    {
+
+    }
 }
 

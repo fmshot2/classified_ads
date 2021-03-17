@@ -28,8 +28,9 @@
 					<th> Action </th>
 				</tr>
 
-				<tr>
+				
 					@forelse($ads as $key=>$all_payment)
+					<tr>
 						<td>{{ ++$key }}</td>
 						<td style="display: none;" id="userID">{{ $all_payment->id }}</td>
 						<td> {{ $all_payment->trans_slip_id }} </td>
@@ -125,14 +126,12 @@
 								    </div>
 								  </div>
 								</div>
-					@empty
-					@endforelse
+							@empty
+							</tr>
+							@endforelse
 
-			</tr>
-			
-
-		</tbody>
-	</table>
+			</tbody>
+		</table>
 </div>
 <!-- /.box-body -->
 </div>

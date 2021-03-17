@@ -36,9 +36,8 @@ All Paid Referrals |
 									<th> Name </th>
 									<th> Amount Requested </th>
 									<th> Total Remaining Balance </th>
-									<th> Bank </th>
-									<th> Account Number </th>
-									<th> Payment Status </th>									
+									<th> Payment Status </th>
+									<th>Action</th>									
 								</tr>	
 							</thead>
 							<tbody>
@@ -48,9 +47,8 @@ All Paid Referrals |
 									<td> {{ $all_payment->user->name }} </td>
 									<td>₦<span class="text-muted">{{ $all_payment->amount_requested }} </span> </td>
 									<td> ₦{{ $all_payment->user->refererAmount }} </td>
-									<td> {{ $all_payment->user->bank_name }} </span></td>
-									<td> <span class="text text-success">{{ $all_payment->user->account_number }}</span> </span></td>
-										<td> <span class="text text-success">Paid</span></td>
+									<td> <span class="text text-success">Paid</span></td>
+									<td><a href="{{ route('accountant.view.payment', $all_payment->user->id) }}"><i class="fa fa-eye" data-toggle="tooltip" data-placement="bottom" title="View History"></i></a></td>
 								</tr>
 
 								@empty

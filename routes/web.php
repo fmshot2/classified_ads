@@ -57,6 +57,8 @@ Route::middleware(['accountant'])->group(function() {
     Route::get('/accountant/badge-requests', 'AccountantController@badgeRequests')->name('accountant.badges');
 
     Route::post('/accountant/make-payment/{id}', 'AccountantController@makePayment')->name('make_payment');
+    Route::get('/accountant/view-payment/{id}', 'AccountantController@viewPayment')->name('accountant.view.payment');
+    Route::get('/accountant/print/{id}', 'AccountantController@printHistory')->name('print.history');
 });
 //Accountant Middleware ends here
 
@@ -141,8 +143,8 @@ Route::get('/saveLike2','ServiceController@saveLike2')->name('saveLike2');
 
 Route::get('payment-request', 'PaymentRequestController@getBuyerPage')->name('buyer.make.request');
 Route::post('submit-request', 'PaymentRequestController@submitRequest')->name('buyer.submit.payemnt.request');
-
-
+Route::get('/buyer/payment-history', 'PaymentRequestController@buyerPaymentHistory')->name('buyer.payment.history');
+Route::get('/delete-history/{id}', 'PaymentRequestController@deleteHistory')->name('history.delete');
 //add service Routes
 Route::get('/createService', 'ServiceController@createService')->name('createService');
 Route::post('/storeService', 'ServiceController@storeService')->name('service.store');

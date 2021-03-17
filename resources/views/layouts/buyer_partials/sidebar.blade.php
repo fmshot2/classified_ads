@@ -102,8 +102,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href=" {{ route('buyer.make.request') }} "><i class="fa fa-circle-o"></i> Request Payment</a></li>
-          <li><a href=" {{ route ('admin.category.show') }} "><i class="fa fa-circle-o"></i> All Payments </a></li>
+          <li><a href=" {{ route('buyer.make.request') }} "><i class="fa fa-circle-o"></i> Make Withdrawal</a></li>
+          <li><a href=" {{ route ('buyer.payment.history') }} "><i class="fa fa-circle-o"></i> Payment History </a></li>
 
         </ul>
       </li>
