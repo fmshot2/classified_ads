@@ -12,6 +12,8 @@
                         <div class="btn-section clearfix">
                             <a href="{{route('login')}}" class="link-btn active btn-1 default-bg">Login</a>
                             <a href="{{route('register')}}" class="link-btn btn-2 active-bg">Register</a>
+                            <a href="{{route('show_agent_Login')}}" class="link-btn btn-2 default-bg">Agent Login</a>
+
                         </div>
 
                         <div class="clearfix"></div>
