@@ -27,8 +27,9 @@
 					<th> Action </th>
 				</tr>
 
-				<tr>
+				
 					@forelse($payments as $key=>$all_payment)
+					<tr>
 						<td>{{ ++$key }}</td>
 						<td style="display: none;" id="userID">{{ $all_payment->id }}</td>
 						<td> {{ $all_payment->user->name }} </td>
@@ -55,9 +56,10 @@
 						<td><button class="btn btn-success disabled" id="is_paid">Paid</button> </td>
 						@endif
 					@empty
+					</tr>
 					@endforelse
 
-			</tr>
+			
 			
 
 		</tbody>

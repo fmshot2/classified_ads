@@ -9,12 +9,10 @@ Login
         <div class="row login-box">
             <div class="col-lg-6 align-self-center pad-0">
                 <div class="form-section align-self-center">
-                    <h3>Login into your account</h3>
+                    <h3>Login into your agent account</h3>
                     <div class="btn-section clearfix">
-                        <a href="{{route('login')}}" class="link-btn active btn-1 active-bg">Login</a>
-                        <a href="{{route('register')}}" class="link-btn btn-1 default-bg">Register</a>
-                        <a href="{{route('show_agent_Login')}}" class="link-btn btn-2 default-bg">Agent Login</a>
-
+                        {{-- <a href="{{route('login')}}" class="link-btn active btn-1 active-bg">Login</a>
+                        <a href="{{route('register')}}" class="link-btn btn-2 default-bg">Register</a> --}}
                     </div>
                     <div class="clearfix"></div>
 
@@ -33,7 +31,7 @@ Login
 
                     @include('layouts.frontend_partials.status')
 
-                    <form action="{{route('login')}}" method="POST">
+                    <form action="{{route('show_agent_Login')}}" method="POST">
                         @csrf
                         <div class="form-group form-box">
                             <input type="email" name="email" value="{{ old('email') }}" class="input-text" placeholder="Email Address" required>

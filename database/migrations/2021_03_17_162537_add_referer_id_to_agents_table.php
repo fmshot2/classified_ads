@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTermOfUseToPageContentsTable extends Migration
+class AddRefererIdToAgentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddTermOfUseToPageContentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('page_contents', function (Blueprint $table) {
-            $table->text('term_of_use')->after('benefit_of_efcontact')->nullable();
+        Schema::table('agents', function (Blueprint $table) {
+            $table->string('referer_id')->after('refererAmount');
         });
     }
 
@@ -25,8 +25,8 @@ class AddTermOfUseToPageContentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('page_contents', function (Blueprint $table) {
-            $table->dropColumn('term_of_use');
+        Schema::table('agents', function (Blueprint $table) {
+            $table->dropColumn('referer_id');
         });
     }
 }

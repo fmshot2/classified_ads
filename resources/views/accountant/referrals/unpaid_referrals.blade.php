@@ -35,6 +35,7 @@ All unpaid Referrals |
 									<th> # </th>
 									<th style="display: none;"></th>
 									<th> Name </th>
+									<th>User Type</th>
 									<th> Amount Requested </th>
 									<th> Total Remaining Balance </th>
 									<th> Bank </th>
@@ -50,6 +51,7 @@ All unpaid Referrals |
 									<td>{{ ++$key }}</td>
 									<td style="display: none;" id="userID">{{ $unpaid_payment->id }}</td>
 									<td> {{ $unpaid_payment->user->name }} </td>
+									<td>{{ $unpaid_payment->user_type }}</td>
 									<td>₦<span class="text-muted">{{ $unpaid_payment->amount_requested }} </span> </td>
 									<td> ₦{{ $unpaid_payment->user->refererAmount }} </td>
 									<td> {{ $unpaid_payment->user->bank_name }} </span></td>
