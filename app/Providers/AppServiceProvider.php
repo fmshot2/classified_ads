@@ -14,6 +14,8 @@ use App\Tourism;
 use Illuminate\Support\Facades\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\App;
+
 
 
 class AppServiceProvider extends ServiceProvider
@@ -58,6 +60,18 @@ class AppServiceProvider extends ServiceProvider
             $view->with('allStates', State::all());
             $view->with('tourist_attractions', Tourism::all());
         });
+
+        if(App::environment() == "production")
+        {
+            $url = \Request::url();
+            $check = strstr($url,"http://");
+            if($check)
+            {
+               $newUrl = str_replace("http","https",$url);
+               header("Location:".$newUrl);
+
+            }
+        }
     }
 
 

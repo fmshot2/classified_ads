@@ -22,20 +22,43 @@ use App\Service;
 //Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 
 //Agent Middleware starts here
+Route::post('create_user', 'AuthController@create_user');
+Route::post('create_agent', 'AuthController@create_agent');
 
 
-Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg')->name('agent_Complete_Reg');
+Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg_page')->name('agent_Complete_Reg');
+Route::post('/agent/agent_Complete_Reg', 'AuthController@agent_save_complete_reg')->name('agent_Complete_Reg');
 
-Route::middleware(['agent'])->group(function () {
+
+// Route::middleware(['auth:agent'])->group(function () {
     Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
     Route::get('/agent/referal/all', 'AgentController@allReferals')->name('agent.referal.all');
     Route::get('/agent/profile/', 'AgentController@viewProfile')->name('agent.profile');
     Route::get('/agent/notification/all', 'AgentController@allNotifications')->name('agent.notification.all');
     Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
 
-
-});
+// });
 //Agent Middleware ends here
+
+//Accountant Middleware starts here
+Route::middleware(['accountant'])->group(function() {
+    Route::get('/accountant', 'AccountantController@accountantDashboard')->name('accountant.dashboard');
+    Route::get('/accountant/all-payments', 'AccountantController@allPayments')->name('accountant.all.payments');
+    Route::get('/accountant/successful-payments', 'AccountantController@successfulPayments')->name('accountant.successful.payments');
+    Route::get('/accountant/unsuccessful-payments', 'AccountantController@unsuccessfulPayments')->name('accountant.unsuccessful.payments');
+    Route::get('/accountant/all-referrals', 'AccountantController@allReferrals')->name('accountant.all.referrals');
+    Route::get('/accountant/successful-referrals', 'AccountantController@successfulReferrals')->name('accountant.successful.referrals');
+    Route::get('/accountant/unpaid-referrals', 'AccountantController@unsuccessfulReferrals')->name('accountant.unsuccessful.referrals');
+    Route::get('/accountant/profile', 'AccountantController@accountantProfile')->name('accountant.profile');
+
+    Route::get('/accountant/advertisements', 'AccountantController@adRequests')->name('accountant.ad.requests');
+    Route::post('/accountant/save-ad', 'AdvertPaymentController@save_ad')->name('accountant.save.ad');
+    Route::post('/accountant/update-ad/{id}', 'AdvertPaymentController@update_ad')->name('accountant.update.ad');
+    Route::get('/accountant/badge-requests', 'AccountantController@badgeRequests')->name('accountant.badges');
+
+    Route::post('/accountant/make-payment/{id}', 'AccountantController@makePayment')->name('make_payment');
+});
+//Accountant Middleware ends here
 
 
 Route::post('api/logintestPayment', 'AuthController@logintestPayment');
@@ -116,7 +139,8 @@ Route::get('/catdet/{id}', 'CategoryController@show')->name('catdet');
 
 Route::get('/saveLike2','ServiceController@saveLike2')->name('saveLike2');
 
-
+Route::get('payment-request', 'PaymentRequestController@getBuyerPage')->name('buyer.make.request');
+Route::post('submit-request', 'PaymentRequestController@submitRequest')->name('buyer.submit.payemnt.request');
 
 
 //add service Routes
@@ -335,6 +359,11 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::post('/admin/save-city', 'TourismController@save_city')->name('admin.save_city');
     Route::put('/admin/update-city/{slug}', 'TourismController@update_city')->name('admin.update.city');
     Route::put('/admin/add_city_images/{slug}', 'TourismController@add_city_images')->name('admin.add_city_images');
+    Route::get('/admin/delete-city/{slug}', 'TourismController@deleteCity')->name('admin.delete.city');
+
+    //add accountant
+    Route::get('/admin/add-accountant', 'AccountantController@add_accountant')->name('add-accountant');
+    Route::post('/admin/submit-accountant', 'AccountantController@submit_accountant')->name('submit_accountant');
 
     // Advertisement
     // Route::get('/admin/sliders', 'AdminController@sliders')->name('admin.sliders');
@@ -378,6 +407,9 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('benefits-of-efcontact','OperationalController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
 
 
+    //accountant routes
+    Route::get('/admin/all-accountants', 'AdminController@allAccountants')->name('all_accountants');
+
 
 }); //Admin Middleware protection end here
 
@@ -409,6 +441,8 @@ Route::get ( 'findgeo',  'ServiceController@findNearestServices');
 Route::get ( 'findLat2',  'ServiceController@findNearestServices2');
 
 Route::get ( 'findLat',  'AdminController@findNearestRestaurants');
+
+
 
 
 

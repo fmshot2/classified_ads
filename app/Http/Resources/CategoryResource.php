@@ -28,7 +28,7 @@ class CategoryResource extends JsonResource
     public function with($request)
     {
         return [
-        'api' => [
+            'api' => [
                 'version' => '1.0',
                 'date' => date('d M Y'),
                 'developer' => 'EF Network',

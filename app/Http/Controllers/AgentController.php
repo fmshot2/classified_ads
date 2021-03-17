@@ -15,12 +15,12 @@ class AgentController extends Controller
     public function agentDashboard(Request $request)
     {
 
-        $agent_code_check = Refererlink::where(['user_id'=>Auth::id()])->first();
-        $present_user_id = Auth::user()->id;
+        $agent_code_check = Refererlink::where(['user_id'=>Auth::guard('agent')->id()])->first();
+        $present_user_id = Auth::guard('agent')->user()->id;
         $agent_code_users_count = User::where(['idOfAgent' => $present_user_id])->count();
         $all_my_referals = User::where('idOfAgent', $present_user_id);
 
-        $agent_amount_earned = Auth::user()->refererAmount;
+        $agent_amount_earned = Auth::guard('agent')->user()->refererAmount;
 
 
         return view ('agent.dashboard', compact('agent_code_check', 'agent_code_users_count', 'agent_amount_earned'));
@@ -29,7 +29,7 @@ class AgentController extends Controller
 
     public function allReferals()
     {
-        $present_user_id = Auth::user()->id;
+        $present_user_id = Auth::guard('agent')->user()->id;
         $all_my_referals = User::where('idOfAgent', $present_user_id )->orderBy('id', 'desc')->paginate(10);
         return view ('agent.referals.all', compact('all_my_referals') );
     }

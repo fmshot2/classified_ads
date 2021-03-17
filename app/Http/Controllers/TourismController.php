@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tourism;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class TourismController extends Controller
 {
@@ -162,5 +163,23 @@ class TourismController extends Controller
         // \Session::flash('success', 'City successfully added!');
         return redirect()->back()->with($success_notification);
         // $city->images = json_decode($images);
+    }
+
+    public function deleteCity($slug)
+    {
+
+        $city = Tourism::where('slug', $slug)->first();
+
+        if($city)
+        {
+            @unlink($city);
+            $city->delete();
+
+            $success_notification = array(
+                'message' => 'City has been successfully deleted!',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($success_notification);
+        }
     }
 }

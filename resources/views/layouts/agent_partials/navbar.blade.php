@@ -57,20 +57,20 @@
       <!-- User Account -->
       <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            @if (Auth::user()->image == null)
+            @if (Auth::guard('agent')->user()->image == null)
                 <i class="fa fa-user" style="color: #fff"; font-size: 50px !important;></i>
             @else
-                <img src="{{ '/images/'.Auth::user()->image  }}" class="user-image" alt="User Image">
+                <img src="{{ '/images/'.Auth::guard('agent')->user()->image  }}" class="user-image" alt="User Image">
             @endif
         </a>
         <ul class="dropdown-menu scale-up">
           <!-- User image -->
           <li class="user-header" style="background-color: #f8d053;">
-            <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" class="img-responsive" alt="User Image">
+            <img src="{{ Auth::guard('agent')->user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::guard('agent')->user()->image  }}" class="img-responsive" alt="User Image">
 
             <p>
-              {{ Auth::user()->name }}
-              <small style="color: black">Member since {{ Auth::user()->created_at->format('M') }} . {{ Auth::user()->created_at->format('Y') }} </small>
+              {{ Auth::guard('agent')->user()->name }}
+              <small style="color: black">Member since {{ Auth::guard('agent')->user()->created_at->format('M') }} . {{ Auth::guard('agent')->user()->created_at->format('Y') }} </small>
             </p>
           </li>
           <!-- Menu Body -->

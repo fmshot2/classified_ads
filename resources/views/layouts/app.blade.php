@@ -189,7 +189,7 @@
                                                 <form method="POST" action="{{ route('agent.register') }}">
                                                     @csrf
                                                     <div class="row">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label class="form-label">Your Full Name</label><small class="text-danger">*</small>
                                                                 <input type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
@@ -209,8 +209,17 @@
                                                                 @endif
                                                             </div> -->
                                                             <div class="form-group">
-                                                                <label for="email">Email Address</label><small class="text-danger">*</small>
-                                                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Your email address" required>
+                                                                <label for="email">Email Address</label> <small class="text-success">Please Click The Verification
+                                                                    Link In Your Email To Complete Your Registration</small>
+                                                                <input type="email" class="form-control" name="email" value="{{ old('email') }}"
+                                                                placeholder="Your email address" required>
+                                                                <small class="text-danger">If You Do Not Recieve A Verification
+                                                                    Link In Your Email In The Next 10 Minutes, Please Contact Us Via Any of The Following Means:</small>
+                                                                    <div>
+                                                                        <li>Call Us: 090123456789</li>
+                                                                        <li>Whatsapp Us: 090123456789</li>
+                                                                        <li>Email: support@efcontact.com</li>
+                                                                    </div>
                                                             </div>
 
                                                          <!--    <div class="form-group">
@@ -252,7 +261,7 @@
                                                                     </div> -->
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group">
+                                                            {{-- <div class="form-group">
                                                                 <label class="form-label">Choose Password</label><small class="text-danger">*</small>
                                                                 <input type="password" class="form-control" name="password" placeholder="Password (min: 6 characters)" required>
                                                                 @if ($errors->has('password'))
@@ -265,7 +274,7 @@
                                                                 <label class="form-label">Confirm Password</label><small class="text-danger">*</small>
                                                                 <input class="form-control" placeholder="Confirm Password" type="password" name="password_confirmation" required>
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
 
                                                       <!--   <div class="col-md-12">
                                                             <label>
@@ -277,8 +286,12 @@
 
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <button type="submit" class="btn btn-lg btn-warning pull-right text-white">Register</button>
+                                                            <button type="submit" class="btn btn-lg btn-warning text-white">Register</button>
                                                         </div>
+                                                       <div class="col-md-12">
+                                                           <small class="text-danger">Did Not Recieve Link, <a href="">CLICK HERE</a> To Resend</small>
+                                                       </div>
+
                                                     </div>
                                                 </form>
                                             </div>

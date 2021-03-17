@@ -14,7 +14,7 @@ class AddBenefitOfEfcontactToPagesContentsTable extends Migration
     public function up()
     {
         Schema::table('page_contents', function (Blueprint $table) {
-            $table->text('benefit_of_efcontact')->after('privacy_policy')->nullable();
+            $table->text('benefit_of_efcontact')->nullable();
         });
     }
 

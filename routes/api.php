@@ -23,7 +23,7 @@ Route::post('gt_payment_details/{user_id}/{badge_type}', 'BadgeController@gt_res
 Route::post('logintestPayment/{user_id}', 'AuthController@logintestPayment');
 
 
-Route::post('create_user', 'AuthController@create_user');
+// Route::post('create_user', 'AuthController@create_user');
 
 Route::post('logintestPayment', 'AuthController@gt_response');
 

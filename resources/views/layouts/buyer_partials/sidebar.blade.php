@@ -93,6 +93,20 @@
           </span>
         </a>
       </li>
+      <li class="treeview" style=" {{ url()->current() == route('admin.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.all') ? 'background-color: #f8d053' : '' }}">
+        <a href="#">
+          <i class="fa fa-briefcase"></i>
+          <span> Payments </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href=" {{ route('buyer.make.request') }} "><i class="fa fa-circle-o"></i> Request Payment</a></li>
+          <li><a href=" {{ route ('admin.category.show') }} "><i class="fa fa-circle-o"></i> All Payments </a></li>
+
+        </ul>
+      </li>
 
       <li style="{{ url()->current() == route('buyer.profile') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{ route ('buyer.profile') }} ">

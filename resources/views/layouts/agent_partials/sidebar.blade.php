@@ -6,10 +6,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="image">
-          <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" class="img-circle" alt="User Image">
+          <img src="{{ Auth::guard('agent')->user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::guard('agent')->user()->image  }}" class="img-circle" alt="User Image">
         </div>
         <div class="info">
-          <p> {{ Auth::user()->name }} </p>
+          <p> {{ Auth::guard('agent')->user()->name }} </p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -26,7 +26,7 @@
             </span>
           </a>
         </li>
-        
+
         <li class="" style="{{ url()->current() == route('agent.referal.all') ? 'background-color: #f8d053' : '' }}">
           <a href=" {{route ('agent.referal.all') }}">
             <i class="fa fa-briefcase"></i> <span> All My Referalls </span>

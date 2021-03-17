@@ -11,7 +11,7 @@ class AgentRegistration extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $name, $email, $password, $accountType;
+    public $messages, $name, $email, $accountType;
 
 
     /**
@@ -19,11 +19,11 @@ class AgentRegistration extends Mailable
      *
      * @return void
      */
-    public function __construct($name, $email, $password, $accountType)
+    public function __construct($messages, $name, $email, $accountType)
     {
+        $this->messages = $messages;
         $this->name = $name;
         $this->email = $email;
-        $this->password = $password;
         $this->accountType = $accountType;
     }
 
