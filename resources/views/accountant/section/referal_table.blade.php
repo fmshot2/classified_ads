@@ -52,7 +52,7 @@
 						@if($all_payment->is_paid == 0)
 						<td><button class="btn btn-warning" onclick="makepayment()">Pay</button> </td>
 						@else
-						<td><button class="btn btn-success">Paid</button> </td>
+						<td><button class="btn btn-success disabled" id="is_paid">Paid</button> </td>
 						@endif
 					@empty
 					@endforelse

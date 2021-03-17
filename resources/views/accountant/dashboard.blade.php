@@ -166,6 +166,117 @@
 
 
   </div>
+  <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i>  </span>
+
+            <div class="info-box-content">
+              <span class="info-box-text"> Total Advert Payments </span>
+              <span class="info-box-number"> ₦{{ $total_ads }} </span>
+
+              <div class="progress">
+                <div class="progress-bar progress-bar-blue" style="width:  %"></div>
+              </div>
+              <span class="progress-description">
+                <!-- Extra content can go here -->
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i> </span>
+
+            <div class="info-box-content">
+              <span class="info-box-text"> Total Badge Payments </span>
+              <span class="info-box-number">₦{{ $total_badges }} </span>
+
+              <div class="progress">
+                <div class="progress-bar progress-bar-success" style="width:  %"></div>
+              </div>
+              <span class="progress-description">
+                <!-- Extra content can go here -->
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+     <!-- /.col -->
+
+     
+  </div>
+  <div class="row">
+        <!-- /.col -->
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i> </span>
+
+            <div class="info-box-content">
+              <span class="info-box-text"> Total Referal Amount Requested </span>
+              <span class="info-box-number">  ₦{{ $total_ref_requested }}</span>
+
+              <div class="progress">
+                <div class="progress-bar progress-bar-primary" style="width:  %"></div>
+              </div>
+              <span class="progress-description">
+               <!-- 85% Increase in 28 Days -->
+             </span>
+           </div>
+           <!-- /.info-box-content -->
+         </div>
+         <!-- /.info-box -->
+       </div>
+       <!-- /.col -->
+       <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i>  </span>
+
+          <div class="info-box-content">
+            <span class="info-box-text"> Total Referal Pending Requests </span>
+            <span class="info-box-number">₦{{ $total_ref_pending }}  </span>
+
+            <div class="progress">
+              <div class="progress-bar progress-bar-danger" style="width:  %"></div>
+            </div>
+            <span class="progress-description">
+             <!-- 50% Increase in 28 Days -->
+           </span>
+         </div>
+         <!-- /.info-box-content -->
+       </div>
+       <!-- /.info-box -->
+     </div>
+     <!-- /.col -->
+
+       <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-credit-card text-white" aria-hidden="true"></i>  </span>
+
+          <div class="info-box-content">
+            <span class="info-box-text"> Total Referal Paid </span>
+            <span class="info-box-number">₦{{ $total_ref_paid }}  </span>
+
+            <div class="progress">
+              <div class="progress-bar progress-bar-danger" style="width:  %"></div>
+            </div>
+            <span class="progress-description">
+             <!-- 50% Increase in 28 Days -->
+           </span>
+         </div>
+         <!-- /.info-box-content -->
+       </div>
+       <!-- /.info-box -->
+     </div>
+     <!-- /.col -->
+
+     
+  </div>
  <div class="row">
     <div class="col-md-6 connectedSortable">
         @include('accountant/section/referal_table')
@@ -182,4 +293,6 @@
     </div>
 </div>
     @include('accountant.modal.pay_ad')
+
+    
     @endsection
