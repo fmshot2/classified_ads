@@ -6,92 +6,131 @@
     <div class="contact-section">
         <div class="container">
             <div class="row login-box">
-                <div class="col-lg-6 align-self-center pad-0">
+                <div class="col-lg-12 align-self-center pad-0">
                     <div class="form-section clearfix">
                         <h3>Complete Your Agent Account Here</h3>
                         <div class="btn-section clearfix">
-                            <a href="{{route('login')}}" class="link-btn active btn-1 default-bg">Login</a>
+                            {{-- <a href="{{route('login')}}" class="link-btn active btn-1 default-bg">Login</a> --}}
                             {{-- <a href="{{route('register')}}" class="link-btn btn-2 active-bg">Register</a> --}}
                         </div>
 
                         <div class="clearfix"></div>
 
-                        <!-- <form method="POST" action="{{ route('register') }}"> -->
-                        <form method="POST" action="{{ route('register') }}">
-                            @csrf
-                            <div class="form-group form-box">
-                                <input id="name" type="text" class="input-text" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
-                                @if ($errors->has('name'))
-                                    <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                        <strong class="text-danger">{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                            <div class="form-group form-box">
-                                <input id="email" type="email" placeholder="Email Address" class="input-text" name="email" value="{{ old('email') }}" required>
-                                @if ($errors->has('email'))
-                                <span class="helper-text" data-error="wrong" data-success="right">
-                                    <strong class="text-danger">{{ $errors->first('email') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                            <div class="form-group form-box">
-                                <input type="hidden" class="input-text" name="refer" value="{{$referParam}}">
-                            </div>
-                            <div class="form-group form-box clearfix">
-                                <input id="password" type="password" class="input-text" name="password" placeholder="Password (min: 6 characters)" required>
-                                @if ($errors->has('password'))
-                                <span class="helper-text" data-error="wrong" data-success="right">
-                                    <strong class="text-danger">{{ $errors->first('password') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                            <div>
-                                <label for="showpasswordtoggle" style="float: left; margin-top: -15px; margin-bottom: 20px; margin-left: 20px; font-size: 14px">
-                                    <input type="checkbox" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()" style="float: left;">Show Password
-                                </label>
-                            </div><div class="clearfix"></div>
-                            <div class="form-group form-box clearfix">
-                                <input class="input-text" placeholder="Confirm Password" type="password" name="password_confirmation" required>
-                            </div>
+                            <form method="POST" action="{{ route('agent_Complete_Reg') }}">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Your Full Name</label><small class="text-danger">*</small>
+                                            <input type="text" class="form-control" readonly name="name" value="{{ $agent_name }}" autofocus placeholder="Full Name" required>
 
-                            <p>
-                                <h6>What do you want to do?</h6>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="role" required>
-                                            <option selected> Choose... </option>
-                                            <option value="seller"> Provide a service </option>
-                                            <option value="buyer"> I'm looking for a service </option>
-                                        </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label for="email">Email Address</label>
+                                            <input type="email" readonly class="form-control"  name="email" value="{{ $agent_email }}">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                         <div class="form-group">
+                                            <label class="form-label">Phone Number</label><small class="text-danger">*</small>
+                                            <input type="phone" placeholder="Phone Number" class="form-control" name="phone" value="{{ old('phone') }}"
+                                            >
+                                            @if ($errors->has('phone'))
+                                                <span class="helper-text" data-error="wrong" data-success="right">
+                                                    <strong class="text-danger">{{ $errors->first('phone') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                        <div class="col-md-6">
+
+                                      <div class="form-group">
+                                            <label class="form-label">Select your State</label><small class="text-danger">*</small>
+                                            <select class="form-control"  id="state" name="state" >
+                                                <option value="">-- Select State --</option>
+                                                @if(isset($states))
+                                                    @foreach($states as $state)
+                                                        <option value="{{$state->name}}"> {{ $state->name }}  </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                           <label class="form-label">Choose Password</label><small class="text-danger">*</small>
+                                           <input type="password" class="form-control" name="password" placeholder="Password (min: 6 characters)" >
+                                           @if ($errors->has('password'))
+                                           <span class="helper-text" data-error="wrong" data-success="right">
+                                               <strong class="text-danger">{{ $errors->first('password') }}</strong>
+                                           </span>
+                                           @endif
+                                       </div>
+                                           </div>
+                                       <div class="col-md-6">
+
+                                       <div class="form-group">
+                                           <label class="form-label">Confirm Password</label><small class="text-danger">*</small>
+                                           <input class="form-control" placeholder="Confirm Password" type="password" name="password_confirmation" >
+                                       </div>
+                                   </div>
+                                    {{-- <div class="col-md-6">
+                                       <div class="form-group">
+                                            <label class="form-label">LGA</label><small class="text-danger">*</small>
+                                            <select class="form-control" id="lgas" name="lga" required>
+                                                <option disabled selected>- Select Local Government -</option>
+                                            </select>
+                                        </div>
+                                    </div> --}}
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                    <label class="form-label" for="identification_type">Identification Type</label><small class="text-danger">*</small>
+                                                    <select class="form-control" name="identification_type" >
+                                                        <option selected disabled>- Select an option -</option>
+                                                        <option value="national_id">National ID</option>
+                                                        <option value="driver_license">Driver License</option>
+                                                        <option value="voter_id">Voter's Card</option>
+                                                        <option value="international_passport">International Passport</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                               <div class="form-group">
+                                                    <label class="form-label">ID Number</label><small class="text-danger">*</small>
+                                                    <input type="text" class="form-control" name="identification_id" value="{{ old('identification_id') }}" placeholder="ID Number" >
+                                                </div>
+                                            </div>
+
+
+                                  <div class="col-md-12">
+                                        <label>
+                                            <input type="checkbox" name="terms" class="filled-in" />
+                                            <span>By registering you accept our <a href="{{route('terms-of-use')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy-policy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
+                                        </label>
                                     </div>
                                 </div>
-                            </p>
-                            <p>
-                            <div class="form-group form-box">
-                            <h6>Where you referred by our agent?</h6>
-                                <input id="agent_code" type="text" placeholder="Enter Agent Code (If Available)" class="input-text" name="agent_code" value="{{ old('agent_code') }}">
-                                @if ($errors->has('agent_code'))
-                                <span class="helper-text" data-error="wrong" data-success="right">
-                                    <strong class="text-danger">{{ $errors->first('agent_code') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                            </p>
-                            <p>
-                                <label>
-                                    <input type="checkbox" name="terms" class="filled-in" required/>
-                                    <span>By registering you accept our <a href="{{route('terms')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
-                                </label>
-                            </p>
-                            <div class="form-group clearfix mb-0">
-                                <button type="submit" class="btn-md btn-warning float-left">Create Account</button>
-                            </div>
-                        </form>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-lg btn-warning text-white">Register</button>
+                                    </div>
+                                   {{-- <div class="col-md-12">
+                                       <small class="text-danger">Did Not Recieve Link, <a href="">CLICK HERE</a> To Resend</small>
+                                   </div> --}}
+
+                                </div>
+                            </form>
                     </div>
                 </div>
 
-                <div class="col-lg-6 bg-color-15 align-self-center pad-0 p-3">
+                {{-- <div class="col-lg-6 bg-color-15 align-self-center pad-0 p-3">
                     @if(isset($general_info->register_section_1_title))
                         <h6 class="text-center"> {{ $general_info->register_section_1_title ? $general_info->register_section_1_title : '' }} </h6>
                         <hr>
@@ -117,7 +156,7 @@
                             {!! $general_info->register_section_3 ? $general_info->register_section_3 : '' !!}
                         </p>
                     @endif
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

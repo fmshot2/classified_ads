@@ -24,17 +24,18 @@ use App\Service;
 //Agent Middleware starts here
 Route::post('create_user', 'AuthController@create_user');
 
-
 Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg')->name('agent_Complete_Reg');
+Route::post('/agent/agent_Complete_Reg', 'AuthController@agent_save_complete_reg')->name('agent_Complete_Reg');
 
-Route::middleware(['agent'])->group(function () {
+
+// Route::middleware(['auth:agent'])->group(function () {
     Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
     Route::get('/agent/referal/all', 'AgentController@allReferals')->name('agent.referal.all');
     Route::get('/agent/profile/', 'AgentController@viewProfile')->name('agent.profile');
     Route::get('/agent/notification/all', 'AgentController@allNotifications')->name('agent.notification.all');
     Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
 
-});
+// });
 //Agent Middleware ends here
 
 //Accountant Middleware starts here

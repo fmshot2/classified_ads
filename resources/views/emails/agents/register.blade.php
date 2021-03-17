@@ -4,7 +4,7 @@
 
 <p><strong>Full Name: </strong> {{ $name ? $name : 'Name not provided!' }}</p>
 <p><strong>Email: </strong> {{ $email ? $email : 'Name not provided!' }}</p>
-<p><strong>Password: </strong> {{ $password ? $password : 'Name not provided!' }}</p>
+{{-- <p><strong>Password: </strong> {{ $password ? $password : 'Name not provided!' }}</p> --}}
 <p><strong>Account Type: </strong> {{ $accountType == 'agent' ? 'EFContact Agent' : '' }}</p>
 
 @component('mail::button', ['url' => route('agent_Complete_Reg', ['email'=> $email])])
