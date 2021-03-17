@@ -27,7 +27,7 @@
           </a>
         </li>
         
-        <li class="treeview" style=" {{ url()->current() == route('admin.buyer') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.seller') ? 'background-color: #f8d053' : '' }}">
+        {{-- <li class="treeview" style=" {{ url()->current() == route('admin.buyer') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.seller') ? 'background-color: #f8d053' : '' }}">
           <a href="#">
             <i class="fa fa-credit-card-alt"></i>
             <span> Agent Requests </span>
@@ -40,12 +40,12 @@
             <li><a href=" {{ route('accountant.successful.payments') }} " style="{{ url()->current() == route('accountant.successful.payments') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> Paid Payments </a></li>
             <li><a href=" {{ route('accountant.all.payments') }} " style="{{ url()->current() == route('accountant.all.payments') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> All Payments </a></li>
           </ul>
-        </li>
+        </li> --}}
 
         <li class="treeview" style=" {{ url()->current() == route('admin.buyer') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.seller') ? 'background-color: #f8d053' : '' }}">
           <a href="#">
             <i class="fa fa-briefcase"></i>
-            <span> Referral Requests </span>
+            <span> Payment Requests </span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
