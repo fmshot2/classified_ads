@@ -22,6 +22,41 @@ use Illuminate\Validation\Rule;
 class AuthController extends Controller
 {
 
+
+    public function agent_login(Request $request)
+    {
+        // $credentials = $request->only('email', 'password');
+        $status = Auth::guard('agent')->attempt(
+            [
+                'email' => $request->email,
+                'password' => $request->password
+            ]
+        );
+        // dd($status);
+
+        //Check login
+        if (Auth::guard('agent')->check()) {
+            $success_notification = array(
+                'message' => 'You are successfully logged in!',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('agent.dashboard')->with($success_notification);
+        } else {
+            return Redirect::to(Session::get('url.intended'));
+        }
+    }
+
+    public function show_agent_Login(Request $request)
+    {
+        $request->session()->forget('url.intended');
+        session(['url.intended' => url()->previous()]);
+
+        if (Auth::guard('agent')->check()) {
+            return view('welcome');
+        }
+        return view('auth/agent_login');
+    }
+
     public function createAgent(Request $request)
     {
         $request->validate([
@@ -45,13 +80,13 @@ class AuthController extends Controller
             $messages = "$user->name, Your registration was successfull! Please click the link below to complete your registration!";
             $name = $user->name;
             $email = $user->email;
-            $userRole = $user->role;
+            $userRole = 'Agent';
 
-            try {
-                Mail::to($user->email)->send(new AgentRegistration($messages, $name, $email, $userRole));
-            } catch (\Exception $e) {
-                $failedtosendmail = 'Failed to Mail!';
-            }
+            // try {
+            Mail::to($user->email)->send(new AgentRegistration($messages, $name, $email, $userRole));
+            // } catch (\Exception $e) {
+            // $failedtosendmail = 'Failed to Mail!';
+            // }
             $success_notification = array(
                 'message' => 'Please check your email for verification link',
                 'alert-type' => 'success'
@@ -151,7 +186,6 @@ class AuthController extends Controller
                     'password' => $request->password
                 ]
             );
-
             //Check login
             if (Auth::guard('agent')->check()) {
                 $present_user = Auth::guard('guard')->user();
@@ -160,7 +194,26 @@ class AuthController extends Controller
                 $link->user_id = $present_user->id;
                 $link->agent_code = $present_user->agent_code;
                 $link->save();
+                //Add 200 naira to agent total amount
+                $present_user->refererAmount = $referer->refererAmount + 200;
 
+                $parent_id = $present_user->referer_id;
+                if ($parent_id) {
+                    $parent = User::find($parent_id);
+                    if ($parent) {
+                        $parent->refererAmount = $referer->refererAmount + 100;
+                        $parent->save();
+                        //for grand parent
+                        $grand_parent_id = $parent->referer_id;
+                        if ($grand_parent_id) {
+                            $grand_parent = User::find($grand_parent_id);
+                            if ($grand_parent) {
+                                $grand_parent->refererAmount = $referer->refererAmount + 50;
+                                $grand_parent->save();
+                            }
+                        }
+                    }
+                }
                 //if login pass,redirect to agent dashboard page
                 return redirect()->intended('agent/dashboard');
             } else {
@@ -171,6 +224,7 @@ class AuthController extends Controller
             return view('auth/login');
         }
     }
+
 
 
     public function gen_transaction_id()
@@ -250,7 +304,13 @@ class AuthController extends Controller
         $user->password    = Hash::make($returned_data[2]);
         $user->refererLink = $returned_data[3];
         $user->idOfAgent   = $returned_data[4];
+        // if($user->idOfAgent == '' || $user->idOfAgent == null) {
+        //     $user->idOfAgent = null;
+        // }
         $user->idOfReferer   = $returned_data[5];
+        if ($user->idOfReferer == '' || $user->idOfReferer == null) {
+            $user->idOfReferer = null;
+        }
         $user->role        = $returned_data[6];
         if ($user->save()) {
             // Auth::login($user);

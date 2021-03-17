@@ -178,6 +178,10 @@ Route::post('/register', 'AuthController@pay_with_gtpay')->name('register');
 
 Route::post('/agent/register', 'AuthController@createAgent')->name('agent.register');
 Route::get('/login', 'AuthController@showLogin')->name('login');
+Route::get('/agent_Login', 'AuthController@show_agent_Login')->name('show_agent_Login');
+Route::post('/agent_Login', 'AuthController@agent_login')->name('show_agent_Login');
+
+
 Route::post('/login', 'AuthController@login')->name('login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');

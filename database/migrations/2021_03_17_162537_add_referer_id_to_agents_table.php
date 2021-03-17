@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddGeneration1IdToAgentsTable extends Migration
+class AddRefererIdToAgentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddGeneration1IdToAgentsTable extends Migration
     public function up()
     {
         Schema::table('agents', function (Blueprint $table) {
-            //
+            $table->string('referer_id')->after('refererAmount');
         });
     }
 
@@ -26,7 +26,7 @@ class AddGeneration1IdToAgentsTable extends Migration
     public function down()
     {
         Schema::table('agents', function (Blueprint $table) {
-            //
+            $table->dropColumn('referer_id');
         });
     }
 }
