@@ -197,14 +197,14 @@ class AuthController extends Controller
                 //Add 200 naira to agent total amount
                 $present_user->refererAmount = $referer->refererAmount + 200;
 
-                $parent_id = $present_user->generation_1_id;
+                $parent_id = $present_user->referer_id;
                 if ($parent_id) {
                     $parent = User::find($parent_id);
                     if ($parent) {
                         $parent->refererAmount = $referer->refererAmount + 100;
                         $parent->save();
                         //for grand parent
-                        $grand_parent_id = $parent->generation_1_id;
+                        $grand_parent_id = $parent->referer_id;
                         if ($grand_parent_id) {
                             $grand_parent = User::find($grand_parent_id);
                             if ($grand_parent) {
