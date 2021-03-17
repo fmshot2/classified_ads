@@ -30,6 +30,9 @@ Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg_page'
 Route::post('/agent/agent_Complete_Reg', 'AuthController@agent_save_complete_reg')->name('agent_Complete_Reg');
 
 
+Route::get('get-tourist-sites/{state}', 'OperationalController@getTouristSites')->name('gettouristsites');
+
+
 // Route::middleware(['auth:agent'])->group(function () {
     Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
     Route::get('/agent/referal/all', 'AgentController@allReferals')->name('agent.referal.all');

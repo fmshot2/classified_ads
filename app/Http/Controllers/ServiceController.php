@@ -170,7 +170,7 @@ class ServiceController extends Controller
     //   return $serve->total_likes;
     // });
 
-    $hotServices = $allServices->sortByDesc('total_likes');
+    $hotServices = collect($allServices->sortByDesc('total_likes'))->sortBy('badge_type');;
     $approvedServices = Service::where('status', 1)->with('user')->get();
     $advertServices = Service::where('is_approved', 1)->with('user')->get();
     $recentServices = Service::where('is_approved', 1)->orderBy('created_at', 'asc')->paginate(16);
