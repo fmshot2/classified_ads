@@ -140,24 +140,18 @@
         <div class="featured-properties content-area">
             <div class="container-fluid">
                 <div class="row filter-portfolio" style="width: 100%; margin-right: 0;margin-left: 0;">
-                    @if ($tourist_attractions)
-                        @foreach($tourist_attractions as $tourist_attraction)
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-sm-12 filtr-item" onclick="loadTouristSites('{{ $tourist_attraction->states }}')">
+                    @if ($states)
+                        @foreach($states as $state)
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-sm-12 filtr-item" onclick="loadTouristSites('{{ $state->name }}')">
                                 <div class="property-box">
                                     <div class="property-thumbnail">
-                                        <a href="#" onclick="loadTouristSites()" class="property-img">
-                                            <img class="d-block w-100 touristImage" src="{{ asset('cities_images/'.$tourist_attraction->thumb) }}" alt="{{ $tourist_attraction->name }}">
+                                        <a href="#" onclick="loadTouristSites({{ $state->name }})" class="property-img">
+                                            <img class="d-block w-100 touristImage" src="{{ asset('statesthumbnails/'.$state->image) }}" alt="{{ $state->name }}">
                                         </a>
                                     </div>
                                     <div class="detail">
-                                        <h1 class="title">
-                                            <a href="#">{{ $tourist_attraction->name }}</a>
-                                        </h1>
                                         <div class="location">
-                                            <h6><i class="fa fa-map"></i> {{ $tourist_attraction->states }}</h6>
-                                            <a href="#">
-                                                <i class="fa fa-map-marker"></i>{{ $tourist_attraction->region }} Part of Nigeria
-                                            </a>
+                                            <h6><i class="fa fa-map"></i> {{ $state->name }}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +168,7 @@
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: #cc8a19; color: #fff">
                         <h5 class="modal-title" style="color: #fff">All Tourist Sites Here</h5>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <!-- Slideshow container -->
@@ -213,93 +207,6 @@
 
             </div>
         </div>
-
-
-        {{-- <div class="featured-properties content-area">
-            <div class="container-fluid">
-                <div class="row filter-portfolio" style="width: 100%; margin-right: 0;margin-left: 0;">
-                    <div class="col-lg-4 col-md-4 col-sm-6 col-sm-12 filtr-item">
-                        <div class="property-box">
-                            <div class="property-thumbnail">
-                                <a href="properties-details.html" class="property-img">
-                                    <img class="d-block w-100" src="{{ asset('img/popular-places/lagos-1.jpg') }}" alt="Lagos State">
-                                </a>
-                            </div>
-                            <div class="detail">
-                                <h1 class="title">
-                                    <a href="#">Lagos State</a>
-                                </h1>
-                                <div class="location">
-                                    <a href="#">
-                                        <i class="fa fa-map-marker"></i>South West Part of Nigeria
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1">
-                        <div class="property-box">
-                            <div class="property-thumbnail">
-                                <a href="properties-details.html" class="property-img">
-                                    <img class="d-block w-100" src="{{ asset('img/popular-places/portharcout-1.jfif') }}" alt="Port Harcourt">
-                                </a>
-                            </div>
-                            <div class="detail">
-                                <h1 class="title">
-                                    <a href="#">Port Harcourt</a>
-                                </h1>
-                                <div class="location">
-                                    <a href="#">
-                                        <i class="fa fa-map-marker"></i>South South Region of Nigeria
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1">
-                        <div class="property-box">
-                            <div class="property-thumbnail">
-                                <a href="properties-details.html" class="property-img">
-                                    <img class="d-block w-100" src="{{ asset('img/popular-places/enugu-1.jfif') }}" alt="Enugu State">
-                                </a>
-                            </div>
-                            <div class="detail">
-                                <h1 class="title">
-                                    <a href="properties-details.html">Enugu State</a>
-                                </h1>
-                                <div class="location">
-                                    <a href="properties-details.html">
-                                        <i class="fa fa-map-marker"></i>South East of Nigeria
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1">
-                        <div class="property-box">
-                            <div class="property-thumbnail">
-                                <a href="properties-details.html" class="property-img">
-                                    <img class="d-block w-100" src="{{ asset('img/popular-places/abuja-1.jpg') }}" alt="Abuja FCT">
-                                </a>
-                            </div>
-                            <div class="detail">
-                                <h1 class="title">
-                                    <a href="properties-details.html">Abuja FCT</a>
-                                </h1>
-                                <div class="location">
-                                    <a href="properties-details.html">
-                                        <i class="fa fa-map-marker"></i>North Central of Nigeria
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
 
 
 
@@ -346,8 +253,7 @@
                 slides[slideIndex-1].style.display = "block";
                 dots[slideIndex-1].className += " active";
             }
-
-            </script>
+        </script>
 
     </section>
 @endsection
