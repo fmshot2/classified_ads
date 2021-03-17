@@ -197,7 +197,7 @@
                                             <div class="category-overlay">
                                                 <div class="category-content">
                                                     <h3 class="category-title">
-                                                        <a href="#">Senators</a>
+                                                        <a href="#">Distinguished Senators</a>
                                                     </h3>
                                                 </div>
                                             </div>
@@ -211,7 +211,7 @@
                                             <div class="category-overlay">
                                                 <div class="category-content">
                                                     <h3 class="category-title">
-                                                        <a href="#"> House Of Assembly</a>
+                                                        <a href="#">Nigeria House Of Assembly</a>
                                                     </h3>
                                                 </div>
                                             </div>
@@ -226,7 +226,7 @@
                                             <div class="category-overlay">
                                                 <div class="category-content">
                                                     <h3 class="category-title">
-                                                        <a href="#">Distinguished Senators</a>
+                                                        <a href="#">Towards Our Collective Greatness</a>
                                                     </h3>
                                                 </div>
                                             </div>
