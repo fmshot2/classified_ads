@@ -59,23 +59,16 @@ class AuthController extends Controller
 
 
     public function createAgent(Request $request)
-    {dd('ddd');
+    {
         $request->validate([
             'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email'    => ['required', 'string', 'email', 'max:255'],
         ]);
-        $state = $request->state;
-        $result = substr($state, 0, 3);
-        $ist_3_result = strtoupper($result);
-        $randomCode = Str::random(4);
-        $length = 1;
-        $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
 
         //save agent details
         $user = new Agent;
         $user->name = $request->name;
         $user->email = $request->email;
-dd($user);
         if ($user->save()) {
             $messages = "$user->name, Your registration was successfull! Please click the link below to complete your registration!";
             $name = $user->name;

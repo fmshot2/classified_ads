@@ -14,7 +14,7 @@ class AddImageToStatesTable extends Migration
     public function up()
     {
         Schema::table('states', function (Blueprint $table) {
-            $table->string('image')->after('abbr')->nullable();
+            $table->string('image')->nullable();
         });
     }
 
