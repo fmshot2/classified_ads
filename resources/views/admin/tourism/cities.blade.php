@@ -10,7 +10,7 @@
                 <div class="col-md-12">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Add Category</h3>
+                            <h3 class="box-title">Add Tourist</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body" style="padding: 20px">
@@ -19,31 +19,44 @@
                                 {{ csrf_field() }}
                                      <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="">Name of City: </label>
-                                        <input type="text" name="name" id="editSubCategoryName" class="form-control">
+                                        <label for="">Name of site: </label>
+                                        <input type="text" name="name" id="editSubCategoryName" class="form-control" required>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">State: </label>
+                                        <select class="form-control" required id="state" name="state" required>
+                                            <option value="">-- Select State --</option>
+                                            @if(isset($states))
+                                                @foreach($states as $state)
+                                                    <option id="state" value="{{$state->name}}"> {{ $state->name }}  </option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Region: </label>
-                                        <input type="text" name="region" id="editSubCategoryName" class="form-control">
+                                        <input type="text" name="region" id="editSubCategoryName" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Body: </label>
-                                        <input type="text" name="body" id="editSubCategoryName" class="form-control">
+                                        <input type="text" name="body" id="editSubCategoryName" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Description: </label>
-                                        <textarea name="description" id="basic-example" class="form-control"></textarea>  
+                                        <textarea name="description" id="basic-example" class="form-control"></textarea>
                                     </div>
                                 </div>
                                     <div class="form-group">
                                         <label for="file">Thumbnail:</label>
-                                        <input type="file" id="file" name="thumb" class="form-control">
+                                        <input type="file" id="file" name="thumb" class="form-control" required>
                                     </div>
                                     <!-- /.box-body -->
                                     <div class="box-footer">
@@ -65,53 +78,6 @@
                 </div>
             </div>
         </div>
-
-        {{-- Edit Category Modal  --}}
-        <div id="editCategoryModal" class="modal fade">
-            <div class="modal-dialog modal-dialog-vertical-center" role="document">
-                <div class="modal-content tx-size-sm">
-                    <div class="modal-header pd-x-20">
-                        <h4 class="tx-17 mg-b-0 tx-uppercase tx-inverse tx-bold">Edit Category</h4>
-                    </div>
-                    <div class="modal-body pd-20">
-                        <form id="editCategoryForm" action="" method="POST" enctype="multipart/form-data">
-                            {{csrf_field()}}
-                            <input type="hidden" name="_method" value="PUT">
-                            <div class="row">
-                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="">Name of City: </label>
-                                        <input type="text" name="name" id="editSubCategoryName" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="">Region: </label>
-                                        <input type="text" name="name" id="editSubCategoryName" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="">Slogan: </label>
-                                        <input type="text" name="name" id="editSubCategoryName" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="">Name of City: </label>
-                                        <input type="text" name="name" id="editSubCategoryName" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary pd-x-20">Edit Category</button>
-                                <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Close</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div><!-- modal-dialog -->
-        </div><!-- modal -->
     </div>
 @endsection
 

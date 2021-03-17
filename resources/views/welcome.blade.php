@@ -105,7 +105,8 @@ function showPosition(position) {
             url: 'findgeo',
             data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
            success: function(result){
-                    services = result.data;
+                    $('#servClosesToYouArea').show();
+                        services = result.data;
                         services.forEach(service => {
                             badge = service.badge_type
                             if (badge == 1) {
@@ -140,8 +141,8 @@ function showPosition(position) {
                                         </div>
                                         <div class="detail">
                                             <div>
-                                                <a class="title title-dk" href="">`+ service.name.substring(0, 18) + "..." + `</a>
-                                                <a class="title title-mb" href="">`+ service.name.substring(0, 12) + "..." + `</a>
+                                                <a class="title title-dk" href="/serviceDetail/`+ service.slug + `">`+ service.name.substring(0, 22) + "..." + `</a>
+                                                <a class="title title-mb" href="/serviceDetail/`+ service.slug + `">`+ service.name.substring(0, 13) + "..." + `</a>
                                             </div>
 
                                             <ul class="d-flex flex-row justify-content-between info">
@@ -208,7 +209,7 @@ function showPosition(position) {
 
 @include('frontend_section/category')
 
-<div class="blog content-area bg-grea-3 hm-feat-ser-mid-sec">
+<div id="servClosesToYouArea" class="blog content-area bg-grea-3 hm-feat-ser-mid-sec">
     <div class="service-detail-container">
             <!-- Main title -->
         <div class="main-title" style="margin-top: -50px;">
@@ -258,9 +259,11 @@ owl.owlCarousel({
 
 
 <script type="text/javascript">
-  $(document).ready( function () {
-  getLocation();
-});
+    $(document).ready( function () {
+        getLocation();
+
+        $('#servClosesToYouArea').hide();
+    });
 </script>
 
 

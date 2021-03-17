@@ -24,7 +24,20 @@
                                         <input type="text" name="name" id="editSubCategoryName" class="form-control" value="{{ $city->name }}">
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">State: </label>
+                                        <select class="form-control" required id="state" name="state" required>
+                                            <option value="">-- Select State --</option>
+                                            @if(isset($states))
+                                                @foreach($states as $state)
+                                                    <option id="state" value="{{$state->name}}" {{ $state->name == $city->name ? 'selected' : '' }}> {{ $state->name }}  </option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Region: </label>
                                         <input type="text" name="region" id="editSubCategoryName" class="form-control" value="{{ $city->region }}">
@@ -39,7 +52,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Description: </label>
-                                        <textarea name="description" id="basic-example" class="form-control">{{ $city->description }}</textarea>  
+                                        <textarea name="description" id="basic-example" class="form-control">{{ $city->description }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">

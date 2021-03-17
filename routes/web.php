@@ -70,7 +70,7 @@ Route::post('delete', 'ImageController@delete');
 
 
 Route::post('/subscribe', 'AdminController@subscribe')->name('subscribe');
-Route::view('/cities', 'featured_city')->name('allcities');
+Route::view('/tourist-sites-in-nigeria', 'featured_city')->name('allcities');
 
 Route::get('/send/email', 'ServiceController@mail');
 
@@ -330,7 +330,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/delete/sliders/{id}', 'AdminController@delete_sliders')->name('admin.delete_sliders');
 
     //Tourism
-    Route::get('/admin/cities', 'TourismController@cities')->name('admin.cities');
+    Route::get('/admin/tourist-sites', 'TourismController@cities')->name('admin.cities');
     Route::get('/admin/city/{slug}', 'TourismController@city')->name('admin.city');
     Route::post('/admin/save-city', 'TourismController@save_city')->name('admin.save_city');
     Route::put('/admin/update-city/{slug}', 'TourismController@update_city')->name('admin.update.city');

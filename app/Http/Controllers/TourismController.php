@@ -23,6 +23,7 @@ class TourismController extends Controller
 
 		$data = array(
             'name'   => $request->name,
+            'states'   => $request->state,
             'region'   => $request->region,
             'body' => $request->body,
             'description'    => $request->description,
@@ -38,6 +39,7 @@ class TourismController extends Controller
 
         $validator = \Validator::make($data, [
             'name'   => 'required|string',
+            'states'   => 'required|string',
             'region'   => 'required|string',
             'body' => 'required|string',
             'description'    => 'required|string',
@@ -53,6 +55,7 @@ class TourismController extends Controller
 
         $city = new Tourism;
         $city->name = $request->name;
+        $city->states = $request->state;
         $city->region = $request->region;
         $city->body = $request->body;
         $city->description = $request->description;
@@ -69,7 +72,7 @@ class TourismController extends Controller
         }
         return redirect()->back()->with($success_notification);
 	}
-    
+
     public function city($slug)
     {
         $city = Tourism::where('slug', $slug)->first();
@@ -82,6 +85,7 @@ class TourismController extends Controller
     {
         $data = array(
             'name'   => $request->name,
+            'states'   => $request->state,
             'region'   => $request->region,
             'body' => $request->body,
             'description'    => $request->description,
@@ -101,6 +105,7 @@ class TourismController extends Controller
 
         $validator = \Validator::make($data, [
             'name'   => 'nullable|string',
+            'states'   => 'nullabe|string',
             'region'   => 'nullable|string',
             'body' => 'nullable|string',
             'description'    => 'nullable|string',
@@ -145,7 +150,7 @@ class TourismController extends Controller
                 $name=$file->getClientOriginalName();
                 $location = $file->move('cities_images', $name);
                 $images[]=$name;
-                
+
             }
         }
 

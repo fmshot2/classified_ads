@@ -17,8 +17,38 @@
     </div>
 </div>
     <section class="our-featured-cities-page">
-        <!-- Featured properties start -->
         <div class="featured-properties content-area">
+            <div class="container-fluid">
+                <div class="row filter-portfolio" style="width: 100%; margin-right: 0;margin-left: 0;">
+                    @if ($tourist_attractions)
+                        @foreach($tourist_attractions as $tourist_attraction)
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-sm-12 filtr-item">
+                                <div class="property-box">
+                                    <div class="property-thumbnail">
+                                        <a href="properties-details.html" class="property-img">
+                                            <img class="d-block w-100" src="{{ asset('cities_images/'.$tourist_attraction->thumb) }}" alt="Lagos State">
+                                        </a>
+                                    </div>
+                                    <div class="detail">
+                                        <h1 class="title">
+                                            <a href="#">{{ $tourist_attraction->name }}</a>
+                                        </h1>
+                                        <div class="location">
+                                            <a href="#">
+                                                <i class="fa fa-map-marker"></i>{{ $tourist_attraction->region }} Part of Nigeria
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+        </div>
+
+
+        {{-- <div class="featured-properties content-area">
             <div class="container-fluid">
                 <div class="row filter-portfolio" style="width: 100%; margin-right: 0;margin-left: 0;">
                     <div class="col-lg-4 col-md-4 col-sm-6 col-sm-12 filtr-item">
@@ -102,15 +132,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </section>
+
+    <style>
+        .main-header{
+            box-shadow: 0px 1px 10px #97979783;
+        }
+    </style>
 @endsection
-
-<style>
-    .main-header{
-        box-shadow: 0px 1px 10px #97979783;
-    }
-
-</style>
-
-</style>
