@@ -107,7 +107,12 @@
                                                     <input type="text" class="form-control" name="identification_id" value="{{ old('identification_id') }}" placeholder="ID Number" >
                                                 </div>
                                             </div>
-
+                                            <div class="col-md-12">
+                                                <label>
+                                                    <input type="checkbox" name="terms" class="filled-in" />
+                                                    <span>By registering you accept our <a href="{{route('terms-of-use')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy-policy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
+                                                </label>
+                                            </div>
 
                                   <div class="col-md-12">
                                         <label>

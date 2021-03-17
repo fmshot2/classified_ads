@@ -102,7 +102,7 @@
 
 
 
-{{-- <div class="categories content-area-8 bg-grea-3">
+ <div class="categories content-area-8 bg-grea-3">
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
@@ -169,22 +169,20 @@
                     @endif
                 </div>
         </div>
-    </div> --}}
+    </div>
 
 
 
 
-
+{{--
 <div class="categories content-area-8 bg-grea-3">
     <div class="container">
-        <!-- Main title -->
         <div class="main-title">
             <h1>Distinguished National Assembly Of Nigeria</h1>
         </div>
         <div class="row justify-content-center">
             <div class="col-lg-2 col-md-6 col-sm-6 col-6">
                 <div class="form-group">
-                    {{-- <a href="{{ route('allcities') }}" class="btn btn-outline-warning" style="border-radius: 20px">View all the Sites</a> --}}
                 </div>
             </div>
         </div>
@@ -236,5 +234,7 @@
 
                 </div>
         </div>
-    </div>
+    </div> --}}
+
+
 </div>

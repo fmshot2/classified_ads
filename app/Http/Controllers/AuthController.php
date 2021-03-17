@@ -59,7 +59,7 @@ class AuthController extends Controller
 
 
     public function createAgent(Request $request)
-    {
+    {dd('ddd');
         $request->validate([
             'name'     => ['required', 'string', 'max:255'],
             'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -75,8 +75,7 @@ class AuthController extends Controller
         $user = new Agent;
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->save();
-
+dd($user);
         if ($user->save()) {
             $messages = "$user->name, Your registration was successfull! Please click the link below to complete your registration!";
             $name = $user->name;
