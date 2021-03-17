@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-All Unpaid/Failed Transactions | 
+All Unpaid Agent Transactions | 
 @endsection
 
 @section('content')
@@ -33,24 +33,42 @@ All Unpaid/Failed Transactions |
 							<thead>
 								<tr>
 									<th> # </th>
-									<th> Name of User </th>
-									<th> Email </th>
-									<th> Phone </th>
-									<th> Payment Type </th>
-									<th> Payment Status</th>	
+									<th style="display: none;"></th>
+									<th> Name </th>
+									<th> Amount Requested </th>
+									<th> Total Remaining Balance </th>
+									<th> Payment Status </th>
+									<th>Date of Request</th>
+									<th>Due Date</th>	
 									<th> Action </th>									
 								</tr>	
 							</thead>
 							<tbody>
-								@forelse($all_payments as $key => $payment)
+								@forelse($pending_payments as $key => $unpaid_payment)
 								<tr>
-									{{-- <td><a href="javascript:void(0)"> 1 </a></td>
-									<td> Random User </td>
-									<td><span class="text-muted"> </i> random@user.com</span> </td>
-									<td> 0998678267 </td>
-									<td> Payment for advertisement </span></td>
-									<td> <span class="text text-success">Successful</span> </span></td>
-									<td><button class="btn btn-success">View All Info</button> </td> --}}
+									<td>{{ ++$key }}</td>
+									<td style="display: none;" id="userID">{{ $unpaid_payment->id }}</td>
+									<td> {{ $unpaid_payment->agent->name }} </td>
+									<td>₦<span class="text-muted">{{ $unpaid_payment->amount_requested }} </span> </td>
+									<td> ₦{{ $unpaid_payment->agent->refererAmount }} </td>
+									@if($unpaid_payment->is_paid == 0)
+
+										<td> <span class="text text-danger">Pending</span></td>
+									@else
+										<td> <span class="text text-danger">Paid</span></td>
+									@endif
+									<td>{{ date('d-m-Y', strtotime($unpaid_payment->created_at)) }}</td>
+									@php
+										$today = new \Carbon\Carbon;
+										if($today->dayOfWeek == \Carbon\Carbon::FRIDAY){
+											echo "<td> <span class='text text-warning'>Due</span></td>";
+										} else {
+											echo "<td> <span class='text text-danger'>Not Due</span></td>";
+										}
+										
+									@endphp
+									{{-- <td> <span class="text text-danger">Paid</span></td> --}}
+									<td><button class="btn btn-success" onclick="makepayment()">Pay</button> </td>
 								</tr>
 
 								@empty
@@ -99,7 +117,34 @@ All Unpaid/Failed Transactions |
 		});
 	});
 </script> --}}
+<script type="text/javascript">
+    function makepayment()
+    {
+        event.preventDefault();
+       let user_id = document.getElementById('userID').innerHTML
+       if (confirm("Are you sure you want to pay this user?")) {
+	       	$.ajax({
+	       		headers: {
+			    	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			  	},
+	            url: "/accountant/make-payment/"+user_id,
+	            method: 'POST',
+	            success: function(result)
+	            {
+	            	toastr.success("{{ Session::get('message') }}")
+	            	location.reload()
+	            }
 
+	        }); 
+
+       } else {
+        	toastr.error("{{ Session::get('message') }}")
+       		location.reload()
+       }
+        
+    }
+    
+</script>
 <script>
         function activateUser22(id) {
 

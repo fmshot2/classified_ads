@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-All Paid Transactions | 
+All Paid Agent Transactions | 
 @endsection
 
 @section('content')
@@ -33,24 +33,24 @@ All Paid Transactions |
 							<thead>
 								<tr>
 									<th> # </th>
-									<th> Name of User </th>
-									<th> Email </th>
-									<th> Phone </th>
-									<th> Payment Type </th>
-									<th> Payment Status</th>	
-									<th> Action </th>									
+									<th> Name </th>
+									<th> Amount Requested </th>
+									<th> Total Remaining Balance </th>
+									<th> Payment Status </th>
+									<th>Date of Payment</th>
+									<th>Action</th>									
 								</tr>	
 							</thead>
 							<tbody>
-								@forelse($all_payments as $key => $payment)
+								@forelse($successful_payments as $key => $all_payment)
 								<tr>
-									{{-- <td><a href="javascript:void(0)"> 1 </a></td>
-									<td> Random User </td>
-									<td><span class="text-muted"> </i> random@user.com</span> </td>
-									<td> 0998678267 </td>
-									<td> Payment for advertisement </span></td>
-									<td> <span class="text text-success">Successful</span> </span></td>
-									<td><button class="btn btn-success">View All Info</button> </td> --}}
+									<td>{{ ++$key }}</td>
+									<td> {{ $all_payment->agent->name }} </td>
+									<td>₦<span class="text-muted">{{ $all_payment->amount_requested }} </span> </td>
+									<td> ₦{{ $all_payment->agent->refererAmount }} </td>
+									<td> <span class="text text-success">Paid</span></td>
+									<td>{{ date('d-m-Y', strtotime($all_payment->updated_at)) }}</td>
+									<td><a href="{{ route('accountant.view.payment', $all_payment->agent->id) }}"><i class="fa fa-eye" data-toggle="tooltip" data-placement="bottom" title="View History"></i></a></td>
 								</tr>
 
 								@empty

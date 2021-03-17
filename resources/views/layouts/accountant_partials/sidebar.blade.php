@@ -27,7 +27,7 @@
           </a>
         </li>
         
-        {{-- <li class="treeview" style=" {{ url()->current() == route('admin.buyer') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.seller') ? 'background-color: #f8d053' : '' }}">
+        <li class="treeview" style=" {{ url()->current() == route('admin.buyer') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.seller') ? 'background-color: #f8d053' : '' }}">
           <a href="#">
             <i class="fa fa-credit-card-alt"></i>
             <span> Agent Requests </span>
@@ -36,11 +36,11 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=" {{ route('accountant.unsuccessful.payments') }} " style="{{ url()->current() == route('accountant.unsuccessful.payments') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> Pending Payments </a></li>
-            <li><a href=" {{ route('accountant.successful.payments') }} " style="{{ url()->current() == route('accountant.successful.payments') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> Paid Payments </a></li>
-            <li><a href=" {{ route('accountant.all.payments') }} " style="{{ url()->current() == route('accountant.all.payments') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> All Payments </a></li>
+            <li><a href=" {{ route('accountant.pending.agent.payments') }} " style="{{ url()->current() == route('accountant.unsuccessful.payments') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> Pending Payments </a></li>
+            <li><a href=" {{ route('accountant.paid.agent.payments') }} " style="{{ url()->current() == route('accountant.successful.payments') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> Paid </a></li>
+            <li><a href=" {{ route('accountant.all.agent.payments') }} " style="{{ url()->current() == route('accountant.all.payments') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> All Payments </a></li>
           </ul>
-        </li> --}}
+        </li>
 
         <li class="treeview" style=" {{ url()->current() == route('admin.buyer') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.seller') ? 'background-color: #f8d053' : '' }}">
           <a href="#">
@@ -51,21 +51,21 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=" {{ route('accountant.unsuccessful.referrals') }}" ><i class="fa fa-circle-o"></i> Pending Payment </a></li>
+            <li><a href=" {{ route('accountant.unsuccessful.referrals') }}" ><i class="fa fa-circle-o"></i> Pending Payments </a></li>
             <li><a href=" {{ route('accountant.successful.referrals') }}" ><i class="fa fa-circle-o"></i> Paid </a></li>
-            <li><a href=" {{ route('accountant.all.referrals') }}"><i class="fa fa-circle-o"></i> All Referrals </a></li>
+            <li><a href=" {{ route('accountant.all.referrals') }}"><i class="fa fa-circle-o"></i> All Referral Payments</a></li>
           </ul>
         </li>
         <li class="treeview" style=" {{ url()->current() == route('admin.buyer') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.seller') ? 'background-color: #f8d053' : '' }}">
           <a href="#">
             <i class="fa fa-sticky-note"></i>
-            <span> Advert Management </span>
+            <span> Advert Payments </span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=" {{ route('accountant.ad.requests') }} " style="{{ url()->current() == route('accountant.all.referrals') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> All Ad Payments </a></li>
+            <li><a href=" {{ route('accountant.ad.requests') }} " style="{{ url()->current() == route('accountant.all.referrals') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> All Advert Payments </a></li>
             {{-- <li><a href="" data-toggle="modal" data-target="#payAd"><i class="fa fa-circle-o"></i> Pay </a></li> --}}
           </ul>
         </li>
@@ -78,7 +78,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=" {{ route('accountant.badges') }} " style="{{ url()->current() == route('accountant.successful.referrals') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> All Payments </a></li>
+            <li><a href=" {{ route('accountant.badges') }} " style="{{ url()->current() == route('accountant.successful.referrals') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> All Badge Payments </a></li>
           </ul>
         </li>
 
