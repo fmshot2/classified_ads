@@ -50,12 +50,12 @@ class AuthController extends Controller
             // try {
                 Mail::to($user->email)->send(new AgentRegistration($messages, $name, $email, $userRole));
             // } catch (\Exception $e) {
-                $failedtosendmail = 'Failed to Mail!';
-            }
+                // $failedtosendmail = 'Failed to Mail!';
+            // }
             $success_notification = array(
                 'message' => 'Please check your email for verification link',
                 'alert-type' => 'success'
-            // );
+            );
             return redirect()->back()->with($success_notification);
         }
     }
@@ -254,8 +254,13 @@ class AuthController extends Controller
         $user->password    = Hash::make($returned_data[2]);
         $user->refererLink = $returned_data[3];
         $user->idOfAgent   = $returned_data[4];
+        // if($user->idOfAgent == '' || $user->idOfAgent == null) {
+        //     $user->idOfAgent = null;
+        // }
         $user->idOfReferer   = $returned_data[5];
-        // if($user->idOfReferer)
+        if($user->idOfReferer == '' || $user->idOfReferer == null) {
+            $user->idOfReferer = null;
+        }
         $user->role        = $returned_data[6];
         if ($user->save()) {
             // Auth::login($user);
