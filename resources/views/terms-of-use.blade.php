@@ -3,7 +3,7 @@
 @section('title', 'Terms of Use | ')
 
 @section('content')
-    <div class="blog-banner">
+    {{-- <div class="blog-banner">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Blog body start -->
     <div class="blog-body content-area">
         <div class="container" style=" background-color: #fff">

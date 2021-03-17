@@ -161,9 +161,16 @@
 							<form class="form-horizontal form-element" method="POST" action="{{route('profile.update.account', Auth::id() )}}">
 								@csrf
 								<div class="form-group">
+									<label for="bank_name" class="col-sm-2 control-label">Account Name</label>
+									<div class="col-sm-10">
+										<input type="text" id="account_name" class="form-control" name="account_name" value="{{ Auth::user()->account_name ? Auth::user()->account_name : '' }}" placeholder="Enter the name on the account (e.g Egen Jacobs)">
+									</div>
+								</div>
+
+								<div class="form-group">
 									<label for="bank_name" class="col-sm-2 control-label">Bank Name</label>
 									<div class="col-sm-10">
-										<input type="text" id="bank_name" class="form-control" name="bank_name" value=" {{ Auth::user()->bank_name }} ">
+										<input type="text" id="bank_name" class="form-control" name="bank_name" value="{{ Auth::user()->bank_name ? Auth::user()->bank_name : '' }}" placeholder="Enter the bank name. (e.g. Access Bank)">
 									</div>
 								</div>
 
@@ -171,7 +178,7 @@
 								<div class="form-group">
 									<label for="account_number" class="col-sm-2 control-label">Account Number</label>
 									<div class="col-sm-10">
-										<input type="number" class="form-control" name="account_number" value="{{Auth::user()->account_number }}">
+										<input type="number" class="form-control" name="account_number" value="{{Auth::user()->account_number ? Auth::user()->account_number : '' }}" placeholder="Enter your account number here. (e.g 01237474483)">
 									</div>
 								</div>
 

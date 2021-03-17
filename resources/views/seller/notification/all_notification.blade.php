@@ -48,20 +48,7 @@ All Notification |
                                             <td> {{ Str::limit( $all_notifications->description, 100) }} </td>
                                             <td> {{ $all_notifications->created_at->diffForHumans() }} </td>
                                             <td>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                                        <span class="caret"></span>
-                                                        <span class="sr-only">Toggle Dropdown</span>
-                                                    </button>
-                                                    <ul class="dropdown-menu" role="menu">
-                                                        <!-- View -->
-                                                        <li>
-                                                            <a href=" {{ route('seller.notification.view',$all_notifications->slug) }}" class="btn btn-block" style="margin-left: 8px;"> View </a>
-                                                        </li>
-                                                    </ul>
-
-                                                    </ul>
-                                                </div>
+                                                <a href=" {{ route('seller.notification.view',$all_notifications->slug) }}" class="btn btn-block" style="margin-left: 8px;"> <i class="fa fa-eye"></i> </a>
                                             </td>
 
                                         </tr>

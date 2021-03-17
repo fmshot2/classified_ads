@@ -1730,6 +1730,47 @@
                             </form>
                         </div>
 
+                        <div class="footer-item clearfix container-fluid">
+                            <br/>
+                            <div class="s-border" style="margin-top: -20px;"></div>
+                            <div class="m-border"></div>
+                        </div>
+                        <div class="popular-posts featured-ad-hm-list">
+                            <div class="container">
+                                <div id="carouselExampleControls" class="carousel vert slide" data-ride="carousel" data-interval="4000">
+                                    {{-- <ol class="carousel-indicators">
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                    </ol> --}}
+                                    <div class="carousel-inner">
+                                        @if ($advertisements)
+                                            @foreach($advertisements as $advertisement)
+                                                @if ($advertisement->advert_location == 3)
+                                                    <div class="carousel-item {{ $loop->index == 0 ? 'active' : '' }}">
+                                                        <img class="d-block mx-auto img-fluid" src="{{asset('uploads/sponsored/'.$advertisement->banner_img)}}" alt="{{ $advertisement->brand_name }}">
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        @else
+                                            <p>No Advert here!</p>
+                                        @endif
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="s-border" style="margin-top: 20px;"></div>
+                        <div class="m-border"></div>
+                        <br/>
+
                         <!-- Popular posts start -->
                         <div class="widget popular-posts">
                             <h3 class="sidebar-title">Featured Services</h3>

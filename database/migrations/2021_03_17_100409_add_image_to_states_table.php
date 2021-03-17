@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRefererIdToAgentsTable extends Migration
+class AddImageToStatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddRefererIdToAgentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('agents', function (Blueprint $table) {
-            $table->string('referer_id')->after('refererAmount');
+        Schema::table('states', function (Blueprint $table) {
+            $table->string('image')->after('abbr')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddRefererIdToAgentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('agents', function (Blueprint $table) {
-            $table->dropColumn('referer_id');
+        Schema::table('states', function (Blueprint $table) {
+            $table->dropColumn('image');
         });
     }
 }

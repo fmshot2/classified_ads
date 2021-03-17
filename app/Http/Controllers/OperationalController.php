@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Console\Input\Input;
 use App\Refererlink;
+use App\Tourism;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -438,25 +439,6 @@ class OperationalController extends Controller
         return view ('seller.feedbacks.all', compact('all_services', 'allcomments') );
     }
 
-
-    // public function sellerLikesCount()
-    // {
-    //     $all_services = Service::where('user_id', Auth::id() )->get();
-
-    //     $this->thecomments = [];
-
-    //     foreach ($all_services as $key => $all_service) {
-    //         foreach ($all_service->comments as $key => $thecomments) {
-    //             $this->thecomments[] = $thecomments;
-    //         }
-    //     }
-
-    //     $allcomments = $this->thecomments;
-    //     dd($allcomments);
-
-    //     return view ('seller.feedbacks.all', compact('all_services', 'allcomments') );
-    // }
-
     public function myFavourites(Request $request)
     {
         $user = $request->user();
@@ -472,6 +454,13 @@ class OperationalController extends Controller
         return view('seller.myfavourites', [
             'allfavourites' => $allfavourites
         ]);
+    }
+
+    public function getTouristSites($state)
+    {
+        $tourist = Tourism::where('states', $state)->get();
+
+        return $tourist;
     }
 
 }
