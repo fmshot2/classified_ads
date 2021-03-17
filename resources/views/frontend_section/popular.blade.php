@@ -102,7 +102,7 @@
 
 
 
-<div class="categories content-area-8 bg-grea-3">
+{{-- <div class="categories content-area-8 bg-grea-3">
     <div class="container">
         <!-- Main title -->
         <div class="main-title">
@@ -167,6 +167,73 @@
                             @endif
                         @endforeach
                     @endif
+                </div>
+        </div>
+    </div> --}}
+
+
+
+
+
+<div class="categories content-area-8 bg-grea-3">
+    <div class="container">
+        <!-- Main title -->
+        <div class="main-title">
+            <h1>Distinguished National Assembly Of Nigeria</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-2 col-md-6 col-sm-6 col-6">
+                <div class="form-group">
+                    {{-- <a href="{{ route('allcities') }}" class="btn btn-outline-warning" style="border-radius: 20px">View all the Sites</a> --}}
+                </div>
+            </div>
+        </div>
+        <div class="row wow animated" style="visibility: visible;">
+            <div class="col-lg-7 col-md-12 col-sm-12">
+                <div class="row">
+                                <div class="col-sm-6 col-pad">
+                                    <div class="category">
+                                        <div class="category_bg_box cat-1-bg" style="background-image: url({{ asset('cities_images/senators.jpg') }});">
+                                            <div class="category-overlay">
+                                                <div class="category-content">
+                                                    <h3 class="category-title">
+                                                        <a href="#">Senators</a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-pad">
+                                    <div class="category">
+                                        <div class="category_bg_box cat-3-bg" style="background-image: url({{ asset('cities_images/nass.jpg') }});">
+                                            <div class="category-overlay">
+                                                <div class="category-content">
+                                                    <h3 class="category-title">
+                                                        <a href="#"> House Of Assembly</a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+            </div>
+                                <div class="col-lg-5 col-md-12 col-sm-12 col-pad d-none d-xl-block d-lg-block">
+                                    <div class="category">
+                                        <div class="category_bg_box category_long_bg cat-4-bg" style="background-image: url({{ asset('cities_images/nigeriaassembly.jpg') }});">
+                                            <div class="category-overlay">
+                                                <div class="category-content">
+                                                    <h3 class="category-title">
+                                                        <a href="#">Distinguished Senators</a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                 </div>
         </div>
     </div>

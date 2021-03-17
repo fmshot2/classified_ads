@@ -8,7 +8,7 @@
             <div class="row login-box">
                 <div class="col-lg-12 align-self-center pad-0">
                     <div class="form-section clearfix">
-                        <h3>Complete Your Agent Account Here</h3>
+                        <h3>Complete Your Agent Registration Here</h3>
                         <div class="btn-section clearfix">
                             {{-- <a href="{{route('login')}}" class="link-btn active btn-1 default-bg">Login</a> --}}
                             {{-- <a href="{{route('register')}}" class="link-btn btn-2 active-bg">Register</a> --}}
@@ -21,7 +21,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">Your Full Name</label><small class="text-danger">*</small>
+                                            <label class="form-label">Your Full Name</label>
                                             <input type="text" class="form-control" readonly name="name" value="{{ $agent_name }}" autofocus placeholder="Full Name" required>
 
                                         </div>
@@ -119,7 +119,7 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-lg btn-warning text-white">Register</button>
+                                        <button type="submit" class="btn btn-lg btn-warning text-white">Click To Make Payment</button>
                                     </div>
                                    {{-- <div class="col-md-12">
                                        <small class="text-danger">Did Not Recieve Link, <a href="">CLICK HERE</a> To Resend</small>

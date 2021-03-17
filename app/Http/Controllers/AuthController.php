@@ -76,10 +76,8 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->save();
-        dd($user);
 
         if ($user->save()) {
-            return redirect()->intended('agent/agent_Complete_Reg', ['email'=> $user->email]);
             $messages = "$user->name, Your registration was successfull! Please click the link below to complete your registration!";
             $name = $user->name;
             $email = $user->email;
