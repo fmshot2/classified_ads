@@ -7,6 +7,7 @@ use App\Advertisement;
 use App\AdvertLocation;
 use App\Category;
 use App\General_Info;
+use App\Like;
 use App\Mail\UsersFeedback;
 use App\PageContent;
 use App\Service;
@@ -438,22 +439,39 @@ class OperationalController extends Controller
     }
 
 
-    public function sellerLikesCount()
+    // public function sellerLikesCount()
+    // {
+    //     $all_services = Service::where('user_id', Auth::id() )->get();
+
+    //     $this->thecomments = [];
+
+    //     foreach ($all_services as $key => $all_service) {
+    //         foreach ($all_service->comments as $key => $thecomments) {
+    //             $this->thecomments[] = $thecomments;
+    //         }
+    //     }
+
+    //     $allcomments = $this->thecomments;
+    //     dd($allcomments);
+
+    //     return view ('seller.feedbacks.all', compact('all_services', 'allcomments') );
+    // }
+
+    public function myFavourites(Request $request)
     {
-        $all_services = Service::where('user_id', Auth::id() )->get();
+        $user = $request->user();
+        $likecheck = Like::where(['user_id'=>$user->id])->get();
+        $this->thefavourites = [];
 
-        $this->thecomments = [];
-
-        foreach ($all_services as $key => $all_service) {
-            foreach ($all_service->comments as $key => $thecomments) {
-                $this->thecomments[] = $thecomments;
-            }
+        foreach ($likecheck as $key => $all_service) {
+            $this->thefavourites[] = Service::where('id', $all_service->service_id )->first();
         }
 
-        $allcomments = $this->thecomments;
-        dd($allcomments);
+        $allfavourites = $this->thefavourites;
 
-        return view ('seller.feedbacks.all', compact('all_services', 'allcomments') );
+        return view('seller.myfavourites', [
+            'allfavourites' => $allfavourites
+        ]);
     }
 
 }

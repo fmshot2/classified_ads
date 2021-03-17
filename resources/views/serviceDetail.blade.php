@@ -148,14 +148,14 @@
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 4; $i++)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endfor
@@ -169,14 +169,14 @@
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 3; $i++)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endfor
@@ -190,14 +190,14 @@
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 2; $i++)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endfor
@@ -211,7 +211,7 @@
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endforeach
@@ -226,7 +226,7 @@
                                             @for ($i = 1; $i <= 4; $i++)
                                                 <li class="glide__slide">
                                                     <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                        <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
+                                                        <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
                                                     </a>
                                                 </li>
                                             @endfor
@@ -314,11 +314,11 @@
                                                                 @foreach($similarProducts as $similarProduct)
                                                                     <tr>
                                                                        <td class="image">
-                                                                            <a href="{{route('serviceDetail', $similarProduct->id)}}"><img alt="properties-small" src="{{asset('uploads/services')}}/{{$similarProduct->service_image}}" class="img-fluid"></a>
+                                                                            <a href="{{route('serviceDetail', $similarProduct->slug)}}"><img alt="{{$similarProduct->name}}" src="{{asset('uploads/services')}}/{{$similarProduct->service_image}}" class="img-fluid"></a>
                                                                         </td>
                                                                         <td>
                                                                             <div class="inner">
-                                                                                <h5><a href="{{route('serviceDetail', $similarProduct->id)}}">{{$similarProduct->name}}</a></h5>
+                                                                                <h5><a href="{{route('serviceDetail', $similarProduct->slug)}}">{{$similarProduct->name}}</a></h5>
                                                                                 <figure class="hedin-div"><i class="fa fa-map-marker"></i> {{$similarProduct->state}}, &nbsp; {{$similarProduct->city}}</figure>
                                                                                 <!--<div class="price-month">$ 27,000</div>-->
                                                                             </div>
@@ -846,7 +846,7 @@
         function initMap(address) {
 
             var geocoder = new google.maps.Geocoder();
-        
+
             geocoder.geocode({ 'address': address}, function(results, status) {
                 if(status == google.maps.GeocoderStatus.OK) {
                     var longitude = results[0].geometry.location.lng();
@@ -870,8 +870,8 @@
             });
         }
     });
-    
-    
+
+
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY2buDtbYIot8Llm_FkQXHW36f0Cme6TI&callback=initMap">

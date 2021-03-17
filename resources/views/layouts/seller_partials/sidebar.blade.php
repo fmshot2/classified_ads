@@ -134,6 +134,11 @@
           </a>
         </li>
 
+        <li class="" style=" {{ url()->current() == route('provider.myfavourites') ? 'background-color: #f8d053' : '' }}">
+          <a href=" {{route ('provider.myfavourites') }}">
+            <i class="fa fa-heart"></i> <span> My Favourites </span>
+          </a>
+        </li>
 
 
 
