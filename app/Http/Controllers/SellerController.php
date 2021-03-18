@@ -21,6 +21,8 @@ use App\ImageUpload;
 use App\Image as ModelImage;
 use App\Mail\ServiceCreated;
 use App\SubCategory;
+use App\PaymentRequest;
+use Illuminate\Support\Facades\DB;
 
 class SellerController extends Controller
 {
@@ -392,5 +394,32 @@ public function badgeNotice()
     $active_service_count = $active_service->count();
     return view ('seller.section.badge_notification', compact('active_service_count', 'all_service') );
 }
+
+    public function getSellerPage()
+    {
+        $user = auth()->user();
+        return view('seller.withdrawal.make_withdrawal', [
+            'user' => $user
+        ]);   
+    }
+
+    public function PaymentHistory()
+    {
+        $user = auth()->user();
+        $user_id = $user->id;
+        $payment_history = PaymentRequest::where('user_id', $user_id)->get();
+
+        $total_balance = DB::table('payment_requests')->where('user_id', $user_id)->sum('amount_requested') + $user->refererAmount;
+        $total_requested = DB::table('payment_requests')->where(['user_id' => $user_id, 'is_paid' => 1])->sum('amount_requested');
+        $total_pending = DB::table('payment_requests')->where(['user_id' => $user_id, 'is_paid' => 0])->sum('amount_requested');
+        $balance = $user->refererAmount;
+        return view('seller.payment_history', [
+            'payment_history' => $payment_history,
+            'total_balance' => $total_balance,
+            'total_requested' => $total_requested,
+            'balance' => $balance,
+            'total_pending' => $total_pending
+        ]);
+    }
 
 }

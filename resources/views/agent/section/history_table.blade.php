@@ -49,6 +49,8 @@
             <a href="" class="btn btn-danger " data-toggle="tooltip" data-placement="top" title="Delete" onclick="deleteHistory()"><i class="fa fa-trash"></i></a>
           </td> --}}
           @empty 
+          
+          
         </tr>
         <tr>
             <p class="alert alert-danger">No history to show!</p>

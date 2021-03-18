@@ -66,10 +66,11 @@
 	</table>
 </div>
 <!-- /.box-body -->
-</div>
 <div class="box-footer clearfix">
 	{{ $payments->links() }}
 </div>
+</div>
+
 
 
 
