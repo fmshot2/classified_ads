@@ -8,7 +8,7 @@
             <div class="row login-box">
                 <div class="col-lg-12 align-self-center pad-0">
                     <div class="form-section clearfix">
-                        <h3>Complete Your Agent Account Here</h3>
+                        <h3>Complete Your Agent Registration Here</h3>
                         <div class="btn-section clearfix">
                             {{-- <a href="{{route('login')}}" class="link-btn active btn-1 default-bg">Login</a> --}}
                             {{-- <a href="{{route('register')}}" class="link-btn btn-2 active-bg">Register</a> --}}
@@ -21,7 +21,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">Your Full Name</label><small class="text-danger">*</small>
+                                            <label class="form-label">Your Full Name</label>
                                             <input type="text" class="form-control" readonly name="name" value="{{ $agent_name }}" autofocus placeholder="Full Name" required>
 
                                         </div>
@@ -107,7 +107,12 @@
                                                     <input type="text" class="form-control" name="identification_id" value="{{ old('identification_id') }}" placeholder="ID Number" >
                                                 </div>
                                             </div>
-
+                                            <div class="col-md-12">
+                                                <label>
+                                                    <input type="checkbox" name="terms" class="filled-in" />
+                                                    <span>You will be redirected to GTPAY to make your agent fee of #500 only <a href="{{route('terms-of-use')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy-policy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
+                                                </label>
+                                            </div>
 
                                   <div class="col-md-12">
                                         <label>
@@ -119,7 +124,7 @@
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-lg btn-warning text-white">Register</button>
+                                        <button type="submit" class="btn btn-lg btn-warning text-white">Click To Make Payment</button>
                                     </div>
                                    {{-- <div class="col-md-12">
                                        <small class="text-danger">Did Not Recieve Link, <a href="">CLICK HERE</a> To Resend</small>

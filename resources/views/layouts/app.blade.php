@@ -106,42 +106,48 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: #cc8a19; color: #fff">
-                        <h5 class="modal-title text-white" style="text-transform: uppercase">Become our Agent</h5>
+                        <h5 class="modal-title text-white" style="text-transform: uppercase">Agent Info</h5>
                         <button type="button" class="close" data-dismiss="modal" style="color: #fff">&times;</button>
                     </div>
                         <div class="modal-body">
                             <div class="tabbing tabbing-box agent-registration-modal">
                                 <ul class="nav nav-tabs" id="carTab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active show" id="one-tab" data-toggle="tab" href="#aboutAgent" role="tab" aria-controls="two" aria-selected="false">Who is an Agent?</a>
+                                        <a class="nav-link active show" id="one-tab" data-toggle="tab" href="#aboutAgent" role="tab" aria-controls="two" aria-selected="false">Agent Info</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="two-tab" data-toggle="tab" href="#agentRegister" role="tab" aria-controls="one" aria-selected="false" style="margin-left: 3px">Register Here</a>
+                                        <a class="nav-link" id="two-tab" data-toggle="tab" href="#agentRegister" role="tab" aria-controls="one" aria-selected="false" style="margin-left: 3px">Request Form</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="carTabContent">
                                     <div class="tab-pane fade active show" id="aboutAgent" role="tabpanel" aria-labelledby="one-tab">
                                         <div class="card">
                                             <div class="card-body">
-                                                <p>An Efcontact Agent is anyone who wishes to make extra cash via the EFContact Platform by becoming a promoter of the EFContact platform.</p>
+                                                {{-- <p>An Efcontact Agent is anyone who wishes to make extra cash via the EFContact Platform by becoming a promoter of the EFContact platform.</p> --}}
 
-                                                <h4>How it works</h4>
+                                                {{-- <h4>How it works</h4> --}}
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <ul>
-                                                            <li>1. After registering as an agent with the sum of &#8358;500 which is the agent fee</li>
+                                                            {{-- <li>1. After registering as an agent with the sum of &#8358;500 which is the agent fee</li>
                                                             <li>2.	When You Are Approved, You Will Receive Your Agent Code Which You Will Use For All Your Transactions, Referrals And Commission Payments.</li>
                                                             <li>2.	You Will Receive Your Commission Every Two Weeks.</li>
                                                             <li>3.	You Have A Chance Of Making At Minimum Income Of Between N50,000 To N100,000 Monthly.</li>
-                                                            <li>4.	When You Are Approved, You Can Recruit People Under You (Sub-Agents) Or Refer Them To Us And When Anyone Subscribes You Get N100 Each.  We Will Issue To You A Daily Report On Your Sub-Agents And Activities. See Chart Below For Commission Scales.</li>
+                                                            <li>4.	When You Are Approved, You Can Recruit People Under You (Sub-Agents) Or Refer Them
+                                                                To Us And When Anyone Subscribes You Get N100 Each.  We Will Issue To You A Daily Report On Your Sub-Agents And
+                                                                 Activities. See Chart Below For Commission Scales.</li> --}}
+
+                                                                 <li>We are happy to work with you and offer to you
+                                                                     one of the best marketing careers in the country, where you have an opportunity to make millions of Naira yearly.</li>
+                                                            <li>To become our agent, you will be required to fill out the form below and be accepted by the company. When we receive your online request,
+                                                                a reference code and another form would be sent to you to finalize your application.</li>
+                                                            <li>EFContact provides an opportunity for a part-time agent to make on average N50,000.00 monthly and a full time agent to make on average N100,000.00  or monthly.
+                                                                On top of your basic commission, there are other incentives which may generate millions of Naira to you yearly.</li>
+                                                            <li>When you are approved, you will receive your agent code and a dashboard. The dashboard is where all your activities and daily income are displayed.  We pay commissions on weekly not monthly.  You will also be able to refer people to
+                                                                market the EFcontact and make extra money on top of your own sales. If you have interest and want additional information please fill below:</li>
                                                         </ul>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        <ul>
-                                                            <li>5.	You Can Work At Anytime You Want, Create Your Schedule Or Use This To Suppliment Your Income.</li>
-                                                            <li>6.	You Can Make An Extra 20% On Any Other Adverts Request By Your Subscribers.  Say For An Example Your Subscriber Buys An Advert Of N100,000 A Month, You Will Make An Additional N20,000.00 Monthly. If That Advert Is For A Year You Will Make N240,000.00 On That Case Alone. If You Have Five Of Such In A Year It Is N24000 X 5= N1,200,000.00. Upon That You Will Still Get Commissions On Adverts And Your Recruits. We Estimated That A Good Agent Should Average N5,000,000.00  Yearly.</li>
-                                                        </ul>
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -164,27 +170,40 @@
                                                                 @endif
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="email">Email Address</label> <small class="text-success">Please Click The Verification
-                                                                    Link In Your Email To Complete Your Registration</small>
+                                                                <label for="email">Email Address</label><small class="text-danger">*</small> <small class="text-success">(A Link Will Be
+                                                                    Sent To Your Email Address To Complete Your Registration)</small>
                                                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}"
-                                                                placeholder="Your email address" required>
+                                                                placeholder="Enter A Valid Email Address" required>
                                                             </div>
-
+                                                            <div class="form-group">
+                                                                <label for="phone">Phone Number</label>
+                                                                <input type="number" class="form-control" name="phone" value="{{ old('phone') }}"
+                                                                placeholder="Enter Your Phone Number" required>
+                                                            </div>
                                                             <div class="row">
                                                                 <div class="col-md-12">
                                                                     <button type="submit" class="btn btn-lg btn-warning text-white">Submit</button>
+                                                                    <small class="">Or,
+                                                                        <a href="#" class="text-success">CLICK HERE</a> To Resend Link</small>
                                                                 </div>
                                                             </div>
                                                             <div style="margin-top: 20px;">
                                                                 <div class="col-md-12">
-                                                                    <small class="text-danger">If You Do Not Recieve A Verification Link In Your Email In The Next 10 Minutes, Please Contact Us Via Any of The Following Means:</small>
-                                                                    <small class="text-danger">Did Not Recieve Link, <a href="">CLICK HERE</a> To Resend</small>
+                                                                    <small class="text-danger">Please, If You Are Not Contacted In Ten Days after Your Request
+                                                                        , Kindly Contact Us Again At, <a href="mailto:agent@efcontact.com">agent@efcontact.com</a>
+                                                                        or call <a href="tel:08091114444">08091114444</a>
+                                                                        When you send this contact, kindly indicate the day of your first request or the reference code sent to you
+                                                                        . Be aware that the position
+                                                                        is limited per state so rush your application
+                                                                         soonest before the positions are filled.
+                                                                        </small>
+                                                                    {{-- <small class="text-danger">Did Not Recieve Link,
+                                                                        <a href="">CLICK HERE</a> To Resend</small> --}}
                                                                 </div>
                                                                 <div style="margin-top: 20px;">
                                                                     <ul style="list-style: none">
-                                                                        <li>Call Us: 090123456789</li>
-                                                                        <li>Whatsapp Us: 090123456789</li>
-                                                                        <li>Email: support@efcontact.com</li>
+
+
                                                                     </ul>
                                                                 </div>
                                                             </div>

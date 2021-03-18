@@ -22,6 +22,16 @@ use Illuminate\Validation\Rule;
 class AuthController extends Controller
 {
 
+    public function show_agent_Login(Request $request)
+    {
+        $request->session()->forget('url.intended');
+        session(['url.intended' => url()->previous()]);
+
+        if (Auth::guard('agent')->check()) {
+            return view('welcome');
+        }
+        return view('auth/agent_login');
+    }
 
     public function agent_login(Request $request)
     {
@@ -46,36 +56,19 @@ class AuthController extends Controller
         }
     }
 
-    public function show_agent_Login(Request $request)
-    {
-        $request->session()->forget('url.intended');
-        session(['url.intended' => url()->previous()]);
 
-        if (Auth::guard('agent')->check()) {
-            return view('welcome');
-        }
-        return view('auth/agent_login');
-    }
 
     public function createAgent(Request $request)
     {
         $request->validate([
             'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email'    => ['required', 'string', 'email', 'max:255'],
         ]);
-        $state = $request->state;
-        $result = substr($state, 0, 3);
-        $ist_3_result = strtoupper($result);
-        $randomCode = Str::random(4);
-        $length = 1;
-        $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
 
         //save agent details
         $user = new Agent;
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->save();
-
         if ($user->save()) {
             $messages = "$user->name, Your registration was successfull! Please click the link below to complete your registration!";
             $name = $user->name;
@@ -115,8 +108,10 @@ class AuthController extends Controller
     {
         $request->validate([
             'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone'    => ['required', 'numeric', 'unique:users'],
+            // 'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email'    => ['required', 'string', 'email', 'max:255'],
+            // 'phone'    => ['required', 'numeric', 'unique:users'],
+            'phone'    => ['required', 'numeric'],
             'state'    => ['string'],
             // 'lga'      => ['string'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
@@ -129,7 +124,7 @@ class AuthController extends Controller
         $randomCode = Str::random(4);
         $length = 1;
         $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
-        $code = $result . $randomCode . $last_letter;
+        $code = $ist_3_result . $randomCode . $last_letter;
         //save agent details
 
         //pay with GTPay
@@ -170,14 +165,14 @@ class AuthController extends Controller
     public function create_agent(Request $request)
     {
         $returned_data = explode('{?#?#}', $request->gtpay_echo_data);
-        $user              = new User;
+        $user              = new Agent;
         $user->name        = $returned_data[0];
         $user->email       = $returned_data[1];
         $user->password    = Hash::make($returned_data[2]);
-        $user->refererLink = $returned_data[3];
-        $user->idOfAgent   = $returned_data[4];
-        $user->idOfReferer   = $returned_data[5];
-        $user->role        = $returned_data[6];
+        $user->state = $returned_data[3];
+        $user->phone   = $returned_data[4];
+        $user->agent_code  = $returned_data[5];
+
         if ($user->save()) {
             // Auth::login($user);
             $status = Auth::guard('agent')->attempt(
@@ -195,20 +190,20 @@ class AuthController extends Controller
                 $link->agent_code = $present_user->agent_code;
                 $link->save();
                 //Add 200 naira to agent total amount
-                $present_user->refererAmount = $referer->refererAmount + 200;
+                // $present_user->refererAmount = $referer->refererAmount + 200;
 
                 $parent_id = $present_user->referer_id;
                 if ($parent_id) {
                     $parent = User::find($parent_id);
                     if ($parent) {
-                        $parent->refererAmount = $referer->refererAmount + 100;
+                        $parent->refererAmount = $parent->refererAmount + 200;
                         $parent->save();
                         //for grand parent
                         $grand_parent_id = $parent->referer_id;
                         if ($grand_parent_id) {
                             $grand_parent = User::find($grand_parent_id);
                             if ($grand_parent) {
-                                $grand_parent->refererAmount = $referer->refererAmount + 50;
+                                $grand_parent->refererAmount = $grand_parent->refererAmount + 100;
                                 $grand_parent->save();
                             }
                         }

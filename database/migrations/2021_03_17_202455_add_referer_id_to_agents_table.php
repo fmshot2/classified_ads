@@ -14,7 +14,7 @@ class AddRefererIdToAgentsTable extends Migration
     public function up()
     {
         Schema::table('agents', function (Blueprint $table) {
-            $table->string('referer_id')->after('refererAmount');
+            $table->string('referer_id')->nullable()->after('refererAmount');
         });
     }
 
