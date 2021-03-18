@@ -23,7 +23,7 @@ position: relative; margin: 21px 0;">
     padding: 16px;">
         <img src="https://efcontact.com/uploads/sponsored/Artboard%201%20(1)-1615901555.png" alt="" style="width: 100%; padding: 0; margin: 0">
         @if ($advertisements)
-            @foreach($advertisements as $advertisement)
+            @foreach($advertisements->shuffle() as $advertisement)
                 @if ($advertisement->advert_location == 7 && $loop->index < 1)
                     <div class="media">
                         <div class="media-body align-self-center">

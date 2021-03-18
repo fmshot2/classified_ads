@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
-@section('title')
-All Notification |
-@endsection
+@section('title', 'All Notification | ')
 
 @section('content')
 
