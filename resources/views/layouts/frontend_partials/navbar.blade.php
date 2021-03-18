@@ -123,7 +123,7 @@
                         <a class="nav-link" href="{{route('faq')}}" id="">FAQs</a>
                     </li>
                     <li class="nav-item">
-                        <a data-toggle="modal" data-target="#launchAgentModal" href="{{ route('allServices') }}"  class="nav-link">Become our Agent</a>
+                        <a data-toggle="modal" data-target="#launchAgentModal" href="#"  class="nav-link">Become our Agent</a>
                     </li>
 
                     {{-- <li class="nav-item">

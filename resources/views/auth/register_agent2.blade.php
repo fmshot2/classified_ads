@@ -1,6 +1,6 @@
 
 @extends('layouts.app')
-@section('title', 'Register')
+@section('title', 'Register | ')
 
 @section('content')
     <div class="contact-section">
@@ -73,8 +73,9 @@
                                            </span>
                                            @endif
                                        </div>
-                                           </div>
-                                       <div class="col-md-6">
+                                    </div>
+
+                                    <div class="col-md-6">
 
                                        <div class="form-group">
                                            <label class="form-label">Confirm Password</label><small class="text-danger">*</small>

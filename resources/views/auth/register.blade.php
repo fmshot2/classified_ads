@@ -3,6 +3,31 @@
 @section('title', 'Register')
 
 @section('content')
+
+<style>
+    .input-group input{
+        padding: 10px 20px;
+        font-size: 15px;
+        outline: none;
+        height: 50px;
+        font-weight: 500;
+        border: 1px solid transparent;
+        background: #fff;
+        box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
+    }
+    .input-group .input-group-text{
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+        box-shadow: 5px 0 5px rgb(0 0 0 / 10%);
+        border: 1px solid transparent;
+        background: #fff;
+        outline: none;
+        z-index: 1;
+    }
+</style>
+
     <div class="contact-section">
         <div class="container">
             <div class="row login-box">
@@ -29,7 +54,7 @@
                                     </span>
                                 @endif
                             </div>
-                            <div class="form-group form-box">
+                            <div class="form-group form-box" style="margin-bottom: 0">
                                 <input id="email" type="email" placeholder="Email Address" class="input-text" name="email" value="{{ old('email') }}" required>
                                 @if ($errors->has('email'))
                                 <span class="helper-text" data-error="wrong" data-success="right">
@@ -40,19 +65,21 @@
                             <div class="form-group form-box">
                                 <input type="hidden" class="input-text" name="refer" value="{{$referParam}}">
                             </div>
-                            <div class="form-group form-box clearfix">
-                                <input id="password" type="password" class="input-text" name="password" placeholder="Password (min: 6 characters)" required>
+
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="password" name="password" id="passwordField" class="form-control" placeholder="Password (min: 6 chars)" aria-label="Password" aria-describedby="Password">
+                                    <div class="input-group-append" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-eye"></i></span>
+                                    </div>
+                                </div>
                                 @if ($errors->has('password'))
                                 <span class="helper-text" data-error="wrong" data-success="right">
                                     <strong class="text-danger">{{ $errors->first('password') }}</strong>
                                 </span>
                                 @endif
                             </div>
-                            <div>
-                                <label for="showpasswordtoggle" style="float: left; margin-top: -15px; margin-bottom: 20px; margin-left: 20px; font-size: 14px">
-                                    <input type="checkbox" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()" style="float: left;">Show Password
-                                </label>
-                            </div><div class="clearfix"></div>
+
                             <div class="form-group form-box clearfix">
                                 <input class="input-text" placeholder="Confirm Password" type="password" name="password_confirmation" required>
                             </div>
@@ -71,7 +98,7 @@
                             </p>
                             <p>
                             <div class="form-group form-box">
-                            <h6>Where you referred by our agent?</h6>
+                            <h6 class="text-center">Where you referred by our agent?</h6>
                                 <input id="agent_code" type="text" placeholder="Enter Agent Code (If Available)" class="input-text" name="agent_code" value="{{ old('agent_code') }}">
                                 @if ($errors->has('agent_code'))
                                 <span class="helper-text" data-error="wrong" data-success="right">

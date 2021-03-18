@@ -74,7 +74,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'info@efcontact.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'support@efcontact.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
