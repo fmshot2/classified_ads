@@ -125,7 +125,7 @@
                         <span class="info-box-icon push-bottom bg-warning">  <i class="fa fa-clock-o text-white" aria-hidden="true"></i> </span>
                         <div class="info-box-content">
                             <span class="info-box-text"> Amount Earned </span>
-                            <span class="info-box-number"> {{ $agent_amount_earned }} </span>
+                            <span class="info-box-number"> ₦{{ $agent_amount_earned }} </span> 
                             <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style=""></div>
                             </div>

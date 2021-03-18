@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Refererlink;
 use App\User;
 use App\Notification;
+use App\Agent;
 use Illuminate\Support\Facades\Auth;
 
 class AgentController extends Controller
@@ -17,11 +18,11 @@ class AgentController extends Controller
 
         $agent_code_check = Refererlink::where(['user_id'=>Auth::guard('agent')->id()])->first();
         $present_user_id = Auth::guard('agent')->user()->id;
-        $agent_code_users_count = User::where(['idOfAgent' => $present_user_id])->count();
+        $agent_code_users_count = Agent::where(['referer_id' => $present_user_id])->count();
         $all_my_referals = User::where('idOfAgent', $present_user_id);
 
         $agent_amount_earned = Auth::guard('agent')->user()->refererAmount;
-
+        $agent_amount_earned = (int)$agent_amount_earned;
 
         return view ('agent.dashboard', compact('agent_code_check', 'agent_code_users_count', 'agent_amount_earned'));
         
@@ -51,6 +52,14 @@ class AgentController extends Controller
     {
         $notification = Notification::where('slug', $slug)->first();
         return view ('agent.notification.view_notification', compact('notification') );
+    }
+
+    public function viewBlade()
+    {
+        $user = Auth::guard('agent');
+        return view('agent.withdrawal.make_withdrawal', [
+            'user' => $user
+        ]);
     }
 
     public function agentRequest(Request $request)
