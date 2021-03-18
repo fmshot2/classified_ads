@@ -53,12 +53,12 @@ Login
 
                     --}}
 
-                    @include('layouts.frontend_partials.status')
+                    {{-- @include('layouts.frontend_partials.status') --}}
 
                     <form action="{{route('show_agent_Login')}}" method="POST">
                         @csrf
                         <div class="form-group form-box">
-                            <input type="email" name="email" value="{{ old('email') }}" class="input-text" placeholder="Email Address" required>
+                            <input type="email" name="email" value="{{ old('email') }}" class="input-text" placeholder="Email Address">
                             @if ($errors->has('email'))
                             <span class="helper-text" data-error="wrong" data-success="right">
                                 <strong class="text-danger">{{ $errors->first('email') }}</strong>
@@ -67,7 +67,8 @@ Login
                         </div>
                         <div class="form-group">
                             <div class="input-group mb-3">
-                                <input type="password" name="password" id="passwordField" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="Password">
+                                <input type="password" name="password" id="passwordField"
+                                class="form-control" placeholder="Password" aria-label="Password" aria-describedby="Password">
                                 <div class="input-group-append" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()">
                                   <span class="input-group-text" id="basic-addon1"><i class="fa fa-eye"></i></span>
                                 </div>
