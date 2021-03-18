@@ -17,11 +17,11 @@ class AgentController extends Controller
 
     public function agentDashboard(Request $request)
     {
+// dd($Auth::guard('agent')->id());
 
-
-        $agent_code_check = Refererlink::where(['user_id'=>Auth::guard('agent')->id()])->first();
+        $agent_code_check = Refererlink::where(['agent_id'=> Auth::guard('agent')->id()])->first();
         $present_user_id = Auth::guard('agent')->user()->id;
-        $agent_code_users_count = Agent::where(['referer_id' => $present_user_id])->count();
+        $agent_code_users_count = User::where(['idOfAgent' => $present_user_id])->count();
         $all_my_referals = User::where('idOfAgent', $present_user_id);
 
         $agent_amount_earned = Auth::guard('agent')->user()->refererAmount;

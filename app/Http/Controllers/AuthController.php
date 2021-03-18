@@ -46,7 +46,7 @@ class AuthController extends Controller
                     'message' => 'You are successfully logged in!',
                     'alert-type' => 'success'
                 );
-                return redirect()->route('agent.dashboard')->with($success_notification);
+                return view('agent.dashboard')->with($success_notification);
             } else {
                 return Redirect::to(Session::get('url.intended'));
             }
