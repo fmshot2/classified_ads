@@ -28,31 +28,27 @@ class AuthController extends Controller
         session(['url.intended' => url()->previous()]);
 
         if (Auth::guard('agent')->check()) {
-            return view('welcome');
+            return view('agent.dashboard');
         }
-        return view('auth/agent_login');
+        return view('auth.agent_login');
     }
 
     public function agent_login(Request $request)
     {
-        // $credentials = $request->only('email', 'password');
-        $status = Auth::guard('agent')->attempt(
-            [
-                'email' => $request->email,
-                'password' => $request->password
-            ]
-        );
-        // dd($status);
+        $credentials = $request->only('email', 'password');
+        if (Auth::guard('agent')->attempt($credentials)) {
+            // dd($status);
 
-        //Check login
-        if (Auth::guard('agent')->check()) {
-            $success_notification = array(
-                'message' => 'You are successfully logged in!',
-                'alert-type' => 'success'
-            );
-            return redirect()->route('agent.dashboard')->with($success_notification);
-        } else {
-            return Redirect::to(Session::get('url.intended'));
+            //Check login
+            if (Auth::guard('agent')->check()) {
+                $success_notification = array(
+                    'message' => 'You are successfully logged in!',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('agent.dashboard')->with($success_notification);
+            } else {
+                return Redirect::to(Session::get('url.intended'));
+            }
         }
     }
 
@@ -165,7 +161,8 @@ class AuthController extends Controller
     public function create_agent(Request $request)
     {
         $returned_data = explode('{?#?#}', $request->gtpay_echo_data);
-        $user              = new Agent;
+        // $user              = new Agent;
+        $user = Agent::where('email', $returned_data[1])->first();
         $user->name        = $returned_data[0];
         $user->email       = $returned_data[1];
         $user->password    = Hash::make($returned_data[2]);
@@ -175,48 +172,44 @@ class AuthController extends Controller
 
         if ($user->save()) {
             // Auth::login($user);
-            $status = Auth::guard('agent')->attempt(
-                [
-                    'email' => $request->email,
-                    'password' => $request->password
-                ]
-            );
-            //Check login
-            if (Auth::guard('agent')->check()) {
-                $present_user = Auth::guard('guard')->user();
+            if (Auth::guard('agent')->attempt(['email' => $returned_data[1], 'password' => $returned_data[2]])) {
+                //Check login
+                if (Auth::guard('agent')->check()) {
+                    $present_user = Auth::guard('agent')->user();
 
-                $link = new Refererlink();
-                $link->user_id = $present_user->id;
-                $link->agent_code = $present_user->agent_code;
-                $link->save();
-                //Add 200 naira to agent total amount
-                // $present_user->refererAmount = $referer->refererAmount + 200;
+                    $link = new Refererlink();
+                    $link->agent_id = $present_user->id;
+                    $link->agent_code = $present_user->agent_code;
+                    $link->save();
+                    //Add 200 naira to agent total amount
+                    // $present_user->refererAmount = $referer->refererAmount + 200;
 
-                $parent_id = $present_user->referer_id;
-                if ($parent_id) {
-                    $parent = User::find($parent_id);
-                    if ($parent) {
-                        $parent->refererAmount = $parent->refererAmount + 200;
-                        $parent->save();
-                        //for grand parent
-                        $grand_parent_id = $parent->referer_id;
-                        if ($grand_parent_id) {
-                            $grand_parent = User::find($grand_parent_id);
-                            if ($grand_parent) {
-                                $grand_parent->refererAmount = $grand_parent->refererAmount + 100;
-                                $grand_parent->save();
+                    $parent_id = $present_user->referer_id;
+                    if ($parent_id) {
+                        $parent = User::find($parent_id);
+                        if ($parent) {
+                            $parent->refererAmount = $parent->refererAmount + 200;
+                            $parent->save();
+                            //for grand parent
+                            $grand_parent_id = $parent->referer_id;
+                            if ($grand_parent_id) {
+                                $grand_parent = User::find($grand_parent_id);
+                                if ($grand_parent) {
+                                    $grand_parent->refererAmount = $grand_parent->refererAmount + 100;
+                                    $grand_parent->save();
+                                }
                             }
                         }
                     }
+                    //if login pass,redirect to agent dashboard page
+                    return redirect()->intended('agent/dashboard');
+                } else {
+                    session()->flash('fail', ' Credentials2 Incorect');
+                    return view('auth.agent_login');
                 }
-                //if login pass,redirect to agent dashboard page
-                return redirect()->intended('agent/dashboard');
-            } else {
-                session()->flash('fail', ' Credential Incorect');
-                return view('auth/login');
             }
-            session()->flash('fail', ' Credential Incorect');
-            return view('auth/login');
+            session()->flash('fail', ' Credentials Incorect');
+            return view('auth.agent_login');
         }
     }
 

@@ -106,7 +106,7 @@ class TourismController extends Controller
 
         $validator = \Validator::make($data, [
             'name'   => 'nullable|string',
-            'states'   => 'nullabe|string',
+            'states'   => 'nullable|string',
             'region'   => 'nullable|string',
             'body' => 'nullable|string',
             'description'    => 'nullable|string',
