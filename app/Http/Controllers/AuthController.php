@@ -108,8 +108,10 @@ class AuthController extends Controller
     {
         $request->validate([
             'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone'    => ['required', 'numeric', 'unique:users'],
+            // 'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email'    => ['required', 'string', 'email', 'max:255'],
+            // 'phone'    => ['required', 'numeric', 'unique:users'],
+            'phone'    => ['required', 'numeric'],
             'state'    => ['string'],
             // 'lga'      => ['string'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
@@ -122,7 +124,7 @@ class AuthController extends Controller
         $randomCode = Str::random(4);
         $length = 1;
         $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
-        $code = $result . $randomCode . $last_letter;
+        $code = $ist_3_result . $randomCode . $last_letter;
         //save agent details
 
         //pay with GTPay
