@@ -15,6 +15,6 @@ Promote your service by sharing it on different platforms. Social media, forums 
 @endcomponent
 
 Thanks,<br>
-<em>Wishing you all the best</em>
+<em>Wishing you all the best</em><br>
 <strong>{{ config('app.name') }}</strong>
 @endcomponent

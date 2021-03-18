@@ -170,7 +170,7 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: #cc8a19; color: #fff">
-                        <h5 class="modal-title" style="color: #fff">All Tourist Sites Here</h5>
+                        <h5 class="modal-title" style="color: #fff; text-transform: uppercase;">All Tourist Sites In this State</h5>
                         <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
