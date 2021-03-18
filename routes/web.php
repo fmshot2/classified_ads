@@ -39,6 +39,7 @@ Route::get('get-tourist-sites/{state}', 'OperationalController@getTouristSites')
     Route::get('/agent/profile/', 'AgentController@viewProfile')->name('agent.profile');
     Route::get('/agent/notification/all', 'AgentController@allNotifications')->name('agent.notification.all');
     Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
+    Route::post('/agent/make-request-for-payment', 'AgentController@agentRequest')->name('agent.make.request');
 
 // });
 //Agent Middleware ends here

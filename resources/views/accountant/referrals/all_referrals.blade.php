@@ -40,7 +40,8 @@ All Referrals |
 									<th> Bank </th>
 									<th> Account Number </th>
 									<th> Payment Status </th>
-									<th>Due Date</th>	
+									<th>Due Date</th>
+									<th>Mode</th>	
 									<th> Action </th>										
 								</tr>	
 							</thead>
@@ -69,6 +70,7 @@ All Referrals |
 										}
 										
 									@endphp
+									<td><a href="{{ route('accountant.view.payment', $all_payment->user->id) }}"><i class="fa fa-eye" data-toggle="tooltip" data-placement="bottom" title="View History"></i></a></td>
 									@if($all_payment->is_paid == 0)
 									<td><button class="btn btn-warning" onclick="makepayment()">Pay</button> </td>
 									@else

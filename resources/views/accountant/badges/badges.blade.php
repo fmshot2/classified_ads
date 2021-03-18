@@ -38,7 +38,7 @@ Successful Badge Payment  |
 									<th> Amount Paid </th>
 									<th> Badge </th>
 									<th> Date of Payment </th>
-									<th> Action </th>									
+									{{-- <th> Action </th>									 --}}
 								</tr>	
 							</thead>
 							<tbody>
@@ -50,10 +50,10 @@ Successful Badge Payment  |
 									<td> #{{ $payment->amount }} </td>
 									<td> {{ $payment->badge_type }} </span></td>
 									<td> <span class="text text-success">{{ $payment->created_at }}</span> </span></td>
-									<td class="center">
+									{{-- <td class="center">
 						                <a type="button" class="btn btn-default btn-outline btn-sm" href=""><i class="fa fa-pencil"></i></a>
 
-						            </td>
+						            </td> --}}
 								</tr>
 
 								@empty
