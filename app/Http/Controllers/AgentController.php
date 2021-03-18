@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class AgentController extends Controller
 {
-    
+
 
     public function agentDashboard(Request $request)
     {
@@ -27,9 +27,9 @@ class AgentController extends Controller
         $agent_amount_earned = Auth::guard('agent')->user()->refererAmount;
         $agent_amount_earned = (int)$agent_amount_earned;
         // dd( Auth::guard('agent')->user());
-        dd(User::all());
+        // dd(User::all());
         return view ('agent.dashboard', compact('agent_code_check', 'agent_code_users_count', 'agent_amount_earned'));
-        
+
     }
 
     public function allReferals()
@@ -107,11 +107,11 @@ class AgentController extends Controller
                     $payment->amount_requested = $request->amount_requested;
                     $payment->user_type = 'agent';
                     $payment->save();
-                    
+
                     $new_balance = $total_balance - $converted_amount;
 
                     DB::table('agents')->where('id', '=', $user->id)->update(['refererAmount' => $new_balance]);
-                    
+
                     return redirect()->back()->with('status', 'Your request has been submitted!');
 
 
