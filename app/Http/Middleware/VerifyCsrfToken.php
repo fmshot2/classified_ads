@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'create_user'
+        'create_user',
+        'create_agent'
     ];
 }
