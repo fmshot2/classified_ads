@@ -41,6 +41,7 @@ All unpaid Referrals |
 									<th> Bank </th>
 									<th> Account Number </th>
 									<th> Payment Status </th>
+									<th>Date of Request</th>
 									<th>Due Date</th>	
 									<th> Action </th>									
 								</tr>	
@@ -62,6 +63,7 @@ All unpaid Referrals |
 									@else
 										<td> <span class="text text-danger">Paid</span></td>
 									@endif
+									<td>{{ date('d-m-Y', strtotime($unpaid_payment->created_at)) }}</td>
 									@php
 										$today = new \Carbon\Carbon;
 										if($today->dayOfWeek == \Carbon\Carbon::FRIDAY){

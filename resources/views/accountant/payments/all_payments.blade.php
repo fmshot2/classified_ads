@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-All Payments | 
+All Agent Payments | 
 @endsection
 
 @section('content')
@@ -24,7 +24,7 @@ All Payments |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Payment Table</h3>
+						<h3 class="box-title"> All Agent Payments</h3>
 					</div>
 
 					<!-- /.box-header -->
@@ -33,24 +33,47 @@ All Payments |
 							<thead>
 								<tr>
 									<th> # </th>
-									<th> Name of User </th>
-									<th> Email </th>
-									<th> Phone </th>
-									<th> Payment Type </th>
-									<th> Payment Status</th>	
-									<th> Action </th>									
+									<th style="display: none;"></th>
+									<th> Name </th>
+									<th> Amount Requested </th>
+									<th> Total Remaining Balance </th>
+									<th> Bank </th>
+									<th> Account Number </th>
+									<th> Payment Status </th>
+									<th>Due Date</th>	
+									<th> Action </th>										
 								</tr>	
 							</thead>
 							<tbody>
-								@forelse($all_payments as $key => $payment)
+								@forelse($all_payments as $key => $all_payment)
 								<tr>
-									{{-- <td><a href="javascript:void(0)"> 1 </a></td>
-									<td> Random User </td>
-									<td><span class="text-muted"> </i> random@user.com</span> </td>
-									<td> 0998678267 </td>
-									<td> Payment for advertisement </span></td>
-									<td> <span class="text text-success">Successful</span> </span></td>
-									<td><button class="btn btn-success">View All Info</button> </td> --}}
+									<td>{{ ++$key }}</td>
+									<td style="display: none;" id="userID">{{ $all_payment->id }}</td>
+									<td> {{ $all_payment->agent->name }} </td>
+									<td>₦<span class="text-muted">{{ $all_payment->amount_requested }} </span> </td>
+									<td> ₦{{ $all_payment->agent->refererAmount }} </td>
+									<td> {{ $all_payment->agent->bank_name }} </span></td>
+									<td> <span class="text text-success">{{ $all_payment->agent->account_number }}</span> </span></td>
+									@if($all_payment->is_paid == 0)
+
+										<td> <span class="text text-danger">Pending</span></td>
+									@else
+										<td> <span class="text text-success">Paid</span></td>
+									@endif
+									@php
+										$today = new \Carbon\Carbon;
+										if($today->dayOfWeek == \Carbon\Carbon::FRIDAY){
+											echo "<td> <span class='text text-warning'>Due</span></td>";
+										} else {
+											echo "<td> <span class='text text-danger'>Not Due</span></td>";
+										}
+										
+									@endphp
+									@if($all_payment->is_paid == 0)
+									<td><button class="btn btn-warning" onclick="makepayment()">Pay</button> </td>
+									@else
+									<td><button class="btn btn-success">Paid</button> </td>
+									@endif
 								</tr>
 
 								@empty
@@ -81,101 +104,6 @@ All Payments |
 </section>
 </div>
 
-
-
-{{-- 
-<script type="text/javascript">
-	$(document).ready( function () {
-	    $('#data_table1').DataTable({
-			dom: 'Bfrtip',
-			buttons: [
-				'copy', 'csv', 'excel', 'pdf', 'print'
-			],
-		  "language": {
-    "paginate": {
-      "previous": "Previous page"
-    }
-  }
-		});
-	});
-</script> --}}
-
-<script>
-        function activateUser22(id) {
-
-    event.preventDefault();
-    if (confirm("Are you sure you want to change this user's status?")) {
-
-        $.ajax({
-            url: '/activate_user/' + id,
-            method: 'get',
-            success: function(result){
-              alert('successfull');
-                window.location.assign(window.location.href);
-            }
-        });
-// '/admin/delete/faqs/{id}'
-
-    } else {
-              alert('failed');
-
-        console.log('Delete process cancelled');
-
-    }
-
-    }
-    </script>
-
-
-
-    <script type="text/javascript">
-function activateUser(id) {
-swal({
-title: "Change this user's status?",
-text: "Please be sure and then confirm!",
-type: "warning",
-showCancelButton: !0,
-confirmButtonText: "Yes, change it!",
-cancelButtonText: "No, dont bother!",
-cancelButtonColor: '#dc3545',
-reverseButtons: !0
-}).then(function (e) {
-if (e.value === true) {
-
-$.ajax({
-            url: '/activate_user/' + id,
-            method: 'get',
-            success: function(results){
-            	alert(results);
-            	console.log(results);
-            	if (results.success === true)  {
-swal("Done!", results.message, "success");
-document.getElementById("activate").innerHTML = results.message;
-document.getElementById("active_text").innerHTML = results.status_message;
-if (results.message === 'Activate') {
-	document.getElementById("active_text").style.color='#dc3545';
-
-} else {
-		document.getElementById("active_text").style.color='blue';
-
-}
-
-window.location.assign(window.location.href);
-} else {
-swal("Error!", results.message, "error");
-}
-
-            }
-        });
-
-} else {
-e.dismiss;
-}
-}, function (dismiss) {
-return false;
-})
-}
-</script>
 
 @endsection
 

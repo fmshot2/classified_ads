@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImageToStatesTable extends Migration
+class CreateSubCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddImageToStatesTable extends Migration
      */
     public function up()
     {
-        Schema::table('states', function (Blueprint $table) {
-            $table->string('image')->nullable();
+        Schema::create('sub_categories', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('category_id');
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddImageToStatesTable extends Migration
      */
     public function down()
     {
-        Schema::table('states', function (Blueprint $table) {
-            $table->dropColumn('image');
-        });
+        Schema::dropIfExists('sub_categories');
     }
 }

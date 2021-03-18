@@ -17,7 +17,7 @@ Request History |
             {{-- <small>Control panel</small> --}}
           </h1>
           <ol class="breadcrumb">
-            <li><a href="{{ route('print.history', $user->id) }}"><i class="fa fa-print"></i> Print</a></li>
+            {{-- <li><a href="{{ route('print.history', $user->id) }}"><i class="fa fa-print"></i> Print</a></li> --}}
             {{-- <li class="active">Dashboard</li> --}}
           </ol>
         </section>
