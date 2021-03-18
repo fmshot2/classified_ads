@@ -16,6 +16,10 @@ class CreateStatesTable extends Migration
         Schema::create('states', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('image')->nullable(); 
+            $table->string('abbr')->nullable();
+            $table->decimal('longitude', 11, 8);
+            $table->decimal('latitude', 10, 8);
             $table->timestamps();
         });
     }
