@@ -10,4 +10,9 @@ class PaymentRequest extends Model
     {
     	return $this->belongsTo('App\User');
     }
+
+    public function agent()
+    {
+    	return $this->belongsTo('App\Agent');
+    }
 }

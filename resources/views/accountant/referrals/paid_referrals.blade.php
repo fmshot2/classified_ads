@@ -37,6 +37,7 @@ All Paid Referrals |
 									<th> Amount Requested </th>
 									<th> Total Remaining Balance </th>
 									<th> Payment Status </th>
+									<th>Date of Payment</th>
 									<th>Action</th>									
 								</tr>	
 							</thead>
@@ -48,6 +49,7 @@ All Paid Referrals |
 									<td>₦<span class="text-muted">{{ $all_payment->amount_requested }} </span> </td>
 									<td> ₦{{ $all_payment->user->refererAmount }} </td>
 									<td> <span class="text text-success">Paid</span></td>
+									<td>{{ date('d-m-Y', strtotime($all_payment->updated_at)) }}</td>
 									<td><a href="{{ route('accountant.view.payment', $all_payment->user->id) }}"><i class="fa fa-eye" data-toggle="tooltip" data-placement="bottom" title="View History"></i></a></td>
 								</tr>
 

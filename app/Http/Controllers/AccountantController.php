@@ -53,26 +53,34 @@ class AccountantController extends Controller
 
     public function allPayments()
     {
-    	$all_payments = Payment::all();
+    	$all_payments = PaymentRequest::where('user_type',  'agent')->get();
     	return view('accountant.payments.all_payments', [
     		'all_payments' => $all_payments
     	]);
     }
 
-    public function successfulPayments()
+    // public function successfulPayments()
+    // {
+    // 	$all_payments = Payment::all();
+    // 	return view('accountant.payments.paid_payments', [
+    // 		'all_payments' => $all_payments
+    // 	]);	
+    // }
+
+    public function pendingPayments()
     {
-    	$all_payments = Payment::all();
-    	return view('accountant.payments.paid_payments', [
-    		'all_payments' => $all_payments
-    	]);	
+    	$pending_payments = DB::table('payment_requests')->where(['user_type' => 'agent', 'is_paid' => 0])->get();
+    	return view('accountant.payments.unpaid_payments', [
+    		'pending_payments' => $pending_payments
+    	]);
     }
 
-    public function unsuccessfulPayments()
+     public function paidPayments()
     {
-    	$all_payments = Payment::all();
-    	return view('accountant.payments.unpaid_payments', [
-    		'all_payments' => $all_payments
-    	]);
+        $successful_payments = DB::table('payment_requests')->where(['user_type' => 'agent', 'is_paid' => 1])->get();
+        return view('accountant.payments.paid_payments', [
+            'successful_payments' => $successful_payments
+        ]);
     }
 
 

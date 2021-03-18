@@ -39,6 +39,7 @@ Route::get('get-tourist-sites/{state}', 'OperationalController@getTouristSites')
     Route::get('/agent/profile/', 'AgentController@viewProfile')->name('agent.profile');
     Route::get('/agent/notification/all', 'AgentController@allNotifications')->name('agent.notification.all');
     Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
+    Route::post('/agent/make-request-for-payment', 'AgentController@agentRequest')->name('agent.make.request');
 
 // });
 //Agent Middleware ends here
@@ -61,7 +62,11 @@ Route::middleware(['accountant'])->group(function() {
 
     Route::post('/accountant/make-payment/{id}', 'AccountantController@makePayment')->name('make_payment');
     Route::get('/accountant/view-payment/{id}', 'AccountantController@viewPayment')->name('accountant.view.payment');
-    Route::get('/accountant/print/{id}', 'AccountantController@printHistory')->name('print.history');
+    // Route::get('/accountant/print/{id}', 'AccountantController@printHistory')->name('print.history');
+
+    Route::get('/accountant/pending-agent-payments', 'AccountantController@pendingPayments')->name('accountant.pending.agent.payments');
+    Route::get('/accountant/successful-agent-payments', 'AccountantController@paidPayments')->name('accountant.paid.agent.payments');
+    Route::get('/accountant/all-agent-payments', 'AccountantController@allPayments')->name('accountant.all.agent.payments');
 });
 //Accountant Middleware ends here
 
