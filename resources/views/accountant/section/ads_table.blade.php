@@ -134,10 +134,11 @@
 		</table>
 </div>
 <!-- /.box-body -->
-</div>
 <div class="box-footer clearfix">
 	{{ $ads->links() }}
 </div>
+</div>
+
 
 
 

@@ -7,7 +7,7 @@
     <p class="text text-danger">Payment requests if successful are processed and sent on Friday of each week.</p>
     <br>
       <!-- form start -->
-      <form class="form-horizontal form-element" method="POST" action="{{route('agent.make.request')}}" enctype="multipart/form-data">
+      <form class="form-horizontal form-element" method="POST" action="{{route('seller.submit.payemnt.request')}}" enctype="multipart/form-data">
           {{ csrf_field() }}
            <div class="col-md-12">
               <div class="form-group">

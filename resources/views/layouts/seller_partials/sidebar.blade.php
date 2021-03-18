@@ -133,7 +133,20 @@
             </span>
           </a>
         </li>
+        <li class="treeview" style=" {{ url()->current() == route('admin.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.all') ? 'background-color: #f8d053' : '' }}">
+          <a href="#">
+            <i class="fa fa-briefcase"></i>
+            <span> Payments </span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href=" {{ route('seller.make.request') }} "><i class="fa fa-circle-o"></i> Make Withdrawal</a></li>
+            <li><a href=" {{ route ('seller.payment.history') }} "><i class="fa fa-circle-o"></i> Payment History </a></li>
 
+          </ul>
+        </li>
         <li class="" style=" {{ url()->current() == route('provider.myfavourites') ? 'background-color: #f8d053' : '' }}">
           <a href=" {{route ('provider.myfavourites') }}">
             <i class="fa fa-heart"></i> <span> My Favourites </span>

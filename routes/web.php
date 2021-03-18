@@ -41,6 +41,7 @@ Route::get('get-tourist-sites/{state}', 'OperationalController@getTouristSites')
     Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
     Route::get('/agent/make-request-for-payment', 'AgentController@viewBlade')->name('agent.view.request.blade');
     Route::post('/agent/submit-withdrawal-request', 'AgentController@agentRequest')->name('agent.make.request');
+    Route::get('/agent/payment-history', 'AgentController@paymentHistory')->name('agent.payment.history');
 
 // });
 //Agent Middleware ends here
@@ -260,6 +261,10 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('client-feedbacks/', 'OperationalController@clientfeedbacks')->name('provider.clientfeedbacks.all');
         Route::get('totalservicelikes/', 'OperationalController@sellerLikesCount')->name('provider.totalservicelikes');
         Route::get('my-favourites/', 'OperationalController@myFavourites')->name('provider.myfavourites');
+
+        Route::get('make-payment-request', 'SellerController@getSellerPage')->name('seller.make.request');
+        Route::post('submit-payment-request', 'PaymentRequestController@submitRequest')->name('seller.submit.payemnt.request');
+        Route::get('payment-history', 'SellerController@PaymentHistory')->name('seller.payment.history');
 
     });
 
