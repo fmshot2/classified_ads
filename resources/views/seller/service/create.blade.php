@@ -145,12 +145,12 @@
                                 <div class="body">
                                     <a href=" {{ route('seller.service.all') }}" class="btn btn-danger btn-lg m-t-15 waves-effect">
                                         <i class="fa fa-arrow-left"></i>
-                                        <span>BACK</span>
+                                        <span> BACK</span>
                                     </a>
 
-                                    <button id="save_btn"  class="btn btn-primary btn-submit_service btn-lg m-t-15 waves-effect">
-                                        <i class="fa fa-save"></i>
-                                        <span>Submit</span>
+                                    <button id="save_btn"  class="btn btn-warning btn-submit_service btn-lg m-t-15 waves-effect">
+                                        <span>Next </span>
+                                        <i class="fa fa-arrow-right"></i>
                                     </button>
                                 </div>
                             </div>

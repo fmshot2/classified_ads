@@ -31,7 +31,7 @@
         function nextSlide() {
             slides[(index ++) % count].classList.add(classHide);
             slides[index % count].classList.remove(classHide);
-            setTimeout(nextSlide, 10000);
+            setTimeout(nextSlide, 5000);
         }
     });
     /* Top Nav Slider Ends */
@@ -84,7 +84,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand logos" href="/">
-                <img src="images/{{$check_general_info == 0 ? $general_info->logo : '' }}" style="height: 45px;" alt="logo">
+                <img src="{{ asset('images') }}/{{ $check_general_info == 0 ? $general_info->logo : '' }}" style="height: 45px;" alt="logo">
                 {{-- <img src="{{asset('logos/efcontactlogo.png')}}" style="height: 45px;" alt="logo"> --}}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
