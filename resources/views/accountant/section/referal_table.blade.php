@@ -7,7 +7,7 @@
 <div class="box">
 
 	<div class="box-header">
-		<h3 class="box-title"> Referals</h3>
+		<h3 class="box-title"> Referal Payment Requests</h3>
 		{{-- <a href="{{ route('seller.service.create') }} " class="btn btn-warning model_img img-responsive pull-right"> Add Aervice </a> --}}
 	</div>
 	<!-- /.box-header -->
@@ -33,8 +33,8 @@
 						<td>{{ ++$key }}</td>
 						<td style="display: none;" id="userID">{{ $all_payment->id }}</td>
 						<td> {{ $all_payment->user->name }} </td>
-						<td>₦<span class="text-muted">{{ $all_payment->amount_requested }} </span> </td>
-						<td> ₦{{ $all_payment->user->refererAmount }} </td>
+						<td>₦<span class="text-muted">{{ number_format($all_payment->amount_requested) }} </span> </td>
+						<td> ₦{{ number_format($all_payment->user->refererAmount) }} </td>
 						@if($all_payment->is_paid == 0)
 
 							<td> <span class="text text-danger">Pending</span></td>
@@ -66,10 +66,11 @@
 	</table>
 </div>
 <!-- /.box-body -->
-</div>
 <div class="box-footer clearfix">
 	{{ $payments->links() }}
 </div>
+</div>
+
 
 
 

@@ -23,6 +23,7 @@ class CreateAgentsTable extends Migration
             $table->string('identification_type')->nullable();
             $table->string('identification_id')->nullable();
             $table->string('agent_code')->nullable();
+            $table->string('referer_id')->nullable();
             $table->boolean('status')->default(true)->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -1,6 +1,6 @@
 @component('mail::message')
-# Your registration was successful!
-## <strong>These are your details for backup</strong>
+{{-- # Your registration was successful! --}}
+## <strong>Here are your details</strong>
 
 <p><strong>Full Name: </strong> {{ $name ? $name : 'Name not provided!' }}</p>
 <p><strong>Email: </strong> {{ $email ? $email : 'Name not provided!' }}</p>
@@ -12,7 +12,7 @@ Click here to complete your agent registeration
 @endcomponent
 
 @component('mail::panel')
-EFContact. Your Pathway To Greatness. 😃
+{{-- EFContact. Your Pathway To Greatness. 😃 --}}
 @endcomponent
 
 Thanks,<br>

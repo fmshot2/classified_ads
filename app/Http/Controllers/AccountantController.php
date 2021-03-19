@@ -30,6 +30,9 @@ class AccountantController extends Controller
         $total_ref_requested = DB::table('payment_requests')->sum('amount_requested');
         $total_ref_paid = DB::table('payment_requests')->where('is_paid', '=', 1)->sum('amount_requested');
         $total_ref_pending = DB::table('payment_requests')->where('is_paid', '=', 0)->sum('amount_requested');
+        $total_agent_req = DB::table('payment_requests')->where(['user_type'=> 'agent'])->sum('amount_requested');
+        $total_pending_req = DB::table('payment_requests')->where(['user_type'=> 'agent', 'is_paid' => 0])->sum('amount_requested');
+        $total_paid_req = DB::table('payment_requests')->where(['user_type'=> 'agent', 'is_paid' => 1])->sum('amount_requested');
 		return view('accountant.dashboard', [
             'ads_count' => $ads_count,
             'badge_count' => $badge_count,
@@ -40,7 +43,10 @@ class AccountantController extends Controller
             'total_badges' => $total_badges,
             'total_ref_requested' => $total_ref_requested,
             'total_ref_paid' => $total_ref_paid,
-            'total_ref_pending' => $total_ref_pending
+            'total_ref_pending' => $total_ref_pending,
+            'total_agent_req' => $total_agent_req,
+            'total_paid_req' => $total_paid_req,
+            'total_pending_req' => $total_pending_req
         ]);
 
 	}

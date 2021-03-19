@@ -7,8 +7,8 @@
 <div class="box">
 
 	<div class="box-header">
-		<h3 class="box-title"> Advertisements</h3>
-		<a data-toggle="modal" data-target="#exampleModal" class="btn btn-warning model_img img-responsive pull-right"> Add Advert </a>
+		<h3 class="box-title"> Advert Payments Table</h3>
+		<a data-toggle="modal" data-target="#exampleModal" class="btn btn-warning model_img img-responsive pull-right"> Add Advert Payment </a>
 	</div>
 	<!-- /.box-header -->
 	<div class="box-body">
@@ -19,7 +19,7 @@
 				<tr>
 					<th> # </th>
 					<th style="display: none;"></th>
-					<th> Transaction Slip </th>
+					<th> Transaction ID </th>
 					<th> Name </th>
 					<th> Amount Paid </th>
 					<th> Business </th>
@@ -35,7 +35,7 @@
 						<td style="display: none;" id="userID">{{ $all_payment->id }}</td>
 						<td> {{ $all_payment->trans_slip_id }} </td>
 						<td> {{ $all_payment->name }} </td>
-						<td>₦<span class="text-muted">{{ $all_payment->amount }} </span> </td>
+						<td>₦<span class="text-muted">{{ number_format($all_payment->amount) }} </span> </td>
 						<td> {{ $all_payment->business }} </td>
 						<td> {{ $all_payment->package }} </td>
 						@if(date('Y-m-d', strtotime($all_payment->end_date)) == date('Y-m-d'))
@@ -134,10 +134,11 @@
 		</table>
 </div>
 <!-- /.box-body -->
-</div>
 <div class="box-footer clearfix">
 	{{ $ads->links() }}
 </div>
+</div>
+
 
 
 

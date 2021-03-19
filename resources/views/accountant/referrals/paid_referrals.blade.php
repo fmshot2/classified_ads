@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-All Paid Referrals | 
+All Paid Referals | 
 @endsection
 
 @section('content')
@@ -10,7 +10,17 @@ All Paid Referrals |
 
 
 <div class="content-wrapper" style="min-height: 518px;">
-
+	<section class="content-header">
+            
+           <h1>
+           All Paid Referal Payment Requests
+            <br><small>View and manage all paid referal payment requests</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="{{ route('accountant.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">All paid referals</li>
+          </ol>
+        </section>
 	<div class="container">
 		@include('layouts.backend_partials.status')
 	</div>
@@ -46,8 +56,8 @@ All Paid Referrals |
 								<tr>
 									<td>{{ ++$key }}</td>
 									<td> {{ $all_payment->user->name }} </td>
-									<td>₦<span class="text-muted">{{ $all_payment->amount_requested }} </span> </td>
-									<td> ₦{{ $all_payment->user->refererAmount }} </td>
+									<td>₦<span class="text-muted">{{ number_format($all_payment->amount_requested) }} </span> </td>
+									<td> ₦{{ number_format($all_payment->user->refererAmount) }} </td>
 									<td> <span class="text text-success">Paid</span></td>
 									<td>{{ date('d-m-Y', strtotime($all_payment->updated_at)) }}</td>
 									<td><a href="{{ route('accountant.view.payment', $all_payment->user->id) }}"><i class="fa fa-eye" data-toggle="tooltip" data-placement="bottom" title="View History"></i></a></td>
