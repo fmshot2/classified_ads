@@ -10,7 +10,17 @@ All Paid Agent Transactions |
 
 
 <div class="content-wrapper" style="min-height: 518px;">
-
+	<section class="content-header">
+            
+       <h1>
+       All Paid Agents
+        <br><small>View and manage paid requests</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+      </ol>
+    </section>
 	<div class="container">
 		@include('layouts.backend_partials.status')
 	</div>
@@ -46,8 +56,8 @@ All Paid Agent Transactions |
 								<tr>
 									<td>{{ ++$key }}</td>
 									<td> {{ $all_payment->agent->name }} </td>
-									<td>₦<span class="text-muted">{{ $all_payment->amount_requested }} </span> </td>
-									<td> ₦{{ $all_payment->agent->refererAmount }} </td>
+									<td>₦<span class="text-muted">{{ number_format($all_payment->amount_requested) }} </span> </td>
+									<td> ₦{{ number_format($all_payment->agent->refererAmount) }} </td>
 									<td> <span class="text text-success">Paid</span></td>
 									<td>{{ date('d-m-Y', strtotime($all_payment->updated_at)) }}</td>
 									<td><a href="{{ route('accountant.view.payment', $all_payment->agent->id) }}"><i class="fa fa-eye" data-toggle="tooltip" data-placement="bottom" title="View History"></i></a></td>

@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-All Referrals | 
+All Referals | 
 @endsection
 
 @section('content')
@@ -10,7 +10,17 @@ All Referrals |
 
 
 <div class="content-wrapper" style="min-height: 518px;">
-
+	<section class="content-header">
+            
+           <h1>
+           All Pending Referal Payment Requests
+            <br><small>View and manage all pending and referal payment requests</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="{{ route('accountant.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">All referals</li>
+          </ol>
+        </section>
 	<div class="container">
 		@include('layouts.backend_partials.status')
 	</div>
@@ -51,8 +61,8 @@ All Referrals |
 									<td>{{ ++$key }}</td>
 									<td style="display: none;" id="userID">{{ $all_payment->id }}</td>
 									<td> {{ $all_payment->user->name }} </td>
-									<td>₦<span class="text-muted">{{ $all_payment->amount_requested }} </span> </td>
-									<td> ₦{{ $all_payment->user->refererAmount }} </td>
+									<td>₦<span class="text-muted">{{ number_format($all_payment->amount_requested) }} </span> </td>
+									<td> ₦{{ number_format($all_payment->user->refererAmount) }} </td>
 									<td> {{ $all_payment->user->bank_name }} </span></td>
 									<td> <span class="text text-success">{{ $all_payment->user->account_number }}</span> </span></td>
 									@if($all_payment->is_paid == 0)
