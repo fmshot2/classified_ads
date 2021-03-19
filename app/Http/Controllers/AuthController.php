@@ -24,8 +24,8 @@ class AuthController extends Controller
 
     public function show_agent_Login(Request $request)
     {
-        $request->session()->forget('url.intended');
-        session(['url.intended' => url()->previous()]);
+        // $request->session()->forget('url.intended');
+        // session(['url.intended' => url()->previous()]);
 
         if (Auth::guard('agent')->check()) {
             return view('agent.dashboard');
