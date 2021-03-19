@@ -310,7 +310,7 @@
                             <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style="width: {{$accruedAmount ?? 0}}%"></div>
                             </div>
-                            
+
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -478,7 +478,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" style="background-color: #cc8a19; color: #fff; border:1px solid #cc8a19;">Create Service</button>
+                            <button type="submit" class="btn btn-warning" style="background-color: #cc8a19; color: #fff; border:1px solid #cc8a19;">Next                                 <i class="fa fa-arrow-right"></i>
+                            </button>
                             <button id="closeytplayer" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </form>

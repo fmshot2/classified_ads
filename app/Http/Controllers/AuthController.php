@@ -291,6 +291,35 @@ class AuthController extends Controller
 
     public function create_user(Request $request)
     {
+if($request->gtpay_tranx_amt != '1.00'){
+    $transTable  = $request->gtpay_tranx_amt;
+}
+else {
+    session()->flash('fail', 'Incorect amount entered');
+
+    return view('error_page');
+}
+if($request->gtpay_tranx_curr != '566'){
+    $transTable  = $request->gtpay_tranx_curr;
+
+    session()->flash('fail', 'Incorect currency entered');
+
+    return view('error_page');
+}
+if($request->gtpay_mert_id != '14264'){
+    $transTable  = $request->gtpay_mert_id;
+
+    session()->flash('fail', 'Incorect merchant id entered');
+
+    return view('error_page');
+}
+if($request->gtpay_tranx_id != '14264'){
+    $transTable  = $request->gtpay_tranx_id;
+
+    session()->flash('fail', 'Incorect transaction id entered');
+
+    return view('error_page');
+}
         $returned_data = explode('{?#?#}', $request->gtpay_echo_data);
         $user              = new User;
         $user->name        = $returned_data[0];
