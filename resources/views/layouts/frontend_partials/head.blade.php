@@ -25,6 +25,8 @@
  <link rel="stylesheet" type="text/css"  href="{{asset('css/slick.css')}}">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
  <!-- Required Core Stylesheet -->
 <link rel="stylesheet" href="{{asset('glide/css/glide.core.min.css')}}">
 
