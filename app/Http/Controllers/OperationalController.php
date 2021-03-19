@@ -383,4 +383,13 @@ class OperationalController extends Controller
         return $tourist;
     }
 
+    public function downloadAdBrochure()
+    {
+        $filePath = public_path("efcontact-ad-brochure.pdf");
+    	$headers = ['Content-Type: application/pdf'];
+    	$fileName = 'efcontact-ad-brochure.pdf';
+
+    	return response()->download($filePath, $fileName, $headers);
+    }
+
 }

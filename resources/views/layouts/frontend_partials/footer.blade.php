@@ -204,10 +204,11 @@
                     <ul>
                         <li><a href="{{route('aboutus')}}">About Us</a></li>
                         <li><a href="{{route('contact')}}">Contact Us</a></li>
-                        <li><a href="{{route('allServices')}}">All Services</a></li>
+                        {{-- <li><a href="{{route('allServices')}}">All Services</a></li> --}}
                         <li><a href="{{route('allCategories')}}">All Categories</a></li>
                         {{-- <li><a href="{{route('allSellers')}}">Service Providers</a></li> --}}
-                        <li><a href="{{route('allcities')}}">Places in Nigeria</a></li>
+                        <li><a href="{{route('allcities')}}">Tourist Sites in Nigeria</a></li>
+                        <li><a href="{{route('benefits-of-efcontact')}}">Benefits of EFContact</a></li>
                         <li><a href="{{route('advertisement')}}">Advertise With Us</a></li>
                         <li><a data-toggle="modal" data-target="#launchAgentModal" href="#">Become our Agent</a></li>
                         <li><a data-toggle="modal" data-target="#subscribeBox" href="#">Subscribe Now!</a></li>

@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'System Config | ')
+@section('title', 'Page Dynamic Content | ')
 
 
 @section('content')
