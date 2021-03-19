@@ -418,11 +418,14 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
 
     // PAGES CONTENTS TABLE
-    Route::get('admin/pages-contents', 'OperationalController@pagescontents')->name('admin.pagescontents');
-    Route::post('admin/pages-contents/privacy', 'OperationalController@savePrivacyPolicy')->name('admin.pagescontents.save.privacy');
-    Route::post('admin/pages-contents/about', 'OperationalController@saveAboutUs')->name('admin.pagescontents.save.aboutus');
-    Route::post('admin/pages-contents/benefitsofefc', 'OperationalController@saveBenefitsofEfcontact')->name('admin.pagescontents.save.benefitsofefc');
-    Route::post('admin/pages-contents/termofuse', 'OperationalController@saveTermOfUse')->name('admin.pagescontents.save.termofuse');
+    Route::get('admin/pages-contents', 'PageContentController@pagescontents')->name('admin.pagescontents');
+    Route::post('admin/pages-contents/privacy', 'PageContentController@savePrivacyPolicy')->name('admin.pagescontents.save.privacy');
+    Route::post('admin/pages-contents/about', 'PageContentController@saveAboutUs')->name('admin.pagescontents.save.aboutus');
+    Route::post('admin/pages-contents/about-section-one', 'PageContentController@saveAboutUsSection1')->name('admin.pagescontents.saveAboutUsSection1');
+    Route::post('admin/pages-contents/about-section-two', 'PageContentController@saveAboutUsSection2')->name('admin.pagescontents.saveAboutUsSection2');
+    Route::post('admin/pages-contents/about-section-three', 'PageContentController@saveAboutUsSection3')->name('admin.pagescontents.saveAboutUsSection3');
+    Route::post('admin/pages-contents/benefitsofefc', 'PageContentController@saveBenefitsofEfcontact')->name('admin.pagescontents.save.benefitsofefc');
+    Route::post('admin/pages-contents/termofuse', 'PageContentController@saveTermOfUse')->name('admin.pagescontents.save.termofuse');
 
     Route::get('benefits-of-efcontact','OperationalController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
 

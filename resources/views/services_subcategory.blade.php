@@ -432,8 +432,8 @@
                                     </li>
                                     <li>
                                         <i class="flaticon-envelope"></i>
-                                        <a href="mailto:{{ $check_general_info == 0 ? $general_info->header_email : '' }}">
-                                            {{ $check_general_info == 0 ? $general_info->header_email : '' }}
+                                        <a href="mailto:{{ $check_general_info == 0 ? $general_info->support_email : '' }}">
+                                            {{ $check_general_info == 0 ? $general_info->support_email : '' }}
                                         </a>
                                     </li>
                                 </ul>
