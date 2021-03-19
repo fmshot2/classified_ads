@@ -255,6 +255,77 @@ class AuthController extends Controller
             'role'     => ['required', Rule::in(['seller', 'buyer']),]
         ]);
 
+        //save without payment if role is buyer
+
+        if ($request->role == 'buyer') {
+             //save user
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->role = $request->role;
+        //save id of referer if user was reffererd
+        $user->idOfReferer = $refererId;
+        //save id of agent if user was brought by agent
+        $user->idOfAgent = $agent_Id;
+        $user->refererLink = $slug3;
+        //$user->state = $request->state;
+        $user->save();
+
+        if ($user->save()) {
+            $name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+            $name = $user->name;
+            $email = $user->email;
+            $origPassword = $request->password;
+            $userRole = $user->role;
+
+            //send mail
+
+            try {
+                Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+            } catch (\Exception $e) {
+                $failedtosendmail = 'Failed to Mail!';
+            }
+        }
+
+        $success_notification = array(
+            'message' => 'User Created successfully!',
+            'alert-type' => 'success'
+        );
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+
+
+            $person_that_refered = $present_user->idOfReferer;
+            if ($person_that_refered) {
+                $referer = User::where('id', $person_that_refered)->first();
+                if ($referer) {
+                    $referer->refererAmount = $referer->refererAmount + 50;
+                    $referer->save();
+                }
+            }
+
+            $agent_that_refered = $present_user->idOfAgent;
+            if ($agent_that_refered) {
+                $referer = User::where('id', $agent_that_refered)->first();
+                if ($referer) {
+                    $referer->refererAmount = $referer->refererAmount + 100;
+                    $referer->save();
+                }
+            }
+
+            if ($present_user->role == 'seller') {
+                return redirect()->route('seller.dashboard')->with($success_notification);
+            } else {
+                return Redirect::to(Session::get('url.intended'))->with($success_notification);
+            }
+        }
+
+        return redirect()->intended('/');
+        }
+
         //pay with GTPay
         $gtpay_mert_id        = 14264;
         $gtpay_tranx_id       = $this->gen_transaction_id();
@@ -291,35 +362,34 @@ class AuthController extends Controller
 
     public function create_user(Request $request)
     {
-if($request->gtpay_tranx_amt != '1.00'){
-    $transTable  = $request->gtpay_tranx_amt;
-}
-else {
-    session()->flash('fail', 'Incorect amount entered');
+        if ($request->gtpay_tranx_amt != '1.00') {
+            $transTable  = $request->gtpay_tranx_amt;
+        } else {
+            session()->flash('fail', 'Incorect amount entered');
 
-    return view('error_page');
-}
-if($request->gtpay_tranx_curr != '566'){
-    $transTable  = $request->gtpay_tranx_curr;
+            return view('error_page');
+        }
+        if ($request->gtpay_tranx_curr != '566') {
+            $transTable  = $request->gtpay_tranx_curr;
 
-    session()->flash('fail', 'Incorect currency entered');
+            session()->flash('fail', 'Incorect currency entered');
 
-    return view('error_page');
-}
-if($request->gtpay_mert_id != '14264'){
-    $transTable  = $request->gtpay_mert_id;
+            return view('error_page');
+        }
+        if ($request->gtpay_mert_id != '14264') {
+            $transTable  = $request->gtpay_mert_id;
 
-    session()->flash('fail', 'Incorect merchant id entered');
+            session()->flash('fail', 'Incorect merchant id entered');
 
-    return view('error_page');
-}
-if($request->gtpay_tranx_id != '14264'){
-    $transTable  = $request->gtpay_tranx_id;
+            return view('error_page');
+        }
+        if ($request->gtpay_tranx_id != '14264') {
+            $transTable  = $request->gtpay_tranx_id;
 
-    session()->flash('fail', 'Incorect transaction id entered');
+            session()->flash('fail', 'Incorect transaction id entered');
 
-    return view('error_page');
-}
+            return view('error_page');
+        }
         $returned_data = explode('{?#?#}', $request->gtpay_echo_data);
         $user              = new User;
         $user->name        = $returned_data[0];
@@ -378,9 +448,6 @@ if($request->gtpay_tranx_id != '14264'){
             return view('auth/login');
         }
     }
-
-
-
 
     public function refreshCaptcha()
     {
@@ -563,34 +630,6 @@ if($request->gtpay_tranx_id != '14264'){
 
 
 
-    // $link = new Refererlink();
-    // $link->user_id = $present_user->id;
-    // $link->refererlink = $present_user->refererLink;
-    // $link->save();
-
-    // $person_that_refered = $present_user->idOfReferer;
-    // if($person_that_refered){
-    // 	$referer = User::where('id', $person_that_refered)->first();
-    // 	if ($referer) {
-    // 		$referer->refererAmount = $referer->refererAmount + 50;
-    // 		$referer->save();
-    // 	}
-    // }
-
-    // $agent_that_refered = $present_user->idOfAgent;
-    // if($agent_that_refered){
-    // 	$referer = User::where('id', $agent_that_refered)->first();
-    // 	if ($referer) {
-    // 		$referer->refererAmount = $referer->refererAmount + 100;
-    // 		$referer->save();
-    // 	}
-    // }
-
-    // if ( $present_user->role == 'seller' ){
-    // 	return redirect()->route('seller.dashboard');
-    // } else {
-    // 	return Redirect::to(Session::get('url.intended'));
-    // }
     public function updateAccount(Request $request, $id)
     {
         $user = User::find($id);
@@ -619,9 +658,6 @@ if($request->gtpay_tranx_id != '14264'){
         );
         return redirect()->back()->with($success_notification);
     }
-
-
-
 
     public function loginformail(Request $request)
 
@@ -656,4 +692,150 @@ if($request->gtpay_tranx_id != '14264'){
         );
         return view('auth/login')->with($success_notification);
     }
+
+
+
+
+    // $link = new Refererlink();
+    // $link->user_id = $present_user->id;
+    // $link->refererlink = $present_user->refererLink;
+    // $link->save();
+
+    // $person_that_refered = $present_user->idOfReferer;
+    // if($person_that_refered){
+    // 	$referer = User::where('id', $person_that_refered)->first();
+    // 	if ($referer) {
+    // 		$referer->refererAmount = $referer->refererAmount + 50;
+    // 		$referer->save();
+    // 	}
+    // }
+
+    // $agent_that_refered = $present_user->idOfAgent;
+    // if($agent_that_refered){
+    // 	$referer = User::where('id', $agent_that_refered)->first();
+    // 	if ($referer) {
+    // 		$referer->refererAmount = $referer->refererAmount + 100;
+    // 		$referer->save();
+    // 	}
+    // }
+
+    // if ( $present_user->role == 'seller' ){
+    // 	return redirect()->route('seller.dashboard');
+    // } else {
+    // 	return Redirect::to(Session::get('url.intended'));
+    // }
+
+
+
+    // public function save_new_referer_link_for_user(Request $request)
+    // {
+    //     $present_user = Auth::user();
+    //     // if referrer link is available, save it to referer table
+
+    //     $link = new Refererlink();
+    //     $link->user_id = $present_user->id;
+    //     $link->refererlink = $present_user->refererLink;
+    //     $link->save();
+
+    //     $link_from_url = $request->refer;
+    //     $code_of_agent = $request->agent_code;
+
+    //     $slug3 = Str::random(8);
+
+    //     if ($link_from_url) {
+    //         $saveIdOfRefree = User::where('refererLink', $link_from_url)->first();
+    //         $refererId = $saveIdOfRefree->id;
+    //     } else {
+    //         $refererId = null;
+    //     }
+
+    //     if ($code_of_agent) {
+    //         $saveIdOfAgent = User::where('agent_code', $code_of_agent)->first();
+    //         $agent_Id = $saveIdOfAgent->id;
+    //     } else {
+    //         $agent_Id = null;
+    //     }
+
+    //     $request->validate([
+    //         'name'     => ['required', 'string', 'max:255'],
+    //         'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    //         'password' => ['required', 'string', 'min:6', 'confirmed'],
+    //         'role'     => ['required', Rule::in(['seller', 'buyer']),]
+    //     ]);
+
+
+    //     //save user
+    //     $user = new User;
+    //     $user->name = $request->name;
+    //     $user->email = $request->email;
+    //     $user->password = Hash::make($request->password);
+    //     $user->role = $request->role;
+    //     //save id of referer if user was reffererd
+    //     $user->idOfReferer = $refererId;
+    //     //save id of agent if user was brought by agent
+    //     $user->idOfAgent = $agent_Id;
+    //     $user->refererLink = $slug3;
+    //     //$user->state = $request->state;
+    //     $user->save();
+    //     //send mail
+
+    //     if ($user->save()) {
+    //         $name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+    //         $name = $user->name;
+    //         $email = $user->email;
+    //         $origPassword = $request->password;
+    //         $userRole = $user->role;
+
+    //         try {
+    //             Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+    //         } catch (\Exception $e) {
+    //             $failedtosendmail = 'Failed to Mail!';
+    //         }
+    //     }
+
+    //     $success_notification = array(
+    //         'message' => 'User Created successfully!',
+    //         'alert-type' => 'success'
+    //     );
+
+    //     $credentials = $request->only('email', 'password');
+
+    //     if (Auth::attempt($credentials)) {
+    //         $present_user = Auth::user();
+    //         // if referrer link is available, save it to referer table
+
+    //         $link = new Refererlink();
+    //         $link->user_id = $present_user->id;
+    //         $link->refererlink = $present_user->refererLink;
+    //         $link->save();
+
+    //         $person_that_refered = $present_user->idOfReferer;
+    //         if ($person_that_refered) {
+    //             $referer = User::where('id', $person_that_refered)->first();
+    //             if ($referer) {
+    //                 $referer->refererAmount = $referer->refererAmount + 50;
+    //                 $referer->save();
+    //             }
+    //         }
+
+    //         $agent_that_refered = $present_user->idOfAgent;
+    //         if ($agent_that_refered) {
+    //             $referer = User::where('id', $agent_that_refered)->first();
+    //             if ($referer) {
+    //                 $referer->refererAmount = $referer->refererAmount + 100;
+    //                 $referer->save();
+    //             }
+    //         }
+
+    //         if ($present_user->role == 'seller') {
+    //             return redirect()->route('seller.dashboard')->with($success_notification);
+    //         } else {
+    //             return Redirect::to(Session::get('url.intended'))->with($success_notification);
+    //         }
+    //     }
+
+    //     return redirect()->intended('/');
+    // }
+
+
 }

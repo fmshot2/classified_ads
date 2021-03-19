@@ -105,7 +105,7 @@
                                 <i class="fa fa-briefcase text-white" aria-hidden="true"></i>
                             </span>
                             <div class="info-box-content">
-                                <span class="info-box-text"> My Refferal{{ $agent_code_users_count > 1 ? 's' : '' }} </span>
+                                <span class="info-box-text"> My Refferals </span>
                                 <span class="info-box-number"> {{ $agent_code_users_count }} </span>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-danger" style="width: {{ $agent_code_users_count}}%"></div>
@@ -147,5 +147,26 @@
                  </section>
         </div>
     </div>
+
+
+
+<script>
+    // $(function () {
+    //     $("#postServiceModal").modal('show');
+    // })
+    function copyToClipboard(element) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).text()).select();
+        document.execCommand("copy");
+
+        toastr.options.progressBar = true
+        toastr.options.positionClass = 'toast-top-left'
+        toastr.success("Referral Link Copied!")
+
+        $temp.remove();
+
+    }
+    </script>
 
     @endsection
