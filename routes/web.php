@@ -90,9 +90,11 @@ Route::get( '/requestbadge/{id}',  'BadgeController@requestbadge');
 Route::post( '/requestbadge/{id}',  'BadgeController@requestbadge')->name('badge.request');
 Route::post( '/user-feedback',  'OperationalController@feedbackform')->name('feedback.form');
 
-Route::get('email', function () {
-    return new App\Mail\UserRegistered();
-});
+Route::get('/benefits-of-efcontact','OperationalController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
+
+// Route::get('email', function () {
+//     return new App\Mail\UserRegistered();
+// });
 
 
 Route::get('/allfeat', 'OperationalController@getfeatservices');
@@ -129,6 +131,7 @@ Route::get('/advertisement', 'OperationalController@advertisement')->name('adver
 
 Route::post('/store_contact_form', 'ContactController@store_contact_form')->name('store_contact_form');
 Route::post('/store_advert_form', 'AdvertController@store_advert_form')->name('store_advert_form');
+Route::post('/store_advert_request_form', 'AdvertRequestsFormController@store_advert_request_form')->name('store_advert_request_form');
 
 Route::get('/all-featured-sellers', 'ServiceController@allFeaturedSellers')->name('allSellers');
 
@@ -426,8 +429,6 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::post('/admin/pages-contents/about-section-three', 'PageContentController@saveAboutUsSection3')->name('admin.pagescontents.saveAboutUsSection3');
     Route::post('/admin/pages-contents/benefitsofefc', 'PageContentController@saveBenefitsofEfcontact')->name('admin.pagescontents.save.benefitsofefc');
     Route::post('/admin/pages-contents/termofuse', 'PageContentController@saveTermOfUse')->name('admin.pagescontents.save.termofuse');
-
-    Route::get('/benefits-of-efcontact','OperationalController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
 
 
     //accountant routes

@@ -3,6 +3,15 @@
 @section('title', 'Terms of Use | ')
 
 @section('content')
+<style>
+    .terms-content ul
+    {
+        list-style: initial;
+        margin: initial;
+        padding: 0 0 0 40px;
+    }
+
+</style>
     {{-- <div class="blog-banner">
         <div class="container">
             <div class="row">
@@ -22,7 +31,7 @@
                 <div class="col-lg-12">
                     <!-- Blog box start -->
                     <div class="blog-1 blog-big">
-                        <div class="detail">
+                        <div class="detail terms-content">
                             <p>{!! $pages_contents->term_of_use !!}</p>
                         </div>
                     </div>
