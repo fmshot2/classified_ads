@@ -1,5 +1,5 @@
 @component('mail::message')
-{{-- # Your registration was successful! --}}
+# Welcome To EfContact Agent registration
 ## <strong>Here are your details</strong>
 
 <p><strong>Full Name: </strong> {{ $name ? $name : 'Name not provided!' }}</p>
@@ -12,7 +12,7 @@ Click here to complete your agent registeration
 @endcomponent
 
 @component('mail::panel')
-{{-- EFContact. Your Pathway To Greatness. 😃 --}}
+The Largest Service Place In Nigeria
 @endcomponent
 
 Thanks,<br>
