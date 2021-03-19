@@ -151,9 +151,9 @@ Route::get('/catdet/{id}', 'CategoryController@show')->name('catdet');
 
 Route::get('/saveLike2','ServiceController@saveLike2')->name('saveLike2');
 
-// Route::get('payment-request', 'PaymentRequestController@getBuyerPage')->name('buyer.make.request');
-// Route::post('submit-request', 'PaymentRequestController@submitRequest')->name('buyer.submit.payemnt.request');
-// Route::get('/buyer/payment-history', 'PaymentRequestController@buyerPaymentHistory')->name('buyer.payment.history');
+Route::get('payment-request', 'PaymentRequestController@getBuyerPage')->name('buyer.make.request');
+Route::post('submit-request', 'PaymentRequestController@submitRequest')->name('buyer.submit.payemnt.request');
+Route::get('/buyer/payment-history', 'PaymentRequestController@buyerPaymentHistory')->name('buyer.payment.history');
 Route::get('/delete-history/{id}', 'PaymentRequestController@deleteHistory')->name('history.delete');
 //add service Routes
 Route::get('/createService', 'ServiceController@createService')->name('createService');
