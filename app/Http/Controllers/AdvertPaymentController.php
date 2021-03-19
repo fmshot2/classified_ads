@@ -40,7 +40,7 @@ class AdvertPaymentController extends Controller
         $ad->create($data);
 
         $success_notification = array(
-            'message' => 'Accountant successfully added!',
+            'message' => 'Advert payment successfully added!',
             'alert-type' => 'success'
         );
 
@@ -82,7 +82,7 @@ class AdvertPaymentController extends Controller
         if($update_ad)
         {
         	$success_notification = array(
-	            'message' => 'Accountant successfully updated!',
+	            'message' => 'Advert payment successfully updated!',
 	            'alert-type' => 'success'
 	        );	
         }

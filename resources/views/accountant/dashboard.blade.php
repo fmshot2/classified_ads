@@ -71,8 +71,8 @@
         <section class="content-header">
             
            <h1>
-            Dashboard
-            <small>Control panel</small>
+           Accountant Dashboard
+            <br><small>An overview of all payments</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -84,8 +84,8 @@
            
    <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-sticky-note text-white" aria-hidden="true"></i>  </span>
+          <div class="info-box bg-warning">
+            <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-sticky-note text-white" aria-hidden="true"></i>  </span>
 
             <div class="info-box-content">
               <span class="info-box-text"> All Advert Payments </span>
@@ -104,8 +104,8 @@
         </div>
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i> </span>
+          <div class="info-box bg-warning">
+            <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
               <span class="info-box-text"> All Badge Payments </span>
@@ -124,8 +124,8 @@
         </div>
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-handshake-o text-white" aria-hidden="true"></i> </span>
+          <div class="info-box bg-warning">
+            <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-handshake-o text-white" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
               <span class="info-box-text"> All Referal Payments </span>
@@ -144,8 +144,8 @@
        </div>
        <!-- /.col -->
        <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box">
-          <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-bell text-white" aria-hidden="true"></i>  </span>
+        <div class="info-box bg-warning">
+          <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-bell text-white" aria-hidden="true"></i>  </span>
 
           <div class="info-box-content">
             <span class="info-box-text"> All Agent Payments </span>
@@ -168,12 +168,12 @@
   </div>
   <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i>  </span>
+          <div class="info-box bg-success">
+            <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i>  </span>
 
             <div class="info-box-content">
               <span class="info-box-text"> Total Advert Payments </span>
-              <span class="info-box-number"> ₦{{ $total_ads }} </span>
+              <span class="info-box-number"> ₦{{ number_format($total_ads) }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-blue" style="width:  %"></div>
@@ -188,12 +188,12 @@
         </div>
         <!-- /.col -->
         <div class="col-md-6 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i> </span>
+          <div class="info-box bg-success">
+            <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
               <span class="info-box-text"> Total Badge Payments </span>
-              <span class="info-box-number">₦{{ $total_badges }} </span>
+              <span class="info-box-number">₦{{ number_format($total_badges) }} </span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-success" style="width:  %"></div>
@@ -214,12 +214,12 @@
   <div class="row">
         <!-- /.col -->
         <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i> </span>
+          <div class="info-box bg-danger">
+            <span class="info-box-icon push-bottom"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
               <span class="info-box-text"> Total Referal Amount Requested </span>
-              <span class="info-box-number">  ₦{{ $total_ref_requested }}</span>
+              <span class="info-box-number">  ₦{{ number_format($total_ref_requested) }}</span>
 
               <div class="progress">
                 <div class="progress-bar progress-bar-primary" style="width:  %"></div>
@@ -234,12 +234,12 @@
        </div>
        <!-- /.col -->
        <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box">
-          <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i>  </span>
+        <div class="info-box bg-warning">
+          <span class="info-box-icon push-bottom bg-danger"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i>  </span>
 
           <div class="info-box-content">
-            <span class="info-box-text"> Total Referal Pending Requests </span>
-            <span class="info-box-number">₦{{ $total_ref_pending }}  </span>
+            <span class="info-box-text"> Total Referal Pending Payments </span>
+            <span class="info-box-number">₦{{ number_format($total_ref_pending) }}  </span>
 
             <div class="progress">
               <div class="progress-bar progress-bar-danger" style="width:  %"></div>
@@ -254,13 +254,83 @@
      </div>
      <!-- /.col -->
 
+
+
        <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box">
-          <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-credit-card text-white" aria-hidden="true"></i>  </span>
+        <div class="info-box bg-success">
+          <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card text-white" aria-hidden="true"></i>  </span>
 
           <div class="info-box-content">
-            <span class="info-box-text"> Total Referal Paid </span>
-            <span class="info-box-number">₦{{ $total_ref_paid }}  </span>
+            <span class="info-box-text"> Total Referal Payments </span>
+            <span class="info-box-number">₦{{ number_format($total_ref_paid) }}  </span>
+
+            <div class="progress">
+              <div class="progress-bar progress-bar-danger" style="width:  %"></div>
+            </div>
+            <span class="progress-description">
+             <!-- 50% Increase in 28 Days -->
+           </span>
+         </div>
+         <!-- /.info-box-content -->
+       </div>
+       <!-- /.info-box -->
+     </div>
+     <!-- /.col -->
+
+     
+  </div>
+  <div class="row">
+        <!-- /.col -->
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="info-box bg-warning">
+            <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i> </span>
+
+            <div class="info-box-content">
+              <span class="info-box-text"> Total Agent Requested Amount </span>
+              <span class="info-box-number">  ₦{{ number_format($total_agent_req) }}</span>
+
+              <div class="progress">
+                <div class="progress-bar progress-bar-primary" style="width:  %"></div>
+              </div>
+              <span class="progress-description">
+               <!-- 85% Increase in 28 Days -->
+             </span>
+           </div>
+           <!-- /.info-box-content -->
+         </div>
+         <!-- /.info-box -->
+       </div>
+       <!-- /.col -->
+       <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box bg-warning">
+          <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i>  </span>
+
+          <div class="info-box-content">
+            <span class="info-box-text"> Total Agent Pending Payment </span>
+            <span class="info-box-number">₦{{ number_format($total_pending_req) }}  </span>
+
+            <div class="progress">
+              <div class="progress-bar progress-bar-danger" style="width:  %"></div>
+            </div>
+            <span class="progress-description">
+             <!-- 50% Increase in 28 Days -->
+           </span>
+         </div>
+         <!-- /.info-box-content -->
+       </div>
+       <!-- /.info-box -->
+     </div>
+     <!-- /.col -->
+
+     
+
+       <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box bg-warning">
+          <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card text-white" aria-hidden="true"></i>  </span>
+
+          <div class="info-box-content">
+            <span class="info-box-text"> Total Agent Settled Payments </span>
+            <span class="info-box-number">₦{{ number_format($total_paid_req) }}  </span>
 
             <div class="progress">
               <div class="progress-bar progress-bar-danger" style="width:  %"></div>

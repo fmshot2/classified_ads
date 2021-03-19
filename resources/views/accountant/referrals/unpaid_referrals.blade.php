@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-All unpaid Referrals | 
+All unpaid Referals | 
 @endsection
 
 @section('content')
@@ -10,7 +10,17 @@ All unpaid Referrals |
 
 
 <div class="content-wrapper" style="min-height: 518px;">
-
+	<section class="content-header">
+            
+           <h1>
+           All Pending Referal Payment Requests
+            <br><small>View and attend to pending referal payment requests</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="{{ route('accountant.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">All unpaid referals</li>
+          </ol>
+        </section>
 	<div class="container">
 		@include('layouts.backend_partials.status')
 	</div>
@@ -53,8 +63,8 @@ All unpaid Referrals |
 									<td style="display: none;" id="userID">{{ $unpaid_payment->id }}</td>
 									<td> {{ $unpaid_payment->user->name }} </td>
 									<td>{{ $unpaid_payment->user_type }}</td>
-									<td>₦<span class="text-muted">{{ $unpaid_payment->amount_requested }} </span> </td>
-									<td> ₦{{ $unpaid_payment->user->refererAmount }} </td>
+									<td>₦<span class="text-muted">{{ number_format($unpaid_payment->amount_requested) }} </span> </td>
+									<td> ₦{{ number_format($unpaid_payment->user->refererAmount) }} </td>
 									<td> {{ $unpaid_payment->user->bank_name }} </span></td>
 									<td> <span class="text text-success">{{ $unpaid_payment->user->account_number }}</span> </span></td>
 									@if($unpaid_payment->is_paid == 0)

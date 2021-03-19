@@ -10,7 +10,17 @@ Successful Badge Payment  |
 
 
 <div class="content-wrapper" style="min-height: 518px;">
-
+	<section class="content-header">
+            
+           <h1>
+           All Successful Badge Payments
+            <br><small>View and manage all successful badge payments</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="{{ route('accountant.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Successful badge payments</li>
+          </ol>
+        </section>
 	<div class="container">
 		@include('layouts.backend_partials.status')
 	</div>
@@ -47,7 +57,7 @@ Successful Badge Payment  |
 									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
 									<td><span class="text-muted"> </i> {{ $payment->seller_name }}</span> </td>
 									<td> {{ $payment->ref_no }} </td>
-									<td> #{{ $payment->amount }} </td>
+									<td> ₦{{ number_format($payment->amount) }} </td>
 									<td> {{ $payment->badge_type }} </span></td>
 									<td> <span class="text text-success">{{ $payment->created_at }}</span> </span></td>
 									{{-- <td class="center">

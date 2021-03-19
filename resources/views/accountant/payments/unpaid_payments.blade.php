@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-All Unpaid Agent Transactions | 
+Agent's Pending Payments | 
 @endsection
 
 @section('content')
@@ -10,7 +10,19 @@ All Unpaid Agent Transactions |
 
 
 <div class="content-wrapper" style="min-height: 518px;">
+	<section class="content-header">
+            
+           <h1>
+           Agent's Pending Payments
+            <br><small>View and attend to pending payment requests</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+          </ol>
+        </section>
 
+        <section class="content">
 	<div class="container">
 		@include('layouts.backend_partials.status')
 	</div>
@@ -49,8 +61,8 @@ All Unpaid Agent Transactions |
 									<td>{{ ++$key }}</td>
 									<td style="display: none;" id="userID">{{ $unpaid_payment->id }}</td>
 									<td> {{ $unpaid_payment->agent->name }} </td>
-									<td>₦<span class="text-muted">{{ $unpaid_payment->amount_requested }} </span> </td>
-									<td> ₦{{ $unpaid_payment->agent->refererAmount }} </td>
+									<td>₦<span class="text-muted">{{ number_format($unpaid_payment->amount_requested) }} </span> </td>
+									<td> ₦{{ number_format($unpaid_payment->agent->refererAmount) }} </td>
 									@if($unpaid_payment->is_paid == 0)
 
 										<td> <span class="text text-danger">Pending</span></td>

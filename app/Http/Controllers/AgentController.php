@@ -26,8 +26,8 @@ class AgentController extends Controller
 
         $agent_amount_earned = Auth::guard('agent')->user()->refererAmount;
         $agent_amount_earned = (int)$agent_amount_earned;
-        // dd( Auth::guard('agent')->user());
-        dd(User::all());
+        // dd( Auth::guard('agent')->user()->id);
+        // dd(Agent::all());
         return view ('agent.dashboard', compact('agent_code_check', 'agent_code_users_count', 'agent_amount_earned'));
         
     }

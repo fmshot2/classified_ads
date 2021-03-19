@@ -93,7 +93,7 @@
           </span>
         </a>
       </li>
-      <li class="treeview" style=" {{ url()->current() == route('admin.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.all') ? 'background-color: #f8d053' : '' }}">
+      {{-- <li class="treeview" style=" {{ url()->current() == route('admin.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.all') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
           <i class="fa fa-briefcase"></i>
           <span> Payments </span>
@@ -106,7 +106,7 @@
           <li><a href=" {{ route ('buyer.payment.history') }} "><i class="fa fa-circle-o"></i> Payment History </a></li>
 
         </ul>
-      </li>
+      </li> --}}
 
       <li style="{{ url()->current() == route('buyer.profile') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{ route ('buyer.profile') }} ">

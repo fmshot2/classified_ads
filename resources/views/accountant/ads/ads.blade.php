@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-Adverts  | 
+Advert Payments  | 
 @endsection
 
 @section('content')
@@ -10,7 +10,17 @@ Adverts  |
 
 
 <div class="content-wrapper" style="min-height: 518px;">
-
+	<section class="content-header">
+            
+           <h1>
+           All Advert Payments
+            <br><small>View and manage all advert payments</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="{{ route('accountant.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Advert referals</li>
+          </ol>
+        </section>
 	<div class="container">
 		@include('layouts.backend_partials.status')
 	</div>
@@ -24,7 +34,7 @@ Adverts  |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Adverts <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-warning">Add Advert</a></h3>
+						<h3 class="box-title"> Adverts <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-warning">Add Advert Payment</a></h3>
 					</div>
 
 					<!-- /.box-header -->
@@ -38,7 +48,7 @@ Adverts  |
 									<th> Email </th>
 									<th> Business </th>
 									<th> Package </th>
-									<th> Transaction Slip ID </th>
+									<th> Transaction ID </th>
 									<th> Start Date </th>
 									<th> End Date </th>
 									<th> Status </th>
@@ -50,7 +60,7 @@ Adverts  |
 								<tr>
 									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
 									<td><span class="text-muted"> </i> {{ $ad->name }}</span> </td>
-									<td> ₦{{ $ad->amount }} </td>
+									<td> ₦{{ number_format($ad->amount) }} </td>
 									<td> {{ $ad->email }} </span></td>
 									<td> {{ $ad->business }}</td>
 									<td> {{ $ad->package }}</td>
@@ -72,7 +82,7 @@ Adverts  |
 								  <div class="modal-dialog">
 								    <div class="modal-content">
 								      <div class="modal-header">
-								        <h5 class="modal-title" id="exampleModalLabel">Edit Advert Details</h5>
+								        <h5 class="modal-title" id="exampleModalLabel">Update Advert Payment Details</h5>
 								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								          <span aria-hidden="true">&times;</span>
 								        </button>
@@ -130,7 +140,7 @@ Adverts  |
 							                </div>
 							                    <!-- /.box-body -->
 							                <div class="box-footer">
-							                    <button type="submit" class="btn btn-warning pull-right"> Submit </button>
+							                    <button type="submit" class="btn btn-warning pull-right"> Update </button>
 							                </div>
 							                    <!-- /.box-footer -->
 							            </form>
@@ -171,7 +181,7 @@ Adverts  |
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Add Advert Details</h5>
+	        <h5 class="modal-title" id="exampleModalLabel">Add Advert Payment Details</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>

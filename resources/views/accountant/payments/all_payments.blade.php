@@ -10,7 +10,17 @@ All Agent Payments |
 
 
 <div class="content-wrapper" style="min-height: 518px;">
-
+	<section class="content-header">
+            
+           <h1>
+           All Agent Payments
+            <br><small>View pending and paid payment requests</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+          </ol>
+        </section>
 	<div class="container">
 		@include('layouts.backend_partials.status')
 	</div>
@@ -50,8 +60,8 @@ All Agent Payments |
 									<td>{{ ++$key }}</td>
 									<td style="display: none;" id="userID">{{ $all_payment->id }}</td>
 									<td> {{ $all_payment->agent->name }} </td>
-									<td>₦<span class="text-muted">{{ $all_payment->amount_requested }} </span> </td>
-									<td> ₦{{ $all_payment->agent->refererAmount }} </td>
+									<td>₦<span class="text-muted">{{ number_format($all_payment->amount_requested) }} </span> </td>
+									<td> ₦{{ number_format($all_payment->agent->refererAmount) }} </td>
 									<td> {{ $all_payment->agent->bank_name }} </span></td>
 									<td> <span class="text text-success">{{ $all_payment->agent->account_number }}</span> </span></td>
 									@if($all_payment->is_paid == 0)
