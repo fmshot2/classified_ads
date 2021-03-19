@@ -37,7 +37,11 @@
                     your business, product &amp; services are placed right in front of dedicated audience of<br>
                     EFContact platform.
                 </p>
-                <h2>BANNER AD SIZES</h2> <hr>
+                <div>
+                    <h2>BANNER AD SIZES</h2>
+                    <a class="btn btn-warning btn-lg" style="color: #fff" href="{{ route('download.ad.brochure') }}">Download Banner Brochure</a>
+                </div>
+                <hr>
                 <div class="row">
                     @if ($advert_locations)
                         @foreach($advert_locations as $advert_location)
@@ -82,9 +86,15 @@
                             <form action="{{route('store_advert_form')}}" method="POST">
                                 {{ csrf_field() }}
                                 <h3 class="heading-2">Contact Us:</h3>
-                                <a href="mailto:info@efcontact.com"><span>info@efcontact.com</span></a>
-                                <a href="tel:0700-6258244">0700-6258244</a>,
-                                <a href="tel:0807-9000286">0807-9000286</a><br>
+                                <strong><a href="mailto:{{ $check_general_info == 0 ? $general_info->support_email : '' }} ">
+                                    {{ $check_general_info == 0 ? $general_info->support_email : '' }}
+                                </a></strong>
+                                <a href="tel:{{ $check_general_info == 0 ? $general_info->hot_line : '' }} ">
+                                    +234 {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
+                                </a>,
+                                <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20advertising%20my%20business%20and%20services." target="_blank">
+                                    <i class="fa fa-whatsapp" style="font-size: 15px"></i> WhatsApp
+                                </a><br>
                                 <p><strong>Or fill the form below</strong></p>
                                 <div class="search-contents-sidebar mb-30">
                                     <div class="row">

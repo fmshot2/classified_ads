@@ -46,6 +46,7 @@ class ContactController extends Controller
 
             Mail::to($email)->send(new ContactUs($email, $subject, $message));
             Mail::to('support@efcontact.com')->send(new ContactUsAdmin($name, $email, $subject, $message, $phone));
+            Mail::to('info@efcontact.com')->send(new ContactUsAdmin($name, $email, $subject, $message, $phone));
         }
 
         //return 'sfdsgdgdg';

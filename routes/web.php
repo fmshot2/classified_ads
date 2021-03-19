@@ -405,23 +405,23 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('seller/service/badges/badger','BadgeController@getBadgeList')->name('fff');
     ///seller/service/admin/get-badge-list/2 404 (Not Found)
 
-    Route::get('admin/usersfeedback','AdminController@usersfeedback')->name('admin.users.feedback');
-    Route::get('admin/userfeedback/{id}','AdminController@userfeedback')->name('admin.user.feedback');
-    Route::put('admin/userfeedback/treat/{id}','AdminController@treatfeedback')->name('admin.user.feedback.treat');
-    Route::get('admin/userfeedback/delete/{id}','AdminController@feedbackDelete')->name('admin.user.feedback.delete');
+    Route::get('/admin/usersfeedback','AdminController@usersfeedback')->name('admin.users.feedback');
+    Route::get('/admin/userfeedback/{id}','AdminController@userfeedback')->name('admin.user.feedback');
+    Route::put('/admin/userfeedback/treat/{id}','AdminController@treatfeedback')->name('admin.user.feedback.treat');
+    Route::get('/admin/userfeedback/delete/{id}','AdminController@feedbackDelete')->name('admin.user.feedback.delete');
 
 
     // PAGES CONTENTS TABLE
-    Route::get('admin/pages-contents', 'PageContentController@pagescontents')->name('admin.pagescontents');
-    Route::post('admin/pages-contents/privacy', 'PageContentController@savePrivacyPolicy')->name('admin.pagescontents.save.privacy');
-    Route::post('admin/pages-contents/about', 'PageContentController@saveAboutUs')->name('admin.pagescontents.save.aboutus');
-    Route::post('admin/pages-contents/about-section-one', 'PageContentController@saveAboutUsSection1')->name('admin.pagescontents.saveAboutUsSection1');
-    Route::post('admin/pages-contents/about-section-two', 'PageContentController@saveAboutUsSection2')->name('admin.pagescontents.saveAboutUsSection2');
-    Route::post('admin/pages-contents/about-section-three', 'PageContentController@saveAboutUsSection3')->name('admin.pagescontents.saveAboutUsSection3');
-    Route::post('admin/pages-contents/benefitsofefc', 'PageContentController@saveBenefitsofEfcontact')->name('admin.pagescontents.save.benefitsofefc');
-    Route::post('admin/pages-contents/termofuse', 'PageContentController@saveTermOfUse')->name('admin.pagescontents.save.termofuse');
+    Route::get('/admin/pages-contents', 'PageContentController@pagescontents')->name('admin.pagescontents');
+    Route::post('/admin/pages-contents/privacy', 'PageContentController@savePrivacyPolicy')->name('admin.pagescontents.save.privacy');
+    Route::post('/admin/pages-contents/about', 'PageContentController@saveAboutUs')->name('admin.pagescontents.save.aboutus');
+    Route::post('/admin/pages-contents/about-section-one', 'PageContentController@saveAboutUsSection1')->name('admin.pagescontents.saveAboutUsSection1');
+    Route::post('/admin/pages-contents/about-section-two', 'PageContentController@saveAboutUsSection2')->name('admin.pagescontents.saveAboutUsSection2');
+    Route::post('/admin/pages-contents/about-section-three', 'PageContentController@saveAboutUsSection3')->name('admin.pagescontents.saveAboutUsSection3');
+    Route::post('/admin/pages-contents/benefitsofefc', 'PageContentController@saveBenefitsofEfcontact')->name('admin.pagescontents.save.benefitsofefc');
+    Route::post('/admin/pages-contents/termofuse', 'PageContentController@saveTermOfUse')->name('admin.pagescontents.save.termofuse');
 
-    Route::get('benefits-of-efcontact','OperationalController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
+    Route::get('/benefits-of-efcontact','OperationalController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
 
 
     //accountant routes
@@ -436,6 +436,8 @@ Route::post ( '/searchonservices',  'ServiceController@searchonservices')->name(
 
 // Route::get ( '/searchresults',  'ServiceController@search')->name('search3');
 Route::get ( '/searchresults',  'ServiceController@homepage_search')->name('search3');
+
+Route::get('/download-ad-brochure', 'OperationalController@downloadAdBrochure')->name('download.ad.brochure');
 
 
 
