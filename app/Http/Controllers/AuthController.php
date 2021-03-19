@@ -40,21 +40,21 @@ class AuthController extends Controller
             'password' => ['required', 'string', 'min:6']
 
         ]);
+        // dd('request');
+        Auth::guard('agent')->attempt(['email' => $request->email, 'password' => $request->password]);
 
-        $credentials = $request->only('email', 'password');
-        if (Auth::guard('agent')->attempt($credentials)) {
-            // dd($status);
-
+        if(Auth::guard('agent')->check()) {
             //Check login
-            if (Auth::guard('agent')->check()) {
+
+            // dd($request);
                 $success_notification = array(
                     'message' => 'You are successfully logged in!',
                     'alert-type' => 'success'
                 );
-                return view('agent.dashboard')->with($success_notification);
-            } else {
-                return Redirect::to(Session::get('url.intended'));
-            }
+                return redirect()->intended('agent/dashboard')->with($success_notification);
+        }else{
+            dd('wrong pass');
+            return Redirect::to(Session::get('url.intended'));
         }
     }
 
