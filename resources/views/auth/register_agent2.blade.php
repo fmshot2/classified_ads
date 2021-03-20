@@ -34,10 +34,10 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
 
                                          <div class="form-group">
-                                            <label class="form-label">Phone Number</label><small class="text-danger">*</small>
+                                            <label class="form-label">Phone</label><small class="text-danger">*</small>
                                             <input type="phone" placeholder="Phone Number" class="form-control" name="phone" value="{{ old('phone') }}"
                                             >
                                             @if ($errors->has('phone'))
@@ -48,20 +48,88 @@
                                         </div>
                                     </div>
 
-                                        <div class="col-md-6">
+                                    <div class="col-md-4">
 
-                                      <div class="form-group">
-                                            <label class="form-label">Select your State</label><small class="text-danger">*</small>
-                                            <select class="form-control"  id="state" name="state" >
-                                                <option value="">-- Select State --</option>
-                                                @if(isset($states))
-                                                    @foreach($states as $state)
-                                                        <option value="{{$state->name}}"> {{ $state->name }}  </option>
-                                                    @endforeach
-                                                @endif
+                                        <div class="form-group">
+                                              <label class="form-label">State</label><small class="text-danger">*</small>
+                                              <select class="form-control"  id="state" name="state" >
+                                                  <option value="">-- Select State --</option>
+                                                  @if(isset($states))
+                                                      @foreach($states as $state)
+                                                          <option value="{{$state->name}}"> {{ $state->name }}  </option>
+                                                      @endforeach
+                                                  @endif
+                                              </select>
+                                          </div>
+                                      </div>
+
+                                      <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Local Government</label><small class="text-danger">*</small>
+                                            <select class="form-control" id="city" name="city">
+                                                <option disabled selected>- Select a State -</option>
                                             </select>
                                         </div>
                                     </div>
+
+
+                                      <div class="col-md-12">
+
+                                        <div class="form-group">
+                                           <label class="form-label">Address</label><small class="text-danger">*</small>
+                                           <input type="password" class="form-control" name="address" placeholder="Enter House Address" >
+                                           @if ($errors->has('address'))
+                                           <span class="helper-text" data-error="wrong" data-success="right">
+                                               <strong class="text-danger">{{ $errors->first('address') }}</strong>
+                                           </span>
+                                           @endif
+                                       </div>
+                                    </div>
+                                    {{-- <div>Your Bank Details
+                                   </div> --}}
+
+                                    <div class="col-md-4 pt-5">
+
+                                        <div class="form-group">
+                                           <label class="form-label">Bank Name</label><small class="text-danger">*</small>
+                                           <input type="text" placeholder="Bank Name" class="form-control" name="bankname" value="{{ old('bankname') }}"
+                                           >
+                                           @if ($errors->has('bankname'))
+                                               <span class="helper-text" data-error="wrong" data-success="right">
+                                                   <strong class="text-danger">{{ $errors->first('bankname') }}</strong>
+                                               </span>
+                                           @endif
+                                       </div>
+                                   </div>
+
+
+                                    <div class="col-md-4 pt-5">
+
+                                        <div class="form-group">
+                                           <label class="form-label">Bank Account  Name</label><small class="text-danger">*</small>
+                                           <input type="text" placeholder="Account Name" class="form-control" name="accountname" value="{{ old('accountname') }}"
+                                           >
+                                           @if ($errors->has('accountname'))
+                                               <span class="helper-text" data-error="wrong" data-success="right">
+                                                   <strong class="text-danger">{{ $errors->first('accountname') }}</strong>
+                                               </span>
+                                           @endif
+                                       </div>
+                                   </div>
+
+                                   <div class="col-md-4 pt-5">
+
+                                    <div class="form-group">
+                                       <label class="form-label">Bank Account Number</label><small class="text-danger">*</small>
+                                       <input type="text" placeholder="Account Name" class="form-control" name="accountno" value="{{ old('accountno') }}"
+                                       >
+                                       @if ($errors->has('accountno'))
+                                           <span class="helper-text" data-error="wrong" data-success="right">
+                                               <strong class="text-danger">{{ $errors->first('accountno') }}</strong>
+                                           </span>
+                                       @endif
+                                   </div>
+                               </div>
                                     <div class="col-md-6">
 
                                         <div class="form-group">
@@ -110,8 +178,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <label>
-                                                    <input type="checkbox" name="terms" class="filled-in" />
-                                                    <span>You will be redirected to GTPAY to make your agent fee of #500 only <a href="{{route('terms-of-use')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy-policy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
+                                                    <span class="text-success">You will be redirected to GTPAY to make your Agent Fee of #500 only.</span>
                                                 </label>
                                             </div>
 
@@ -191,5 +258,34 @@
     }
 </script>
 
+<script type="text/javascript">
+    $('#state').on('change',function(){
+     console.log('ddd');
+     var stateID = $(this).val();
+     if(stateID){
+       $.ajax({
+        type:"GET",
+              //url:"{{url('qqq')}}"+stateID,
+              url: '../../api/get-city-list/'+stateID,
+              success:function(res){
+               if(res){
+                console.log(res);
+                console.log(stateID);
+                $("#city").empty();
+                $.each(res,function(key,value){
+                 $("#city").append('<option value="'+value+'">'+value+'</option>');
+               });
 
+              }else{
+                $("#city").empty();
+              }
+            }
+          });
+     }else{
+       $("#city").empty();
+     }
+
+   });
+
+   </script>
 @endsection
