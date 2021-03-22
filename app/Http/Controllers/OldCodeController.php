@@ -350,7 +350,7 @@ class OldCodeController extends Controller
 
 
 
-
+// reg withou payment
 
       public function createUser2(Request $request)
       {
