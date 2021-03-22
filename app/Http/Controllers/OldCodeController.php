@@ -145,7 +145,7 @@ class OldCodeController extends Controller
         $user->identification_type = $request->identification_type;
         $user->identification_id = $request->identification_id;
         // $user->is_agent = 1;
-        $user->agent_code = $result . $randomCode;
+        $user->agent_code = $ist_3_result . $randomCode;
         // $user->role = 'agent';
         $user->status  = 1;
         $user->password = Hash::make($request->password);
@@ -466,9 +466,9 @@ class OldCodeController extends Controller
             }
         }
 
-        $agent_that_refered = $present_user->idOfAgent;
-        if ($agent_that_refered) {
-            $referer = Agent::where('id', $agent_that_refered)->first();
+        $person_that_refered = $present_user->idOfReferer;
+        if ($person_that_refered) {
+            $referer = User::where('id', $person_that_refered)->first();
         if ($referer) {
 
           $agent_that_refered2 = $referer->idOfAgent;
