@@ -467,6 +467,23 @@ class OldCodeController extends Controller
         }
 
         $agent_that_refered = $present_user->idOfAgent;
+        if ($agent_that_refered) {
+            $referer = Agent::where('id', $agent_that_refered)->first();
+        if ($referer) {
+
+          $agent_that_refered2 = $referer->idOfAgent;
+        if ($agent_that_refered2) {
+            $referer4 = Agent::where('id', $agent_that_refered2)->first();
+            // dd($referer->refererAmount);
+            if ($referer4) {
+                $referer4->refererAmount = $referer4->refererAmount + 50;
+                $referer4->save();
+            }
+        }
+      }
+  }
+
+        $agent_that_refered = $present_user->idOfAgent;
         // dd($agent_that_refered);
 
         if ($agent_that_refered) {
