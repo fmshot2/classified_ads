@@ -68,7 +68,7 @@
                         </div>
                         <div class="form-group">
                             <div class="input-group mb-3">
-                                <input type="password" name="password" id="passwordField" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="Password">
+                                <input type="password" name="password" id="passwordField" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="Password" required>
                                 <div class="input-group-append" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()">
                                   <span class="input-group-text" id="basic-addon1"><i class="fa fa-eye"></i></span>
                                 </div>
