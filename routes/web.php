@@ -240,6 +240,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/notification/unread', 'SellerController@unreadNotification')->name('seller.notification.unread');
         Route::get('/notification/all', 'SellerController@allNotification')->name('seller.notification.all');
         Route::get('/notification/{slug}', 'SellerController@viewNotification')->name('seller.notification.view');
+        Route::get('/notifications/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('seller.notification.markallasread');
 
         Route::get('/profile/', 'SellerController@viewProfile')->name('seller.profile');
 
@@ -349,7 +350,9 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
 
     Route::get('/admin/notification/all', 'AdminController@allNotification')->name('admin.notification.all');
+    Route::post('/admin/notification/general/send', 'NotificationController@GeneralNofications')->name('admin.notification.general.send');
     Route::post('/admin/notification/send', 'AdminController@sendNotification')->name('admin.notification.send');
+    Route::get('/admin/notification/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('admin.notification.markallasread');
 
     Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
 

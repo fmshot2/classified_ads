@@ -28,6 +28,7 @@
                         <div class="row">
                             @forelse($category_services as $category_service)
                                 @if ($loop->index < 30 && $category_service->badge_type == 1)
+                                    <a  href="{{route('serviceDetail', $category_service->slug)}}">
                                     <div class="col-lg-3 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
                                         <div class="property-box">
                                             <div class="property-thumbnail">
@@ -51,7 +52,7 @@
 
                                                 <ul class="d-flex flex-row justify-content-between info">
                                                     <li>
-                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Like{{$category_service->likes->count() > 1 ? 's' : ''}}
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
@@ -62,6 +63,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    </a>
                                 @elseif($loop->index < 30 && $category_service->badge_type == 2)
                                     <div class="col-lg-3 col-md-6 col-sm-6 filtr-item" data-category="3, 2, 1">
                                         <div class="property-box">
@@ -86,7 +88,7 @@
 
                                                 <ul class="d-flex flex-row justify-content-between info">
                                                     <li>
-                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Like{{$category_service->likes->count() > 1 ? 's' : ''}}
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
@@ -122,7 +124,7 @@
 
                                                 <ul class="d-flex flex-row justify-content-between info">
                                                     <li>
-                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Like{{$category_service->likes->count() > 1 ? 's' : ''}}
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
@@ -155,7 +157,7 @@
 
                                                 <ul class="d-flex flex-row justify-content-between info">
                                                     <li>
-                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Like{{$category_service->likes->count() > 1 ? 's' : ''}}
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
@@ -200,7 +202,7 @@
 
                                                 <ul class="d-flex flex-row justify-content-between info">
                                                     <li>
-                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Like{{$category_service->likes->count() > 1 ? 's' : ''}}
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
@@ -234,7 +236,7 @@
 
                                                 <ul class="d-flex flex-row justify-content-between info">
                                                     <li>
-                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Like{{$category_service->likes->count() > 1 ? 's' : ''}}
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
@@ -268,7 +270,7 @@
 
                                                 <ul class="d-flex flex-row justify-content-between info">
                                                     <li>
-                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Like{{$category_service->likes->count() > 1 ? 's' : ''}}
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">
@@ -299,7 +301,7 @@
 
                                                 <ul class="d-flex flex-row justify-content-between info">
                                                     <li>
-                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Likes
+                                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$category_service->likes->count()}} Like{{$category_service->likes->count() > 1 ? 's' : ''}}
                                                     </li>
                                                     <li>
                                                         <a class="pull-right" href="{{route('serviceDetail', $category_service->slug)}}">

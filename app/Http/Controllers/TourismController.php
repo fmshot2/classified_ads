@@ -84,6 +84,8 @@ class TourismController extends Controller
 
     public function update_city(Request $request, $slug)
     {
+        $city = Tourism::where('slug', $slug)->firstOrFail();
+
         $data = array(
             'name'   => $request->name,
             'states'   => $request->state,
@@ -99,8 +101,10 @@ class TourismController extends Controller
 
             $db_location = 'cities_images/' . $image_name;
             $request->thumb = $image_name;
-
-            $data['thumb'] = $db_location;
+            $thumbnail = $request->thumb;
+        }
+        else{
+            $thumbnail = $city->thumb;
         }
 
 
@@ -120,16 +124,15 @@ class TourismController extends Controller
         {
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
-
-        $city = Tourism::where('slug', $slug);
-        // dd($city);
         $city->name = $request->name;
         $city->region = $request->region;
+        $city->states = $request->state;
         $city->body = $request->body;
+        $city->thumb = $thumbnail;
         $city->description = $request->description;
         $city->slug = Str::slug($request->name, '-');
 
-        $city->update($data);
+        $city->update();
 
         $success_notification = array(
             'message' => 'City successfully updated!',

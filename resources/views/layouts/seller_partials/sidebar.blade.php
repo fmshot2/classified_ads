@@ -128,9 +128,11 @@
         <li class="" style=" {{ url()->current() == route('seller.notification.all') ? 'background-color: #f8d053' : '' }}">
           <a href=" {{route ('seller.notification.all') }}">
             <i class="fa fa-bell"></i> <span> General Notice </span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small>
-            </span>
+            @if (Auth::user()->unreadNotifications->count() > 0)
+                <span class="pull-right-container">
+                <small class="label pull-right bg-primary"> {{ Auth::user()->unreadNotifications->count() }}  </small>
+                </span>
+            @endif
           </a>
         </li>
         <li class="treeview" style=" {{ url()->current() == route('admin.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.all') ? 'background-color: #f8d053' : '' }}">
