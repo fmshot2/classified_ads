@@ -77,7 +77,7 @@
 
                                         <div class="form-group">
                                            <label class="form-label">Address</label><small class="text-danger">*</small>
-                                           <input type="password" class="form-control" name="address" placeholder="Enter House Address" >
+                                           <input type="text" class="form-control" name="address" placeholder="Enter House Address" >
                                            @if ($errors->has('address'))
                                            <span class="helper-text" data-error="wrong" data-success="right">
                                                <strong class="text-danger">{{ $errors->first('address') }}</strong>
