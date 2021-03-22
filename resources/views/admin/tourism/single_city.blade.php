@@ -31,7 +31,7 @@
                                             <option value="">-- Select State --</option>
                                             @if(isset($states))
                                                 @foreach($states as $state)
-                                                    <option id="state" value="{{$state->name}}" {{ $state->name == $city->name ? 'selected' : '' }}> {{ $state->name }}  </option>
+                                                    <option value="{{ trim($state->name) }}" {{ trim($state->name) === $city->states ? 'selected' : '' }}> {{ trim($state->name) }}  </option>
                                                 @endforeach
                                             @endif
                                         </select>

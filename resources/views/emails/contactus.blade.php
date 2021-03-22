@@ -1,7 +1,7 @@
 @component('mail::message')
 # Your message has been received!
 
-<p><strong>Subject: </strong>{{ $message }}</p>
+<p><strong>Subject: </strong>{{ $subject ? $subject : 'No message!' }}</p>
 <p><strong>Message:</strong></p>
 <p>{{ $message ? $message : 'No message!' }}</p>
 

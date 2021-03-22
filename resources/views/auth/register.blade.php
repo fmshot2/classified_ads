@@ -36,8 +36,8 @@
                         <h3>Create an account</h3>
                         <div class="btn-section clearfix">
                             <a href="{{route('login')}}" class="link-btn active btn-1 default-bg">Login</a>
-                            <a href="{{route('register')}}" class="link-btn btn-2 active-bg">Register</a>
-                            <a href="{{route('show_agent_Login')}}" class="link-btn btn-2 default-bg">Agent Login</a>
+                            <a href="{{route('register')}}" class="link-btn btn-1 active-bg">Register</a>
+                            <a data-toggle="modal" data-target="#launchAgentModal" href="#" class="link-btn btn-2 default-bg">Agent</a>
 
                         </div>
 
@@ -115,7 +115,7 @@
                                 </label>
                             </p>
                             <div class="form-group clearfix mb-0">
-                                <button type="submit" class="btn-md btn-warning float-left">Create Account</button>
+                                <button type="submit" class="btn-md float-left" style="background-color: #cc8a19; color: #fff">Create Account</button>
                             </div>
                         </form>
                     </div>
@@ -175,7 +175,7 @@
 
 <script>
     function showPassword() {
-        var passField = document.getElementById("password");
+        var passField = document.getElementById("passwordField");
         if (passField.type === "password") {
             passField.type = "text";
         } else {

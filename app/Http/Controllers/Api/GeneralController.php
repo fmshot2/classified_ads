@@ -10,6 +10,7 @@ use App\Http\Resources\AdvertisementResourceCollection;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\ServiceResourceCollection;
+use App\Http\Resources\SliderResourceCollection;
 use App\Service;
 use App\Slider;
 use App\State;
@@ -44,10 +45,7 @@ class GeneralController extends Controller
      */
     public function banner_slider()
     {
-        $sliders = Slider::all();
-        return response()->json([
-            $sliders
-        ]);
+        return new SliderResourceCollection(Slider::all());
     }
 
     public function advertisement()

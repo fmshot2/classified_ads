@@ -145,20 +145,21 @@
     <li class="dropdown messages-menu">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
         <i class="fa fa-bell"></i>
-        <span class="label label-primary"> {{ $unread_notification_count }}  </span>
+        @if (Auth::user()->unreadNotifications->count() > 0)
+            <span class="label label-primary"> {{ Auth::user()->unreadNotifications->count() }}  </span>
+        @endif
       </a>
       <ul class="dropdown-menu scale-up">
-        <li class="header">You have {{ $unread_notification_count }} notification</li>
+        <li class="header">You have {{ Auth::user()->unreadNotifications->count() }} unread notification{{ Auth::user()->unreadNotifications->count() > 1 ? 's' : '' }}</li>
         <li>
           <!-- inner menu: contains the actual data -->
           <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu inner-content-div" style="overflow: hidden; width: auto; height: 200px;">
-            @foreach($unread_notification as $unread_notifications)
-
+            @foreach(Auth::user()->unreadNotifications as $unread_notifications)
             <li><!-- start message -->
-              <a href="{{ route('seller.notification.view',$unread_notifications->slug) }}">
+              <a href="">
 
                 <div class="mail-contnet">
-                  <span style="font-weight: bold;"> {{ Str::limit($unread_notifications->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_notifications->created_at->diffForHumans() }} </small> </span>
+                  <span style="font-weight: bold;"> {{ Str::limit( $unread_notifications->data[0]['message'], 20) }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_notifications->created_at->diffForHumans() }} </small> </span>
               </div>
             </a>
           </li>

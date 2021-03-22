@@ -68,7 +68,7 @@
                         </div>
                         <div class="form-group">
                             <div class="input-group mb-3">
-                                <input type="password" name="password" id="passwordField" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="Password">
+                                <input type="password" name="password" id="passwordField" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="Password" required>
                                 <div class="input-group-append" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()">
                                   <span class="input-group-text" id="basic-addon1"><i class="fa fa-eye"></i></span>
                                 </div>
@@ -86,7 +86,7 @@
                             </label>
                         </p>
                         <div class="form-group clearfix mb-0">
-                            <button type="submit" class="btn-md btn-warning float-left">Login</button>
+                            <button type="submit" class="btn-md float-left" style="background-color: #cc8a19; color: #fff">Login</button>
                             <a href="{{ route('password.request') }}" class="forgot-password">Forgot Password</a>
                         </div>
                     </form>

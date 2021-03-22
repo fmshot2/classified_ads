@@ -281,7 +281,7 @@
                                 </div>
                                 <div class="tab-pane fade " id="three" role="tabpanel" aria-labelledby="three-tab">
                                     <div class="property-details mb-40">
-                                        <h6 class="heading-2">This User has {{$service_likes}} likes</h6>
+                                        <h6 class="heading-2">This User has {{$service_likes}} like{{$service_likes > 1 ? 's' : ''}}</h6>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade " id="four" role="tabpanel" aria-labelledby="four-tab">
@@ -664,7 +664,7 @@
                                                     @endauth
 
                                                     @guest
-                                                        <h6>Please log in as a service seeker to report this provider </h6>
+                                                        <h6>Please <a style="color: #cc8a19" href="{{ route('login') }}">login</a> to report this provider </h6>
                                                     @endguest
 
                                                 </div>
