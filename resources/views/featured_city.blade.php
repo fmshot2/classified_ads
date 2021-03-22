@@ -14,18 +14,6 @@
     .filtr-item{
         cursor: pointer;
     }
-    @media (max-width: 768px){
-        .touristImage{
-            height: 80px !important;
-        }
-        .location h6{
-            font-size: 13px !important;
-        }
-        .detail .title{
-            font-size: 12px !important;
-        }
-    }
-
 
     * {box-sizing:border-box}
 
@@ -114,6 +102,16 @@
     animation-name: tsfade;
     animation-duration: 1.5s;
     }
+    .mySlides .siteImage{
+        width:100%; height: 400px
+    }
+    #launchTouristModal .modal-title{
+        color: #fff;
+        text-transform: uppercase;
+    }
+    .mySlidesContent{
+        margin-top: 20px
+    }
 
     @-webkit-keyframes tsfade {
         from {opacity: .4}
@@ -123,6 +121,27 @@
     @keyframes tsfade {
         from {opacity: .4}
         to {opacity: 1}
+    }
+
+    @media (max-width: 768px){
+        .touristImage{
+            height: 80px !important;
+        }
+        .location h6{
+            font-size: 13px !important;
+        }
+        .detail .title{
+            font-size: 12px !important;
+        }
+        .mySlides .siteImage{
+            height: 200px
+        }
+        #launchTouristModal .modal-title{
+            font-size: 16px
+        }
+        .mySlidesContent{
+            font-size: 15px
+        }
     }
 </style>
 
@@ -170,7 +189,7 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: #cc8a19; color: #fff">
-                        <h5 class="modal-title" style="color: #fff; text-transform: uppercase;">All Tourist Sites In this State</h5>
+                        <h5 class="modal-title">All Tourist Sites In this State</h5>
                         <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
@@ -233,10 +252,12 @@
                                 $('#touristSlides').append(`
                                     <div class="mySlides tsfade`+ current +`">
                                         <div class="numbertext">`+ (key+1) + `/` + results.length + `</div>
-                                        <img src="cities_images/`+ data.thumb + `" style="width:100%; height: 400px">
-                                        <div class="text">`+ data.name +`</div>
-                                        <div>`+ data.description +`</div>
-                                        <div><strong>Region: </strong>`+ data.region +` region of Nigeria</div>
+                                        <img src="cities_images/`+ data.thumb + `" class="siteImage">
+                                        <div class="mySlidesContent">
+                                            <div><strong>Site Name:</strong> `+ data.name +`</div>
+                                            <div><strong>Description:</strong> `+ data.description +`</div>
+                                            <div><strong>Region: </strong>`+ data.region +` region of Nigeria</div>
+                                        </div>
                                     </div>
                                 `)
                             })

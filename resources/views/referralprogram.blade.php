@@ -180,7 +180,7 @@
                                                 <h5>How it works</h5>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <ul>
+                                                        <ul style="list-style: none">
                                                             <li>1.	When You Are Approved, You Will Receive Your Agent Code Which You Will Use For All Your Transactions, Referrals And Commission Payments.</li>
                                                             <li>2.	You Will Receive Your Commission Every Two Weeks.</li>
                                                             <li>3.	You Have A Chance Of Making At Minimum Income Of Between N50,000 To N100,000 Monthly.</li>
@@ -188,7 +188,7 @@
                                                         </ul>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <ul>
+                                                        <ul style="list-style: none">
                                                             <li>5.	You Can Work At Anytime You Want, Create Your Schedule Or Use This To Suppliment Your Income.</li>
                                                             <li>6.	You Can Make An Extra 20% On Any Other Adverts Request By Your Subscribers.  Say For An Example Your Subscriber Buys An Advert Of N100,000 A Month, You Will Make An Additional N20,000.00 Monthly. If That Advert Is For A Year You Will Make N240,000.00 On That Case Alone. If You Have Five Of Such In A Year It Is N24000 X 5= N1,200,000.00. Upon That You Will Still Get Commissions On Adverts And Your Recruits. We Estimated That A Good Agent Should Average N5,000,000.00  Yearly.</li>
                                                         </ul>
@@ -201,7 +201,7 @@
                                             <form method="POST" action="{{ route('agent.register') }}">
                                                 @csrf
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label class="form-label">Your Full Name</label><small class="text-danger">*</small>
                                                             <input type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
@@ -212,84 +212,43 @@
                                                             @endif
                                                         </div>
                                                         <div class="form-group">
-                                                            <label class="form-label">Phone Number</label><small class="text-danger">*</small>
-                                                            <input type="phone" placeholder="Phone Number" class="form-control" name="phone" value="{{ old('phone') }}" required>
-                                                            @if ($errors->has('phone'))
-                                                                <span class="helper-text" data-error="wrong" data-success="right">
-                                                                    <strong class="text-danger">{{ $errors->first('phone') }}</strong>
-                                                                </span>
-                                                            @endif
+                                                            <label for="email">Email Address</label><small class="text-danger">*</small> <small class="text-success">(A Link Will Be
+                                                                Sent To Your Email Address To Complete Your Registration)</small>
+                                                            <input type="email" class="form-control" name="email" value="{{ old('email') }}"
+                                                            placeholder="Enter A Valid Email Address" required>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="email">Email Address</label><small class="text-danger">*</small>
-                                                            <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Your email address" required>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label class="form-label">Select your State</label><small class="text-danger">*</small>
-                                                            <select class="form-control" required id="state" name="state" required>
-                                                                <option value="">-- Select State --</option>
-                                                                @if(isset($states))
-                                                                    @foreach($states as $state)
-                                                                        <option value="{{$state->name}}"> {{ $state->name }}  </option>
-                                                                    @endforeach
-                                                                @endif
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="form-label">LGA</label><small class="text-danger">*</small>
-                                                            <select class="form-control" id="lgas" name="lga" required>
-                                                                <option disabled selected>- Select Local Government -</option>
-                                                            </select>
+                                                            <label for="phone">Phone Number</label>
+                                                            <input type="number" class="form-control" name="phone" value="{{ old('phone') }}"
+                                                            placeholder="Enter Your Phone Number" required>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-md-7">
-                                                                <div class="form-group">
-                                                                    <label class="form-label" for="identification_type">Identification Type</label><small class="text-danger">*</small>
-                                                                    <select class="form-control" name="identification_type" required>
-                                                                        <option selected disabled>- Select an option -</option>
-                                                                        <option value="national_id">National ID</option>
-                                                                        <option value="driver_license">Driver License</option>
-                                                                        <option value="voter_id">Voter's Card</option>
-                                                                        <option value="international_passport">International Passport</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-5">
-                                                                <div class="form-group">
-                                                                    <label class="form-label">ID Number</label><small class="text-danger">*</small>
-                                                                    <input type="text" class="form-control" name="identification_id" value="{{ old('identification_id') }}" placeholder="ID Number" required>
-                                                                </div>
+                                                            <div class="col-md-12">
+                                                                <button type="submit" class="btn btn-lg btn-warning text-white">Submit</button>
+                                                                <small class="">Or,
+                                                                    <a href="#" class="text-success">CLICK HERE</a> To Resend Link</small>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label class="form-label">Choose Password</label><small class="text-danger">*</small>
-                                                            <input type="password" class="form-control" name="password" placeholder="Password (min: 6 characters)" required>
-                                                            @if ($errors->has('password'))
-                                                            <span class="helper-text" data-error="wrong" data-success="right">
-                                                                <strong class="text-danger">{{ $errors->first('password') }}</strong>
-                                                            </span>
-                                                            @endif
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="form-label">Confirm Password</label><small class="text-danger">*</small>
-                                                            <input class="form-control" placeholder="Confirm Password" type="password" name="password_confirmation" required>
-                                                        </div>
-                                                    </div>
+                                                        <div style="margin-top: 20px;">
+                                                            <div class="col-md-12">
+                                                                <small class="text-danger">Please, If You Are Not Contacted In Ten Days after Your Request
+                                                                    , Kindly Contact Us Again At, <a href="mailto:agent@efcontact.com">agent@efcontact.com</a>
+                                                                    or call <a href="tel:08091114444">08091114444</a>
+                                                                    When you send this contact, kindly indicate the day of your first request or the reference code sent to you
+                                                                    . Be aware that the position
+                                                                    is limited per state so rush your application
+                                                                     soonest before the positions are filled.
+                                                                    </small>
+                                                                {{-- <small class="text-danger">Did Not Recieve Link,
+                                                                    <a href="">CLICK HERE</a> To Resend</small> --}}
+                                                            </div>
+                                                            <div style="margin-top: 20px;">
+                                                                <ul style="list-style: none">
 
-                                                    <div class="col-md-12">
-                                                        <label>
-                                                            <input type="checkbox" name="terms" class="filled-in" required/>
-                                                            <span>By registering you accept our <a href="{{route('terms-of-use')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy-policy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
 
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <button type="submit" class="btn btn-lg btn-warning pull-right text-white">Register</button>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </form>

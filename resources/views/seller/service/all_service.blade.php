@@ -11,7 +11,7 @@
 	</div>
     <section class="content-header">
         <h3 class="page-title">All Services Page </h3>
-        <p class="page-description">This is whea compiled list of all your service(s).</p>
+        <p class="page-description">This is a compiled list of all your service(s).</p>
     </section>
 	<section class="content">
 

@@ -25,7 +25,7 @@
               <td> {{ $city->name }} </td>
               <td> {{ $city->region }} </td>
               <td> {{ $city->body }} </td>
-              <td> {{ $city->description }} </td>
+              <td> {{ Str::limit($city->description, 40) }} </td>
               <td> {{ $city->slug }} </td>
 
               <td class="center">
