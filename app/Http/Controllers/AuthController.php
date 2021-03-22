@@ -592,6 +592,14 @@ class AuthController extends Controller
     }
 
 
+    public function allagents()
+    {
+        $agents = Agent::all();
+        $approval_status = null;
+        return view('admin.user.agents', compact('agents', 'approval_status'));
+    }
+
+
     public function updateProfile(Request $request, $id)
     {
 

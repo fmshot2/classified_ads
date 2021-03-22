@@ -361,8 +361,10 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
 
     Route::get('/admin/dashboard/service-providers', 'AuthController@seller')->name('admin.seller');
+    Route::get('/admin/dashboard/all-agents', 'AuthController@allagents')->name('admin.allagents');
     Route::get('/admin/dashboard/service-seekers', 'AuthController@buyer')->name('admin.buyer');
     Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');
+    Route::get('/activate_agent/{id}', 'AdminController@activate_agent')->name('admin.activate.agent');
 
     Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
 
