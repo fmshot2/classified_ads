@@ -29,6 +29,10 @@ Route::post('create_agent', 'AuthController@create_agent');
 Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg_page')->name('agent_Complete_Reg');
 Route::post('/agent/agent_Complete_Reg', 'AuthController@agent_save_complete_reg')->name('agent_Complete_Reg');
 
+//  Last point of Agent Reg. This involves no payment
+Route::post('/agent/agent_Complete_Reg', 'OldCodeController@agent_save_complete_reg')->name('agent_Complete_Reg2');
+
+
 
 Route::get('get-tourist-sites/{state}', 'OperationalController@getTouristSites')->name('gettouristsites');
 
@@ -190,6 +194,8 @@ Route::post('/register2', 'AuthController@createUser')->name('register2');
 Route::post('/register', 'AuthController@pay_with_gtpay')->name('register');
 
 Route::post('/agent/register', 'AuthController@createAgent')->name('agent.register');
+Route::post('/agent/register2', 'OldCodeController@createAgent')->name('agent.register2');
+
 Route::get('/login', 'AuthController@showLogin')->name('login');
 Route::get('/agent_Login', 'AuthController@show_agent_Login')->name('show_agent_Login');
 Route::post('/agent_Login', 'AuthController@agent_login')->name('show_agent_Login');

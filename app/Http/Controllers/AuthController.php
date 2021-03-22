@@ -127,10 +127,13 @@ class AuthController extends Controller
         $state = $request->state;
         $result = substr($state, 0, 3);
         $ist_3_result = strtoupper($result);
-        $randomCode = Str::random(4);
-        $length = 1;
-        $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
-        $code = $ist_3_result . $randomCode . $last_letter;
+        $randomCode = mt_rand(1000,9999);
+        //To Get The Last Letter
+        // $length = 1;
+        // $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
+        // $code = $ist_3_result . $randomCode . $last_letter;
+        $code = $ist_3_result . $randomCode;
+
         //save agent details
 
         //pay with GTPay

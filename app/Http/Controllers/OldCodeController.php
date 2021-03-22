@@ -115,13 +115,25 @@ class OldCodeController extends Controller
         ]);
 
 
+        // $state = $request->state;
+        // $result = substr($state, 0, 3);
+        // $ist_3_result = strtoupper($result);
+        // $randomCode = Str::random(4);
+        // $length = 1;
+        // $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
+        // $code = $result . $randomCode . $last_letter;
+
+
         $state = $request->state;
         $result = substr($state, 0, 3);
         $ist_3_result = strtoupper($result);
-        $randomCode = Str::random(4);
-        $length = 1;
-        $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
-        $code = $result . $randomCode . $last_letter;
+        $randomCode = mt_rand(1000,9999);
+        //To Get The Last Letter
+        // $length = 1;
+        // $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
+        // $code = $ist_3_result . $randomCode . $last_letter;
+        $code = $ist_3_result . $randomCode;
+
         //save agent details
 
         $user = Agent::where('email', $request->email)->first();
@@ -133,55 +145,84 @@ class OldCodeController extends Controller
         $user->identification_type = $request->identification_type;
         $user->identification_id = $request->identification_id;
         // $user->is_agent = 1;
-        $user->agent_code = $result . $randomCode . $last_letter;
+        $user->agent_code = $result . $randomCode;
         // $user->role = 'agent';
         $user->status  = 1;
         $user->password = Hash::make($request->password);
 
         if ($user->save()) {
-            $messages = "$user->name, Your registration was successfull! Please click the link below to complete your registration!";
-            $name = $user->name;
-            $email = $user->email;
-            $origPassword = $request->password;
-            $userRole = $user->role;
+            // $messages = "$user->name, Your registration was successfull! Please click the link below to complete your registration!";
+            // $name = $user->name;
+            // $email = $user->email;
+            // $origPassword = $request->password;
+            // $userRole = $user->role;
 
-            try {
-                Mail::to($user->email)->send(new AgentRegistration($messages, $name, $email, $userRole));
-            } catch (\Exception $e) {
-                $failedtosendmail = 'Failed to Mail!';
+            // try {
+            //     Mail::to($user->email)->send(new AgentRegistration($messages, $name, $email, $userRole));
+            // } catch (\Exception $e) {
+            //     $failedtosendmail = 'Failed to Mail!';
+            // }
+
+
+
+            // if ($user->save()) {
+                // Auth::login($user);
+                if (Auth::guard('agent')->attempt(['email' => $request->email, 'password' =>  $request->password])) {
+                    //Check login
+                    if (Auth::guard('agent')->check()) {
+                        $present_user = Auth::guard('agent')->user();
+
+                        $link = new Refererlink();
+                        $link->agent_id = $present_user->id;
+                        $link->agent_code = $present_user->agent_code;
+                        $link->save();
+                        //Add 200 naira to agent total amount
+                        // $present_user->refererAmount = $referer->refererAmount + 200;
+
+
+                        //if login pass,redirect to agent dashboard page
+                        return redirect()->intended('agent/dashboard');
+                    } else {
+                        session()->flash('fail', ' Credentials2 Incorect');
+                        return view('auth.agent_login');
+                    }
+                }
+                session()->flash('fail', ' Credentials Incorect');
+                return view('auth.agent_login');
             }
-        if ($user->save()) {
-            $success_notification = array(
-                'message' => 'Please check your email for verification link',
-                'alert-type' => 'success'
-            );
 
-            //Getting agent inputs and authenticate the agent
-            $status = Auth::guard('agent')->attempt(
-                [
-                    'email' => $request->email,
-                    'password' => $request->password
-                ]
-            );
+        // if ($user->save()) {
+        //     $success_notification = array(
+        //         'message' => 'Please check your email for verification link',
+        //         'alert-type' => 'success'
+        //     );
 
-            //Check login
-            if (Auth::guard('agent')->check()) {
-                $present_user = Auth::guard('guard')->user();
+        //     //Getting agent inputs and authenticate the agent
+        //     $status = Auth::guard('agent')->attempt(
+        //         [
+        //             'email' => $request->email,
+        //             'password' => $request->password
+        //         ]
+        //     );
 
-                $link = new Refererlink();
-                $link->user_id = $present_user->id;
-                $link->agent_code = $present_user->agent_code;
-                $link->save();
+        //     //Check login
+        //     if (Auth::guard('agent')->check()) {
+        //         $present_user = Auth::guard('agent')->user();
 
-                //if login pass,redirect to agent dashboard page
-                return redirect()->intended('agent/dashboard');
-            } else {
-                session()->flash('fail', ' Credential Incorect');
-                return view('auth/login');
-            }
-        }
+        //         $link = new Refererlink();
+        //         $link->user_id = $present_user->id;
+        //         $link->agent_code = $present_user->agent_code;
+        //         $link->save();
+
+        //         //if login pass,redirect to agent dashboard page
+        //         return redirect()->intended('agent/dashboard');
+        //     } else {
+        //         session()->flash('fail', ' Credential Incorect');
+        //         return view('auth/login');
+        //     }
+        // }
     }
-}
+
 
 
       //Registration without payments

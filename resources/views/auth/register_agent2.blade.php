@@ -16,7 +16,7 @@
 
                         <div class="clearfix"></div>
 
-                            <form method="POST" action="{{ route('agent_Complete_Reg') }}">
+                            <form method="POST" action="{{ route('agent_Complete_Reg2') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6">
