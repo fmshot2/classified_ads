@@ -174,11 +174,21 @@
                                                                     Sent To Your Email Address To Complete Your Registration)</small>
                                                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}"
                                                                 placeholder="Enter A Valid Email Address" required>
+                                                                @if ($errors->has('email'))
+                                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                                    <strong class="text-danger">{{ $errors->first('email') }}</strong>
+                                                                </span>
+                                                            @endif
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="phone">Phone Number</label>
                                                                 <input type="number" class="form-control" name="phone" value="{{ old('phone') }}"
                                                                 placeholder="Enter Your Phone Number" required>
+                                                                @if ($errors->has('phone'))
+                                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                                    <strong class="text-danger">{{ $errors->first('phone') }}</strong>
+                                                                </span>
+                                                            @endif
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-12">

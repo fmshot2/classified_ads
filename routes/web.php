@@ -195,7 +195,10 @@ Route::post('/createUser2', 'OldCodeController@createUser2')->name('createUser2'
 
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register2', 'AuthController@createUser')->name('register2');
+//original payment and registration with gtpay
 Route::post('/register', 'AuthController@pay_with_gtpay')->name('register');
+//end original payment and registration with gtpay
+
 Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::post('/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
