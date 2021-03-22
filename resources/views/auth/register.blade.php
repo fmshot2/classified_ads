@@ -98,6 +98,7 @@
                                 </div>
                             </p>
                             <p>
+                                @if(!$referParam)
                             <div class="form-group form-box">
                             <h6 class="text-center">Where you referred by our agent?</h6>
                                 <input id="agent_code" type="text" placeholder="Enter Agent Code (If Available)" class="input-text" name="agent_code" value="{{ old('agent_code') }}">
@@ -107,6 +108,7 @@
                                 </span>
                                 @endif
                             </div>
+                            @endif
                             </p>
                             <p>
                                 <label>
