@@ -34,6 +34,7 @@ Route::get('get-tourist-sites/{state}', 'OperationalController@getTouristSites')
 
 
 // Route::middleware(['auth:agent'])->group(function () {
+
     Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
     Route::get('/agent/referal/all', 'AgentController@allReferals')->name('agent.referal.all');
     Route::get('/agent/profile/', 'AgentController@viewProfile')->name('agent.profile');
@@ -186,6 +187,8 @@ Route::get('/email/verify', function () {
 Route::get('/home', 'AuthController@loginformail')->name('loginformail');
 App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail
 */
+Route::post('/createUser2', 'OldCodeController@createUser2')->name('createUser2');
+
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register2', 'AuthController@createUser')->name('register2');
 Route::post('/register', 'AuthController@pay_with_gtpay')->name('register');

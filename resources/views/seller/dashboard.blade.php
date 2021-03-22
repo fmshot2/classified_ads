@@ -113,14 +113,14 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Current Total Amount :  {{$refererAmount ?? 0}}
+                        Current Total Amount :  {{$accruedAmount ?? 0}}
                         <p></p>
                         <br>
                         <form class="form-horizontal form-element" method="POST" action="{{route('buyer.submit.payemnt.request')}}" enctype="multipart/form-data">
                       {{ csrf_field() }}
                        <div class="col-md-12">
                           <div class="form-group">
-                              <label for="">Withdrawal Amount: </label>
+                              <label for="">Withdrawal Amount: </label><small class="text-success">(How Much Do You Want To Withdraw?)</small>
                               <input type="text" name="amount_requested" id="editSubCategoryName" class="form-control">
                           </div>
                       </div>

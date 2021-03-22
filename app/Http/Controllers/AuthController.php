@@ -17,18 +17,18 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-
+use Symfony\Contracts\Service\Attribute\Required;
 
 class AuthController extends Controller
 {
 
     public function show_agent_Login(Request $request)
     {
-        $request->session()->forget('url.intended');
-        session(['url.intended' => url()->previous()]);
+        // $request->session()->forget('url.intended');
+        // session(['url.intended' => url()->previous()]);
 
         if (Auth::guard('agent')->check()) {
-            return view('agent.dashboard');
+            return redirect()->intended('agent/dashboard');
         }
         return view('auth.agent_login');
     }
@@ -40,21 +40,18 @@ class AuthController extends Controller
             'password' => ['required', 'string', 'min:6']
 
         ]);
+        Auth::guard('agent')->attempt(['email' => $request->email, 'password' => $request->password]);
 
-        $credentials = $request->only('email', 'password');
-        if (Auth::guard('agent')->attempt($credentials)) {
-            // dd($status);
-
+        if (Auth::guard('agent')->check()) {
             //Check login
-            if (Auth::guard('agent')->check()) {
-                $success_notification = array(
-                    'message' => 'You are successfully logged in!',
-                    'alert-type' => 'success'
-                );
-                return view('agent.dashboard')->with($success_notification);
-            } else {
-                return Redirect::to(Session::get('url.intended'));
-            }
+            $success_notification = array(
+                'message' => 'You are successfully logged in!',
+                'alert-type' => 'success'
+            );
+            // return redirect()->intended('agent/dashboard')->with($success_notification);
+            return redirect()->route('agent.dashboard');
+        } else {
+            return Redirect::to(Session::get('url.intended'));
         }
     }
 
@@ -116,6 +113,13 @@ class AuthController extends Controller
             'phone'    => ['required', 'numeric'],
             'state'    => ['string'],
             // 'lga'      => ['string'],
+            'address'      => ['Required', 'string'],
+            'bankname'      => ['Required', 'string'],
+            'accountname'      => ['Required', 'string'],
+            'accountno'      => ['Required', 'string'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'identification_type' => ['required', 'string'],
+            'identification_id' => ['required', 'string'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
 
@@ -136,9 +140,10 @@ class AuthController extends Controller
         $gtpay_tranx_curr     = 566;
         $gtpay_cust_id        = '1';
         $gtpay_tranx_noti_url = url('create_agent');
-        $gtpay_cust_name      = $request->name . '{?#?#}' . $request->email . '{?#?#}' . $request->password . '{?#?#}' . $state . '{?#?#}' . $request->phone . '{?#?#}' . $code;
+        $gtpay_cust_name      = $request->name . '{?#?#}' . $request->email . '{?#?#}' . $request->password . '{?#?#}' . $request->phone . '{?#?#}' . $request->state . '{?#?#}' . $request->city . '{?#?#}' . $request->address . '{?#?#}' . $request->bankname . '{?#?#}' . $request->accountname . '{?#?#}' . $request->accountno . '{?#?#}' . $request->identification_type . '{?#?#}' . $request->identification_id . '{?#?#}' . $code;
         $gtpay_tranx_memo     = 'Mobow';
-        $gtpay_echo_data      = $request->name . '{?#?#}' . $request->email . '{?#?#}' . $request->password . '{?#?#}' . $state . '{?#?#}' . $request->phone . '{?#?#}' . $code;
+        // $gtpay_echo_data      = $request->name . '{?#?#}' . $request->email . '{?#?#}' . $request->password . '{?#?#}' . $state . '{?#?#}' . $request->phone . '{?#?#}' . $code;
+        $gtpay_echo_data      = $request->name . '{?#?#}' . $request->email . '{?#?#}' . $request->password . '{?#?#}' . $request->phone . '{?#?#}' . $request->state . '{?#?#}' . $request->city . '{?#?#}' . $request->address . '{?#?#}' . $request->bankname . '{?#?#}' . $request->accountname . '{?#?#}' . $request->accountno . '{?#?#}' . $request->identification_type . '{?#?#}' . $request->identification_id . '{?#?#}' . $code;
         $gtpay_no_show_gtbank = 'yes';
         $gtpay_gway_name      = 'etranzact';
         $hashkey              = '3EBF9CF6D082C89F88490B01D072B0F4E1EE52E86EC731D9B49538F33B551D486AB70673FE1B876B94EF76EC5E0AA1D3D14BA933424037FB1219662AFAB8FF51';
@@ -163,7 +168,6 @@ class AuthController extends Controller
         return view('gttPayView_4_agent', $gtPay_Data);
     }
 
-
     public function create_agent(Request $request)
     {
         $returned_data = explode('{?#?#}', $request->gtpay_echo_data);
@@ -172,9 +176,16 @@ class AuthController extends Controller
         $user->name        = $returned_data[0];
         $user->email       = $returned_data[1];
         $user->password    = Hash::make($returned_data[2]);
-        $user->state = $returned_data[3];
-        $user->phone   = $returned_data[4];
-        $user->agent_code  = $returned_data[5];
+        $user->phone   = $returned_data[3];
+        $user->state = $returned_data[4];
+        $user->lga = $returned_data[5];
+        $user->address   = $returned_data[6];
+        $user->bankname  = $returned_data[7];
+        $user->accountname = $returned_data[8];
+        $user->accountno   = $returned_data[9];
+        $user->identification_type  = $returned_data[10];
+        $user->identification_id = $returned_data[11];
+        $user->agent_code  = $returned_data[12];
 
         if ($user->save()) {
             // Auth::login($user);
@@ -190,23 +201,7 @@ class AuthController extends Controller
                     //Add 200 naira to agent total amount
                     // $present_user->refererAmount = $referer->refererAmount + 200;
 
-                    $parent_id = $present_user->referer_id;
-                    if ($parent_id) {
-                        $parent = User::find($parent_id);
-                        if ($parent) {
-                            $parent->refererAmount = $parent->refererAmount + 200;
-                            $parent->save();
-                            //for grand parent
-                            $grand_parent_id = $parent->referer_id;
-                            if ($grand_parent_id) {
-                                $grand_parent = User::find($grand_parent_id);
-                                if ($grand_parent) {
-                                    $grand_parent->refererAmount = $grand_parent->refererAmount + 100;
-                                    $grand_parent->save();
-                                }
-                            }
-                        }
-                    }
+
                     //if login pass,redirect to agent dashboard page
                     return redirect()->intended('agent/dashboard');
                 } else {
@@ -229,6 +224,7 @@ class AuthController extends Controller
 
     public function pay_with_gtpay(Request $request)
     {
+        $agent_Id = null;
         $link_from_url = $request->refer;
         $code_of_agent = $request->agent_code;
 
@@ -242,12 +238,11 @@ class AuthController extends Controller
         }
 
         if ($code_of_agent) {
-            $saveIdOfAgent = User::where('agent_code', $code_of_agent)->first();
-            $agent_Id = $saveIdOfAgent->id;
-        } else {
-            $agent_Id = null;
+            $saveIdOfAgent = Agent::where('agent_code', $code_of_agent)->first();
+            if ($saveIdOfAgent) {
+                $agent_Id = $saveIdOfAgent->id;
+            }
         }
-
         $request->validate([
             'name'     => ['required', 'string', 'max:255'],
             'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -258,72 +253,73 @@ class AuthController extends Controller
         //save without payment if role is buyer
 
         if ($request->role == 'buyer') {
-             //save user
-        $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->role = $request->role;
-        //save id of referer if user was reffererd
-        $user->idOfReferer = $refererId;
-        //save id of agent if user was brought by agent
-        $user->idOfAgent = $agent_Id;
-        $user->refererLink = $slug3;
-        //$user->state = $request->state;
-        $user->save();
+            //save user
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->role = $request->role;
+            //save id of referer if user was reffererd
+            $user->idOfReferer = $refererId;
+            //save id of agent if user was brought by agent
+            $user->idOfAgent = $agent_Id;
+            $user->refererLink = $slug3;
+            //$user->state = $request->state;
+            $user->save();
 
-        if ($user->save()) {
-            $name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
-            $name = $user->name;
-            $email = $user->email;
-            $origPassword = $request->password;
-            $userRole = $user->role;
+            if ($user->save()) {
+                $name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+                $name = $user->name;
+                $email = $user->email;
+                $origPassword = $request->password;
+                $userRole = $user->role;
 
-            //send mail
+                //send mail
 
-            try {
-                Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
-            } catch (\Exception $e) {
-                $failedtosendmail = 'Failed to Mail!';
-            }
-        }
-
-        $success_notification = array(
-            'message' => 'User Created successfully!',
-            'alert-type' => 'success'
-        );
-
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-
-
-            $person_that_refered = $present_user->idOfReferer;
-            if ($person_that_refered) {
-                $referer = User::where('id', $person_that_refered)->first();
-                if ($referer) {
-                    $referer->refererAmount = $referer->refererAmount + 50;
-                    $referer->save();
+                try {
+                    Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+                } catch (\Exception $e) {
+                    $failedtosendmail = 'Failed to Mail!';
                 }
             }
 
-            $agent_that_refered = $present_user->idOfAgent;
-            if ($agent_that_refered) {
-                $referer = User::where('id', $agent_that_refered)->first();
-                if ($referer) {
-                    $referer->refererAmount = $referer->refererAmount + 100;
-                    $referer->save();
+            $success_notification = array(
+                'message' => 'User Created successfully!',
+                'alert-type' => 'success'
+            );
+
+            $credentials = $request->only('email', 'password');
+
+            if (Auth::attempt($credentials)) {
+                $present_user = Auth::user();
+
+
+                // $person_that_refered = $present_user->idOfReferer;
+                // if ($person_that_refered) {
+                //     $referer = User::where('id', $person_that_refered)->first();
+                //     if ($referer) {
+                //         $referer->refererAmount = $referer->refererAmount + 50;
+                //         $referer->save();
+                //     }
+                // }
+
+                // $agent_that_refered = $present_user->idOfAgent;
+                // if ($agent_that_refered) {
+                //     $referer = Agent::where('id', $agent_that_refered)->first();
+                //     if ($referer) {
+                //         $referer->refererAmount = $referer->refererAmount + 100;
+                //         $referer->save();
+                //     }
+                // }
+
+                if ($present_user->role == 'seller') {
+                    return redirect()->route('seller.dashboard')->with($success_notification);
+                } else {
+                    return Redirect::to(Session::get('url.intended'))->with($success_notification);
                 }
             }
 
-            if ($present_user->role == 'seller') {
-                return redirect()->route('seller.dashboard')->with($success_notification);
-            } else {
-                return Redirect::to(Session::get('url.intended'))->with($success_notification);
-            }
-        }
-
-        return redirect()->intended('/');
+            return redirect()->intended('/');
         }
 
         //pay with GTPay
@@ -362,34 +358,34 @@ class AuthController extends Controller
 
     public function create_user(Request $request)
     {
-        if ($request->gtpay_tranx_amt != '1.00') {
-            $transTable  = $request->gtpay_tranx_amt;
-        } else {
-            session()->flash('fail', 'Incorect amount entered');
+        // if ($request->gtpay_tranx_amt != '1.00') {
+        //     $transTable  = $request->gtpay_tranx_amt;
+        // } else {
+        //     session()->flash('fail', 'Incorect amount entered');
 
-            return view('error_page');
-        }
-        if ($request->gtpay_tranx_curr != '566') {
-            $transTable  = $request->gtpay_tranx_curr;
+        //     return view('error_page');
+        // }
+        // if ($request->gtpay_tranx_curr != '566') {
+        //     $transTable  = $request->gtpay_tranx_curr;
 
-            session()->flash('fail', 'Incorect currency entered');
+        //     session()->flash('fail', 'Incorect currency entered');
 
-            return view('error_page');
-        }
-        if ($request->gtpay_mert_id != '14264') {
-            $transTable  = $request->gtpay_mert_id;
+        //     return view('error_page');
+        // }
+        // if ($request->gtpay_mert_id != '14264') {
+        //     $transTable  = $request->gtpay_mert_id;
 
-            session()->flash('fail', 'Incorect merchant id entered');
+        //     session()->flash('fail', 'Incorect merchant id entered');
 
-            return view('error_page');
-        }
-        if ($request->gtpay_tranx_id != '14264') {
-            $transTable  = $request->gtpay_tranx_id;
+        //     return view('error_page');
+        // }
+        // if ($request->gtpay_tranx_id != '14264') {
+        //     $transTable  = $request->gtpay_tranx_id;
 
-            session()->flash('fail', 'Incorect transaction id entered');
+        //     session()->flash('fail', 'Incorect transaction id entered');
 
-            return view('error_page');
-        }
+        //     return view('error_page');
+        // }
         $returned_data = explode('{?#?#}', $request->gtpay_echo_data);
         $user              = new User;
         $user->name        = $returned_data[0];
@@ -420,7 +416,6 @@ class AuthController extends Controller
                 $person_that_refered = $present_user->idOfReferer;
                 if ($person_that_refered) {
                     $referer = User::where('id', $person_that_refered)->first();
-                    // dd($referer->refererAmount);
                     if ($referer) {
                         $referer->refererAmount = $referer->refererAmount + 50;
                         $referer->save();
@@ -429,12 +424,47 @@ class AuthController extends Controller
 
                 $agent_that_refered = $present_user->idOfAgent;
                 if ($agent_that_refered) {
-                    $referer = Agent::where('id', $agent_that_refered)->first();
-                    if ($referer) {
-                        $referer->refererAmount = $referer->refererAmount + 100;
-                        $referer->save();
+                    $referer2 = Agent::where('id', $agent_that_refered)->first();
+                    if ($referer2) {
+                        $referer2->refererAmount = $referer2->refererAmount + 100;
+                        $referer2->save();
                     }
                 }
+
+                $person_that_refered = $present_user->idOfReferer;
+                if ($person_that_refered) {
+                    $referer = User::where('id', $person_that_refered)->first();
+                    if ($referer) {
+
+                        $person_that_refered2 = $referer->idOfReferer;
+                        if ($person_that_refered2) {
+                            $referer3 = User::where('id', $person_that_refered2)->first();
+                            if ($referer3) {
+                                $referer3->refererAmount = $referer3->refererAmount + 25;
+                                $referer3->save();
+                            }
+                        }
+                    }
+                }
+
+                $agent_that_refered = $present_user->idOfAgent;
+
+                if ($agent_that_refered) {
+                    $referer2 = Agent::where('id', $agent_that_refered)->first();
+                    if ($referer2) {
+
+                        $referer_parent = $referer2->idOfAgent;
+                        if ($referer_parent) {
+                            $the_referer_parent = Agent::where('id', $referer_parent)->first();
+                            if ($the_referer_parent) {
+                                $the_referer_parent->refererAmount = $the_referer_parent->refererAmount + 50;
+                                $the_referer_parent->save();
+                            }
+                        }
+                    }
+                }
+
+
 
                 if (Auth::user()->role == 'seller') {
                     return redirect()->route('seller.dashboard');

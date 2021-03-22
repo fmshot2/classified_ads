@@ -21,10 +21,7 @@ class AgentController extends Controller
 
         $agent_code_check = Refererlink::where(['agent_id'=> Auth::guard('agent')->id()])->first();
         $present_user_id = Auth::guard('agent')->user()->id;
-        dd($present_user_id);
-
         $agent_code_users_count = User::where(['idOfAgent' => $present_user_id])->count();
-        dd($agent_code_users_count);
         $all_my_referals = User::where('idOfAgent', $present_user_id);
 
         $agent_amount_earned = Auth::guard('agent')->user()->refererAmount;
