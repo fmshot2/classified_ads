@@ -86,7 +86,7 @@
                             </label>
                         </p>
                         <div class="form-group clearfix mb-0">
-                            <button type="submit" class="btn-md btn-warning float-left">Login</button>
+                            <button type="submit" class="btn-md float-left" style="background-color: #cc8a19; color: #fff">Login</button>
                             <a href="{{ route('password.request') }}" class="forgot-password">Forgot Password</a>
                         </div>
                     </form>

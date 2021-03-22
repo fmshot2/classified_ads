@@ -184,10 +184,15 @@ Route::get('/email/verify', function () {
     return view('auth.verify');
 })->middleware('auth');
 Route::get('/home', 'AuthController@loginformail')->name('loginformail');
+App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail
 */
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register2', 'AuthController@createUser')->name('register2');
 Route::post('/register', 'AuthController@pay_with_gtpay')->name('register');
+Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::post('/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
 Route::post('/agent/register', 'AuthController@createAgent')->name('agent.register');
 Route::get('/login', 'AuthController@showLogin')->name('login');
@@ -537,7 +542,7 @@ View::composer(['layouts.buyer_partials.navbar', 'layouts.buyer_partials.sidebar
 });
 
 
-//Auth::routes();
+// Auth::routes();
 
 
 
