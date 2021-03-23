@@ -511,7 +511,7 @@
             .share({
                 title: 'Referral Link Copied!',
                 text: $temp,
-                url: window.location.href
+                url: $(element).text()
             })
             .then(() => console.log('Successful share! 🎉'))
             .catch(err => console.error(err));
