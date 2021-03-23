@@ -1338,7 +1338,7 @@ public function show($id)
       public function createpay(Request $request)
       {
        $data = $request->all();
-
+       dd($data);
        $badge_service_id = $data['service_id'];
 
 

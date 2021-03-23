@@ -5,6 +5,7 @@
 
 
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
  <meta charset="utf-8">
  <meta name="theme-color" content="#CA8309" />
  <!-- Favicon icon -->
@@ -25,15 +26,12 @@
  <link rel="stylesheet" type="text/css"  href="{{asset('css/slick.css')}}">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
  <!-- Required Core Stylesheet -->
 <link rel="stylesheet" href="{{asset('glide/css/glide.core.min.css')}}">
 
 <!-- Optional Theme Stylesheet -->
 <link rel="stylesheet" href="{{asset('glide/css/glide.theme.min.css')}}">
 <link rel="stylesheet" href="{{asset('lightbox/lightbox.min.css')}}">
-
 
  <!-- Custom stylesheet -->
  <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
@@ -53,9 +51,20 @@
   <link href="{{ asset('css/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('css/bootstrap-dropdownhover.min.css') }}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
+{{-- 
+<script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
+  type="text/javascript" charset="utf-8"></script>
+  <script src="https://js.api.here.com/v3/3.1/mapsjs-core-legacy.js"
+        type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
+  type="text/javascript" charset="utf-8"></script>
+  <script src="https://js.api.here.com/v3/3.1/mapsjs-service-legacy.js"
+        type="text/javascript" charset="utf-8"></script> --}}
 
 
 
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
  <!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
  <script src="{{asset('js/ie-emulation-modes-warning.js')}}"></script>
@@ -180,5 +189,12 @@
     <script src="js/respond.min.js"></script>
   <![endif]-->
       <script src="js/bootstrap-dropdownhover.min.js"></script>
+      {{-- <canvas width="1280" height="960" style="position: absolute; top: 0px; left: 0px; width: 640px; height: 480px; background-color: rgb(245, 248, 250);"></canvas> --}}
+
+      <style type="text/css">
+          #mapContainer {
+            width: 100% !important;
+          }
+      </style>
 
 </head>
