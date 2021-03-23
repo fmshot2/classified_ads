@@ -362,10 +362,10 @@
  var phone1 = $("#phone1").val();
  //var service_id = $("#service_id2").val();
  function payWithPaystack1(){
+
   var new_id = document.getElementById("form_service_id").value;
   console.log(new_id);
       console.log(base_Url);
-
 
   var handler = PaystackPop.setup({
     key: 'pk_test_cb0fc910bb9fd127519794aa4128be0fd2c354d4',
@@ -384,7 +384,6 @@
     },
     callback: function(response){
       var ref_no1 = response.reference;
-      console.log(ref_no1);
        /* $.ajax({
     url: 'http://www.yoururl.com/verify_transaction?reference='+ response.reference,
     method: 'get',
@@ -394,14 +393,14 @@
   });*/
   $.ajax({
     type:'POST',
-    {{--url: "{{ route('user.message2') }}",--}}
+                    url: "{{ route('createpaypaystack') }}",
                     //data: $('#myform').serialize(),
-                    url: base_Url + '/seller/service/createpay/',
+                    // url: base_Url + '/provider/service/createpay/',
                     data: {_token:_token, email:email1, amount:amount1, seller_id:seller_id1, badge_type:badge_type1, seller_name:seller_name1, phone:phone1, ref_no:ref_no1, service_id: new_id
                       },
                     success: function(data) {
                       alert(data);
-                      console.log('data');
+                      console.log(data);
                     }
                   });
      //       console.log(response);

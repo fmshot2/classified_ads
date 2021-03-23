@@ -1337,9 +1337,11 @@ public function show($id)
 
       public function createpay(Request $request)
       {
+        // return "Badge sfhgfasdgfhsdgfUpdated successfully!";
        $data = $request->all();
-
+    //    return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$data]);
        $badge_service_id = $data['service_id'];
+
 
 
        $this->validate($request,[
@@ -1355,9 +1357,10 @@ public function show($id)
         $badge_check->badge_type = $data['badge_type'];
 
         $badge_check->amount = $data['amount'];
-        $badge_check->ref_no = 1234;
+        $badge_check->ref_no = $data['ref_no'];
 
         $badge_check->save();
+
         return "Badge Updated successfully!";
       }else{
        $badge = new Badge();
@@ -1373,35 +1376,36 @@ public function show($id)
        return "Badge created successfully";
      }
 
+        return response()->json(['success'=>'Ajax request submitted successfully', 'success1'=>$badge_check, 'success2'=>$service_check, 'ref'=>$request->ref_no]);
 
-     $badge->save();
-     return "yyyy";
+    //  $badge->save();
+    //  return "yyyy";
 
         //return
 
-     if ($badge->save()) {
-      return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
-        //return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
-    }else{
-      return response()->json(['success2', 'Your message was not sent!']);
-    }
+//      if ($badge->save()) {
+//       return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
+//         //return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
+//     }else{
+//       return response()->json(['success2', 'Your message was not sent!']);
+//     }
 
-    $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->first();
-    if ($likecheck) {
-     Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
-     $likecount = Like::where(['service_id'=>$id])->count();
-     return redirect()->to('serviceDetail/'.$service_slug);
-        //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
-        //return redirect('/home');
-   }else{
-     $like = new Like();
-     $like->user_id = Auth::id();
-     $like->service_id = $id;
-     $like->save();
-     $likecount = Like::where(['service_id'=>$id])->count();
-     return redirect()->to('serviceDetail/'.$service_slug);
-        //return 'Heyyyyy22222'. $likecount;
-   }
+//     $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->first();
+//     if ($likecheck) {
+//      Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
+//      $likecount = Like::where(['service_id'=>$id])->count();
+//      return redirect()->to('serviceDetail/'.$service_slug);
+//         //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
+//         //return redirect('/home');
+//    }else{
+//      $like = new Like();
+//      $like->user_id = Auth::id();
+//      $like->service_id = $id;
+//      $like->save();
+//      $likecount = Like::where(['service_id'=>$id])->count();
+//      return redirect()->to('serviceDetail/'.$service_slug);
+//         //return 'Heyyyyy22222'. $likecount;
+//    }
 
  }
 
