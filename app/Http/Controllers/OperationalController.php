@@ -38,7 +38,7 @@ class OperationalController extends Controller
             'image'=> 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        if ( $request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $image = $request->file('image');
             $fileInfo = $image->getClientOriginalName();
             $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
@@ -390,6 +390,38 @@ class OperationalController extends Controller
     	$fileName = 'efcontact-ad-brochure.pdf';
 
     	return response()->download($filePath, $fileName, $headers);
+    }
+
+    public function ajaxSearchResult(Request $request)
+    {
+        if($request->ajax()) {
+
+            $data = Service::query()
+            ->where('name', 'LIKE', "%{$request->service}%")
+            ->orWhere('description', 'LIKE', "%{$request->service}%")
+            ->get();
+            // $data = Service::where('name', 'LIKE', $request->service.'%')->get();
+
+            $output = '';
+
+            if (count($data)>0) {
+
+                $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
+
+                foreach ($data as $row){
+
+                    $output .= '<li class="list-group-item"><a style="display:block" href="'. route('serviceDetail',  $row->slug) .'">'.$row->name.'</a></li>';
+                }
+
+                $output .= '</ul>';
+            }
+            else {
+
+                $output .= '<li class="list-group-item">'.'No results'.'</li>';
+            }
+
+            return $output;
+        }
     }
 
 }
