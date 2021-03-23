@@ -510,7 +510,7 @@
             navigator
             .share({
                 title: 'Referral Link Copied!',
-                text: $temp,
+                text: $(element).text(),
                 url: $(element).text()
             })
             .then(() => console.log('Successful share! 🎉'))
