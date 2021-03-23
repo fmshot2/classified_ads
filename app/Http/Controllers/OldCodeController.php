@@ -621,4 +621,140 @@ class OldCodeController extends Controller
         return redirect()->intended('/');
     }
 
+
+
+    //gtpay_using _test_credentials
+    public function pay_with_gtpay(Request $request)
+    {
+        $agent_Id = null;
+        $link_from_url = $request->refer;
+        $code_of_agent = $request->agent_code;
+
+        $slug3 = Str::random(8);
+
+        if ($link_from_url) {
+            $saveIdOfRefree = User::where('refererLink', $link_from_url)->first();
+            $refererId = $saveIdOfRefree->id;
+        } else {
+            $refererId = null;
+        }
+
+        if ($code_of_agent) {
+            $saveIdOfAgent = Agent::where('agent_code', $code_of_agent)->first();
+            if ($saveIdOfAgent) {
+                $agent_Id = $saveIdOfAgent->id;
+            }
+        }
+        $request->validate([
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'role'     => ['required', Rule::in(['seller', 'buyer']),]
+        ]);
+
+        //save without payment if role is buyer
+
+        if ($request->role == 'buyer') {
+            //save user
+            $user = new User;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->role = $request->role;
+            //save id of referer if user was reffererd
+            $user->idOfReferer = $refererId;
+            //save id of agent if user was brought by agent
+            $user->idOfAgent = $agent_Id;
+            $user->refererLink = $slug3;
+            //$user->state = $request->state;
+            $user->save();
+
+            if ($user->save()) {
+                $name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+                $name = $user->name;
+                $email = $user->email;
+                $origPassword = $request->password;
+                $userRole = $user->role;
+
+                //send mail
+
+                try {
+                    Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+                } catch (\Exception $e) {
+                    $failedtosendmail = 'Failed to Mail!';
+                }
+            }
+
+            $success_notification = array(
+                'message' => 'User Created successfully!',
+                'alert-type' => 'success'
+            );
+
+            $credentials = $request->only('email', 'password');
+
+            if (Auth::attempt($credentials)) {
+                $present_user = Auth::user();
+
+
+                // $person_that_refered = $present_user->idOfReferer;
+                // if ($person_that_refered) {
+                //     $referer = User::where('id', $person_that_refered)->first();
+                //     if ($referer) {
+                //         $referer->refererAmount = $referer->refererAmount + 50;
+                //         $referer->save();
+                //     }
+                // }
+
+                // $agent_that_refered = $present_user->idOfAgent;
+                // if ($agent_that_refered) {
+                //     $referer = Agent::where('id', $agent_that_refered)->first();
+                //     if ($referer) {
+                //         $referer->refererAmount = $referer->refererAmount + 100;
+                //         $referer->save();
+                //     }
+                // }
+
+                if ($present_user->role == 'seller') {
+                    return redirect()->route('seller.dashboard')->with($success_notification);
+                } else {
+                    return Redirect::to(Session::get('url.intended'))->with($success_notification);
+                }
+            }
+
+            return redirect()->intended('/');
+        }
+
+        //pay with GTPay
+        $gtpay_mert_id        = 14264;
+        $gtpay_tranx_id       = $this->gen_transaction_id();
+        $gtpay_tranx_amt      = 1 * 100;
+        $gtpay_tranx_curr     = 566;
+        $gtpay_cust_id        = '1';
+        $gtpay_tranx_noti_url = url('create_user');
+        $gtpay_cust_name      = $request->name . '{?#?#}' . $request->email . '{?#?#}' . $request->password . '{?#?#}' . $slug3 . '{?#?#}' . $agent_Id . '{?#?#}' . $refererId . '{?#?#}' . $request->role;
+        $gtpay_tranx_memo     = 'Mobow';
+        $gtpay_echo_data      = $request->name . '{?#?#}' . $request->email . '{?#?#}' . $request->password . '{?#?#}' . $slug3 . '{?#?#}' . $agent_Id .  '{?#?#}' . $refererId . '{?#?#}' . $request->role;
+        $gtpay_no_show_gtbank = 'yes';
+        $gtpay_gway_name      = 'etranzact';
+        $hashkey              = '3EBF9CF6D082C89F88490B01D072B0F4E1EE52E86EC731D9B49538F33B551D486AB70673FE1B876B94EF76EC5E0AA1D3D14BA933424037FB1219662AFAB8FF51';
+        $gtpay_hash           = $gtpay_mert_id . $gtpay_tranx_id . $gtpay_tranx_amt . $gtpay_tranx_curr . $gtpay_cust_id . $gtpay_tranx_noti_url . $hashkey;
+        $hashed               = hash('sha512', $gtpay_hash);
+        $gtPay_Data = [
+            'gtpay_mert_id'        => $gtpay_mert_id,
+            'gtpay_tranx_id'       => $gtpay_tranx_id,
+            'gtpay_tranx_amt'      => $gtpay_tranx_amt,
+            'gtpay_tranx_curr'     => $gtpay_tranx_curr,
+            'gtpay_cust_id'        => $gtpay_cust_id,
+            'gtpay_tranx_noti_url' => $gtpay_tranx_noti_url,
+            'gtpay_cust_name'      => $gtpay_cust_name,
+            'gtpay_tranx_memo'     => $gtpay_tranx_memo,
+            'gtpay_echo_data'      => $gtpay_echo_data,
+            'gtpay_no_show_gtbank' => $gtpay_no_show_gtbank,
+            'gtpay_gway_name'      => $gtpay_gway_name,
+            'hashkey'              => $hashkey,
+            'hashed'               => $hashed
+        ];
+
+        return view('gttPayView', $gtPay_Data);
+    }
 }
