@@ -579,14 +579,14 @@
                             </div>
                             @if($serviceDetail->address != '')
                             {{-- <div style="width: 640px; height: 480px" id="mapContainer"></div> --}}
-                            <div id='map' style='width: 400px; height: 300px; '></div>
-                            {{-- <div class="google-maps">
+                            {{-- <div id='map' style='width: 400px; height: 300px; '></div> --}}
+                            <div class="google-maps">
                                 <div class="mapouter">
                                     <div class="gmap_canvas">
                                         <iframe id="gmap_canvas" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31518.588844000613!2d7.492251300000006!3d9.07982880000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x55e2e606f1c6452e!2sE.F.%20Network%20Ltd!5e0!3m2!1sen!2sng!4v1611820893949!5m2!1sen!2sng" frameborder="0" style="border:0; width: 100%; height: 381px;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
                             @else
                             <p class="text text-danger">No address provided.</p>
                             @endif
@@ -1018,7 +1018,7 @@
     }
 </script>
 @endsection
-{{-- <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function() {
         var address = document.getElementById('userAddress').innerHTML;
 
@@ -1054,4 +1054,4 @@
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY2buDtbYIot8Llm_FkQXHW36f0Cme6TI&callback=initMap">
-</script> --}}
+</script>
