@@ -510,7 +510,7 @@
             navigator
             .share({
                 title: 'Referral Link Copied! 🎉',
-                text: $(element).text(),
+                text: 'Here is my referral link on EFContact.',
                 url: $(element).text()
             })
             .then(() => console.log('Successful share! 🎉'))
