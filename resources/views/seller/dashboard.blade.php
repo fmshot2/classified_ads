@@ -509,7 +509,7 @@
 
             navigator
             .share({
-                title: 'Referral Link Copied!',
+                title: 'Referral Link Copied! 🎉',
                 text: $(element).text(),
                 url: $(element).text()
             })
