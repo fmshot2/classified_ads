@@ -140,7 +140,7 @@
                                                                  Activities. See Chart Below For Commission Scales.</li> --}}
 
                                                             <li>We are happy to work with you and offer to you one of the best marketing careers in the country, where you have an opportunity to make millions of Naira yearly.</li>
-                                                            <li><strong>Note:</strong> The registration to be an agent on EFContact will attract a one time fee of <strong>&#8358;500.</strong></li>
+                                                            <li><strong>Note:</strong> The registration to be an agent on EFContact will attract a fee of <strong>&#8358;500.</strong></li>
                                                             <li>To become our agent, you will be required to fill out the form below and be accepted by the company. When we receive your online request, a reference code and another form would be sent to you to finalize your application.</li>
                                                             <li>EFContact provides an opportunity for a part-time agent to make on average N50,000.00 monthly and a full time agent to make on average N100,000.00  or monthly. On top of your basic commission, there are other incentives which may generate millions of Naira to you yearly.</li>
                                                             <li>When you are approved, you will receive your agent code and a dashboard. The dashboard is where all your activities and daily income are displayed.  We pay commissions weekly not monthly.  You will also be able to refer people to

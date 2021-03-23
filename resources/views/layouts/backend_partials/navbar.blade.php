@@ -1,7 +1,7 @@
 
   <header class="main-header ">
     <!-- Logo -->
-    <a href="index.html" class="logo">
+    <a href="{{ route('home') }}" class="logo">
         <!-- mini logo-->
         <span class="logo-mini"><b>EFC</b></span>
         <!-- logo for regular state and mobile devices -->

@@ -507,6 +507,15 @@
             toastr.options.positionClass = 'toast-top-left'
             toastr.success("Referral Link Copied!")
 
+            navigator
+            .share({
+                title: 'Referral Link Copied!',
+                text: $(element).text(),
+                url: $(element).text()
+            })
+            .then(() => console.log('Successful share! 🎉'))
+            .catch(err => console.error(err));
+
             $temp.remove();
 
         }

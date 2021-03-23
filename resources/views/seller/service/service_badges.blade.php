@@ -64,7 +64,7 @@
                                 <li>Your service(s) will be featured on all efcontact pages.</li>
                                 <li>Upload as much as (8) images of your services.</li>
                                 <li>Appear on the top when inquirers search for services related to yours</li>
-                                <li>Cost: &#8358;20,000</li>
+                                <li>Cost: &#8358;15,000</li>
                             </ol>
                         </div>
                         <div class="box-footer box-profile text-center">

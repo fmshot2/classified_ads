@@ -1,4 +1,4 @@
-<div class="categories content-area-8 home-verified-business-section bg-grea-3" style="margin-top: 20px">
+{{-- <div class="categories content-area-8 home-verified-business-section bg-grea-3" style="margin-top: 20px">
     <div class="service-detail-container">
         <!-- Main title -->
         <div class="main-title">
@@ -59,7 +59,7 @@
             </div>
         @endif
     </div>
-</div>
+</div> --}}
 
 
 
