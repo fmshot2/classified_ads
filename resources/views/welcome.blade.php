@@ -8,7 +8,7 @@
 
 @include('frontend_section/carousel')
 
-@include('frontend_section/search')
+@include('frontend_section/searchAjax')
 
 
 

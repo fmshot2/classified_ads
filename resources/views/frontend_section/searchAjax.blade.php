@@ -7,9 +7,7 @@
         border: 0 !important;
     }
     .search-section.bg-grea {
-        background: #ca830960;
-        border-top: 7px solid #CA8309;
-        border-bottom: 7px solid #CA8309;
+        background: #ca830946;
     }
     .search-section .navbar-top-post-btn a {
         font-size: 17px !important;
@@ -17,8 +15,8 @@
         border-radius: 200px;
         border: none;
         padding: 15px 56px;
-        background: #ffffff !important;
-        color: #CA8309 !important;
+        background: #CA8309 !important;
+        color: #fff !important;
         cursor: pointer;
         box-shadow: 0 0 0 rgb(204 169 44 / 40%);
         animation: pulsePostBtn 1s infinite;
@@ -36,13 +34,13 @@
                                 <div class="col-lg-8 col-md-4 col-sm-6">
                                     {{-- <p style="margin-bottom: 0; font-weight: 600;">Keyword</p> --}}
                                     <div class="form-group">
-                                        <input type="text" name="keyword" id="jxservices" class="form-control searchInput" placeholder="e.g. Barber, Saloon">
+                                        <input type="text" name="keyword" id="jxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g. Barber, Saloon)">
                                         <div id="service_list" style="position: absolute;"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="mr-3 navbar-top-post-btn">
-                                        <a class="btn btn-success" href="/login"><i class="fa fa-search"></i> <span style="font-size: 15px !important;">Search</span></a>
+                                        <a class="btn btn-success" href="/login"><i class="fa fa-search"></i> <span style="font-size: 15px !important;  color: #fff">Search</span></a>
                                     </div>
                                 </div>
                             </div>
