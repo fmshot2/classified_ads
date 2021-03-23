@@ -34,6 +34,6 @@ class AgentRegistration extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.agents.register')->subject('Click The Link Below To Complete Agent Registration!');
+        return $this->markdown('emails.agents.register')->subject('EFContact Agent Registration!');
     }
 }
