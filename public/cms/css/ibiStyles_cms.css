@@ -65,6 +65,10 @@ span.info-box-icon.push-bottom.bg-warning {
     font-weight: 600;
 }
 
+.skin-blue .sidebar-menu > li:hover > a, .skin-blue .sidebar-menu > li.active > a, .skin-blue .sidebar-menu > li.menu-open > a {
+    color: #ffffff;
+    background: #cc8a19;
+}
 @-webkit-keyframes pulsePostBtn {
     0% {
         -webkit-box-shadow: 0 0 0 0 rgba(255, 103, 103, 0.9);
