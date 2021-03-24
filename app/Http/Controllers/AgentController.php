@@ -17,7 +17,7 @@ class AgentController extends Controller
 
     public function agentDashboard(Request $request)
     {
-// dd($Auth::guard('agent')->id());
+        // dd($Auth::guard('agent')->id());
 
         $agent_code_check = Refererlink::where(['agent_id'=> Auth::guard('agent')->id()])->first();
         $present_user_id = Auth::guard('agent')->user()->id;
