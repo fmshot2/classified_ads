@@ -308,26 +308,6 @@ class AuthController extends Controller
 
             if (Auth::attempt($credentials)) {
                 $present_user = Auth::user();
-
-
-                // $person_that_refered = $present_user->idOfReferer;
-                // if ($person_that_refered) {
-                //     $referer = User::where('id', $person_that_refered)->first();
-                //     if ($referer) {
-                //         $referer->refererAmount = $referer->refererAmount + 50;
-                //         $referer->save();
-                //     }
-                // }
-
-                // $agent_that_refered = $present_user->idOfAgent;
-                // if ($agent_that_refered) {
-                //     $referer = Agent::where('id', $agent_that_refered)->first();
-                //     if ($referer) {
-                //         $referer->refererAmount = $referer->refererAmount + 100;
-                //         $referer->save();
-                //     }
-                // }
-
                 if ($present_user->role == 'seller') {
                     return redirect()->route('seller.dashboard')->with($success_notification);
                 } else {
@@ -337,6 +317,20 @@ class AuthController extends Controller
 
             return redirect()->intended('/');
         }
+
+        // //pay with Paystack
+        // $paystack_Data = [
+        //     'name'          => $request->name,
+        //     'email'         => $request->email,
+        //     'password'      => $request->password,
+        //     'slug3'         => $request->slug3,
+        //     'agent_Id'      => $request->agent_Id,
+        //     'refererId'     => $request->refererId,
+        //     'role'          => $request->role,
+        // ];
+
+        // return view('paystackRegView', $paystack_Data);
+
 
         //pay with GTPay
         $gtpay_mert_id        = 14435;
@@ -494,6 +488,122 @@ class AuthController extends Controller
             return view('auth/login');
         }
     }
+
+
+
+
+
+
+
+
+    public function createPaystackpay(Request $request)
+    {
+        return response()->json(['captcha' => 'trtr']);
+
+        $link_from_url = $request->refer;
+        $code_of_agent = $request->agent_code;
+
+        $slug3 = Str::random(8);
+
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // 'state' => ['string'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            // 'captcha' => 'required|captcha',
+            'role' => 'required'
+        ]);
+
+        // Get id of owner of $link_from_url of available
+        if ($link_from_url) {
+            $saveIdOfRefree = User::where('refererLink', $link_from_url)->first();
+            $refererId = $saveIdOfRefree->id;
+        } else {
+            $refererId = null;
+        }
+
+        // Get id of owner of $agent code if available
+        if ($code_of_agent) {
+            $saveIdOfAgent = User::where('agent_code', $code_of_agent)->first();
+            // dd($saveIdOfAgent);
+            $agent_Id = $saveIdOfAgent->id;
+        } else {
+            $agent_Id = null;
+        }
+
+        //save user
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->role = $request->role;
+        //save id of referer if user was reffererd
+        $user->idOfReferer = $refererId;
+        //save id of agent if user was brought by agent
+        $user->idOfAgent = $agent_Id;
+        $user->refererLink = $slug3;
+        //$user->state = $request->state;
+        $user->save();
+        //send mail
+
+        if ($user->save()) {
+            $name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+            $name = $user->name;
+            $email = $user->email;
+            $origPassword = $request->password;
+            $userRole = $user->role;
+
+            try {
+                Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+            } catch (\Exception $e) {
+                $failedtosendmail = 'Failed to Mail!';
+            }
+        }
+
+        $success_notification = array(
+            'message' => 'User Created successfully!',
+            'alert-type' => 'success'
+        );
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $present_user = Auth::user();
+
+            // if referrer link is available, save it to referer table
+            $link = new Refererlink();
+            $link->user_id = $present_user->id;
+            $link->refererlink = $present_user->refererLink;
+            $link->save();
+
+            $person_that_refered = $present_user->idOfReferer;
+            if ($person_that_refered) {
+                $referer = User::where('id', $person_that_refered)->first();
+                if ($referer) {
+                    $referer->refererAmount = $referer->refererAmount + 50;
+                    $referer->save();
+                }
+            }
+
+            $agent_that_refered = $present_user->idOfAgent;
+            if ($agent_that_refered) {
+                $referer = User::where('id', $agent_that_refered)->first();
+                if ($referer) {
+                    $referer->refererAmount = $referer->refererAmount + 100;
+                    $referer->save();
+                }
+            }
+
+            if ($present_user->role == 'seller') {
+                return redirect()->route('seller.dashboard')->with($success_notification);
+            } else {
+                return Redirect::to(Session::get('url.intended'))->with($success_notification);
+            }
+        }
+
+        return redirect()->intended('/');
+    }
+
 
     public function refreshCaptcha()
     {

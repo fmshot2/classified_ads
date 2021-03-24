@@ -393,7 +393,7 @@
   });*/
   $.ajax({
     type:'POST',
-                    url: "{{ route('createpaypaystack') }}",
+                    url: "{{ route('createpay') }}",
                     //data: $('#myform').serialize(),
                     // url: base_Url + '/provider/service/createpay/',
                     data: {_token:_token, email:email1, amount:amount1, seller_id:seller_id1, badge_type:badge_type1, seller_name:seller_name1, phone:phone1, ref_no:ref_no1, service_id: new_id

@@ -32,7 +32,7 @@ class BadgeController extends Controller
     	$gtpay_tranx_amt      = $request->amount * 100;
     	$gtpay_tranx_curr     = 566;
     	$gtpay_cust_id        = $request->user()->id;
-    	$gtpay_tranx_noti_url = "https://yellowpage.test/api/gt_payment_details/{$request->user()->id}/{$request->badge_type}";
+    	$gtpay_tranx_noti_url = route('home')."/api/gt_payment_details/{$request->user()->id}/{$request->badge_type}";
     	$gtpay_cust_name      = $request->user()->name;
     	$gtpay_tranx_memo     = 'Mobow';
     	$gtpay_echo_data      = "{$request->user()->id},{$request->badge_type}";
@@ -64,9 +64,6 @@ class BadgeController extends Controller
 // dd($gtPay_Data);
 		return view('gttPayView', $gtPay_Data );
 	}
-
-
-
 
 
 

@@ -42,10 +42,17 @@
                         </div>
 
                         <div class="clearfix"></div>
+                        {{-- form with gtpay
+                        <form method="POST" action="{{ route('register') }}"> --}}
 
-                        <form method="POST" action="{{ route('register') }}">
                             {{-- Next line is for registration without payment --}}
                         {{-- <form method="POST" action="{{ route('createUser2') }}"> --}}
+
+                            {{-- form for paystack pay --}}
+                            <form>
+                            {{-- End form for paystack pay --}}
+                            {{-- {{ csrf_field() }} --}}
+
                             @csrf
                             <div class="form-group form-box">
                                 <input id="name" type="text" class="input-text" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
@@ -117,7 +124,14 @@
                                 </label>
                             </p>
                             <div class="form-group clearfix mb-0">
-                                <button type="submit" class="btn-md float-left" style="background-color: #cc8a19; color: #fff">Create Account</button>
+                                {{-- btn for without pay --}}
+                                {{-- <button type="submit" class="btn-md float-left" style="background-color: #cc8a19; color: #fff">Create Account</button> --}}
+                                {{-- btn for pay --}}
+                                <script src="https://js.paystack.co/v1/inline.js"></script>
+
+                                <button id="paystack_btn_control1" type="button" onclick="regWithPaystack1()" class="btn-md float-left" style="background-color: #cc8a19; color: #fff">Create Account</button>
+
+                                <small id="error_msg_paystack1" class="text-danger"></small>
                             </div>
                         </form>
                     </div>
@@ -185,6 +199,70 @@
         }
     }
 </script>
+
+<script>
+    base_Url = "{{url('/')}}"
+
+
+   function regWithPaystack1(){
+
+   var _token = $("input[name='_token']").val();
+
+   var name = $("#name").val();
+   var email = document.getElementById('email').value //$("#email").val();
+   var password = $("#password").val();
+   var refer = $("#refer").val();
+   var role = $("#role").val();
+   var agent_code = $("#agent_code").val();
+    // console.log(new_id);
+        console.log(email);
+
+
+
+
+    var handler = PaystackPop.setup({
+      key: 'pk_test_cb0fc910bb9fd127519794aa4128be0fd2c354d4',
+      email: email,
+      amount: 2000000,
+        ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+
+        metadata: {
+         custom_fields: [
+         {
+          display_name: "Mobile Number",
+          variable_name: "mobile_number",
+          value: "+2348012345678"
+        }
+        ]
+      },
+      callback: function(response){
+        var ref_no1 = response.reference;
+         /* $.ajax({
+      url: 'http://www.yoururl.com/verify_transaction?reference='+ response.reference,
+      method: 'get',
+      success: function (response) {
+        // the transaction status is in response.data.status
+      }
+    });*/
+    $.ajax({
+      type:'POST',
+                      url: "{{ route('createpaypaystack2') }}",
+                      // url: base_Url + '/provider/service/createpay/',
+                      data: {_token:_token, password:password, refer:refer, role:role, agent_code:agent_code},
+                      success: function(data) {
+                        alert(data);
+                        console.log(data);
+                      }
+                    });
+         //   alert('success. transaction ref is ' + response.reference);
+       },
+       onClose: function(){
+        alert('window closed');
+      }
+    });
+    handler.openIframe();
+  }
+  </script>
 
 
 @endsection
