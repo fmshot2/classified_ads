@@ -28,7 +28,8 @@ class AdvertRequestsFormController extends Controller
             'phone' => $request->get('phone'),
             'advert_type' => $request->get('advert_type'),
             'subject' => $request->get('subject'),
-            'message' => $request->get('message')
+            'message' => $request->get('message'),
+            'advert_referral_name' => $request->get('advert_referral_name')
         ]);
 
         if ($advert->save()) {
@@ -38,14 +39,16 @@ class AdvertRequestsFormController extends Controller
             $advert_type = $request->get('advert_type');
             $subject = $request->get('subject');
             $message = $request->get('message');
+            $advert_referral_name = $request->get('advert_referral_name');
+
+            Mail::to($email)->send(new ContactUs($email, $subject, $message));
+            Mail::to('support@efcontact.com')->send(new MailAdvertRequestsForm($name, $email, $advert_type, $subject, $message, $phone, $advert_referral_name));
+            Mail::to('info@efcontact.com')->send(new MailAdvertRequestsForm($name, $email, $advert_type, $subject, $message, $phone, $advert_referral_name));
 
        	    return back()->with([
                 'message' => 'Your message has been sent!.',
                 'alert-type' => 'success'
             ]);
-            Mail::to($email)->send(new ContactUs($email, $subject, $message));
-            Mail::to('support@efcontact.com')->send(new MailAdvertRequestsForm($name, $email, $advert_type, $subject, $message, $phone));
-            Mail::to('info@efcontact.com')->send(new MailAdvertRequestsForm($name, $email, $advert_type, $subject, $message, $phone));
         }
         return back()->with([
             'message' => 'Something went wrong! Try again.',

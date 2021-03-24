@@ -37,9 +37,12 @@ class AppServiceProvider extends ServiceProvider
             $advertisements = Advertisement::all();
             $advertlocations = AdvertLocation::all();
             $services = Service::all();
+            $allgeneralservices = Service::all();
+            $allgeneralcategories = Service::all();
             $states = State::all();
+            $allgeneralstates = State::all();
 
-            $view->with( compact('general_info', 'check_general_info', 'advertisements', 'advertlocations', 'pages_contents', 'pages_contents_page', 'states'));
+            $view->with( compact('general_info', 'check_general_info', 'advertisements', 'advertlocations', 'pages_contents', 'pages_contents_page', 'states', 'allgeneralservices', 'allgeneralcategories', 'allgeneralstates'));
         });
 
     }

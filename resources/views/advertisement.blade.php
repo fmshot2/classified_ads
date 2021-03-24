@@ -121,7 +121,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group name">
                                                         <label for="name">Full Name</label><small class="text-danger">*</small>
-                                                        <input id="name" name="name" class="form-control"  required type="text" placeholder="Enter Full Name" style="color: black;">
+                                                        <input id="name" name="name" class="form-control"  required type="text" placeholder="Enter Full Name" style="color: black;" value="{{ old('name') }}">
                                                         @if ($errors->has('name'))
                                                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                                                 <strong class="text-danger">{{ $errors->first('name') }}</strong>
@@ -132,7 +132,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group email">
                                                         <label for="email">Your Email</label><small class="text-danger">*</small>
-                                                        <input id="email" name="email" class="form-control required email" required type="email" placeholder="Email" style="color: black;">
+                                                        <input id="email" name="email" class="form-control required email" required type="email" placeholder="Email" style="color: black;" value="{{ old('email') }}">
                                                         @if ($errors->has('email'))
                                                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                                                 <strong class="text-danger">{{ $errors->first('email') }}</strong>
@@ -145,7 +145,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group subject">
                                                         <label for="subject">Subject</label><small class="text-danger">*</small>
-                                                        <input type="text" name="subject" id="subject" required class="form-control" placeholder="Please enter your message subject" style="color: black;">
+                                                        <input type="text" name="subject" id="subject" required class="form-control" placeholder="Please enter your message subject" style="color: black;" value="{{ old('subject') }}">
                                                         @if ($errors->has('subject'))
                                                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                                             <strong class="text-danger">{{ $errors->first('subject') }}</strong>
@@ -157,7 +157,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group number">
                                                         <label for="phone">Phone Number</label><small class="text-danger">*</small>
-                                                        <input id="phone" name="phone" required class="form-control" type="number" placeholder="Enter your phone number" style="color: black;">
+                                                        <input id="phone" name="phone" required class="form-control" type="number" placeholder="Enter your phone number" style="color: black;" value="{{ old('phone') }}">
                                                         @if ($errors->has('phone'))
                                                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                                                 <strong class="text-danger">{{ $errors->first('phone') }}</strong>
@@ -168,10 +168,10 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="col-lg-12 col-md-12 col-sm-12" style="" class="text-center">
+                                                <div class="col-lg-6 col-md-6 col-sm-12" style="" class="text-center">
                                                     <div class="form-group">
                                                         <label for="advert_type">Advertisement Type</label><small class="text-danger">*</small>
-                                                        <select class="form-control text-center" id="advert_type" name="advert_type" required>
+                                                        <select class="form-control text-center" id="advert_type" name="advert_type" value="{{ old('advert_type') }}" required>
                                                             <option class="text-center" value="" selected disabled>-- Select Advert Type --</option>
                                                             @if ($advertlocations)
                                                                 @foreach ($advertlocations as $advertlocation)
@@ -184,7 +184,20 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12" style="" class="text-center">
+                                                    <div class="form-group">
+                                                        <label for="advert_referral_name">Were you referred by someone (Optional)?</label>
+                                                        <input type="text" name="advert_referral_name" id="advert_referral_name" class="form-control" placeholder="Enter the person full name." style="color: black;" value="{{ old('advert_referral_name') }}">
+                                                        @if ($errors->has('advert_referral_name'))
+                                                            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                            <strong class="text-danger">{{ $errors->first('advert_referral_name') }}</strong>
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
 
+                                            <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group message">
                                                         <label for="message">The Message</label><small class="text-danger">*</small>
@@ -229,11 +242,12 @@
                 var phone = $("#phone").val();
                 var subject = $("#subject").val();
                 var message = $("#message").val();
+                var advert_referral_name = $("#advert_referral_name").val();
 
                 $.ajax({
                     url: '/store_advert_request_form',
                     method:'POST',
-                    data: {_token:_token, name, email, advert_type, phone, subject, message },
+                    data: {_token:_token, name, email, advert_type, phone, subject, message, advert_referral_name },
                     success: function(data) {
                         $("#name").val('')
                         $("#phone").val('')
@@ -241,6 +255,7 @@
                         $("#advert_type").val('')
                         $("#subject").val('')
                         $("#message").val('')
+                        $("#advert_referral_name").val('')
                         $("#sendMessage").css({"opacity": "1", "cursor":"pointer"});
                         $("#sendMessage").text('Send another message')
 

@@ -73,6 +73,10 @@
                         </li>
 
                         <li class="">
+                            <a href="{{route('referralprogram')}}" class="grey-text text-lighten-3">Referral Program</a>
+                        </li>
+
+                        <li class="">
                             <a href="{{route('benefits-of-efcontact')}}" class="grey-text text-lighten-3">Benefits of EFContact</a>
                         </li>
 
@@ -221,6 +225,7 @@
                         {{-- <li><a href="{{route('allSellers')}}">Service Providers</a></li> --}}
                         <li><a href="{{route('allcities')}}">Tourist Sites in Nigeria</a></li>
                         <li><a href="{{route('benefits-of-efcontact')}}">Benefits of EFContact</a></li>
+                        <li><a href="{{route('referralprogram')}}">Referral Program</a></li>
                         <li><a href="{{route('advertisement')}}">Advertise With Us</a></li>
                         <li><a data-toggle="modal" data-target="#launchAgentModal" href="#">Become our Agent</a></li>
                         <li><a data-toggle="modal" data-target="#subscribeBox" href="#">Subscribe Now!</a></li>
