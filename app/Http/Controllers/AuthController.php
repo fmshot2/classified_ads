@@ -514,7 +514,7 @@ class AuthController extends Controller
             'role' => 'required'
         ]);
 
-        // Get id of owner of $link_from_url of available
+        // Get id of owner of $link_from_url if available
         if ($link_from_url) {
             $saveIdOfRefree = User::where('refererLink', $link_from_url)->first();
             $refererId = $saveIdOfRefree->id;

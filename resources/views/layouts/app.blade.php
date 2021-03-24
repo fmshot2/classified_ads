@@ -365,6 +365,10 @@
         });
     </script>
 
+    {{-- livewirescript --}}
+    @livewireScripts
+
+
 </body>
 
 </html>

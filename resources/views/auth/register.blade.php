@@ -49,91 +49,7 @@
                         {{-- <form method="POST" action="{{ route('createUser2') }}"> --}}
 
                             {{-- form for paystack pay --}}
-                            <form>
-                            {{-- End form for paystack pay --}}
-                            {{-- {{ csrf_field() }} --}}
-
-                            @csrf
-                            <div class="form-group form-box">
-                                <input id="name" type="text" class="input-text" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
-                                @if ($errors->has('name'))
-                                    <span class="helper-text text-danger" data-error="wrong" data-success="right">
-                                        <strong class="text-danger">{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                            <div class="form-group form-box" style="margin-bottom: 0">
-                                <input id="email" type="email" placeholder="Email Address" class="input-text" name="email" value="{{ old('email') }}" required>
-                                @if ($errors->has('email'))
-                                <span class="helper-text" data-error="wrong" data-success="right">
-                                    <strong class="text-danger">{{ $errors->first('email') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                            <div class="form-group form-box">
-                                <input type="hidden" class="input-text" name="refer" value="{{$referParam}}">
-                            </div>
-
-                            <div class="form-group">
-                                <div class="input-group mb-3">
-                                    <input type="password" name="password" id="passwordField" class="form-control" placeholder="Password (min: 6 chars)" aria-label="Password" aria-describedby="Password">
-                                    <div class="input-group-append" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()">
-                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-eye"></i></span>
-                                    </div>
-                                </div>
-                                @if ($errors->has('password'))
-                                <span class="helper-text" data-error="wrong" data-success="right">
-                                    <strong class="text-danger">{{ $errors->first('password') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-
-                            <div class="form-group form-box clearfix">
-                                <input class="input-text" placeholder="Confirm Password" type="password" name="password_confirmation" required>
-                            </div>
-
-                            <p>
-                                <h6>What do you want to do?</h6>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="role" required>
-                                            <option selected> Choose... </option>
-                                            <option value="seller"> Provide a service </option>
-                                            <option value="buyer"> I'm looking for a service </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </p>
-                            <p>
-                                @if(!$referParam)
-                            <div class="form-group form-box">
-                            <h6 class="text-center">Where you referred by our agent?</h6>
-                                <input id="agent_code" type="text" placeholder="Enter Agent Code (Optional)" class="input-text" name="agent_code" value="{{ old('agent_code') }}">
-                                @if ($errors->has('agent_code'))
-                                <span class="helper-text" data-error="wrong" data-success="right">
-                                    <strong class="text-danger">{{ $errors->first('agent_code') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                            @endif
-                            </p>
-                            <p>
-                                <label>
-                                    <input type="checkbox" name="terms" class="filled-in" required/>
-                                    <span>By registering you accept our <a href="{{route('terms-of-use')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy-policy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
-                                </label>
-                            </p>
-                            <div class="form-group clearfix mb-0">
-                                {{-- btn for without pay --}}
-                                {{-- <button type="submit" class="btn-md float-left" style="background-color: #cc8a19; color: #fff">Create Account</button> --}}
-                                {{-- btn for pay --}}
-                                <script src="https://js.paystack.co/v1/inline.js"></script>
-
-                                <button id="paystack_btn_control1" type="button" onclick="regWithPaystack1()" class="btn-md float-left" style="background-color: #cc8a19; color: #fff">Create Account</button>
-
-                                <small id="error_msg_paystack1" class="text-danger"></small>
-                            </div>
-                        </form>
+                          @livewire('user.register', ['referParam' => $referParam])
                     </div>
                 </div>
 
@@ -200,6 +116,7 @@
     }
 </script>
 
+{{-- reg with paystack --}}
 <script>
     base_Url = "{{url('/')}}"
 
@@ -248,7 +165,7 @@
       type:'POST',
                       url: "{{ route('createpaypaystack2') }}",
                       // url: base_Url + '/provider/service/createpay/',
-                      data: {_token:_token, password:password, refer:refer, role:role, agent_code:agent_code},
+                      data: {_token:_token, email:email, password:password, refer:refer, role:role, agent_code:agent_code},
                       success: function(data) {
                         alert(data);
                         console.log(data);

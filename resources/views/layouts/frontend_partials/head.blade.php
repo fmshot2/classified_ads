@@ -51,6 +51,8 @@
   <link href="{{ asset('css/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('css/bootstrap-dropdownhover.min.css') }}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
+@livewireStyles
+
 
 
 

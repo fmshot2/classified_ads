@@ -152,7 +152,7 @@ class BadgeController extends Controller
 	public function badges() {
 		$services_dropdown_check = 1;
 		$services = Service::where('user_id', Auth::id() )->get();
-		return view('seller.service.service_badges_copy', compact('services'));
+		return view('seller.service.service_badges', compact('services'));
 	}
 
 	public function adverts() {
