@@ -7,7 +7,7 @@
         border: 0 !important;
     }
     .search-section.bg-grea {
-        background: #ca830946;
+        background: #ca830921;
     }
     .search-section .navbar-top-post-btn button {
         font-size: 17px !important;
@@ -21,7 +21,7 @@
         box-shadow: 0 0 0 rgb(204 169 44 / 40%);
     }
     .search-section .location {
-        font-size: 17px !important;
+        font-size: 14px !important;
         text-transform: uppercase;
         border-radius: 200px;
         border: none;
@@ -32,7 +32,7 @@
         box-shadow: 0 0 0 rgb(204 169 44 / 40%);
     }
     .search-section .jxcategory {
-        font-size: 17px !important;
+        font-size: 14px !important;
         text-transform: uppercase;
         border-radius: 200px;
         border: none;
@@ -55,7 +55,7 @@
     .col-lg-2 button{
         width: 100%;
         display: block;
-        font-size: 15px !important;
+        font-size: 13px !important;
         text-align: center !important;
     }
 </style>
