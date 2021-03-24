@@ -17,17 +17,19 @@ class ServiceResource extends JsonResource
         // return parent::toArray($request);
 
         return [
-            'name' => $this->name,
+            'name'        => $this->name,
             'description' => $this->description,
-            'city' => $this->city,
-            'state' => $this->state,
-            'address' => $this->address,
-            'phone' => $this->phone,
-            'experience' => $this->experience,
-            'video_link' => $this->video_link,
-            'slug' => $this->slug,
-            'category' => new CategoryResource($this->category),
-            'images' => ImageResource::collection($this->images)
+            'city'        => $this->city,
+            'state'       => $this->state,
+            'address'     => $this->address,
+            'phone'       => $this->phone,
+            'experience'  => $this->experience,
+            'badge_type'  => $this->badge_type,
+            'likes'       => $this->likes,
+            'video_link'  => $this->video_link,
+            'slug'        => $this->slug,
+            'category'    => new CategoryResource($this->category),
+            'images'      => ImageResource::collection($this->images)
         ];
 
     }
