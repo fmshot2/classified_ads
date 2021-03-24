@@ -9,17 +9,54 @@
     .search-section.bg-grea {
         background: #ca830946;
     }
-    .search-section .navbar-top-post-btn a {
+    .search-section .navbar-top-post-btn button {
         font-size: 17px !important;
         text-transform: uppercase;
         border-radius: 200px;
         border: none;
-        padding: 15px 56px;
+        padding: 15px 40px;
         background: #CA8309 !important;
         color: #fff !important;
         cursor: pointer;
         box-shadow: 0 0 0 rgb(204 169 44 / 40%);
-        animation: pulsePostBtn 1s infinite;
+    }
+    .search-section .location {
+        font-size: 17px !important;
+        text-transform: uppercase;
+        border-radius: 200px;
+        border: none;
+        padding: 15px 40px;
+        background: #ffffff !important;
+        color: #e7a32d !important;
+        cursor: pointer;
+        box-shadow: 0 0 0 rgb(204 169 44 / 40%);
+    }
+    .search-section .jxcategory {
+        font-size: 17px !important;
+        text-transform: uppercase;
+        border-radius: 200px;
+        border: none;
+        padding: 15px 30px;
+        background: #ffffff !important;
+        color: #e7a32d !important;
+        cursor: pointer;
+        box-shadow: 0 0 0 rgb(204 169 44 / 40%);
+    }
+    .ajaxSearchList{
+        width: fit-content;
+        position: absolute;
+    }
+    .ajaxSearchCategoryList{
+        color: #CA8309;
+    }
+    .col-lg-2{
+        padding: 5px
+    }
+    .col-lg-2 button{
+        width: 100%;
+        display: block;
+        font-size: 15px !important;
+        text-align: center !important;
     }
 </style>
 <div id="" class="search-section search-area-2 bg-grea hm-search-form-comp">
@@ -27,25 +64,28 @@
     <div class="">
         <div class="search-section-area">
             <div class="search-area-inner">
-                <div class="search-contents">
-                    <div class="container">
-                        <form action="{{route('search3')}}" method="GET" class="desktop-top-search-form">
-                            <div class="row">
-                                <div class="col-lg-8 col-md-4 col-sm-6">
-                                    {{-- <p style="margin-bottom: 0; font-weight: 600;">Keyword</p> --}}
-                                    <div class="form-group">
-                                        <input type="text" name="keyword" id="jxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g. Barber, Saloon)">
-                                        <div id="service_list" style="position: absolute;"></div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mr-3 navbar-top-post-btn">
-                                        <a class="btn btn-success" href="/login"><i class="fa fa-search"></i> <span style="font-size: 15px !important;  color: #fff">Search</span></a>
-                                    </div>
+                <div class="container">
+                    <form action="{{route('search3')}}" method="GET" class="desktop-top-search-form">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" name="keyword" id="jxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g. Barber, Saloon)">
+                                    <div id="service_list" class="ajaxSearchList"></div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="col-lg-2">
+                                <button type="submit" class="btn btn-success jxcategory"><i class="fa fa-archive"></i> All Categories</button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button type="submit" class="btn btn-success location"><i class="fa fa-map-marker"></i> All Nigeria</button>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mr-3 navbar-top-post-btn">
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> <span style="font-size: 15px !important;  color: #fff">Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -74,18 +114,22 @@
 
         $('#jxservices').keyup(function(){
             var query = $(this).val();
+            console.log(query)
             if(query != '')
             {
-             var _token = $('input[name="_token"]').val();
-             $.ajax({
-              url:"{{ route('ajax.search.result') }}",
-              method:"GET",
-              data:{query:query, _token:_token},
-              success:function(data){
-                $('#service_list').fadeIn();
-                    $('#service_list').html(data);
-                }
-             });
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{ route('ajax.search.result') }}",
+                    method:"GET",
+                    data:{service:query},
+                    success:function(data){
+                        $('#service_list').fadeIn();
+                        $('#service_list').html(data);
+                    }
+                });
+            }
+            else{
+                $('#service_list').hide();
             }
         });
 

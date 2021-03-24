@@ -400,7 +400,6 @@ class OperationalController extends Controller
             ->where('name', 'LIKE', "%{$request->service}%")
             ->orWhere('description', 'LIKE', "%{$request->service}%")
             ->get();
-            // $data = Service::where('name', 'LIKE', $request->service.'%')->get();
 
             $output = '';
 
@@ -410,7 +409,7 @@ class OperationalController extends Controller
 
                 foreach ($data as $row){
 
-                    $output .= '<li class="list-group-item"><a style="display:block" href="'. route('serviceDetail',  $row->slug) .'">'.$row->name.'</a></li>';
+                    $output .= '<li class="list-group-item"><a style="" href="'. route('serviceDetail',  $row->slug) .'">'.$row->name.'</a> in <a class="ajaxSearchCategoryList" href="'. route('services',  $row->category->slug) .'">'.$row->category->name.'</a></li>';
                 }
 
                 $output .= '</ul>';
