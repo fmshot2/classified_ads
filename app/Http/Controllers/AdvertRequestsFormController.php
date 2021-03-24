@@ -41,13 +41,14 @@ class AdvertRequestsFormController extends Controller
             $message = $request->get('message');
             $advert_referral_name = $request->get('advert_referral_name');
 
+            Mail::to($email)->send(new ContactUs($email, $subject, $message));
+            Mail::to('support@efcontact.com')->send(new MailAdvertRequestsForm($name, $email, $advert_type, $subject, $message, $phone, $advert_referral_name));
+            Mail::to('info@efcontact.com')->send(new MailAdvertRequestsForm($name, $email, $advert_type, $subject, $message, $phone, $advert_referral_name));
+
        	    return back()->with([
                 'message' => 'Your message has been sent!.',
                 'alert-type' => 'success'
             ]);
-            Mail::to($email)->send(new ContactUs($email, $subject, $message));
-            Mail::to('support@efcontact.com')->send(new MailAdvertRequestsForm($name, $email, $advert_type, $subject, $message, $phone, $advert_referral_name));
-            Mail::to('info@efcontact.com')->send(new MailAdvertRequestsForm($name, $email, $advert_type, $subject, $message, $phone, $advert_referral_name));
         }
         return back()->with([
             'message' => 'Something went wrong! Try again.',

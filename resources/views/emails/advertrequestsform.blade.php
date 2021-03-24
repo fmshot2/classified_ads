@@ -6,7 +6,7 @@
 <p><strong>Advert Type: </strong>{{ $advert_type ? $advert_type : 'No advert type!' }}</p>
 <p><strong>Phone: </strong>{{ $phone ? $phone : 'No phone!' }}</p>
 <p><strong>Email: </strong>{{ $email ? $email : 'No email!' }}</p>
-<p><strong>Email: </strong>{{ $advertrequestsform ? $advertrequestsform : 'No Referral!' }}</p>
+<p><strong>Email: </strong>{{ $advert_referral_name ? $advert_referral_name : 'No Referral!' }}</p>
 <p><strong>Your message: </strong></p>
 <p><p>{{ $message ? $message : 'No message!' }}</p>
 
