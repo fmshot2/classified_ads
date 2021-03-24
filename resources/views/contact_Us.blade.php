@@ -50,6 +50,9 @@
                                 <a href="tel: { $check_general_info == 0 ? $general_info->hot_line : '' }} ">
                                     +234 {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
                                 </a> <br>
+                                <a href="tel: { $check_general_info == 0 ? $general_info->hot_line2 : '' }} ">
+                                    +234 {{ $check_general_info == 0 ? $general_info->hot_line2 : '' }}
+                                </a> <br>
                                 <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
                                     <i class="fa fa-whatsapp" style="font-size: 15px"></i> WhatsApp
                                 </a>

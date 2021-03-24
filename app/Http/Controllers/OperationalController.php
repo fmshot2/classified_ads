@@ -395,30 +395,21 @@ class OperationalController extends Controller
     public function ajaxSearchResult(Request $request)
     {
         if($request->ajax()) {
-
             $data = Service::query()
             ->where('name', 'LIKE', "%{$request->service}%")
             ->orWhere('description', 'LIKE', "%{$request->service}%")
             ->get();
-
             $output = '';
-
             if (count($data)>0) {
-
                 $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
-
                 foreach ($data as $row){
-
                     $output .= '<li class="list-group-item"><a style="" href="'. route('serviceDetail',  $row->slug) .'">'.$row->name.'</a> in <a class="ajaxSearchCategoryList" href="'. route('services',  $row->category->slug) .'">'.$row->category->name.'</a></li>';
                 }
-
                 $output .= '</ul>';
             }
             else {
-
                 $output .= '<li class="list-group-item">'.'No results'.'</li>';
             }
-
             return $output;
         }
     }
