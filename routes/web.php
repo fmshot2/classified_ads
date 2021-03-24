@@ -36,6 +36,7 @@ Route::post('/agent/agent_Complete_Reg', 'OldCodeController@agent_save_complete_
 
 Route::get('get-tourist-sites/{state}', 'OperationalController@getTouristSites')->name('gettouristsites');
 Route::get('ajax/search/', 'OperationalController@ajaxSearchResult')->name('ajax.search.result');
+Route::get('dapo/search/', 'OperationalController@dapSearch')->name('dap.search');
 
 
 // Route::middleware(['auth:agent'])->group(function () {

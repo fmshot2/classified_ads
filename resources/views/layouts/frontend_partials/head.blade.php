@@ -139,8 +139,6 @@
 
         glide.mount()
 
-
-
     });
 </script>
 

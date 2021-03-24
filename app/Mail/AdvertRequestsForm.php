@@ -11,14 +11,14 @@ class AdvertRequestsForm extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $name, $email, $subject, $advert_type, $message, $phone;
+    public $name, $email, $subject, $advert_type, $message, $phone, $advert_referral_name;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name, $email, $subject, $advert_type, $message, $phone)
+    public function __construct($name, $email, $subject, $advert_type, $message, $phone, $advert_referral_name)
     {
         $this->name = $name;
         $this->email = $email;
@@ -26,6 +26,7 @@ class AdvertRequestsForm extends Mailable
         $this->advert_type = $advert_type;
         $this->message = $message;
         $this->phone = $phone;
+        $this->advert_referral_name = $advert_referral_name;
     }
 
     /**

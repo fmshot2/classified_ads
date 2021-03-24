@@ -414,4 +414,53 @@ class OperationalController extends Controller
         }
     }
 
+    public function dapSearch(Request $request)
+    {
+        if ($request->state) {
+            $services = Service::query()
+            ->where('state', 'LIKE', "%{$request->state}%")
+            ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+            ->orderBy('badge_type', 'asc')
+            ->get();
+
+            if (!$services->isEmpty()) {
+                return view('dapSearchResult', [
+                    "message" => 'Your search result for <strong>'.$request->keyword. '</strong> in <strong>'.$request->state.'</strong>',
+                    "services" => $services
+                ]);
+            }
+            else{
+                $services = Service::query()
+                ->where('name', 'LIKE', "%{$request->keyword}%")
+                ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+                ->orderBy('badge_type', 'asc')
+                ->get();
+
+                return view('dapSearchResult', [
+                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                    "services" => $services
+                ]);
+            }
+        }
+        else{
+            $services = Service::query()
+            ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+            ->orderBy('badge_type', 'asc')
+            ->get();
+
+            return view('dapSearchResult', [
+                "message" => 'Unfortunately, we did not find anything that matches these criteria.',
+                "services" => $services
+            ]);
+        }
+
+
+        return redirect()->back()->with([
+            'message' => 'No result found for your search!',
+            'alert-type' => 'info'
+        ]);
+    }
+
 }
