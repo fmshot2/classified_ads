@@ -162,7 +162,7 @@
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label class="form-label">Your Full Name</label><small class="text-danger">*</small>
-                                                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" >
+                                                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
                                                                 @if ($errors->has('name'))
                                                                     <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                                                         <strong class="text-danger">{{ $errors->first('name') }}</strong>
@@ -173,7 +173,7 @@
                                                                 <label for="email">Email Address</label><small class="text-danger">*</small> <small class="text-success">(A Link Will Be
                                                                     Sent To Your Email Address To Complete Your Registration)</small>
                                                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}"
-                                                                placeholder="Enter A Valid Email Address" >
+                                                                placeholder="Enter A Valid Email Address" required>
                                                                 @if ($errors->has('email'))
                                                                 <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                                                     <strong class="text-danger">{{ $errors->first('email') }}</strong>
@@ -183,7 +183,7 @@
                                                             <div class="form-group">
                                                                 <label for="phone">Phone Number</label>
                                                                 <input type="number" class="form-control" name="phone" value="{{ old('phone') }}"
-                                                                placeholder="Enter Your Phone Number" >
+                                                                placeholder="Enter Your Phone Number" required>
                                                                 @if ($errors->has('phone'))
                                                                 <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                                                     <strong class="text-danger">{{ $errors->first('phone') }}</strong>
