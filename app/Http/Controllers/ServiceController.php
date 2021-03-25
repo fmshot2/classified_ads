@@ -1335,12 +1335,12 @@ public function show($id)
       }
 
 
-      public function createpay(Request $request)
+      public function createBadgepay(Request $request)
       {
-        // return "Badge sfhgfasdgfhsdgfUpdated successfully!";
+
        $data = $request->all();
     //    return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$data]);
-       $badge_service_id = $data['service_id'];
+       // $badge_service_id = $data['service_id'];
 
 
 
@@ -1348,10 +1348,11 @@ public function show($id)
         'amount' => 'required',
         'email' => 'required',
       ]);
-       $service_check = Service::where(['id'=>$badge_service_id])->first();
-       $service_check->badge_type = $data['badge_type'];
-       $service_check->save();
-       $badge_check = Badge::where(['service_id'=>$badge_service_id])->first();
+       if ($user_check = User::where(['email'=>$data['email']])->first()){
+       $user_check->badgetype = $data['badge_type'];
+       $user_check->save();
+
+       $badge_check = Badge::where(['user_id'=>Auth::id()])->first();
 
        if ($badge_check) {
         $badge_check->badge_type = $data['badge_type'];
@@ -1361,22 +1362,24 @@ public function show($id)
 
         $badge_check->save();
 
-        return "Badge Updated successfully!";
+        return response()->json(['success'=>'Badge Updated successfullys!'], 200);
+
+        // return "Badge Updated successfully!";
       }else{
        $badge = new Badge();
        $badge->email = $data['email'];
        $badge->badge_type = $data['badge_type'];
-       $badge->seller_id = $data['seller_id'];
        $badge->amount = $data['amount'];
-       $badge->seller_name = $data['seller_name'];
+       $badge->seller_name = Auth::user()->name;
        $badge->phone = $data['phone'];
-       $badge->ref_no = 1234;
+       $badge->ref_no = $data['ref_no'];
 
        $badge->save();
-       return "Badge created successfully";
-     }
+        return response()->json(['success'=>'Badge created successfullyy!'], 200);
+      }       
+    }    
 
-        return response()->json(['success'=>'Ajax request submitted successfully', 'success1'=>$badge_check, 'success2'=>$service_check, 'ref'=>$request->ref_no]);
+        return response()->json(['failed'=>'User not availabley'], 200);
 
     //  $badge->save();
     //  return "yyyy";

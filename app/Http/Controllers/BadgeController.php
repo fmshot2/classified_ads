@@ -350,19 +350,19 @@ class BadgeController extends Controller
         if ($id == 1) {
             $badge = [
                 'badge_type' => 'Super',
-                'badge_cost' => 1
+                'badge_cost' => 11
             ];
         }
         elseif ($id == 2) {
             $badge = [
                 'badge_type' => 'Moderate',
-                'badge_cost' => 1
+                'badge_cost' => 12
             ];
         }
         elseif ($id == 3) {
             $badge = [
                 'badge_type' => 'Basic',
-                'badge_cost' => 1
+                'badge_cost' => 13
             ];
         }
 
