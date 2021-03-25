@@ -113,7 +113,7 @@
 
 
  <form wire:submit.prevent='validate_form'>
-                                @csrf
+                                <!-- @csrf -->
 
                                 <div class="tab">
                                     <h4 class="tabs-title">Personal Details</h4>
@@ -123,19 +123,29 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="form-label">Your Full Name</label>
-                                                        <input type="text" class="form-control" readonly name="name" value="{{ $agent_name }}" autofocus placeholder="Full Name" required>
+                                                        <input type="text" class="form-control" readonly name="name" wire:model='agent_name' autofocus placeholder="Full Name" required>
+                                                        @error('agent_name')
+                                                        <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                        	<strong class="text-danger">{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="email">Email Address</label>
-                                                        <input type="email" readonly class="form-control" name="email" value="{{ $agent_email }}">
+                                                        <input type="email" readonly class="form-control" wire:model="email">
+                                                        @if ($errors->has('email'))
+                                                        <span class="helper-text" data-error="wrong" data-success="right">
+                                                        	<strong class="text-danger">{{ $errors->first('email') }}</strong>
+                                                        </span>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                        <label class="form-label">Phone</label><small class="text-danger">*</small>
-                                                       <input type="number" placeholder="Phone Number" class="form-control" name="phone" value="{{ old('phone') }}">
+                                                       <input type="number" placeholder="Phone Number" class="form-control" wire:model="phone">
                                                        @if ($errors->has('phone'))
                                                            <span class="helper-text" data-error="wrong" data-success="right">
                                                                <strong class="text-danger">{{ $errors->first('phone') }}</strong>
@@ -146,7 +156,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="form-label" for="identification_type">Identification Type</label><small class="text-danger">*</small>
-                                                        <select class="form-control" name="identification_type">
+                                                        <select class="form-control" wire:model='identification_type'>
                                                             <option selected disabled>- Select an option -</option>
                                                             <option value="national_id">National ID</option>
                                                             <option value="driver_license">Driver License</option>
@@ -162,7 +172,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="form-label">State</label><small class="text-danger">*</small>
-                                                        <select class="form-control" id="state" name="state">
+                                                        <select class="form-control" id="state" wire:model='state'>
                                                             <option value="">-- Select State --</option>
                                                             @if(isset($states))
                                                                 @foreach($states as $state)
@@ -175,7 +185,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="form-label">Local Government</label><small class="text-danger">*</small>
-                                                        <select class="form-control" id="city" name="city">
+                                                        <select class="form-control" id="city" wire:model='city'>
                                                             <option disabled selected>- Select a State -</option>
                                                         </select>
                                                     </div>
@@ -183,7 +193,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                        <label class="form-label">Address</label><small class="text-danger">*</small>
-                                                       <input type="text" class="form-control" name="address" placeholder="Enter House Address">
+                                                       <input type="text" class="form-control" wire:model='address' placeholder="Enter House Address">
                                                        @if ($errors->has('address'))
                                                         <span class="helper-text" data-error="wrong" data-success="right">
                                                            <strong class="text-danger">{{ $errors->first('address') }}</strong>
@@ -194,7 +204,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="form-label">ID Number</label><small class="text-danger">*</small>
-                                                        <input type="text" class="form-control" name="identification_id" value="{{ old('identification_id') }}" placeholder="ID Number" >
+                                                        <input type="text" class="form-control" wire:model='identification_id' placeholder="ID Number" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -209,7 +219,7 @@
                                                 <h5>Your Bank Details</h5>
                                                 <div class="form-group">
                                                    <label class="form-label">Bank Name</label><small class="text-danger">*</small>
-                                                   <input type="text" placeholder="Bank Name" class="form-control" name="bankname" value="{{ old('bankname') }}">
+                                                   <input type="text" placeholder="Bank Name" class="form-control" wire:model='bankname'>
                                                    @if ($errors->has('bankname'))
                                                        <span class="helper-text" data-error="wrong" data-success="right">
                                                            <strong class="text-danger">{{ $errors->first('bankname') }}</strong>

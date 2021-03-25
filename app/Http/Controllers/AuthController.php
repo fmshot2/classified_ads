@@ -66,16 +66,21 @@ class AuthController extends Controller
         //     'email'    => ['required', 'string', 'email', 'max:255'],
         // ]);
 
-        // $validator = Validator::make($request->all(), [
-        //     'name' => 'required',
-        //     // 'email' => 'required|email|max:255',
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:agents'],
+        ]);
 
-        // if ($validator->fails()) {
-        //     return redirect('/')
-        //                 ->withErrors($validator)
-        //                 ->withInput();
-        // }
+        if ($validator->fails()) {
+        	  $success_notification = array(
+                'message' => 'Unsuccessfull Request. Please Retry',
+                'alert-type' => 'error'
+            );
+        	  return redirect('/')->with($success_notification)->withErrors($validator)->withInput();
+            // return redirect('/')
+            //             ->withErrors($validator)
+            //             ->withInput();
+        }
 
         //save agent details
         $user = new Agent;

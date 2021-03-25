@@ -231,12 +231,6 @@
       },
       callback: function(response){
         var ref_no1 = response.reference;
-         /* $.ajax({
-      url: 'http://www.yoururl.com/verify_transaction?reference='+ response.reference,
-      method: 'get',
-      success: function (response) {
-        // the transaction status is in response.data.status
-      }
     });*/
     $.ajax({
       type:'POST',
