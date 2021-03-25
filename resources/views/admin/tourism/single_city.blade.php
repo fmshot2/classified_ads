@@ -45,12 +45,6 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="">Body: </label>
-                                        <input type="text" name="body" id="editSubCategoryName" class="form-control" value="{{ $city->body }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
                                         <label for="">Description: </label>
                                         <textarea name="description" id="basic-example" class="form-control">{{ $city->description }}</textarea>
                                     </div>

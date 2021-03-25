@@ -26,7 +26,6 @@ class TourismController extends Controller
             'name'   => $request->name,
             'states'   => $request->state,
             'region'   => $request->region,
-            'body' => $request->body,
             'description'    => $request->description,
             'thumb' => $request->thumb,
         );
@@ -42,7 +41,6 @@ class TourismController extends Controller
             'name'   => 'required|string',
             'states'   => 'required|string',
             'region'   => 'required|string',
-            'body' => 'required|string',
             'description'    => 'required|string',
 
         ]);
@@ -58,7 +56,6 @@ class TourismController extends Controller
         $city->name = $request->name;
         $city->states = $request->state;
         $city->region = $request->region;
-        $city->body = $request->body;
         $city->description = $request->description;
         $city->thumb = $image_name;
         $city->slug = Str::slug($request->name, '-');
@@ -90,7 +87,6 @@ class TourismController extends Controller
             'name'   => $request->name,
             'states'   => $request->state,
             'region'   => $request->region,
-            'body' => $request->body,
             'description'    => $request->description,
             'thumb' => $request->thumb,
         );
@@ -112,7 +108,6 @@ class TourismController extends Controller
             'name'   => 'nullable|string',
             'states'   => 'nullable|string',
             'region'   => 'nullable|string',
-            'body' => 'nullable|string',
             'description'    => 'nullable|string',
             'thumb' => 'nullable'
 
@@ -127,7 +122,6 @@ class TourismController extends Controller
         $city->name = $request->name;
         $city->region = $request->region;
         $city->states = $request->state;
-        $city->body = $request->body;
         $city->thumb = $thumbnail;
         $city->description = $request->description;
         $city->slug = Str::slug($request->name, '-');

@@ -81,6 +81,14 @@
                             <span class="left"> {{ $service->address }}</span>
                         </li>
 
+                        @if ($service->is_featured == 1 && $service->paid_featured == 0)
+                            <li class="list-group-item">
+                                <span class="left">Please make payment now!</span>
+                                <p><strong>Note:</strong> This service won't be featured without payment.</p>
+                                <button class="btn btn-lg" style="cursor: pointer; display: block; margin-top: 5px; background-color: #cc8a19; color: #fff" data-toggle="modal" data-target="#exampleModal">Make Payment</button>
+                            </li>
+                        @endif
+
                         {{-- <li class="list-group-item" style="width: 100%">
                             <strong>Images </strong>
                             <div class="images">

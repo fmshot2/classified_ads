@@ -82,7 +82,7 @@
 
             @if(isset($linkcheck->refererlink))
             <div class="refererArea">
-                <h4>My Referral Link <small>(<a data-toggle="modal" data-target="#referralInfoModal">How it works?</a>)</small></h4>
+                <h4>My Referral Link <small class="infoLinkNote">(<a data-toggle="modal" data-target="#referralInfoModal">How it works?</a>)</small></h4>
                 <div class="referralContainer">
                     <div>
                         <button class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="{{ url('/register') . '/' . '?' . 'invite' . '=' . $linkcheck->refererlink}}" onclick="copyToClipboard('#refererlinkText') ">
@@ -406,8 +406,8 @@
                                         <textarea type="text" class="form-control" name="description" placeholder="Tell us about your service." rows="3"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">How much do you want to charge for this service?</label>
-                                        <small class="form-text text-muted">Enter the amount you want on this service.</small>
+                                        <label for="exampleInputEmail1" id="servicePriceRange">How much do you want to charge for this service?</label>
+                                        <small class="form-text text-muted" id="servicePriceRangeLabel">Enter the amount you want on this service.</small>
                                         <input type="number" name="min_price" class="form-control" onkeydown="limitText(this.form.message,this.form.countdown,20);" onkeyup='limitText(this.form.message,this.form.countdown,20);' placeholder="e.g. 20000">
                                     </div>
                                     {{-- <div class="form-group">
@@ -420,9 +420,16 @@
                                         <small class="form-text text-muted">Enter your phone number.</small>
                                         <input id="phone" required type="number"  class="form-control" value="{{ old('phone') }}" placeholder="e.g. 09023456789" name="phone" value=" {{ Auth::user()->phone }}">
                                     </div>
-                                    <div class="form-check">
+                                    <div class="form-check" id="negotiableChBox">
                                         <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable">
                                         <label class="form-check-label" for="negotiable"> Is this service negotiable?</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input id="featured" class="form-check-input" type="checkbox" value="1" name="is_featured" onclick="featuredCheckbbox()">
+                                            <label class="form-check-label" for="featured"> Do you want this service featured?  <small class="infoLinkNote">(<a data-toggle="modal" data-target="#featuredInfoModal">How it works?</a>)</small></label>
+                                        </div>
+                                        <p id="featuredText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -441,12 +448,12 @@
                                         <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple>
                                             <option value="">-- Please select a category to populate this --</option>
                                             @foreach($subcategories as $subcategory)
-                                            <option id="category_id" value=" {{ $subcategory->id }} "> {{ $subcategory->name }} </option>
+                                                <option id="category_id" value=" {{ $subcategory->id }} "> {{ $subcategory->name }} </option>
                                             @endforeach
                                         </select>
                                     </div>
 
-                                    <div class="form-group form-float">
+                                    <div class="form-group form-float" id="youtubeLink">
                                         <label class="form-label">Video (Youtube)</label>
                                         <small class="form-text text-muted">Your youtube video link.</small>
                                         <input type="text" class="form-control" name="video_link">
@@ -489,43 +496,76 @@
     </div>
 </div>
 
+<div>
+    <div id="featuredInfoModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #cc8a19; color: #fff">
+                    <h4 class="modal-title">How Featured Service Works</h4>
+                </div>
+                <div class="modal-body">
+                    <p>You can take advantage of EFContacts Featured Service to get the attention of your potential customers/clients 😃. <br>
+                        Providers who use the featured service will have their service displayed first on all important EFContact pages.
+                        A featured service will be given search priority on EFContact. This means that featured services will get displayed first on a search result page.
+                    </p>
+                    <p><strong>Note:</strong> This will attract a fee of &#8358;2000 which will be paid before the service is display on our website and last for a period of one month.</p>
+                    <p><strong>Take advantage of this to get the attention of your potential customers/clients 😃.</strong></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" style="background-color: #cc8a19; color: #fff" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
 
 <script>
-        // $(function () {
-        //     $("#postServiceModal").modal('show');
-        // })
-        function copyToClipboard(element) {
-            var $temp = $("<input>");
-            $("body").append($temp);
-            $temp.val($(element).text()).select();
-            document.execCommand("copy");
+    var checkBox = document.getElementById("featured");
+    var text = document.getElementById("featuredText");
+    text.style.display = "none";
 
-            toastr.options.progressBar = true
-            toastr.options.positionClass = 'toast-top-left'
-            toastr.success("Referral Link Copied!")
-
-            navigator
-            .share({
-                title: 'Referral Link Copied! 🎉',
-                text: 'Here is my referral link on EFContact.👍',
-                url: $(element).text()
-            })
-            .then(() => console.log('Successful share! 🎉'))
-            .catch(err => console.error(err));
-
-            $temp.remove();
-
+    function featuredCheckbbox() {
+        if (checkBox.checked == true){
+            text.style.display = "block";
+        } else {
+            text.style.display = "none";
         }
+    }
 
-        function limitText(limitField, limitCount, limitNum) {
-          if (limitField.value.length > limitNum) {
+
+    function copyToClipboard(element) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).text()).select();
+        document.execCommand("copy");
+
+        toastr.options.progressBar = true
+        toastr.options.positionClass = 'toast-top-left'
+        toastr.success("Referral Link Copied!")
+
+        navigator
+        .share({
+            title: 'Referral Link Copied! 🎉',
+            text: 'Here is my referral link on EFContact.👍',
+            url: $(element).text()
+        })
+        .then(() => console.log('Successful share! 🎉'))
+        .catch(err => console.error(err));
+
+        $temp.remove();
+
+    }
+
+    function limitText(limitField, limitCount, limitNum) {
+        if (limitField.value.length > limitNum) {
             limitField.value = limitField.value.substring(0, limitNum);
         } else {
             limitCount.value = limitNum - limitField.value.length;
-
             if (limitCount.value == 0) {
                 limitField.style.border = '1px solid red'
                 limitCount.style.color = 'red'
@@ -539,6 +579,20 @@
 
     $('#categories').on('change',function(){
         var categoryID = $(this).val();
+
+        if (categoryID == 1 || categoryID == 2) {
+            document.getElementById("youtubeLink").style.display = 'none';
+            document.getElementById("negotiableChBox").style.display = 'none';
+            document.getElementById("servicePriceRange").innerText = 'Salary Range?';
+            document.getElementById("servicePriceRangeLabel").innerText = 'Enter your salary range here';
+        }
+        else {
+            document.getElementById("youtubeLink").style.display = 'block';
+            document.getElementById("negotiableChBox").style.display = 'block';
+            document.getElementById("servicePriceRange").innerText = 'How much do you want to charge for this service?';
+            document.getElementById("servicePriceRangeLabel").innerText = 'Enter the amount you want on this service.';
+        }
+
         if(categoryID){
             $.ajax({
                 type:"GET",
