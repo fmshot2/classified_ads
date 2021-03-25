@@ -369,4 +369,100 @@ class BadgeController extends Controller
         return $badge;
     }
 
+
+      public function createBadgepay(Request $request)
+      {
+
+       $data = $request->all();
+    //    return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$data]);
+       // $badge_service_id = $data['service_id'];
+
+
+
+       $this->validate($request,[
+        'amount' => 'required',
+        'email' => 'required',
+      ]);
+       if ($user_check = User::where(['email'=>$data['email']])->first()){
+       $user_check->badgetype = $data['badge_type'];
+       $user_check->save();
+
+       $badge_check = Badge::where(['user_id'=>Auth::id()])->first();
+
+       if ($badge_check) {
+        $badge_check->badge_type = $data['badge_type'];
+
+        $badge_check->amount = $data['amount'];
+        $badge_check->ref_no = $data['ref_no'];
+
+        $badge_check->save();
+
+              $present_user = Auth::user();
+                // if referrer link is available, save it to referer table
+                $person_that_refered = $present_user->idOfReferer;
+                if ($person_that_refered) {
+                    $referer = User::where('id', $person_that_refered)->first();
+                    if ($referer) {
+                      if ($data['amount'] == 11) {
+                        $referer->refererAmount = $referer->refererAmount + 1;
+                        $referer->save();
+                      }
+                      if ($data['amount'] == 12) {
+                        $referer->refererAmount = $referer->refererAmount + 2;
+                        $referer->save();
+                      }
+                      if ($data['amount'] == 13) {
+                        $referer->refererAmount = $referer->refererAmount + 3;
+                        $referer->save();
+                      }
+                        
+                    }
+                }
+
+                $agent_that_refered = $present_user->idOfAgent;
+                if ($agent_that_refered) {
+                    $referer2 = Agent::where('id', $agent_that_refered)->first();
+                    if ($referer2) {
+                        if ($referer2) {
+                      if ($data['amount'] == 11) {
+                        $referer2->refererAmount = $referer->refererAmount + 1;
+                        $referer2->save();
+                      }
+                      if ($data['amount'] == 12) {
+                        $referer2->refererAmount = $referer->refererAmount + 2;
+                        $referer2->save();
+                      }
+                      if ($data['amount'] == 13) {
+                        $referer2->refererAmount = $referer->refererAmount + 3;
+                        $referer2->save();
+                      }
+                        
+                    }
+                        
+                    }
+                }
+
+
+        return response()->json(['success'=>'Badge Updated successfully!'], 200);
+
+        // return "Badge Updated successfully!";
+      }else{
+       $badge = new Badge();
+       $badge->email = $data['email'];
+       $badge->badge_type = $data['badge_type'];
+       $badge->amount = $data['amount'];
+       $badge->seller_name = Auth::user()->name;
+       $badge->phone = $data['phone'];
+       $badge->ref_no = $data['ref_no'];
+
+       $badge->save();
+        return response()->json(['success'=>'Badge created successfullyy!'], 200);
+      }       
+    }    
+
+        return response()->json(['failed'=>'User not available'], 200);
+ }
+
+
+
 }
