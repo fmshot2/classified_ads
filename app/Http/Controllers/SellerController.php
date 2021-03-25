@@ -75,22 +75,24 @@ foreach($request->file('files') as $image)
 $slug = Str::random(5);
 
                 // Image set up
-if ( $request->hasFile('files') ) {
-    $names = array();
-    foreach($request->file('files') as $image)
-    {
-        $thumbnailImage = Image::make($image);
-        $thumbnailImage->resize(300,300);
-        $thumbnailImage_name = $slug.'.'.time().'.'.$image->getClientOriginalExtension();
-        $destinationPath = 'images/';
-               /* $image_name = $image->getClientOriginalName();
-               $image->move(public_path('images'),$image_name);*/
-            //$thumbnailImage_name = $thumbnailImage->getClientOriginalName();
-               $thumbnailImage->save($destinationPath . $thumbnailImage_name);
-               array_push($names, $thumbnailImage_name);
-           }
-           $service->image = json_encode($names);
-       }
+    // if ( $request->hasFile('thumbnail') ) {
+    //    $names = array();
+    // foreach($request->file('thumbnail') as $image)
+    // {
+    //     $thumbnailImage = Image::make($image);
+    //     $thumbnailImage->resize(300,300);
+    //     $thumbnailImage_name = $slug.'.'.time().'.'.$image->getClientOriginalExtension();
+    //     $destinationPath = 'images/';
+    //            /* $image_name = $image->getClientOriginalName();
+    //            $image->move(public_path('images'),$image_name);*/
+    //         //$thumbnailImage_name = $thumbnailImage->getClientOriginalName();
+    //            $thumbnailImage->save($destinationPath . $thumbnailImage_name);
+    //            array_push($names, $thumbnailImage_name);
+    //        }
+    //        $service->image = json_encode($names);
+    // }
+
+
 
         $state_details = State::where('name', $data['state'])->first();
 
@@ -108,9 +110,38 @@ if ( $request->hasFile('files') ) {
         $service->city = $data['city'];
         $service->address = $data['address'];
         $service->max_price = $data['category_id'];
+
+       if (isset($request->is_featured)) {
+            $service->is_featured = $data['is_featured'];
+       }
+
         $service->slug = $slug;
         // $service->video_link = $request->video_link;$data['category_id'];
         $service->save();
+
+        if ($service->save()) {
+            if ($request->hasFile('thumbnail')) {
+                $image       = $request->file('thumbnail');
+                $fileInfo = $image->getClientOriginalName();
+                $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
+                $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
+                $file_name= $filename.'-'.time().'.'.$extension;
+
+                //Fullsize
+                $image->move(public_path('uploads/services/'),$file_name);
+
+                $image_resize = Image::make(public_path('uploads/services/').$file_name);
+                $image_resize->fit(300, 300);
+                $image_resize->save(public_path('uploads/services/' .$file_name));
+
+                $service->images()->create(['image_path' => $file_name]);
+                $service->thumbnail = $service->images()->first()->image_path;
+                $service->save();
+            }
+        }
+
+
+
         $latest_service = Service::where('user_id', Auth::id())->latest()->first();
         $latest_service_id = $latest_service->id;
 
@@ -400,7 +431,7 @@ public function badgeNotice()
         $user = auth()->user();
         return view('seller.withdrawal.make_withdrawal', [
             'user' => $user
-        ]);   
+        ]);
     }
 
     public function PaymentHistory()
