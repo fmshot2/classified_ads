@@ -91,6 +91,26 @@
         margin-bottom: 20px;
     }
 
+    .statePopupBtn {
+        position: relative;
+    }
+    .stateLGApopup{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 99999;
+        display: none;
+    }
+    .stateLGApopup:hover{
+        display: block;
+        background-color: #000;
+        color: #fff !important;
+    }
+    .stateLGApopup a {
+        display: block;
+    }
+    /* @media (min-width: 768px) */
+
     @media (max-width: 768px){
         .searchInput{
             padding-top: 20px !important;
@@ -149,6 +169,7 @@
                             <div class="col-lg-6 col-md-4 col-sm-12">
                                 <div class="form-group">
                                     <input type="text" name="keyword" id="jxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g. Barber, Saloon)">
+                                    {{-- <input type="text" name="keyword" class="form-control searchInput" placeholder="What are you looking for? (e.g. Barber, Saloon)"> --}}
                                     <div id="service_list" class="ajaxSearchList"></div>
                                 </div>
                             </div>
@@ -262,9 +283,18 @@
                                 <ul class="categoriesModalList">
                                     @foreach ($allgeneralstates as $allgeneralstate)
                                         @if ($loop->index > 18)
-                                            <li>
-                                                <a href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}
+                                            <li data-dismiss="modal" class="statePopupBtn" onclick="addStateToForm('{{ $allgeneralstate->name }}', {{ $allgeneralstate->id }})">
+                                                <a data-dismiss="modal" onclick="addStateToForm('{{ $allgeneralstate->name }}', {{ $allgeneralstate->id }})" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}
                                                 </a>
+                                                <ul class="stateLGApopup" style="margin-left: 2px;">
+                                                    {{-- @if(isset($allgeneralstate->cities))
+                                                        @foreach($allgeneralstate->cities as $city)
+                                                            <li style="@if (!$loop->last)border-bottom: 1px solid rgba(0,0,0,.15);@endif"><a onclick="theSubCatId({{ $city->id }}, ' {{ $city->name }} ')" tabindex="-1" href="#">{{ $city->name }}</a></li>
+                                                        @endforeach
+                                                    @endif --}}
+
+                                                    {{-- <li style="@if (!$loop->last)border-bottom: 1px solid rgba(0,0,0,.15);@endif"><a onclick="theSubCatId({{ $city->id }}, ' {{ $city->name }} ')" tabindex="-1" href="#">{{ $city->name }}</a></li> --}}
+                                                </ul>
                                             </li>
                                         @endif
                                     @endforeach
@@ -283,7 +313,7 @@
 <script>
     $(document).ready(function(){
         $('#jxservices').keyup(function(){
-            var query = $(this).val();
+            var query = $('#jxservices').val();
             console.log(query)
             if(query != '')
             {
@@ -304,11 +334,39 @@
         });
 
         $(document).on('click', 'li', function(){
-            $('#jxservices').val($(this).text());
+            $('#jxservices').val($('#jxservices').text());
             $('#service_list').fadeOut();
         });
 
     });
+    // $(document).ready(function(){
+    //     $('#jxservices').keyup(function(){
+    //         var query = $(this).val();
+    //         console.log(query)
+    //         if(query != '')
+    //         {
+    //             var _token = $('input[name="_token"]').val();
+    //             $.ajax({
+    //                 url:"{{ route('ajax.search.result') }}",
+    //                 method:"GET",
+    //                 data:{service:query},
+    //                 success:function(data){
+    //                     $('#service_list').fadeIn();
+    //                     $('#service_list').html(data);
+    //                 }
+    //             });
+    //         }
+    //         else{
+    //             $('#service_list').hide();
+    //         }
+    //     });
+
+    //     $(document).on('click', 'li', function(){
+    //         $('#jxservices').val($(this).text());
+    //         $('#service_list').fadeOut();
+    //     });
+
+    // });
 
     function addStateToForm(thestate) {
         document.getElementById('searchStateBtn').innerHTML = '<i class="fa fa-map-marker"></i> ' + thestate
