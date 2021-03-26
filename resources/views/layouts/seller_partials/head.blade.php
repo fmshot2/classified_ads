@@ -9,8 +9,6 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css" rel="stylesheet">
 
-	<meta name="csrf-token" content="{{ csrf_token() }}">
-
 
 	<title> @yield('title') EFContact Provider</title>
 
@@ -44,6 +42,8 @@
 	<link rel="stylesheet" href="{{asset('dropzone/dist/dropzone.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

@@ -19,6 +19,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.4",
         "laravelcollective/html": "~6.0",
+        "livewire/livewire": "^2.4",
         "malhal/laravel-geographical": "^1.0",
         "mews/captcha": "^3.2",
         "spatie/geocoder": "^3.10",

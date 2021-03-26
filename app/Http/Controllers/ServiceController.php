@@ -1335,77 +1335,7 @@ public function show($id)
       }
 
 
-      public function createpay(Request $request)
-      {
-       $data = $request->all();
-
-       $badge_service_id = $data['service_id'];
-
-
-       $this->validate($request,[
-        'amount' => 'required',
-        'email' => 'required',
-      ]);
-       $service_check = Service::where(['id'=>$badge_service_id])->first();
-       $service_check->badge_type = $data['badge_type'];
-       $service_check->save();
-       $badge_check = Badge::where(['service_id'=>$badge_service_id])->first();
-
-       if ($badge_check) {
-        $badge_check->badge_type = $data['badge_type'];
-
-        $badge_check->amount = $data['amount'];
-        $badge_check->ref_no = 1234;
-
-        $badge_check->save();
-        return "Badge Updated successfully!";
-      }else{
-       $badge = new Badge();
-       $badge->email = $data['email'];
-       $badge->badge_type = $data['badge_type'];
-       $badge->seller_id = $data['seller_id'];
-       $badge->amount = $data['amount'];
-       $badge->seller_name = $data['seller_name'];
-       $badge->phone = $data['phone'];
-       $badge->ref_no = 1234;
-
-       $badge->save();
-       return "Badge created successfully";
-     }
-
-
-     $badge->save();
-     return "yyyy";
-
-        //return
-
-     if ($badge->save()) {
-      return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$success]);
-        //return redirect()->to('serviceDetail/'.$service_slug)->with('message', 'Your message has been sent!');
-    }else{
-      return response()->json(['success2', 'Your message was not sent!']);
-    }
-
-    $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->first();
-    if ($likecheck) {
-     Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
-     $likecount = Like::where(['service_id'=>$id])->count();
-     return redirect()->to('serviceDetail/'.$service_slug);
-        //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
-        //return redirect('/home');
-   }else{
-     $like = new Like();
-     $like->user_id = Auth::id();
-     $like->service_id = $id;
-     $like->save();
-     $likecount = Like::where(['service_id'=>$id])->count();
-     return redirect()->to('serviceDetail/'.$service_slug);
-        //return 'Heyyyyy22222'. $likecount;
-   }
-
- }
-
-
+    
 
 
 

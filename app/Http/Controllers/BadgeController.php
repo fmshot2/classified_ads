@@ -32,7 +32,7 @@ class BadgeController extends Controller
     	$gtpay_tranx_amt      = $request->amount * 100;
     	$gtpay_tranx_curr     = 566;
     	$gtpay_cust_id        = $request->user()->id;
-    	$gtpay_tranx_noti_url = "https://yellowpage.test/api/gt_payment_details/{$request->user()->id}/{$request->badge_type}";
+    	$gtpay_tranx_noti_url = route('home')."/api/gt_payment_details/{$request->user()->id}/{$request->badge_type}";
     	$gtpay_cust_name      = $request->user()->name;
     	$gtpay_tranx_memo     = 'Mobow';
     	$gtpay_echo_data      = "{$request->user()->id},{$request->badge_type}";
@@ -64,9 +64,6 @@ class BadgeController extends Controller
 // dd($gtPay_Data);
 		return view('gttPayView', $gtPay_Data );
 	}
-
-
-
 
 
 
@@ -353,23 +350,119 @@ class BadgeController extends Controller
         if ($id == 1) {
             $badge = [
                 'badge_type' => 'Super',
-                'badge_cost' => 1
+                'badge_cost' => 11
             ];
         }
         elseif ($id == 2) {
             $badge = [
                 'badge_type' => 'Moderate',
-                'badge_cost' => 1
+                'badge_cost' => 12
             ];
         }
         elseif ($id == 3) {
             $badge = [
                 'badge_type' => 'Basic',
-                'badge_cost' => 1
+                'badge_cost' => 13
             ];
         }
 
         return $badge;
     }
+
+
+      public function createBadgepay(Request $request)
+      {
+
+       $data = $request->all();
+    //    return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$data]);
+       // $badge_service_id = $data['service_id'];
+
+
+
+       $this->validate($request,[
+        'amount' => 'required',
+        'email' => 'required',
+      ]);
+       if ($user_check = User::where(['email'=>$data['email']])->first()){
+       $user_check->badgetype = $data['badge_type'];
+       $user_check->save();
+
+       $badge_check = Badge::where(['user_id'=>Auth::id()])->first();
+
+       if ($badge_check) {
+        $badge_check->badge_type = $data['badge_type'];
+
+        $badge_check->amount = $data['amount'];
+        $badge_check->ref_no = $data['ref_no'];
+
+        $badge_check->save();
+
+              $present_user = Auth::user();
+                // if referrer link is available, save it to referer table
+                $person_that_refered = $present_user->idOfReferer;
+                if ($person_that_refered) {
+                    $referer = User::where('id', $person_that_refered)->first();
+                    if ($referer) {
+                      if ($data['amount'] == 11) {
+                        $referer->refererAmount = $referer->refererAmount + 1;
+                        $referer->save();
+                      }
+                      if ($data['amount'] == 12) {
+                        $referer->refererAmount = $referer->refererAmount + 2;
+                        $referer->save();
+                      }
+                      if ($data['amount'] == 13) {
+                        $referer->refererAmount = $referer->refererAmount + 3;
+                        $referer->save();
+                      }
+                        
+                    }
+                }
+
+                $agent_that_refered = $present_user->idOfAgent;
+                if ($agent_that_refered) {
+                    $referer2 = Agent::where('id', $agent_that_refered)->first();
+                    if ($referer2) {
+                        if ($referer2) {
+                      if ($data['amount'] == 11) {
+                        $referer2->refererAmount = $referer->refererAmount + 1;
+                        $referer2->save();
+                      }
+                      if ($data['amount'] == 12) {
+                        $referer2->refererAmount = $referer->refererAmount + 2;
+                        $referer2->save();
+                      }
+                      if ($data['amount'] == 13) {
+                        $referer2->refererAmount = $referer->refererAmount + 3;
+                        $referer2->save();
+                      }
+                        
+                    }
+                        
+                    }
+                }
+
+
+        return response()->json(['success'=>'Badge Updated successfully!'], 200);
+
+        // return "Badge Updated successfully!";
+      }else{
+       $badge = new Badge();
+       $badge->email = $data['email'];
+       $badge->badge_type = $data['badge_type'];
+       $badge->amount = $data['amount'];
+       $badge->seller_name = Auth::user()->name;
+       $badge->phone = $data['phone'];
+       $badge->ref_no = $data['ref_no'];
+
+       $badge->save();
+        return response()->json(['success'=>'Badge created successfullyy!'], 200);
+      }       
+    }    
+
+        return response()->json(['failed'=>'User not available'], 200);
+ }
+
+
 
 }

@@ -103,7 +103,15 @@
                         @endif
                             <a href="{{ route('logout') }}" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();" style="font-weight: 600; color: rgb(253, 75, 75); border: 1px solid  rgb(255, 91, 91); padding: 10px;"><i class="fa fa-power-off"></i></a>
-                    @endauth
+                            @endauth
+                            
+                            @auth
+                            @if(Auth::guard('agent')->check())
+                            <a href="{{ route('agent.dashboard') }}"> Dashboard</a>
+                            @endif
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();" style="font-weight: 600; color: rgb(253, 75, 75); border: 1px solid  rgb(255, 91, 91); padding: 10px;"><i class="fa fa-power-off"></i></a>
+                            @endauth
                 </ul>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -162,6 +170,11 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="{{ route('buyer.dashboard') }}">My Account</a>
                             </li>
+                        @endif
+                        @if(Auth::guard('agent')->check())
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="{{ route('agent.dashboard') }}">My Account</a>
+                        </li>
                         @endif
                     </ul>
                 @endauth

@@ -9,7 +9,7 @@
 <body>
 
 	@include('layouts.frontend_partials.navbar')
-    @include('layouts.frontend_partials.status')
+    <!-- @include('layouts.frontend_partials.status') -->
 
 
 		@yield('content')
@@ -363,6 +363,10 @@
             }
         });
     </script>
+
+    {{-- livewirescript --}}
+    @livewireScripts
+
 
 </body>
 

@@ -381,17 +381,17 @@
                         <p>A refer is a person that uses his or her referral link to invite people online to register on efcontact.</p>
                         <ul>
                             <li>
-                                All you have to do is copy and share your link to your friends , family , clients or anyone through WhatsApp, Facebook, sms, mms, Instagram, Twitter etc...
+                                All you have to do is copy and share your link to your friends , family , clients or anyone through WhatsApp, Facebook, SMS, mms, Instagram, Twitter etc...
+
                             </li>
                             <li>
-                                when they click your link and register , you automatically get 50 naira . The more people register using your link the more your bonuses increases.
+                                When your referral clicks your link and registers, you automatically get N50. The more the people register using your link the more your bonuses will increase.                            
                             </li>
                             <li>
-                                When it gets to 1000 naira, you can request for a cashout or live it and keep inviting people to register using your link.
+                                When your commission reaches N1000, it will be sent to you on the pay day.                            
                             </li>
                             <li>
-                                <strong>Note:</strong> you can only request withdrawal from monday to Thursday only. <br>
-                                Friday is pay day to all our customers.
+                                <strong>Note:</strong> We pay commissions on a weekly basis- your product Monday to Friday is paid the next Friday.
                             </li>
                         </ul>
                         <p><strong>Have fun and keep sharing 😃</strong></p>

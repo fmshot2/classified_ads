@@ -246,7 +246,9 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
 
         Route::get('/service/add', 'SellerController@createService')->name('seller.service.create');
         Route::get('/service/badges', 'BadgeController@badges')->name('seller.service.badges');
-        Route::post('/service/createpay', 'ServiceController@createpay');
+        Route::post('/service/createpay', 'BadgeController@createBadgepay')->name('createpaystack');
+        Route::post('/service/createpay', 'AuthController@createPaystackpay')->name('createpaypaystack2');
+
         Route::post('/service/createpay4Advert', 'BadgeController@createpay4Advert');
         Route::get('/service/adverts', 'BadgeController@adverts')->name('seller.service.adverts');
 
