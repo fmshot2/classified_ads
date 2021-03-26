@@ -5,12 +5,6 @@
 
 @section('content')
 
-<style>
-    .form-text{
-        display: block
-    }
-</style>
-
 <div class="content-wrapper" style="min-height: 868px;">
 
   @include('layouts.backend_partials.status')
@@ -105,70 +99,99 @@
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <div class="box box-default">
-                    <div class="box-body">
+              <div class="box box-default">
+                <div class="box-header with-border">
+                </div>
+                <div class="body">
+                  <div class="form-group">
+                    <label>Select Category</label>
+                    <select name="category_id"  class="form-control show-tick">
+                      <option value=" ">-- Please select --</option>
+                      @foreach($category as $categories)
+                      <option value=" {{ $categories->id }} "> {{ $categories->name }} </option>
+                      @endforeach
+                    </select>
+                  </div>
 
-                        <div class="form-group">
-                            <label>Select Category</label>
-                            <small class="text-danger">*</small>
-                            <select name="category_id" required class="form-control show-tick" id="categories">
-                                <option value="">-- Please select --</option>
-                                @foreach($category as $categories)
-                                    <option id="category_id" value="{{ $categories->id }}" {{ $categories->id == $service->category_id ? 'selected' : '' }}> {{ $categories->name }} </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Sub Category <small class="text-info">(You can select multiple sub category)</small></label>
-                            <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple>
-                                @foreach($subcategory as $subcategories)
-                                    <option id="category_id" value="{{ $subcategories->id }}" {{ $service->category_id == $subcategories->category_id  ? 'selected' : '' }}> {{ $subcategories->name }} </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input id="featured" class="form-check-input" type="checkbox" value="1" name="is_featured" onclick="featuredCheckbbox()">
-                                <label class="form-check-label" for="featured"> Do you want this service featured?  <small class="infoLinkNote">(<a data-toggle="modal" data-target="#featuredInfoModal">How it works?</a>)</small></label>
-                            </div>
-                            <p id="featuredText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
-                        </div>
-
-                        <div class="form-group" id="youtubeLink">
-                            <label for="" id="youtubeLink">Video (Youtube) <small>(Optional)</small></label>
-                            <input type="text" class="form-control" name="video_link">
-                            <div class="help-info">Youtube video Link</div>
-
-                        </div>
-                    </div>
-
-                    <div class="body">
-                        <a href=" {{ route('seller.service.all') }}" class="btn btn-danger btn-lg m-t-15 waves-effect">
-                            <i class="fa fa-arrow-left"></i>
-                            <span> Back</span>
-                        </a>
-
-                        <button type="submit" id="save_btn" class="btn btn-warning btn-submit_service btn-lg m-t-15 waves-effect">
-                            <span>Submit </span>
-                            <i class="fa fa-save"></i>
-                        </button>
-                    </div>
                 </div>
 
-              </div>
+                <div class="form-group form-float">
+                    <label for="">Video (Youtube)</label>
+                    <div class="form-line">
+                    <input type="text" class="form-control" name="video_link" value=" {{ $service->video_link }}">
+                    </div>
+                    <div class="help-info">Youtube Link</div>
+                </div>
 
+                <div>
+                    <a href=" {{ route('seller.service.all') }}" class="btn btn-warning btn-lg m-t-15 waves-effect">
+                        <i class="fa fa-arrow-left"></i>
+                        <span>BACK</span>
+                      </a>
 
-            </form>
+                      <button type="submit" class="btn btn-warning btn-lg m-t-15 waves-effect">
+                        <i class="fa fa-save"></i>
+                        <span>Submit</span>
+                      </button>
+                </div>
+
+                </div>
+
+              </div></form>
 
             </div>
             <!-- /.row -->
+          </div></div>
+
+{{-- Previous imaging system --}}
+
+         {{--  <div class="box box-default">
+            <div class="box-header with-border">
+              <h3 class="box-title">Your Images</h3>
+              <button class="btn btn-toolbar" onclick="showDropzone()">Add More Images</button>
+            </div>
+            <div class="body">
+
+
+             @if(isset($images_4_service))
+
+             <table class="table">
+              <thead>
+
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">image</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($images_4_service as $key => $image)
+
+                <tr>
+                  <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+
+  <form class="" method="GET" action="{{route('service.updateImage', $image )}}" enctype="multipart/form-data">
+            {{ csrf_field() }}
+                              <td>
+                                <img src="{{asset('uploads/services')}}/{{$image->image_path}}" alt="service image" width="60" class="img-responsive img-rounded">
+
+                            </td>
+                  <td><button type="submit" class="btn-danger">Delete</button></td>
+                  </form>
+                </tr>
+                @endforeach
+
+              </tbody>
+            </table>
+            @endif
+
           </div>
-        </div>
+        </div> --}}
+
+        {{-- End Previous imaging system --}}
 
 
-            <div class="box box-default">
+ <div class="box box-default">
                 <div class="box-header">
                     <h2 class="box-title" style="font-weight: 700">Service Images</h2>
                     <p class="text-danger" style="font-weight: 2700">Drag and drop more images here to describe your service!</p>
@@ -485,117 +508,4 @@
             };
         </script>
     @endif
-
-
-    <script type="text/javascript">
-        var checkBox = document.getElementById("featured");
-        var text = document.getElementById("featuredText");
-        text.style.display = "none";
-
-        function featuredCheckbbox() {
-            if (checkBox.checked == true){
-                text.style.display = "block";
-            } else {
-                text.style.display = "none";
-            }
-        }
-
-        $(document).ready(function() {
-            var service_id
-        });
-
-
-        $('#categories').on('change',function(){
-            var categoryID = $(this).val();
-
-            if (categoryID == 1 || categoryID == 2) {
-                document.getElementById("youtubeLink").style.display = 'none';
-                document.getElementById("negotiableChBox").style.display = 'none';
-                document.getElementById("servicePriceRange").innerText = 'Salary Range?';
-            }
-            else {
-                document.getElementById("youtubeLink").style.display = 'block';
-                document.getElementById("negotiableChBox").style.display = 'block';
-                document.getElementById("servicePriceRange").innerText = 'How much do you want to charge for this service?';
-            }
-
-            if(categoryID){
-                $.ajax({
-                    type:"GET",
-                    url: '/api/get-category-list/'+categoryID,
-                    success:function(res){
-                        if(res){
-                        var res = JSON.parse(res);
-                            $("#sub_categories ").empty();
-                            $.each(res, function(key,value){
-                            var chosen_value = value;
-                                $("#sub_categories").append(
-                                    '<option value="'+chosen_value.id+'">'+chosen_value.name+'</option>'
-                                );
-                            });
-                        }else{
-                            $("#sub_categories").empty();
-                        }
-                    }
-                });
-            }else{
-                $("#sub_categories").empty();
-            }
-        });
-    </script>
-
-    <script type="text/javascript">
-        $('#state').on('change',function(){
-            console.log('ddd');
-            var stateID = $(this).val();
-            if(stateID){
-                $.ajax({
-                type:"GET",
-                    //url:"{{url('qqq')}}"+stateID,
-                    url: '../../api/get-city-list/'+stateID,
-                    success:function(res){
-                        if(res){
-                        console.log(res);
-                        console.log(stateID);
-                        $("#city").empty();
-                        $.each(res,function(key,value){
-                        $("#city").append('<option value="'+value+'">'+value+'</option>');
-                        });
-
-                    }else{
-                        $("#city").empty();
-                    }
-                    }
-                });
-            }else{
-                $("#city").empty();
-            }
-
-        });
-
-        $(".image-box").click(function(event) {
-            var previewImg = $(this).children("img");
-            $(this)
-            .siblings()
-            .children("input")
-            .trigger("click");
-
-            $(this)
-            .siblings()
-            .children("input")
-            .change(function() {
-                var reader = new FileReader();
-
-                reader.onload = function(e) {
-                    var urll = e.target.result;
-                    $(previewImg).attr("src", urll);
-                    previewImg.parent().css("background", "transparent");
-                    previewImg.show();
-                    previewImg.siblings("p").hide();
-                };
-                reader.readAsDataURL(this.files[0]);
-            });
-        });
-
-    </script>
 @endsection

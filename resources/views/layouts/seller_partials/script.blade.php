@@ -37,6 +37,7 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
 
+
 <script type="text/javascript">
 	$(document).ready( function () {
 	    $('.data_table_main').DataTable({
@@ -47,49 +48,53 @@
 		});
 	});
 
+    var user_badge_type = document.getElementById('badge_type').value
 
+    // Dropzone.options.dropzone = {
+	//     maxFiles: user_badge_type,
+    //     maxFilesize: 10,
+    //     parallelUploads: 10,
+    //     acceptedFiles: ".jpeg,.jpg,.png,.gif",
+    //     addRemoveLinks: true,
+    //     autoProcessQueue: false,
+    //     init: function() {
+    //         var dpzMultipleFiles = this;
+    //         var submitButton = document.querySelector("#submit-all");
+    //         submitButton.addEventListener("click", function () {
+    //             dpzMultipleFiles.processQueue();
+    //         });
 
-    Dropzone.options.dropzone = {
-	    maxFiles: 5,
-        maxFilesize: 10,
-        parallelUploads: 10,
-        acceptedFiles: ".jpeg,.jpg,.png,.gif",
-        addRemoveLinks: true,
-        autoProcessQueue: false,
-        init: function() {
-            var dpzMultipleFiles = this;
-            var submitButton = document.querySelector("#submit-all");
-            submitButton.addEventListener("click", function () {
-                dpzMultipleFiles.processQueue();
-            });
+    //         this.on("queuecomplete", function () {
+    //             location.reload();
+    //         });
+    //         this.on("maxfilesexceeded", function(file){
+    //             toastr.error("You can't upload more files.");
+    //         });
+    //     },
+    //     success: function(file, response)
+    //     {
+    //         file.previewElement.id = response.success;
+    //         var olddatadzname = file.previewElement.querySelector("[data-dz-name]");
+    //         file.previewElement.querySelector("img").alt = response.success;
+    //         olddatadzname.innerHTML = response.success;
+    //     },
+    //     error: function(file, response)
+    //     {
+    //         if($.type(response) === "string")
+    //             var message = response; //dropzone sends it's own error messages in string
+    //         else
+    //             var message = response.message;
+    //         file.previewElement.classList.add("dz-error");
+    //         _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+    //         _results = [];
+    //         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    //             node = _ref[_i];
+    //             _results.push(node.textContent = message);
+    //         }
+    //         return _results;
+    //     }
+    // };
 
-            this.on("queuecomplete", function () {
-                location.reload();
-            });
-        },
-        success: function(file, response)
-        {
-            file.previewElement.id = response.success;
-            var olddatadzname = file.previewElement.querySelector("[data-dz-name]");
-            file.previewElement.querySelector("img").alt = response.success;
-            olddatadzname.innerHTML = response.success;
-        },
-        error: function(file, response)
-        {
-            if($.type(response) === "string")
-                var message = response; //dropzone sends it's own error messages in string
-            else
-                var message = response.message;
-            file.previewElement.classList.add("dz-error");
-            _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-            _results = [];
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                node = _ref[_i];
-                _results.push(node.textContent = message);
-            }
-            return _results;
-        }
-    };
 </script>
 
 @if(Session::has('message'))

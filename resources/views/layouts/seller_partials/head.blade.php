@@ -10,7 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css" rel="stylesheet">
 
 
-	<title> @yield('title') Nigeria Yellow Page </title>
+	<title> @yield('title') EFContact Provider</title>
 
 	<!-- bootstrap 3.3.7 -->
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_components/bootstrap/dist/css/bootstrap.css')}}">

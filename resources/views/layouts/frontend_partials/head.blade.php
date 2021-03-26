@@ -1,7 +1,7 @@
 
 <head>
 
- <title> @yield('title') EFContacts </title>
+ <title> @yield('title') EFContact </title>
 
 
  <meta name="viewport" content="width=device-width, initial-scale=1.0">

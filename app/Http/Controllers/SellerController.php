@@ -349,12 +349,14 @@ public function allService()
 
 public function viewServiceUpdate($slug)
 {
-    $category = Category::all();
+    $category = Category::orderBy('name', 'asc')->get();
     $serviceDetail = Service::where('slug', $slug)->first();
     // $images_4_service = $serviceDetail->image;
     $images_4_service = ModelImage::where('imageable_id', $serviceDetail->id)->get();
     $service = Service::where('slug', $slug)->first();
-    return view ('seller.service.update_service', compact('service', 'category', 'images_4_service') );
+    $subcategory = SubCategory::orderBy('name', 'asc')->get();
+    $states = State::all();
+    return view ('seller.service.update_service', compact('service', 'category', 'images_4_service', 'subcategory', 'states') );
 }
 
 public function viewService($slug)

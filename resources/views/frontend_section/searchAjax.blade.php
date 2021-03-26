@@ -64,7 +64,7 @@
     .categoriesModalList li{
         list-style: none;
         display: block;
-        border-bottom: 1px solid rgba(177, 177, 177, 0.295);
+        border-bottom: 1px solid rgba(206, 206, 206, 0.233);
         padding-bottom: 10px;
     }
     .categoriesModalList li:last-child{
@@ -82,7 +82,7 @@
         color: #11a182;
     }
     .categoriesModalList li:hover a, .categoriesModalList li:hover .fa{
-        color: #e7a32d !important;
+        color: #e7a32d;
         margin-left: 3px;
         transition: .5s margin-left;
     }
@@ -90,6 +90,71 @@
         font-size: 17px;
         margin-bottom: 20px;
     }
+
+    /* @media (min-width: 768px) */
+
+    .popover__title {
+        font-size: 24px;
+        line-height: 36px;
+        text-decoration: none;
+        color: rgb(228, 68, 68);
+        text-align: center;
+        padding: 15px 0;
+    }
+
+    .popover__wrapper {
+        position: relative;
+        display: inline-block;
+    }
+    .popover__content {
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        left: 100px;
+        top: 50px;
+        transform: translate(0, 10px);
+        background-color: #f5f5f5;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+        width: auto;
+    }
+    .popover__content ul li {
+        color: #000 !important;
+        padding-left: 30px;
+        padding-right: 30px;
+        display: block;
+    }
+    .popover__content ul li:first-child {
+        padding-top: 15px;
+    }
+    .popover__content ul li a{
+        color: #000 !important;
+        display: block;
+    }
+    .popover__content ul li:hover a{
+        color: #e7a32d !important;
+        margin-left: 3px;
+        transition: .5s margin-left;
+    }
+    .popover__content:before {
+        position: absolute;
+        z-index: -1;
+        content: "";
+        right: calc(50% - 10px);
+        top: -8px;
+        border-style: solid;
+        border-width: 0 10px 10px 10px;
+        border-color: transparent transparent #f5f5f5 transparent;
+        transition-duration: 0.3s;
+        transition-property: transform;
+    }
+    .popover__wrapper:hover .popover__content {
+        z-index: 10;
+        opacity: 1;
+        visibility: visible;
+        transform: translate(0, -20px);
+        transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+    }
+
 
     @media (max-width: 768px){
         .searchInput{
@@ -135,6 +200,9 @@
             cursor: pointer;
             box-shadow: 0 0 0 rgb(204 169 44 / 40%);
         }
+        .stateLGApopup{
+            display: none;
+        }
     }
 </style>
 <div id="" class="search-section search-area-2 bg-grea hm-search-form-comp">
@@ -149,6 +217,7 @@
                             <div class="col-lg-6 col-md-4 col-sm-12">
                                 <div class="form-group">
                                     <input type="text" name="keyword" id="jxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g. Barber, Saloon)">
+                                    {{-- <input type="text" name="keyword" class="form-control searchInput" placeholder="What are you looking for? (e.g. Barber, Saloon)"> --}}
                                     <div id="service_list" class="ajaxSearchList"></div>
                                 </div>
                             </div>
@@ -156,6 +225,7 @@
                                 <button type="button" data-toggle="modal" data-target="#showCategoriesModal" id="showCategoriesBtn" class="btn btn-success jxcategory"><i class="fa fa-archive"></i> All Categories</button>
                             </div>
                             <input type="hidden" name="state" id="searchStateInput" value="">
+                            <input type="hidden" name="lga" id="searchLGAInput" value="">
                             <div class="col-lg-2 col-md-4 col-sm-6">
                                 <button type="button" data-toggle="modal" data-target="#showStatesModal" id="searchStateBtn" class="btn btn-success location"><i class="fa fa-map-marker"></i> All Nigeria</button>
                             </div>
@@ -250,9 +320,17 @@
                                 <ul class="categoriesModalList">
                                     @foreach ($allgeneralstates as $allgeneralstate)
                                         @if ($loop->index <= 18)
-                                            <li data-dismiss="modal" onclick="addStateToForm('{{ $allgeneralstate->name }}')">
-                                                <a data-dismiss="modal" onclick="addStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}
-                                                </a>
+                                            <li data-dismiss="modal" class="popover__wrapper">
+                                                <a onclick="addStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}</a>
+                                                <div class="popover__content">
+                                                    <ul>
+                                                        @if(isset($allgeneralstate->local_governments))
+                                                            @foreach($allgeneralstate->local_governments as $local_government)
+                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                            @endforeach
+                                                        @endif
+                                                    </ul>
+                                                </div>
                                             </li>
                                         @endif
                                     @endforeach
@@ -262,9 +340,17 @@
                                 <ul class="categoriesModalList">
                                     @foreach ($allgeneralstates as $allgeneralstate)
                                         @if ($loop->index > 18)
-                                            <li>
-                                                <a href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}
-                                                </a>
+                                            <li data-dismiss="modal" class="popover__wrapper">
+                                                <a onclick="addStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}</a>
+                                                <div class="popover__content">
+                                                    <ul>
+                                                        @if(isset($allgeneralstate->local_governments))
+                                                            @foreach($allgeneralstate->local_governments as $local_government)
+                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                            @endforeach
+                                                        @endif
+                                                    </ul>
+                                                </div>
                                             </li>
                                         @endif
                                     @endforeach
@@ -283,8 +369,7 @@
 <script>
     $(document).ready(function(){
         $('#jxservices').keyup(function(){
-            var query = $(this).val();
-            console.log(query)
+            var query = $('#jxservices').val();
             if(query != '')
             {
                 var _token = $('input[name="_token"]').val();
@@ -304,14 +389,47 @@
         });
 
         $(document).on('click', 'li', function(){
-            $('#jxservices').val($(this).text());
+            $('#jxservices').val($('#jxservices').text());
             $('#service_list').fadeOut();
         });
 
     });
+    // $(document).ready(function(){
+    //     $('#jxservices').keyup(function(){
+    //         var query = $(this).val();
+    //         console.log(query)
+    //         if(query != '')
+    //         {
+    //             var _token = $('input[name="_token"]').val();
+    //             $.ajax({
+    //                 url:"{{ route('ajax.search.result') }}",
+    //                 method:"GET",
+    //                 data:{service:query},
+    //                 success:function(data){
+    //                     $('#service_list').fadeIn();
+    //                     $('#service_list').html(data);
+    //                 }
+    //             });
+    //         }
+    //         else{
+    //             $('#service_list').hide();
+    //         }
+    //     });
+
+    //     $(document).on('click', 'li', function(){
+    //         $('#jxservices').val($(this).text());
+    //         $('#service_list').fadeOut();
+    //     });
+
+    // });
 
     function addStateToForm(thestate) {
         document.getElementById('searchStateBtn').innerHTML = '<i class="fa fa-map-marker"></i> ' + thestate
+        document.getElementById('searchStateInput').value = thestate
+    }
+    function addLGAToForm(thelga, thestate) {
+        document.getElementById('searchStateBtn').innerHTML = '<i class="fa fa-map-marker"></i> ' + thelga
+        document.getElementById('searchLGAInput').value = thelga
         document.getElementById('searchStateInput').value = thestate
     }
 

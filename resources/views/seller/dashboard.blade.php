@@ -42,6 +42,27 @@
         -webkit-margin-end: 0px;
         -webkit-padding-start: 40px;
     }
+    .file-upload .image-box {
+        margin: 0 auto;
+        margin-top: 1em;
+        height: 15em;
+        width: 100%;
+        background: #d24d57;
+        cursor: pointer;
+        overflow: hidden;
+    }
+
+    .file-upload .image-box img {
+        height: 100%;
+        width: 100%;
+        display: none;
+    }
+
+    .file-upload .image-box p {
+        position: relative;
+        top: 45%;
+        color: #fff;
+    }
     @media (max-width: 768px){
         .content-header{
             padding: 0 5px 10px 10px;
@@ -431,8 +452,6 @@
                                         </div>
                                         <p id="featuredText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Select Category</label>
                                         <small class="text-danger">*</small>
@@ -451,6 +470,20 @@
                                                 <option id="category_id" value=" {{ $subcategory->id }} "> {{ $subcategory->name }} </option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group file-upload" id="file-upload1">
+                                        <label>Upload Image</label>
+                                        <small class="text-danger">*</small> <br>
+                                        <small class="text-info">Choose a thumbnail for your service.</small>
+                                        <div class="image-box text-center">
+                                              <p>Select an Image</p>
+                                              <img src="" alt="">
+                                          </div>
+                                        <div class="controls" style="display: none;">
+                                            <input type="file" name="thumbnail" class="form-control show-tick" />
+                                        </div>
                                     </div>
 
                                     <div class="form-group form-float" id="youtubeLink">
@@ -644,6 +677,31 @@
             $("#city").empty();
         }
 
+    });
+
+
+    $(".image-box").click(function(event) {
+        var previewImg = $(this).children("img");
+        $(this)
+        .siblings()
+        .children("input")
+        .trigger("click");
+
+        $(this)
+        .siblings()
+        .children("input")
+        .change(function() {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var urll = e.target.result;
+                $(previewImg).attr("src", urll);
+                previewImg.parent().css("background", "transparent");
+                previewImg.show();
+                previewImg.siblings("p").hide();
+            };
+            reader.readAsDataURL(this.files[0]);
+        });
     });
 </script>
 

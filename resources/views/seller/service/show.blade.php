@@ -134,18 +134,66 @@
                         @endforelse
                     </div>
 
-                    <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
-                        @csrf
-                        <div class="dz-default dz-message">
-                            Click here to add your images <br>
-                            <small style="color: rgb(182, 66, 66) !important">When you are done click the upload button down below!</small>
-                        </div>
-                    </form>
-                    <br>
-                    <center>
-                        <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
-                        <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
-                    </center>
+                    @if (Auth::User()->badgetype == 1 && $service->images->count() < 8)
+                        <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 8 - $service->images->count() }} image{{ 8 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
+                        <p> {{ 8 - $service->images->count() }} remaining.</p>
+                        <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
+                            @csrf
+                            <div class="dz-default dz-message">
+                                Click here to add your images <br>
+                                <small style="color: rgb(182, 66, 66) !important">When you are done click the upload button down below!</small>
+                            </div>
+                        </form>
+                        <br>
+                        <center>
+                            <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
+                            <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
+                        </center>
+                    @elseif (Auth::User()->badgetype == 2 && $service->images->count() < 6)
+                        <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 6 - $service->images->count() }} image{{ 6 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
+                        <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
+                            @csrf
+                            <div class="dz-default dz-message">
+                                Click here to add your images <br>
+                                <small style="color: rgb(182, 66, 66) !important">When you are done click the upload button down below!</small>
+                            </div>
+                        </form>
+                        <br>
+                        <center>
+                            <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
+                            <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
+                        </center>
+                    @elseif (Auth::User()->badgetype == 3 && $service->images->count() < 4)
+                        <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 4 - $service->images->count() }} image{{ 4 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
+                        <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
+                            @csrf
+                            <div class="dz-default dz-message">
+                                Click here to add your images <br>
+                                <small style="color: rgb(182, 66, 66) !important">When you are done click the upload button down below!</small>
+                            </div>
+                        </form>
+                        <br>
+                        <center>
+                            <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
+                            <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
+                        </center>
+                    @elseif (Auth::User()->badgetype == 4 && $service->images->count() < 2)
+                        <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 2 - $service->images->count() }} image{{ 2 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
+                        <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
+                            @csrf
+                            <div class="dz-default dz-message">
+                                Click here to add your images <br>
+                                <small style="color: rgb(182, 66, 66) !important">When you are done click the upload button down below!</small>
+                            </div>
+                        </form>
+                        <br>
+                        <center>
+                            <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
+                            <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
+                        </center>
+                    @else
+                        <p style="font-size: 16px; text-align:center; margin: 20px 0"><a href="{{ route('seller.service.badges') }}" style="color: #cc8a19;" >Upgrade</a> your account with a badge to upload images</p>
+                    @endif
 
                 </div>
             </div>
@@ -218,4 +266,206 @@
 
 
             </script>
+@endsection
+
+
+@section('extra-scripts')
+    @if (Auth::User()->badgetype == 1 && $service->images->count() != 8)
+    <input hidden id="badge_type_1" type="number" value="{{  8 - $service->images->count() }}">
+    <input hidden id="user_1_image_remaining" type="number" value="{{ (8 - $service->images->count()) > 1 ? 's' : '' }}">
+    <script type="text/javascript">
+        Dropzone.options.dropzone = {
+            maxFiles: document.getElementById('badge_type_1').value,
+            maxFilesize: 10,
+            parallelUploads: 7,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            autoProcessQueue: false,
+            init: function() {
+                var dpzMultipleFiles = this;
+                var submitButton = document.querySelector("#submit-all");
+                submitButton.addEventListener("click", function () {
+                    dpzMultipleFiles.processQueue();
+                });
+
+                this.on("queuecomplete", function () {
+                    location.reload();
+                });
+                this.on("maxfilesexceeded", function(file){
+                    toastr.error("You can't upload more than " + document.getElementById('badge_type_1').value + " file"+document.getElementById('user_1_image_remaining').value+".");
+                });
+            },
+            success: function(file, response)
+            {
+                file.previewElement.id = response.success;
+                var olddatadzname = file.previewElement.querySelector("[data-dz-name]");
+                file.previewElement.querySelector("img").alt = response.success;
+                olddatadzname.innerHTML = response.success;
+            },
+            error: function(file, response)
+            {
+                if($.type(response) === "string")
+                    var message = response; //dropzone sends it's own error messages in string
+                else
+                    var message = response.message;
+                file.previewElement.classList.add("dz-error");
+                _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+                _results = [];
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    node = _ref[_i];
+                    _results.push(node.textContent = message);
+                }
+                return _results;
+            }
+        };
+    </script>
+
+    @elseif (Auth::User()->badgetype == 2 && $service->images->count() != 6)
+    <input hidden id="badge_type_2" type="number" value="{{ 6 - $service->images->count() }}">
+    <input hidden id="user_2_image_remaining" type="number" value="{{ (6 - $service->images->count()) > 1 ? 's' : '' }}">
+    <script type="text/javascript">
+        Dropzone.options.dropzone = {
+            maxFiles: document.getElementById('badge_type_2').value,
+            maxFilesize: 10,
+            parallelUploads: 5,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            autoProcessQueue: false,
+            init: function() {
+                var dpzMultipleFiles = this;
+                var submitButton = document.querySelector("#submit-all");
+                submitButton.addEventListener("click", function () {
+                    dpzMultipleFiles.processQueue();
+                });
+
+                this.on("queuecomplete", function () {
+                    location.reload();
+                });
+                this.on("maxfilesexceeded", function(file){
+                    toastr.error("You can't upload more than " + document.getElementById('badge_type_2').value + " file"+document.getElementById('user_2_image_remaining').value+".");
+                });
+            },
+            success: function(file, response)
+            {
+                file.previewElement.id = response.success;
+                var olddatadzname = file.previewElement.querySelector("[data-dz-name]");
+                file.previewElement.querySelector("img").alt = response.success;
+                olddatadzname.innerHTML = response.success;
+            },
+            error: function(file, response)
+            {
+                if($.type(response) === "string")
+                    var message = response; //dropzone sends it's own error messages in string
+                else
+                    var message = response.message;
+                file.previewElement.classList.add("dz-error");
+                _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+                _results = [];
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    node = _ref[_i];
+                    _results.push(node.textContent = message);
+                }
+                return _results;
+            }
+        };
+    </script>
+    @elseif (Auth::User()->badgetype == 3 && $service->images->count() != 4)
+    <input hidden id="badge_type_3" type="number" value="{{  4 - $service->images->count() }}">
+    <input hidden id="user_3_image_remaining" type="text" value="{{ (4 - $service->images->count()) > 1 ? 's' : '' }}">
+    <script type="text/javascript">
+        Dropzone.options.dropzone = {
+            maxFiles: document.getElementById('badge_type_3').value,
+            maxFilesize: 10,
+            parallelUploads: 3,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            autoProcessQueue: false,
+            init: function() {
+                var dpzMultipleFiles = this;
+                var submitButton = document.querySelector("#submit-all");
+                submitButton.addEventListener("click", function () {
+                    dpzMultipleFiles.processQueue();
+                });
+
+                this.on("queuecomplete", function () {
+                    location.reload();
+                });
+                this.on("maxfilesexceeded", function(file){
+                    toastr.error("You can't upload more than " + document.getElementById('badge_type_3').value + " file"+ document.getElementById('user_3_image_remaining').value + ".");
+                });
+            },
+            success: function(file, response)
+            {
+                file.previewElement.id = response.success;
+                var olddatadzname = file.previewElement.querySelector("[data-dz-name]");
+                file.previewElement.querySelector("img").alt = response.success;
+                olddatadzname.innerHTML = response.success;
+            },
+            error: function(file, response)
+            {
+                if($.type(response) === "string")
+                    var message = response; //dropzone sends it's own error messages in string
+                else
+                    var message = response.message;
+                file.previewElement.classList.add("dz-error");
+                _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+                _results = [];
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    node = _ref[_i];
+                    _results.push(node.textContent = message);
+                }
+                return _results;
+            }
+        };
+    </script>
+    @elseif (Auth::User()->badgetype == 4 && $service->images->count() != 2)
+    <input hidden id="badge_type_4" type="number" value="{{  2 - $service->images->count() }}">
+    <input hidden id="user_4_image_remaining" type="number" value="{{ (2 - $service->images->count()) > 1 ? 's' : '' }}">
+    <script type="text/javascript">
+        Dropzone.options.dropzone = {
+            maxFiles: document.getElementById('badge_type_4').value,
+            maxFilesize: 10,
+            parallelUploads: 1,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+            autoProcessQueue: false,
+            init: function() {
+                var dpzMultipleFiles = this;
+                var submitButton = document.querySelector("#submit-all");
+                submitButton.addEventListener("click", function () {
+                    dpzMultipleFiles.processQueue();
+                });
+
+                this.on("queuecomplete", function () {
+                    location.reload();
+                });
+                this.on("maxfilesexceeded", function(file){
+                    toastr.error("You can't upload more than " + document.getElementById('badge_type_4').value + " file"+ document.getElementById('user_4_image_remaining').value +".");
+                });
+            },
+            success: function(file, response)
+            {
+                file.previewElement.id = response.success;
+                var olddatadzname = file.previewElement.querySelector("[data-dz-name]");
+                file.previewElement.querySelector("img").alt = response.success;
+                olddatadzname.innerHTML = response.success;
+            },
+            error: function(file, response)
+            {
+                if($.type(response) === "string")
+                    var message = response; //dropzone sends it's own error messages in string
+                else
+                    var message = response.message;
+                file.previewElement.classList.add("dz-error");
+                _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+                _results = [];
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    node = _ref[_i];
+                    _results.push(node.textContent = message);
+                }
+                return _results;
+            }
+        };
+    </script>
+    @endif
 @endsection

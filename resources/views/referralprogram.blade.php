@@ -153,11 +153,24 @@
                                                     </div>
 
                                                     <select hidden class="form-control custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="role" required>
-                                                        <option selected> Choose... </option>
                                                         <option value="seller" selected> Provide a service </option>
                                                     </select>
 
                                                     <div class="col-md-6">
+                                                        @if(!$referParam)
+                                                            <div class="form-group form-box">
+                                                                <label>Where you referred by our agent?</label>
+                                                                <input id="agent_code" type="text" placeholder="Enter Agent Code (Optional)" class="form-control" name="agent_code" value="{{ old('agent_code') }}">
+                                                                @if ($errors->has('agent_code'))
+                                                                    <span class="helper-text" data-error="wrong" data-success="right">
+                                                                        <strong class="text-danger">{{ $errors->first('agent_code') }}</strong>
+                                                                    </span>
+                                                                @endif
+                                                            </div>
+                                                        @endif
+                                                    </div>
+
+                                                    <div class="col-md-6" style="margin-top: 20px">
                                                         <label>
                                                             <input type="checkbox" name="terms" class="filled-in" required/>
                                                             <span>By registering you accept our <a href="{{route('terms-of-use')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy-policy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>

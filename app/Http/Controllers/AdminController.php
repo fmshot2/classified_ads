@@ -357,6 +357,7 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
     $general_info->hot_line_2 = $request->hotline2;
     $general_info->hot_line_3 = $request->hotline3;
     $general_info->support_email = $request->support_email;
+    $general_info->contact_email = $request->contact_email;
     $general_info->address = $request->address;
     $general_info->facebook = $request->facebook;
     $general_info->twitter = $request->twitter;

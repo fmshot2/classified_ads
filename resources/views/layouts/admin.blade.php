@@ -15,6 +15,9 @@
 	@include('layouts.backend_partials.footer')
 	@include('layouts.backend_partials.script')
 
+
+    @yield('extra-scripts')
+
 </body>
 
 </html>

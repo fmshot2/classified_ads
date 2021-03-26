@@ -86,7 +86,7 @@ Route::middleware(['accountant'])->group(function() {
 Route::post('api/logintestPayment', 'AuthController@logintestPayment');
 
 Route::post('advertisement/create', 'OperationalController@advertCreate')->name('advertisement.create');
-Route::view('referral-program/', 'referralprogram')->name('referralprogram');
+Route::get('referral-program/', 'OperationalController@referralprogram')->name('referralprogram');
 Route::get('about-us/', 'OperationalController@aboutus')->name('aboutus');
 
 Route::get('test_new_badge', 'BadgeController@test_new_badge');
