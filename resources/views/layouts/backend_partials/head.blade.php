@@ -10,7 +10,7 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-	<title> @yield('title') EFContact </title>
+	<title> @yield('title') EFContact Admin </title>
 
 	<!-- bootstrap 3.3.7 -->
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_components/bootstrap/dist/css/bootstrap.css')}}">

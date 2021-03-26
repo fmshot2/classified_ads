@@ -12,7 +12,7 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-	<title> @yield('title') Nigeria Yellow Page </title>
+	<title> @yield('title') EFContact Provider</title>
 
 	<!-- bootstrap 3.3.7 -->
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_components/bootstrap/dist/css/bootstrap.css')}}">

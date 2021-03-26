@@ -10,37 +10,37 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-	<title> @yield('title') Nigeria Yellow Page </title>
-	
+	<title> @yield('title') EFContact Seeker </title>
+
 	<!-- bootstrap 3.3.7 -->
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_components/bootstrap/dist/css/bootstrap.css')}}">
-	
+
 	<!-- font awesome -->
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_components/font-awesome/css/font-awesome.css')}}">
-	
+
 	<!-- ionicons -->
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_components/Ionicons/css/ionicons.css')}}">
 
 	<!-- theme style -->
 	<link rel="stylesheet" href="{{asset('OurBackend/css/master_style.css')}}">
-	
+
 	<!-- Cross Admin skins -->
 	<link rel="stylesheet" href="{{asset('OurBackend/css/skins/_all-skins.css')}}">
-	
+
 	<!-- morris chart -->
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_components/morris.js/morris.css')}}">
-	
+
 	<!-- date picker -->
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css')}}">
-	
+
 	<!-- daterange picker -->
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_components/bootstrap-daterangepicker/daterangepicker.css')}}">
-	
+
 	<!-- bootstrap wysihtml5 - text editor -->
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css')}}">
 
 	<link rel="stylesheet" href="{{asset('dropzone/dist/dropzone.css')}}">
-	
+
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

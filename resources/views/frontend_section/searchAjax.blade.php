@@ -283,7 +283,7 @@
                                 <ul class="categoriesModalList">
                                     @foreach ($allgeneralstates as $allgeneralstate)
                                         @if ($loop->index > 18)
-                                            <li data-dismiss="modal" class="statePopupBtn" onclick="addStateToForm('{{ $allgeneralstate->name }}', {{ $allgeneralstate->id }})">
+                                            <li data-dismiss="modal" class="statePopupBtn" onmouseover="alert('hello')" onclick="addStateToForm('{{ $allgeneralstate->name }}', {{ $allgeneralstate->id }})">
                                                 <a data-dismiss="modal" onclick="addStateToForm('{{ $allgeneralstate->name }}', {{ $allgeneralstate->id }})" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}
                                                 </a>
                                                 <ul class="stateLGApopup" style="margin-left: 2px;">
