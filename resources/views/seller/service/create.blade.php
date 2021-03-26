@@ -184,7 +184,7 @@
                                 <div class="body">
                                     <a href=" {{ route('seller.service.all') }}" class="btn btn-danger btn-lg m-t-15 waves-effect">
                                         <i class="fa fa-arrow-left"></i>
-                                        <span> BACK</span>
+                                        <span> Bacj</span>
                                     </a>
 
                                     <button id="save_btn"  class="btn btn-warning btn-submit_service btn-lg m-t-15 waves-effect">
@@ -348,45 +348,45 @@
 
 
     <script type="text/javascript">
-      Dropzone.options.dropzone =
-      {
-        maxFilesize: 12,
-        renameFile: function (file) {
-          var dt = new Date();
-          var time = dt.getTime();
-          return time + file.name;
-        },
-        acceptedFiles: ".jpeg,.jpg,.png,.gif",
-        addRemoveLinks: true,
-        timeout: 50000,
-        removedfile: function (file) {
-          var name = file.upload.filename;
-          $.ajax({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },
-            type: 'POST',
-            url: '{{ url("delete") }}',
-            data: {filename: name},
-            success: function (data) {
-              console.log("File has been successfully removed!!");
-            },
-            error: function (e) {
-              console.log(e);
-            }
-          });
-          var fileRef;
-          return (fileRef = file.previewElement) != null ?
-          fileRef.parentNode.removeChild(file.previewElement) : void 0;
-        },
+    //   Dropzone.options.dropzone =
+    //   {
+    //     maxFilesize: 12,
+    //     renameFile: function (file) {
+    //       var dt = new Date();
+    //       var time = dt.getTime();
+    //       return time + file.name;
+    //     },
+    //     acceptedFiles: ".jpeg,.jpg,.png,.gif",
+    //     addRemoveLinks: true,
+    //     timeout: 50000,
+    //     removedfile: function (file) {
+    //       var name = file.upload.filename;
+    //       $.ajax({
+    //         headers: {
+    //           'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+    //         },
+    //         type: 'POST',
+    //         url: '{{ url("delete") }}',
+    //         data: {filename: name},
+    //         success: function (data) {
+    //           console.log("File has been successfully removed!!");
+    //         },
+    //         error: function (e) {
+    //           console.log(e);
+    //         }
+    //       });
+    //       var fileRef;
+    //       return (fileRef = file.previewElement) != null ?
+    //       fileRef.parentNode.removeChild(file.previewElement) : void 0;
+    //     },
 
-        success: function (file, response) {
-          console.log(response);
-        },
-        error: function (file, response) {
-          return false;
-        }
-      };
+    //     success: function (file, response) {
+    //       console.log(response);
+    //     },
+    //     error: function (file, response) {
+    //       return false;
+    //     }
+    //   };
 
 
 
