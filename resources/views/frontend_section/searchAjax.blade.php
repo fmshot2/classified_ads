@@ -370,7 +370,6 @@
     $(document).ready(function(){
         $('#jxservices').keyup(function(){
             var query = $('#jxservices').val();
-            console.log(query)
             if(query != '')
             {
                 var _token = $('input[name="_token"]').val();
