@@ -90,8 +90,6 @@
                                 <input id="user_email" type="hidden" name="" value="{{Auth::user()->email}}">
                                 <input id="featured_amount" type="hidden" name="amount" value="2000">
                                 <input id="service_id" type="hidden" name="service_id" value="{{$service->id}}">
-                                "{{$service->id}}"
-
                                 <script src="https://js.paystack.co/v1/inline.js"></script>
 
                                 <button type="button" class="btn btn-lg" style="cursor: pointer; display: block; margin-top: 5px; background-color: #cc8a19; color: #fff" onclick="payWithPaystack1(2000)">Make Payment</button>
