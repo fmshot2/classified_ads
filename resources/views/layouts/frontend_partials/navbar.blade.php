@@ -59,10 +59,12 @@
                 <ul class="list-inline top-header-links pull-right">
                     <a class="text-warning" href="{{route('aboutus')}}" id=""><i class="fa fa-group"></i> About</a>
                     <a class="text-warning" href="{{route('contact')}}" id=""><i class="fa fa-envelope-open"></i> Contact</a>
+                    @if(!Auth::guard('agent')->check())
                     @guest
                         <a class="text-warning" href="/login"><i class="fa fa-sign-in"></i> Login</a>
                         <a class="text-warning" href="/register"><i class="fa fa-user"></i> Register</a>
                     @endguest
+                    @endif
                     @auth
                         @if(Auth::user()->role == 'seller')
                             <a class="text-warning" href="{{ route('seller.dashboard') }}"><i class="fa fa-user"></i> My Account</a>
@@ -71,6 +73,11 @@
                         @endif
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();" style="font-weight: 600; padding: 10px;"><i class="fa fa-power-off"></i> Logout</a>
+                    @endauth
+                    @auth('agent')
+                    <a class="text-warning" href="{{ route('agent.dashboard') }}"><i class="fa fa-user"></i> My Account</a>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();" style="font-weight: 600; padding: 10px;"><i class="fa fa-power-off"></i> Logout</a>
                     @endauth
                 </ul>
             </div>
@@ -150,6 +157,7 @@
                         </ul>
                     @endif
                 @endauth
+                 @if(!Auth::guard('agent')->check())
                 @guest
                     <ul class="navbar-nav ml-auto">
                         <li class="mr-3 navbar-top-post-btn">
@@ -157,6 +165,14 @@
                         </li>
                     </ul>
                 @endguest
+                @endif
+              <!--   @auth('agent')
+                    <ul class="navbar-nav ml-auto">
+                        <li class="mr-3 navbar-top-post-btn">
+                            <a class="btn btn-success" href="/login"><i class="fa fa-plus"></i> <span style="font-size: 15px !important;color:#fff">Login As Seller</span></a>
+                        </li>
+                    </ul>
+                @endauth -->
 
 
                 @auth

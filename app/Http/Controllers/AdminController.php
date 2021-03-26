@@ -163,7 +163,7 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
 
   public function allService()
   {
-    $all_service = Service::paginate(10);
+    $all_service = Service::all();
     return view ('admin.service.index', compact('all_service') );
   }
 
@@ -436,7 +436,7 @@ public function FAQs()
 
 public function allBadges()
 {
-  $all_badges = Badge::paginate(10);
+  $all_badges = Badge::all();
   return view ('admin.badge.index', compact('all_badges') );
 }
 public function privacyPolicy()

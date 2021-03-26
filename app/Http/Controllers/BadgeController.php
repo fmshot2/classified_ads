@@ -464,5 +464,26 @@ class BadgeController extends Controller
  }
 
 
+  public function create_pay_featured(Request $request)
+      {
+
+       $data = $request->all();
+
+       $this->validate($request,[
+        'service_id' => 'required',
+        'email' => 'required',
+      ]);
+       if ($service_check = Service::where(['id'=>$data['service_id']])->first()){
+        $service_check->is_featured = 1;
+        $service_check->paid_featured = 1;
+        $service_check->save();
+
+        return response()->json(['success'=>'Your Service is now featured!'], 200);            
+      }    
+
+      return response()->json(['failed'=>'Service not available'], 200);
+ }
+
+
 
 }

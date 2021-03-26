@@ -61,6 +61,9 @@ class Register extends Component
             'name'   => $this->name,
         ];
 
+        if ($this->role === 'buyer') {
+            $this->save_user();
+        }
         $this->dispatchBrowserEvent('pay_with_paystack', ['data' => $data]);
 
     }
@@ -86,6 +89,8 @@ class Register extends Component
             session()->flash('message', 'there was an error with your payment, please contact admin.');
         }
     }
+
+
 
     public function save_user()
     {
@@ -142,6 +147,10 @@ class Register extends Component
             $link->user_id     = $present_user->id;
             $link->refererlink = $present_user->refererLink;
             $link->save();
+
+            if (Auth::user()->role == 'buyer') {
+                return  Redirect::to(Session::get('url.intended'));
+            }
 
             $person_that_refered = $present_user->idOfReferer;
             if ($person_that_refered) {
