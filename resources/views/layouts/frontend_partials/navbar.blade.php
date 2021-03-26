@@ -43,14 +43,14 @@
         <div class="row">
             <div class="col-lg-6 col-md-8 col-sm-7">
                 <div class="list-inline">
-                    <a href="tel: {{ $check_general_info == 0 ? $general_info->hot_line : '' }} ">
-                        Need Support? <i class="fa fa-phone"></i> {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
+                    <a href="tel: {{ $general_info->hot_line ? $general_info->hot_line : '' }} ">
+                        Need Support? <i class="fa fa-phone"></i> {{ $general_info->hot_line ? $general_info->hot_line : '' }}
                     </a>
-                    <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
+                    <a href="https://wa.me/{{ $general_info->hot_line_3 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
                         |&emsp;<i class="fa fa-whatsapp animate__animated animate__heartBeat animate__infinite" style="color:#5af8ac; font-size: 16px"></i> WhatsApp
                     </a>
-                    <a href="mailto: {{ $check_general_info == 0 ? $general_info->support_email : ''}}">
-                        |&emsp;<i class="fa fa-envelope"></i> {{ $check_general_info == 0 ? $general_info->support_email : ''}}
+                    <a href="mailto: {{ $general_info->contact_email ? $general_info->contact_email : ''}}">
+                        |&emsp;<i class="fa fa-envelope"></i> {{ $general_info->contact_email ? $general_info->contact_email : ''}}
                     </a>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                             <a href="{{ route('logout') }}" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();" style="font-weight: 600; color: rgb(253, 75, 75); border: 1px solid  rgb(255, 91, 91); padding: 10px;"><i class="fa fa-power-off"></i></a>
                             @endauth
-                            
+
                             @auth
                             @if(Auth::guard('agent')->check())
                             <a href="{{ route('agent.dashboard') }}"> Dashboard</a>

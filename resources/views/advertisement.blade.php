@@ -102,13 +102,13 @@
 
                                 <div class="text-center">
                                     <h3 class="heading-2">Contact Us:</h3>
-                                    <strong><a href="mailto:{{ $check_general_info == 0 ? $general_info->support_email : '' }} ">
-                                        {{ $check_general_info == 0 ? $general_info->support_email : '' }}
+                                    <strong><a href="mailto:{{ $general_info->contact_email ? $general_info->contact_email : '' }} ">
+                                        {{ $general_info->contact_email ? $general_info->contact_email : '' }}
                                     </a></strong>
-                                    <a href="tel:{{ $check_general_info == 0 ? $general_info->hot_line : '' }} ">
-                                        +234 {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
+                                    <a href="tel:{{ $general_info->hot_line ? $general_info->hot_line : '' }} ">
+                                        {{ $general_info->hot_line ? '+234 '.$general_info->hot_line : '' }}
                                     </a>,
-                                    <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20advertising%20my%20business%20and%20services." target="_blank">
+                                    <a href="https://wa.me/{{ $general_info->hot_line_3 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20advertising%20my%20business%20and%20services." target="_blank">
                                         <i class="fa fa-whatsapp" style="font-size: 15px"></i> WhatsApp
                                     </a><br>
                                     <p><strong>Or fill the form below</strong></p>

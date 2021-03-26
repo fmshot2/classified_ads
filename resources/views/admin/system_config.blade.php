@@ -83,6 +83,13 @@
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label for="site_name" class="control-label">Contact E-mail</label>
+                                                <input type="text" name="contact_email" id="contact_email" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->contact_email : ''}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Support E-mail</label>
                                                 <input type="text" name="support_email" id="site_email" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->support_email : ''}}">
                                             </div>
                                         </div>
@@ -200,7 +207,12 @@
                                     </li>
 
                                     <li>
-                                        <b class="text-uppercase">Site Email: </b> {{ $check_general_info == 0 ? $general_info->support_email : ''}}
+                                        <b class="text-uppercase">Support Email: </b> {{ $check_general_info == 0 ? $general_info->support_email : ''}}
+                                        <br><br>
+                                    </li>
+
+                                    <li>
+                                        <b class="text-uppercase">Site Email: </b> {{ $check_general_info == 0 ? $general_info->contact_email : ''}}
                                         <br><br>
                                     </li>
                                     <li>

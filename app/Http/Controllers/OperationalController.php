@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Console\Input\Input;
 use App\Refererlink;
+use App\State;
 use App\Tourism;
 use Illuminate\Support\Facades\Auth;
 
@@ -336,6 +337,25 @@ class OperationalController extends Controller
         return view('seller.myreferrals');
     }
 
+    public function referralprogram(Request $request)
+    {
+
+        $request->session()->forget('url.intended');
+        session(['url.intended' => url()->previous()]);
+
+        $param = $request->input('invite');
+
+        //$param = $request->query('param');
+        if ($param) {
+            $referParam = $param;
+        } else {
+            $referParam = null;
+        }
+        // $states = State::all();
+
+        return view('referralprogram', compact('referParam'));
+    }
+
     public function get_benefits_of_efcontact()
     {
         return view('benefits');
@@ -416,7 +436,35 @@ class OperationalController extends Controller
 
     public function dapSearch(Request $request)
     {
-        if ($request->state) {
+
+        if ($request->lga) {
+            $services = Service::query()
+            ->where('city', 'LIKE', "%{$request->city}%")
+            ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->orwhere('state', 'LIKE', "%{$request->state}%")
+            ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+            ->orderBy('badge_type', 'asc')
+            ->get();
+
+            if (!$services->isEmpty()) {
+                return view('dapSearchResult', [
+                    "message" => 'Your search result for <strong>'.$request->keyword. '</strong> in <strong>'.$request->state.'</strong>',
+                    "services" => $services
+                ]);
+            }
+            else{
+                $services = Service::query()
+                ->where('name', 'LIKE', "%{$request->keyword}%")
+                ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+                ->orderBy('badge_type', 'asc')
+                ->get();
+
+                return view('dapSearchResult', [
+                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                    "services" => $services
+                ]);
+            }
+        }elseif ($request->state) {
             $services = Service::query()
             ->where('state', 'LIKE', "%{$request->state}%")
             ->where('name', 'LIKE', "%{$request->keyword}%")
