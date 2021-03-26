@@ -159,11 +159,6 @@
                     </div>
                     <div class="help-info">Youtube Link</div>
                 </div>
-
-
-
-                <div class="box box-default">
-                    <div class="body">
                       <a href=" {{ route('seller.service.all') }}" class="btn btn-warning btn-lg m-t-15 waves-effect">
                         <i class="fa fa-arrow-left"></i>
                         <span>BACK</span>
@@ -173,10 +168,6 @@
                         <i class="fa fa-save"></i>
                         <span>Submit</span>
                       </button>
-
-                    </div>
-                  </div>
-
                 </div>
 
               </div></form>
