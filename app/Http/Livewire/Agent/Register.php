@@ -2,52 +2,113 @@
 
 namespace App\Http\Livewire\Agent;
 
+use App\Agent;
+use App\Mail\UserRegistered;
+use App\Mail\AgentRegistration;
+use App\Refererlink;
+use App\User;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
+
+
+use App\State;
+use App\Local_government;
+use App\Mail\SendMailable;
 
 class Register extends Component
 {
 
-  public $referParam;
-    public $name;
-    public $email;
+    public $agent_name;
+    public $agent_email;
     public $password;
-    public $password_confirmation;
-    public $role;
-    public $agent_code;
-    public $terms;
-    public $refererId;
-    public $agent_Id;
-    public $current_view;
+    public $password_confirmation;    
+    public $phone;
+    public $address;
+    public $identification_type;
+    public $identification_id;
+    public $state_id;
+    public $city_id;
+    public $accountname;
+    public $bankname; 
+    public $accountno;
+    public $states = [];
+    public $cities = [];
+
+    public $tab = 1;
+
 
     public function mount()
     {
-        $this->current_view = 'livewire.user.register';
+        $this->states = State::all();
+    }
+
+    // public function hydrateStateId($value)
+    // {
+    //     dd($value);
+    // }
+
+    public function change_tab($number)
+    {
+        $this->validate([
+            'agent_name'           => ['required', 'string', 'max:255'],
+            'state_id'             => ['required'],
+            'city_id'              => ['required'],
+            'agent_email'          => ['required'],
+            'phone'                => ['required', 'string', 'max:255'],
+            'address'              => ['required'],
+            'identification_type'  => ['required'],
+            'identification_id'    => ['required'],
+        ]);
+        $this->tab = $number;
+    }
+
+    public function updatedStateId($value)
+    {
+        $this->cities = Local_government::where('state_id', $value)->get();
     }
 
     protected $listeners = ['verifyPaystackAmount', 'reset_view'];
 
     public function reset_view()
     {
-        $this->current_view = 'livewire.user.register';
+        $this->current_view = 'livewire.agent.register';
     }
 
-    public function validate_form()
+    public function validate_form2()
     {
         $this->validate([
-            'referParam'            => ['nullable', 'string', 'max:255'],
-            'name'                  => ['required', 'string', 'max:255'],
-            'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password'              => ['required', 'string', 'min:6', 'confirmed'],
-            'role'                  => ['required', Rule::in(['seller', 'buyer'])],
-            'agent_code'            => ['nullable'],
-            'terms'                 => ['required'],
+            'bankname'           => ['required', 'string', 'max:255'],
+            'accountname'        => ['required', 'string'],
+            'accountno'          => ['required', 'string'],
+            'password'           => ['required', 'string', 'max:255'],
         ]);
+
+     //    $validator = Validator::make($request->all(), [
+     //      'name'           => ['required', 'string', 'max:255'],
+     //      'agent_email'    => ['required', 'string', 'email', 'max:255', 'unique:agents'],
+     //      'password'       => ['required', 'string', 'min:6', 'confirmed'],
+     //    ]);
+
+     //    if ($validator->fails()) {
+     //     $success_notification = array(
+     //        'message' => 'Unsuccessfull Request. Please Retry',
+     //        'alert-type' => 'error'
+     //    );
+     //     return redirect('/')->with($success_notification)->withErrors($validator)->withInput();
+     // }
 
         $data = [
             'key'    => 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
             'amount' => 500 * 100,
-            'email'  => $this->email,
-            'name'   => $this->name,
+            'email'  => $this->agent_email,
+            'name'   => $this->agent_name,
         ];
 
         $this->dispatchBrowserEvent('pay_with_paystack', ['data' => $data]);
@@ -69,7 +130,7 @@ class Register extends Component
         // dd($json_resp);
 
         // dd($status, $amount);
-        if($status === 'success' && ($amount/100) == 200){
+        if($status === 'success' && ($amount/100) == 500){
             $this->save_user();
         } else {
             session()->flash('message', 'there was an error with your payment, please contact admin.');
@@ -81,29 +142,15 @@ class Register extends Component
 
         $slug3 = Str::random(8);
 
-        // Get id of owner of $link_from_url if available
-        if ($this->referParam) {
-            $saveIdOfRefree = User::where('refererLink', $this->referParam)->first();
-            $this->refererId = $saveIdOfRefree->id;
-        }
+       
 
-        // Get id of owner of $agent code if available
-        if ($this->agent_code) {
-            $saveIdOfAgent = User::where('agent_code', $this->agent_code)->first();
-            $this->agent_Id = $saveIdOfAgent->id;
-        }
 
         //save user
-        $user           = new User;
-        $user->name     = $this->name;
-        $user->email    = $this->email;
+        $user           = new Agent;
+        $user->name     = $this->agent_name;
+        $user->email    = $this->agent_email;
         $user->password = Hash::make($this->password);
-        $user->role     = $this->role;
-        //save id of referer if user was reffererd
-        $user->idOfReferer = $this->refererId;
-        //save id of agent if user was brought by agent
-        $user->idOfAgent = $this->agent_Id;
-        $user->refererLink = $slug3;
+
         //send mail
 
         if ($user->save()) {
@@ -115,7 +162,7 @@ class Register extends Component
             $userRole     = $user->role;
 
             try {
-                Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+                Mail::to($user->email)->send(new AgentRegistration($name, $email, $origPassword, $userRole));
                 Auth::attempt(['email' => $this->email, 'password' => $this->password]);
             } catch (\Exception $e) {
                 $failedtosendmail = 'Failed to Mail!';
@@ -124,77 +171,23 @@ class Register extends Component
 
 
 
-        if (Auth::check()) {
-            $present_user = Auth::user();
-            // if referrer link is available, save it to referer table
-            $link              = new Refererlink();
-            $link->user_id     = $present_user->id;
-            $link->refererlink = $present_user->refererLink;
-            $link->save();
+         if (Auth::guard('agent')->check()) {
+                    $present_user = Auth::guard('agent')->user();
 
-            $person_that_refered = $present_user->idOfReferer;
-            if ($person_that_refered) {
-                $referer = User::where('id', $person_that_refered)->first();
-                if ($referer) {
-                    $referer->refererAmount = $referer->refererAmount + 50;
-                    $referer->save();
+                    $link = new Refererlink();
+                    $link->agent_id = $present_user->id;
+                    $link->agent_code = $present_user->agent_code;
+                    $link->save();
+                   
+
+
+                    //if login pass,redirect to agent dashboard page
+                    return redirect()->intended('agent/dashboard');
+                } else {
+                    session()->flash('fail', ' Credentials2 Incorect');
+                    return view('auth.agent_login');
                 }
-            }
-
-            $agent_that_refered = $present_user->idOfAgent;
-            if ($agent_that_refered) {
-                $referer2 = Agent::where('id', $agent_that_refered)->first();
-                if ($referer2) {
-                    $referer2->refererAmount = $referer2->refererAmount + 100;
-                    $referer2->save();
-                }
-            }
-
-            $person_that_refered = $present_user->idOfReferer;
-            if ($person_that_refered) {
-                $referer = User::where('id', $person_that_refered)->first();
-                if ($referer) {
-
-                    $person_that_refered2 = $referer->idOfReferer;
-                    if ($person_that_refered2) {
-                        $referer3 = User::where('id', $person_that_refered2)->first();
-                        if ($referer3) {
-                            $referer3->refererAmount = $referer3->refererAmount + 25;
-                            $referer3->save();
-                        }
-                    }
-                }
-            }
-
-            $agent_that_refered = $present_user->idOfAgent;
-            if ($agent_that_refered) {
-                $referer2 = Agent::where('id', $agent_that_refered)->first();
-                if ($referer2) {
-                    $referer_parent = $referer2->idOfAgent;
-                    if ($referer_parent) {
-                        $the_referer_parent = Agent::where('id', $referer_parent)->first();
-                        if ($the_referer_parent) {
-                            $the_referer_parent->refererAmount = $the_referer_parent->refererAmount + 50;
-                            $the_referer_parent->save();
-                        }
-                    }
-                }
-            }
-
-            if (Auth::user()->role == 'seller') {
-                return redirect()->route('seller.dashboard');
-            } else if (Auth::user()->role == 'buyer') {
-                return  Redirect::to(Session::get('url.intended'));
-            } else {
-                return redirect()->route('admin.dashboard');
-            }
-        }
     }
-
-
-
-
-
 
 
     public function render()

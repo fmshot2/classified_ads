@@ -42,7 +42,7 @@
                     <div class="clearfix"></div>
 
 
-                    @if ($errors->any())
+                 <!--    @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -50,20 +50,24 @@
                             @endforeach
                         </ul>
                     </div><br />
+                    @endif -->
+
+                    @if (session('fail'))
+
+                    <span class="helper-text" data-error="wrong" data-success="right">
+                        <strong class="text-danger">{{ session('fail') }}</strong>
+                    </span>
                     @endif
-
-
-
-                    @include('layouts.frontend_partials.status')
-
                     <form action="{{route('login')}}" method="POST">
                         @csrf
                         <div class="form-group form-box">
-                            <input type="email" name="email" value="{{ old('email') }}" class="input-text" placeholder="Email Address" required>
+                            <input type="email" name="email" value="{{ old('email') }}" class="input-text" placeholder="Email Address" required >
                             @if ($errors->has('email'))
+                            <div class="text-center">
                             <span class="helper-text" data-error="wrong" data-success="right">
                                 <strong class="text-danger">{{ $errors->first('email') }}</strong>
                             </span>
+                            </div>
                             @endif
                         </div>
                         <div class="form-group">

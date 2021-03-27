@@ -113,6 +113,13 @@ class AuthController extends Controller
 
         if ($email_param) {
             $agent = Agent::where('email', $email_param)->first();
+            if ($agent->password) {
+            	$success_notification = array(
+            		'message' => 'You have registered before. Please login as agent',
+            		'alert-type' => 'error'
+            	);
+        	return redirect()->route('login')->with($success_notification);     
+            }
             $agent_email = $agent->email;
             $agent_name = $agent->name;
         } else {
@@ -129,7 +136,7 @@ class AuthController extends Controller
             'email'    => ['required', 'string', 'email', 'max:255'],
             // 'phone'    => ['required', 'numeric', 'unique:users'],
             'phone'    => ['required', 'numeric'],
-            'state'    => ['string'],
+            // 'state'    => ['string'],
             // 'lga'      => ['string'],
             'address'      => ['Required', 'string'],
             'bankname'      => ['Required', 'string'],
@@ -226,7 +233,7 @@ class AuthController extends Controller
                     //if login pass,redirect to agent dashboard page
                     return redirect()->intended('agent/dashboard');
                 } else {
-                    session()->flash('fail', ' Credentials2 Incorect');
+                    session()->flash('fail', ' Credentials Incorect');
                     return view('auth.agent_login');
                 }
             }
@@ -657,6 +664,25 @@ class AuthController extends Controller
 
         ]);
 
+        // $check_user = User::where('email', $request->email)first();
+        // if (!$check_user) {
+        // 	# code...
+        // }
+
+
+        // $validator = Validator::make($request->all(), [
+        //     'email'    => ['required', 'string', 'email', 'max:255'],
+        //     'password' => ['required', 'string', 'min:6']
+        // ]);
+
+        // if ($validator->fails()) {
+        // 	  $success_notification = array(
+        //         'message' => 'Unsuccessfull Request. Please Retry',
+        //         'alert-type' => 'error'
+        //     );
+        // 	  return redirect('/')->with($success_notification)->withErrors($validator)->withInput();
+        // }
+
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
@@ -676,24 +702,29 @@ class AuthController extends Controller
                 );
 
                 return Redirect::to(Session::get('url.intended'))->with($success_notification);
-            } else if (Auth::user()->role == 'agent') {
+            } else if (Auth::user()->role == 'admin') {
                 $success_notification = array(
                     'message' => 'You are successfully logged in!',
                     'alert-type' => 'success'
                 );
-                return redirect()->route('agent.dashboard')->with($success_notification);
+                return redirect()->route('admin.dashboard')->with($success_notification);
             } else {
-                return redirect()->route('admin.dashboard');
-            }
+            	$success_notification = array(
+            		'message' => 'You are successfully logged in!',
+            		'alert-type' => 'success'
+            	);
+            	return redirect()->route('/')->with($success_notification);            }
         }
 
         $success_notification = array(
             'message' => 'Incorrect credentials! Try again.',
-            'alert-type' => 'success'
+            'alert-type' => 'error'
         );
-        return view('auth/login')->with($success_notification);
-    }
+        session()->flash('fail', 'Incorrect username or password');
 
+        return redirect()->route('login')->with($success_notification);     
+    }
+    
     public function showLogin(Request $request)
     {
         $request->session()->forget('url.intended');
@@ -766,6 +797,48 @@ class AuthController extends Controller
         );
         return redirect()->back()->with($success_notification);
     }
+
+
+
+     public function update_Profile_4_agent(Request $request, $id)
+    {
+
+        $user = Agent::find($id);
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            // 'state' => ['string'],
+            'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        // Image set up
+        if ($request->hasFile('file')) {
+            $image_name = time() . '.' . $request->file->extension();
+            $request->file->move(public_path('images'), $image_name);
+            $user->image = $image_name;
+        }
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        // $user->state = $request->state;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        // $user->about = $request->about;
+
+        if ($user->save()) {
+            $success_notification = array(
+                'message' => 'Profile successfully updated!',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($success_notification);
+        }
+
+        $success_notification = array(
+            'message' => 'Profile could not be updated! Try again',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($success_notification);
+    }
+
 
     public function updatePassword(Request $request, $id)
     {

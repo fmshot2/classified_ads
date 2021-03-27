@@ -84,7 +84,7 @@
 									<label for="inputPhone" class="col-sm-2 control-label">Phone</label>
 
 									<div class="col-sm-10">
-										<input type="number" class="form-control" name="phone" value="{{ Auth::user()->phone }}">
+										<input type="number" class="form-control" min="1" name="phone" value="{{ Auth::user()->phone }}">
 									</div>
 								</div>
 

@@ -122,7 +122,7 @@
 
                         <div class="clearfix"></div>
 
-                            <form method="POST" action="{{ route('agent_Complete_Reg') }}">
+                           <!--  <form method="POST" action="{{ route('agent_Complete_Reg') }}">
                                 @csrf
 
                                 <div class="tab">
@@ -300,6 +300,8 @@
                                     </div>
                                 </div>
                             </form>
+                            @livewire('agent.register', ['agent_email' => $agent_email, 'agent_name' => $agent_name])
+
                     </div>
                 </div>
             </div>
@@ -319,35 +321,6 @@
     });
 
 
-    $('#state').on('change',function(){
-     console.log('ddd');
-     var stateID = $(this).val();
-     if(stateID){
-       $.ajax({
-        type:"GET",
-              //url:"{{url('qqq')}}"+stateID,
-              url: '../../api/get-city-list/'+stateID,
-              success:function(res){
-               if(res){
-                console.log(res);
-                console.log(stateID);
-                $("#city").empty();
-                $.each(res,function(key,value){
-                 $("#city").append('<option value="'+value+'">'+value+'</option>');
-               });
-
-              }else{
-                $("#city").empty();
-              }
-            }
-          });
-     }else{
-       $("#city").empty();
-     }
-
-   });
-
-
     function showPassword() {
         var passField = document.getElementById("password");
         if (passField.type === "password") {
@@ -356,10 +329,6 @@
             passField.type = "password";
         }
     }
-
-
-
-
 
 
 

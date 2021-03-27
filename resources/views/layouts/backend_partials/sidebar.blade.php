@@ -143,9 +143,9 @@
             </a>
             <ul class="treeview-menu">
                 <li><a href="{{ route('admin.all_adverts') }}"><i class="fa fa-circle-o"></i>All Adverts</a></li>
-                <li><a href="{{ route('pending_advert_requests') }}"><i class="fa fa-circle-o"></i>Untreated Advert Requests</a></li>
+            <!--     <li><a href="{{ route('pending_advert_requests') }}"><i class="fa fa-circle-o"></i>Untreated Advert Requests</a></li>
                 <li><a href="{{ route('treated_advert_requests') }}"><i class="fa fa-circle-o"></i> Treated Advert Requests </a></li>
-                <li><a href="{{ route('active_adverts') }}"><i class="fa fa-circle-o"></i> Active Adverts </a></li>
+                <li><a href="{{ route('active_adverts') }}"><i class="fa fa-circle-o"></i> Active Adverts </a></li> -->
             </ul>
         </li>
 
