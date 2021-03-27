@@ -436,20 +436,55 @@ class OperationalController extends Controller
 
     public function dapSearch(Request $request)
     {
+        $keyword = $request->keyword ? $request->keyword : 'Nothing!';
 
-        if ($request->lga) {
+        $category = Category::where('slug', $request->category)->first();
+        $categoryId = $category->id;
+        $categoryname = $category->name;
+
+        if ($request->category != null) {
             $services = Service::query()
-            ->where('city', 'LIKE', "%{$request->city}%")
+                        ->where('name', 'LIKE', "%{$request->keyword}%")
+                        ->orwhere('state', '=', "%{$request->state}%")
+                        ->with('category')
+                        ->whereHas('category', function($query) use ($categoryId)  {
+                            $query->where('id', $categoryId);
+                        })->get();
+
+            return view('dapSearchResult', [
+                "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
+                "services" => $services
+            ]);
+        }
+
+        if ($request->city != null) {
+            if ($request->keyword != null) {
+                $services = Service::query()
+                    ->where('city', '=', "%{$request->city}%")
+                    ->where('name', 'LIKE', "%{$request->keyword}%")
+                    ->where('state', '=', "%{$request->state}%")
+                    ->orderBy('badge_type', 'asc')
+                    ->get();
+            }
+            else {
+                $services = Service::query()
+                    ->where('city', 'like', "%{$request->city}%")
+                    ->orwhere('state', 'like', "%{$request->state}%")
+                    ->orderBy('badge_type', 'asc')
+                    ->get();
+            }
+
+            $related_services = Service::query()
             ->where('name', 'LIKE', "%{$request->keyword}%")
-            ->orwhere('state', 'LIKE', "%{$request->state}%")
-            ->orWhere('description', 'LIKE', "%{$request->keyword}%")
-            ->orderBy('badge_type', 'asc')
+            ->orwhere('state', '=', "%{$request->state}%")
+            ->orwhere('city', '=', "%{$request->city}%")
             ->get();
 
             if (!$services->isEmpty()) {
                 return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$request->keyword. '</strong> in <strong>'.$request->state.'</strong>',
-                    "services" => $services
+                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$request->city.'</strong>',
+                    "services" => $services,
+                    "related_services" => $related_services
                 ]);
             }
             else{
@@ -464,7 +499,7 @@ class OperationalController extends Controller
                     "services" => $services
                 ]);
             }
-        }elseif ($request->state) {
+        }elseif ($request->state != null) {
             $services = Service::query()
             ->where('state', 'LIKE', "%{$request->state}%")
             ->where('name', 'LIKE', "%{$request->keyword}%")
@@ -474,7 +509,7 @@ class OperationalController extends Controller
 
             if (!$services->isEmpty()) {
                 return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$request->keyword. '</strong> in <strong>'.$request->state.'</strong>',
+                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$request->state.'</strong>',
                     "services" => $services
                 ]);
             }
@@ -493,13 +528,13 @@ class OperationalController extends Controller
         }
         else{
             $services = Service::query()
-            ->where('name', 'LIKE', "%{$request->keyword}%")
-            ->orWhere('description', 'LIKE', "%{$request->keyword}%")
-            ->orderBy('badge_type', 'asc')
-            ->get();
+                        ->where('name', 'LIKE', "%{$request->keyword}%")
+                        ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+                        ->orderBy('badge_type', 'asc')
+                        ->get();
 
             return view('dapSearchResult', [
-                "message" => 'Unfortunately, we did not find anything that matches these criteria.',
+                "message" => 'Your search result for <strong>'.$keyword. '</strong>',
                 "services" => $services
             ]);
         }

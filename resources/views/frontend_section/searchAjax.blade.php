@@ -222,10 +222,11 @@
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-4 col-sm-6">
-                                <button type="button" data-toggle="modal" data-target="#showCategoriesModal" id="showCategoriesBtn" class="btn btn-success jxcategory"><i class="fa fa-archive"></i> All Categories</button>
+                                <button type="button" data-toggle="modal" data-target="#showCategoriesModal" id="searchCategoryBtn" class="btn btn-success jxcategory"><i class="fa fa-archive"></i> All Categories</button>
                             </div>
+                            <input type="hidden" name="category" id="searchCategoryInput" value="">
                             <input type="hidden" name="state" id="searchStateInput" value="">
-                            <input type="hidden" name="lga" id="searchLGAInput" value="">
+                            <input type="hidden" name="city" id="searchLGAInput" value="">
                             <div class="col-lg-2 col-md-4 col-sm-6">
                                 <button type="button" data-toggle="modal" data-target="#showStatesModal" id="searchStateBtn" class="btn btn-success location"><i class="fa fa-map-marker"></i> All Nigeria</button>
                             </div>
@@ -273,7 +274,7 @@
                                     @foreach ($categories as $category)
                                         @if ($loop->index <= 17)
                                             <li>
-                                                <a href="{{ route('services', $category->slug) }}"><i class="fa fa-chevron-right"></i> {{ $category->name }}
+                                                <a data-dismiss="modal" onclick="addCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
                                                 <span>
                                                     ({{ $category->services->count() ? $category->services->count().' service' : 'No service yet!'  }}{{ $category->services->count() > 1 ? 's' : ''  }})
                                                 </span>
@@ -288,7 +289,7 @@
                                     @foreach ($categories as $category)
                                         @if ($loop->index > 15)
                                             <li>
-                                                <a href="{{ route('services', $category->slug) }}"><i class="fa fa-chevron-right"></i> {{ $category->name }}
+                                                <a data-dismiss="modal" onclick="addCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
                                                 <span>
                                                     ({{ $category->services->count() ? $category->services->count().' service' : 'No service yet!'  }}{{ $category->services->count() > 1 ? 's' : ''  }})
                                                 </span>
@@ -424,13 +425,17 @@
     // });
 
     function addStateToForm(thestate) {
-        document.getElementById('searchStateBtn').innerHTML = '<i class="fa fa-map-marker"></i> ' + thestate
+        document.getElementById('searchStateBtn').innerHTML = thestate
         document.getElementById('searchStateInput').value = thestate
     }
     function addLGAToForm(thelga, thestate) {
-        document.getElementById('searchStateBtn').innerHTML = '<i class="fa fa-map-marker"></i> ' + thelga
+        document.getElementById('searchStateBtn').innerHTML = thelga
         document.getElementById('searchLGAInput').value = thelga
         document.getElementById('searchStateInput').value = thestate
+    }
+    function addCategoryToForm(thecategoryname,thecategoryslug) {
+        document.getElementById('searchCategoryBtn').innerHTML = thecategoryname
+        document.getElementById('searchCategoryInput').value = thecategoryslug
     }
 
     $(document).mouseup(function(e) {
