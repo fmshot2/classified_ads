@@ -4,7 +4,7 @@
         padding-left: 30px !important;
         padding-bottom: 30px !important;
         border-radius: 50px !important;
-        border: 0 !important;
+        border: 2px solid #e7a32d9d !important;
     }
     .search-section.bg-grea {
         background: #ca830921;
@@ -20,11 +20,17 @@
         cursor: pointer;
         box-shadow: 0 0 0 rgb(204 169 44 / 40%);
     }
+    .search-section .navbar-top-post-btn button:hover {
+        background: #ffffff !important;
+        color: #CA8309 !important;
+        border: 2px solid #e7a32d9d;
+        transition: .7s background, color;
+    }
     .search-section .location {
-        font-size: 14px !important;
+        font-size: 15px !important;
         text-transform: uppercase;
         border-radius: 200px;
-        border: none;
+        border: 2px solid #e7a32d9d;
         padding: 15px 40px;
         background: #ffffff !important;
         color: #e7a32d !important;
@@ -35,13 +41,19 @@
         font-size: 14px !important;
         text-transform: uppercase;
         border-radius: 200px;
-        border: none;
+        border: 2px solid #e7a32d9d;
         padding: 15px 30px;
         background: #ffffff !important;
         color: #e7a32d !important;
         cursor: pointer;
         box-shadow: 0 0 0 rgb(204 169 44 / 40%);
     }
+    .search-section .location:hover, .search-section .jxcategory:hover{
+        background: #CA8309 !important;
+        color: #ffffff !important;
+        transition: .7s all;
+    }
+
     .ajaxSearchList{
         width: fit-content;
         position: absolute;
@@ -89,6 +101,8 @@
     .searchFilterModalTitle{
         font-size: 17px;
         margin-bottom: 20px;
+        font-weight: 600;
+        font-family: "Poppins-Regular";
     }
 
     /* @media (min-width: 768px) */
@@ -155,7 +169,6 @@
         transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
     }
 
-
     @media (max-width: 768px){
         .searchInput{
             padding-top: 20px !important;
@@ -214,10 +227,12 @@
                     {{-- <form action="{{route('search3')}}" method="GET" class="desktop-top-search-form"> --}}
                     <form action="{{route('dap.search')}}" method="GET">
                         <div class="row">
+                            <div class="col-lg-2 col-md-4 col-sm-6">
+                                <button type="button" data-toggle="modal" data-target="#showStatesModal" id="searchStateBtn" class="btn btn-success location"><i class="fa fa-map-marker"></i> All States</button>
+                            </div>
                             <div class="col-lg-6 col-md-4 col-sm-12">
                                 <div class="form-group">
-                                    <input type="text" name="keyword" id="jxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g. Barber, Saloon)">
-                                    {{-- <input type="text" name="keyword" class="form-control searchInput" placeholder="What are you looking for? (e.g. Barber, Saloon)"> --}}
+                                    <input type="text" name="keyword" id="jxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g Barber) - Search nationwide or select a state.">
                                     <div id="service_list" class="ajaxSearchList"></div>
                                 </div>
                             </div>
@@ -227,12 +242,9 @@
                             <input type="hidden" name="category" id="searchCategoryInput" value="">
                             <input type="hidden" name="state" id="searchStateInput" value="">
                             <input type="hidden" name="city" id="searchLGAInput" value="">
-                            <div class="col-lg-2 col-md-4 col-sm-6">
-                                <button type="button" data-toggle="modal" data-target="#showStatesModal" id="searchStateBtn" class="btn btn-success location"><i class="fa fa-map-marker"></i> All Nigeria</button>
-                            </div>
                             <div class="col-lg-2">
                                 <div class="mr-3 navbar-top-post-btn">
-                                    <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> <span style="font-size: 15px !important;  color: #fff">Search</span></button>
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
                                 </div>
                             </div>
                         </div>
@@ -261,18 +273,20 @@
 
 <!-- SEARCH CATEGORIES MODAL -->
 <div class="sCatModal">
-    <div id="showCategoriesModal" class="modal " role="dialog">
+    <div id="showCategoriesModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-body">
                     @if ($categories)
-                        <h4 class="searchFilterModalTitle">All Categories - {{ $allgeneralservices->count() ? $allgeneralservices->count().' service' : 'No service yet!'  }}{{ $allgeneralservices->count() > 1 ? 's' : ''  }}</h4>
+                        <h4 class="searchFilterModalTitle">All Categories {{-- -
+                            {{ $allgeneralservices->count() ? $allgeneralservices->count().' service' : 'No service yet!'  }}{{ $allgeneralservices->count() > 1 ? 's' : ''  }} --}}</h4>
+                        <p style="margin-top: -20px">Search in all categories or select a category here. 👇</p>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <ul class="categoriesModalList">
                                     @foreach ($categories as $category)
-                                        @if ($loop->index <= 17)
+                                        @if ($loop->index <= 12)
                                             <li>
                                                 <a data-dismiss="modal" onclick="addCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
                                                 <span>
@@ -284,10 +298,25 @@
                                     @endforeach
                                 </ul>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <ul class="categoriesModalList">
                                     @foreach ($categories as $category)
-                                        @if ($loop->index > 15)
+                                        @if ($loop->index > 12 && $loop->index <= 24)
+                                            <li>
+                                                <a data-dismiss="modal" onclick="addCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
+                                                <span>
+                                                    ({{ $category->services->count() ? $category->services->count().' service' : 'No service yet!'  }}{{ $category->services->count() > 1 ? 's' : ''  }})
+                                                </span>
+                                                </a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="categoriesModalList">
+                                    @foreach ($categories as $category)
+                                        @if ($loop->index > 24)
                                             <li>
                                                 <a data-dismiss="modal" onclick="addCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
                                                 <span>
@@ -315,12 +344,13 @@
             <div class="modal-content">
                 <div class="modal-body">
                     @if ($allgeneralstates)
-                        <h4 class="searchFilterModalTitle">All States - {{ $allgeneralservices->count() ? $allgeneralservices->count().' service' : 'No service yet!'  }}{{ $allgeneralservices->count() > 1 ? 's' : ''  }}</h4>
+                        <h4 class="searchFilterModalTitle">All States</h4>
+                        <p style="margin-top: -20px">Search nationwide or select a state here. 👇</p>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <ul class="categoriesModalList">
                                     @foreach ($allgeneralstates as $allgeneralstate)
-                                        @if ($loop->index <= 18)
+                                        @if ($loop->index <= 12)
                                             <li data-dismiss="modal" class="popover__wrapper">
                                                 <a onclick="addStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}</a>
                                                 <div class="popover__content">
@@ -337,10 +367,30 @@
                                     @endforeach
                                 </ul>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <ul class="categoriesModalList">
                                     @foreach ($allgeneralstates as $allgeneralstate)
-                                        @if ($loop->index > 18)
+                                        @if ($loop->index > 12 && $loop->index <= 24)
+                                            <li data-dismiss="modal" class="popover__wrapper">
+                                                <a onclick="addStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}</a>
+                                                <div class="popover__content">
+                                                    <ul>
+                                                        @if(isset($allgeneralstate->local_governments))
+                                                            @foreach($allgeneralstate->local_governments as $local_government)
+                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                            @endforeach
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="categoriesModalList">
+                                    @foreach ($allgeneralstates as $allgeneralstate)
+                                        @if ($loop->index > 24)
                                             <li data-dismiss="modal" class="popover__wrapper">
                                                 <a onclick="addStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}</a>
                                                 <div class="popover__content">

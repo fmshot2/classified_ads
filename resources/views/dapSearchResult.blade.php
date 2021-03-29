@@ -49,11 +49,14 @@
                     @endif
                     @if (isset($noserviceinstate))
                         <h5>{!! $noserviceinstate !!}</h5>
-                        <div class="panel panel-warning">
-                            <div class="panel-body">
-                                You may also be interested in services from all over Nigeria.
+
+                        @if (isset($realated_services))
+                            <div class="panel panel-warning">
+                                <div class="panel-body">
+                                    You may also be interested in services from all over Nigeria.
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     @endif
                     @if (isset($services))
                         <div class="row row-flex searchResults 1">
