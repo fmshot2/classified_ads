@@ -713,7 +713,7 @@ class AuthController extends Controller
             		'message' => 'You are successfully logged in!',
             		'alert-type' => 'success'
             	);
-            	return redirect()->route('/')->with($success_notification);            }
+            	return redirect()->route('home')->with($success_notification);            }
         }
 
         $success_notification = array(

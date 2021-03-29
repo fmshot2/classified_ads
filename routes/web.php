@@ -270,6 +270,8 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/notifications/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('seller.notification.markallasread');
 
         Route::get('/profile/', 'SellerController@viewProfile')->name('seller.profile');
+        // Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
+
 
 
         Route::get('/message/unread', 'SellerController@unreadMessage')->name('seller.message.unread');
