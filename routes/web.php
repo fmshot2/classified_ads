@@ -28,7 +28,7 @@ Route::post('create_agent', 'AuthController@create_agent');
 
 
 
-Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg_page')->name('agent_Complete_Reg');
+Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg_page')->name('agent_Complete_Reg_page');
 Route::post('/agent/agent_Complete_Reg_payment', 'AuthController@agent_save_complete_reg')->name('agent_Complete_Reg');
 
 
@@ -333,6 +333,8 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
     Route::post('/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
 
     Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
+        Route::post('/profile/update/{id}', 'AuthController@update_Password_4_Agent')->name('profile.updateAgent.password');
+
     Route::post('/profile/update/account/{id}', 'AuthController@updateAccount')->name('profile.update.account');
 
 

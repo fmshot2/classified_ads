@@ -44,7 +44,9 @@ class ServiceController extends Controller
     public function index()
     {
         // return ServiceResource::collection(Service::paginate(5));
-        return new ServiceResourceCollection(Service::all());
+        return (new ServiceResourceCollection(Service::all()))
+            ->response()
+            ->setStatusCode(200);
     }
     public function createService(Request $request)
     {
@@ -137,7 +139,9 @@ class ServiceController extends Controller
             ]);
         }
 
-        return new ServiceResource($service);
+        return (new ServiceResource($service))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -155,7 +159,9 @@ class ServiceController extends Controller
             ]);
         }
         // return ServiceResource::collection(Service::paginate(5));
-        return new ServiceResourceCollection($user->services);
+        return (new ServiceResourceCollection($user->services))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -173,7 +179,9 @@ class ServiceController extends Controller
                 'error' => 'Service not found!',
             ]);
         }
-        return new ServiceResource($service);
+        return (new ServiceResource($service))
+            ->response()
+            ->setStatusCode(200);
     }
 
     /**
@@ -201,12 +209,12 @@ class ServiceController extends Controller
             return response()->json([
                 $nService,
                 'message' => 'Service saved successfully!'
-            ]);
+            ], 200);
         }
         else{
             return response()->json([
                 'error' => 'Something went wrong!'
-            ]);
+            ], 400);
         }
     }
 
@@ -253,7 +261,7 @@ class ServiceController extends Controller
             return response()->json([
                 $service,
                 'message' => 'This Service was Deleted Successfully!',
-            ]);
+            ], 200);
         }
 
         return response()->json(['message' => 'Something went wrong!'], 400);
@@ -268,7 +276,7 @@ class ServiceController extends Controller
      */
     public function categories()
     {
-        return CategoryResource::collection(Category::all());
+        return CategoryResource::collection(Category::all(), 200);
     }
 
     /**
@@ -295,7 +303,9 @@ class ServiceController extends Controller
                 'error' => 'Service not found!',
             ]);
         }
-        return new CategoryResource($category);
+        return (new CategoryResource($category))
+            ->response()
+            ->setStatusCode(200);
     }
 
 
