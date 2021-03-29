@@ -115,7 +115,7 @@ class AuthController extends Controller
             $agent = Agent::where('email', $email_param)->first();
             if ($agent->password) {
             	$success_notification = array(
-            		'message' => 'You have registered before. Please login as agent',
+            		'message' => 'You have completed the registration before. Please login as agent',
             		'alert-type' => 'error'
             	);
         	return redirect()->route('login')->with($success_notification);     
@@ -839,6 +839,36 @@ class AuthController extends Controller
         return redirect()->back()->with($success_notification);
     }
 
+    public function update_Password_4_Agent(Request $request, $id)
+    {
+
+        $user = Agent::find($id);
+        $validatedData = $request->validate([
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+
+        $hashedPassword = Auth::guard('agent')->user()->password;
+          // Auth::guard('agent')->attempt(['email' => $request->email, 'password' => $request->password]);
+
+        if (Hash::check($request->old_password, $hashedPassword)) {
+            // Authentication passed...
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+
+            $success_notification = array(
+                'message' => 'Password successfully changed!',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($success_notification);
+        } else {
+            $success_notification = array(
+                'message' => 'Password could not be updated!! Try again',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('agent.dashboard')->with($success_notification);
+            // return redirect()->back()->with($success_notification);
+        }
+    }
 
     public function updatePassword(Request $request, $id)
     {
