@@ -1334,7 +1334,6 @@ public function show($id)
 
       }
 
-
       public function createpay(Request $request)
       {
         // return "Badge sfhgfasdgfhsdgfUpdated successfully!";

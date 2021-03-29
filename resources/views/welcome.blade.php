@@ -8,16 +8,19 @@
 
 @include('frontend_section/carousel')
 
-@include('frontend_section/search')
+@include('frontend_section/searchAjax')
 
 
 
 {{-- Avatar MODULE  --}}
-<a href="{{ route('referralprogram') }}" target="_blank" id="floatReferrer" class="float-referrer animate__animated animate__fadeInLeft">
-    <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('image 1.png') }}">
-    <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('image 2.png') }}">
-    <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('image 3.png') }}">
-</a>
+<div id="floatReferrer" onclick="closeReferrerFloatPop()" class="float-referrer animate__animated animate__fadeInLeft">
+    <button type="button" class="close-referrer-float" id="closeReferrerFloat"><i class="fa fa-close"></i></button>
+    <a href="{{ route('referralprogram') }}" target="_blank">
+        <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('image 1.png') }}">
+        <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('image 2.png') }}">
+        <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('image 3.png') }}">
+    </a>
+</div>
 
 <style>
     .float-referrer{
@@ -29,6 +32,14 @@
     }
     .float-referrer img{
         width: 250px;
+    }
+    .close-referrer-float{
+        display: block;
+        background-color: transparent;
+        border: 0;
+        cursor: pointer;
+        color: rgb(238, 56, 56);
+        font-size: 17px;
     }
 
     @media (max-width: 768px){
@@ -67,6 +78,11 @@
         }
     });
     /* Referral Image Slider Ends */
+
+    function closeReferrerFloatPop() {
+        document.getElementById("floatReferrer").remove();
+    }
+
 
 
 </script>

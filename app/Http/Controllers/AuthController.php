@@ -66,16 +66,21 @@ class AuthController extends Controller
         //     'email'    => ['required', 'string', 'email', 'max:255'],
         // ]);
 
-        // $validator = Validator::make($request->all(), [
-        //     'name' => 'required',
-        //     // 'email' => 'required|email|max:255',
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:agents'],
+        ]);
 
-        // if ($validator->fails()) {
-        //     return redirect('/')
-        //                 ->withErrors($validator)
-        //                 ->withInput();
-        // }
+        if ($validator->fails()) {
+        	  $success_notification = array(
+                'message' => 'Unsuccessfull Request. Please Retry',
+                'alert-type' => 'error'
+            );
+        	  return redirect('/')->with($success_notification)->withErrors($validator)->withInput();
+            // return redirect('/')
+            //             ->withErrors($validator)
+            //             ->withInput();
+        }
 
         //save agent details
         $user = new Agent;
@@ -108,6 +113,13 @@ class AuthController extends Controller
 
         if ($email_param) {
             $agent = Agent::where('email', $email_param)->first();
+            if ($agent->password) {
+            	$success_notification = array(
+            		'message' => 'You have registered before. Please login as agent',
+            		'alert-type' => 'error'
+            	);
+        	return redirect()->route('login')->with($success_notification);     
+            }
             $agent_email = $agent->email;
             $agent_name = $agent->name;
         } else {
@@ -124,7 +136,7 @@ class AuthController extends Controller
             'email'    => ['required', 'string', 'email', 'max:255'],
             // 'phone'    => ['required', 'numeric', 'unique:users'],
             'phone'    => ['required', 'numeric'],
-            'state'    => ['string'],
+            // 'state'    => ['string'],
             // 'lga'      => ['string'],
             'address'      => ['Required', 'string'],
             'bankname'      => ['Required', 'string'],
@@ -221,7 +233,7 @@ class AuthController extends Controller
                     //if login pass,redirect to agent dashboard page
                     return redirect()->intended('agent/dashboard');
                 } else {
-                    session()->flash('fail', ' Credentials2 Incorect');
+                    session()->flash('fail', ' Credentials Incorect');
                     return view('auth.agent_login');
                 }
             }
@@ -308,26 +320,6 @@ class AuthController extends Controller
 
             if (Auth::attempt($credentials)) {
                 $present_user = Auth::user();
-
-
-                // $person_that_refered = $present_user->idOfReferer;
-                // if ($person_that_refered) {
-                //     $referer = User::where('id', $person_that_refered)->first();
-                //     if ($referer) {
-                //         $referer->refererAmount = $referer->refererAmount + 50;
-                //         $referer->save();
-                //     }
-                // }
-
-                // $agent_that_refered = $present_user->idOfAgent;
-                // if ($agent_that_refered) {
-                //     $referer = Agent::where('id', $agent_that_refered)->first();
-                //     if ($referer) {
-                //         $referer->refererAmount = $referer->refererAmount + 100;
-                //         $referer->save();
-                //     }
-                // }
-
                 if ($present_user->role == 'seller') {
                     return redirect()->route('seller.dashboard')->with($success_notification);
                 } else {
@@ -337,6 +329,20 @@ class AuthController extends Controller
 
             return redirect()->intended('/');
         }
+
+        // //pay with Paystack
+        // $paystack_Data = [
+        //     'name'          => $request->name,
+        //     'email'         => $request->email,
+        //     'password'      => $request->password,
+        //     'slug3'         => $request->slug3,
+        //     'agent_Id'      => $request->agent_Id,
+        //     'refererId'     => $request->refererId,
+        //     'role'          => $request->role,
+        // ];
+
+        // return view('paystackRegView', $paystack_Data);
+
 
         //pay with GTPay
         $gtpay_mert_id        = 14435;
@@ -495,6 +501,122 @@ class AuthController extends Controller
         }
     }
 
+
+
+
+
+
+
+
+    public function createPaystackpay(Request $request)
+    {
+        return response()->json(['captcha' => 'trtr']);
+
+        $link_from_url = $request->refer;
+        $code_of_agent = $request->agent_code;
+
+        $slug3 = Str::random(8);
+
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // 'state' => ['string'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            // 'captcha' => 'required|captcha',
+            'role' => 'required'
+        ]);
+
+        // Get id of owner of $link_from_url if available
+        if ($link_from_url) {
+            $saveIdOfRefree = User::where('refererLink', $link_from_url)->first();
+            $refererId = $saveIdOfRefree->id;
+        } else {
+            $refererId = null;
+        }
+
+        // Get id of owner of $agent code if available
+        if ($code_of_agent) {
+            $saveIdOfAgent = User::where('agent_code', $code_of_agent)->first();
+            // dd($saveIdOfAgent);
+            $agent_Id = $saveIdOfAgent->id;
+        } else {
+            $agent_Id = null;
+        }
+
+        //save user
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->role = $request->role;
+        //save id of referer if user was reffererd
+        $user->idOfReferer = $refererId;
+        //save id of agent if user was brought by agent
+        $user->idOfAgent = $agent_Id;
+        $user->refererLink = $slug3;
+        //$user->state = $request->state;
+        $user->save();
+        //send mail
+
+        if ($user->save()) {
+            $name = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+            $name = $user->name;
+            $email = $user->email;
+            $origPassword = $request->password;
+            $userRole = $user->role;
+
+            try {
+                Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+            } catch (\Exception $e) {
+                $failedtosendmail = 'Failed to Mail!';
+            }
+        }
+
+        $success_notification = array(
+            'message' => 'User Created successfully!',
+            'alert-type' => 'success'
+        );
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $present_user = Auth::user();
+
+            // if referrer link is available, save it to referer table
+            $link = new Refererlink();
+            $link->user_id = $present_user->id;
+            $link->refererlink = $present_user->refererLink;
+            $link->save();
+
+            $person_that_refered = $present_user->idOfReferer;
+            if ($person_that_refered) {
+                $referer = User::where('id', $person_that_refered)->first();
+                if ($referer) {
+                    $referer->refererAmount = $referer->refererAmount + 50;
+                    $referer->save();
+                }
+            }
+
+            $agent_that_refered = $present_user->idOfAgent;
+            if ($agent_that_refered) {
+                $referer = User::where('id', $agent_that_refered)->first();
+                if ($referer) {
+                    $referer->refererAmount = $referer->refererAmount + 100;
+                    $referer->save();
+                }
+            }
+
+            if ($present_user->role == 'seller') {
+                return redirect()->route('seller.dashboard')->with($success_notification);
+            } else {
+                return Redirect::to(Session::get('url.intended'))->with($success_notification);
+            }
+        }
+
+        return redirect()->intended('/');
+    }
+
+
     public function refreshCaptcha()
     {
         return response()->json(['captcha' => captcha_img('math')]);
@@ -542,6 +664,25 @@ class AuthController extends Controller
 
         ]);
 
+        // $check_user = User::where('email', $request->email)first();
+        // if (!$check_user) {
+        // 	# code...
+        // }
+
+
+        // $validator = Validator::make($request->all(), [
+        //     'email'    => ['required', 'string', 'email', 'max:255'],
+        //     'password' => ['required', 'string', 'min:6']
+        // ]);
+
+        // if ($validator->fails()) {
+        // 	  $success_notification = array(
+        //         'message' => 'Unsuccessfull Request. Please Retry',
+        //         'alert-type' => 'error'
+        //     );
+        // 	  return redirect('/')->with($success_notification)->withErrors($validator)->withInput();
+        // }
+
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
@@ -561,24 +702,29 @@ class AuthController extends Controller
                 );
 
                 return Redirect::to(Session::get('url.intended'))->with($success_notification);
-            } else if (Auth::user()->role == 'agent') {
+            } else if (Auth::user()->role == 'admin') {
                 $success_notification = array(
                     'message' => 'You are successfully logged in!',
                     'alert-type' => 'success'
                 );
-                return redirect()->route('agent.dashboard')->with($success_notification);
+                return redirect()->route('admin.dashboard')->with($success_notification);
             } else {
-                return redirect()->route('admin.dashboard');
-            }
+            	$success_notification = array(
+            		'message' => 'You are successfully logged in!',
+            		'alert-type' => 'success'
+            	);
+            	return redirect()->route('/')->with($success_notification);            }
         }
 
         $success_notification = array(
             'message' => 'Incorrect credentials! Try again.',
-            'alert-type' => 'success'
+            'alert-type' => 'error'
         );
-        return view('auth/login')->with($success_notification);
-    }
+        session()->flash('fail', 'Incorrect username or password');
 
+        return redirect()->route('login')->with($success_notification);     
+    }
+    
     public function showLogin(Request $request)
     {
         $request->session()->forget('url.intended');
@@ -651,6 +797,48 @@ class AuthController extends Controller
         );
         return redirect()->back()->with($success_notification);
     }
+
+
+
+     public function update_Profile_4_agent(Request $request, $id)
+    {
+
+        $user = Agent::find($id);
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            // 'state' => ['string'],
+            'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        // Image set up
+        if ($request->hasFile('file')) {
+            $image_name = time() . '.' . $request->file->extension();
+            $request->file->move(public_path('images'), $image_name);
+            $user->image = $image_name;
+        }
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        // $user->state = $request->state;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        // $user->about = $request->about;
+
+        if ($user->save()) {
+            $success_notification = array(
+                'message' => 'Profile successfully updated!',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($success_notification);
+        }
+
+        $success_notification = array(
+            'message' => 'Profile could not be updated! Try again',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($success_notification);
+    }
+
 
     public function updatePassword(Request $request, $id)
     {

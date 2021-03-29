@@ -107,7 +107,7 @@ class OldCodeController extends Controller
     {
         $request->validate([
             'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique: '],
             'phone'    => ['required', 'numeric', 'unique:users'],
             'state'    => ['string'],
             // 'lga'      => ['string'],

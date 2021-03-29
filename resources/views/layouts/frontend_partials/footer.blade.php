@@ -23,22 +23,25 @@
                     <div class="m-border"></div>
                     <ul class="contact-info">
                         <li>
-                            Email: <a href="mailto: {{ $check_general_info == 0 ? $general_info->support_email : ''}}"> {{ $check_general_info == 0 ? $general_info->support_email : ''}} </a>
+                            <strong style="color: rgb(190, 190, 190)"><i class="fa fa-map-marker"></i> Address:</strong> <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31518.588844000613!2d7.492251300000006!3d9.07982880000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x55e2e606f1c6452e!2sE.F.%20Network%20Ltd!5e0!3m2!1sen!2sng!4v1611820893949!5m2!1sen!2sng"> {{ $general_info->address ? $general_info->address : ''}} </a>
                         </li>
                         <li>
-                            Phone 1: <a href="tel:  {{ $check_general_info == 0 ? $general_info->hot_line : '' }}">  {{ $check_general_info == 0 ? $general_info->hot_line : '' }} </a>
+                            <strong style="color: rgb(190, 190, 190)"><i class="fa fa-envelope-open"></i> Email:</strong> <a href="mailto: {{ $general_info->contact_email ? $general_info->contact_email : ''}}"> {{ $general_info->contact_email ? $general_info->support_email : ''}} </a>
                         </li>
                         <li>
+                            <strong style="color: rgb(190, 190, 190)"><i class="fa fa-phone"></i> Phone:</strong> <a href="tel:  {{ $general_info->hot_line ? $general_info->hot_line : '' }}">  {{ $general_info->hot_line ? $general_info->hot_line : '' }} </a>
+                        </li>
+                        {{-- <li>
                             Phone 2: <a href="tel: {{ $check_general_info == 0 ? $general_info->hot_line_2 : ''}}"> {{ $check_general_info == 0 ? $general_info->hot_line_2 : ''}} </a>
-                        </li>
+                        </li> --}}
                         <li>
-                            <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank"><i class="fa fa-whatsapp" style="color:#5af8ac; font-size: 17px"></i> WhatsApp Message</a>
+                            <a href="https://wa.me/{{ $general_info->hot_line_3 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank"><i class="fa fa-whatsapp" style="color:#5af8ac; font-size: 17px"></i> WhatsApp Message</a>
                         </li>
                     </ul>
                     <ul class="social-list clearfix">
-                        <li><a href=" {{ $check_general_info == 0 ? $general_info->facebook : ''}} " target="_blank"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href=" {{ $check_general_info == 0 ? $general_info->twitter : ''}} " target="_blank"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="{{ $check_general_info == 0 ? $general_info->linkedin : ''}}" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href=" {{ $general_info->facebook ? $general_info->facebook : ''}} " target="_blank"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href=" {{ $general_info->twitter ? $general_info->twitter : ''}} " target="_blank"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="{{ $general_info->linkedin ? $general_info->linkedin : ''}}" target="_blank"><i class="fa fa-instagram"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -48,10 +51,6 @@
                     <div class="s-border"></div>
                     <div class="m-border"></div>
                     <ul class="links">
-                        <li class=" ">
-                            <a href="{{route('home')}}" class="grey-text text-lighten-3">Home</a>
-                        </li>
-
                         <li class="">
                             <a href="{{route('faq')}}" class="grey-text text-lighten-3">FAQs</a>
                         </li>
@@ -73,6 +72,10 @@
                         </li>
 
                         <li class="">
+                            <a href="{{route('referralprogram')}}" class="grey-text text-lighten-3">Referral Program</a>
+                        </li>
+
+                        <li class="">
                             <a href="{{route('benefits-of-efcontact')}}" class="grey-text text-lighten-3">Benefits of EFContact</a>
                         </li>
 
@@ -86,7 +89,7 @@
 
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
                 <div class="footer-item clearfix">
-                    <h4>Advertisement</h4>
+                    <h4>Advertisements</h4>
                     <div class="s-border"></div>
                     <div class="m-border"></div>
                     <div class="popular-posts">
@@ -130,7 +133,7 @@
         </div>
         <div class="row">
             <div class="col-xl-12">
-                <p class="copy">© 2021 EFContact <a href="https://www.efnetworks.com">Powered by EF Network Ltd. </a><a href="{{route('terms-of-use')}}"> TERMS</a> | <a href="{{route('privacy-policy')}}"> POLICIES</a></p>
+                <p class="copy">© 2021 EFContact <a href="https://www.efnetworks.com">Powered by EF Network Ltd. </a><a href="{{route('terms-of-use')}}"> Terms</a> | <a href="{{route('privacy-policy')}}"> Privacy</a></p>
             </div>
         </div>
     </div>
@@ -221,6 +224,7 @@
                         {{-- <li><a href="{{route('allSellers')}}">Service Providers</a></li> --}}
                         <li><a href="{{route('allcities')}}">Tourist Sites in Nigeria</a></li>
                         <li><a href="{{route('benefits-of-efcontact')}}">Benefits of EFContact</a></li>
+                        <li><a href="{{route('referralprogram')}}">Referral Program</a></li>
                         <li><a href="{{route('advertisement')}}">Advertise With Us</a></li>
                         <li><a data-toggle="modal" data-target="#launchAgentModal" href="#">Become our Agent</a></li>
                         <li><a data-toggle="modal" data-target="#subscribeBox" href="#">Subscribe Now!</a></li>

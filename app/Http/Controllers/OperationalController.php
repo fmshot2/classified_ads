@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Console\Input\Input;
 use App\Refererlink;
+use App\State;
 use App\Tourism;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,7 +39,7 @@ class OperationalController extends Controller
             'image'=> 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        if ( $request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $image = $request->file('image');
             $fileInfo = $image->getClientOriginalName();
             $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
@@ -336,6 +337,25 @@ class OperationalController extends Controller
         return view('seller.myreferrals');
     }
 
+    public function referralprogram(Request $request)
+    {
+
+        $request->session()->forget('url.intended');
+        session(['url.intended' => url()->previous()]);
+
+        $param = $request->input('invite');
+
+        //$param = $request->query('param');
+        if ($param) {
+            $referParam = $param;
+        } else {
+            $referParam = null;
+        }
+        // $states = State::all();
+
+        return view('referralprogram', compact('referParam'));
+    }
+
     public function get_benefits_of_efcontact()
     {
         return view('benefits');
@@ -390,6 +410,105 @@ class OperationalController extends Controller
     	$fileName = 'efcontact-ad-brochure.pdf';
 
     	return response()->download($filePath, $fileName, $headers);
+    }
+
+    public function ajaxSearchResult(Request $request)
+    {
+        if($request->ajax()) {
+            $data = Service::query()
+            ->where('name', 'LIKE', "%{$request->service}%")
+            ->orWhere('description', 'LIKE', "%{$request->service}%")
+            ->get();
+            $output = '';
+            if (count($data)>0) {
+                $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
+                foreach ($data as $row){
+                    $output .= '<li class="list-group-item"><a style="" href="'. route('serviceDetail',  $row->slug) .'">'.$row->name.'</a> in <a class="ajaxSearchCategoryList" href="'. route('services',  $row->category->slug) .'">'.$row->category->name.'</a></li>';
+                }
+                $output .= '</ul>';
+            }
+            else {
+                $output .= '<li class="list-group-item">'.'No results'.'</li>';
+            }
+            return $output;
+        }
+    }
+
+    public function dapSearch(Request $request)
+    {
+
+        if ($request->lga) {
+            $services = Service::query()
+            ->where('city', 'LIKE', "%{$request->city}%")
+            ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->orwhere('state', 'LIKE', "%{$request->state}%")
+            ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+            ->orderBy('badge_type', 'asc')
+            ->get();
+
+            if (!$services->isEmpty()) {
+                return view('dapSearchResult', [
+                    "message" => 'Your search result for <strong>'.$request->keyword. '</strong> in <strong>'.$request->state.'</strong>',
+                    "services" => $services
+                ]);
+            }
+            else{
+                $services = Service::query()
+                ->where('name', 'LIKE', "%{$request->keyword}%")
+                ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+                ->orderBy('badge_type', 'asc')
+                ->get();
+
+                return view('dapSearchResult', [
+                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                    "services" => $services
+                ]);
+            }
+        }elseif ($request->state) {
+            $services = Service::query()
+            ->where('state', 'LIKE', "%{$request->state}%")
+            ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+            ->orderBy('badge_type', 'asc')
+            ->get();
+
+            if (!$services->isEmpty()) {
+                return view('dapSearchResult', [
+                    "message" => 'Your search result for <strong>'.$request->keyword. '</strong> in <strong>'.$request->state.'</strong>',
+                    "services" => $services
+                ]);
+            }
+            else{
+                $services = Service::query()
+                ->where('name', 'LIKE', "%{$request->keyword}%")
+                ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+                ->orderBy('badge_type', 'asc')
+                ->get();
+
+                return view('dapSearchResult', [
+                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                    "services" => $services
+                ]);
+            }
+        }
+        else{
+            $services = Service::query()
+            ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+            ->orderBy('badge_type', 'asc')
+            ->get();
+
+            return view('dapSearchResult', [
+                "message" => 'Unfortunately, we did not find anything that matches these criteria.',
+                "services" => $services
+            ]);
+        }
+
+
+        return redirect()->back()->with([
+            'message' => 'No result found for your search!',
+            'alert-type' => 'info'
+        ]);
     }
 
 }

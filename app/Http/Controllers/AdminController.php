@@ -163,7 +163,7 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
 
   public function allService()
   {
-    $all_service = Service::paginate(10);
+    $all_service = Service::all();
     return view ('admin.service.index', compact('all_service') );
   }
 
@@ -357,6 +357,7 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
     $general_info->hot_line_2 = $request->hotline2;
     $general_info->hot_line_3 = $request->hotline3;
     $general_info->support_email = $request->support_email;
+    $general_info->contact_email = $request->contact_email;
     $general_info->address = $request->address;
     $general_info->facebook = $request->facebook;
     $general_info->twitter = $request->twitter;
@@ -436,7 +437,7 @@ public function FAQs()
 
 public function allBadges()
 {
-  $all_badges = Badge::paginate(10);
+  $all_badges = Badge::all();
   return view ('admin.badge.index', compact('all_badges') );
 }
 public function privacyPolicy()

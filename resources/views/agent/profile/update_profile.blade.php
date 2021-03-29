@@ -60,7 +60,7 @@ Update Profile |
 
 						<div class="active tab-pane" id="timeline">
 
-							<form class="form-horizontal form-element" method="POST" action="{{route('profile.update', Auth::guard('agent')->id() )}}" enctype="multipart/form-data">
+							<form class="form-horizontal form-element" method="POST" action="{{route('agent.profile.update', Auth::guard('agent')->id() )}}" enctype="multipart/form-data">
 								{{ csrf_field() }}
 
 								<div class="form-group">
@@ -84,7 +84,7 @@ Update Profile |
 									<label for="inputPhone" class="col-sm-2 control-label">Phone</label>
 
 									<div class="col-sm-10">
-										<input type="number" class="form-control" name="phone" value=" {{ Auth::guard('agent')->user()->phone }}">
+										<input type="number" class="form-control" name="phone" value="{{ Auth::guard('agent')->user()->phone }}">
 									</div>
 								</div>
 
@@ -97,14 +97,14 @@ Update Profile |
 									</div>
 								</div>
 
-								<div class="form-group">
+							<!-- 	<div class="form-group">
 									<label for="inputSkills" class="col-sm-2 control-label">About Me</label>
 
 									<div class="col-sm-10">
 										<textarea class="form-control" name="about" placeholder=""> {{ Auth::guard('agent')->user()->about }} </textarea>
 									</div>
 								</div>
-
+ -->
 								<div class="form-group">
 									<label for="inputSkills" class="col-sm-2 control-label">Address</label>
 

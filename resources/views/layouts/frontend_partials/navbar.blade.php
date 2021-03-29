@@ -43,14 +43,14 @@
         <div class="row">
             <div class="col-lg-6 col-md-8 col-sm-7">
                 <div class="list-inline">
-                    <a href="tel: {{ $check_general_info == 0 ? $general_info->hot_line : '' }} ">
-                        Need Support? <i class="fa fa-phone"></i> {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
+                    <a href="tel: {{ $general_info->hot_line ? $general_info->hot_line : '' }} ">
+                        Need Support? <i class="fa fa-phone"></i> {{ $general_info->hot_line ? $general_info->hot_line : '' }}
                     </a>
-                    <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
+                    <a href="https://wa.me/{{ $general_info->hot_line_3 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
                         |&emsp;<i class="fa fa-whatsapp animate__animated animate__heartBeat animate__infinite" style="color:#5af8ac; font-size: 16px"></i> WhatsApp
                     </a>
-                    <a href="mailto: {{ $check_general_info == 0 ? $general_info->support_email : ''}}">
-                        |&emsp;<i class="fa fa-envelope"></i> {{ $check_general_info == 0 ? $general_info->support_email : ''}}
+                    <a href="mailto: {{ $general_info->contact_email ? $general_info->contact_email : ''}}">
+                        |&emsp;<i class="fa fa-envelope"></i> {{ $general_info->contact_email ? $general_info->contact_email : ''}}
                     </a>
                 </div>
             </div>
@@ -59,10 +59,12 @@
                 <ul class="list-inline top-header-links pull-right">
                     <a class="text-warning" href="{{route('aboutus')}}" id=""><i class="fa fa-group"></i> About</a>
                     <a class="text-warning" href="{{route('contact')}}" id=""><i class="fa fa-envelope-open"></i> Contact</a>
+                    @if(!Auth::guard('agent')->check())
                     @guest
                         <a class="text-warning" href="/login"><i class="fa fa-sign-in"></i> Login</a>
                         <a class="text-warning" href="/register"><i class="fa fa-user"></i> Register</a>
                     @endguest
+                    @endif
                     @auth
                         @if(Auth::user()->role == 'seller')
                             <a class="text-warning" href="{{ route('seller.dashboard') }}"><i class="fa fa-user"></i> My Account</a>
@@ -71,6 +73,11 @@
                         @endif
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();" style="font-weight: 600; padding: 10px;"><i class="fa fa-power-off"></i> Logout</a>
+                    @endauth
+                    @auth('agent')
+                    <a class="text-warning" href="{{ route('agent.dashboard') }}"><i class="fa fa-user"></i> My Account</a>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();" style="font-weight: 600; padding: 10px;"><i class="fa fa-power-off"></i> Logout</a>
                     @endauth
                 </ul>
             </div>
@@ -103,7 +110,15 @@
                         @endif
                             <a href="{{ route('logout') }}" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();" style="font-weight: 600; color: rgb(253, 75, 75); border: 1px solid  rgb(255, 91, 91); padding: 10px;"><i class="fa fa-power-off"></i></a>
-                    @endauth
+                            @endauth
+
+                            @auth
+                            @if(Auth::guard('agent')->check())
+                            <a href="{{ route('agent.dashboard') }}"> Dashboard</a>
+                            @endif
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();" style="font-weight: 600; color: rgb(253, 75, 75); border: 1px solid  rgb(255, 91, 91); padding: 10px;"><i class="fa fa-power-off"></i></a>
+                            @endauth
                 </ul>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -142,6 +157,7 @@
                         </ul>
                     @endif
                 @endauth
+                 @if(!Auth::guard('agent')->check())
                 @guest
                     <ul class="navbar-nav ml-auto">
                         <li class="mr-3 navbar-top-post-btn">
@@ -149,6 +165,14 @@
                         </li>
                     </ul>
                 @endguest
+                @endif
+              <!--   @auth('agent')
+                    <ul class="navbar-nav ml-auto">
+                        <li class="mr-3 navbar-top-post-btn">
+                            <a class="btn btn-success" href="/login"><i class="fa fa-plus"></i> <span style="font-size: 15px !important;color:#fff">Login As Seller</span></a>
+                        </li>
+                    </ul>
+                @endauth -->
 
 
                 @auth
@@ -162,6 +186,11 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="{{ route('buyer.dashboard') }}">My Account</a>
                             </li>
+                        @endif
+                        @if(Auth::guard('agent')->check())
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="{{ route('agent.dashboard') }}">My Account</a>
+                        </li>
                         @endif
                     </ul>
                 @endauth

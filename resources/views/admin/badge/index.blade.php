@@ -1,5 +1,5 @@
 
-@extends('layouts.seller')
+@extends('layouts.admin')
 
 @section('title')
 All Badges | 
@@ -23,7 +23,7 @@ All Badges |
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <table id="example" class="table table-bordered table-hover display nowrap margin-top-10">
+            <table id="example" class="table table-bordered table-hover display data_table_main nowrap margin-top-10">
               <thead>
                   <tr>
                     <th>SL.</th>

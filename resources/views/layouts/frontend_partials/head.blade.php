@@ -1,7 +1,7 @@
 
 <head>
 
- <title> @yield('title') EFContacts </title>
+ <title> @yield('title') EFContact </title>
 
 
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,6 +51,7 @@
   <link href="{{ asset('css/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('css/bootstrap-dropdownhover.min.css') }}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
+
 {{-- 
 <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
   type="text/javascript" charset="utf-8"></script>
@@ -60,6 +61,9 @@
   type="text/javascript" charset="utf-8"></script>
   <script src="https://js.api.here.com/v3/3.1/mapsjs-service-legacy.js"
         type="text/javascript" charset="utf-8"></script> --}}
+
+@livewireStyles
+
 
 
 
@@ -150,8 +154,6 @@
 
         glide.mount()
 
-
-
     });
 </script>
 
@@ -196,5 +198,28 @@
             width: 100% !important;
           }
       </style>
+
+       @if(Session::has('message'))
+        <script>
+            var type = "{{ Session::get('alert-type', 'info') }}";
+            switch(type){
+                case 'info':
+                    toastr.info("{{ Session::get('message') }}");
+                    break;
+
+                case 'warning':
+                    toastr.warning("{{ Session::get('message') }}");
+                    break;
+
+                case 'success':
+                    toastr.success("{{ Session::get('message') }}");
+                    break;
+
+                case 'error':
+                    toastr.error("{{ Session::get('message') }}");
+                    break;
+            }
+        </script>
+    @endif
 
 </head>

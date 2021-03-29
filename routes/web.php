@@ -24,17 +24,22 @@ use App\Service;
 //Agent Middleware starts here
 Route::post('create_user', 'AuthController@create_user');
 Route::post('create_agent', 'AuthController@create_agent');
+    Route::post('/agent_profile/{id}', 'AuthController@update_Profile_4_agent')->name('agent.profile.update');
+
 
 
 Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg_page')->name('agent_Complete_Reg');
-Route::post('/agent/agent_Complete_Reg', 'AuthController@agent_save_complete_reg')->name('agent_Complete_Reg');
+Route::post('/agent/agent_Complete_Reg_payment', 'AuthController@agent_save_complete_reg')->name('agent_Complete_Reg');
+
 
 //  Last point of Agent Reg. This involves no payment
-Route::post('/agent/agent_Complete_Reg', 'OldCodeController@agent_save_complete_reg')->name('agent_Complete_Reg2');
+Route::post('/agent/agent_Complete_Reg_none', 'OldCodeController@agent_save_complete_reg')->name('agent_Complete_Reg2');
 
 
 
 Route::get('get-tourist-sites/{state}', 'OperationalController@getTouristSites')->name('gettouristsites');
+Route::get('ajax/search/', 'OperationalController@ajaxSearchResult')->name('ajax.search.result');
+Route::get('dapo/search/', 'OperationalController@dapSearch')->name('dap.search');
 
 
 // Route::middleware(['auth:agent'])->group(function () {
@@ -81,7 +86,7 @@ Route::middleware(['accountant'])->group(function() {
 Route::post('api/logintestPayment', 'AuthController@logintestPayment');
 
 Route::post('advertisement/create', 'OperationalController@advertCreate')->name('advertisement.create');
-Route::view('referral-program/', 'referralprogram')->name('referralprogram');
+Route::get('referral-program/', 'OperationalController@referralprogram')->name('referralprogram');
 Route::get('about-us/', 'OperationalController@aboutus')->name('aboutus');
 
 Route::get('test_new_badge', 'BadgeController@test_new_badge');
@@ -208,11 +213,12 @@ Route::post('/agent/register', 'AuthController@createAgent')->name('agent.regist
 Route::post('/agent/register2', 'OldCodeController@createAgent')->name('agent.register2');
 
 Route::get('/login', 'AuthController@showLogin')->name('login');
+Route::post('/login', 'AuthController@login')->name('login');
+
 Route::get('/agent_Login', 'AuthController@show_agent_Login')->name('show_agent_Login');
 Route::post('/agent_Login', 'AuthController@agent_login')->name('show_agent_Login');
 
 
-Route::post('/login', 'AuthController@login')->name('login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::get('/refreshcaptcha', 'AuthController@refreshCaptcha')->name('refreshcaptcha');
@@ -244,7 +250,11 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
 
         Route::get('/service/add', 'SellerController@createService')->name('seller.service.create');
         Route::get('/service/badges', 'BadgeController@badges')->name('seller.service.badges');
-        Route::post('/service/createpay', 'ServiceController@createpay')->name('createpaypaystack');
+        Route::post('/service/createpay', 'BadgeController@createBadgepay')->name('createpaystack');
+        Route::post('/service/create_pay_featured', 'BadgeController@create_pay_featured')->name('create_pay_featured');
+
+        Route::post('/service/createpay', 'AuthController@createPaystackpay')->name('createpaypaystack2');
+
         Route::post('/service/createpay4Advert', 'BadgeController@createpay4Advert');
         Route::get('/service/adverts', 'BadgeController@adverts')->name('seller.service.adverts');
 
@@ -321,6 +331,7 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
     Route::post('/buyer/message/reply/', 'BuyerController@storeReplyMessage')->name('buyer.message.reply.store');
 
     Route::post('/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
+
     Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
     Route::post('/profile/update/account/{id}', 'AuthController@updateAccount')->name('profile.update.account');
 

@@ -10,6 +10,9 @@
     .send-btn button:hover{
         background-color: #eeb450; color: #fff; border:1px solid #cc8a19;
     }
+    .phone-area a{
+        display: block
+    }
 </style>
     <div class="main">
         <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/contactusbg.jpg')}})">
@@ -41,15 +44,18 @@
                         <div class="col-md-4 col-sm-6 mrg-btn-50">
                             <i class="flaticon-location"></i>
                             <p>Office Address</p>
-                            <strong>{{ $check_general_info == 0 ? $general_info->address : '' }} </strong>
+                            <strong>{{ $general_info->address ? $general_info->address : '' }} </strong>
                         </div>
-                        <div class="col-md-4 col-sm-6 mrg-btn-50">
+                        <div class="col-md-4 col-sm-6 mrg-btn-50 phone-area">
                             <i class="flaticon-technology-1"></i>
                             <p>Phone Number</p>
                             <strong>
                                 <a href="tel: { $check_general_info == 0 ? $general_info->hot_line : '' }} ">
-                                    +234 {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
-                                </a> <br>
+                                    {{ $general_info->hot_line ? '+234 '.$general_info->hot_line : '' }}
+                                </a>
+                                <a href="tel: { $check_general_info == 0 ? $general_info->hot_line2 : '' }} ">
+                                    {{ $general_info->hot_line2 ? '+234 '.$general_info->hot_line2 : '' }}
+                                </a>
                                 <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
                                     <i class="fa fa-whatsapp" style="font-size: 15px"></i> WhatsApp
                                 </a>
@@ -58,8 +64,11 @@
                         <div class="col-md-4 col-sm-6 mrg-btn-50">
                             <i class="flaticon-envelope"></i>
                             <p>Email Address</p>
-                            <strong><a href="mailto:{{ $check_general_info == 0 ? $general_info->support_email : '' }} ">
-                                {{ $check_general_info == 0 ? $general_info->support_email : '' }}
+                            <strong><a href="mailto:{{ $general_info->contact_email ? $general_info->contact_email : '' }} ">
+                                {{ $general_info->contact_email ? $general_info->contact_email : '' }}
+                            </a></strong> <br>
+                            <strong><a href="mailto:{{ $general_info->support_email ? $general_info->support_email : '' }} ">
+                                {{ $general_info->support_email ? $general_info->support_email : '' }}
                             </a></strong>
                         </div>
                         {{-- <div class="col-md-3 col-sm-6 mrg-btn-50">

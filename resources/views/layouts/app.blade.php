@@ -9,7 +9,7 @@
 <body>
 
 	@include('layouts.frontend_partials.navbar')
-    @include('layouts.frontend_partials.status')
+    <!-- @include('layouts.frontend_partials.status') -->
 
 
 		@yield('content')
@@ -170,8 +170,7 @@
                                                                 @endif
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="email">Email Address</label><small class="text-danger">*</small> <small class="text-success">(A Link Will Be
-                                                                    Sent To Your Email Address To Complete Your Registration)</small>
+                                                                <label for="email">Email Address</label><small class="text-danger">*</small> <small class="text-success">(A Link Will Be Sent To Your Email Address To Complete Your Registration)</small>
                                                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}"
                                                                 placeholder="Enter A Valid Email Address" required>
                                                                 @if ($errors->has('email'))
@@ -364,8 +363,16 @@
             }
         });
     </script>
+
     
     @yield('script')
+
+
+    {{-- livewirescript --}}
+    @livewireScripts
+
+
+
 </body>
 
 </html>
