@@ -174,7 +174,7 @@ class Register extends Component
             'message' => 'Your email was not found. Please Re-register',
             'alert-type' => 'error'
             );
-            return redirect('/')->with($success_notification)->withErrors($validator)->withInput();
+            return redirect('/')->with($success_notification);
 
 
 
