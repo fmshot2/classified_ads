@@ -146,7 +146,8 @@ class Register extends Component
 
 
         //save user
-        $user           = new Agent;
+        $user           = Agent::where('email', $this->agent_email)->first();
+        if ($user) {
         $user->name     = $this->agent_name;
         $user->email    = $this->agent_email;
         $user->password = Hash::make($this->password);
@@ -168,6 +169,12 @@ class Register extends Component
                 $failedtosendmail = 'Failed to Mail!';
             }
         }
+    }
+            $success_notification = array(
+            'message' => 'Your email was not found. Please Re-register',
+            'alert-type' => 'error'
+            );
+            return redirect('/')->with($success_notification)->withErrors($validator)->withInput();
 
 
 
