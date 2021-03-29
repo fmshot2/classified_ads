@@ -160,7 +160,6 @@ class Register extends Component
             $name         = $user->name;
             $email        = $user->email;
             $origPassword = $this->password;
-            $userRole     = $user->role;
 
             try {
                 Mail::to($user->email)->send(new AgentRegistration($name, $email, $origPassword, $userRole));
@@ -174,7 +173,7 @@ class Register extends Component
             'message' => 'Your email was not found. Please Re-register',
             'alert-type' => 'error'
             );
-            return redirect('/')->with($success_notification);
+            return redirect('home')->with($success_notification);
 
 
 
@@ -189,7 +188,9 @@ class Register extends Component
 
 
                     //if login pass,redirect to agent dashboard page
-                    return redirect()->intended('agent/dashboard');
+                    session()->flash('success', 'Content Created Successfully.');
+                    return redirect(route('agent.dashboard'));
+                    // return redirect()->intended('agent/dashboard');
                 } else {
                     session()->flash('fail', ' Credentials2 Incorect');
                     return view('auth.agent_login');

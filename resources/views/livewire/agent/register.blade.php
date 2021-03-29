@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label class="form-label" for="identification_type">Identification Type</label><small class="text-danger">*</small>
                         <select class="form-control" wire:model='identification_type'>
-                            <option selected disabled>- Select an option -</option>
+                            <option selected >- Select an option -</option>
                             <option value="national_id">National ID</option>
                             <option value="driver_license">Driver License</option>
                             <option value="voter_id">Voter's Card</option>
@@ -65,7 +65,7 @@
                 <div class="form-group">
                     <label class="form-label">State</label><small class="text-danger">*</small>
                     <select class="form-control" id="statee" wire:model='state_id'>
-                        <option value="">-- Select State --</option>
+                        <option value="">- Select State -</option>
                         @foreach($states as $state)
                         <option value="{{$state->id}}"> {{ $state->name }}  </option>
                         @endforeach
@@ -81,7 +81,7 @@
             <div class="form-group">
                 <label class="form-label">Local Government</label><small class="text-danger">*</small>
                 <select class="form-control" id="city" wire:model='city_id' @if(!$cities) disabled="" @endif>
-                    <option value="" selected>- Select a State -</option>
+                    <option value="" selected>- Select a Local Government -</option>
                     @foreach($cities as $city)
                     <option value="{{$city->id}}"> {{ $city->name }}  </option>
                     @endforeach
@@ -195,7 +195,7 @@
 <div class="row">
     <div class="col-md-12 text-center">
         <label>
-            <span class="text-success">You will be redirected to GTPAY to make your Agent Fee of <strong style="color: rgb(187, 84, 84)">&#8358;500</strong> only.</span>
+            <span class="text-success">You will be redirected to ou payments page to make your Agent Fee of <strong style="color: rgb(187, 84, 84)">&#8358;500</strong> only.</span>
         </label>
     </div>
 </div>
@@ -208,7 +208,7 @@
     <span class="step"></span>
 </div>
 
-<div class="tabActionBtn">
+<div id="tabActionBtn" class="tabActionBtn">
     <div>
         <button type="button" id="prevBtn" wire:click="change_tab(1)" class="btn btn-md btn-info">Previous</button>
     @if($tab === 1)
@@ -252,6 +252,7 @@
             $('#spinner-container').removeClass("d-none");
             $('#spinner-container').addClass('d-block')
             $('#btn-container').addClass('d-none')
+            $('#tabActionBtn').addClass('d-none')
             Livewire.emit('verifyPaystackAmount', response)
         }
     });
