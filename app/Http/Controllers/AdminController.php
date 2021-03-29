@@ -17,6 +17,7 @@ use App\Privacypolicy;
 use App\Faq;
 use App\Slider;
 use App\Advertrequest;
+use App\Agent;
 use App\Event;
 use App\Subscription;
 use App\UserFeedback;
@@ -671,4 +672,37 @@ public function save_faq(Request $request)
      // }
    }
 
-   }
+
+    public function activate_agent($id){
+
+        $success = true;
+        $message = "Activate";
+        $status_message = "Disabled";
+
+        $user = Agent::where('id' , $id)->first();
+        if ($user->status == 1) {
+            $user->status = 0;
+            $user->update();
+
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+                'status_message' => $status_message,
+            ]);
+        }
+        if ($user->status == 0) {
+          $message = "Deactivate User";
+          $status_message = "Enabled";
+
+            $user->status = 1;
+            $user->save();
+
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+                'status_message' => $status_message,
+            ]);
+        }
+    }
+
+}

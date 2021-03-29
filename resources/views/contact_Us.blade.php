@@ -1,11 +1,16 @@
-
-
-
 @extends('layouts.app')
 
 @section('title', 'Contact Us')
 
 @section('content')
+<style>
+    .send-btn button{
+        background-color: #cc8a19; color: #fff; border:1px solid #cc8a19;
+    }
+    .send-btn button:hover{
+        background-color: #eeb450; color: #fff; border:1px solid #cc8a19;
+    }
+</style>
     <div class="main">
         <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/contactusbg.jpg')}})">
             <div class="container">
@@ -28,32 +33,34 @@
                     @include('layouts.frontend_partials.status')
                 </div>
 
-                <div class="main-title">
+                {{-- <div class="main-title">
                     <h1 class="mb-10">Contact us</h1>
-                </div>
+                </div> --}}
                 <div class="contact-info">
                     <div class="row">
                         <div class="col-md-4 col-sm-6 mrg-btn-50">
                             <i class="flaticon-location"></i>
                             <p>Office Address</p>
-                            <strong>31, Pope John Paul II Street, Maitama, FCT, Abuja</strong>
+                            <strong>{{ $check_general_info == 0 ? $general_info->address : '' }} </strong>
                         </div>
                         <div class="col-md-4 col-sm-6 mrg-btn-50">
                             <i class="flaticon-technology-1"></i>
                             <p>Phone Number</p>
                             <strong>
-                                <a href="tel: {{ $check_general_info == 0 ? $general_info->hot_line : '' }} ">
+                                <a href="tel: { $check_general_info == 0 ? $general_info->hot_line : '' }} ">
                                     +234 {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
                                 </a> <br>
-                                <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
-                                    <i class="fa fa-whatsapp" style="font-size: 15px"></i> +234 {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
+                                <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
+                                    <i class="fa fa-whatsapp" style="font-size: 15px"></i> WhatsApp
                                 </a>
                             </strong>
                         </div>
                         <div class="col-md-4 col-sm-6 mrg-btn-50">
                             <i class="flaticon-envelope"></i>
                             <p>Email Address</p>
-                            <strong>info@efcontact.com</strong>
+                            <strong><a href="mailto:{{ $check_general_info == 0 ? $general_info->support_email : '' }} ">
+                                {{ $check_general_info == 0 ? $general_info->support_email : '' }}
+                            </a></strong>
                         </div>
                         {{-- <div class="col-md-3 col-sm-6 mrg-btn-50">
                             <i class="flaticon-globe"></i>
@@ -63,14 +70,17 @@
                     </div>
                 </div>
 
-                <form action="{{route('store_contact_form')}}" method="POST" style="background-color: #fff; padding: 15px">
-                    {{ csrf_field() }}
+                {{-- <form action="{{route('store_contact_form')}}" method="POST" style="background-color: #fff; padding: 15px"> --}}
+                <form id="myContactForm" style="background-color: #fff; padding: 15px">
+                    @csrf
+                    <input type="hidden" name="_method" value="POST">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group name">
-                                        <input id="name" name="name" class="form-control"  required type="text" placeholder="Enter Full Name" style="color: black;">
+                                        <label for="name">Full Name</label><small class="text-danger">*</small>
+                                        <input id="name" name="name" class="form-control"  required type="text" placeholder="Enter Full Name" style="color: black;" required>
                                         @if ($errors->has('name'))
                                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                                 <strong class="text-danger">{{ $errors->first('name') }}</strong>
@@ -80,7 +90,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group email">
-                                        <input id="email" name="email" class="form-control required email" required type="email" placeholder="Email" style="color: black;">
+                                        <label for="email">Your Email</label><small class="text-danger">*</small>
+                                        <input id="email" name="email" class="form-control required email" required type="email" placeholder="Enter your email address" style="color: black;" required>
                                         @if ($errors->has('email'))
                                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                                 <strong class="text-danger">{{ $errors->first('email') }}</strong>
@@ -93,7 +104,8 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group subject">
-                                        <input type="text" name="subject" id="subject" required class="form-control" placeholder="Subject" style="color: black;">
+                                        <label for="subject">Subject</label><small class="text-danger">*</small>
+                                        <input type="text" name="subject" id="subject" required class="form-control" placeholder="Enter your message subject" style="color: black;" required>
                                         @if ($errors->has('subject'))
                                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                                 <strong class="text-danger">{{ $errors->first('subject') }}</strong>
@@ -104,7 +116,8 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group number">
-                                        <input id="phone" name="phone" required class="form-control" type="number" placeholder="Enter Phone" style="color: black;">
+                                        <label for="phone">Phone Number</label><small class="text-danger">*</small>
+                                        <input id="phone" name="phone" required class="form-control" type="number" placeholder="Enter Phone" style="color: black;" required>
                                         @if ($errors->has('phone'))
                                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                                 <strong class="text-danger">{{ $errors->first('phone') }}</strong>
@@ -117,7 +130,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group message">
-                                        <textarea class="form-control" required name="message" id="message" placeholder="Write message" style="color: black;"></textarea>
+                                        <label for="message">The Message</label><small class="text-danger">*</small>
+                                        <textarea class="form-control" required name="message" id="message" placeholder="Write your message here" style="color: black;" required></textarea>
                                         @if ($errors->has('message'))
                                             <span class="helper-text text-danger" data-error="wrong" data-success="right">
                                                 <strong class="text-danger">{{ $errors->first('message') }}</strong>
@@ -127,7 +141,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="send-btn text-center">
-                                        <button type="submit" class="btn btn-outline-warning">Send Message</button>
+                                        <button type="submit" id="sendMessage" class="btn btn-lg">Send Message</button>
                                     </div>
                                 </div>
                             </div>
@@ -153,4 +167,44 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        $(document).ready(function() {
+            $("#sendMessage").click(function(e){
+                e.preventDefault();
+
+                $("#sendMessage").text('Please wait, sending!!!')
+                $("#sendMessage").css({"opacity": "0.5", "cursor":"default"});
+
+                var _token = $("input[name='_token']").val();
+                var name = $("#name").val();
+                var email = $("#email").val();
+                var phone = $("#phone").val();
+                var subject = $("#subject").val();
+                var message = $("#message").val();
+
+                $.ajax({
+                    url: '/store_contact_form',
+                    method:'POST',
+                    data: {_token:_token, name, email, phone, subject, message },
+                    success: function(data) {
+                        $("#name").val('')
+                        $("#phone").val('')
+                        $("#email").val('')
+                        $("#subject").val('')
+                        $("#message").val('')
+                        $("#sendMessage").css({"opacity": "1", "cursor":"pointer"});
+                        $("#sendMessage").text('Send another message')
+
+                        toastr.success('Message sent successfully!')
+                    },
+                    error: function(error){
+                        toastr.error('Message not sent! Try again.')
+                        console.log(error)
+                    }
+                });
+            });
+        })
+    </script>
 @endsection

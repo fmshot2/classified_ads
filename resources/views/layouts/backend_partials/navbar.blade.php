@@ -1,11 +1,11 @@
 
   <header class="main-header ">
     <!-- Logo -->
-    <a href="index.html" class="logo">
-      <!-- mini logo-->
-      <span class="logo-mini"><b>C</b></span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b> Yellow</b>Page</span>
+    <a href="{{ route('home') }}" class="logo">
+        <!-- mini logo-->
+        <span class="logo-mini"><b>EFC</b></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><img src="{{ asset('images/'.$general_info->logo) }}" alt="" style=""></span>
     </a>
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" style="background-color: #CA8309">
@@ -19,12 +19,12 @@
           <!-- User Account -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" class="user-image" alt="User Image">
+              <img src="{{ Auth::user()->image == null ? '<i class="fa fa-user"></i>' : '/images/'.''.Auth::user()->image  }}" class="user-image" alt="User Image">
             </a>
             <ul class="dropdown-menu scale-up">
               <!-- User image -->
               <li class="user-header" style="background-color: #f8d053;">
-                <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" class="img-responsive" alt="User Image">
+                <img src="{{ Auth::user()->image == null ? '<i class="fa fa-user"></i>' : '/images/'.''.Auth::user()->image  }}" class="img-responsive" alt="User Image">
 
                 <p>
                   {{ Auth::user()->name }}
@@ -32,22 +32,6 @@
                 </p>
               </li>
               <!-- Menu Body -->
-              {{--
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
-              --}}
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
@@ -68,7 +52,7 @@
           </ul>
         </li>
 
-{{--
+
 
         <li class="dropdown messages-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -84,7 +68,7 @@
 
                 <li><!-- start message -->
                   <a href="{{ route('seller.message.view',$unread_messages->slug) }}">
-
+  --}}
                     <div class="mail-contnet">
                       <span style="font-weight: bold;"> {{ Str::limit($unread_messages->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_messages->created_at->diffForHumans() }} </small> </span>
                   </div>
@@ -100,28 +84,29 @@
         </ul>
       </li>
 
---}}
+
         <li class="dropdown messages-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-bell"></i>
-            <span class="label label-primary"> {{ $unread_notification_count }}  </span>
+            @if (Auth::user()->unreadNotifications->count() > 0)
+                <span class="label label-primary"> {{ Auth::user()->unreadNotifications->count() }}  </span>
+            @endif
           </a>
           <ul class="dropdown-menu scale-up">
-            <li class="header">You have {{ $unread_notification_count }} unread notification</li>
+            <li class="header">You have {{ Auth::user()->unreadNotifications->count() }} unread notification{{ Auth::user()->unreadNotifications->count() > 1 ? 's' : '' }}</li>
             <li>
               <!-- inner menu: contains the actual data -->
               <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu inner-content-div" style="overflow: hidden; width: auto; height: 200px;">
-                @foreach($unread_notification as $unread_notifications)
+                @foreach(Auth::user()->unreadNotifications as $unread_notifications)
+                    <li><!-- start message -->
+                        <a href="">
 
-                <li><!-- start message -->
-                  <a href="{{ route('seller.notification.view',$unread_notifications->slug) }}">
-
-                    <div class="mail-contnet">
-                      <span style="font-weight: bold;"> {{ Str::limit($unread_notifications->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_notifications->created_at->diffForHumans() }} </small> </span>
-                  </div>
-                </a>
-              </li>
-              @endforeach
+                            <div class="mail-contnet">
+                            <span style="font-weight: bold;"> {{ Str::limit( $unread_notifications->data[0]['message'], 20) }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_notifications->created_at->diffForHumans() }} </small> </span>
+                        </div>
+                        </a>
+                    </li>
+                @endforeach
 
               <!-- end message -->
 

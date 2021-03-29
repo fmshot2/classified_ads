@@ -8,7 +8,7 @@
 
 	<div class="box-header">
 		<h3 class="box-title"> Pending Service Table</h3>
-		<a href="{{ route('seller.service.create') }} " class="btn btn-success model_img img-responsive pull-right"> Add A Service </a>
+		<a data-toggle="modal" data-target="#postServiceModal" class="btn btn-success model_img img-responsive pull-right"> Add A Service </a>
 	</div>
 	<!-- /.box-header -->
 	<div class="box-body">

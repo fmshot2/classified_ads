@@ -143,7 +143,19 @@
         <ul class="h-100 d-flex align-items-center justify-content-between ps-0">
             <li class=" {{ Request::is('/') ? 'active' : '' }}"><a href="/"><i class="fa fa-home"></i>Home</a></li>
             <li class=" {{ Request::is('chat') ? 'active' : '' }}"><a href="#liveChatModal" data-backdrop="static" data-toggle="modal"><i class="fa fa-comments-o"></i>Live Chat</a></li>
-            <li class=" {{ Request::is('service') ? 'active' : '' }}"><a href="{{ route('seller.service.create') }}" style=" font-weight: 700; border: 1px solid rgb(255, 205, 41); padding: 10px; border-radius: 500px"><i style="font-size: 18px;" class="fa fa-plus"></i>Post</a></li>
+
+            @auth
+                @if(Auth::user()->role == 'seller')
+                    <li class=" {{ Request::is('service') ? 'active' : '' }}"><a href="{{ route('seller.service.create') }}" style=" font-weight: 700; border: 1px solid #CA8309; padding: 10px; border-radius: 500px"><i style="font-size: 18px;" class="fa fa-plus"></i>Post</a></li>
+                @else
+                    <li class=" {{ Request::is('service') ? 'active' : '' }}"><a href="{{ route('register') }}" style=" font-weight: 700; border: 1px solid #CA8309; padding: 10px; border-radius: 500px"><i style="font-size: 18px;" class="fa fa-plus"></i>Post</a></li>
+                @endif
+            @endauth
+
+            @guest
+                <li class=" {{ Request::is('service') ? 'active' : '' }}"><a href="{{ route('login') }}" style=" font-weight: 700; border: 1px solid #CA8309; padding: 10px; border-radius: 500px"><i style="font-size: 18px;" class="fa fa-plus"></i>Post</a></li>
+            @endguest
+
             <li class=" {{ Request::is('frequently-asked-questions') ? 'active' : '' }}"><a href="/frequently-asked-questions"><i class="fa fa-question-circle-o"></i>FAQ</a></li>
 
             <li class=" {{ Request::is('settings') ? 'active' : '' }}">
@@ -204,10 +216,11 @@
                     <ul>
                         <li><a href="{{route('aboutus')}}">About Us</a></li>
                         <li><a href="{{route('contact')}}">Contact Us</a></li>
-                        <li><a href="{{route('allServices')}}">All Services</a></li>
+                        {{-- <li><a href="{{route('allServices')}}">All Services</a></li> --}}
                         <li><a href="{{route('allCategories')}}">All Categories</a></li>
                         {{-- <li><a href="{{route('allSellers')}}">Service Providers</a></li> --}}
-                        <li><a href="{{route('allcities')}}">Places in Nigeria</a></li>
+                        <li><a href="{{route('allcities')}}">Tourist Sites in Nigeria</a></li>
+                        <li><a href="{{route('benefits-of-efcontact')}}">Benefits of EFContact</a></li>
                         <li><a href="{{route('advertisement')}}">Advertise With Us</a></li>
                         <li><a data-toggle="modal" data-target="#launchAgentModal" href="#">Become our Agent</a></li>
                         <li><a data-toggle="modal" data-target="#subscribeBox" href="#">Subscribe Now!</a></li>

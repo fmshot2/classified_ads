@@ -18,7 +18,7 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'image' => $this->image,
+            'image' => route('home') . '/images/' . $this->image,
             'priority' => $this->priority,
             'sub_categories' => $this->sub_categories
         ];

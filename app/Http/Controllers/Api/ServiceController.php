@@ -32,7 +32,7 @@ class ServiceController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'categories', 'showcategory', 'banner_slider', 'search']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories']]);
         $this->user = $this->guard()->user();
     }
 
@@ -44,7 +44,7 @@ class ServiceController extends Controller
     public function index()
     {
         // return ServiceResource::collection(Service::paginate(5));
-        return new ServiceResourceCollection(Service::paginate(5));
+        return new ServiceResourceCollection(Service::all());
     }
     public function createService(Request $request)
     {
@@ -268,7 +268,17 @@ class ServiceController extends Controller
      */
     public function categories()
     {
-        return CategoryResource::collection(Category::paginate(5));
+        return CategoryResource::collection(Category::all());
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sub_categories()
+    {
+        return response()->json(SubCategory::all());
     }
 
     /**

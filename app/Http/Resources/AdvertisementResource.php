@@ -17,7 +17,7 @@ class AdvertisementResource extends JsonResource
         return [
             'brand_name' => $this->brand_name,
             'website_link' => $this->website_link,
-            'banner_img' => '/uploads/sponsored/'.$this->banner_img,
+            'banner_img' => route('home') . '/uploads/sponsored/'.$this->banner_img,
             'client_name' => $this->client_name,
             'client_email' => $this->client_email,
             'client_phone' => $this->client_phone,

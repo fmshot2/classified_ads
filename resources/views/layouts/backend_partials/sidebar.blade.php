@@ -61,9 +61,11 @@
       <li class="" style=" {{ url()->current() == route('admin.notification.all') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('admin.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
-          <span class="pull-right-container">
-            <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small>
-          </span>
+          @if (Auth::user()->unreadNotifications->count() > 0)
+            <span class="pull-right-container">
+                <small class="label pull-right bg-primary"> {{ Auth::user()->unreadNotifications->count() }}  </small>
+            </span>
+          @endif
         </a>
       </li>
 
@@ -88,6 +90,7 @@
           <li><a href=" {{ route('admin.seller') }} "><i class="fa fa-circle-o"></i> Service Providers </a></li>
           <li><a href=" {{ route('all_accountants') }} "><i class="fa fa-circle-o"></i> Accountants </a></li>
           <li><a href="{{ route('add-accountant') }}"><i class="fa fa-circle-o"></i> Add Accountant </a></li>
+          <li><a href="{{ route('admin.allagents') }}"><i class="fa fa-circle-o"></i> Agents </a></li>
         </ul>
       </li>
 

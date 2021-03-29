@@ -14,18 +14,6 @@
     .filtr-item{
         cursor: pointer;
     }
-    @media (max-width: 768px){
-        .touristImage{
-            height: 80px !important;
-        }
-        .location h6{
-            font-size: 13px !important;
-        }
-        .detail .title{
-            font-size: 12px !important;
-        }
-    }
-
 
     * {box-sizing:border-box}
 
@@ -34,6 +22,9 @@
         max-width: 1000px;
         position: relative;
         margin: auto;
+    }
+    .slideshow-container .activeslide {
+        display: block !important;
     }
 
     /* Hide the images by default */
@@ -111,6 +102,16 @@
     animation-name: tsfade;
     animation-duration: 1.5s;
     }
+    .mySlides .siteImage{
+        width:100%; height: 400px
+    }
+    #launchTouristModal .modal-title{
+        color: #fff;
+        text-transform: uppercase;
+    }
+    .mySlidesContent{
+        margin-top: 20px
+    }
 
     @-webkit-keyframes tsfade {
         from {opacity: .4}
@@ -120,6 +121,27 @@
     @keyframes tsfade {
         from {opacity: .4}
         to {opacity: 1}
+    }
+
+    @media (max-width: 768px){
+        .touristImage{
+            height: 80px !important;
+        }
+        .location h6{
+            font-size: 13px !important;
+        }
+        .detail .title{
+            font-size: 12px !important;
+        }
+        .mySlides .siteImage{
+            height: 200px
+        }
+        #launchTouristModal .modal-title{
+            font-size: 16px
+        }
+        .mySlidesContent{
+            font-size: 15px
+        }
     }
 </style>
 
@@ -142,10 +164,10 @@
                 <div class="row filter-portfolio" style="width: 100%; margin-right: 0;margin-left: 0;">
                     @if ($states)
                         @foreach($states as $state)
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-sm-12 filtr-item" onclick="loadTouristSites('{{ $state->name }}')">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-sm-12 filtr-item" onclick="loadTouristSites('{{$state->name}}')">
                                 <div class="property-box">
                                     <div class="property-thumbnail">
-                                        <a href="#" onclick="loadTouristSites({{ $state->name }})" class="property-img">
+                                        <a href="#" onclick="loadTouristSites({{$state->name}})" class="property-img">
                                             <img class="d-block w-100 touristImage" src="{{ asset('statesthumbnails/'.$state->image) }}" alt="{{ $state->name }}">
                                         </a>
                                     </div>
@@ -167,15 +189,15 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: #cc8a19; color: #fff">
-                        <h5 class="modal-title" style="color: #fff">All Tourist Sites Here</h5>
+                        <h5 class="modal-title">All Tourist Sites In this State</h5>
                         <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <!-- Slideshow container -->
-                        <div class="slideshow-container">
+                        <div class="slideshow-container" id="touristSlides">
 
                             <!-- Full-width images with number and caption text -->
-                            @if ($tourist_attractions)
+                            {{-- @if ($tourist_attractions)
                                 @foreach($tourist_attractions as $key => $tourist_attraction)
                                     <div class="mySlides tsfade">
                                         <div class="numbertext">{{ $key + 1 }}/ {{ $loop->count }}</div>
@@ -184,7 +206,7 @@
                                         <div>{{ $tourist_attraction->description }}</div>
                                     </div>
                                 @endforeach
-                            @endif
+                            @endif --}}
                             <!-- Next and previous buttons -->
                             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                             <a class="next" onclick="plusSlides(1)">&#10095;</a>
@@ -193,11 +215,11 @@
 
                         <!-- The dots/circles -->
                         <div style="text-align:center">
-                            @if ($tourist_attractions)
+                            {{-- @if ($tourist_attractions)
                                 @foreach($tourist_attractions as $key => $tourist_attraction)
                                     <span class="dot" onclick="currentSlide({{ $key + 1 }})"></span>
                                 @endforeach
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -214,13 +236,36 @@
             function loadTouristSites(state){
                 event.preventDefault();
                 jQuery.noConflict();
+                $('.mySlides').remove()
+
                 $.ajax({
                     url: '/get-tourist-sites/' + state,
                     method: 'get',
-                    success: function(result){
-                        console.log(result)
-
-                        $('#launchTouristModal').modal('show');
+                    success: function(results){
+                        console.log(results)
+                        if (!$.trim(results)){
+                            toastr.info('No tourist site here!')
+                        }
+                        else{
+                            results.forEach((data, key) => {
+                                current = (key == 0 ? ' activeslide' : '')
+                                $('#touristSlides').append(`
+                                    <div class="mySlides tsfade`+ current +`">
+                                        <div class="numbertext">`+ (key+1) + `/` + results.length + `</div>
+                                        <img src="cities_images/`+ data.thumb + `" class="siteImage">
+                                        <div class="mySlidesContent">
+                                            <div><strong>Site Name:</strong> `+ data.name +`</div>
+                                            <div><strong>Description:</strong> `+ data.description +`</div>
+                                            <div><strong>Region: </strong>`+ data.region +` region of Nigeria</div>
+                                        </div>
+                                    </div>
+                                `)
+                            })
+                            $('#launchTouristModal').modal('show');
+                        }
+                    },
+                    error:function(){
+                        toastr.error('Something went wrong!')
                     }
                 });
             }
@@ -246,6 +291,7 @@
                 if (n < 1) {slideIndex = slides.length}
                 for (i = 0; i < slides.length; i++) {
                     slides[i].style.display = "none";
+                    $('.mySlides').removeClass('activeslide')
                 }
                 for (i = 0; i < dots.length; i++) {
                     dots[i].className = dots[i].className.replace(" active", "");

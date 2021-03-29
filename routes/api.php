@@ -60,6 +60,7 @@ Route::prefix('v1')->group(function ()
     // CATEGORIES
     Route::get('/categories', [ServiceController::class, 'categories']);
     Route::get('/category/{id}', [ServiceController::class, 'showcategory']);
+    Route::get('/subcategories', [ServiceController::class, 'sub_categories']);
 
     // BANNER
     Route::get('banner/sliders', [GeneralController::class, 'banner_slider']);

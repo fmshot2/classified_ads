@@ -5,6 +5,30 @@ Login
 @section('content')
 
 <div class="contact-section">
+    <style>
+        .input-group input{
+            padding: 10px 20px;
+            font-size: 15px;
+            outline: none;
+            height: 50px;
+            font-weight: 500;
+            border: 1px solid transparent;
+            background: #fff;
+            box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+        }
+        .input-group .input-group-text{
+            border-top-right-radius: 50px;
+            border-bottom-right-radius: 50px;
+            box-shadow: 5px 0 5px rgb(0 0 0 / 10%);
+            border: 1px solid transparent;
+            background: #fff;
+            outline: none;
+            z-index: 1;
+        }
+    </style>
+
     <div class="container">
         <div class="row login-box">
             <div class="col-lg-6 align-self-center pad-0">
@@ -29,32 +53,33 @@ Login
 
                     --}}
 
-                    @include('layouts.frontend_partials.status')
+                    {{-- @include('layouts.frontend_partials.status') --}}
 
                     <form action="{{route('show_agent_Login')}}" method="POST">
                         @csrf
                         <div class="form-group form-box">
-                            <input type="email" name="email" value="{{ old('email') }}" class="input-text" placeholder="Email Address" required>
+                            <input type="email" name="email" value="{{ old('email') }}" class="input-text" placeholder="Email Address">
                             @if ($errors->has('email'))
                             <span class="helper-text" data-error="wrong" data-success="right">
                                 <strong class="text-danger">{{ $errors->first('email') }}</strong>
                             </span>
                             @endif
                         </div>
-                        <div class="form-group form-box clearfix">
-                                <input type="password" name="password" id="passwordField" class="input-text" placeholder="Password" required>
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <input type="password" name="password" id="passwordField"
+                                class="form-control" placeholder="Password" aria-label="Password" aria-describedby="Password">
+                                <div class="input-group-append" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()">
+                                  <span class="input-group-text" id="basic-addon1"><i class="fa fa-eye"></i></span>
+                                </div>
+                            </div>
                             @if ($errors->has('password'))
                             <span class="helper-text" data-error="wrong" data-success="right">
                                 <strong class="text-danger">{{ $errors->first('password') }}</strong>
                             </span>
                             @endif
                         </div>
-                        <div>
-                            <label for="showpasswordtoggle" style="float: left; margin-top: -15px; margin-bottom: 20px; margin-left: 20px; font-size: 14px">
-                                <input type="checkbox" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()" style="float: left;">Show Password
-                            </label>
-                        </div><div class="clearfix"></div>
-                        <p>
+                        <p class="text-left" style="margin-bottom: 20px">
                             <label>
                                 <input type="checkbox" name="remember" class="filled-in" {{ old('remember') ? 'checked' : '' }} />
                                 <span>{{ __('Remember Me') }}</span>

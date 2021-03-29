@@ -341,86 +341,6 @@ class OperationalController extends Controller
         return view('benefits');
     }
 
-    public function pagescontents()
-    {
-        return view('admin.page_management.pages_contents');
-    }
-
-    public function saveAboutUs(Request $request)
-    {
-        $general_info = General_Info::find(1);
-
-        $general_info->about_site = $request->about_site;
-
-        if ($general_info->update()) {
-            return redirect()->back()->with([
-                'message' => 'About Page Updated!',
-                'alert-type' => 'success'
-            ]);
-        }
-
-        return redirect()->back()->with([
-            'message' => 'About page could not be updated!',
-            'alert-type' => 'error'
-        ]);
-    }
-
-    public function savePrivacyPolicy(Request $request)
-    {
-        $page_contents = PageContent::find(1);
-
-        $page_contents->privacy_policy = $request->privacy_policy;
-
-        if ($page_contents->update()) {
-            return redirect()->back()->with([
-                'message' => 'Privacy Policy Updated!',
-                'alert-type' => 'success'
-            ]);
-        }
-
-        return redirect()->back()->with([
-            'message' => 'Privacy Policy could not be updated!',
-            'alert-type' => 'error'
-        ]);
-    }
-
-    public function saveBenefitsofEfcontact(Request $request)
-    {
-        $page_contents = PageContent::find(1);
-
-        $page_contents->benefit_of_efcontact = $request->benefit_of_efcontact;
-
-        if ($page_contents->update()) {
-            return redirect()->back()->with([
-                'message' => 'Benefits of EFContact Updated!',
-                'alert-type' => 'success'
-            ]);
-        }
-
-        return redirect()->back()->with([
-            'message' => 'Benefits of EFContact could not be updated!',
-            'alert-type' => 'error'
-        ]);
-    }
-
-    public function saveTermOfUse(Request $request)
-    {
-        $page_contents = PageContent::find(1);
-
-        $page_contents->term_of_use = $request->term_of_use;
-
-        if ($page_contents->update()) {
-            return redirect()->back()->with([
-                'message' => 'Term of Use Updated!',
-                'alert-type' => 'success'
-            ]);
-        }
-
-        return redirect()->back()->with([
-            'message' => 'Term of Usecould not be updated!',
-            'alert-type' => 'error'
-        ]);
-    }
 
 
     public function clientfeedbacks()
@@ -461,6 +381,15 @@ class OperationalController extends Controller
         $tourist = Tourism::where('states', $state)->get();
 
         return $tourist;
+    }
+
+    public function downloadAdBrochure()
+    {
+        $filePath = public_path("efcontact-ad-brochure.pdf");
+    	$headers = ['Content-Type: application/pdf'];
+    	$fileName = 'efcontact-ad-brochure.pdf';
+
+    	return response()->download($filePath, $fileName, $headers);
     }
 
 }

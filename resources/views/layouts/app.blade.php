@@ -9,6 +9,8 @@
 <body>
 
 	@include('layouts.frontend_partials.navbar')
+    @include('layouts.frontend_partials.status')
+
 
 		@yield('content')
 
@@ -137,14 +139,12 @@
                                                                 To Us And When Anyone Subscribes You Get N100 Each.  We Will Issue To You A Daily Report On Your Sub-Agents And
                                                                  Activities. See Chart Below For Commission Scales.</li> --}}
 
-                                                                 <li>We are happy to work with you and offer to you
-                                                                     one of the best marketing careers in the country, where you have an opportunity to make millions of Naira yearly.</li>
-                                                            <li>To become our agent, you will be required to fill out the form below and be accepted by the company. When we receive your online request,
-                                                                a reference code and another form would be sent to you to finalize your application.</li>
-                                                            <li>EFContact provides an opportunity for a part-time agent to make on average N50,000.00 monthly and a full time agent to make on average N100,000.00  or monthly.
-                                                                On top of your basic commission, there are other incentives which may generate millions of Naira to you yearly.</li>
-                                                            <li>When you are approved, you will receive your agent code and a dashboard. The dashboard is where all your activities and daily income are displayed.  We pay commissions on weekly not monthly.  You will also be able to refer people to
-                                                                market the EFcontact and make extra money on top of your own sales. If you have interest and want additional information please fill below:</li>
+                                                            <li>We are happy to work with you and offer to you one of the best marketing careers in the country, where you have an opportunity to make millions of Naira yearly.</li>
+                                                            <li><strong>Note:</strong> The registration to be an agent on EFContact will attract a fee of <strong>&#8358;500.</strong></li>
+                                                            <li>To become our agent, you will be required to fill out the form below and be accepted by the company. When we receive your online request, a reference code and another form would be sent to you to finalize your application.</li>
+                                                            <li>EFContact provides an opportunity for a part-time agent to make on average N50,000.00 monthly and a full time agent to make on average N100,000.00  or monthly. On top of your basic commission, there are other incentives which may generate millions of Naira to you yearly.</li>
+                                                            <li>When you are approved, you will receive your agent code and a dashboard. The dashboard is where all your activities and daily income are displayed.  We pay commissions weekly not monthly.  You will also be able to refer people to
+                                                                market the EFcontact and make extra money on top of your own sales. If you are interested please click <a  id="two-tab" data-toggle="tab" href="#agentRegister" role="tab" aria-controls="one" aria-selected="false" href="#" style="color: #cc8a19; font-weight: 700">HERE</a> :</li>
                                                         </ul>
                                                     </div>
 
@@ -174,11 +174,21 @@
                                                                     Sent To Your Email Address To Complete Your Registration)</small>
                                                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}"
                                                                 placeholder="Enter A Valid Email Address" required>
+                                                                @if ($errors->has('email'))
+                                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                                    <strong class="text-danger">{{ $errors->first('email') }}</strong>
+                                                                </span>
+                                                            @endif
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="phone">Phone Number</label>
                                                                 <input type="number" class="form-control" name="phone" value="{{ old('phone') }}"
                                                                 placeholder="Enter Your Phone Number" required>
+                                                                @if ($errors->has('phone'))
+                                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                                    <strong class="text-danger">{{ $errors->first('phone') }}</strong>
+                                                                </span>
+                                                            @endif
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-12">
@@ -239,7 +249,7 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <textarea name="userfeedback" id="userfeedback" class="form-control" cols="30" rows="5" placeholder="Tell us your experience on this site..." style="border-radius: 0"></textarea>
+                            <textarea name="userfeedback" id="userfeedback" class="form-control" cols="30" rows="5" placeholder="Tell us your experience on this website..." style="border-radius: 0"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

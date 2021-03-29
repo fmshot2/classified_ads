@@ -113,14 +113,14 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Current Total Amount :  {{$refererAmount ?? 0}}
+                        Current Total Amount :  {{$accruedAmount ?? 0}}
                         <p></p>
                         <br>
                         <form class="form-horizontal form-element" method="POST" action="{{route('buyer.submit.payemnt.request')}}" enctype="multipart/form-data">
                       {{ csrf_field() }}
                        <div class="col-md-12">
                           <div class="form-group">
-                              <label for="">Withdrawal Amount: </label>
+                              <label for="">Withdrawal Amount: </label><small class="text-success">(How Much Do You Want To Withdraw?)</small>
                               <input type="text" name="amount_requested" id="editSubCategoryName" class="form-control">
                           </div>
                       </div>
@@ -310,7 +310,7 @@
                             <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style="width: {{$accruedAmount ?? 0}}%"></div>
                             </div>
-                            
+
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -478,7 +478,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" style="background-color: #cc8a19; color: #fff; border:1px solid #cc8a19;">Create Service</button>
+                            <button type="submit" class="btn btn-warning" style="background-color: #cc8a19; color: #fff; border:1px solid #cc8a19;">Next <i class="fa fa-arrow-right"></i>
+                            </button>
                             <button id="closeytplayer" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </form>
@@ -505,6 +506,15 @@
             toastr.options.progressBar = true
             toastr.options.positionClass = 'toast-top-left'
             toastr.success("Referral Link Copied!")
+
+            navigator
+            .share({
+                title: 'Referral Link Copied! 🎉',
+                text: $(element).text(),
+                url: $(element).text()
+            })
+            .then(() => console.log('Successful share! 🎉'))
+            .catch(err => console.error(err));
 
             $temp.remove();
 

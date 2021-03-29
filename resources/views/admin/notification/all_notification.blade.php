@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
-@section('title')
-All Notification |
-@endsection
+@section('title', 'All Notifications | ')
 
 @section('content')
 
@@ -12,126 +10,123 @@ All Notification |
 
 	<div class="container">
 		<div class="w-75">
-		@include('layouts.backend_partials.status')
+		    @include('layouts.backend_partials.status')
 		</div>
 	</div>
 
     <section class="content-header">
         <h3 class="page-title">General  Notice</h3>
-        <p class="page-description">This Page Is To Notify You Of Updates And Changes From The EFContact Company.</p>
+        <p class="page-description">This Page Is for creating and managing notifications on EFContact platform.</p>
     </section>
 
 	<section class="content">
-
-
 		<div class="row">
-
 			<div class="col-xs-12">
-
-
-
 				<div class="box" >
 					<div class="d-flex justify-content-start mb-4">
-						<a class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Send In-App Notification</a>
-						</div>
-
-   					<div class="box-header">
-						<h3 class="box-title"> General  Notice</h3>
+						<a class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Send Notification</a>
+						<a href="{{ route('admin.notification.markallasread') }}" class="btn btn-success" data-toggle="modal">Mark all as Read</a>
 					</div>
+   					{{-- <div class="box-header">
+						<h3 class="box-title"> General  Notice</h3>
+					</div> --}}
 
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table class="display table table-bordered data_table_main">
-							<thead>
-								<tr>
-									<th> # </th>
-									<th> Notification </th>
-									<th> Date </th>
-									<th> Action </th>
-								</tr>
+						<div class="table-responsive">
+                            <table class="display table table-bordered data_table_main">
+                                <thead>
+                                    <tr>
+                                        <th> # </th>
+                                        <th> Notification </th>
+                                        <th> User Type </th>
+                                        <th> Priority </th>
+                                        <th> Date </th>
+                                        <th> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (Auth::user()->notifications as $key => $notification)
+                                        <tr>
+                                            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                                            <td>{{ Str::limit( $notification->data[0]['message'], 100) }}</td>
+                                            <td>{{ $notification->data[0]['user_type'] }}</td>
+                                            <td>
+                                                {{ $notification->data[0]['priority'] == 1 ? 'Low' : '' }}
+                                                {{ $notification->data[0]['priority'] == 2 ? 'Medium' : '' }}
+                                                {{ $notification->data[0]['priority'] == 3 ? 'High' : '' }}
+                                            </td>
+                                            <td>{{ $notification->created_at->diffForHumans() }}</td>
+                                            <td>
+                                                <a href="{{-- {{ route('seller.notification.view',$all_notifications->slug) }} --}}" class="btn btn-success"> <i class="fa fa-check"></i> </a>
+                                                <a href="{{-- {{ route('seller.notification.view',$all_notifications->slug) }} --}}" class="btn btn-danger"> <i class="fa fa-trash"></i> </a>
+                                            </td>
 
-								@foreach($all_notification as $key => $all_notifications)
-
-									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-									<td> {{ Str::limit( $all_notifications->description, 100) }} </td>
-									<td> {{ $all_notifications->created_at->diffForHumans() }} </td>
-									<td>
-										<div class="btn-group">
-											<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-												<span class="caret"></span>
-												<span class="sr-only">Toggle Dropdown</span>
-											</button>
-											<ul class="dropdown-menu" role="menu">
-												<!-- View -->
-												<li>  <a href=" {{ route('seller.notification.view',$all_notifications->slug) }}" class="btn btn-block" style="margin-left: 8px;"> View </a> </li>
-											</ul>
-
-										</ul>
-									</div>
-								</td>
-
-							</tr>
-
-							@endforeach
-
-
-						</tbody>
-
-
-					</table>
-
-
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+					</div>
+					<!-- /.box-body -->
 				</div>
-				<!-- /.box-body -->
+				<!-- /.content -->
 			</div>
-
-
-			<!-- /.content -->
 		</div>
-
-
-
 	</div>
-
-</div>
 </section>
 
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       <form method="POST" action="{{route('admin.notification.send')}}">
-                            {{ csrf_field() }}
-  <div class="form-group">
-    <label for="exampleInputEmail1">Subject</label>
-    <input type="text" required class="form-control" name="title" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Message Subject">
-
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Message</label>
-    <input type="text" required name="description" class="form-control" id="exampleInputPassword1" placeholder="Enter Your Message">
-  </div>
-    <button type="submit" class="btn btn-primary">Save changes</button>
-          </form>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-      </div>
-
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #cc8a19; color: #fff; border:1px solid #cc8a19;">
+                    <h4 class="modal-title" id="exampleModalLabel">Create Notification</h4>
+                    {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> --}}
+                </div>
+                <form method="POST" action="{{route('admin.notification.general.send')}}">
+                    <div class="modal-body">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="user_type">User Type</label>
+                                    <select name="user_type" id="user_type" class="form-control">
+                                        <option value="all">All Users</option>
+                                        <option value="seller">Providers</option>
+                                        <option value="buyer">Service Seeker</option>
+                                        <option value="agent">Agent</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="priority">Priority</label>
+                                    <select name="priority" id="priority" class="form-control">
+                                        <option value="1">Low</option>
+                                        <option value="2">Medium</option>
+                                        <option value="3">High</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <input type="text" required name="message" class="form-control" id="message" placeholder="Enter Your Message">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-warning">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
 @endsection
 

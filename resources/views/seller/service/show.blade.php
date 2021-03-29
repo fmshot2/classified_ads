@@ -1,7 +1,7 @@
 
 @extends('layouts.seller')
 
-@section('title', 'Create Service | ')
+@section('title', 'Upload Images | ')
 
 @section('content')
 
@@ -12,13 +12,27 @@
     .box-heading span{
         font-weight: normal;
     }
+    /* .images{
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly
+    }
+    .image-list img{
+        width: 50px
+    } */
 
 </style>
 
 
 <div class="content-wrapper" style="min-height: 868px;">
 
-  @include('layouts.backend_partials.status')
+    @include('layouts.backend_partials.status')
+
+
+    <section class="content-header">
+        <h3 class="page-title">Upload Image(s)</h3>
+        <p class="page-description">Upload multiple images to describe your service better.</p>
+    </section>
 
 
   <section class="content">
@@ -26,9 +40,11 @@
         <div class="col-md-5">
             <div class="box box-default">
                 <div class="box-header">
-                    <div>
+                    {{-- <div>
                         <img src="{{ $service->thumbnail ? asset('uploads/services/'.$service->thumbnail) : asset('images/00_SEO-and-Digital-Marketing-Agency-Mega-Stationery-Branding-Identity-Design-Template-scaled.jpg') }}" style="width: 70%; height: auto; margin: 0 auto">
-                    </div>
+                    </div> --}}
+                    <h2 class="box-title" style="font-weight: 700">Your New Service</h2>
+                    <p>This is your newly created service.</p>
                 </div>
                 <div class="box-body">
                     <ul class="list-group">
@@ -65,7 +81,7 @@
                             <span class="left"> {{ $service->address }}</span>
                         </li>
 
-                        <li class="list-group-item">
+                        {{-- <li class="list-group-item" style="width: 100%">
                             <strong>Images </strong>
                             <div class="images">
                                 @foreach ($service->images as $image)
@@ -74,7 +90,7 @@
                                     </div>
                                 @endforeach
                             </div>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>

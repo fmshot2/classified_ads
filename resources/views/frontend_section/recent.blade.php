@@ -25,7 +25,7 @@
                                 </div>
                                 <ul class="d-flex flex-row justify-content-between info">
                                     <li>
-                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$recentService->likes->count()}} Likes
+                                        <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$recentService->likes->count()}} Like{{$recentService->likes->count() > 1 ? 's' : ''}}
                                     </li>
                                     <li>
                                         <a class="pull-right" href="{{route('serviceDetail', $recentService->slug)}}">

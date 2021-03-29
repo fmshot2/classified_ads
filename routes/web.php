@@ -29,11 +29,16 @@ Route::post('create_agent', 'AuthController@create_agent');
 Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg_page')->name('agent_Complete_Reg');
 Route::post('/agent/agent_Complete_Reg', 'AuthController@agent_save_complete_reg')->name('agent_Complete_Reg');
 
+//  Last point of Agent Reg. This involves no payment
+Route::post('/agent/agent_Complete_Reg', 'OldCodeController@agent_save_complete_reg')->name('agent_Complete_Reg2');
+
+
 
 Route::get('get-tourist-sites/{state}', 'OperationalController@getTouristSites')->name('gettouristsites');
 
 
 // Route::middleware(['auth:agent'])->group(function () {
+
     Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
     Route::get('/agent/referal/all', 'AgentController@allReferals')->name('agent.referal.all');
     Route::get('/agent/profile/', 'AgentController@viewProfile')->name('agent.profile');
@@ -90,9 +95,11 @@ Route::get( '/requestbadge/{id}',  'BadgeController@requestbadge');
 Route::post( '/requestbadge/{id}',  'BadgeController@requestbadge')->name('badge.request');
 Route::post( '/user-feedback',  'OperationalController@feedbackform')->name('feedback.form');
 
-Route::get('email', function () {
-    return new App\Mail\UserRegistered();
-});
+Route::get('/benefits-of-efcontact','OperationalController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
+
+// Route::get('email', function () {
+//     return new App\Mail\UserRegistered();
+// });
 
 
 Route::get('/allfeat', 'OperationalController@getfeatservices');
@@ -129,6 +136,7 @@ Route::get('/advertisement', 'OperationalController@advertisement')->name('adver
 
 Route::post('/store_contact_form', 'ContactController@store_contact_form')->name('store_contact_form');
 Route::post('/store_advert_form', 'AdvertController@store_advert_form')->name('store_advert_form');
+Route::post('/store_advert_request_form', 'AdvertRequestsFormController@store_advert_request_form')->name('store_advert_request_form');
 
 Route::get('/all-featured-sellers', 'ServiceController@allFeaturedSellers')->name('allSellers');
 
@@ -181,12 +189,24 @@ Route::get('/email/verify', function () {
     return view('auth.verify');
 })->middleware('auth');
 Route::get('/home', 'AuthController@loginformail')->name('loginformail');
+App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail
 */
+Route::post('/createUser2', 'OldCodeController@createUser2')->name('createUser2');
+
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::post('/register2', 'AuthController@createUser')->name('register2');
+//original payment and registration with gtpay
 Route::post('/register', 'AuthController@pay_with_gtpay')->name('register');
+//end original payment and registration with gtpay
+
+Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::post('/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
 Route::post('/agent/register', 'AuthController@createAgent')->name('agent.register');
+Route::post('/agent/register2', 'OldCodeController@createAgent')->name('agent.register2');
+
 Route::get('/login', 'AuthController@showLogin')->name('login');
 Route::get('/agent_Login', 'AuthController@show_agent_Login')->name('show_agent_Login');
 Route::post('/agent_Login', 'AuthController@agent_login')->name('show_agent_Login');
@@ -224,7 +244,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
 
         Route::get('/service/add', 'SellerController@createService')->name('seller.service.create');
         Route::get('/service/badges', 'BadgeController@badges')->name('seller.service.badges');
-        Route::post('/service/createpay', 'ServiceController@createpay');
+        Route::post('/service/createpay', 'ServiceController@createpay')->name('createpaypaystack');
         Route::post('/service/createpay4Advert', 'BadgeController@createpay4Advert');
         Route::get('/service/adverts', 'BadgeController@adverts')->name('seller.service.adverts');
 
@@ -237,6 +257,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/notification/unread', 'SellerController@unreadNotification')->name('seller.notification.unread');
         Route::get('/notification/all', 'SellerController@allNotification')->name('seller.notification.all');
         Route::get('/notification/{slug}', 'SellerController@viewNotification')->name('seller.notification.view');
+        Route::get('/notifications/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('seller.notification.markallasread');
 
         Route::get('/profile/', 'SellerController@viewProfile')->name('seller.profile');
 
@@ -340,13 +361,17 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
 
     Route::get('/admin/dashboard/service-providers', 'AuthController@seller')->name('admin.seller');
+    Route::get('/admin/dashboard/all-agents', 'AuthController@allagents')->name('admin.allagents');
     Route::get('/admin/dashboard/service-seekers', 'AuthController@buyer')->name('admin.buyer');
     Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');
+    Route::get('/activate_agent/{id}', 'AdminController@activate_agent')->name('admin.activate.agent');
 
     Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
 
     Route::get('/admin/notification/all', 'AdminController@allNotification')->name('admin.notification.all');
+    Route::post('/admin/notification/general/send', 'NotificationController@GeneralNofications')->name('admin.notification.general.send');
     Route::post('/admin/notification/send', 'AdminController@sendNotification')->name('admin.notification.send');
+    Route::get('/admin/notification/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('admin.notification.markallasread');
 
     Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
 
@@ -411,20 +436,21 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('seller/service/badges/badger','BadgeController@getBadgeList')->name('fff');
     ///seller/service/admin/get-badge-list/2 404 (Not Found)
 
-    Route::get('admin/usersfeedback','AdminController@usersfeedback')->name('admin.users.feedback');
-    Route::get('admin/userfeedback/{id}','AdminController@userfeedback')->name('admin.user.feedback');
-    Route::put('admin/userfeedback/treat/{id}','AdminController@treatfeedback')->name('admin.user.feedback.treat');
-    Route::get('admin/userfeedback/delete/{id}','AdminController@feedbackDelete')->name('admin.user.feedback.delete');
+    Route::get('/admin/usersfeedback','AdminController@usersfeedback')->name('admin.users.feedback');
+    Route::get('/admin/userfeedback/{id}','AdminController@userfeedback')->name('admin.user.feedback');
+    Route::put('/admin/userfeedback/treat/{id}','AdminController@treatfeedback')->name('admin.user.feedback.treat');
+    Route::get('/admin/userfeedback/delete/{id}','AdminController@feedbackDelete')->name('admin.user.feedback.delete');
 
 
     // PAGES CONTENTS TABLE
-    Route::get('admin/pages-contents', 'OperationalController@pagescontents')->name('admin.pagescontents');
-    Route::post('admin/pages-contents/privacy', 'OperationalController@savePrivacyPolicy')->name('admin.pagescontents.save.privacy');
-    Route::post('admin/pages-contents/about', 'OperationalController@saveAboutUs')->name('admin.pagescontents.save.aboutus');
-    Route::post('admin/pages-contents/benefitsofefc', 'OperationalController@saveBenefitsofEfcontact')->name('admin.pagescontents.save.benefitsofefc');
-    Route::post('admin/pages-contents/termofuse', 'OperationalController@saveTermOfUse')->name('admin.pagescontents.save.termofuse');
-
-    Route::get('benefits-of-efcontact','OperationalController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
+    Route::get('/admin/pages-contents', 'PageContentController@pagescontents')->name('admin.pagescontents');
+    Route::post('/admin/pages-contents/privacy', 'PageContentController@savePrivacyPolicy')->name('admin.pagescontents.save.privacy');
+    Route::post('/admin/pages-contents/about', 'PageContentController@saveAboutUs')->name('admin.pagescontents.save.aboutus');
+    Route::post('/admin/pages-contents/about-section-one', 'PageContentController@saveAboutUsSection1')->name('admin.pagescontents.saveAboutUsSection1');
+    Route::post('/admin/pages-contents/about-section-two', 'PageContentController@saveAboutUsSection2')->name('admin.pagescontents.saveAboutUsSection2');
+    Route::post('/admin/pages-contents/about-section-three', 'PageContentController@saveAboutUsSection3')->name('admin.pagescontents.saveAboutUsSection3');
+    Route::post('/admin/pages-contents/benefitsofefc', 'PageContentController@saveBenefitsofEfcontact')->name('admin.pagescontents.save.benefitsofefc');
+    Route::post('/admin/pages-contents/termofuse', 'PageContentController@saveTermOfUse')->name('admin.pagescontents.save.termofuse');
 
 
     //accountant routes
@@ -439,6 +465,8 @@ Route::post ( '/searchonservices',  'ServiceController@searchonservices')->name(
 
 // Route::get ( '/searchresults',  'ServiceController@search')->name('search3');
 Route::get ( '/searchresults',  'ServiceController@homepage_search')->name('search3');
+
+Route::get('/download-ad-brochure', 'OperationalController@downloadAdBrochure')->name('download.ad.brochure');
 
 
 
@@ -528,7 +556,7 @@ View::composer(['layouts.buyer_partials.navbar', 'layouts.buyer_partials.sidebar
 });
 
 
-//Auth::routes();
+// Auth::routes();
 
 
 
