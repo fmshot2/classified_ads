@@ -19,12 +19,13 @@ use App\Service;
 */
 
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
-//Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
+// Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
+Route::get('ajaxSearchResult/{slug}', 'OperationalController@ajaxSearchResult');
 
 //Agent Middleware starts here
 Route::post('create_user', 'AuthController@create_user');
 Route::post('create_agent', 'AuthController@create_agent');
-    Route::post('/agent_profile/{id}', 'AuthController@update_Profile_4_agent')->name('agent.profile.update');
+Route::post('/agent_profile/{id}', 'AuthController@update_Profile_4_agent')->name('agent.profile.update');
 
 
 
