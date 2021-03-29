@@ -124,7 +124,6 @@
 
 						<div class="tab-pane" id="password">
 							<form class="form-horizontal form-element" method="POST"  enctype="multipart/form-data">
-							<!-- <form class="form-horizontal form-element" method="POST" action="{{route('profile.update.password', Auth::id() )}}" enctype="multipart/form-data"> -->
 								{{ csrf_field() }}
 
 								<div class="form-group">
