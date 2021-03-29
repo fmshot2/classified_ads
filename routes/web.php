@@ -552,6 +552,15 @@ Route::middleware(['superadmin'])->group(function () { //SuperAdmin Middleware p
     Route::get('/admin/add-accountant', 'AccountantController@add_accountant')->name('add-accountant');
     Route::post('/admin/submit-accountant', 'AccountantController@submit_accountant')->name('submit_accountant');
 
+    //add admin
+    Route::get('/admin/add-admin', 'AdminController@add_admin')->name('admin.add.admin');
+    Route::post('/admin/submit-admin', 'AdminController@submit_admin')->name('admin.submit.admin');
+    Route::get('/admin/all-admins', 'AdminController@allAdmins')->name('admin.all.admins');
+
+     //add cmo
+    Route::get('/admin/add-cmo', 'AdminController@add_cmo')->name('admin.add.cmo');
+    Route::post('/admin/submit-cmo', 'AdminController@submit_cmo')->name('admin.submit.cmo');
+    Route::get('/admin/all-cmos', 'AdminController@allCmos')->name('admin.all.cmos');
     // Advertisement
     // Route::get('/admin/sliders', 'AdminController@sliders')->name('admin.sliders');
     Route::get('/admin/sponsored/slider/{id}', 'OperationalController@get_advert_slider')->name('admin.advert.slider');
