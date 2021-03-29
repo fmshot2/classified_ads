@@ -640,4 +640,12 @@ class OperationalController extends Controller
 
     }
 
+
+
+    public function seekingWorkCreate(Request $request)
+    {
+
+    }
+
+
 }

@@ -46,7 +46,7 @@
             <div class="col-xs-12">
                 <div id="show_form" class="row clearfix">
                     <form action="{{route('service.save')}}" method="POST" class="" enctype="multipart/form-data" style="display: block;">@csrf
-                        <div id="service-details" class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
+                        <div style="display: none" id="service-details" class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
                             <div class="box box-default">
                                 <div class="box-header with-border">
                                     <i class="fa fa-plus"></i>
@@ -128,7 +128,7 @@
                             </div>
                         </div>
 
-                        <div id="seeking-work-details" class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
+                        <div style="display: block" id="seeking-work-details" class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
                             <div class="box box-default">
                                 <div class="box-header with-border">
                                     <i class="fa fa-plus"></i>
@@ -136,75 +136,193 @@
                                     <small class="text-danger">* please fill all astericked fields</small>
                                 </div>
                                 <div class="box-body">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                         <label class="form-label">Full Name </label><small class="text-danger">*</small>
-                                        <input readonly type="text" name="countdown" size="1" value="20" style="border: 0; padding: 0;margin-right: -25px"> chars left
-                                        <input id='name' type="text" required name="name" value="{{ old('name') }}" class="form-control" placeholder="Enter the name of the service you want to offer (e.g. Hair Stylist)" onkeydown="limitText(this.form.name,this.form.countdown,20);" onkeyup='limitText(this.form.name,this.form.countdown,20);'>
+                                        <input id='name' type="text" required name="name" value="{{ old('name') }}" class="form-control" placeholder="Enter your fullname here (e.g. James Tapo)">
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="">Description</label>
-                                            <textarea id='description' name="description" class="form-control" placeholder="Tell us about your service.">{{ old('description') }}</textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Phone</label><small class="text-danger">*</small>
                                             <input id="phone" required type="number"  class="form-control" value="{{ old('phone') }}" placeholder="Enter your phone number (e.g. 09023456789)" name="phone" value=" {{ Auth::user()->phone }}">
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label" id="servicePriceRange">How much do you want to charge for this service?</label>
-                                            <input id="min_price" type="text" value="{{ old('min_price') }}" placeholder="Enter the amount you want on this service (e.g. 20000)" name="min_price" class="form-control">
+                                            <label for="">Job Title</label><small class="text-danger">*</small>
+                                            <input id='name' type="text" name="job_title" value="{{ old('job_title') }}" class="form-control" placeholder="What type of job are you looking for? (e.g. Accounting Finance)" required>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12" id="negotiableChBox">
-                                        <div class="form-check">
-                                            <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable">
-                                            <label class="form-check-label" for="negotiable"> Is this service negotiable?</label>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">How many years of experience do you have on this field?</label><small class="text-danger">*</small>
+                                            <input type="number" name="job_experience" value="{{ old('job_experience') }}" min="0" value="0" class="form-control" placeholder="0" required>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Job Type</label><small class="text-danger">*</small>
+                                            <select class="form-control" name="job_type" value="{{ old('job_type') }}" required>
+                                                <option value="">-- Select Job Type --</option>
+                                                <option value="full_time">Full Time</option>
+                                                <option value="part_time">Part Time</option>
+                                                <option value="temporary">Temporary</option>
+                                                <option value="contract">Contract</option>
+                                                <option value="internship">Internship</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Still Studying</label>
+                                            <select class="form-control" name="still_studying" value="{{ old('still_studying') }}" required>
+                                                <option value="no" selected>No</option>
+                                                <option value="yes">Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Gender</label><small class="text-danger">*</small>
+                                            <select class="form-control" name="gender" value="{{ old('gender') }}" required>
+                                                <option value="">-- Select Job Type --</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Age</label><small class="text-danger">*</small>
+                                            <input type="number" name="age" class="form-control" min="0" value="{{ old('age') }}" placeholder="Enter your age (e.g. 24)" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Marital Status</label>
+                                            <select class="form-control" name="marital_status" value="{{ old('marital_status') }}">
+                                                <option value="">-- Select Job Type --</option>
+                                                <option value="single">Single</option>
+                                                <option value="married">Married</option>
+                                                <option value="divorced">Divorced</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Employment Status</label><small class="text-danger">*</small>
+                                            <select class="form-control" name="employment_status" value="{{ old('employment_status') }}">
+                                                <option value="unemployed">Unemployed</option>
+                                                <option value="employed">Employed</option>
+                                                <option value="self_employed">Self-employed</option>
+                                                <option value="retired_pensioner">Retired/Pensioner</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Highest Qualification</label><small class="text-danger">*</small>
+                                            <select class="form-control" name="highest_qualification" value="{{ old('highest_qualification') }}">
+                                                <option value="self_employed">High School (S.S.C.E)</option>
+                                                <option value="degree">Degree</option>
+                                                <option value="diploma">Diploma</option>
+                                                <option value="hnd">HND</option>
+                                                <option value="ond">OND</option>
+                                                <option value="mba_msc">MBA/MSc</option>
+                                                <option value="mbbs">MBBS</option>
+                                                <option value="mphil_phd">MPhil/PhD</option>
+                                                <option value="nce">N.C.E</option>
+                                                <option value="others">Others</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Expected Salary</label><small class="text-danger">*</small>
+                                            <select class="form-control" name="expected_salary" value="{{ old('expected_salary') }}">
+                                                <option value="self_employed">Below	&#8358;50,000</option>
+                                                <option value="degree">&#8358;50,000 - &#8358;75,000</option>
+                                                <option value="diploma">&#8358;75,000 - &#8358;100,000</option>
+                                                <option value="hnd">&#8358;100,000 - 125,000</option>
+                                                <option value="ond">&#8358;125,000 - &#8358;150,000</option>
+                                                <option value="mba_msc">&#8358;150,000 - &#8358;200,000</option>
+                                                <option value="mbbs">&#8358;200,000 - &#8358;300,000</option>
+                                                <option value="mphil_phd">&#8358;300,000 - &#8358;500,000</option>
+                                                <option value="nce">Above &#8358;500,000</option>
+                                                <option value="others">Others</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label">Location</label><small class="text-danger">*</small>
-                                            <select class="form-control" required id="state"  name="state">
+                                            <select class="form-control" required id="user_state"  name="state">
                                                 <option value="">-- Select State --</option>
                                                 @if(isset($states))
                                                     @foreach($states as $state)
-                                                        <option id="state" value="{{$state->name}}"> {{ $state->name }}  </option>
+                                                        <option value="{{$state->name}}"> {{ $state->name }}  </option>
                                                     @endforeach
                                                 @endif
                                             </select>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label">Local Government</label><small class="text-danger">*</small>
-                                            <select class="form-control" id="city" name="city" required>
-                                                <option disabled selected>- Select a State -</option>
+                                            <select class="form-control" id="user_lga" name="user_lga" required>
+                                                <option disabled selected>- 👈 Select a State -</option>
                                             </select>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-8">
                                         <div class="form-group">
                                             <label class="form-label">Address</label>
                                             <input id="address" type="text"  value="{{ old('address') }}" class="form-control" name="address" placeholder="Enter your address here.">
                                         </div>
                                     </div>
 
-                                    <div class="form-group" style="visibility: hidden">
-                                        <label for=""></label>
-                                        <textarea name="nearby" class="form-control"></textarea>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="">Work Experience</label>
+                                            <textarea id='description' name="description" class="form-control" placeholder="Tell us about your service.">{{ old('description') }}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="">Education</label><small class="text-danger">*</small>
+                                            <textarea id='description' name="description" class="form-control" placeholder="Tell us about your service.">{{ old('description') }}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="">Certifications</label>
+                                            <textarea id='description' name="description" class="form-control" placeholder="Tell us about your service.">{{ old('description') }}</textarea>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="">Skills</label><small class="text-danger">*</small>
+                                            <textarea id='description' name="skills" class="form-control" placeholder="Tell us about your service.">{{ old('description') }}</textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -216,7 +334,7 @@
                                     <div class="form-group file-upload" id="file-upload1">
                                         <label>Upload Image</label>
                                         <small class="text-danger">*</small> <br>
-                                        <small class="text-info">Choose a thumbnail for your service.</small>
+                                        <small class="text-info">Choose a profile picture for your CV.</small>
                                         <div class="image-box text-center">
                                               <p>Select an Image</p>
                                               <img src="" alt="">
@@ -250,16 +368,9 @@
                                     <div class="form-group">
                                         <div class="form-check">
                                             <input id="featured" class="form-check-input" type="checkbox" value="1" name="is_featured" onclick="featuredCheckbbox()">
-                                            <label class="form-check-label" for="featured"> Do you want this service featured?  <small class="infoLinkNote">(<a data-toggle="modal" data-target="#featuredInfoModal">How it works?</a>)</small></label>
+                                            <label class="form-check-label" for="featured"> Do you want this CV featured?  <small class="infoLinkNote">(<a data-toggle="modal" data-target="#featuredInfoModal">How it works?</a>)</small></label>
                                         </div>
                                         <p id="featuredText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
-                                    </div>
-
-                                    <div class="form-group" id="youtubeLink">
-                                        <label for="" id="youtubeLink">Video (Youtube) <small>(Optional)</small></label>
-                                        <input type="text" class="form-control" name="video_link">
-                                        <div class="help-info">Youtube video Link</div>
-
                                     </div>
                                 </div>
 
@@ -270,7 +381,7 @@
                                     </a>
 
                                     <button id="save_btn"  class="btn btn-warning btn-submit_service btn-lg m-t-15 waves-effect">
-                                        <span>Next </span>
+                                        <span>Create </span>
                                         <i class="fa fa-arrow-right"></i>
                                     </button>
                                 </div>
@@ -318,7 +429,6 @@
 
 <script type="text/javascript">
     $('#state').on('change',function(){
-        console.log('ddd');
         var stateID = $(this).val();
         if(stateID){
             $.ajax({
@@ -341,6 +451,33 @@
             });
         }else{
             $("#city").empty();
+        }
+
+    });
+
+    $('#user_state').on('change',function(){
+        var stateID = $(this).val();
+        if(stateID){
+            $.ajax({
+            type:"GET",
+                //url:"{{url('qqq')}}"+stateID,
+                url: '../../api/get-city-list/'+stateID,
+                success:function(res){
+                    if(res){
+                    console.log(res);
+                    console.log(stateID);
+                    $("#user_lga").empty();
+                    $.each(res,function(key,value){
+                    $("#user_lga").append('<option value="'+value+'">'+value+'</option>');
+                    });
+
+                }else{
+                    $("#user_lga").empty();
+                }
+                }
+            });
+        }else{
+            $("#user_lga").empty();
         }
 
     });
@@ -372,7 +509,7 @@
 </script>
 
     <script type="text/javascript">
-        document.getElementById('seeking-work-details').style.display = 'none'
+        // document.getElementById('seeking-work-details').style.display = 'none'
 
         var checkBox = document.getElementById("featured");
         var text = document.getElementById("featuredText");

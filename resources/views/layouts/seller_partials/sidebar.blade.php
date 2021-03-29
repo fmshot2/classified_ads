@@ -27,18 +27,18 @@
           </a>
         </li>
 
-        <li class="treeview {{ url()->current() == route('seller.service.create') ? 'active' : '' }} {{ url()->current() == route('seller.service.all') ? 'background-color: #cc8a19' : '' }}">
-          <a href="#">
-            <i class="fa fa-home"></i>
-            <span> My Services </span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href=" {{ route('seller.service.create') }} "><i class="fa fa-circle-o"></i> Create New Service</a></li>
-            <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> My Services </a></li>
-          </ul>
+        <li class="treeview {{ url()->current() == route('seller.service.all') ? 'background-color: #cc8a19' : '' }}">
+            <a href="#">
+                <i class="fa fa-home"></i>
+                <span> My Services </span>
+                <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href=" {{ route('seller.service.create') }} "><i class="fa fa-circle-o"></i> Create New Service</a></li>
+                <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> My Services </a></li>
+            </ul>
         </li>
 
 
