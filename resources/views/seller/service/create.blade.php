@@ -46,7 +46,7 @@
             <div class="col-xs-12">
                 <div id="show_form" class="row clearfix">
                     <form action="{{route('service.save')}}" method="POST" class="" enctype="multipart/form-data" style="display: block;">@csrf
-                        <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
+                        <div id="service-details" class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
                             <div class="box box-default">
                                 <div class="box-header with-border">
                                     <i class="fa fa-plus"></i>
@@ -57,6 +57,88 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                         <label class="form-label">Service Name </label><small class="text-danger">*</small>
+                                        <input readonly type="text" name="countdown" size="1" value="20" style="border: 0; padding: 0;margin-right: -25px"> chars left
+                                        <input id='name' type="text" required name="name" value="{{ old('name') }}" class="form-control" placeholder="Enter the name of the service you want to offer (e.g. Hair Stylist)" onkeydown="limitText(this.form.name,this.form.countdown,20);" onkeyup='limitText(this.form.name,this.form.countdown,20);'>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="">Description</label>
+                                            <textarea id='description' name="description" class="form-control" placeholder="Tell us about your service.">{{ old('description') }}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="">Phone</label><small class="text-danger">*</small>
+                                            <input id="phone" required type="number"  class="form-control" value="{{ old('phone') }}" placeholder="Enter your phone number (e.g. 09023456789)" name="phone" value=" {{ Auth::user()->phone }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label" id="servicePriceRange">How much do you want to charge for this service?</label>
+                                            <input id="min_price" type="text" value="{{ old('min_price') }}" placeholder="Enter the amount you want on this service (e.g. 20000)" name="min_price" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="negotiableChBox">
+                                        <div class="form-check">
+                                            <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable">
+                                            <label class="form-check-label" for="negotiable"> Is this service negotiable?</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Location</label><small class="text-danger">*</small>
+                                            <select class="form-control" required id="state"  name="state">
+                                                <option value="">-- Select State --</option>
+                                                @if(isset($states))
+                                                    @foreach($states as $state)
+                                                        <option id="state" value="{{$state->name}}"> {{ $state->name }}  </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Local Government</label><small class="text-danger">*</small>
+                                            <select class="form-control" id="city" name="city" required>
+                                                <option disabled selected>- Select a State -</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Address</label>
+                                            <input id="address" type="text"  value="{{ old('address') }}" class="form-control" name="address" placeholder="Enter your address here.">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="visibility: hidden">
+                                        <label for=""></label>
+                                        <textarea name="nearby" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="seeking-work-details" class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
+                            <div class="box box-default">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-plus"></i>
+                                    <h2 class="box-title"><strong>Create Your CV's Page</strong></h2>
+                                    <small class="text-danger">* please fill all astericked fields</small>
+                                </div>
+                                <div class="box-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                        <label class="form-label">Full Name </label><small class="text-danger">*</small>
                                         <input readonly type="text" name="countdown" size="1" value="20" style="border: 0; padding: 0;margin-right: -25px"> chars left
                                         <input id='name' type="text" required name="name" value="{{ old('name') }}" class="form-control" placeholder="Enter the name of the service you want to offer (e.g. Hair Stylist)" onkeydown="limitText(this.form.name,this.form.countdown,20);" onkeyup='limitText(this.form.name,this.form.countdown,20);'>
                                         </div>
@@ -184,7 +266,7 @@
                                 <div class="body">
                                     <a href=" {{ route('seller.service.all') }}" class="btn btn-danger btn-lg m-t-15 waves-effect">
                                         <i class="fa fa-arrow-left"></i>
-                                        <span> Bacj</span>
+                                        <span> Back</span>
                                     </a>
 
                                     <button id="save_btn"  class="btn btn-warning btn-submit_service btn-lg m-t-15 waves-effect">
@@ -290,6 +372,8 @@
 </script>
 
     <script type="text/javascript">
+        document.getElementById('seeking-work-details').style.display = 'none'
+
         var checkBox = document.getElementById("featured");
         var text = document.getElementById("featuredText");
         text.style.display = "none";
@@ -314,11 +398,15 @@
             document.getElementById("youtubeLink").style.display = 'none';
             document.getElementById("negotiableChBox").style.display = 'none';
             document.getElementById("servicePriceRange").innerText = 'Salary Range?';
+            document.getElementById('seeking-work-details').style.display = 'block'
+            document.getElementById('service-details').style.display = 'none'
         }
         else {
             document.getElementById("youtubeLink").style.display = 'block';
             document.getElementById("negotiableChBox").style.display = 'block';
             document.getElementById("servicePriceRange").innerText = 'How much do you want to charge for this service?';
+            document.getElementById('seeking-work-details').style.display = 'none'
+            document.getElementById('service-details').style.display = 'block'
         }
 
         if(categoryID){
@@ -348,48 +436,6 @@
 
 
     <script type="text/javascript">
-    //   Dropzone.options.dropzone =
-    //   {
-    //     maxFilesize: 12,
-    //     renameFile: function (file) {
-    //       var dt = new Date();
-    //       var time = dt.getTime();
-    //       return time + file.name;
-    //     },
-    //     acceptedFiles: ".jpeg,.jpg,.png,.gif",
-    //     addRemoveLinks: true,
-    //     timeout: 50000,
-    //     removedfile: function (file) {
-    //       var name = file.upload.filename;
-    //       $.ajax({
-    //         headers: {
-    //           'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-    //         },
-    //         type: 'POST',
-    //         url: '{{ url("delete") }}',
-    //         data: {filename: name},
-    //         success: function (data) {
-    //           console.log("File has been successfully removed!!");
-    //         },
-    //         error: function (e) {
-    //           console.log(e);
-    //         }
-    //       });
-    //       var fileRef;
-    //       return (fileRef = file.previewElement) != null ?
-    //       fileRef.parentNode.removeChild(file.previewElement) : void 0;
-    //     },
-
-    //     success: function (file, response) {
-    //       console.log(response);
-    //     },
-    //     error: function (file, response) {
-    //       return false;
-    //     }
-    //   };
-
-
-
       function limitText(limitField, limitCount, limitNum) {
           if (limitField.value.length > limitNum) {
             limitField.value = limitField.value.substring(0, limitNum);
