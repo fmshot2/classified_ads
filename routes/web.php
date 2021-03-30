@@ -28,7 +28,7 @@ Route::post('create_agent', 'AuthController@create_agent');
 
 
 
-Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg_page')->name('agent_Complete_Reg_page');
+Route::get('/agent/agent_Complete_Reg', 'AuthController@agent_Complete_Reg_page')->name('agent_Complete_Reg_mail');
 Route::post('/agent/agent_Complete_Reg_payment', 'AuthController@agent_save_complete_reg')->name('agent_Complete_Reg');
 
 
@@ -270,6 +270,8 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/notifications/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('seller.notification.markallasread');
 
         Route::get('/profile/', 'SellerController@viewProfile')->name('seller.profile');
+        // Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
+
 
 
         Route::get('/message/unread', 'SellerController@unreadMessage')->name('seller.message.unread');

@@ -287,7 +287,7 @@
                                 </div>
 
                                 <!-- Circles which indicates the steps of the form: -->
-                                <div style="text-align:center;margin-top:30px;margin-bottom:20px;">
+                            <!--     <div style="text-align:center;margin-top:30px;margin-bottom:20px;">
                                     <span class="step"></span>
                                     <span class="step"></span>
                                 </div>
@@ -299,7 +299,7 @@
                                         <button type="submit" id="submitBtn" class="btn btn-md btn-warning text-white">Click To Make Payment</button>
                                     </div>
                                 </div>
-                            </form>
+                            </form> -->
                             @livewire('agent.register', ['agent_email' => $agent_email, 'agent_name' => $agent_name])
 
                     </div>

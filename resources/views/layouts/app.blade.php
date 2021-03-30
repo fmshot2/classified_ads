@@ -120,6 +120,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" id="two-tab" data-toggle="tab" href="#agentRegister" role="tab" aria-controls="one" aria-selected="false" style="margin-left: 3px">Request Form</a>
                                     </li>
+                                     <li class="nav-item">
+                                        <a class="nav-link" id="three-tab" data-toggle="tab" href="#agentBenefit" role="tab" aria-controls="three" aria-selected="false" style="margin-left: 3px">Agent Benefits</a>
+                                    </li>
                                 </ul>
                                 <div class="tab-content" id="carTabContent">
                                     <div class="tab-pane fade active show" id="aboutAgent" role="tabpanel" aria-labelledby="one-tab">
@@ -219,6 +222,18 @@
                                                         </div>
                                                     </div>
                                                 </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                         <div class="tab-pane fade" id="agentBenefit" role="tabpanel" aria-labelledby="three-tab">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                            {!! $pages_contents_page == 0 ? $pages_contents->benefit_of_efcontact : ''  !!}                                                    
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

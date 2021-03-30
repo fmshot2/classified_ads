@@ -3,9 +3,9 @@
 ## <strong>Here are your details</strong>
 
 <p><strong>Full Name: </strong> {{ $name ? $name : 'Name not provided!' }}</p>
-<p><strong>Email: </strong> {{ $email ? $email : 'Name not provided!' }}</p>
+<p><strong>Email: </strong> {{ $email ? $email : 'Email not provided!' }}</p>
 
-@component('mail::button', ['url' => route('agent_Complete_Reg_page', ['email'=> $email])])
+@component('mail::button', ['url' => route('agent_Complete_Reg_mail', ['email'=> $email])])
 Click here to complete your agent registeration
 @endcomponent
 
