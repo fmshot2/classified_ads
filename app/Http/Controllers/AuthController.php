@@ -656,7 +656,7 @@ class AuthController extends Controller
         return view('auth/register', compact('states', 'referParam'));
     }
 
-    public function login(Request $request)
+   public function login(Request $request)
     {
         $request->validate([
             'email'    => ['required', 'string', 'email', 'max:255'],
@@ -708,31 +708,12 @@ class AuthController extends Controller
                     'alert-type' => 'success'
                 );
                 return redirect()->route('admin.dashboard')->with($success_notification);
-            } else if (Auth::user()->role == 'superadmin') {
-                $success_notification = array(
-                    'message' => 'You are successfully logged in!',
-                    'alert-type' => 'success'
-                );
-                return redirect()->route('admin.dashboard')->with($success_notification);
-            } else if (Auth::user()->role == 'cmo') {
-                $success_notification = array(
-                    'message' => 'You are successfully logged in!',
-                    'alert-type' => 'success'
-                );
-                return redirect()->route('admin.dashboard')->with($success_notification);
-            } else if (Auth::user()->role == 'accountant') {
-                $success_notification = array(
-                    'message' => 'You are successfully logged in!',
-                    'alert-type' => 'success'
-                );
-                return redirect()->route('accountant.dashboard')->with($success_notification);
             } else {
-                $success_notification = array(
-                    'message' => 'You are successfully logged in!',
-                    'alert-type' => 'success'
-                );
-                return redirect()->route('home')->with($success_notification);
-            }
+            	$success_notification = array(
+            		'message' => 'You are successfully logged in!',
+            		'alert-type' => 'success'
+            	);
+            	return redirect()->route('home')->with($success_notification);            }
         }
 
         $success_notification = array(
@@ -741,7 +722,7 @@ class AuthController extends Controller
         );
         session()->flash('fail', 'Incorrect username or password');
 
-        return redirect()->route('login')->with($success_notification);
+        return redirect()->route('login')->with($success_notification);     
     }
 
     public function showLogin(Request $request)
