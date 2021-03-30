@@ -1,8 +1,6 @@
-
 @extends('layouts.app')
 
-@section('title', $serviceDetail->name . ' | ')
-
+@section('title', $seekingWorkDetail->job_title . ' | ')
 
 @section('content')
 
@@ -77,6 +75,10 @@
     .nav-link:hover #liketab{
         color: #fff !important;
     }
+    .properties-description{
+        text-transform: capitalize;
+        font-family: "Poppins-Regular";
+    }
 
 </style>
 
@@ -84,21 +86,11 @@
 <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/servicedetail.jpg')}})">
     <div class="container">
         <div class="page-name">
-            @if(isset($ww2))
-                <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px; ">
-                    <div class="toast bg-warning" style="position: absolute; top: 0; right: 0; border-radius: 8px;">
-                        <div class="toast-body">
-                            Hello, world! This is a toast message.
-                        </div>
-                    </div>
-                </div>
-            @endif
-
             <div class="sub-banner-text-content">
-                <h1>Service Detail</h1>
+                <h1>Job Applicant</h1>
                 <ul>
                     <li><a href="{{route('home')}}">Home</a></li>
-                    <li><span>/</span>{{ $serviceDetail->name }}</li>
+                    <li><span>/</span>{{ $seekingWorkDetail->job_title }}</li>
                 </ul>
             </div>
         </div>
@@ -130,11 +122,11 @@
                             <div class="heading-properties-2">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h3 class="service-name">{{$serviceDetail->name}}</h3>
-                                        <p><span><i class="fa fa-map-marker"></i> Location:</span> <span style="color: #ca8309" class="tt-capitalize" id="userAddress">{{$serviceDetail->state}}</span></p>
-                                        <p><span><i class="fa fa-user"></i> Service Provider: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->user->name}}</span></p>
-                                        <p><span><i class="fa fa-clock-o"></i> Posted on: </span><span style="color: #ca8309"> {{ $serviceDetail->created_at->diffForHumans() }}</span></p>
-                                        <p><span><i class="fa fa-eye"></i> Views: </span><span style="color: #ca8309"> {{ $serviceDetail->views->count() }}</span></p>
+                                        <h3 class="service-name">{{$seekingWorkDetail->job_title}}</h3>
+                                        <p><span><i class="fa fa-map-marker"></i> Location:</span> <span style="color: #ca8309" class="tt-capitalize" id="userAddress">{{$seekingWorkDetail->user_state}}</span></p>
+                                        <p><span><i class="fa fa-user"></i> Service Provider: </span><span style="color: #ca8309" class="tt-capitalize"> {{$seekingWorkDetail->user->name}}</span></p>
+                                        <p><span><i class="fa fa-clock-o"></i> Posted on: </span><span style="color: #ca8309"> {{ $seekingWorkDetail->created_at->diffForHumans() }}</span></p>
+                                        <p><span><i class="fa fa-eye"></i> Views: </span><span style="color: #ca8309"> {{ $seekingWorkDetail->views->count() }}</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -150,14 +142,14 @@
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 4; $i++)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endfor
@@ -171,14 +163,14 @@
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 3; $i++)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endfor
@@ -192,14 +184,14 @@
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 2; $i++)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endfor
@@ -213,7 +205,7 @@
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endforeach
@@ -228,7 +220,7 @@
                                             @for ($i = 1; $i <= 4; $i++)
                                                 <li class="glide__slide">
                                                     <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                        <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                        <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                     </a>
                                                 </li>
                                             @endfor
@@ -244,7 +236,7 @@
                         <div class="tabbing tabbing-box tb-2 mb-40 col-sm-12">
                             <ul class="nav nav-tabs" id="carTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active show" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="one" aria-selected="false">Description</a>
+                                    <a class="nav-link active show" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="one" aria-selected="false">Applicant Details</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="seven-tab" data-toggle="tab" href="#seven" role="tab" aria-controls="six" aria-selected="true">Contact Details</a>
@@ -253,46 +245,46 @@
                                     <a class="nav-link" id="five-tab" data-toggle="tab" href="#five" role="tab" aria-controls="five" aria-selected="true">Location</a>
                                 </li> --}}
                                 <li class="nav-item">
-                                    {{-- <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true" >Like{{  $service_likes > 1 ? 's' : '' }}
-                                        <span class="pull-right-container">
-                                            <small id="likeTab" class="label pull-right" style="background-color: #f85858">{{ $service_likes }}</small>
-                                        </span>
-                                    </a> --}}
-
-
-                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }}
-                                        (<span id="likeTab">{{ $service_likes != 0 ? $service_likes : '0'}}</span>)
+                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $seekingWorkDetail_likes > 1 ? 's' : '' }}
+                                        (<span id="likeTab">{{ $seekingWorkDetail_likes != 0 ? $seekingWorkDetail_likes : '0'}}</span>)
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="six-tab" data-toggle="tab" href="#six" role="tab" aria-controls="six" aria-selected="true">Similar Services</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="six" aria-selected="true">Client Feedback</a>
-                                    {{-- {{ $serviceDetail->comments->count() }} --}}
-                                </li>
                             </ul>
                             <div class="tab-content" id="carTabContent">
                                 <div class="tab-pane fade active show" id="one" role="tabpanel" aria-labelledby="one-tab">
                                     <div class="properties-description mb-50">
-                                        <h3 class="heading-2">
-                                            Description
-                                        </h3>
-                                        <p>{{$serviceDetail->description}}</p>
+                                        @if ($seekingWorkDetail->job_type)
+                                        <p><strong>Job Type: </strong>{{ $seekingWorkDetail->job_type }}</p>
+                                        @endif
+                                        @if ($seekingWorkDetail->gender)
+                                        <p><strong>Gender: </strong>{{ $seekingWorkDetail->gender }}</p>
+                                        @endif
+                                        @if ($seekingWorkDetail->highest_qualification)
+                                        <p><strong>Highest Qualification: </strong>{{ $seekingWorkDetail->highest_qualification }}</p>
+                                        @endif
+                                        @if ($seekingWorkDetail->employment_status)
+                                        <p><strong>Employment Status: </strong>{{ $seekingWorkDetail->employment_status }}</p>
+                                        @endif
+                                        @if ($seekingWorkDetail->work_experience)
+                                        <p><strong>Work Experience: </strong>{!! $seekingWorkDetail->work_experience !!}</p>
+                                        @endif
+                                        @if ($seekingWorkDetail->education)
+                                        <p><strong>Education: </strong>{!! $seekingWorkDetail->education !!}</p>
+                                        @endif
+                                        @if ($seekingWorkDetail->certifications)
+                                        <p><strong>Certification: </strong>{!! $seekingWorkDetail->certifications !!}</p>
+                                        @endif
+                                        @if ($seekingWorkDetail->marital_status)
+                                        <p><strong>Marital Status: </strong>{{ $seekingWorkDetail->marital_status }}</p>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="tab-pane fade " id="three" role="tabpanel" aria-labelledby="three-tab">
                                     <div class="property-details mb-40">
-                                        <h6 class="heading-2">This User has {{$service_likes}} like{{$service_likes > 1 ? 's' : ''}}</h6>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade " id="four" role="tabpanel" aria-labelledby="four-tab">
-                                    <div class="inside-properties mb-50">
-                                        <h3 class="heading-2">
-                                            Service Video
-                                        </h3>
-                                        <iframe src="https://www.youtube.com/embed/5e0LxrLSzok" allowfullscreen=""></iframe>
-                                        <iframe width="560" height="315" src="{{$serviceDetail->video_link}}" frameborder="0" allowfullscreen></iframe>
+                                        <h6 class="heading-2">This User has {{$seekingWorkDetail_likes}} like{{$seekingWorkDetail_likes > 1 ? 's' : ''}}</h6>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="six" role="tabpanel" aria-labelledby="six-tab">
@@ -306,7 +298,7 @@
                                                         <thead>
                                                             <tr>
                                                             <th>Image</th>
-                                                            <th>Service Name</th>
+                                                            <th>Applicant Name</th>
                                                             <th class="hedin-div">Location</th>
                                                             <th><span class="hedin-div">Likes</span></th>
                                                             </tr>
@@ -316,11 +308,11 @@
                                                                 @foreach($similarProducts as $similarProduct)
                                                                     <tr>
                                                                        <td class="image">
-                                                                            <a href="{{route('serviceDetail', $similarProduct->slug)}}"><img alt="{{$similarProduct->name}}" src="{{asset('uploads/services')}}/{{$similarProduct->service_image}}" class="img-fluid"></a>
+                                                                            <a href="{{route('job.applicant.detail', $similarProduct->slug)}}"><img alt="{{$similarProduct->name}}" src="{{asset('uploads/services')}}/{{$similarProduct->service_image}}" class="img-fluid"></a>
                                                                         </td>
                                                                         <td>
                                                                             <div class="inner">
-                                                                                <h5><a href="{{route('serviceDetail', $similarProduct->slug)}}">{{$similarProduct->name}}</a></h5>
+                                                                                <h5><a href="{{route('job.applicant.detail', $similarProduct->slug)}}">{{$similarProduct->name}}</a></h5>
                                                                                 <figure class="hedin-div"><i class="fa fa-map-marker"></i> {{$similarProduct->state}}, &nbsp; {{$similarProduct->city}}</figure>
                                                                                 <!--<div class="price-month">$ 27,000</div>-->
                                                                             </div>
@@ -345,27 +337,28 @@
                                 <div class="tab-pane fade " id="seven" role="tabpanel" aria-labelledby="seven-tab">
                                     <div class="properties-description mb-50">
                                         @guest
-                                            <p class="animate__animated animate__bounce">Please login to see this service provider's phone number!</p>
+                                            <p class="animate__animated animate__bounce">Please login to see this Applicant phone number!</p>
                                         @endguest
                                         @auth
                                             <p class="animate__animated animate__bounce">
-                                                <strong><i class="fa fa-phone"></i> Phone Number:</strong> <a class="btn btn-success" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px;">
-                                                     {{$serviceDetail->phone}}
+                                                <strong><i class="fa fa-phone"></i> Phone Number:</strong> <a class="btn btn-success" href="tel:{{$seekingWorkDetail->phone}}" style="border-radius: 50px;">
+                                                     {{$seekingWorkDetail->phone}}
                                                 </a>
                                             </p>
                                             <p class="animate__animated animate__bounce">
-                                                <strong><i class="fa fa-envelope-open"></i> E-mail Address:</strong> <a href="mailto:{{$serviceDetail->user->email}}"> {{$serviceDetail->user->email}}</a>
+                                                <strong><i class="fa fa-envelope-open"></i> E-mail Address:</strong> <a href="mailto:{{$seekingWorkDetail->user->email}}"> {{$seekingWorkDetail->user->email}}</a>
                                             </p>
                                             <p class="animate__animated animate__bounce">
-                                                <strong><i class="fa fa-map-marker"></i> Address:</strong> {{$serviceDetail->streetAddress}} | {{$serviceDetail->city}} | &nbsp; {{$serviceDetail->state}}
+                                                <strong><i class="fa fa-map-marker"></i> Address:</strong> {{$seekingWorkDetail->streetAddress}} | {{$seekingWorkDetail->city}} | &nbsp; {{$seekingWorkDetail->state}}
                                             </p>
                                         @endauth
                                     </div>
                                 </div>
+
                                 <div class="tab-pane fade " id="comment" role="tabpanel" aria-labelledby="five-tab">
                                     <div class="properties-description mb-50">
-                                        {{-- {{ $serviceDetail->comments }} --}}
-                                        <x-comments :model="$serviceDetail"/>
+                                        {{-- {{ $seekingWorkDetail->comments }} --}}
+                                        <x-comments :model="$seekingWorkDetail"/>
                                     </div>
                                 </div>
                             </div>
@@ -403,41 +396,25 @@
                         @endauth
 
                         @guest
-                        <p>Please login to see your previous conversation with this service provider</p>
+                        <p>Please login to see your previous conversation with this applicant</p>
                         @endguest
-
-
-                                {{--
-                                            @if (session('liked'))<span class="text-danger">{{ session('liked') }}
-                                </span> @else<span class="text-warning">like!
-                                </span> @endif --}}
 
                             @auth
                                 <div class="container mb-5 mt-0">
                                     <h5>
 
-                                        {{-- </a>  @else HAPPY WITH THE SERVICE RENDERED? GIVE THIS PROVIDER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!</span> @endif
-                                        </a> --}}
-
                                         @auth
                                             <div id="likeBtn" class="{{ !$likecheck ? 'likeBtnShow' : '' }}">
-                                                Do you like this service? Give it a <a onclick="likeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-up text-primary" style="font-size: 19px;"></i><span class="text-primary"> Like!</span></a>
+                                                Do you like this service? Give it a <a onclick="likeService({{ $seekingWorkDetail->id }})" href="#"><i class="fa fa-thumbs-up text-primary" style="font-size: 19px;"></i><span class="text-primary"> Like!</span></a>
                                                 {{-- <span id="loader" class="loader"></span> --}}
                                             </div>
                                             <div id="dislikeBtn" class="{{ $likecheck ? 'disLikeBtnShow' : '' }}">
-                                                You have liked this service already. <a onclick="disLikeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger"> Dislike!</span></a>
+                                                You have liked this service already. <a onclick="disLikeService({{ $seekingWorkDetail->id }})" href="#"><i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger"> Dislike!</span></a>
                                                 {{-- <span id="loader" class="loader"></span> --}}
                                             </div>
                                         @endauth
                                     </h5>
                                 </div>
-                                    {{--              @if (session('success2'))
-                                        <div id="likeNotice" class="alert alert-success alert-dismissible fade show" role="alert">
-                                            {{ session('success2') }}
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        </button>
-                                        </div>
-                                        @endif --}}
                         @endauth
 
                     </div>
@@ -454,10 +431,10 @@
                             <div class="s-border" style="margin-bottom: 15px"></div>
 
                             <div style="margin-bottom: 15px">
-                                @if ($serviceDetail->service_image)
-                                    <img class="img-fluid sp-seller-img" src="{{asset('uploads/services')}}/{{$serviceDetail->service_image}}" alt="{{$serviceDetail->user->name}}" style="width: 100%;height: auto; display: block; margin: 0 auto;">
+                                @if ($seekingWorkDetail->service_image)
+                                    <img class="img-fluid sp-seller-img" src="{{asset('uploads/services')}}/{{$seekingWorkDetail->service_image}}" alt="{{$seekingWorkDetail->user->name}}" style="width: 100%;height: auto; display: block; margin: 0 auto;">
                                 @else
-                                    <img src="{{asset('nouserimage.png')}}" class="img-fluid" alt="{{$serviceDetail->user->name}}" style="width: 250px;height: auto; display: block; margin: 0 auto;">
+                                    <img src="{{asset('nouserimage.png')}}" class="img-fluid" alt="{{$seekingWorkDetail->user->name}}" style="width: 250px;height: auto; display: block; margin: 0 auto;">
                                 @endif
                             </div>
 
@@ -473,7 +450,7 @@
                                 <div class="b-provider-online-info">
                                     <div class="b-provider-online-info-block">
                                         <div class="b-provider-online-title">
-                                            {{ $serviceDetail->user->created_at->diffForHumans() }}
+                                            {{ $seekingWorkDetail->user->created_at->diffForHumans() }}
                                         </div>
                                         <div class="b-provider-online-aside">
                                             Registered
@@ -482,7 +459,7 @@
 
                                     <div class="b-provider-online-info-block">
                                         <div class="b-provider-online-title">
-                                            {{ \Carbon\Carbon::parse($serviceDetail->user->last_seen)->diffForHumans() }}
+                                            {{ \Carbon\Carbon::parse($seekingWorkDetail->user->last_seen)->diffForHumans() }}
                                         </div>
                                         <div class="b-provider-online-aside">
                                             Last seen
@@ -493,11 +470,11 @@
 
                             @auth
                                 <p style="text-align: center">
-                                    <a class="btn btn-warning animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309; margin-bottom: 4px">
-                                        <i class="fa fa-phone"></i> Call: {{$serviceDetail->phone}}
+                                    <a class="btn btn-warning animate__animated animate__headshake animate__infinite" href="tel:{{$seekingWorkDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309; margin-bottom: 4px">
+                                        <i class="fa fa-phone"></i> Call: {{$seekingWorkDetail->phone}}
                                     </a>
 
-                                    <a href="https://wa.me/{{$serviceDetail->phone}}/?text=Good%20day.%20I%20am%20interested%20in%your%20service." class="btn btn-success animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff;">
+                                    <a href="https://wa.me/{{$seekingWorkDetail->phone}}/?text=Good%20day.%20I%20am%20interested%20in%your%20service." class="btn btn-success animate__animated animate__headshake animate__infinite" href="tel:{{$seekingWorkDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff;">
                                         <i class="fa fa-whatsapp"></i> WhatsApp
                                     </a>
                                 </p>
@@ -511,8 +488,8 @@
                                 <form id="myform" action="POST">
                                     <input type="hidden" name="_method" value="POST">
                                     {{ csrf_field() }}
-                                    <input  type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
-                                    <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">
+                                    <input  type="hidden" id="service_id" name="service_id" value="{{$seekingWorkDetail->id}}" class="form-control" placeholder="Name">
+                                    <input type="hidden" id="service_user_id" name="service_user_id" value="{{$seekingWorkDetail->user_id}}" class="form-control" placeholder="Name">
                                     <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="text-dark form-control">
 
                                     {{-- <div class="form-group">
@@ -556,7 +533,7 @@
                                     </div> --}}
 
                                     <div class="form-group message">
-                                        <textarea class="text-dark form-control" id="description" name="description" placeholder="Write message to {{ $serviceDetail->user->name }}"></textarea>
+                                        <textarea class="text-dark form-control" id="description" name="description" placeholder="Write message to {{ $seekingWorkDetail->user->name }}"></textarea>
                                         @if ($errors->has('description'))
                                             <span>
                                                 <strong class="text-danger">{{ $errors->first('description') }}</strong>
@@ -565,7 +542,7 @@
                                     </div>
 
                                     @guest
-                                        <p>Only registered users can message providers. <a href="{{route('login')}}"><strong>Login</strong></a> or <a href="{{route('register')}}"><strong>Register</strong></a> if you dont have an account.</p>
+                                        <p>Only registered users can message applicant. <a href="{{route('login')}}"><strong>Login</strong></a> or <a href="{{route('register')}}"><strong>Register</strong></a> if you dont have an account.</p>
                                     @endguest
 
                                     @auth
@@ -578,7 +555,7 @@
                                     @endauth
                                 </form>
                             </div>
-                            @if($serviceDetail->address != '')
+                            @if($seekingWorkDetail->address != '')
                             {{-- <div style="width: 640px; height: 480px" id="mapContainer"></div> --}}
                             {{-- <div id='map' style='width: 400px; height: 300px; '></div> --}}
                             <div class="google-maps">
@@ -597,15 +574,15 @@
                                 <div class="s-border"></div>
                                 <div class="m-border"></div>
                                 <ul class="list-unstyled list-cat">
-                                    <li><span style="color: red">*</span> Check the Service Provider profile to ensure they offer the serivices you need/required.</li>
-                                    <li><span style="color: red">*</span> Contact Service Providers only when certain you need their services.</li>
+                                    <li><span style="color: red">*</span> Check the Applicant profile to ensure they offer the serivices you need/required.</li>
+                                    <li><span style="color: red">*</span> Contact Applicant only when certain you need their services.</li>
                                     <li><span style="color: red">*</span> Ensure you check authenticity of all products at all times.</li>
                                     <li><span style="color: red">*</span> Confirm identity of person/persons or organisation you are transacting with.</li>
                                     <li><span style="color: red">*</span> Check and ensure that all transactions, services, products are legitimate and legal.</li>
                                     <li>
                                         <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#exampleModalCenter">
-                                        Report Provider  <i class="fa fa-flag"></i>
+                                        Report Applicant  <i class="fa fa-flag"></i>
                                         </button>
 
 
@@ -614,7 +591,7 @@
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title text-center" id="exampleModalLongTitle">Report This Provider</h5>
+                                                        <h5 class="modal-title text-center" id="exampleModalLongTitle">Report This Applicant</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -623,12 +600,12 @@
                                                         @auth
                                                             <form id="myform2">
                                                                 {{ csrf_field() }}
-                                                                <input  type="hidden" id="service_id_report" name="service_id_report" value="{{$serviceDetail->id}}" class="form-control">
-                                                                <input type="hidden" id="service_user_id_report" name="service_user_id_report" value="{{$serviceDetail->user_id}}" class="form-control">
+                                                                <input  type="hidden" id="service_id_report" name="service_id_report" value="{{$seekingWorkDetail->id}}" class="form-control">
+                                                                <input type="hidden" id="service_user_id_report" name="service_user_id_report" value="{{$seekingWorkDetail->user_id}}" class="form-control">
                                                                 <input type="hidden" id="buyer_id_report" value="{{Auth::id()}}" name="buyer_id_report" class="text-dark form-control">
 
                                                                 <div class="form-group">
-                                                                    Why are you reporting this provider?
+                                                                    Why are you reporting this applicant?
                                                                 </div>
 
                                                                 <div class="form-group">
@@ -650,7 +627,7 @@
                                                                 </div>
 
                                                                 @guest
-                                                                    <p>Only registered users can message providers. <a href="{{route('home')}}"><strong>Login</strong></a> or <a href="{{route('home')}}"><strong>Register</strong></a> if you dont have an account.</p>
+                                                                    <p>Only registered users can message applicant. <a href="{{route('home')}}"><strong>Login</strong></a> or <a href="{{route('home')}}"><strong>Register</strong></a> if you dont have an account.</p>
                                                                 @endguest
 
                                                                 @auth
@@ -667,7 +644,7 @@
                                                     @endauth
 
                                                     @guest
-                                                        <h6>Please <a style="color: #cc8a19" href="{{ route('login') }}">login</a> to report this provider </h6>
+                                                        <h6>Please <a style="color: #cc8a19" href="{{ route('login') }}">login</a> to report this applicant </h6>
                                                     @endguest
 
                                                 </div>

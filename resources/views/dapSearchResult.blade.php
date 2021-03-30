@@ -28,6 +28,14 @@
     .ajaxSearchCategoryList{
         color: #CA8309;
     }
+    .advanced-search input, .advanced-search select{
+        border-radius: 0 !important;
+        height: 50px;
+    }
+    .advanced-search .form-label{
+        font-weight: 600 !important;
+        font-size: 15px !important;
+    }
 </style>
 <div class="main">
     <div class="sub-banner">
@@ -387,44 +395,57 @@
 
                                         <div id="service_list" class="ajaxSearchList"></div>
                                     </div>
-                                </div>
-                            </form>
 
-                            <form action="{{route('search3')}}" method="GET" enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="form-group name">
-                                            <input type="text" name="name" class="form-control" placeholder="What Service Are You Looking For?">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Location</label>
+                                            <select class="form-control" id="user_state" name="state">
+                                                <option value="">Select State</option>
+                                                @if(isset($states))
+                                                    @foreach($states as $state)
+                                                        <option value="{{$state->name}}"> {{ $state->name }}  </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Local Government</label>
+                                            <select class="form-control" id="user_lga" name="city">
+                                                <option disabled selected>👈 Select a State</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Category</label>
+                                            <select class="form-control" id="categories" name="category">
+                                                <option value="">Select Category</option>
+                                                @if(isset($categories))
+                                                    @foreach($categories as $category)
+                                                        <option value="{{$category->slug}}">{{ $category->name }}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Sub Category</label>
+                                            <select class="form-control" id="sub_categories" name="subcategory">
+                                                <option disabled selected>👈 Select a Category</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                                    <p style="font-weight: 600; margin-bottom: 0;">Choose Distance(in km): <span id="demo"></span></p>
-                                    <div class="slidecontainer" style="margin-bottom: 15px;">
-                                        <input type="range" min="1" max="1000000" name="ranges"  value="5000" class="slider" id="myRange">
-                                    </div>
-                                </div>
 
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="form-group subject">
-                                       <!--  <input type="text" name="serviceDetail_id" value= class="form-control"> -->
-                                   </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="">
-                                    <div class="form-group subject">
-                                        <select class="form-control" id="state" name="state">
-                                            <option class="text-center" value="">--Choose a state--</option>
-                                            @if(isset($all_states))
-                                                @foreach($all_states as $state)
-                                                    <option value="{{$state->id}}"> {{ $state->name }}  </option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="send-btn">
-                                        <button type="submit" class="btn btn-outline-warning btn-block bg-warning text-white">Search  <i class="fa fa-search" aria-hidden="true"></i></button>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-lg pull-right" style="background-color: #cc8a19; color: #fff; border:1px solid #cc8a19;">Search  <i class="fa fa-search" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -607,6 +628,59 @@
             $('#service_list').fadeOut();
         });
 
+    });
+
+    $('#user_state').on('change',function(){
+        var stateID = $('#user_state').val();
+        if(stateID){
+            $.ajax({
+            type:"GET",
+                //url:"{{url('qqq')}}"+stateID,
+                url: '../../api/get-city-list/'+stateID,
+                success:function(res){
+                    if(res){
+                    console.log(res);
+                    console.log(stateID);
+                    $("#user_lga").empty();
+                    $.each(res,function(key,value){
+                    $("#user_lga").append('<option value="'+value+'">'+value+'</option>');
+                    });
+
+                }else{
+                    $("#user_lga").empty();
+                }
+                }
+            });
+        }else{
+            $("#user_lga").empty();
+        }
+
+    });
+
+    $('#categories').on('change',function(){
+        var categorySlug = $(this).val();
+        if(categorySlug){
+            $.ajax({
+                type:"GET",
+                url: '/api/get-subcategory-list/'+categorySlug,
+                success:function(res){
+                    if(res){
+                    var res = JSON.parse(res);
+                        $("#sub_categories ").empty();
+                        $.each(res, function(key,value){
+                        var chosen_value = value;
+                            $("#sub_categories").append(
+                                '<option value="'+chosen_value.name+'">'+chosen_value.name+'</option>'
+                            );
+                        });
+                    }else{
+                        $("#sub_categories").empty();
+                    }
+                }
+            });
+        }else{
+            $("#sub_categories").empty();
+        }
     });
 </script>
 

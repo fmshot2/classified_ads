@@ -157,12 +157,12 @@
         @endif
     </div>
 
-    <div id="" class="search-section search-area-2">
+    {{-- <div id="" class="search-section search-area-2">
         <div class="row">
             <div class="col-md-12 text-center">
                 <a href="{{route('allSellers')}}" class="btn font-weight-bold btn-outline-warning">See all Featured Services</a>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 

@@ -234,7 +234,7 @@
                             var service_id = document.getElementById("service_id").value;
                             var amount = $("#featured_amount").val();
                             var ref_no1 =  response.reference;
-                            
+
                             $.ajax({
                               method: "POST",
                               url: base_Url + '/provider/service/create_pay_featured',

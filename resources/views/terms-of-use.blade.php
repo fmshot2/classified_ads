@@ -10,7 +10,9 @@
         margin: initial;
         padding: 0 0 0 40px;
     }
-
+    .terms-content h4{
+        font-family: "Poppins-Regular";
+    }
 </style>
     {{-- <div class="blog-banner">
         <div class="container">

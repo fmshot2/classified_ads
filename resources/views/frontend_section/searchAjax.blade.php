@@ -545,7 +545,7 @@
 
 
     $('#categories').on('change',function(){
-        var categoryID = $(this).val();
+        var categoryID = $('#categories').val();
         if(categoryID){
             $.ajax({
                 type:"GET",
@@ -602,7 +602,7 @@
 
 
     $('#state').on('change',function(){
-        var state_name = $(this).val();
+        var state_name = $('#state').val();
         if(state_name){
             $.ajax({
                 type:"GET",

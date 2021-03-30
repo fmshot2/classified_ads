@@ -225,12 +225,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                         <div class="tab-pane fade" id="agentBenefit" role="tabpanel" aria-labelledby="three-tab">
+                                    <div class="tab-pane fade" id="agentBenefit" role="tabpanel" aria-labelledby="three-tab">
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                            {!! $pages_contents_page == 0 ? $pages_contents->benefit_of_efcontact : ''  !!}                                                    
+                                                            {!! $pages_contents->benefit_of_efcontact ? $pages_contents->benefit_of_efcontact : '' !!}
                                                     </div>
 
                                                 </div>
@@ -379,7 +379,7 @@
         });
     </script>
 
-    
+
     @yield('script')
 
 

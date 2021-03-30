@@ -130,6 +130,7 @@ Route::post('dropzone/store', 'DropzoneController@dropzoneStore')->name('dropzon
 
 Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('serviceDetail');
+Route::get('/job-applicant/details/{slug}', 'OperationalController@seekingWorkDetails')->name('job.applicant.detail');
 Route::post('saveContacts', 'ServiceController@saveContacts')->name('saveContacts');
 Route::get('/contacts', 'ServiceController@showContacts')->name('contacts');
 Route::get('/allservices', 'ServiceController@allServices')->name('allServices');
@@ -180,6 +181,7 @@ Route::get('/getlocal_governments/{id}','CategoryController@getlocal_governments
 Route::get('api/get-city-list/{state_name}','CategoryController@getCityList');
 Route::get('api/get-category-list/{state_name}','CategoryController@getCategoryList');
 
+Route::get('api/get-subcategory-list/{category_slug}','CategoryController@getSubCategoryList');
 Route::get('api/get-like-list/{id}','ServiceController@getLikeList');
 
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
@@ -246,8 +248,6 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
 
     Route::prefix('provider')->group(function ()
     {
-        Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('service_detail_4_provider');
-
         Route::get('/dashboard/make_withdrawal_request/{refer_id}', 'DashboardController@make_withdrawal_request')->name('seller.make_withdrawal_request');
 
         Route::get('/dashboard', 'DashboardController@seller')->name('seller.dashboard');
@@ -484,7 +484,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 Route::middleware(['superadmin'])->group(function () { //SuperAdmin Middleware protection start here
     Route::get('/admin/dashboard/approve_withdrawal_request/{id}', 'DashboardController@approve_withdrawal_request')->name('admin.approve_withdrawal_request');
 
-    Route::get('/superadmin/dashboard', 'DashboardController@admin')->name('superadmin.dashboard');
+    Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
     Route::get('/admin/dashboard/category/show', 'CategoryController@index')->name('admin.category.show');
     Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
     Route::get('/admin/category/{id}', 'CategoryController@destroy')->name('admin.category.delete');

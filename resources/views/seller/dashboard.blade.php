@@ -63,6 +63,43 @@
         top: 45%;
         color: #fff;
     }
+    .badge-info-box {
+        min-height: 100px;
+        background: #fff;
+        width: 100%;
+        box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
+        -webkit-box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
+        border-radius: 10px;
+        margin-bottom: 20px;
+        padding: 15px;
+        text-align: center;
+    }
+    .badge-info-box-icon {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5px;
+        flex-direction: row;
+    }
+    .badge-info-box-icon span {
+        height: 60px;
+        width: 60px;
+        text-align: center;
+        font-size: 30px;
+        line-height: 64px;
+        border-radius: 100%;
+        color: #fff;
+        margin: 0 5px 10px
+    }
+    .super-user{
+        background-color: #FFC107 !important;
+    }
+    .moderate-user{
+        background-color: #28A745 !important;
+    }
+    .basic-user{
+        background-color: #007BFF !important;
+    }
     @media (max-width: 768px){
         .content-header{
             padding: 0 5px 10px 10px;
@@ -88,6 +125,14 @@
         }
         .progress-description .btn{
             font-size: 9px;
+        }
+
+        .badge-info-box-icon span {
+            height: 32px;
+            width: 32px;
+            font-size: 16px;
+            line-height: 32px;
+            margin: 0 2px 3px
         }
     }
 </style>
@@ -301,19 +346,53 @@
                 <!-- /.col -->
 
                 <div class="col-md-3 col-sm-6 col-xs-6">
-                    <div class="info-box">
-                        <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-bell text-white" aria-hidden="true"></i>  </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text"> General Notice{{ $all_notification_count > 1 ? 's' : '' }}</span>
-                            <span class="info-box-number"> {{ $all_notification_count }} </span>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-danger" style="width: {{ $all_notification_count }}%"></div>
+                    <div class="badge-info-box">
+                        @if (Auth::user()->badgetype == 1)
+                            <div class="badge-info-box-icon">
+                                <span class="super-user">
+                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                                </span>
+                                <span class="super-user">
+                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                                </span>
+                                <span class="super-user">
+                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                                </span>
                             </div>
-                            <span class="progress-description">
-                                <!-- Extra content can go here -->
-                            </span>
-                        </div>
-                        <!-- /.info-box-content -->
+                            <div class="">
+                                <strong>Super Badge User</strong>
+                            </div>
+                        @elseif (Auth::user()->badgetype == 2)
+                            <div class="badge-info-box-icon">
+                                <span class="moderate-user">
+                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                                </span>
+                                <span class="moderate-user">
+                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="">
+                                <strong>Moderate Badge User</strong>
+                            </div>
+                        @elseif (Auth::user()->badgetype == 3)
+                            <div class="badge-info-box-icon">
+                                <span class="basic-user">
+                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="">
+                                <strong>Basic Badge User</strong>
+                            </div>
+                        @else
+                            <div>
+                                <span class="">
+                                    <svg id="Layer_1" enable-background="new 0 0 511.56 511.56" height="60" viewBox="0 0 511.56 511.56" width="60" xmlns="http://www.w3.org/2000/svg"><path d="m464.646 56.233c-42.747.106-63.102 52.674-32.217 81.49l-31.28 18.06c-32.114-31.485-73.306-51.636-117.798-57.551l-5.475-9.483c42.754-23.117 27.179-88.143-22.097-88.749-49.281.609-64.847 65.641-22.096 88.75l-5.475 9.483c-44.488 5.914-85.68 26.065-117.797 57.552l-31.28-18.06c30.892-28.827 10.515-81.39-32.217-81.49-53.551 1.055-64.876 74.21-14.999 91.805v252.56c0 8.284 6.716 15 15 15h33.485c80.03 128.306 271.358 127.586 350.759 0h33.487c8.284 0 15-6.716 15-15v-252.562c49.895-17.612 38.53-90.757-15-91.805zm-90.634 115.216-36.29 20.954-34.394-59.564c26.129 7.24 50.287 20.409 70.684 38.61zm-118.233-141.449c9.447 0 17.134 7.686 17.134 17.133-.941 22.73-33.33 22.723-34.268 0 .001-9.447 7.687-17.133 17.134-17.133zm-47.549 102.838-34.394 59.565-36.29-20.954c20.397-18.2 44.56-31.37 70.684-38.611zm-161.317-12.338c-9.447 0-17.134-7.686-17.134-17.133.941-22.729 33.329-22.724 34.267 0 0 9.447-7.686 17.133-17.133 17.133zm208.866 361.5c-70.279 0-116.416-38.949-138.533-66.4h277.066c-22.143 27.484-68.304 66.4-138.533 66.4zm193.867-96.4h-387.733v-34.267h387.732v34.267zm0-64.267h-387.733v-158.909l109.913 63.46c7.173 4.142 16.348 1.684 20.49-5.49l63.463-109.917 63.463 109.917c4.143 7.175 13.317 9.631 20.49 5.49l109.913-63.46v158.909zm15-200.833c-9.447 0-17.133-7.686-17.133-17.133.941-22.73 33.329-22.723 34.267 0-.001 9.447-7.687 17.133-17.134 17.133z"/></svg>
+                                </span>
+                            </div>
+                            <div class="">
+                                <strong>A Normal User</strong>
+                            </div>
+                        @endif
                     </div>
                     <!-- /.info-box -->
                 </div>
@@ -324,13 +403,13 @@
                             <i class="fa fa-money text-white" aria-hidden="true"></i>
                         </span>
                         <div class="info-box-content">
-                            <span class="info-box-text"> Referral Bonus: &#8358;{{$accruedAmount ?? 0}}</span>
+                            <span class="info-box-text"> Referral Bonus: <br> &#8358;{{$accruedAmount ?? 0}}</span>
                             <span class="progress-description">
                                 <button class="btn btn-success btn-sm" style="cursor: pointer; display: block; margin-top: 5px;" data-toggle="modal" data-target="#exampleModal">Make Withdrawal</button>
                             </span>
-                            <div class="progress">
+                            {{-- <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style="width: {{$accruedAmount ?? 0}}%"></div>
-                            </div>
+                            </div> --}}
 
                         </div>
                         <!-- /.info-box-content -->
@@ -388,12 +467,10 @@
                                 When your referral clicks your link and registers, you automatically get N50. The more the people register using your link the more your bonuses will increase.
                             </li>
                             <li>
-                                When your commission reaches N1000, it will be sent to you on the pay day.
-                            </li>
-                            <li>
-                                <strong>Note:</strong> We pay commissions on a weekly basis- your product Monday to Friday is paid the next Friday.
+                                When your commission reaches &#8358;1000, it will be sent to you on the pay day.
                             </li>
                         </ul>
+                        <p><strong>Note:</strong> We pay commissions on a weekly basis - So if your bonus reaches the required threshold (&#8358;1000) the money will be transferred automatically to the account number provided on your profile the following week.</p>
                         <p><strong>Have fun and keep sharing 😃</strong></p>
                     </div>
                     <div class="modal-footer">
