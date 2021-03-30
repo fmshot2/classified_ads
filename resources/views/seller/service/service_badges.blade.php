@@ -163,7 +163,7 @@
 
                                 <p style="text-align: center; font-size: 17px"
                                     class="animate__animated animate__tada animate__infinite">
-                                    You will be redirected to GTBank to continue the payment process.
+                                    You will be redirected to our payments page to continue the payment process.
                                 </p>
                             </div>
                             <div class="modal-footer">
