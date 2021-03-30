@@ -13,6 +13,8 @@ class SeekingWork extends Model implements Viewable, ICommentable
 {
     use InteractsWithViews, Commentable;
 
+    protected $removeViewsOnDelete = true;
+
     protected $guarded = [];
 
     public function user()
@@ -33,6 +35,6 @@ class SeekingWork extends Model implements Viewable, ICommentable
        return $this->likes->count();
     }
     public function likes(){
-        return $this->hasMany('\App\Like');
+        return $this->hasMany('\App\Like', 'seekingwork_id');
     }
 }

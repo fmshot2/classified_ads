@@ -95,10 +95,10 @@
         background-color: #FFC107 !important;
     }
     .moderate-user{
-        background-color: #007BFF !important;
+        background-color: #28A745 !important;
     }
     .basic-user{
-        background-color: #28A745 !important;
+        background-color: #007BFF !important;
     }
     @media (max-width: 768px){
         .content-header{
