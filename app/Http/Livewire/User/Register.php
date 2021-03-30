@@ -125,10 +125,6 @@ class Register extends Component
 
         if ($user->save()) {
 
-             $sub_amount              = new Subscription();
-            $link->user_id     = $present_user->id;
-            $link->refererlink = $present_user->refererLink;
-            $link->save();
 
             $name         = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
             $name         = $user->name;
@@ -153,6 +149,12 @@ class Register extends Component
             $link->user_id     = $present_user->id;
             $link->refererlink = $present_user->refererLink;
             $link->save();
+
+            
+            // $subscription              = new Subscription();
+            // $subscription->user_id     = $present_user->id;
+            // $subscription->user_registration_date = $present_user->refererLink;
+            // $subscription->save();
 
             if (Auth::user()->role == 'buyer') {
                 return  Redirect::to(Session::get('url.intended'));
