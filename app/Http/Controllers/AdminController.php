@@ -139,6 +139,60 @@ class AdminController extends Controller
         return redirect()->back()->with($success_notification);
   }
 
+  public function allData()
+  {
+    $admins = User::where('role', '=', 'data')->get();
+
+    return view('admin.user.data', [
+      'admins' => $admins
+    ]);
+  }
+
+  public function add_data()
+  {
+    return view('admin.user.add_data_officer');
+  }
+
+  public function submit_data(Request $request)
+  {
+    $data = array(
+            'name'   => $request->name,
+            'email'   => $request->email,
+            'password' => $request->password,
+        );
+
+      $validator = \Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users|max:255',
+            'password' => 'required|string|min:6',
+        ]);
+
+        if($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        }
+
+        $user = new User;
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($data['password']);
+        $user->role = 'data';
+        $user->status = 1;
+
+        $user->save();
+
+        if($user->save())
+        {
+          $success_notification = array(
+                'message' => 'Data Entry Officer successfully added!',
+                'alert-type' => 'success'
+            );
+        }
+
+        return redirect()->back()->with($success_notification);
+  }
+
   public function submit_admin(Request $request)
   {
     $data = array(
@@ -177,6 +231,16 @@ class AdminController extends Controller
         }
 
         return redirect()->back()->with($success_notification);
+  }
+
+  public function send_email()
+  {
+    return view('admin.data_entry.send_email');
+  }
+
+  public function send_sms()
+  {
+    return view('admin.data_entry.send_sms');
   }
 
   public function lat()

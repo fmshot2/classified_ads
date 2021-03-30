@@ -95,8 +95,21 @@
           <li><a href="{{ route('admin.add.admin') }}"><i class="fa fa-circle-o"></i> Add Admin </a></li>
           <li><a href=" {{ route('admin.all.cmos') }} "><i class="fa fa-circle-o"></i> CMOs </a></li>
           <li><a href="{{ route('admin.add.cmo') }}"><i class="fa fa-circle-o"></i> Add CMO </a></li>
-          <li><a href="{{ route('admin.add.cmo') }}"><i class="fa fa-circle-o"></i> Add Data Entry </a></li>
           <li><a href="{{ route('admin.allagents') }}"><i class="fa fa-circle-o"></i> Agents </a></li>
+        </ul>
+      </li>
+
+      <li class="treeview" style=" {{ url()->current() == route('admin.all.data') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.add.data') ? 'background-color: #f8d053' : '' }}">
+        <a href="#">
+          <i class="fa fa-users"></i>
+          <span> Data Entry Officers </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href=" {{ route('admin.all.data') }} "><i class="fa fa-circle-o"></i> All Data Entry Officers </a></li>
+          <li><a href="{{ route('admin.add.data') }}"><i class="fa fa-circle-o"></i> Add Data Entry Officer</a></li>
         </ul>
       </li>
 
@@ -154,7 +167,19 @@
                 <li><a href="{{ route('active_adverts') }}"><i class="fa fa-circle-o"></i> Active Adverts </a></li> -->
             </ul>
         </li>
-
+        <li class="treeview" style=" {{ url()->current() == route('admin.send_sms') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.send_email') ? 'background-color: #f8d053' : '' }}">
+        <a href="#">
+          <i class="fa fa-users"></i>
+          <span> Data Entry </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href=" {{ route('admin.send_sms') }} "><i class="fa fa-circle-o"></i> Send SMS </a></li>
+          <li><a href="{{ route('admin.send_email') }}"><i class="fa fa-circle-o"></i> Send Email</a></li>
+        </ul>
+      </li>
         <li>
             <a href=" {{ route ('system.config') }} ">
             <i class="fa fa-globe"></i> <span> System Config </span>
