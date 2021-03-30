@@ -84,8 +84,8 @@
            
    <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box bg-warning">
-            <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-sticky-note text-white" aria-hidden="true"></i>  </span>
+          <div class="info-box">
+            <span class="info-box-icon push-bottom"> <i class="fa fa-sticky-note text-white" aria-hidden="true"></i>  </span>
 
             <div class="info-box-content">
               <span class="info-box-text"> All Advert Payments </span>
@@ -104,7 +104,7 @@
         </div>
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box bg-warning">
+          <div class="info-box">
             <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
@@ -124,7 +124,7 @@
         </div>
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box bg-warning">
+          <div class="info-box">
             <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-handshake-o text-white" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
@@ -144,7 +144,7 @@
        </div>
        <!-- /.col -->
        <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box bg-warning">
+        <div class="info-box">
           <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-bell text-white" aria-hidden="true"></i>  </span>
 
           <div class="info-box-content">
@@ -168,7 +168,7 @@
   </div>
   <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-12">
-          <div class="info-box bg-success">
+          <div class="info-box">
             <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i>  </span>
 
             <div class="info-box-content">
@@ -188,7 +188,7 @@
         </div>
         <!-- /.col -->
         <div class="col-md-6 col-sm-6 col-xs-12">
-          <div class="info-box bg-success">
+          <div class="info-box">
             <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
@@ -214,7 +214,7 @@
   <div class="row">
         <!-- /.col -->
         <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="info-box bg-danger">
+          <div class="info-box">
             <span class="info-box-icon push-bottom"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
@@ -234,8 +234,8 @@
        </div>
        <!-- /.col -->
        <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box bg-warning">
-          <span class="info-box-icon push-bottom bg-danger"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i>  </span>
+        <div class="info-box">
+          <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i>  </span>
 
           <div class="info-box-content">
             <span class="info-box-text"> Total Referal Pending Payments </span>
@@ -257,7 +257,7 @@
 
 
        <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box bg-success">
+        <div class="info-box">
           <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card text-white" aria-hidden="true"></i>  </span>
 
           <div class="info-box-content">
@@ -282,7 +282,7 @@
   <div class="row">
         <!-- /.col -->
         <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="info-box bg-warning">
+          <div class="info-box">
             <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
@@ -302,7 +302,7 @@
        </div>
        <!-- /.col -->
        <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box bg-warning">
+        <div class="info-box">
           <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i>  </span>
 
           <div class="info-box-content">
@@ -325,7 +325,7 @@
      
 
        <div class="col-md-4 col-sm-6 col-xs-12">
-        <div class="info-box bg-warning">
+        <div class="info-box">
           <span class="info-box-icon push-bottom bg-default"> <i class="fa fa-credit-card text-white" aria-hidden="true"></i>  </span>
 
           <div class="info-box-content">
