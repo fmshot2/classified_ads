@@ -388,12 +388,10 @@
                                 When your referral clicks your link and registers, you automatically get N50. The more the people register using your link the more your bonuses will increase.
                             </li>
                             <li>
-                                When your commission reaches N1000, it will be sent to you on the pay day.
-                            </li>
-                            <li>
-                                <strong>Note:</strong> We pay commissions on a weekly basis- your product Monday to Friday is paid the next Friday.
+                                When your commission reaches &#8358;1000, it will be sent to you on the pay day.
                             </li>
                         </ul>
+                        <p><strong>Note:</strong> We pay commissions on a weekly basis - So if your bonus reaches the required threshold (&#8358;1000) the money will be transferred automatically to the account number provided on your profile the following week.</p>
                         <p><strong>Have fun and keep sharing 😃</strong></p>
                     </div>
                     <div class="modal-footer">

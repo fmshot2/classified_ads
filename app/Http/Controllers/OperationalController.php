@@ -414,28 +414,37 @@ class OperationalController extends Controller
     	return response()->download($filePath, $fileName, $headers);
     }
 
+    public function seekingWorkDetails($slug)
+    {
+        $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+        $approvedServices = Service::where('status', 1)->with('user')->get();
+        $categories = Category::paginate(8);
+        $seekingWorkDetails = Service::where('slug', $slug)->first();
+        $all_states = State::all();
+        $serviceDetail_id = $serviceDetail->id;
+        $images_4_service = Image::where('imageable_id', $serviceDetail_id)->get();
+                // dd($images_4_service);
+        $serviceDetail_state = $serviceDetail->state;
+        $service_likes = Like::where('service_id', $serviceDetail_id)->count();
+        $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$serviceDetail_id])->first();
+        $service_category_id = $serviceDetail->category_id;
+        $similarProducts = Service::where([['category_id', $service_category_id], ['state', $serviceDetail_state] ])->inRandomOrder()->limit(8)->get();
+
+        $featuredServices2 = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(3)->get();
+        $user_id = $serviceDetail->user_id;
+        $userMessages = Message::where('service_id', $serviceDetail_id)->orderBy('created_at','desc')->take(7)->get();
+
+        $the_user = User::find($user_id);
+        $the_user_name = $the_user->name;
+        $the_provider_f_name = explode(' ', trim($the_user_name))[0];
+
+        $expiresAt = now()->addHours(24);
+        views($serviceDetail)->cooldown($expiresAt)->record();
+    }
+
     public function ajaxSearchResult(Request $request)
     {
-        // $services = Service::query()
-        //         ->where('name', 'LIKE', "%{$q}%")
-        //         ->orWhere('description', 'LIKE', "%{$q}%");
-
-        //     $seekingworks = SeekingWork::query()
-        //         ->where('job_title', 'LIKE', "%{$q}%")
-        //         ->orWhere('fullname', 'LIKE', "%{$q}%");
-
-        //     // $data = collect(($services)->merge ($seekingworks))->get();
-
-        //     // $data = collect ($services)->merge ($seekingworks)->paginate (7);
-        //     $data = $services->get ()->concat ($seekingworks->get ());
-
-        //     dd($data);
-
         if($request->ajax()) {
-            // $data = Service::query()
-            // ->where('name', 'LIKE', "%{$request->service}%")
-            // ->orWhere('description', 'LIKE', "%{$request->service}%")
-            // ->get();
 
             $services = Service::query()
                 ->where('name', 'LIKE', "%{$request->service}%")
@@ -473,6 +482,7 @@ class OperationalController extends Controller
     {
         $keyword = $request->keyword ? $request->keyword : 'Nothing!';
         $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+        $categories = Category::orderBy('name', 'asc')->get();
 
 
         if ($request->category == null && $request->city == null && $request->keyword == null) {
@@ -498,11 +508,21 @@ class OperationalController extends Controller
                                 $query->where('id', $categoryId);
                             })->get();
 
-                return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services,
-                    "featuredServices" => $featuredServices
-                ]);
+                if (!$services->isEmpty()) {
+                    return view('dapSearchResult', [
+                        "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
+                        "services" => $services,
+                        "featuredServices" => $featuredServices,
+                        "categories" => $categories,
+                    ]);
+                }
+                else{
+                    return view('dapSearchResult', [
+                        "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                        "featuredServices" => $featuredServices,
+                        "categories" => $categories,
+                    ]);
+                }
             }
             elseif ($request->category != null && $request->city != null) {
                 $services = Service::query()
@@ -516,7 +536,9 @@ class OperationalController extends Controller
 
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services
+                    "services" => $services,
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
             elseif ($request->keyword == null && $request->category != null) {
@@ -533,7 +555,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
             elseif ($request->city != null && $request->keyword != null) {
@@ -549,7 +572,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
             elseif ($request->category != null) {
@@ -565,7 +589,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
             else {
@@ -581,7 +606,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
 
@@ -617,7 +643,8 @@ class OperationalController extends Controller
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$request->city.'</strong>',
                     "services" => $services,
                     "related_services" => $related_services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
             else{
@@ -630,7 +657,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
         }elseif ($request->state != null) {
@@ -645,7 +673,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$request->state.'</strong>',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
             else{
@@ -658,7 +687,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
         }
@@ -673,13 +703,16 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong>',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
-                    // "related_services" => $related_services
+                    "featuredServices" => $featuredServices,
+                    // "related_services" => $related_services,
+                    "categories" => $categories,
                 ]);
             }
             else{
                 return view('dapSearchResult', [
-                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches your search keyword.'
+                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches your search keyword.',
+                    "categories" => $categories,
+                    "featuredServices" => $featuredServices,
                 ]);
             }
         }

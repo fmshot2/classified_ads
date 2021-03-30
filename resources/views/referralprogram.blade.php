@@ -102,6 +102,7 @@
 
                                                 <h6>How do I get paid?</h6>
                                                 <p>You will get a notification on your dashboard once your earning has reached the withdrawal threshold</p>
+                                                <p>As soon your bonus reaches the required threshold (&#8358;1000) the money will be transferred automatically to the account number provided on your profile the following week.</p>
 
                                                 <h6>How much is the minimum earning threshold?</h6>
                                                 <p>N1000 is the minimum earning threshold and you can withdraw only on any Friday. <br> For more information about our Referral Program, send us an email at info@efcontact.com</p>
@@ -184,6 +185,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+
                                 <div class="tab-pane fade" id="efagent" role="tabpanel" aria-labelledby="two-tab">
                                     <div class="card">
                                         <div class="card-body">

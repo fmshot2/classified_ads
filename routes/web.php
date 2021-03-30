@@ -180,6 +180,7 @@ Route::get('/getlocal_governments/{id}','CategoryController@getlocal_governments
 Route::get('api/get-city-list/{state_name}','CategoryController@getCityList');
 Route::get('api/get-category-list/{state_name}','CategoryController@getCategoryList');
 
+Route::get('api/get-subcategory-list/{category_slug}','CategoryController@getSubCategoryList');
 Route::get('api/get-like-list/{id}','ServiceController@getLikeList');
 
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
