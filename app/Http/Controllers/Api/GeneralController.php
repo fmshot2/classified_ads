@@ -34,7 +34,7 @@ class GeneralController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'categories', 'showcategory', 'banner_slider', 'search']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'categories', 'showcategory', 'banner_slider', 'search', 'advertisement']]);
         $this->user = $this->guard()->user();
     }
 

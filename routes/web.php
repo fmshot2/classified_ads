@@ -19,12 +19,13 @@ use App\Service;
 */
 
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
-//Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
+// Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
+Route::get('ajaxSearchResult/{slug}', 'OperationalController@ajaxSearchResult');
 
 //Agent Middleware starts here
 Route::post('create_user', 'AuthController@create_user');
 Route::post('create_agent', 'AuthController@create_agent');
-    Route::post('/agent_profile/{id}', 'AuthController@update_Profile_4_agent')->name('agent.profile.update');
+Route::post('/agent_profile/{id}', 'AuthController@update_Profile_4_agent')->name('agent.profile.update');
 
 
 
@@ -298,6 +299,9 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('make-payment-request', 'SellerController@getSellerPage')->name('seller.make.request');
         Route::post('submit-payment-request', 'PaymentRequestController@submitRequest')->name('seller.submit.payemnt.request');
         Route::get('payment-history', 'SellerController@PaymentHistory')->name('seller.payment.history');
+
+        Route::post('seeking-work/create', 'OperationalController@seekingWorkCreate')->name('provider.seeking.work.create');
+        // Route::get('payment-history', 'SellerController@PaymentHistory')->name('seller.payment.history');
 
     });
 

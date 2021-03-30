@@ -27,6 +27,8 @@ class ServiceResource extends JsonResource
             'badge_type'  => $this->badge_type,
             'likes'       => $this->likes,
             'video_link'  => $this->video_link,
+            'created_at'  => $this->created_at,
+            'updated_at'  => $this->updated_at,
             'slug'        => $this->slug,
             'provider'    => $this->user,
             'category'    => new CategoryResource($this->category),

@@ -17,9 +17,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Console\Input\Input;
 use App\Refererlink;
+use App\SeekingWork;
 use App\State;
 use App\Tourism;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 
 class OperationalController extends Controller
@@ -414,16 +416,49 @@ class OperationalController extends Controller
 
     public function ajaxSearchResult(Request $request)
     {
+        // $services = Service::query()
+        //         ->where('name', 'LIKE', "%{$q}%")
+        //         ->orWhere('description', 'LIKE', "%{$q}%");
+
+        //     $seekingworks = SeekingWork::query()
+        //         ->where('job_title', 'LIKE', "%{$q}%")
+        //         ->orWhere('fullname', 'LIKE', "%{$q}%");
+
+        //     // $data = collect(($services)->merge ($seekingworks))->get();
+
+        //     // $data = collect ($services)->merge ($seekingworks)->paginate (7);
+        //     $data = $services->get ()->concat ($seekingworks->get ());
+
+        //     dd($data);
+
         if($request->ajax()) {
-            $data = Service::query()
-            ->where('name', 'LIKE', "%{$request->service}%")
-            ->orWhere('description', 'LIKE', "%{$request->service}%")
-            ->get();
+            // $data = Service::query()
+            // ->where('name', 'LIKE', "%{$request->service}%")
+            // ->orWhere('description', 'LIKE', "%{$request->service}%")
+            // ->get();
+
+            $services = Service::query()
+                ->where('name', 'LIKE', "%{$request->service}%")
+                ->orWhere('description', 'LIKE', "%{$request->service}%");
+
+            $seekingworks = SeekingWork::query()
+                ->where('job_title', 'LIKE', "%{$request->service}%")
+                ->orWhere('fullname', 'LIKE', "%{$request->service}%");
+
+
+            $data = $services->get ()->concat ($seekingworks->get ());
+
+
             $output = '';
             if (count($data)>0) {
                 $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
                 foreach ($data as $row){
-                    $output .= '<li class="list-group-item"><a style="" href="'. route('serviceDetail',  $row->slug) .'">'.$row->name.'</a> in <a class="ajaxSearchCategoryList" href="'. route('services',  $row->category->slug) .'">'.$row->category->name.'</a></li>';
+                    if ($row->name) {
+                        $output .= '<li class="list-group-item"><a style="" href="'. route('serviceDetail',  $row->slug) .'">'. $row->name .'</a> in <a class="ajaxSearchCategoryList" href="'. route('services',  $row->category->slug) .'">'.$row->category->name.'</a></li>';
+                    }
+                    else{
+                        $output .= '<li class="list-group-item"><a style="" href="'. route('serviceDetail',  $row->slug) .'">'. $row->job_title .'</a> in <a class="ajaxSearchCategoryList" href="'. route('services',  $row->category->slug) .'">'.$row->category->name.' & CVs</a></li>';
+                    }
                 }
                 $output .= '</ul>';
             }
@@ -639,5 +674,89 @@ class OperationalController extends Controller
         }
 
     }
+
+
+
+    public function seekingWorkCreate(Request $request)
+    {
+
+        $this->validate($request, [
+            'name'              => 'string|required',
+            'phone'                 => 'string|numeric',
+            'job_type'              => 'string|required',
+            'job_title'             => 'string|required',
+            'job_experience'        => 'string|required',
+            'still_studying'        => 'string',
+            'gender'                => 'string|required',
+            'age'                   => 'string|numeric',
+            'marital_status'        => 'string',
+            'employment_status'     => 'string|required',
+            'highest_qualification' => 'string|required',
+            'expected_salary'       => 'string|required',
+            'user_state'            => 'string|required',
+            'user_lga'              => 'string|required',
+            'address'               => 'string',
+            'work_experience'       => 'string',
+            'education'             => 'string|required',
+            'certifications'        => 'string',
+            'skills'                => 'string|required',
+            'user_image'            => 'image|required'
+        ]);
+
+
+        if ($request->hasFile('user_image')) {
+            $image = $request->file('user_image');
+            $fileInfo = $image->getClientOriginalName();
+            $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
+            $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
+            $file_name = $filename.'-'.time().'.'.$extension;
+            $image->move(public_path('uploads/seekingworks'),$file_name);
+        }
+
+        $data = [
+            'user_id'               => $request->user()->id,
+            'fullname'              => $request->name,
+            'phone'                 => $request->phone,
+            'job_type'              => $request->job_type,
+            'job_title'             => $request->job_title,
+            'slug'                  => Str::of($request->job_title)->slug('-').'-'.time(),
+            'job_experience'        => $request->job_experience,
+            'still_studying'        => $request->still_studying,
+            'gender'                => $request->gender,
+            'age'                   => $request->age,
+            'marital_status'        => $request->marital_status,
+            'employment_status'     => $request->employment_status,
+            'highest_qualification' => $request->highest_qualification,
+            'expected_salary'       => $request->expected_salary,
+            'user_state'            => $request->user_state,
+            'user_lga'              => $request->user_lga,
+            'address'               => $request->address,
+            'work_experience'       => $request->work_experience,
+            'education'             => $request->education,
+            'certifications'        => $request->certifications,
+            'skills'                => $request->skills,
+            'category_id'           => $request->category_id,
+            'is_featured'           => $request->is_featured,
+            'picture'               => $file_name
+        ];
+
+
+        $sWork = new SeekingWork();
+
+        if ($sWork->create($data)) {
+            return redirect()->route('seller.dashboard')->with([
+                'message' => 'CV succesfully created!',
+                'alert-type' => 'success'
+            ]);
+        }
+        else{
+            return redirect()->route('seller.dashboard')->with([
+                'message' => 'CV couldn\'t updated!',
+                'alert-type' => 'error'
+            ]);
+        }
+
+    }
+
 
 }
