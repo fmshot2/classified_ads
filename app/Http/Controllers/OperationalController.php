@@ -457,7 +457,7 @@ class OperationalController extends Controller
                         $output .= '<li class="list-group-item"><a style="" href="'. route('serviceDetail',  $row->slug) .'">'. $row->name .'</a> in <a class="ajaxSearchCategoryList" href="'. route('services',  $row->category->slug) .'">'.$row->category->name.'</a></li>';
                     }
                     else{
-                        $output .= '<li class="list-group-item"><a style="" href="'. route('serviceDetail',  $row->slug) .'">'. $row->job_title .'</a> in <a class="ajaxSearchCategoryList" href="'. route('services',  $row->category->slug) .'">'.$row->category->name.'</a></li>';
+                        $output .= '<li class="list-group-item"><a style="" href="'. route('serviceDetail',  $row->slug) .'">'. $row->job_title .'</a> in <a class="ajaxSearchCategoryList" href="'. route('services',  $row->category->slug) .'">'.$row->category->name.' & CVs</a></li>';
                     }
                 }
                 $output .= '</ul>';

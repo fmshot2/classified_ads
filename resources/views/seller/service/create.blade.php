@@ -45,7 +45,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div id="show_form" class="row clearfix">
-                    <form id="serviceForm" action="{{route('service.save')}}" method="POST" class="" enctype="multipart/form-data">@csrf
+                    <form id="serviceForm" action="{{route('service.save')}}" method="POST" enctype="multipart/form-data">@csrf
                         <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
                             <div class="box box-default">
                                 <div class="box-header with-border">
@@ -92,9 +92,19 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group">
+                                            <div class="form-check">
+                                                <input id="featured" class="form-check-input" type="checkbox" value="1" name="is_featured" onclick="featuredCheckbox()">
+                                                <label class="form-check-label" for="featured"> Do you want this service featured?  <small class="infoLinkNote">(<a data-toggle="modal" data-target="#featuredInfoModal">How it works?</a>)</small></label>
+                                            </div>
+                                            <p id="featuredText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
                                             <label class="form-label">Location</label><small class="text-danger">*</small>
                                             <select class="form-control" required id="state"  name="state">
-                                                <option value="">-- Select State --</option>
+                                                <option value="">- Select State -</option>
                                                 @if(isset($states))
                                                     @foreach($states as $state)
                                                         <option id="state" value="{{$state->name}}"> {{ $state->name }}  </option>
@@ -148,7 +158,7 @@
                                         <label>Select Category</label>
                                         <small class="text-danger">*</small>
                                         <select name="category_id" required class="form-control show-tick" id="categories">
-                                            <option value="">-- Please select --</option>
+                                            <option value="">- Please select -</option>
                                             @foreach($category as $categories)
                                                 <option id="category_id" value=" {{ $categories->id }} "> {{ $categories->name }} </option>
                                             @endforeach
@@ -157,20 +167,11 @@
                                     <div class="form-group">
                                         <label>Sub Category <small class="text-info">(You can select multiple sub category)</small></label>
                                         <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple>
-                                            <option value="">-- Please select a category to populate this --</option>
+                                            <option value="">- Please select a category to populate this -</option>
                                             @foreach($subcategory as $subcategories)
                                                 <option id="category_id" value=" {{ $subcategories->id }} "> {{ $subcategories->name }} </option>
                                             @endforeach
                                         </select>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <div class="form-check">
-                                            <input id="featured" class="form-check-input" type="checkbox" value="1" name="is_featured" onclick="featuredCheckbox()">
-                                            <label class="form-check-label" for="featured"> Do you want this service featured?  <small class="infoLinkNote">(<a data-toggle="modal" data-target="#featuredInfoModal">How it works?</a>)</small></label>
-                                        </div>
-                                        <p id="featuredText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
                                     </div>
 
                                     <div class="form-group" id="youtubeLink">
@@ -198,7 +199,7 @@
 
 
                     <form id="seekingworkForm" action="{{route('provider.seeking.work.create')}}" method="POST" enctype="multipart/form-data">@csrf
-                        <div style="display: block" id="seeking-work-details" class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
+                        <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">
                             <div class="box box-default">
                                 <div class="box-header with-border">
                                     <i class="fa fa-plus"></i>
@@ -238,7 +239,7 @@
                                         <div class="form-group">
                                             <label for="">Job Type</label><small class="text-danger">*</small>
                                             <select class="form-control" name="job_type" value="{{ old('job_type') }}" required>
-                                                <option value="">-- Select Job Type --</option>
+                                                <option value="">- Select Job Type -</option>
                                                 <option value="full_time">Full Time</option>
                                                 <option value="part_time">Part Time</option>
                                                 <option value="temporary">Temporary</option>
@@ -262,7 +263,7 @@
                                         <div class="form-group">
                                             <label for="">Gender</label><small class="text-danger">*</small>
                                             <select class="form-control" name="gender" value="{{ old('gender') }}" required>
-                                                <option value="">-- Select Job Type --</option>
+                                                <option value="">- Select gender type -</option>
                                                 <option value="male">Male</option>
                                                 <option value="female">Female</option>
                                             </select>
@@ -280,7 +281,7 @@
                                         <div class="form-group">
                                             <label for="">Marital Status</label>
                                             <select class="form-control" name="marital_status" value="{{ old('marital_status') }}">
-                                                <option value="">-- Select Job Type --</option>
+                                                <option value="">- Select marital status -</option>
                                                 <option value="single">Single</option>
                                                 <option value="married">Married</option>
                                                 <option value="divorced">Divorced</option>
@@ -339,21 +340,21 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">Work Experience</label>
-                                            <textarea id='workexperience' name="work_experience" class="form-control" placeholder="Tell us about your service.">{{ old('work_experience') }}</textarea>
+                                            <textarea id='workexperience' name="work_experience" class="form-control" placeholder="Tell us about your work experience.">{{ old('work_experience') }}</textarea>
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">Education</label><small class="text-danger">*</small>
-                                            <textarea id='education' name="education" class="form-control" placeholder="Tell us about your service.">{{ old('education') }}</textarea>
+                                            <textarea id='education' name="education" class="form-control" placeholder="Tell us about your educational background.">{{ old('education') }}</textarea>
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">Certifications</label>
-                                            <textarea id='certifications' name="certifications" class="form-control" placeholder="Tell us about your service.">{{ old('certifications') }}</textarea>
+                                            <textarea id='certifications' name="certifications" class="form-control" placeholder="Tell us about your certifications.">{{ old('certifications') }}</textarea>
                                         </div>
                                     </div>
 
@@ -361,7 +362,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">Skills</label><small class="text-danger">*</small>
-                                            <textarea id='skills' name="skills" class="form-control" placeholder="Tell us about your service.">{{ old('skills') }}</textarea>
+                                            <textarea id='skills' name="skills" class="form-control" placeholder="Tell us about your skills.">{{ old('skills') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -411,7 +412,7 @@
                                             <div class="form-group">
                                                 <label class="form-label">Location</label><small class="text-danger">*</small>
                                                 <select class="form-control" required id="user_state"  name="user_state">
-                                                    <option value="">-- Select State --</option>
+                                                    <option value="">- Select State -</option>
                                                     @if(isset($states))
                                                         @foreach($states as $state)
                                                             <option value="{{$state->name}}"> {{ $state->name }}  </option>
@@ -625,16 +626,10 @@
             var categoryID = $(this).val();
 
             if (categoryID == 1 || categoryID == 2) {
-                document.getElementById("youtubeLink").style.display = 'none';
-                document.getElementById("negotiableChBox").style.display = 'none';
-                document.getElementById("servicePriceRange").innerText = 'Salary Range?';
                 document.getElementById('seekingworkForm').style.display = 'block'
                 document.getElementById('serviceForm').style.display = 'none'
             }
             else {
-                document.getElementById("youtubeLink").style.display = 'block';
-                document.getElementById("negotiableChBox").style.display = 'block';
-                document.getElementById("servicePriceRange").innerText = 'How much do you want to charge for this service?';
                 document.getElementById('seekingworkForm').style.display = 'none !important'
                 document.getElementById('serviceForm').style.display = 'block !important'
             }
