@@ -95,6 +95,7 @@
           <li><a href="{{ route('admin.add.admin') }}"><i class="fa fa-circle-o"></i> Add Admin </a></li>
           <li><a href=" {{ route('admin.all.cmos') }} "><i class="fa fa-circle-o"></i> CMOs </a></li>
           <li><a href="{{ route('admin.add.cmo') }}"><i class="fa fa-circle-o"></i> Add CMO </a></li>
+          <li><a href="{{ route('admin.add.cmo') }}"><i class="fa fa-circle-o"></i> Add Data Entry </a></li>
           <li><a href="{{ route('admin.allagents') }}"><i class="fa fa-circle-o"></i> Agents </a></li>
         </ul>
       </li>
