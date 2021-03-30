@@ -656,7 +656,7 @@ class AuthController extends Controller
         return view('auth/register', compact('states', 'referParam'));
     }
 
-    public function login(Request $request)
+ public function login(Request $request)
     {
         $request->validate([
             'email'    => ['required', 'string', 'email', 'max:255'],
