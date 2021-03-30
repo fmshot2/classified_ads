@@ -75,9 +75,9 @@
                             <a href="{{route('referralprogram')}}" class="grey-text text-lighten-3">Referral Program</a>
                         </li>
 
-                        <li class="">
+                       <!--  <li class="">
                             <a href="{{route('benefits-of-efcontact')}}" class="grey-text text-lighten-3">Agent Benefits</a>
-                        </li>
+                        </li> -->
 
                         <li class="">
                             <a href="{{route('allcities')}}" class="grey-text text-lighten-3">Tourist Sites in Nigeria</a>
