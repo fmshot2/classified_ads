@@ -611,6 +611,7 @@ h6 {
     .footer {
         display: block;
         background-color: rgb(37, 37, 37);
+        padding-top: 40px;
     }
     .footer .footer-item h4 {
         color: #fff;

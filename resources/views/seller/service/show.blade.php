@@ -117,7 +117,7 @@
             <div class="box box-default">
                 <div class="box-header">
                     <h2 class="box-title" style="font-weight: 700">Service Images</h2>
-                    <p>Add more images to describe your service more!</p>
+                    <p>Add more images to describe your service!</p>
                 </div>
                 <div class="box-body">
                         @forelse ($service->images as $image)
@@ -175,7 +175,7 @@
                             <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
                             <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
                         </center>
-                    @elseif (Auth::User()->badgetype == 4 && $service->images->count() < 2)
+                    @elseif (Auth::User()->badgetype == 0 && $service->images->count() < 2)
                         <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 2 - $service->images->count() }} image{{ 2 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
                         <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
                             @csrf
@@ -187,7 +187,7 @@
                         <br>
                         <center>
                             <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
-                            <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
+                            <a href="{{ route('service_detail_4_provider', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
                         </center>
                     @else
                         <p style="font-size: 16px; text-align:center; margin: 20px 0"><a href="{{ route('seller.service.badges') }}" style="color: #cc8a19;" >Upgrade</a> your account with a badge to upload images</p>

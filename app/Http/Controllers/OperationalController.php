@@ -472,6 +472,7 @@ class OperationalController extends Controller
     public function dapSearch(Request $request)
     {
         $keyword = $request->keyword ? $request->keyword : 'Nothing!';
+        $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
 
 
         if ($request->category == null && $request->city == null && $request->keyword == null) {
@@ -499,7 +500,8 @@ class OperationalController extends Controller
 
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services
+                    "services" => $services,
+                    "featuredServices" => $featuredServices
                 ]);
             }
             elseif ($request->category != null && $request->city != null) {
@@ -530,7 +532,8 @@ class OperationalController extends Controller
 
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services
+                    "services" => $services,
+                    "featuredServices" => $featuredServices
                 ]);
             }
             elseif ($request->city != null && $request->keyword != null) {
@@ -545,7 +548,8 @@ class OperationalController extends Controller
 
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services
+                    "services" => $services,
+                    "featuredServices" => $featuredServices
                 ]);
             }
             elseif ($request->category != null) {
@@ -560,7 +564,8 @@ class OperationalController extends Controller
 
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services
+                    "services" => $services,
+                    "featuredServices" => $featuredServices
                 ]);
             }
             else {
@@ -575,7 +580,8 @@ class OperationalController extends Controller
 
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services
+                    "services" => $services,
+                    "featuredServices" => $featuredServices
                 ]);
             }
 
@@ -610,7 +616,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$request->city.'</strong>',
                     "services" => $services,
-                    "related_services" => $related_services
+                    "related_services" => $related_services,
+                    "featuredServices" => $featuredServices
                 ]);
             }
             else{
@@ -622,7 +629,8 @@ class OperationalController extends Controller
 
                 return view('dapSearchResult', [
                     "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
-                    "services" => $services
+                    "services" => $services,
+                    "featuredServices" => $featuredServices
                 ]);
             }
         }elseif ($request->state != null) {
@@ -636,7 +644,8 @@ class OperationalController extends Controller
             if (!$services->isEmpty()) {
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$request->state.'</strong>',
-                    "services" => $services
+                    "services" => $services,
+                    "featuredServices" => $featuredServices
                 ]);
             }
             else{
@@ -648,7 +657,8 @@ class OperationalController extends Controller
 
                 return view('dapSearchResult', [
                     "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
-                    "services" => $services
+                    "services" => $services,
+                    "featuredServices" => $featuredServices
                 ]);
             }
         }
@@ -663,6 +673,7 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong>',
                     "services" => $services,
+                    "featuredServices" => $featuredServices
                     // "related_services" => $related_services
                 ]);
             }

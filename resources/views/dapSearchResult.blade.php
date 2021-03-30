@@ -21,6 +21,13 @@
         font-family: "Poppins-Regular";
         font-size: 16px;
     }
+    .ajaxSearchList{
+        width: fit-content;
+        position: absolute;
+    }
+    .ajaxSearchCategoryList{
+        color: #CA8309;
+    }
 </style>
 <div class="main">
     <div class="sub-banner">
@@ -371,6 +378,18 @@
                         <div class="sidebar widget advanced-search none-992">
                             <h3 class="sidebar-title">Search For A Service</h3>
 
+                            <form action="{{ route('dap.search') }}" method="GET" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="form-group name">
+                                            <input type="text" name="keyword" id="jxservices" class="form-control" placeholder="What Service Are You Looking For?">
+                                        </div>
+
+                                        <div id="service_list" class="ajaxSearchList"></div>
+                                    </div>
+                                </div>
+                            </form>
+
                             <form action="{{route('search3')}}" method="GET" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -528,14 +547,17 @@
                                         {{ $check_general_info == 0 ? $general_info->hot_line : '' }}
                                     </a>
                                 </li>
+                                @if ($general_info->hot_line_2)
+                                    <li>
+                                        <i class="flaticon-technology-1"></i>
+                                        <a href="tel:{{ $general_info->hot_line_2 ? $general_info->hot_line_2 : '' }}">
+                                            {{ $general_info->hot_line_2 ? $general_info->hot_line_2 : '' }}
+                                        </a>
+                                    </li>
+                                @endif
+
                                 <li>
-                                    <i class="flaticon-technology-1"></i>
-                                    <a href="tel:{{ $check_general_info == 0 ? $general_info->hot_line_2 : '' }}">
-                                        {{ $check_general_info == 0 ? $general_info->hot_line_2 : '' }}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a style="color: #05cc6c" href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services.">
+                                    <a style="color: #05cc6c" href="https://wa.me/{{ $general_info->hot_line_3 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services.">
                                         <i class="fa fa-whatsapp" style="color: #05cc6c"></i>
                                         WhatsApp Message
                                     </a>
@@ -557,5 +579,35 @@
 
 
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('#jxservices').keyup(function(){
+            var query = $('#jxservices').val();
+            if(query != '')
+            {
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{ route('ajax.search.result') }}",
+                    method:"GET",
+                    data:{service:query},
+                    success:function(data){
+                        $('#service_list').fadeIn();
+                        $('#service_list').html(data);
+                    }
+                });
+            }
+            else{
+                $('#service_list').hide();
+            }
+        });
+
+        $(document).on('click', 'li', function(){
+            $('#jxservices').val($('#jxservices').text());
+            $('#service_list').fadeOut();
+        });
+
+    });
+</script>
 
 @endsection
