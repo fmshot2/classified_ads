@@ -200,6 +200,7 @@ App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail
 Route::post('/createUser2', 'OldCodeController@createUser2')->name('createUser2');
 
 Route::get('/register', 'AuthController@showRegister')->name('register');
+Route::get('/group-register', 'AuthController@showGroupRegister')->name('register');
 Route::post('/register2', 'AuthController@createUser')->name('register2');
 //original payment and registration with gtpay
 Route::post('/register', 'AuthController@pay_with_gtpay')->name('register');
