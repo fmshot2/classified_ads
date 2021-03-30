@@ -81,17 +81,10 @@ Send Mail |
 				                            </span>
 				                            @endif
                                         </div>
-                                        
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <label for="" style="float: left; margin-top: -15px; margin-bottom: 20px; margin-left: 20px; font-size: 14px">
-                                                	</label>
-					                                <input type="checkbox" onclick="showPassword()" style="float: left;">Show Password
-					                            
-                                            </div>
-                                        </div>
                                     <div class="col-lg-12">
-                                        <button type="submit" class="btn btn-warning btn-sm"> Send Mail </button>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-warning btn-sm"> Send Mail </button>
+                                        </div>
                                     </div>
 
                                 </form>
