@@ -76,7 +76,7 @@
                         </li>
 
                         <li class="">
-                            <a href="{{route('benefits-of-efcontact')}}" class="grey-text text-lighten-3">Benefits of EFContact</a>
+                            <a href="{{route('benefits-of-efcontact')}}" class="grey-text text-lighten-3">Agent Benefits</a>
                         </li>
 
                         <li class="">
