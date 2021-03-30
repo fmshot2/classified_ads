@@ -16,7 +16,7 @@ class CreateGroupRegistrationCodesTable extends Migration
         Schema::create('group_registration_codes', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
-            $table->string('code');
+            $table->string('code')->unique();
             $table->longText('description')->nullable();
             $table->integer('max_usable');
             $table->integer('total_used')->default(0);

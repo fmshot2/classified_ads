@@ -61,7 +61,7 @@ class GroupRegisteration extends Component
             'email'      => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password'   => ['required', 'string', 'min:6', 'confirmed'],
             'agent_code' => ['nullable'],
-            // 'group_code' => ['required', 'exists:group_registration_codes,code'],
+            'group_code' => ['required', 'exists:group_registration_codes,code'],
             'terms'      => ['required'],
         ]);
 
@@ -91,6 +91,7 @@ class GroupRegisteration extends Component
         //save id of agent if user was brought by agent
         $user->idOfAgent   = $this->agent_Id;
         $user->refererLink = $slug3;
+        $user->group_code  = $this->group_code;
         $result            = $user->save();
         
 
