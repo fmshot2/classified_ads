@@ -415,14 +415,6 @@
     </div>
 </div>
 
-<div style="background-color: #fff; border-top: 10px solid #03A84E; border-bottom: 10px solid #03A84E;">
-        <marquee direction="left" style="color: black; font-size: 15px;">
-            <strong>
-            arhjhkhjjghhk
-        </strong>            
-        </marquee>
-</div>
-
 <script>
     $(document).ready(function(){
         $('#jxservices').keyup(function(){
