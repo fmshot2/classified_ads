@@ -63,6 +63,43 @@
         top: 45%;
         color: #fff;
     }
+    .badge-info-box {
+        min-height: 100px;
+        background: #fff;
+        width: 100%;
+        box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
+        -webkit-box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
+        border-radius: 10px;
+        margin-bottom: 20px;
+        padding: 15px;
+        text-align: center;
+    }
+    .badge-info-box-icon {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5px;
+        flex-direction: row;
+    }
+    .badge-info-box-icon span {
+        height: 60px;
+        width: 60px;
+        text-align: center;
+        font-size: 30px;
+        line-height: 64px;
+        border-radius: 100%;
+        color: #fff;
+        margin: 0 5px 10px
+    }
+    .super-user{
+        background-color: #FFC107 !important;
+    }
+    .moderate-user{
+        background-color: #007BFF !important;
+    }
+    .basic-user{
+        background-color: #28A745 !important;
+    }
     @media (max-width: 768px){
         .content-header{
             padding: 0 5px 10px 10px;
@@ -88,6 +125,14 @@
         }
         .progress-description .btn{
             font-size: 9px;
+        }
+
+        .badge-info-box-icon span {
+            height: 32px;
+            width: 32px;
+            font-size: 16px;
+            line-height: 32px;
+            margin: 0 2px 3px
         }
     }
 </style>
@@ -301,19 +346,53 @@
                 <!-- /.col -->
 
                 <div class="col-md-3 col-sm-6 col-xs-6">
-                    <div class="info-box">
-                        <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-bell text-white" aria-hidden="true"></i>  </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text"> General Notice{{ $all_notification_count > 1 ? 's' : '' }}</span>
-                            <span class="info-box-number"> {{ $all_notification_count }} </span>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-danger" style="width: {{ $all_notification_count }}%"></div>
+                    <div class="badge-info-box">
+                        @if (Auth::user()->badgetype == 1)
+                            <div class="badge-info-box-icon">
+                                <span class="super-user">
+                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                                </span>
+                                <span class="super-user">
+                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                                </span>
+                                <span class="super-user">
+                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                                </span>
                             </div>
-                            <span class="progress-description">
-                                <!-- Extra content can go here -->
-                            </span>
-                        </div>
-                        <!-- /.info-box-content -->
+                            <div class="">
+                                <strong>Super Badge User</strong>
+                            </div>
+                        @elseif (Auth::user()->badgetype == 2)
+                            <div class="badge-info-box-icon">
+                                <span class="moderate-user">
+                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                                </span>
+                                <span class="moderate-user">
+                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="">
+                                <strong>Moderate Badge User</strong>
+                            </div>
+                        @elseif (Auth::user()->badgetype == 3)
+                            <div class="badge-info-box-icon">
+                                <span class="basic-user">
+                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="">
+                                <strong>Basic Badge User</strong>
+                            </div>
+                        @else
+                            <div class="badge-info-box-icon">
+                                <span class="basic-user">
+                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="">
+                                <strong>A Normal User</strong>
+                            </div>
+                        @endif
                     </div>
                     <!-- /.info-box -->
                 </div>
@@ -324,13 +403,13 @@
                             <i class="fa fa-money text-white" aria-hidden="true"></i>
                         </span>
                         <div class="info-box-content">
-                            <span class="info-box-text"> Referral Bonus: &#8358;{{$accruedAmount ?? 0}}</span>
+                            <span class="info-box-text"> Referral Bonus: <br> &#8358;{{$accruedAmount ?? 0}}</span>
                             <span class="progress-description">
                                 <button class="btn btn-success btn-sm" style="cursor: pointer; display: block; margin-top: 5px;" data-toggle="modal" data-target="#exampleModal">Make Withdrawal</button>
                             </span>
-                            <div class="progress">
+                            {{-- <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style="width: {{$accruedAmount ?? 0}}%"></div>
-                            </div>
+                            </div> --}}
 
                         </div>
                         <!-- /.info-box-content -->

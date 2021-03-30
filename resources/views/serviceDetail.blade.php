@@ -402,7 +402,7 @@
                         @endauth
 
                         @guest
-                        <p>Please login as a service seeker to see your previous conversation with this service provider</p>
+                        <p>Please login to see your previous conversation with this service provider</p>
                         @endguest
 
 
@@ -702,7 +702,7 @@
     var bounds = [[-123.069003, 45.395273], [-122.303707, 45.612333]];
     map.setMaxBounds(bounds);
 
-    
+
 
     // initialize the map canvas to interact with later
     var canvas = map.getCanvasContainer();

@@ -75,39 +75,47 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <div style="padding-bottom: 30px;">
-                                                <p>Get rewarded up to N50 for every person you refer to register on EFContact.com</p>
-                                                <ul style="list-style: none">
-                                                    <li>* No referral limits - You can refer as many people as you want.</li>
-                                                    <li>* Bonus credited instantly - You will receive your bonus immediately once your friend completes the registration.</li>
-                                                </ul>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <p>Get rewarded with &#8358;50 for every person you refer to register on EFContact.com</p>
+                                                        <ul style="list-style: none">
+                                                            <li>* No referral limits - You can refer as many people as you want.</li>
+                                                            <li>* Bonus credited instantly - You will receive your bonus immediately once your friend completes the registration.</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h6>How do I get started?</h6>
+                                                        <ul style="list-style: none">
+                                                            <li>* Register your account - You don't need to have a service or product to sell before you can register on EFContact, you can also register as "Looking for a service" and you will get your referral link and start earning.</li>
+                                                            <li>* Fill the registration form</li>
+                                                            <li>* Payment - If you register as a "Service provider", you will be redirected to our secured payment page where you will pay a sum of N200 for 1 Month subscription, or N1200 for 6 Months subscription, or 2400 for 1-year subscription.</li>
+                                                        </ul>
+                                                        <p><strong>Note that this step does not apply to you if you register as "Looking for a service"</strong></p>
 
-                                                <h6>How do I get started?</h6>
-                                                <ul style="list-style: none">
-                                                    <li>* Register your account - You don't need to have a service or product to sell before you can register on EFContact, you can also register as "Looking for a service" and you will get your referral link and start earning.</li>
-                                                    <li>* Fill the registration form</li>
-                                                    <li>* Payment - If you register as a "Service provider", you will be redirected to our secured payment page where you will pay a sum of N200 for 1 Month subscription, or N1200 for 6 Months subscription, or 2400 for 1-year subscription.</li>
-                                                </ul>
-                                                <p><strong>Note that this step does not apply to you if you register as "Looking for a service"</strong></p>
+                                                        <h6>How do I refer people to register on EFContact?</h6>
+                                                        <p>Once your registration is complete, you can follow the steps below to refer people to register.</p>
 
-                                                <h6>How do I refer people to register on EFContact?</h6>
-                                                <p>Once your registration is complete, you can follow the steps below to refer people to register.</p>
+                                                        <ul style="list-style: none">
+                                                            <li><strong>Step 1.</strong> Get your referral link - Log in to your efcontact.com account and navigate to your dashboard</li>
+                                                            <div style="width: 100%; margin-bottom: 20px"><img src="{{ asset('referbtn.jpg') }}" alt=""></div>
+                                                            <li><strong>Step 2.</strong> Copy your referral link</li>
+                                                            <div style="width: 100% margin-bottom: 20px"><img src="{{ asset('referlink.jpg') }}" alt=""></div>
+                                                        </ul>
+                                                        <p><strong>Now you can share your referral link on WhatsApp, Facebook, Twitter or anywhere</strong></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h6>How do I get paid?</h6>
+                                                        <p>You will get a notification on your dashboard once your earning has reached the withdrawal threshold.</p>
+                                                        <p>As soon as your bonus reaches this threshold (&#8358;1000) the money will be transferred automatically to the account number provided on your profile the following week.</p>
 
-                                                <ul style="list-style: none">
-                                                    <li><strong>Step 1.</strong> Get your referral link - Log in to your efcontact.com account and navigate to your dashboard</li>
-                                                    <div style="width: 100%; margin-bottom: 20px"><img src="{{ asset('referbtn.jpg') }}" alt=""></div>
-                                                    <li><strong>Step 2.</strong> Copy your referral link</li>
-                                                    <div style="width: 100% margin-bottom: 20px"><img src="{{ asset('referlink.jpg') }}" alt=""></div>
-                                                </ul>
-                                                <p><strong>Now you can share your referral link on WhatsApp, Facebook, Twitter or anywhere</strong></p>
-
-                                                <h6>How do I get paid?</h6>
-                                                <p>You will get a notification on your dashboard once your earning has reached the withdrawal threshold</p>
-                                                <p>As soon your bonus reaches the required threshold (&#8358;1000) the money will be transferred automatically to the account number provided on your profile the following week.</p>
-
-                                                <h6>How much is the minimum earning threshold?</h6>
-                                                <p>N1000 is the minimum earning threshold and you can withdraw only on any Friday. <br> For more information about our Referral Program, send us an email at info@efcontact.com</p>
-                                                <p>What are you waiting for? Fill the form below and start earning</p>
+                                                        <h6>How much is the minimum earning threshold?</h6>
+                                                        <p>N1000 is the minimum earning threshold and you can withdraw only on any Friday. <br> For more information about our Referral Program, send us an email at info@efcontact.com</p>
+                                                        <p>What are you waiting for? Fill the form below and start earning</p>
+                                                    </div>
+                                                </div>
                                             </div>
+
+                                            <hr>
 
                                             <h5 style="text-transform: uppercase; padding-bottom: 5px;">Create Account</h5>
                                             <form method="POST" action="{{ route('register') }}">

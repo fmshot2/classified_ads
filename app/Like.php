@@ -9,8 +9,13 @@ class Like extends Model
     //
 
     public function service()
-{
-    return $this->belongsTo('App\Service');
-}
+    {
+        return $this->belongsTo('App\Service');
+    }
+
+    public function seeking_work()
+    {
+        return $this->belongsTo('App\SeekingWork');
+    }
 
 }

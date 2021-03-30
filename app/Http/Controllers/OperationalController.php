@@ -7,6 +7,7 @@ use App\Advertisement;
 use App\AdvertLocation;
 use App\Category;
 use App\General_Info;
+use App\Image;
 use App\Like;
 use App\Mail\UsersFeedback;
 use App\Message;
@@ -421,26 +422,26 @@ class OperationalController extends Controller
         $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
         $approvedServices = Service::where('status', 1)->with('user')->get();
         $categories = Category::paginate(8);
-        $seekingWorkDetails = Service::where('slug', $slug)->first();
-        $serviceDetail_id = $seekingWorkDetails->id;
-        $service_likes = Like::where('service_id', $serviceDetail_id)->count();
-        $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$serviceDetail_id])->first();
-        $service_category_id = $seekingWorkDetails->category_id;
-        $serviceDetail_state = $seekingWorkDetails->state;
-        $similarProducts = Service::where([['category_id', $service_category_id], ['state', $serviceDetail_state] ])->inRandomOrder()->limit(8)->get();
+        $seekingWorkDetail = SeekingWork::where('slug', $slug)->first();
+        $seekingWorkDetail_id = $seekingWorkDetail->id;
+        $seekingWorkDetail_likes = Like::where('service_id', $seekingWorkDetail_id)->count();
+        $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$seekingWorkDetail_id])->first();
+        $service_category_id = $seekingWorkDetail->category_id;
+        $seekingWorkDetail_state = $seekingWorkDetail->state;
+        $images_4_service = Image::where('imageable_id', $seekingWorkDetail_id)->get();
+        $similarProducts = Service::where([['category_id', $service_category_id], ['state', $seekingWorkDetail_state] ])->inRandomOrder()->limit(8)->get();
 
-        $featuredServices2 = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(3)->get();
-        $user_id = $seekingWorkDetails->user_id;
-        $userMessages = Message::where('service_id', $serviceDetail_id)->orderBy('created_at','desc')->take(7)->get();
+        $user_id = $seekingWorkDetail->user_id;
+        $userMessages = Message::where('service_id', $seekingWorkDetail_id)->orderBy('created_at','desc')->take(7)->get();
 
         $the_user = User::find($user_id);
         $the_user_name = $the_user->name;
         $the_provider_f_name = explode(' ', trim($the_user_name))[0];
 
         $expiresAt = now()->addHours(24);
-        views($seekingWorkDetails)->cooldown($expiresAt)->record();
+        views($seekingWorkDetail)->cooldown($expiresAt)->record();
 
-        return view('seekingWorkDetail', compact(['serviceDetail', 'serviceDetail_id', 'approvedServices',  'similarProducts', 'service_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck']));
+        return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck']));
     }
 
     public function ajaxSearchResult(Request $request)
@@ -467,7 +468,7 @@ class OperationalController extends Controller
                         $output .= '<li class="list-group-item"><a style="" href="'. route('serviceDetail',  $row->slug) .'">'. $row->name .'</a> in <a class="ajaxSearchCategoryList" href="'. route('services',  $row->category->slug) .'">'.$row->category->name.'</a></li>';
                     }
                     else{
-                        $output .= '<li class="list-group-item"><a style="" href="'. route('serviceDetail',  $row->slug) .'">'. $row->job_title .'</a> in <a class="ajaxSearchCategoryList" href="'. route('services',  $row->category->slug) .'">'.$row->category->name.' & CVs</a></li>';
+                        $output .= '<li class="list-group-item"><a style="" href="'. route('job.applicant.detail',  $row->slug) .'">'. $row->job_title .'</a> in <a class="ajaxSearchCategoryList" href="'. route('services',  $row->category->slug) .'">'.$row->category->name.' & CVs</a></li>';
                     }
                 }
                 $output .= '</ul>';

@@ -5,6 +5,14 @@ span.info-box-icon.push-bottom.bg-warning {
     margin-top: 5px;
 }
 
+.alert-warning,
+.bg-warning,
+.callout.callout-warning,
+.label-warning,
+.modal-warning .modal-body {
+    background-color: #cc8a19;
+}
+
 .navbar-top-post-btn a {
     font-size: 17px !important;
     text-transform: uppercase;
@@ -16,14 +24,14 @@ span.info-box-icon.push-bottom.bg-warning {
     box-shadow: 0 0 0 rgba(255, 41, 41, 0.4);
     animation: pulsePostBtn 1s infinite;
 }
-.sidebar .sidebar-menu li.active{
+.sidebar .sidebar-menu li.active {
     background-color: #cc8a19;
 }
-.sidebar .sidebar-menu li.active a{
+.sidebar .sidebar-menu li.active a {
     background-color: #cc8a19;
-    color:#fff;
+    color: #fff;
 }
-.provider .navbar{
+.provider .navbar {
     background-color: #cc8a19 !important;
 }
 .skin-blue .main-header .navbar .sidebar-toggle:hover {
@@ -33,39 +41,42 @@ span.info-box-icon.push-bottom.bg-warning {
     background: #cc8a19 !important;
     color: white !important;
 }
-.btn.btn-warning{
+.btn.btn-warning {
     background-color: #d8b033 !important;
 }
 /* CA8309 */
-.btn-success, .alert-success{
+.btn-success,
+.alert-success {
     background-color: #41af0f !important;
 }
-.text-success{
+.text-success {
     color: #41af0f !important;
 }
 
-.page-title{
+.page-title {
     font-size: 22px;
 }
-.page-description{
-    font-size: 15px
+.page-description {
+    font-size: 15px;
 }
-.infoLinkNote{
+.infoLinkNote {
     color: rgb(39, 228, 165);
 }
-.infoLinkNote a{
+.infoLinkNote a {
     color: rgb(39, 228, 165);
 }
-.infoLinkNote a:hover{
+.infoLinkNote a:hover {
     color: rgb(139, 255, 216);
     cursor: pointer;
 }
 
-.box-body thead th{
+.box-body thead th {
     font-weight: 600;
 }
 
-.skin-blue .sidebar-menu > li:hover > a, .skin-blue .sidebar-menu > li.active > a, .skin-blue .sidebar-menu > li.menu-open > a {
+.skin-blue .sidebar-menu > li:hover > a,
+.skin-blue .sidebar-menu > li.active > a,
+.skin-blue .sidebar-menu > li.menu-open > a {
     color: #ffffff;
     background: #cc8a19;
 }

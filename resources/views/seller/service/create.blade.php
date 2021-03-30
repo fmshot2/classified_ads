@@ -240,11 +240,11 @@
                                             <label for="">Job Type</label><small class="text-danger">*</small>
                                             <select class="form-control" name="job_type" value="{{ old('job_type') }}" required>
                                                 <option value="">- Select Job Type -</option>
-                                                <option value="full_time">Full Time</option>
-                                                <option value="part_time">Part Time</option>
-                                                <option value="temporary">Temporary</option>
-                                                <option value="contract">Contract</option>
-                                                <option value="internship">Internship</option>
+                                                <option value="Full Time">Full Time</option>
+                                                <option value="Part Time">Part Time</option>
+                                                <option value="Temporary">Temporary</option>
+                                                <option value="Contract">Contract</option>
+                                                <option value="Internship">Internship</option>
                                             </select>
                                         </div>
                                     </div>
