@@ -350,19 +350,19 @@ class BadgeController extends Controller
         if ($id == 1) {
             $badge = [
                 'badge_type' => 'Super',
-                'badge_cost' => 11
+                'badge_cost' => 15000
             ];
         }
         elseif ($id == 2) {
             $badge = [
                 'badge_type' => 'Moderate',
-                'badge_cost' => 12
+                'badge_cost' => 10000
             ];
         }
         elseif ($id == 3) {
             $badge = [
                 'badge_type' => 'Basic',
-                'badge_cost' => 13
+                'badge_cost' => 5000
             ];
         }
 
@@ -403,16 +403,16 @@ class BadgeController extends Controller
                 if ($person_that_refered) {
                     $referer = User::where('id', $person_that_refered)->first();
                     if ($referer) {
-                      if ($data['amount'] == 11) {
-                        $referer->refererAmount = $referer->refererAmount + 1;
+                      if ($data['amount'] == 15000) {
+                        $referer->refererAmount = $referer->refererAmount + 1000;
                         $referer->save();
                       }
-                      if ($data['amount'] == 12) {
-                        $referer->refererAmount = $referer->refererAmount + 2;
+                      if ($data['amount'] == 10000) {
+                        $referer->refererAmount = $referer->refererAmount + 500;
                         $referer->save();
                       }
-                      if ($data['amount'] == 13) {
-                        $referer->refererAmount = $referer->refererAmount + 3;
+                      if ($data['amount'] == 5000) {
+                        $referer->refererAmount = $referer->refererAmount + 300;
                         $referer->save();
                       }
                         
@@ -425,15 +425,15 @@ class BadgeController extends Controller
                     if ($referer2) {
                         if ($referer2) {
                       if ($data['amount'] == 11) {
-                        $referer2->refererAmount = $referer->refererAmount + 1;
+                        $referer2->refererAmount = $referer->refererAmount + 1000;
                         $referer2->save();
                       }
                       if ($data['amount'] == 12) {
-                        $referer2->refererAmount = $referer->refererAmount + 2;
+                        $referer2->refererAmount = $referer->refererAmount + 500;
                         $referer2->save();
                       }
                       if ($data['amount'] == 13) {
-                        $referer2->refererAmount = $referer->refererAmount + 3;
+                        $referer2->refererAmount = $referer->refererAmount + 300;
                         $referer2->save();
                       }
                         
