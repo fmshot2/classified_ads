@@ -140,62 +140,55 @@ class Register extends Component
     public function save_user()
     {
 
-        $slug3 = Str::random(8);
-
-       
+        $slug3 = Str::random(8);      
 
 
         //save user
-        $user           = Agent::where('email', $this->agent_email)->first();
+        $user = Agent::where('email', $this->agent_email)->first();
+
+        if (!$user) {
+           
+            session()->flash('fail', ' Your email was not found. Please Re-register');
+            return redirect()->route('home');     
+        }
+
         if ($user) {
         $user->name     = $this->agent_name;
         $user->email    = $this->agent_email;
         $user->password = Hash::make($this->password);
+        $user->identification_type    = $this->identification_type;
+
 
         //send mail
+        //                 Auth::attempt(['email' => $this->email, 'password' => $this->password]);
+        // if (Auth::check()) {
 
-        if ($user->save()) {
 
-            $name         = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
-            $name         = $user->name;
-            $email        = $user->email;
-            $origPassword = $this->password;
+        if ($user->save()) {  
 
-            try {
-                Mail::to($user->email)->send(new AgentRegistration($name, $email, $origPassword, $userRole));
-                Auth::attempt(['email' => $this->email, 'password' => $this->password]);
-            } catch (\Exception $e) {
-                $failedtosendmail = 'Failed to Mail!';
+            Auth::guard('agent')->attempt(['email' => $this->agent_email, 'password' => $this->password]);
+
+            if (Auth::guard('agent')->check()) {
+            //Check login
+
+                $present_user = Auth::guard('agent')->user();
+
+                $link = new Refererlink();
+                $link->agent_id = $present_user->id;
+                $link->agent_code = $present_user->agent_code;
+                $link->save();               
+
+                    //if login pass,redirect to agent dashboard page
+                session()->flash('success', 'Content Created Successfully.');
+                
+                return redirect()->route('agent.dashboard');
+            } else {
+                session()->flash('fail', ' Credentials2 Incorect');
+                return view('auth.agent_login');
             }
         }
     }
-            $success_notification = array(
-            'message' => 'Your email was not found. Please Re-register',
-            'alert-type' => 'error'
-            );
-            return redirect('home')->with($success_notification);
-
-
-
-         if (Auth::guard('agent')->check()) {
-                    $present_user = Auth::guard('agent')->user();
-
-                    $link = new Refererlink();
-                    $link->agent_id = $present_user->id;
-                    $link->agent_code = $present_user->agent_code;
-                    $link->save();
-                   
-
-
-                    //if login pass,redirect to agent dashboard page
-                    session()->flash('success', 'Content Created Successfully.');
-                    return redirect(route('agent.dashboard'));
-                    // return redirect()->intended('agent/dashboard');
-                } else {
-                    session()->flash('fail', ' Credentials2 Incorect');
-                    return view('auth.agent_login');
-                }
-    }
+}
 
 
     public function render()

@@ -161,13 +161,13 @@
  </div>
 </div>
 <div class="col-md-6">
-    <h5>Choose Password</h5>
+    <h5>Choose Passwords</h5>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
                 <label class="form-label">Password</label><small class="text-danger">*</small>
                 <div class="input-group">
-                    <input type="password" id="password" class="form-control" wire:model='password' placeholder="Password (min: 6 characters)">
+                    <input type="password" id="password" class="form-control" wire:model='password'>
                     <button onclick="showPassword()" type="button" class="input-group-addon"><i class="fa fa-eye"></i></button>
                 </div>
                 @if ($errors->has('password'))
@@ -195,7 +195,7 @@
 <div class="row">
     <div class="col-md-12 text-center">
         <label>
-            <span class="text-success">You will be redirected to ou payments page to make your Agent Fee of <strong style="color: rgb(187, 84, 84)">&#8358;500</strong> only.</span>
+            <span class="text-success">You will be redirected to our payments page to provide your Agent Fee of <strong style="color: rgb(187, 84, 84)">&#8358;500</strong> only.</span>
         </label>
     </div>
 </div>
