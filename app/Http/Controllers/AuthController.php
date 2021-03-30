@@ -72,11 +72,11 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-        	  $success_notification = array(
+            $success_notification = array(
                 'message' => 'Unsuccessfull Request. Please Retry',
                 'alert-type' => 'error'
             );
-        	  return redirect('/')->with($success_notification)->withErrors($validator)->withInput();
+            return redirect('/')->with($success_notification)->withErrors($validator)->withInput();
             // return redirect('/')
             //             ->withErrors($validator)
             //             ->withInput();
@@ -114,11 +114,11 @@ class AuthController extends Controller
         if ($email_param) {
             $agent = Agent::where('email', $email_param)->first();
             if ($agent->password) {
-            	$success_notification = array(
-            		'message' => 'You have completed the registration before. Please login as agent',
-            		'alert-type' => 'error'
-            	);
-        	return redirect()->route('login')->with($success_notification);     
+                $success_notification = array(
+                    'message' => 'You have completed the registration before. Please login as agent',
+                    'alert-type' => 'error'
+                );
+                return redirect()->route('login')->with($success_notification);
             }
             $agent_email = $agent->email;
             $agent_name = $agent->name;
@@ -152,7 +152,7 @@ class AuthController extends Controller
         $state = $request->state;
         $result = substr($state, 0, 3);
         $ist_3_result = strtoupper($result);
-        $randomCode = mt_rand(1000,9999);
+        $randomCode = mt_rand(1000, 9999);
         //To Get The Last Letter
         // $length = 1;
         // $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
@@ -727,11 +727,12 @@ class AuthController extends Controller
                 );
                 return redirect()->route('accountant.dashboard')->with($success_notification);
             } else {
-            	$success_notification = array(
-            		'message' => 'You are successfully logged in!',
-            		'alert-type' => 'success'
-            	);
-            	return redirect()->route('home')->with($success_notification);            }
+                $success_notification = array(
+                    'message' => 'You are successfully logged in!',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('home')->with($success_notification);
+            }
         }
 
         $success_notification = array(
@@ -740,9 +741,9 @@ class AuthController extends Controller
         );
         session()->flash('fail', 'Incorrect username or password');
 
-        return redirect()->route('login')->with($success_notification);     
+        return redirect()->route('login')->with($success_notification);
     }
-    
+
     public function showLogin(Request $request)
     {
         $request->session()->forget('url.intended');
@@ -818,7 +819,7 @@ class AuthController extends Controller
 
 
 
-     public function update_Profile_4_agent(Request $request, $id)
+    public function update_Profile_4_agent(Request $request, $id)
     {
 
         $user = Agent::find($id);
@@ -866,7 +867,7 @@ class AuthController extends Controller
         ]);
 
         $hashedPassword = Auth::guard('agent')->user()->password;
-          // Auth::guard('agent')->attempt(['email' => $request->email, 'password' => $request->password]);
+        // Auth::guard('agent')->attempt(['email' => $request->email, 'password' => $request->password]);
 
         if (Hash::check($request->old_password, $hashedPassword)) {
             // Authentication passed...

@@ -15,7 +15,7 @@
                     <div class="popular-posts featured-service-hm">
                          @if(isset($featuredServices))
                             @foreach($featuredServices as $featuredService)
-                                @if ($loop->index < 16)
+                                @if ($loop->index < 16 && $featuredService->status == 1)
                                     <div class="media p-2">
                                         <a href="{{route('serviceDetail', $featuredService->slug)}}">
                                             <div class="media-left">
