@@ -379,8 +379,13 @@
         });
     </script>
 
+    
+    @yield('script')
+
+
     {{-- livewirescript --}}
     @livewireScripts
+
 
 
 </body>

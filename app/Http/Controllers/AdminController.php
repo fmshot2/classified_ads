@@ -22,6 +22,10 @@ use App\Event;
 use App\Subscription;
 use App\UserFeedback;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Carbon;
 use Geocoder;
 
 
@@ -67,7 +71,113 @@ class AdminController extends Controller
 
   }
 
+  public function allAdmins()
+  {
+    $admins = User::where('role', '=', 'admin')->get();
 
+    return view('admin.user.admins', [
+      'admins' => $admins
+    ]);
+  }
+
+  public function allCmos()
+  {
+    $cmos = User::where('role', '=', 'cmo')->get();
+
+    return view('admin.user.cmos', [
+      'cmos' => $cmos
+    ]);
+  }
+
+  public function add_admin()
+  {
+    return view('admin.user.add_admin');
+  }
+
+  public function add_cmo()
+  {
+    return view('admin.user.add_cmo');
+  }
+
+  public function submit_cmo(Request $request)
+  {
+    $data = array(
+            'name'   => $request->name,
+            'email'   => $request->email,
+            'password' => $request->password,
+        );
+
+      $validator = \Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users|max:255',
+            'password' => 'required|string|min:6',
+        ]);
+
+        if($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        }
+
+        $user = new User;
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($data['password']);
+        $user->role = 'cmo';
+        $user->status = 1;
+
+        $user->save();
+
+        if($user->save())
+        {
+          $success_notification = array(
+                'message' => 'CMO successfully added!',
+                'alert-type' => 'success'
+            );
+        }
+
+        return redirect()->back()->with($success_notification);
+  }
+
+  public function submit_admin(Request $request)
+  {
+    $data = array(
+            'name'   => $request->name,
+            'email'   => $request->email,
+            'password' => $request->password,
+        );
+
+      $validator = \Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users|max:255',
+            'password' => 'required|string|min:6',
+        ]);
+
+        if($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        }
+
+        $user = new User;
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($data['password']);
+        $user->role = 'admin';
+        $user->status = 1;
+
+        $user->save();
+
+        if($user->save())
+        {
+          $success_notification = array(
+                'message' => 'Admin successfully added!',
+                'alert-type' => 'success'
+            );
+        }
+
+        return redirect()->back()->with($success_notification);
+  }
 
   public function lat()
   {

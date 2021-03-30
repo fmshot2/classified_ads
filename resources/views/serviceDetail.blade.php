@@ -3,6 +3,7 @@
 
 @section('title', $serviceDetail->name . ' | ')
 
+
 @section('content')
 
 <style>
@@ -577,7 +578,8 @@
                                 </form>
                             </div>
                             @if($serviceDetail->address != '')
-                            {{-- <div class="map" style="border:0; width: 100%; height: 381px;"></div> --}}
+                            {{-- <div style="width: 640px; height: 480px" id="mapContainer"></div> --}}
+                            {{-- <div id='map' style='width: 400px; height: 300px; '></div> --}}
                             <div class="google-maps">
                                 <div class="mapouter">
                                     <div class="gmap_canvas">
@@ -684,9 +686,167 @@
     </div>
 @endsection
 
-
-
+@section('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaGdhbG9uZSIsImEiOiJja21nbHA4bTgzMWFyMndsYW84ZWxmODV2In0._Ffx_yk8R2WAgjc0a0CD4A';
+    var map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [-74.5, 40], // starting position [lng, lat]
+    zoom: 9 // starting zoom
+    });
+
+    //set the bounds for the map
+    var bounds = [[-123.069003, 45.395273], [-122.303707, 45.612333]];
+    map.setMaxBounds(bounds);
+
+    
+
+    // initialize the map canvas to interact with later
+    var canvas = map.getCanvasContainer();
+
+    // an arbitrary start will always be the same
+    // only the end or destination will change
+
+    var start = [-122.662323, 45.523751];
+
+    // create a function to make a directions request
+    function getRoute(end) {
+      // make a directions request using cycling profile
+      // an arbitrary start will always be the same
+      // only the end or destination will change
+      var start = [-122.662323, 45.523751];
+      var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+
+      // make an XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+      var req = new XMLHttpRequest();
+      req.open('GET', url, true);
+      req.onload = function() {
+        var json = JSON.parse(req.response);
+        var data = json.routes[0];
+        var route = data.geometry.coordinates;
+        var geojson = {
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'LineString',
+            coordinates: route
+          }
+        };
+        // if the route already exists on the map, reset it using setData
+        if (map.getSource('route')) {
+          map.getSource('route').setData(geojson);
+        } else { // otherwise, make a new request
+          map.addLayer({
+            id: 'route',
+            type: 'line',
+            source: {
+              type: 'geojson',
+              data: {
+                type: 'Feature',
+                properties: {},
+                geometry: {
+                  type: 'LineString',
+                  coordinates: geojson
+                }
+              }
+            },
+            layout: {
+              'line-join': 'round',
+              'line-cap': 'round'
+            },
+            paint: {
+              'line-color': '#3887be',
+              'line-width': 5,
+              'line-opacity': 0.75
+            }
+          });
+        }
+        // add turn instructions here at the end
+      };
+      req.send();
+    }
+
+    map.on('load', function() {
+      // make an initial directions request that
+      // starts and ends at the same location
+      getRoute(start);
+      console.log(start);
+      // Add starting point to the map
+      map.addLayer({
+        id: 'point',
+        type: 'circle',
+        source: {
+          type: 'geojson',
+          data: {
+            type: 'FeatureCollection',
+            features: [{
+              type: 'Feature',
+              properties: {},
+              geometry: {
+                type: 'Point',
+                coordinates: start
+              }
+            }
+            ]
+          }
+        },
+        paint: {
+          'circle-radius': 10,
+          'circle-color': '#3887be'
+        }
+      });
+      map.on('click', function(e) {
+      var coordsObj = e.lngLat;
+      canvas.style.cursor = '';
+      var coords = Object.keys(coordsObj).map(function(key) {
+        return coordsObj[key];
+      });
+      var end = {
+        type: 'FeatureCollection',
+        features: [{
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'Point',
+            coordinates: coords
+          }
+        }
+        ]
+      };
+      if (map.getLayer('end')) {
+        map.getSource('end').setData(end);
+      } else {
+        map.addLayer({
+          id: 'end',
+          type: 'circle',
+          source: {
+            type: 'geojson',
+            data: {
+              type: 'FeatureCollection',
+              features: [{
+                type: 'Feature',
+                properties: {},
+                geometry: {
+                  type: 'Point',
+                  coordinates: coords
+                }
+              }]
+            }
+          },
+          paint: {
+            'circle-radius': 10,
+            'circle-color': '#f30'
+          }
+        });
+      }
+      getRoute(coords);
+    });
+
+    });
+</script>
 <script type="text/javascript">
     var baseUrl = "{{url('/')}}"
     $(document).ready(function() {
@@ -753,7 +913,27 @@
         // });
     });
 </script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var platform = new H.service.Platform({
+          'apikey': '{ND-Xev5fNnFaGhfYjub2geEiF0DKntosvZccO7CBFak}'
+        });
+        // Obtain the default map types from the platform object:
+        var defaultLayers = platform.createDefaultLayers();
 
+        // Instantiate (and display) a map object:
+        // var map = new H.Map(
+        //     document.getElementById('mapContainer'),
+        //     defaultLayers.vector.normal.map,
+        //     {
+        //       zoom: 10,
+        //       center: { lat: 52.5, lng: 13.4 }
+        //     });
+        var map = new H.Map(document.getElementById('mapContainer'),
+            defaultLayers.vector.normal.map);
+
+    });
+</script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -837,6 +1017,7 @@
 
     }
 </script>
+@endsection
 <script type="text/javascript">
     $(document).ready(function() {
         var address = document.getElementById('userAddress').innerHTML;
@@ -853,7 +1034,7 @@
                     var latitude = results[0].geometry.location.lat();
                 }
 
-                console.log(results[0]);
+                console.log('jkhhjkhkhk',results[0]);
 
                 var MyLngLat = {lat: latitude, lng: longitude};
 
@@ -870,8 +1051,6 @@
             });
         }
     });
-
-
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY2buDtbYIot8Llm_FkQXHW36f0Cme6TI&callback=initMap">
