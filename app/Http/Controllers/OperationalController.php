@@ -9,6 +9,7 @@ use App\Category;
 use App\General_Info;
 use App\Like;
 use App\Mail\UsersFeedback;
+use App\Message;
 use App\PageContent;
 use App\Service;
 use App\Slider;
@@ -20,6 +21,7 @@ use App\Refererlink;
 use App\SeekingWork;
 use App\State;
 use App\Tourism;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -420,18 +422,15 @@ class OperationalController extends Controller
         $approvedServices = Service::where('status', 1)->with('user')->get();
         $categories = Category::paginate(8);
         $seekingWorkDetails = Service::where('slug', $slug)->first();
-        $all_states = State::all();
-        $serviceDetail_id = $serviceDetail->id;
-        $images_4_service = Image::where('imageable_id', $serviceDetail_id)->get();
-                // dd($images_4_service);
-        $serviceDetail_state = $serviceDetail->state;
+        $serviceDetail_id = $seekingWorkDetails->id;
         $service_likes = Like::where('service_id', $serviceDetail_id)->count();
         $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$serviceDetail_id])->first();
-        $service_category_id = $serviceDetail->category_id;
+        $service_category_id = $seekingWorkDetails->category_id;
+        $serviceDetail_state = $seekingWorkDetails->state;
         $similarProducts = Service::where([['category_id', $service_category_id], ['state', $serviceDetail_state] ])->inRandomOrder()->limit(8)->get();
 
         $featuredServices2 = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(3)->get();
-        $user_id = $serviceDetail->user_id;
+        $user_id = $seekingWorkDetails->user_id;
         $userMessages = Message::where('service_id', $serviceDetail_id)->orderBy('created_at','desc')->take(7)->get();
 
         $the_user = User::find($user_id);
@@ -439,7 +438,9 @@ class OperationalController extends Controller
         $the_provider_f_name = explode(' ', trim($the_user_name))[0];
 
         $expiresAt = now()->addHours(24);
-        views($serviceDetail)->cooldown($expiresAt)->record();
+        views($seekingWorkDetails)->cooldown($expiresAt)->record();
+
+        return view('seekingWorkDetail', compact(['serviceDetail', 'serviceDetail_id', 'approvedServices',  'similarProducts', 'service_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck']));
     }
 
     public function ajaxSearchResult(Request $request)
