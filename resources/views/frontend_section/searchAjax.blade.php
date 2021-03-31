@@ -232,7 +232,7 @@
                             </div>
                             <div class="col-lg-6 col-md-4 col-sm-12">
                                 <div class="form-group">
-                                    <input type="text" name="keyword" id="jxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g Barber) - Search nationwide or select a state.">
+                                    <input type="text" name="keyword" id="jxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g Barber, Plumber...)">
                                     <div id="service_list" class="ajaxSearchList"></div>
                                 </div>
                             </div>

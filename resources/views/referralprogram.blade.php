@@ -77,7 +77,7 @@
                                             <div style="padding-bottom: 30px;">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <p>Get rewarded with &#8358;50 for every person you refer to register on EFContact.com</p>
+                                                        <p>Get rewarded with &#8358;200 for every person you refer to register on EFContact.com</p>
                                                         <ul style="list-style: none">
                                                             <li>* No referral limits - You can refer as many people as you want.</li>
                                                             <li>* Bonus credited instantly - You will receive your bonus immediately once your friend completes the registration.</li>
