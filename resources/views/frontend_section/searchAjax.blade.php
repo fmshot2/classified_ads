@@ -415,8 +415,6 @@
     </div>
 </div>
 
-
-
 <script>
     $(document).ready(function(){
         $('#jxservices').keyup(function(){
