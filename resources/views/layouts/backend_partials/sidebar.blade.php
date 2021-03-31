@@ -37,7 +37,7 @@
         </a>
       </li>
 
-      <li class="treeview" style=" {{ url()->current() == route('superadmin.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('superadmin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('superadmin.service.all') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview" style=" {{ url()->current() == route('superadmin.subcategory.show') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('superadmin.category.show') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('superadmin.service.all') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
           <i class="fa fa-briefcase"></i>
           <span> Service Management </span>
@@ -89,8 +89,8 @@
         <ul class="treeview-menu">
           <li><a href=" {{ route('superadmin.buyer') }} "><i class="fa fa-circle-o"></i> Service Seekers </a></li>
           <li><a href=" {{ route('superadmin.seller') }} "><i class="fa fa-circle-o"></i> Service Providers </a></li>
-          <li><a href=" {{ route('all_accountants') }} "><i class="fa fa-circle-o"></i> Accountants </a></li>
-          <li><a href="{{ route('add-accountant') }}"><i class="fa fa-circle-o"></i> Add Accountant </a></li>
+          <li><a href=" {{ route('superadmin.all_accountants') }} "><i class="fa fa-circle-o"></i> Accountants </a></li>
+          <li><a href="{{ route('superadmin.add-accountant') }}"><i class="fa fa-circle-o"></i> Add Accountant </a></li>
           <li><a href=" {{ route('superadmin.all.admins') }} "><i class="fa fa-circle-o"></i> Admins </a></li>
           <li><a href="{{ route('superadmin.add.admin') }}"><i class="fa fa-circle-o"></i> Add Admin </a></li>
           <li><a href=" {{ route('superadmin.all.cmos') }} "><i class="fa fa-circle-o"></i> CMOs </a></li>
@@ -127,7 +127,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="{{ route('superadmin.sliders') }}"><i class="fa fa-circle-o"></i> Slider </a></li>
-          <li><a href="{{ route('events') }}"><i class="fa fa-circle-o"></i> Events </a></li>
+          <li><a href="{{ route('superadmin.events') }}"><i class="fa fa-circle-o"></i> Events </a></li>
           <li><a href="{{ route('superadmin.show_faq') }}"><i class="fa fa-circle-o"></i> FAQs </a></li>
           <li><a href="{{ route('superadmin.privacy.policy') }}"><i class="fa fa-circle-o"></i> Privacy </a></li>
           <li><a href="{{ route('superadmin.termsOfUse') }}"><i class="fa fa-circle-o"></i> Terms Of Use </a></li>
@@ -197,7 +197,7 @@
             </a>
         </li>
         @elseif(Auth::user()->role == 'admin')
-        <li style="{{ url()->current() == route('admin.dashboard') ? 'background-color: #f8d053' : '' }}">
+        <li style="{{ url()->current() == route('cmo.dashboard') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('admin.dashboard') }}">
           <i class="fa fa-dashboard"></i> <span> Dashboard </span>
           <span class="pull-right-container">
@@ -333,18 +333,18 @@
             </ul>
         </li>
         <li class="treeview" style=" {{ url()->current() == route('admin.send_sms') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('superadmin.send_email') ? 'background-color: #f8d053' : '' }}">
-        <a href="#">
-          <i class="fa fa-users"></i>
-          <span> Data Entry </span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href=" {{ route('admin.send_sms') }} "><i class="fa fa-circle-o"></i> Send SMS </a></li>
-          <li><a href="{{ route('admin.send_email') }}"><i class="fa fa-circle-o"></i> Send Email</a></li>
-        </ul>
-      </li>
+          <a href="#">
+            <i class="fa fa-users"></i>
+            <span> Data Entry </span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href=" {{ route('admin.send_sms') }} "><i class="fa fa-circle-o"></i> Send SMS </a></li>
+            <li><a href="{{ route('admin.send_email') }}"><i class="fa fa-circle-o"></i> Send Email</a></li>
+          </ul>
+        </li>
         <li>
             <a href=" {{ route ('system.config') }} ">
             <i class="fa fa-globe"></i> <span> System Config </span>
@@ -355,15 +355,15 @@
 
 
         <li>
-            <a href=" {{ route ('badge.request') }} ">
+            <a href=" {{ route ('superadmin.badge.request') }} ">
             <i class="fa fa-globe"></i> <span> Badge Requests </span>
             <span class="pull-right-container">
             </span>
             </a>
         </li>
-        @else
+        @elseif(Auth::user()->role == 'cmo')
 
-        <li style="{{ url()->current() == route('admin.dashboard') ? 'background-color: #f8d053' : '' }}">
+        <li style="{{ url()->current() == route('cmo.dashboard') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('admin.dashboard') }}">
           <i class="fa fa-dashboard"></i> <span> Dashboard </span>
           <span class="pull-right-container">
@@ -371,8 +371,8 @@
         </a>
       </li>
 
-      <li class="" style=" {{ url()->current() == route('admin.notification.all') ? 'background-color: #f8d053' : '' }}">
-        <a href=" {{route ('admin.notification.all') }}">
+      <li class="" style=" {{ url()->current() == route('cmo.notification.all') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{route ('cmo.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
           @if (Auth::user()->unreadNotifications->count() > 0)
             <span class="pull-right-container">
@@ -382,8 +382,8 @@
         </a>
       </li>
 
-      <li style="{{ url()->current() == route('admin.profile') ? 'background-color: #f8d053' : '' }}">
-        <a href=" {{ route ('admin.profile') }} ">
+      <li style="{{ url()->current() == route('cmo.profile') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{ route ('cmo.profile') }} ">
           <i class="fa fa-user"></i> <span> Profile Config </span>
           <span class="pull-right-container">
           </span>
@@ -392,10 +392,13 @@
 
       
 
-      <li class="treeview" style=" {{ url()->current() == route('admin.show_faq') ? 'background-color: #f8d053' : '' }}
-      {{ url()->current() == route('admin.privacy.policy') ? 'background-color: #f8d053' : '' }}
-      {{ url()->current() == route('admin.sliders') ? 'background-color: #f8d053' : '' }}
-       {{ url()->current() == route('admin.termsOfUse') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview" style=" {{ url()->current() == route('cmo.show_faq') ? 'background-color: #f8d053' : '' }}
+      {{ url()->current() == route('cmo.privacy.policy') ? 'background-color: #f8d053' : '' }}
+      {{ url()->current() == route('cmo.show_faq') ? 'background-color: #f8d053' : '' }}
+      {{ url()->current() == route('cmo.events') ? 'background-color: #f8d053' : '' }}
+      {{ url()->current() == route('cmo.sliders') ? 'background-color: #f8d053' : '' }}
+      {{ url()->current() == route('cmo.pagescontents') ? 'background-color: #f8d053' : '' }}
+       {{ url()->current() == route('cmo.termsOfUse') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
           <i class="fa fa-file"></i>
           <span> Pages Management </span>
@@ -404,16 +407,16 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="{{ route('admin.sliders') }}"><i class="fa fa-circle-o"></i> Slider </a></li>
-          <li><a href="{{ route('events') }}"><i class="fa fa-circle-o"></i> Events </a></li>
-          <li><a href="{{ route('admin.show_faq') }}"><i class="fa fa-circle-o"></i> FAQs </a></li>
-          <li><a href="{{ route('admin.privacy.policy') }}"><i class="fa fa-circle-o"></i> Privacy </a></li>
-          <li><a href="{{ route('admin.termsOfUse') }}"><i class="fa fa-circle-o"></i> Terms Of Use </a></li>
-          <li><a href="{{ route('admin.pagescontents') }}"><i class="fa fa-circle-o"></i> Pages Contents</a></li>
+          <li><a href="{{ route('cmo.sliders') }}"><i class="fa fa-circle-o"></i> Slider </a></li>
+          <li><a href="{{ route('cmo.events') }}"><i class="fa fa-circle-o"></i> Events </a></li>
+          <li><a href="{{ route('cmo.show_faq') }}"><i class="fa fa-circle-o"></i> FAQs </a></li>
+          <li><a href="{{ route('cmo.privacy.policy') }}"><i class="fa fa-circle-o"></i> Privacy </a></li>
+          <li><a href="{{ route('cmo.termsOfUse') }}"><i class="fa fa-circle-o"></i> Terms Of Use </a></li>
+          <li><a href="{{ route('cmo.pagescontents') }}"><i class="fa fa-circle-o"></i> Pages Contents</a></li>
         </ul>
       </li>
 
-      <li class="treeview" style=" {{ url()->current() == route('admin.cities') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview" style=" {{ url()->current() == route('cmo.cities') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
           <i class="fa fa-file"></i>
           <span> Tourism </span>
@@ -422,19 +425,49 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href=" {{ route('admin.cities') }}"><i class="fa fa-circle-o"></i> All Cities </a></li>
+          <li><a href=" {{ route('cmo.cities') }}"><i class="fa fa-circle-o"></i> All Cities </a></li>
         </ul>
       </li>
 
 
-        <li>
-            <a href=" {{ route ('system.config') }} ">
+        <li style="{{ url()->current() == route('cmo.system.config') ? 'background-color: #f8d053' : ''}}">
+            <a href=" {{ route ('cmo.system.config') }} ">
             <i class="fa fa-globe"></i> <span> System Config </span>
             <span class="pull-right-container">
             </span>
             </a>
         </li>
-
+        @else
+         <li style="{{ url()->current() == route('data.dashboard') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{route ('admin.dashboard') }}">
+          <i class="fa fa-dashboard"></i> <span> Dashboard </span>
+          <span class="pull-right-container">
+          </span>
+        </a>
+      </li>
+      <li class="" style=" {{ url()->current() == route('data.notification.all') ? 'background-color: #f8d053' : '' }}">
+        <a href=" {{route ('data.notification.all') }}">
+          <i class="fa fa-bell"></i> <span> General Notice </span>
+          @if (Auth::user()->unreadNotifications->count() > 0)
+            <span class="pull-right-container">
+                <small class="label pull-right bg-primary"> {{ Auth::user()->unreadNotifications->count() }}  </small>
+            </span>
+          @endif
+        </a>
+      </li>
+        <li class="treeview" style=" {{ url()->current() == route('data.send_email') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('data.send_sms') ? 'background-color: #f8d053' : '' }}">
+          <a href="#">
+            <i class="fa fa-users"></i>
+            <span> Data Entry </span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href=" {{ route('data.send_sms') }} "><i class="fa fa-circle-o"></i> Send SMS </a></li>
+            <li><a href="{{ route('data.send_email') }}"><i class="fa fa-circle-o"></i> Send Email</a></li>
+          </ul>
+        </li>
         @endif
       <li>
         <a href=" {{ route ('home') }} " target="_blank">

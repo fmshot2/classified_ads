@@ -40,8 +40,8 @@ Add Data Entry Officer |
                             <div class="row mg-b-25">
                                 <div class="col-md-6 col-sm-12">
 
-
-                                    <form class="form-horizontal form-element" method="POST" action="{{route('admin.submit.data')}} " enctype="multipart/form-data">
+                                    {{-- @if(Auth::user()->role == 'admin') --}}
+                                    <form class="form-horizontal form-element" method="POST" action="{{Auth::user()->role == 'admin' ? route('admin.submit.data') : route('superadmin.submit.data')}} " enctype="multipart/form-data">
                                         {{ csrf_field() }}
 
                                         <div class="col-lg-12">
@@ -80,17 +80,10 @@ Add Data Entry Officer |
 				                            </span>
 				                            @endif
                                         </div>
-                                        
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <label for="" style="float: left; margin-top: -15px; margin-bottom: 20px; margin-left: 20px; font-size: 14px">
-                                                	</label>
-					                                <input type="checkbox" onclick="showPassword()" style="float: left;">Show Password
-					                            
-                                            </div>
-                                        </div>
                                     <div class="col-lg-12">
-                                        <button type="submit" class="btn btn-warning btn-sm"> Add Data Entry Officer </button>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-warning btn-sm"> Add Data Entry Officer </button>
+                                        </div>
                                     </div>
 
                                 </form>

@@ -57,6 +57,14 @@ class AccountantController extends Controller
     	return view('admin.user.add_accountant');
     }
 
+    public function viewDuePayments()
+    {
+        $dues = DB::table('users')->where('refererAmount', '>=', 1000)->where('is_paid', '=', 0)->get();
+        return view('accountant.payments.due_payments', [
+            'dues' => $dues
+        ]);
+    }
+
     public function allPayments()
     {
     	$all_payments = PaymentRequest::where('user_type',  'agent')->get();
@@ -184,6 +192,40 @@ class AccountantController extends Controller
         $status_message = "pending";
 
         $payment = PaymentRequest::where('id' , $id)->first();
+        if ($payment->is_paid == 1) {
+            $payment->is_paid = 0;
+            $payment->update();
+
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+                'status_message' => $status_message,
+            ]);
+       
+        }
+        if ($payment->is_paid == 0) {
+              $message = "Payment successful";
+              $status_message = "Paid";
+
+            $payment->is_paid = 1;
+            $payment->update();
+
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+                'status_message' => $status_message,
+
+            ]);
+        }
+    }
+
+    public function makePayment1(Request $request, $id)
+    {
+        $success = true;
+        $message = "Payment is pending";
+        $status_message = "pending";
+
+        $payment = User::where('id' , $id)->first();
         if ($payment->is_paid == 1) {
             $payment->is_paid = 0;
             $payment->update();

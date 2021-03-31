@@ -16,7 +16,7 @@ class CMOMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role == 'accountant' ) {
+        if (Auth::check() && Auth::user()->role == 'cmo' ) {
             return $next($request);
         }  else {
             return redirect()->route('home');

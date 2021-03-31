@@ -26,7 +26,13 @@
             </span>
           </a>
         </li>
-        
+        <li class="" style="{{ url()->current() == route('accountant.all.due.payments') ? 'background-color: #f8d053' : '' }}">
+          <a href=" {{route ('accountant.all.due.payments') }}">
+            <i class="fa fa-credit-card-alt"></i> <span> Due Payments </span>
+            <span class="pull-right-container">
+            </span>
+          </a>
+        </li>
         <li class="treeview" style=" {{ url()->current() == route('accountant.unsuccessful.payments') ? 'background-color: #f8d053' : '' }}">
           <a href="#">
             <i class="fa fa-credit-card-alt"></i>
