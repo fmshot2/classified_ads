@@ -52,7 +52,7 @@
             </a>
             <ul class="treeview-menu">
                 <li><a href=" {{ route('seller.sub.create') }} "><i class="fa fa-circle-o"></i> Create New Subscription</a></li>
-                <li><a href=" {{ route('seller.sub.all') }} "><i class="fa fa-circle-o"></i> All My Subscriptions </a></li>
+                <!-- <li><a href=" {{ route('seller.sub.all') }} "><i class="fa fa-circle-o"></i> All My Subscriptions </a></li> -->
             </ul>
         </li>
 
