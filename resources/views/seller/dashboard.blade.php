@@ -158,6 +158,10 @@
                     <div>
                         <p id="refererlinkText" hidden>{{ url('/register') . '/' . '?' . 'invite' . '=' . $linkcheck->refererlink }}</p>
                     </div>
+                    <div style="padding-top: 5px; padding-left:5px">
+                        <div class="addthis_inline_share_toolbox_k39l" data-url="{{ url('/register') . '/' . '?' . 'invite' . '=' . $linkcheck->refererlink }}" data-title="Your Referral Link 👍"></div>
+                        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-60643ce977f333d6"></script>
+                    </div>
                 </div>
             </div>
             @endif
@@ -390,7 +394,7 @@
                                 </span>
                             </div>
                             <div class="">
-                                <strong>A Normal User</strong>
+                                <strong> No Badge </strong>
                             </div>
                         @endif
                     </div>
@@ -464,7 +468,7 @@
 
                             </li>
                             <li>
-                                When your referral clicks your link and registers, you automatically get N50. The more the people register using your link the more your bonuses will increase.
+                                When your referral clicks your link and registers, you automatically get N200. The more the people register using your link the more your bonuses will increase.
                             </li>
                             <li>
                                 When your commission reaches &#8358;1000, it will be sent to you on the pay day.
@@ -911,16 +915,16 @@
         toastr.options.positionClass = 'toast-top-left'
         toastr.success("Referral Link Copied!")
 
-        navigator
-        .share({
-            title: 'Referral Link Copied! 🎉',
-            text: 'Here is my referral link on EFContact.👍',
-            url: $(element).text()
-        })
-        .then(() => console.log('Successful share! 🎉'))
-        .catch(err => console.error(err));
+        // navigator
+        // .share({
+        //     title: 'Referral Link Copied! 🎉',
+        //     text: 'Here is my referral link on EFContact.👍',
+        //     url: $(element).text()
+        // })
+        // .then(() => console.log('Successful share! 🎉'))
+        // .catch(err => console.error(err));
 
-        $temp.remove();
+        // $temp.remove();
 
     }
 
@@ -1099,6 +1103,5 @@
     });
 
 </script>
-
 
 @endsection

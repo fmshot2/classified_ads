@@ -138,6 +138,10 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="container" style="margin: 20px 0">
+                                <div class="addthis_inline_share_toolbox" data-description="{{$serviceDetail->description}}"></div>
+                            </div>
                         </div>
 
                         <!----------HTML code starts here------->
@@ -1018,6 +1022,7 @@
 
     }
 </script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-60643ce977f333d6"></script>
 @endsection
 <script type="text/javascript">
     $(document).ready(function() {

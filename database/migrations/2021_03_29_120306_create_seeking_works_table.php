@@ -32,6 +32,7 @@ class CreateSeekingWorksTable extends Migration
             $table->string('user_state');
             $table->string('user_lga');
             $table->string('address')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->longText('work_experience')->nullable();
             $table->longText('education');
             $table->longText('certifications')->nullable();

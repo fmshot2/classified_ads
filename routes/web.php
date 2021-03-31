@@ -23,6 +23,7 @@ use App\Service;
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 // Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 Route::get('ajaxSearchResult/{slug}', 'OperationalController@ajaxSearchResult');
+// Route::get('getMobileSubCategory/{slug}', 'OperationalController@getMobileSubCategory');
 
 //Agent Middleware starts here
 Route::post('create_user', 'AuthController@create_user');
