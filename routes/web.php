@@ -84,6 +84,7 @@ Route::middleware(['accountant'])->group(function() {
 
     //get all due payments
     Route::get('/accountant/due-payments', 'AccountantController@viewDuePayments')->name('accountant.all.due.payments');
+    Route::get('/accountant/settled-payments', 'AccountantController@settledPayments')->name('accountant.settled.payments');
 });
 //Accountant Middleware ends here
 

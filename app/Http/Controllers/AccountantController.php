@@ -65,6 +65,14 @@ class AccountantController extends Controller
         ]);
     }
 
+    public function settledPayments()
+    {
+        $settled = DB::table('users')->where('refererAmount', '>=', 1000)->where('is_paid', '=', 1)->get();
+        return view('accountant.payments.settled_payments', [
+            'settled' => $settled
+        ]);
+    }
+
     public function allPayments()
     {
     	$all_payments = PaymentRequest::where('user_type',  'agent')->get();

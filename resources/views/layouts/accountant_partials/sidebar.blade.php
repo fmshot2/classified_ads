@@ -26,12 +26,26 @@
             </span>
           </a>
         </li>
+        {{-- 
         <li class="" style="{{ url()->current() == route('accountant.all.due.payments') ? 'background-color: #f8d053' : '' }}">
           <a href=" {{route ('accountant.all.due.payments') }}">
             <i class="fa fa-credit-card-alt"></i> <span> Due Payments </span>
             <span class="pull-right-container">
             </span>
           </a>
+        </li> --}}
+        <li class="treeview" style=" {{ url()->current() == route('accountant.all.due.payments') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('accountant.settled.payments') ? 'background-color: #f8d053' : '' }}">
+          <a href="#">
+            <i class="fa fa-calendar-check-o"></i>
+            <span> Due Payements </span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href=" {{ route('accountant.all.due.payments') }} "><i class="fa fa-circle-o"></i> Pending Payments </a></li>
+            <li><a href=" {{ route('accountant.settled.payments') }} " style="{{ url()->current() == route('accountant.successful.payments') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> Settled Payments </a></li>
+          </ul>
         </li>
         <li class="treeview" style=" {{ url()->current() == route('accountant.unsuccessful.payments') ? 'background-color: #f8d053' : '' }}">
           <a href="#">
