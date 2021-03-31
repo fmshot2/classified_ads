@@ -130,6 +130,10 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="container" style="margin: 20px 0">
+                                <div class="addthis_inline_share_toolbox"></div>
+                            </div>
                         </div>
 
                         <!----------HTML code starts here------->
@@ -1030,6 +1034,7 @@
         }
     });
 </script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-60643ce977f333d6"></script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY2buDtbYIot8Llm_FkQXHW36f0Cme6TI&callback=initMap">
 </script>

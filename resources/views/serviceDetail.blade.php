@@ -140,7 +140,7 @@
                             </div>
 
                             <div class="container" style="margin: 20px 0">
-                                <div class="addthis_inline_share_toolbox"></div>
+                                <div class="addthis_inline_share_toolbox" data-description="{{$serviceDetail->description}}"></div>
                             </div>
                         </div>
 

@@ -278,7 +278,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-body">
-                    @if ($categories)
+                    @if (isset($categories))
                         <h4 class="searchFilterModalTitle">All Categories {{-- -
                             {{ $allgeneralservices->count() ? $allgeneralservices->count().' service' : 'No service yet!'  }}{{ $allgeneralservices->count() > 1 ? 's' : ''  }} --}}</h4>
                         <p style="margin-top: -20px">Search in all categories or select a category here. 👇</p>
@@ -343,7 +343,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-body">
-                    @if ($allgeneralstates)
+                    @if (isset($allgeneralstates))
                         <h4 class="searchFilterModalTitle">All States</h4>
                         <p style="margin-top: -20px">Search nationwide or select a state here. 👇</p>
                         <div class="row">
