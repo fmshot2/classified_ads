@@ -243,17 +243,19 @@ public function services()
 
 public function serviceDetail($slug)
 {
-  $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
-  $approvedServices = Service::where('status', 1)->with('user')->get();
-  $advertServices = Service::where('is_approved', 1)->with('user')->get();
-  $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
-  $categories = Category::paginate(8);
-  $serviceDetail = Service::where('slug', $slug)->first();
-  $all_states = State::all();
+
+    $serviceDetail = Service::where('slug', $slug)->firstOrFail();
+
+    $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+    $approvedServices = Service::where('status', 1)->with('user')->get();
+    $advertServices = Service::where('is_approved', 1)->with('user')->get();
+    $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
+    $categories = Category::paginate(8);
+    $all_states = State::all();
     // $images_4_service = $serviceDetail->image;
     // $images_4_service = $images_4_servic->image_path;
   $serviceDetail_id = $serviceDetail->id;
-  $images_4_service = Image::where('imageable_id', $serviceDetail_id)->get();
+  $images_4_service = $serviceDetail->images;
         // dd($images_4_service);
   $serviceDetail_state = $serviceDetail->state;
   $service_likes = Like::where('service_id', $serviceDetail_id)->count();

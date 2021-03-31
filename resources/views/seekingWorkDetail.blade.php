@@ -141,15 +141,15 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/seekingworks')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/seekingworks')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 4; $i++)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/seekingworks/noserviceimage.png')}}">
+                                                            <img src="{{ asset('uploads/seekingworks/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endfor
@@ -162,15 +162,15 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/seekingworks')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/seekingworks')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 3; $i++)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/seekingworks/noserviceimage.png')}}">
+                                                            <img src="{{ asset('uploads/seekingworks/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endfor
@@ -183,15 +183,15 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/seekingworks')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/seekingworks')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 2; $i++)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/seekingworks/noserviceimage.png')}}">
+                                                            <img src="{{ asset('uploads/seekingworks/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endfor
@@ -204,8 +204,8 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/seekingworks')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/seekingworks')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endforeach
@@ -219,8 +219,8 @@
                                         <ul class="glide__slides">
                                             @for ($i = 1; $i <= 4; $i++)
                                                 <li class="glide__slide">
-                                                    <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                        <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
+                                                    <a data-lightbox="roadtrip" href="{{asset('uploads/seekingworks/noserviceimage.png')}}">
+                                                        <img src="{{ asset('uploads/seekingworks/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
                                                     </a>
                                                 </li>
                                             @endfor
@@ -308,7 +308,7 @@
                                                                 @foreach($similarProducts as $similarProduct)
                                                                     <tr>
                                                                        <td class="image">
-                                                                            <a href="{{route('job.applicant.detail', $similarProduct->slug)}}"><img alt="{{$similarProduct->name}}" src="{{asset('uploads/services')}}/{{$similarProduct->service_image}}" class="img-fluid"></a>
+                                                                            <a href="{{route('job.applicant.detail', $similarProduct->slug)}}"><img alt="{{$similarProduct->name}}" src="{{asset('uploads/seekingworks')}}/{{$similarProduct->service_image}}" class="img-fluid"></a>
                                                                         </td>
                                                                         <td>
                                                                             <div class="inner">
@@ -432,7 +432,7 @@
 
                             <div style="margin-bottom: 15px">
                                 @if ($seekingWorkDetail->service_image)
-                                    <img class="img-fluid sp-seller-img" src="{{asset('uploads/services')}}/{{$seekingWorkDetail->service_image}}" alt="{{$seekingWorkDetail->user->name}}" style="width: 100%;height: auto; display: block; margin: 0 auto;">
+                                    <img class="img-fluid sp-seller-img" src="{{asset('uploads/seekingworks')}}/{{$seekingWorkDetail->service_image}}" alt="{{$seekingWorkDetail->user->name}}" style="width: 100%;height: auto; display: block; margin: 0 auto;">
                                 @else
                                     <img src="{{asset('nouserimage.png')}}" class="img-fluid" alt="{{$seekingWorkDetail->user->name}}" style="width: 250px;height: auto; display: block; margin: 0 auto;">
                                 @endif
