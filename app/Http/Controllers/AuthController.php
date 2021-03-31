@@ -656,7 +656,12 @@ class AuthController extends Controller
         return view('auth/register', compact('states', 'referParam'));
     }
 
- public function login(Request $request)
+    public function showGroupRegister(Request $request)
+    {
+        return view('auth/group-registeration');
+    }
+
+    public function login(Request $request)
     {
         $request->validate([
             'email'    => ['required', 'string', 'email', 'max:255'],

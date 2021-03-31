@@ -424,15 +424,15 @@ class BadgeController extends Controller
                     $referer2 = Agent::where('id', $agent_that_refered)->first();
                     if ($referer2) {
                         if ($referer2) {
-                      if ($data['amount'] == 11) {
+                      if ($data['amount'] == 15000) {
                         $referer2->refererAmount = $referer->refererAmount + 1000;
                         $referer2->save();
                       }
-                      if ($data['amount'] == 12) {
+                      if ($data['amount'] == 10000) {
                         $referer2->refererAmount = $referer->refererAmount + 500;
                         $referer2->save();
                       }
-                      if ($data['amount'] == 13) {
+                      if ($data['amount'] == 5000) {
                         $referer2->refererAmount = $referer->refererAmount + 300;
                         $referer2->save();
                       }
