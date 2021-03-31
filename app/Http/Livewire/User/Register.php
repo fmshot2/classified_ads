@@ -106,7 +106,7 @@ class Register extends Component
 
         // Get id of owner of $agent code if available
         if ($this->agent_code) {
-            $saveIdOfAgent = User::where('agent_code', $this->agent_code)->first();
+            $saveIdOfAgent = Agent::where('agent_code', $this->agent_code)->first();
             $this->agent_Id = $saveIdOfAgent->id;
         }
 
@@ -164,7 +164,7 @@ class Register extends Component
             if ($person_that_refered) {
                 $referer = User::where('id', $person_that_refered)->first();
                 if ($referer) {
-                    $referer->refererAmount = $referer->refererAmount + 50;
+                    $referer->refererAmount = $referer->refererAmount + 200;
                     $referer->save();
                 }
             }
@@ -187,7 +187,7 @@ class Register extends Component
                     if ($person_that_refered2) {
                         $referer3 = User::where('id', $person_that_refered2)->first();
                         if ($referer3) {
-                            $referer3->refererAmount = $referer3->refererAmount + 25;
+                            $referer3->refererAmount = $referer3->refererAmount + 100;
                             $referer3->save();
                         }
                     }

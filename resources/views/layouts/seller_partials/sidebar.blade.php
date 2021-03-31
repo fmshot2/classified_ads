@@ -42,7 +42,7 @@
         </li>
 
 
-        <li class="treeview {{ url()->current() == route('seller.service.all') ? 'background-color: #cc8a19' : '' }}">
+        <li class="treeview {{ url()->current() == route('seller.sub.all') ? 'background-color: #cc8a19' : '' }}">
             <a href="#">
                 <i class="fa fa-home"></i>
                 <span> My Subscriptions </span>
@@ -51,8 +51,8 @@
                 </span>
             </a>
             <ul class="treeview-menu">
-                <li><a href=" {{ route('seller.service.create') }} "><i class="fa fa-circle-o"></i> Create New Subscription</a></li>
-                <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> All My Subscriptions </a></li>
+                <li><a href=" {{ route('seller.sub.create') }} "><i class="fa fa-circle-o"></i> Create New Subscription</a></li>
+                <li><a href=" {{ route('seller.sub.all') }} "><i class="fa fa-circle-o"></i> All My Subscriptions </a></li>
             </ul>
         </li>
 

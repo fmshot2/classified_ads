@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\OperationalController;
 use App\Http\Controllers\ServiceImageController;
+// use App\Http\Controllers\SubscriptionController;
+
 use Illuminate\Support\Facades\Route;
 use App\Message;
 use App\Notification;
@@ -99,6 +101,9 @@ Route::get ( 'findgeo2',  'ServiceController@findNearestRestaurants');
 Route::get( '/catpagesortby/{letter}',  'OperationalController@catPageSortBy');
 Route::get( '/requestbadge/{id}',  'BadgeController@requestbadge');
 Route::post( '/requestbadge/{id}',  'BadgeController@requestbadge')->name('badge.request');
+
+Route::get( '/requestsubscription/{id}',  'SubscriptionController@requestsubscription');
+
 Route::post( '/user-feedback',  'OperationalController@feedbackform')->name('feedback.form');
 
 Route::get('/benefits-of-efcontact','OperationalController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
@@ -249,8 +254,15 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
     Route::prefix('provider')->group(function ()
     {
         Route::get('/dashboard/make_withdrawal_request/{refer_id}', 'DashboardController@make_withdrawal_request')->name('seller.make_withdrawal_request');
+        Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('service_detail_4_provider');
+
 
         Route::get('/dashboard', 'DashboardController@seller')->name('seller.dashboard');
+
+        Route::get('/dashboard/sub/all', 'SubscriptionController@allSub')->name('seller.sub.all');
+        Route::get('/sub/add', 'SubscriptionController@createSub')->name('seller.sub.create');
+        Route::post('/service/create_sub', 'SubscriptionController@createSubpay')->name('createSubpay');
+
 
         Route::get('/service/add', 'SellerController@createService')->name('seller.service.create');
         Route::get('/service/badges', 'BadgeController@badges')->name('seller.service.badges');
