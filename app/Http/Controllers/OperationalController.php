@@ -815,4 +815,12 @@ class OperationalController extends Controller
     }
 
 
+    // public function getMobileSubCategory($slug)
+    // {
+    //     $categories = Category::where('slug', $slug)->firstOrFail();
+    //     $subcategory = $categories->sub_categories;
+    //     return $subcategory;
+    // }
+
+
 }
