@@ -11,16 +11,16 @@ class ServiceImageController extends Controller
 {
 
 
-    public function showService($id)
+    public function showService($slug)
     {
-        $service = Service::find($id);
+        $service = Service::where('slug', $slug)->firstOrFail();
 
         return view('seller.service.show', [
             'service' => $service
         ]);
     }
 
-  public function imagesStore(Request $request, $service_id)
+    public function imagesStore(Request $request, $service_id)
     {
         $image       = $request->file('file');
         $fileInfo = $image->getClientOriginalName();
@@ -32,7 +32,9 @@ class ServiceImageController extends Controller
         $image->move(public_path('uploads/services/'),$file_name);
 
         $image_resize = Image::make(public_path('uploads/services/').$file_name);
-        $image_resize->fit(300, 300);
+        $image_resize->resize(null, 400, function ($constraint) {
+            $constraint->aspectRatio();
+        });
         $image_resize->save(public_path('uploads/services/' .$file_name));
 
         // Saving it with this service

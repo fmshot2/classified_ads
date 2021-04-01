@@ -82,20 +82,20 @@
                         </li>
 
                         @if ($service->is_featured == 1 && $service->paid_featured == 0)
-                        <li class="list-group-item">
-                            <span class="left">Please make payment now!</span>
-                            <p><strong>Note:</strong> This service won't be featured without payment.</p>
-                            <form>
-                                @csrf
-                                <input id="user_email" type="hidden" name="" value="{{Auth::user()->email}}">
-                                <input id="featured_amount" type="hidden" name="amount" value="2000">
-                                <input id="service_id" type="hidden" name="service_id" value="{{$service->id}}">
-                                <script src="https://js.paystack.co/v1/inline.js"></script>
+                            <li class="list-group-item">
+                                <span class="left">Please make payment now to be featured!</span>
+                                <p><strong>Note:</strong> This service won't be featured without payment.</p>
+                                <form>
+                                    @csrf
+                                    <input id="user_email" type="hidden" name="" value="{{Auth::user()->email}}">
+                                    <input id="featured_amount" type="hidden" name="amount" value="2000">
+                                    <input id="service_id" type="hidden" name="service_id" value="{{$service->id}}">
+                                    <script src="https://js.paystack.co/v1/inline.js"></script>
 
-                                <button type="button" class="btn btn-lg" style="cursor: pointer; display: block; margin-top: 5px; background-color: #cc8a19; color: #fff" onclick="payWithPaystack1(2000)">Make Payment</button>
-                            </form>
+                                    <button type="button" class="btn btn-lg" style="cursor: pointer; display: block; margin-top: 5px; background-color: #cc8a19; color: #fff" onclick="payWithPaystack1(2000)">Make Payment</button>
+                                </form>
 
-                        </li>
+                            </li>
                         @endif
 
                         {{-- <li class="list-group-item" style="width: 100%">
@@ -416,7 +416,7 @@
             }
         };
     </script>
-    @elseif (Auth::User()->badgetype == 4 && $service->images->count() != 2)
+    @elseif (Auth::User()->badgetype == 0 && $service->images->count() != 2)
     <input hidden id="badge_type_4" type="number" value="{{  2 - $service->images->count() }}">
     <input hidden id="user_4_image_remaining" type="number" value="{{ (2 - $service->images->count()) > 1 ? 's' : '' }}">
     <script type="text/javascript">

@@ -502,6 +502,16 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label>Select Category</label>
+                                        <small class="text-danger">*</small>
+                                        <select name="category_id" required class="form-control show-tick" id="categories">
+                                            <option value="">-- Please select --</option>
+                                            @foreach($categories as $category)
+                                                <option id="category_id" value=" {{ $category->id }} "> {{ $category->name }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="name">Service Name</label><small class="text-danger">*</small>
                                         <small class="form-text text-muted">Enter the name of the service you want to offer. <input readonly type="text" name="countdown" size="1" value="20" style="border: 0; padding: 0;margin-right: -25px"> chars left</small>
                                         <input type="text" class="form-control" name="name" value="{{ old('name') }}" onkeydown="limitText(this.form.name,this.form.countdown,20);" onkeyup='limitText(this.form.name,this.form.countdown,20);' placeholder="e.g. Adamu Boutique..." required>
@@ -530,16 +540,6 @@
                                             <label class="form-check-label" for="featured"> Do you want this service featured?  <small class="infoLinkNote">(<a data-toggle="modal" data-target="#featuredInfoModal">How it works?</a>)</small></label>
                                         </div>
                                         <p id="featuredText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Select Category</label>
-                                        <small class="text-danger">*</small>
-                                        <select name="category_id" required class="form-control show-tick" id="categories">
-                                            <option value="">-- Please select --</option>
-                                            @foreach($categories as $category)
-                                                <option id="category_id" value=" {{ $category->id }} "> {{ $category->name }} </option>
-                                            @endforeach
-                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Sub Category <small class="text-info">(You can select multiple sub category)</small></label>
@@ -646,11 +646,11 @@
                                                 <label for="">Job Type</label><small class="text-danger">*</small>
                                                 <select class="form-control" name="job_type" value="{{ old('job_type') }}" required>
                                                     <option value="">- Job Type -</option>
-                                                    <option value="full_time">Full Time</option>
-                                                    <option value="part_time">Part Time</option>
-                                                    <option value="temporary">Temporary</option>
-                                                    <option value="contract">Contract</option>
-                                                    <option value="internship">Internship</option>
+                                                    <option value="Full Time">Full Time</option>
+                                                    <option value="Part Time">Part Time</option>
+                                                    <option value="Temporary">Temporary</option>
+                                                    <option value="Contract">Contract</option>
+                                                    <option value="Internship">Internship</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -659,8 +659,8 @@
                                             <div class="form-group">
                                                 <label for="">Still Studying</label>
                                                 <select class="form-control" name="still_studying" value="{{ old('still_studying') }}" required>
-                                                    <option value="no" selected>No</option>
-                                                    <option value="yes">Yes</option>
+                                                    <option value="No" selected>No</option>
+                                                    <option value="Yes">Yes</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -670,8 +670,8 @@
                                                 <label for="">Gender</label><small class="text-danger">*</small>
                                                 <select class="form-control" name="gender" value="{{ old('gender') }}" required>
                                                     <option value="">- Gender type -</option>
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -686,11 +686,11 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Marital Status</label>
-                                                <select class="form-control" name="marital_status" value="{{ old('marital_status') }}">
+                                                <select class="form-control" name="marital_status" value="{{ old('marital_status') }}" required>
                                                     <option value="">- Marital status -</option>
-                                                    <option value="single">Single</option>
-                                                    <option value="married">Married</option>
-                                                    <option value="divorced">Divorced</option>
+                                                    <option value="Single">Single</option>
+                                                    <option value="Married">Married</option>
+                                                    <option value="Divorced">Divorced</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -698,11 +698,11 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Employment Status</label><small class="text-danger">*</small>
-                                                <select class="form-control" name="employment_status" value="{{ old('employment_status') }}">
-                                                    <option value="unemployed">Unemployed</option>
-                                                    <option value="employed">Employed</option>
-                                                    <option value="self_employed">Self-employed</option>
-                                                    <option value="retired_pensioner">Retired/Pensioner</option>
+                                                <select class="form-control" name="employment_status" value="{{ old('employment_status') }}" required>
+                                                    <option value="Unemployed">Unemployed</option>
+                                                    <option value="Employed">Employed</option>
+                                                    <option value="Self Employed">Self-employed</option>
+                                                    <option value="Retired Pensioner">Retired/Pensioner</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -710,17 +710,17 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Highest Qualification</label><small class="text-danger">*</small>
-                                                <select class="form-control" name="highest_qualification" value="{{ old('highest_qualification') }}">
-                                                    <option value="self_employed">High School (S.S.C.E)</option>
-                                                    <option value="degree">Degree</option>
-                                                    <option value="diploma">Diploma</option>
-                                                    <option value="hnd">HND</option>
-                                                    <option value="ond">OND</option>
-                                                    <option value="mba_msc">MBA/MSc</option>
-                                                    <option value="mbbs">MBBS</option>
-                                                    <option value="mphil_phd">MPhil/PhD</option>
-                                                    <option value="nce">N.C.E</option>
-                                                    <option value="others">Others</option>
+                                                <select class="form-control" name="highest_qualification" value="{{ old('highest_qualification') }}" required>
+                                                    <option value="High School (S.S.C.E)">High School (S.S.C.E)</option>
+                                                    <option value="Degree">Degree</option>
+                                                    <option value="Diploma">Diploma</option>
+                                                    <option value="HND">HND</option>
+                                                    <option value="OND">OND</option>
+                                                    <option value="MBA/MSc">MBA/MSc</option>
+                                                    <option value="MBBS">MBBS</option>
+                                                    <option value="MPhil/PhD">MPhil/PhD</option>
+                                                    <option value="N.C.E">N.C.E</option>
+                                                    <option value="Others">Others</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -728,16 +728,16 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="">Expected Salary</label><small class="text-danger">*</small>
-                                                <select class="form-control" name="expected_salary" value="{{ old('expected_salary') }}">
-                                                    <option value="self_employed">Below	&#8358;50,000</option>
-                                                    <option value="degree">&#8358;50,000 - &#8358;75,000</option>
-                                                    <option value="diploma">&#8358;75,000 - &#8358;100,000</option>
-                                                    <option value="hnd">&#8358;100,000 - 125,000</option>
-                                                    <option value="ond">&#8358;125,000 - &#8358;150,000</option>
-                                                    <option value="mba_msc">&#8358;150,000 - &#8358;200,000</option>
-                                                    <option value="mbbs">&#8358;200,000 - &#8358;300,000</option>
-                                                    <option value="mphil_phd">&#8358;300,000 - &#8358;500,000</option>
-                                                    <option value="nce">Above &#8358;500,000</option>
+                                                <select class="form-control" name="expected_salary" value="{{ old('expected_salary') }}" required>
+                                                    <option value="&#8358;50,000">Below	&#8358;50,000</option>
+                                                    <option value="&#8358;50,000 - &#8358;75,000<">&#8358;50,000 - &#8358;75,000</option>
+                                                    <option value="&#8358;75,000 - &#8358;100,000">&#8358;75,000 - &#8358;100,000</option>
+                                                    <option value="&#8358;100,000 - 125,000">&#8358;100,000 - 125,000</option>
+                                                    <option value="&#8358;125,000 - &#8358;150,000">&#8358;125,000 - &#8358;150,000</option>
+                                                    <option value="&#8358;150,000 - &#8358;200,000">&#8358;150,000 - &#8358;200,000</option>
+                                                    <option value="&#8358;200,000 - &#8358;300,000">&#8358;200,000 - &#8358;300,000</option>
+                                                    <option value="&#8358;300,000 - &#8358;500,000">&#8358;300,000 - &#8358;500,000</option>
+                                                    <option value="Above &#8358;500,000">Above &#8358;500,000</option>
                                                     <option value="others">Others</option>
                                                 </select>
                                             </div>
@@ -753,7 +753,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="">Education</label><small class="text-danger">*</small>
-                                                <textarea id='education' name="education" class="form-control" placeholder="Educational Background.">{{ old('education') }}</textarea>
+                                                <textarea id='education' name="education" class="form-control" placeholder="Educational Background." required>{{ old('education') }}</textarea>
                                             </div>
                                         </div>
 
@@ -794,7 +794,7 @@
                                             <select name="category_id" required class="form-control show-tick" id="sw_categories">
                                                 <option value="1" selected>Job Applicant</option>
                                                 @foreach($categories as $category)
-                                                    <option value="{{ $category->id }}"> {{ $category->name }} </option>
+                                                    <option value="{{ $category->id }}" {{ $category->id == 1 ? 'selected' : '' }}> {{ $category->name }} </option>
                                                 @endforeach
                                             </select>
                                         </div>

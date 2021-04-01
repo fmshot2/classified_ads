@@ -748,8 +748,10 @@ class OperationalController extends Controller
             $image->move(public_path('uploads/seekingworks/'),$file_name);
 
             $image_resize = Image::make(public_path('uploads/seekingworks/').$file_name);
-            $image_resize->resize(300, 300);
-            $image_resize->save(public_path('uploads/seekingworks/' .$file_name));
+            $image_resize->resize(null, 400, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $image_resize->save(public_path('uploads/seekingworks/' .$file_name), 60);
         }
 
             $sWork = new SeekingWork();
@@ -784,17 +786,73 @@ class OperationalController extends Controller
             $sWork->thumbnail = $sWork->images()->first()->image_path;
             $sWork->save();
 
-            return redirect()->route('seller.dashboard')->with([
+            return redirect()->route('seller.show.cv', ['slug' => $sWork->slug])->with([
                 'message' => 'CV succesfully created!',
                 'alert-type' => 'success'
             ]);
         }
         else{
-            return redirect()->route('seller.dashboard')->with([
+            return redirect()->back()->with([
                 'message' => 'CV couldn\'t updated!',
                 'alert-type' => 'error'
             ]);
         }
+    }
+
+    public function showCV($slug)
+    {
+        $service = SeekingWork::where('slug', $slug)->firstOrFail();
+
+        return view('seller.service.showcv', [
+            'service' => $service
+        ]);
+    }
+
+    public function imagesSeekingWorkStore(Request $request, $service_id)
+    {
+        $image       = $request->file('file');
+        $fileInfo = $image->getClientOriginalName();
+        $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
+        $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
+        $file_name= $filename.'-'.time().'.'.$extension;
+
+        //Fullsize
+        $image->move(public_path('uploads/seekingworks/'),$file_name);
+
+        $image_resize = Image::make(public_path('uploads/seekingworks/').$file_name);
+        $image_resize->resize(300, 300);
+        $image_resize->save(public_path('uploads/seekingworks/' .$file_name));
+
+        // Saving it with this service
+        $service = SeekingWork::find($service_id);
+        $service->images()->create(['image_path' => $file_name]);
+        $service->thumbnail = $service->images()->first()->image_path;
+        $service->save();
+
+        $success_notification = array(
+            'message' => 'Image(s) uploaded successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($success_notification);
+
+    }
+
+    public function imagesDelete($seekingworkid, $id)
+    {
+        $image = ModelImage::where('imageable_id', $seekingworkid)->where('id', $id)->first();
+        $filename = $image->image_path;
+        $image->delete();
+
+        $path = public_path('uploads/seekingworks/').$filename;
+        if (file_exists($path)) {
+            unlink($path);
+        }
+
+        $success_notification = array(
+            'message' => 'Image deleted successfully!',
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($success_notification);
     }
 
     public function seekingWorkDetails($slug)
@@ -808,6 +866,36 @@ class OperationalController extends Controller
         $seekingWorkDetail_id = $seekingWorkDetail->id;
         $seekingWorkDetail_likes = Like::where('service_id', $seekingWorkDetail_id)->count();
         $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$seekingWorkDetail_id])->firstOrFail();
+        $service_category_id = $seekingWorkDetail->category_id;
+        $seekingWorkDetail_state = $seekingWorkDetail->state;
+        $images_4_service = $seekingWorkDetail->images;
+        // $images_4_service = Image::where('imageable_id', $seekingWorkDetail_id)->get();
+        $similarProducts = Service::where([['category_id', $service_category_id], ['state', $seekingWorkDetail_state] ])->inRandomOrder()->limit(8)->get();
+
+        $user_id = $seekingWorkDetail->user_id;
+        $userMessages = Message::where('service_id', $seekingWorkDetail_id)->orderBy('created_at','desc')->take(7)->get();
+
+        $the_user = User::find($user_id);
+        $the_user_name = $the_user->name;
+        $the_provider_f_name = explode(' ', trim($the_user_name))[0];
+
+        $expiresAt = now()->addHours(24);
+        views($seekingWorkDetail)->cooldown($expiresAt)->record();
+
+        return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck']));
+    }
+
+    public function seekingWorkPreviewDetails($slug)
+    {
+
+        $seekingWorkDetail = SeekingWork::where('slug', $slug)->first();
+
+        $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+        $approvedServices = Service::where('status', 1)->with('user')->get();
+        $categories = Category::paginate(8);
+        $seekingWorkDetail_id = $seekingWorkDetail->id;
+        $seekingWorkDetail_likes = Like::where('service_id', $seekingWorkDetail_id)->count();
+        $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$seekingWorkDetail_id])->first();
         $service_category_id = $seekingWorkDetail->category_id;
         $seekingWorkDetail_state = $seekingWorkDetail->state;
         $images_4_service = $seekingWorkDetail->images;
