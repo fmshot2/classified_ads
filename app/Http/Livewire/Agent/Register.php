@@ -87,7 +87,7 @@ class Register extends Component
         $this->validate([
             'bankname'           => ['required', 'string', 'max:255'],
             'accountname'        => ['required', 'string'],
-            'accountno'          => ['required', 'string'],
+            'accountno'          => ['required', 'numeric'],
             'password'           => ['required', 'string', 'max:255'],
         ]);
 
@@ -144,14 +144,14 @@ class Register extends Component
         $slug3 = Str::random(8);  
 
         $state =  State::where('id', $this->state_id)->first();
-        $result = substr($state, 0, 3);
+        $result = $state->abbr;
         $ist_3_result = strtoupper($result);
         $randomCode = mt_rand(1000, 9999);
         //To Get The Last Letter
         // $length = 1;
         // $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
         // $code = $ist_3_result . $randomCode . $last_letter;
-        $code = $ist_3_result . $randomCode;
+        $code = $result . $randomCode;
 
         //save user
         $user = Agent::where('email', $this->agent_email)->first();
