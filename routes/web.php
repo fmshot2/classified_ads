@@ -125,6 +125,7 @@ Route::post('delete', 'ImageController@delete');
 
 Route::post('/subscribe', 'AdminController@subscribe')->name('subscribe');
 Route::view('/tourist-sites-in-nigeria', 'featured_city')->name('allcities');
+Route::view('/house-of-assembly', 'house_assembly')->name('house.assembly');
 
 Route::get('/send/email', 'ServiceController@mail');
 
