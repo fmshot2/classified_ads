@@ -129,13 +129,9 @@
         .progress-description .btn{
             font-size: 9px;
         }
-
-        .badge-info-box-icon span {
-            height: 32px;
-            width: 32px;
-            font-size: 16px;
-            line-height: 32px;
-            margin: 0 2px 3px
+        .badge-info-title{
+            padding-top: 8px;
+            font-size: 13px;
         }
     }
 </style>
@@ -355,40 +351,31 @@
                 <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="badge-info-box">
                         @if (Auth::user()->badgetype == 1)
-                            <div class="badge-info-box-icon">
-                                <span class="super-user">
-                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
-                                </span>
-                                <span class="super-user">
-                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
-                                </span>
-                                <span class="super-user">
-                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                            <div>
+                                <span class="">
+                                    <img src="{{ asset('SuperBadge.svg') }}" alt="Super Badge">
                                 </span>
                             </div>
-                            <div class="">
-                                <strong>Super Badge User</strong>
+                            <div class="badge-info-title">
+                                <strong> Super Badge User </strong>
                             </div>
                         @elseif (Auth::user()->badgetype == 2)
-                            <div class="badge-info-box-icon">
-                                <span class="moderate-user">
-                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
-                                </span>
-                                <span class="moderate-user">
-                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                            <div>
+                                <span class="">
+                                    <img src="{{ asset('ModerateBadge.svg') }}" alt="Moderate Badge">
                                 </span>
                             </div>
-                            <div class="">
-                                <strong>Moderate Badge User</strong>
+                            <div class="badge-info-title">
+                                <strong> Moderate Badge User </strong>
                             </div>
                         @elseif (Auth::user()->badgetype == 3)
-                            <div class="badge-info-box-icon">
-                                <span class="basic-user">
-                                    <i class="fa fa-star text-white" aria-hidden="true"></i>
+                            <div>
+                                <span class="">
+                                    <img src="{{ asset('BasicBadge.svg') }}" alt="Basic Badge">
                                 </span>
                             </div>
-                            <div class="">
-                                <strong>Basic Badge User</strong>
+                            <div class="badge-info-title">
+                                <strong> Basic Badge User </strong>
                             </div>
                         @else
                             <div>
