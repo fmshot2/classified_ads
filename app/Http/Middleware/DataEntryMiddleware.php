@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class CMOMiddleware
+class DataEntryMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class CMOMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role == 'cmo' ) {
+        if (Auth::check() && Auth::user()->role == 'data' ) {
             return $next($request);
         }  else {
             return redirect()->route('home');

@@ -77,12 +77,24 @@ Route::middleware(['accountant'])->group(function() {
     Route::get('/accountant/badge-requests', 'AccountantController@badgeRequests')->name('accountant.badges');
 
     Route::post('/accountant/make-payment/{id}', 'AccountantController@makePayment')->name('make_payment');
+    Route::post('/accountant/pay-due/{id}', 'AccountantController@makePayment1')->name('pay.due');
+    Route::post('/accountant/pay-agent-due/{id}', 'AccountantController@makePayment2')->name('pay.agent.due');
     Route::get('/accountant/view-payment/{id}', 'AccountantController@viewPayment')->name('accountant.view.payment');
     // Route::get('/accountant/print/{id}', 'AccountantController@printHistory')->name('print.history');
 
     Route::get('/accountant/pending-agent-payments', 'AccountantController@pendingPayments')->name('accountant.pending.agent.payments');
     Route::get('/accountant/successful-agent-payments', 'AccountantController@paidPayments')->name('accountant.paid.agent.payments');
     Route::get('/accountant/all-agent-payments', 'AccountantController@allPayments')->name('accountant.all.agent.payments');
+
+    //get seller due payments
+    Route::get('/accountant/seller-due-payments', 'AccountantController@viewDuePayments')->name('accountant.all.due.payments');
+    Route::get('/accountant/seller-settled-payments', 'AccountantController@settledPayments')->name('accountant.settled.payments');
+
+    Route::get('/accountant/agent-due-payments', 'AccountantController@agentDuePayments')->name('accountant.agent.due.payments');
+    Route::get('/accountant/agent-settled-payments', 'AccountantController@agentSettledPayments')->name('accountant.agent.settled.payments');
+
+    Route::post('/accountant/generate-payment', 'AccountantController@generatePayment')->name('accountant.generate.payment');
+    Route::post('/accountant/generate-seller-payment', 'AccountantController@generateSellerPayment')->name('accountant.generate.seller.payment');
 });
 //Accountant Middleware ends here
 
@@ -417,7 +429,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/notification/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('admin.notification.markallasread');
 
     Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
-
+    Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
 
     Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('system.config.store');
 
@@ -449,6 +461,21 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::put('/admin/add_city_images/{slug}', 'TourismController@add_city_images')->name('admin.add_city_images');
     Route::get('/admin/delete-city/{slug}', 'TourismController@deleteCity')->name('admin.delete.city');
 
+    //add admin
+    Route::get('add-admin', 'AdminController@add_admin')->name('admin.add.admin');
+    Route::post('submit-admin', 'AdminController@submit_admin')->name('admin.submit.admin');
+    Route::get('all-admins', 'AdminController@allAdmins')->name('admin.all.admins');
+
+     //add cmo
+    Route::get('add-cmo', 'AdminController@add_cmo')->name('admin.add.cmo');
+    Route::post('submit-cmo', 'AdminController@submit_cmo')->name('admin.submit.cmo');
+    Route::get('all-cmos', 'AdminController@allCmos')->name('admin.all.cmos');
+
+    //add data entry officer
+    Route::get('add-data-entry', 'AdminController@add_data')->name('admin.add.data');
+    Route::post('submit-data', 'AdminController@submit_data')->name('admin.submit.data');
+    Route::get('all-data-entry-officers', 'AdminController@allData')->name('admin.all.data');
+
     //add accountant
     Route::get('/admin/add-accountant', 'AccountantController@add_accountant')->name('add-accountant');
     Route::post('/admin/submit-accountant', 'AccountantController@submit_accountant')->name('submit_accountant');
@@ -472,9 +499,12 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     ->name('events');
     Route::post('/admin/save_event/', 'AdminController@save_event')->name('admin.save_event');
 
+    Route::get('admin/send-email', 'AdminController@send_email')->name('admin.send_email');
+   Route::get('admin/send-sms', 'AdminController@send_sms')->name('admin.send_sms');
 
-
-
+    Route::get('/admin/add-data-entry', 'AdminController@add_data')->name('admin.add.data');
+    Route::post('/admin/submit-data', 'AdminController@submit_data')->name('admin.submit.data');
+    Route::get('/admin/all-data-entry-officers', 'AdminController@allData')->name('admin.all.data');
 
     Route::get('seller/service/badges/badger','BadgeController@getBadgeList')->name('fff');
     ///seller/service/admin/get-badge-list/2 404 (Not Found)
@@ -502,113 +532,126 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
 }); //Admin Middleware protection end here
 
-Route::middleware(['superadmin'])->group(function () { //SuperAdmin Middleware protection start here
-//     Route::get('/admin/dashboard/approve_withdrawal_request/{id}', 'DashboardController@approve_withdrawal_request')->name('admin.approve_withdrawal_request');
+Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //SuperAdmin Middleware protection start here
+    Route::get('dashboard/approve_withdrawal_request/{id}', 'DashboardController@approve_withdrawal_request')->name('admin.approve_withdrawal_request');
 
-//     Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
-//     Route::get('/admin/dashboard/category/show', 'CategoryController@index')->name('admin.category.show');
-//     Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
-//     Route::get('/admin/category/{id}', 'CategoryController@destroy')->name('admin.category.delete');
-//     Route::get('/admin/dashboard/single/category/{id}', 'CategoryController@categoryShow')->name('admin.single.category.show');
-//     Route::put('/admin/dashboard/single/category/{id}', 'CategoryController@categoryUpdate')->name('admin.single.category.update');
+    Route::get('dashboard', 'DashboardController@admin')->name('superadmin.dashboard');
+    Route::get('dashboard/category/show', 'CategoryController@index')->name('superadmin.category.show');
+    Route::post('dashboard/category/show', 'CategoryController@store')->name('superadmin.category.store');
+    Route::get('category/{id}', 'CategoryController@destroy')->name('superadmin.category.delete');
+    Route::get('dashboard/single/category/{id}', 'CategoryController@categoryShow')->name('superadmin.single.category.show');
+    Route::put('dashboard/single/category/{id}', 'CategoryController@categoryUpdate')->name('superadmin.single.category.update');
+    Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
 
-
-//     Route::get('/admin/dashboard/subcategory/show', 'CategoryController@subcategoryIndex')->name('admin.subcategory.show');
-//     Route::get('/admin/subcategory/{id}', 'CategoryController@subCatDestroy')->name('admin.subcategory.delete');
-//     Route::post('admin/dashboard/subcategory/create', 'CategoryController@createSubCategory')->name('admin.subcategory.store');
-//     Route::get('/admin/dashboard/single/subcategory/{id}', 'CategoryController@subCategoryShow')->name('admin.single.subcategory.show');
-//     Route::put('/admin/dashboard/single/subcategory/{id}', 'CategoryController@subCategoryUpdate')->name('admin.single.subcategory.update');
-
-//     Route::get('/admin/dashboard/service/all', 'AdminController@allService')->name('admin.service.all');
-//     Route::get('/admin/dashboard/service/active', 'AdminController@activeService')->name('admin.service.active');
-//     Route::get('/admin/dashboard/service/pending', 'AdminController@pendingService')->name('admin.service.pending');
-//     Route::get('/admin/dashboard/service/pending', 'AdminController@pendingService')->name('admin.service.pending');
-//     Route::get('/admin/dashboard/service/status/{id}', 'AdminController@updateServiceStatus')->name('admin.service.status');
-//     Route::get('/admin/dashboard/service/destroy/{id}', 'AdminController@destroy')->name('admin.service.destroy');
-//     Route::get('admin/dashboard/service/view/{slug}', 'AdminController@viewService')->name('admin.view');
+    // Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
+    // Route::get('/admin/dashboard/category/show', 'CategoryController@index')->name('admin.category.show');
+    // Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
+    // Route::get('/admin/category/{id}', 'CategoryController@destroy')->name('admin.category.delete');
+    // Route::get('/admin/dashboard/single/category/{id}', 'CategoryController@categoryShow')->name('admin.single.category.show');
+    // Route::put('/admin/dashboard/single/category/{id}', 'CategoryController@categoryUpdate')->name('admin.single.category.update');
 
 
-//     Route::get('/admin/dashboard/service/search', 'AdminController@serviceSearch')->name('admin.service.search');
-//     Route::get('/admin/dashboard/user/search', 'AdminController@userSearch')->name('admin.user.search');
+    Route::get('dashboard/subcategory/show', 'CategoryController@subcategoryIndex')->name('superadmin.subcategory.show');
+    Route::get('subcategory/{id}', 'CategoryController@subCatDestroy')->name('superadmin.subcategory.delete');
+    Route::post('dashboard/subcategory/create', 'CategoryController@createSubCategory')->name('superadmin.subcategory.store');
+    Route::get('dashboard/single/subcategory/{id}', 'CategoryController@subCategoryShow')->name('superadmin.single.subcategory.show');
+    Route::put('dashboard/single/subcategory/{id}', 'CategoryController@subCategoryUpdate')->name('superadmin.single.subcategory.update');
+
+    Route::get('dashboard/service/all', 'AdminController@allService')->name('superadmin.service.all');
+    Route::get('dashboard/service/active', 'AdminController@activeService')->name('superadmin.service.active');
+    Route::get('dashboard/service/pending', 'AdminController@pendingService')->name('superadmin.service.pending');
+    Route::get('dashboard/service/pending', 'AdminController@pendingService')->name('superadmin.service.pending');
+    Route::get('dashboard/service/status/{id}', 'AdminController@updateServiceStatus')->name('superadmin.service.status');
+    Route::get('dashboard/service/destroy/{id}', 'AdminController@destroy')->name('superadmin.service.destroy');
+    Route::get('dashboard/service/view/{slug}', 'AdminController@viewService')->name('superadmin.view');
 
 
-//     Route::get('/admin/dashboard/service-providers', 'AuthController@seller')->name('admin.seller');
-//     Route::get('/admin/dashboard/all-agents', 'AuthController@allagents')->name('admin.allagents');
-//     Route::get('/admin/dashboard/service-seekers', 'AuthController@buyer')->name('admin.buyer');
-//     Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');
-//     Route::get('/activate_agent/{id}', 'AdminController@activate_agent')->name('admin.activate.agent');
-
-//     Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
-
-//     Route::get('/admin/notification/all', 'AdminController@allNotification')->name('admin.notification.all');
-//     Route::post('/admin/notification/general/send', 'NotificationController@GeneralNofications')->name('admin.notification.general.send');
-//     Route::post('/admin/notification/send', 'AdminController@sendNotification')->name('admin.notification.send');
-//     Route::get('/admin/notification/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('admin.notification.markallasread');
-
-//     Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
+    Route::get('dashboard/service/search', 'AdminController@serviceSearch')->name('superadmin.service.search');
+    Route::get('dashboard/user/search', 'AdminController@userSearch')->name('superadmin.user.search');
 
 
-//     Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('system.config.store');
+    Route::get('dashboard/service-providers', 'AuthController@seller')->name('superadmin.seller');
+    Route::get('dashboard/all-agents', 'AuthController@allagents')->name('superadmin.allagents');
+    Route::get('dashboard/service-seekers', 'AuthController@buyer')->name('superadmin.buyer');
+    Route::get('/activate_user/{id}', 'Admin@activate_user')->name('superadmin.activate');
+    Route::get('/activate_agent/{id}', 'Admin@activate_agent')->name('superadmin.activate.agent');
 
-//     Route::get('/admin/pages/faq', 'AdminController@FAQs')->name('admin.pages.faq');
-//     Route::get('/admin/badge/requests', 'AdminController@allBadges')->name('badge.request');
-//     Route::get('/admin/seller/saveBadge/', 'AdminController@saveBadge')->name('save.badge');
-//     Route::get('/admin/privacy-policy/', 'AdminController@privacyPolicy')->name('admin.privacy.policy');
-//     Route::post('/admin/save_privacy_policy/', 'AdminController@save_privacyPolicy')->name('admin.save_privacyPolicy');
-//     Route::get('/privacy', 'AdminController@privacy')->name('privacy');
+    Route::get('profile/', 'AdminController@viewProfile')->name('superadmin.profile');
 
-//     Route::get('/admin/terms-of-use/', 'AdminController@termsOfUse')->name('admin.termsOfUse');
-//     Route::post('/admin/save_terms_of_use/', 'AdminController@save_termsOfUse')->name('admin.save_termsOfUse');
-//     Route::post('/admin/save_faq/', 'AdminController@save_faq')->name('admin.save_faq');
-//     Route::get('/admin/save_faq/', 'AdminController@show_faq')->name('admin.show_faq');
-//     Route::get('/admin/delete/faqs/{id}', 'AdminController@delete_faqs')->name('admin.delete_faqs');
+    Route::get('notification/all', 'AdminController@allNotification')->name('superadmin.notification.all');
+    Route::post('notification/general/send', 'NotificationController@GeneralNofications')->name('superadmin.notification.general.send');
+    Route::post('notification/send', 'AdminController@sendNotification')->name('superadmin.notification.send');
+    Route::get('notification/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('superadmin.notification.markallasread');
 
-//     // Banner Sliders
-//     Route::get('/admin/sliders', 'AdminController@sliders')->name('admin.sliders');
-//     Route::get('/admin/slider/{id}', 'AdminController@slider')->name('admin.slider');
-//     Route::post('/admin/save_slider/', 'AdminController@save_slider')->name('admin.save_slider');
-//     Route::put('/admin/update/slider/{id}', 'OperationalController@sliderUpdate')->name('admin.update.slider');
-//     Route::get('/admin/delete/sliders/{id}', 'AdminController@delete_sliders')->name('admin.delete_sliders');
+    Route::get('system/config', 'AdminController@systemConfig')->name('superadmin.system.config');
 
-//     //Tourism
-//     Route::get('/admin/tourist-sites', 'TourismController@cities')->name('admin.cities');
-//     Route::get('/admin/city/{slug}', 'TourismController@city')->name('admin.city');
-//     Route::post('/admin/save-city', 'TourismController@save_city')->name('admin.save_city');
-//     Route::put('/admin/update-city/{slug}', 'TourismController@update_city')->name('admin.update.city');
-//     Route::put('/admin/add_city_images/{slug}', 'TourismController@add_city_images')->name('admin.add_city_images');
-//     Route::get('/admin/delete-city/{slug}', 'TourismController@deleteCity')->name('admin.delete.city');
 
-//     //add accountant
-//     Route::get('/admin/add-accountant', 'AccountantController@add_accountant')->name('add-accountant');
-//     Route::post('/admin/submit-accountant', 'AccountantController@submit_accountant')->name('submit_accountant');
+    Route::post('system/{id}', 'AdminController@storeSystemConfig')->name('superadmin.system.config.store');
 
-//     //add admin
-//     Route::get('/admin/add-admin', 'AdminController@add_admin')->name('admin.add.admin');
-//     Route::post('/admin/submit-admin', 'AdminController@submit_admin')->name('admin.submit.admin');
-//     Route::get('/admin/all-admins', 'AdminController@allAdmins')->name('admin.all.admins');
+    Route::get('pages/faq', 'AdminController@FAQs')->name('superadmin.pages.faq');
+    Route::get('dashboard/badge/requests', 'AdminController@allBadges')->name('superadmin.badge.request');
+    Route::get('seller/saveBadge/', 'AdminController@saveBadge')->name('superadmin.save.badge');
+    Route::get('privacy-policy/', 'AdminController@privacyPolicy')->name('superadmin.privacy.policy');
+    Route::post('save_privacy_policy/', 'AdminController@save_privacyPolicy')->name('superadmin.save_privacyPolicy');
+    Route::get('privacy', 'AdminController@privacy')->name('superadmin.privacy');
 
-//      //add cmo
-    Route::get('/admin/add-cmo', 'AdminController@add_cmo')->name('admin.add.cmo');
-//     Route::post('/admin/submit-cmo', 'AdminController@submit_cmo')->name('admin.submit.cmo');
-    Route::get('/admin/all-cmos', 'AdminController@allCmos')->name('admin.all.cmos');
-//     // Advertisement
-//     // Route::get('/admin/sliders', 'AdminController@sliders')->name('admin.sliders');
-//     Route::get('/admin/sponsored/slider/{id}', 'OperationalController@get_advert_slider')->name('admin.advert.slider');
-//     Route::post('/admin/advert/save_slider/', 'OperationalController@create_advert_sliders')->name('admin.advert.save_slider');
-//     Route::put('/admin/advert/update_slider/{id}', 'OperationalController@update_advert_sliders')->name('admin.advert.update_slider');
-//     Route::get('/admin/delete/sponsored/{id}', 'OperationalController@delete_advert_slider')->name('admin.advert.delete_sliders');
+    Route::get('terms-of-use/', 'AdminController@termsOfUse')->name('superadmin.termsOfUse');
+    Route::post('save_terms_of_use/', 'AdminController@save_termsOfUse')->name('superadmin.save_termsOfUse');
+    Route::post('save_faq/', 'AdminController@save_faq')->name('superadmin.save_faq');
+    Route::get('save_faq/', 'AdminController@show_faq')->name('superadmin.show_faq');
+    Route::get('delete/faqs/{id}', 'AdminController@delete_faqs')->name('superadmin.delete_faqs');
 
-//     Route::get('/admin/pending_advert_requests', 'AdminController@pending_advert_requests')->name('pending_advert_requests');
-//     Route::get('/admin/all_adverts', 'AdminController@all_adverts')->name('admin.all_adverts');
-//     Route::get('/admin/treated_advert_requests', 'AdminController@treated_advert_requests')
-//     ->name('treated_advert_requests');
-//     Route::get('/admin/active_adverts', 'AdminController@active_adverts')
-//     ->name('active_adverts');
-//     Route::get('all_events', 'AdminController@all_events')->name('event2');
+    // Banner Sliders
+    Route::get('sliders', 'AdminController@sliders')->name('superadmin.sliders');
+    Route::get('slider/{id}', 'AdminController@slider')->name('superadmin.slider');
+    Route::post('save_slider/', 'AdminController@save_slider')->name('superadmin.save_slider');
+    Route::put('update/slider/{id}', 'OperationalController@sliderUpdate')->name('superadmin.update.slider');
+    Route::get('delete/sliders/{id}', 'AdminController@delete_sliders')->name('superadmin.delete_sliders');
 
-//     Route::get('/admin/events', 'AdminController@events')
-//     ->name('events');
-//     Route::post('/admin/save_event/', 'AdminController@save_event')->name('admin.save_event');
+    //Tourism
+    Route::get('tourist-sites', 'TourismController@cities')->name('superadmin.cities');
+    Route::get('city/{slug}', 'TourismController@city')->name('superadmin.city');
+    Route::post('save-city', 'TourismController@save_city')->name('superadmin.save_city');
+    Route::put('update-city/{slug}', 'TourismController@update_city')->name('superadmin.update.city');
+    Route::put('add_city_images/{slug}', 'TourismController@add_city_images')->name('superadmin.add_city_images');
+    Route::get('delete-city/{slug}', 'TourismController@deleteCity')->name('superadmin.delete.city');
+
+    //add accountant
+    Route::get('add-accountant', 'AccountantController@add_accountant')->name('superadmin.add-accountant');
+    Route::post('submit-accountant', 'AccountantController@submit_accountant')->name('superadmin.submit_accountant');
+
+    //add admin
+    Route::get('add-admin', 'AdminController@add_admin')->name('superadmin.add.admin');
+    Route::post('submit-admin', 'AdminController@submit_admin')->name('superadmin.submit.admin');
+    Route::get('all-admins', 'AdminController@allAdmins')->name('superadmin.all.admins');
+
+     //add cmo
+    Route::get('add-cmo', 'AdminController@add_cmo')->name('superadmin.add.cmo');
+    Route::post('submit-cmo', 'AdminController@submit_cmo')->name('superadmin.submit.cmo');
+    Route::get('all-cmos', 'AdminController@allCmos')->name('superadmin.all.cmos');
+
+    //add data entry officer
+    Route::get('add-data-entry', 'AdminController@add_data')->name('superadmin.add.data');
+    Route::post('submit-data', 'AdminController@submit_data')->name('superadmin.submit.data');
+    Route::get('all-data-entry-officers', 'AdminController@allData')->name('superadmin.all.data');
+    // Advertisement
+    // Route::get('/admin/sliders', 'AdminController@sliders')->name('admin.sliders');
+    Route::get('sponsored/slider/{id}', 'OperationalController@get_advert_slider')->name('superadmin.advert.slider');
+    Route::post('advert/save_slider/', 'OperationalController@create_advert_sliders')->name('superadmin.advert.save_slider');
+    Route::put('advert/update_slider/{id}', 'OperationalController@update_advert_sliders')->name('superadmin.advert.update_slider');
+    Route::get('delete/sponsored/{id}', 'OperationalController@delete_advert_slider')->name('superadmin.advert.delete_sliders');
+
+    Route::get('pending_advert_requests', 'AdminController@pending_advert_requests')->name('superadmin.pending_advert_requests');
+    Route::get('all_adverts', 'AdminController@all_adverts')->name('superadmin.all_adverts');
+    Route::get('treated_advert_requests', 'AdminController@treated_advert_requests')
+    ->name('superadmin.treated_advert_requests');
+    Route::get('active_adverts', 'AdminController@active_adverts')
+    ->name('superadmin.active_adverts');
+    Route::get('all_events', 'AdminController@all_events')->name('superadmin.event2');
+
+    Route::get('events', 'AdminController@events')
+    ->name('superadmin.events');
+    Route::post('save_event/', 'AdminController@save_event')->name('superadmin.save_event');
 
 
 
@@ -617,29 +660,129 @@ Route::middleware(['superadmin'])->group(function () { //SuperAdmin Middleware p
 //     Route::get('seller/service/badges/badger','BadgeController@getBadgeList')->name('fff');
 //     ///seller/service/admin/get-badge-list/2 404 (Not Found)
 
-//     Route::get('/admin/usersfeedback','AdminController@usersfeedback')->name('admin.users.feedback');
-//     Route::get('/admin/userfeedback/{id}','AdminController@userfeedback')->name('admin.user.feedback');
-//     Route::put('/admin/userfeedback/treat/{id}','AdminController@treatfeedback')->name('admin.user.feedback.treat');
-//     Route::get('/admin/userfeedback/delete/{id}','AdminController@feedbackDelete')->name('admin.user.feedback.delete');
+    Route::get('usersfeedback','AdminController@usersfeedback')->name('superadmin.users.feedback');
+    Route::get('userfeedback/{id}','AdminController@userfeedback')->name('superadmin.user.feedback');
+    Route::put('userfeedback/treat/{id}','AdminController@treatfeedback')->name('superadmin.user.feedback.treat');
+    Route::get('userfeedback/delete/{id}','AdminController@feedbackDelete')->name('superadmin.user.feedback.delete');
 
 
-//     // PAGES CONTENTS TABLE
-//     Route::get('/admin/pages-contents', 'PageContentController@pagescontents')->name('admin.pagescontents');
-//     Route::post('/admin/pages-contents/privacy', 'PageContentController@savePrivacyPolicy')->name('admin.pagescontents.save.privacy');
-//     Route::post('/admin/pages-contents/about', 'PageContentController@saveAboutUs')->name('admin.pagescontents.save.aboutus');
-//     Route::post('/admin/pages-contents/about-section-one', 'PageContentController@saveAboutUsSection1')->name('admin.pagescontents.saveAboutUsSection1');
-//     Route::post('/admin/pages-contents/about-section-two', 'PageContentController@saveAboutUsSection2')->name('admin.pagescontents.saveAboutUsSection2');
-//     Route::post('/admin/pages-contents/about-section-three', 'PageContentController@saveAboutUsSection3')->name('admin.pagescontents.saveAboutUsSection3');
-//     Route::post('/admin/pages-contents/benefitsofefc', 'PageContentController@saveBenefitsofEfcontact')->name('admin.pagescontents.save.benefitsofefc');
-//     Route::post('/admin/pages-contents/termofuse', 'PageContentController@saveTermOfUse')->name('admin.pagescontents.save.termofuse');
+    // PAGES CONTENTS TABLE
+    Route::get('pages-contents', 'PageContentController@pagescontents')->name('superadmin.pagescontents');
+    Route::post('pages-contents/privacy', 'PageContentController@savePrivacyPolicy')->name('superadmin.pagescontents.save.privacy');
+    Route::post('pages-contents/about', 'PageContentController@saveAboutUs')->name('superadmin.pagescontents.save.aboutus');
+    Route::post('pages-contents/about-section-one', 'PageContentController@saveAboutUsSection1')->name('superadmin.pagescontents.saveAboutUsSection1');
+    Route::post('pages-contents/about-section-two', 'PageContentController@saveAboutUsSection2')->name('superadmin.pagescontents.saveAboutUsSection2');
+    Route::post('pages-contents/about-section-three', 'PageContentController@saveAboutUsSection3')->name('superadmin.pagescontents.saveAboutUsSection3');
+    Route::post('pages-contents/benefitsofefc', 'PageContentController@saveBenefitsofEfcontact')->name('superadmin.pagescontents.save.benefitsofefc');
+    Route::post('pages-contents/termofuse', 'PageContentController@saveTermOfUse')->name('superadmin.pagescontents.save.termofuse');
+
+    Route::get('send-email', 'AdminController@send_email')->name('superadmin.send_email');
+    Route::get('create-sms', 'AdminController@sendSms')->name('superadmin.send_sms');
+
+   Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
+   Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
 
 
-//     //accountant routes
-//     Route::get('/admin/all-accountants', 'AdminController@allAccountants')->name('all_accountants');
+   Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
+   Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
+    //accountant routes
+    Route::get('all-accountants', 'AdminController@allAccountants')->name('superadmin.all_accountants');
 
 
-}); 
+});
 //SuperAdmin Middleware protection end here
+
+Route::prefix('cmo')->middleware(['cmo'])->group(function () { //CMO Middleware protection start here
+
+    Route::get('dashboard', 'DashboardController@admin')->name('cmo.dashboard');
+    Route::get('dashboard/category/show', 'CategoryController@index')->name('cmo.category.show');
+    Route::post('dashboard/category/show', 'CategoryController@store')->name('cmo.category.store');
+    Route::get('category/{id}', 'CategoryController@destroy')->name('cmo.category.delete');
+    Route::get('dashboard/single/category/{id}', 'CategoryController@categoryShow')->name('cmo.single.category.show');
+    Route::put('dashboard/single/category/{id}', 'CategoryController@categoryUpdate')->name('cmo.single.category.update');
+
+
+    Route::get('dashboard/subcategory/show', 'CategoryController@subcategoryIndex')->name('cmo.subcategory.show');
+    Route::get('subcategory/{id}', 'CategoryController@subCatDestroy')->name('cmo.subcategory.delete');
+    Route::post('dashboard/subcategory/create', 'CategoryController@createSubCategory')->name('cmo.subcategory.store');
+    Route::get('dashboard/single/subcategory/{id}', 'CategoryController@subCategoryShow')->name('cmo.single.subcategory.show');
+    Route::put('dashboard/single/subcategory/{id}', 'CategoryController@subCategoryUpdate')->name('cmo.single.subcategory.update');
+
+
+    Route::get('profile/', 'AdminController@viewProfile')->name('cmo.profile');
+
+    Route::get('notification/all', 'AdminController@allNotification')->name('cmo.notification.all');
+    Route::post('notification/general/send', 'NotificationController@GeneralNofications')->name('cmo.notification.general.send');
+    Route::post('notification/send', 'AdminController@sendNotification')->name('cmo.notification.send');
+    Route::get('notification/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('cmo.notification.markallasread');
+
+    Route::get('system/config', 'AdminController@systemConfig')->name('cmo.system.config');
+
+     Route::get('events', 'AdminController@events')
+    ->name('cmo.events');
+    Route::post('system/{id}', 'AdminController@storeSystemConfig')->name('system.config.store');
+
+    Route::get('pages/faq', 'AdminController@FAQs')->name('cmo.pages.faq');
+    // Route::get('/admin/badge/requests', 'AdminController@allBadges')->name('badge.request');
+    // Route::get('/admin/seller/saveBadge/', 'AdminController@saveBadge')->name('save.badge');
+    Route::get('privacy-policy/', 'AdminController@privacyPolicy')->name('cmo.privacy.policy');
+    Route::post('save_privacy_policy/', 'AdminController@save_privacyPolicy')->name('cmo.save_privacyPolicy');
+    Route::get('privacy', 'AdminController@privacy')->name('cmo.privacy');
+
+    Route::get('terms-of-use/', 'AdminController@termsOfUse')->name('cmo.termsOfUse');
+    Route::post('save_terms_of_use/', 'AdminController@save_termsOfUse')->name('cmo.save_termsOfUse');
+    Route::post('save_faq/', 'AdminController@save_faq')->name('cmo.save_faq');
+    Route::get('save_faq/', 'AdminController@show_faq')->name('cmo.show_faq');
+    Route::get('delete/faqs/{id}', 'AdminController@delete_faqs')->name('cmo.delete_faqs');
+
+    // Banner Sliders
+    Route::get('sliders', 'AdminController@sliders')->name('cmo.sliders');
+    Route::get('slider/{id}', 'AdminController@slider')->name('cmo.slider');
+    Route::post('save_slider/', 'AdminController@save_slider')->name('cmo.save_slider');
+    Route::put('update/slider/{id}', 'OperationalController@sliderUpdate')->name('cmo.update.slider');
+    Route::get('delete/sliders/{id}', 'AdminController@delete_sliders')->name('cmo.delete_sliders');
+
+    //Tourism
+    Route::get('tourist-sites', 'TourismController@cities')->name('cmo.cities');
+    Route::get('city/{slug}', 'TourismController@city')->name('cmo.city');
+    Route::post('save-city', 'TourismController@save_city')->name('cmo.save_city');
+    Route::put('update-city/{slug}', 'TourismController@update_city')->name('cmo.update.city');
+    Route::put('add_city_images/{slug}', 'TourismController@add_city_images')->name('cmo.add_city_images');
+    Route::get('delete-city/{slug}', 'TourismController@deleteCity')->name('cmo.delete.city');
+
+
+
+    // PAGES CONTENTS TABLE
+    Route::get('pages-contents', 'PageContentController@pagescontents')->name('cmo.pagescontents');
+    Route::post('pages-contents/privacy', 'PageContentController@savePrivacyPolicy')->name('cmo.pagescontents.save.privacy');
+    Route::post('pages-contents/about', 'PageContentController@saveAboutUs')->name('cmo.pagescontents.save.aboutus');
+    Route::post('pages-contents/about-section-one', 'PageContentController@saveAboutUsSection1')->name('cmo.pagescontents.saveAboutUsSection1');
+    Route::post('pages-contents/about-section-two', 'PageContentController@saveAboutUsSection2')->name('cmo.pagescontents.saveAboutUsSection2');
+    Route::post('pages-contents/about-section-three', 'PageContentController@saveAboutUsSection3')->name('cmo.pagescontents.saveAboutUsSection3');
+    Route::post('pages-contents/benefitsofefc', 'PageContentController@saveBenefitsofEfcontact')->name('cmo.pagescontents.save.benefitsofefc');
+    Route::post('pages-contents/termofuse', 'PageContentController@saveTermOfUse')->name('cmo.pagescontents.save.termofuse');
+
+
+}); //CMO Middleware protection end here
+
+Route::prefix('data-officer')->middleware(['data'])->group(function () { //Data Entry Officer Middleware protection start here
+
+    Route::get('dashboard', 'DashboardController@admin')->name('data.dashboard');
+
+    Route::get('notification/all', 'AdminController@allNotification')->name('data.notification.all');
+    Route::post('notification/general/send', 'NotificationController@GeneralNofications')->name('data.notification.general.send');
+    Route::post('notification/send', 'AdminController@sendNotification')->name('data.notification.send');
+    Route::get('notification/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('data.notification.markallasread');
+    Route::get('profile/', 'AdminController@viewProfile')->name('data.profile');
+
+   Route::get('send-email', 'AdminController@send_email')->name('data.send_email');
+   Route::get('create-sms', 'AdminController@sendSms')->name('data.send_sms');
+
+   Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
+   Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
+
+
+}); //Data Entry Officer Middleware protection end here
 
 Route::post ( '/searchonservices',  'ServiceController@searchonservices')->name('searchonservices');
 

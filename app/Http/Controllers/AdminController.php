@@ -21,7 +21,11 @@ use App\Agent;
 use App\Event;
 use App\Subscription;
 use App\UserFeedback;
+<<<<<<< HEAD
 use App\ProviderSubscription;
+=======
+use App\Helpers\SmsHelper;
+>>>>>>> 1d8757f44c35d8412e4957b3cfc29dae805d7ce6
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -141,6 +145,60 @@ class AdminController extends Controller
         return redirect()->back()->with($success_notification);
   }
 
+  public function allData()
+  {
+    $admins = User::where('role', '=', 'data')->get();
+
+    return view('admin.user.data', [
+      'admins' => $admins
+    ]);
+  }
+
+  public function add_data()
+  {
+    return view('admin.user.add_data_officer');
+  }
+
+  public function submit_data(Request $request)
+  {
+    $data = array(
+            'name'   => $request->name,
+            'email'   => $request->email,
+            'password' => $request->password,
+        );
+
+      $validator = \Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users|max:255',
+            'password' => 'required|string|min:6',
+        ]);
+
+        if($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        }
+
+        $user = new User;
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($data['password']);
+        $user->role = 'data';
+        $user->status = 1;
+
+        $user->save();
+
+        if($user->save())
+        {
+          $success_notification = array(
+                'message' => 'Data Entry Officer successfully added!',
+                'alert-type' => 'success'
+            );
+        }
+
+        return redirect()->back()->with($success_notification);
+  }
+
   public function submit_admin(Request $request)
   {
     $data = array(
@@ -181,6 +239,84 @@ class AdminController extends Controller
         return redirect()->back()->with($success_notification);
   }
 
+  public function send_email()
+  {
+    $agents_phone = Agent::all();
+    $plucked = $agents_phone->pluck('email')->toArray();
+
+    $sellers = DB::table('users')->where('role', '=', 'seller')->get();
+    $plucked_email = $sellers->pluck('email')->toArray();
+
+    $buyers = DB::table('users')->where('role', '=', 'buyer')->get();
+    $plucked_emailplucked_email = $sellers->pluck('email')->toArray();
+
+    $email_addresses = implode(',', array_merge($plucked, $plucked_email, $plucked_email));
+
+    return view('admin.data_entry.send_email', [
+      'email_addresses' => $email_addresses
+    ]);
+  }
+
+  public function sendSms()
+  {
+    $agents_phone = Agent::all();
+    $plucked = $agents_phone->pluck('phone')->toArray();
+
+    $sellers = DB::table('users')->where('role', '=', 'seller')->get();
+    $plucked_phone = $sellers->pluck('phone')->toArray();
+
+    $buyers = DB::table('users')->where('role', '=', 'buyer')->get();
+    $plucked_buyer_phone = $sellers->pluck('phone')->toArray();
+
+    $phone_numbers = implode(',', array_merge($plucked, $plucked_phone, $plucked_buyer_phone));
+
+    return view('admin.data_entry.send_sms', [
+      'phone_numbers' => $phone_numbers,
+    ]);
+  }
+
+  public function submit_sms(Request $request)
+  {
+
+    $this->validate($request, [
+      'phone' => 'required',
+      'subject' => 'nullable',
+      'message' => 'required'
+    ]);
+
+    // dd($request->all());
+    $phone = $request->phone;
+    // dd($phone);
+    $message = $request->message;
+    $sender = 'EFContact';
+
+    try {
+      SmsHelper::send_sms($message, $phone, $sender);
+
+        $sent_notification = array(
+          'message' => 'SMS sent successfully!',
+          'alert-type' => 'success'
+      );
+    }
+    catch(\Exception $e){
+
+    }
+
+    return redirect()->back()->with($sent_notification);
+
+  }
+
+  public function submitEmail(Request $request)
+  {
+    
+    $this->validate($request, [
+      'phone' => 'required',
+      'subject' => 'required',
+      'message' => 'required'
+    ]);
+
+
+  }
   public function lat()
   {
 
