@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Message;
 use App\Notification;
 use App\State;
+use App\Agent;
+use App\Refererlink;
 use Image;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
@@ -453,6 +455,15 @@ public function badgeNotice()
             'balance' => $balance,
             'total_pending' => $total_pending
         ]);
+    }
+
+
+     public function myreferrals()
+    {
+        // $myreferrals = Auth::user()->referals;
+
+        $myreferrals = Agent::find(50)->referals;
+         return view('seller.myreferrals', compact('myreferrals'));
     }
 
 }

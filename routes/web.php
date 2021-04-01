@@ -307,7 +307,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/dashboard/service/update/{slug}', 'SellerController@viewServiceUpdate')->name('service.update.view');
 
 
-        Route::get('my-referrals/', 'OperationalController@myreferrals')->name('provider.myreferrals');
+        Route::get('my-referrals/', 'SellerController@myreferrals')->name('provider.myreferrals');
         Route::get('client-feedbacks/', 'OperationalController@clientfeedbacks')->name('provider.clientfeedbacks.all');
         Route::get('totalservicelikes/', 'OperationalController@sellerLikesCount')->name('provider.totalservicelikes');
         Route::get('my-favourites/', 'OperationalController@myFavourites')->name('provider.myfavourites');

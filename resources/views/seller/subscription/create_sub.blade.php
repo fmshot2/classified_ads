@@ -54,7 +54,9 @@
         	<p class="page-description text-danger">Here, You Can Request To Extend Your Subscription.</p>
         	<h3 class="page-title">Get a New Subscription <small class="infoLinkNote">(<a data-toggle="modal"
         		data-target="#theinfoModal">How it works?</a>)</small></h3>
-        			<p>Your Subscription ends:<span><h1>{{ Carbon\Carbon::parse($current_subscription_end_date)->format('d-m-Y') }}</h1></span></p>
+                @if($current_subscription_end_date)
+        			<p>Your Subscription ends:<span><h1>{{  Carbon\Carbon::parse($current_subscription_end_date)->format('d-m-Y')  }}</h1></span></p>
+                @endif
         </section>
 
         <section class="content">
