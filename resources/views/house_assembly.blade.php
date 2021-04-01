@@ -173,23 +173,19 @@
             <div class="container-fluid">
                 <div class="row">
                     @if ($states)
-                        @foreach ($states as $state)
-                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="team-1">
+                        @foreach ($states as $key=>$state)
+                            <div class="col-lg-2 col-md-6 col-sm-6">
+                                <div class="team-1" style="background-color: #fff">
                                     <div class="team-photo">
                                         <a href="#">
-                                            <img src="img/avatar/avatar-7.jpg" alt="agent-2" class="img-fluid">
+                                            <img src="img/avatar/avatar-{{ $key + 1}}.jpg" alt="agent-2" class="img-fluid">
                                         </a>
                                     </div>
                                     <div class="team-details">
                                         <h5><a href="agent-detail.html">Martin Smith</a></h5>
                                         <h6>Web Developer</h6>
-                                        <ul class="social-list clearfix">
-                                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
-                                            <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
-                                        </ul>
+                                        <h5 style="font-weight: 600">{{ $state->name }}</h5>
+
                                     </div>
                                 </div>
                             </div>
