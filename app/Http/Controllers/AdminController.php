@@ -21,6 +21,7 @@ use App\Agent;
 use App\Event;
 use App\Subscription;
 use App\UserFeedback;
+use App\Helpers\SmsHelper;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -235,14 +236,82 @@ class AdminController extends Controller
 
   public function send_email()
   {
-    return view('admin.data_entry.send_email');
+    $agents_phone = Agent::all();
+    $plucked = $agents_phone->pluck('email')->toArray();
+
+    $sellers = DB::table('users')->where('role', '=', 'seller')->get();
+    $plucked_email = $sellers->pluck('email')->toArray();
+
+    $buyers = DB::table('users')->where('role', '=', 'buyer')->get();
+    $plucked_emailplucked_email = $sellers->pluck('email')->toArray();
+
+    $email_addresses = implode(',', array_merge($plucked, $plucked_email, $plucked_email));
+
+    return view('admin.data_entry.send_email', [
+      'email_addresses' => $email_addresses
+    ]);
   }
 
-  public function send_sms()
+  public function sendSms()
   {
-    return view('admin.data_entry.send_sms');
+    $agents_phone = Agent::all();
+    $plucked = $agents_phone->pluck('phone')->toArray();
+
+    $sellers = DB::table('users')->where('role', '=', 'seller')->get();
+    $plucked_phone = $sellers->pluck('phone')->toArray();
+
+    $buyers = DB::table('users')->where('role', '=', 'buyer')->get();
+    $plucked_buyer_phone = $sellers->pluck('phone')->toArray();
+
+    $phone_numbers = implode(',', array_merge($plucked, $plucked_phone, $plucked_buyer_phone));
+
+    return view('admin.data_entry.send_sms', [
+      'phone_numbers' => $phone_numbers,
+    ]);
   }
 
+  public function submit_sms(Request $request)
+  {
+
+    $this->validate($request, [
+      'phone' => 'required',
+      'subject' => 'nullable',
+      'message' => 'required'
+    ]);
+
+    // dd($request->all());
+    $phone = $request->phone;
+    // dd($phone);
+    $message = $request->message;
+    $sender = 'EFContact';
+
+    try {
+      SmsHelper::send_sms($message, $phone, $sender);
+
+        $sent_notification = array(
+          'message' => 'SMS sent successfully!',
+          'alert-type' => 'success'
+      );
+    }
+    catch(\Exception $e){
+
+    }
+
+    return redirect()->back()->with($sent_notification);
+
+  }
+
+  public function submitEmail(Request $request)
+  {
+    
+    $this->validate($request, [
+      'phone' => 'required',
+      'subject' => 'required',
+      'message' => 'required'
+    ]);
+
+
+  }
   public function lat()
   {
 

@@ -78,6 +78,7 @@ Route::middleware(['accountant'])->group(function() {
 
     Route::post('/accountant/make-payment/{id}', 'AccountantController@makePayment')->name('make_payment');
     Route::post('/accountant/pay-due/{id}', 'AccountantController@makePayment1')->name('pay.due');
+    Route::post('/accountant/pay-agent-due/{id}', 'AccountantController@makePayment2')->name('pay.agent.due');
     Route::get('/accountant/view-payment/{id}', 'AccountantController@viewPayment')->name('accountant.view.payment');
     // Route::get('/accountant/print/{id}', 'AccountantController@printHistory')->name('print.history');
 
@@ -85,9 +86,15 @@ Route::middleware(['accountant'])->group(function() {
     Route::get('/accountant/successful-agent-payments', 'AccountantController@paidPayments')->name('accountant.paid.agent.payments');
     Route::get('/accountant/all-agent-payments', 'AccountantController@allPayments')->name('accountant.all.agent.payments');
 
-    //get all due payments
-    Route::get('/accountant/due-payments', 'AccountantController@viewDuePayments')->name('accountant.all.due.payments');
-    Route::get('/accountant/settled-payments', 'AccountantController@settledPayments')->name('accountant.settled.payments');
+    //get seller due payments
+    Route::get('/accountant/seller-due-payments', 'AccountantController@viewDuePayments')->name('accountant.all.due.payments');
+    Route::get('/accountant/seller-settled-payments', 'AccountantController@settledPayments')->name('accountant.settled.payments');
+
+    Route::get('/accountant/agent-due-payments', 'AccountantController@agentDuePayments')->name('accountant.agent.due.payments');
+    Route::get('/accountant/agent-settled-payments', 'AccountantController@agentSettledPayments')->name('accountant.agent.settled.payments');
+
+    Route::post('/accountant/generate-payment', 'AccountantController@generatePayment')->name('accountant.generate.payment');
+    Route::post('/accountant/generate-seller-payment', 'AccountantController@generateSellerPayment')->name('accountant.generate.seller.payment');
 });
 //Accountant Middleware ends here
 
@@ -662,7 +669,14 @@ Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //S
     Route::post('pages-contents/termofuse', 'PageContentController@saveTermOfUse')->name('superadmin.pagescontents.save.termofuse');
 
     Route::get('send-email', 'AdminController@send_email')->name('superadmin.send_email');
-    Route::get('send-sms', 'AdminController@send_sms')->name('superadmin.send_sms');
+    Route::get('create-sms', 'AdminController@sendSms')->name('superadmin.send_sms');
+
+   Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
+   Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
+   
+
+   Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
+   Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
     //accountant routes
     Route::get('all-accountants', 'AdminController@allAccountants')->name('superadmin.all_accountants');
 
@@ -753,7 +767,10 @@ Route::prefix('data-officer')->middleware(['data'])->group(function () { //Data 
     Route::get('profile/', 'AdminController@viewProfile')->name('data.profile');
 
    Route::get('send-email', 'AdminController@send_email')->name('data.send_email');
-   Route::get('send-sms', 'AdminController@send_sms')->name('data.send_sms');
+   Route::get('create-sms', 'AdminController@sendSms')->name('data.send_sms');
+
+   Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
+   Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
 
 
 }); //Data Entry Officer Middleware protection end here

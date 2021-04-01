@@ -41,14 +41,14 @@ Send Mail |
                                 <div class="col-md-6 col-sm-12">
 
 
-                                    <form class="form-horizontal form-element" method="POST" action="{{route('admin.submit.data')}} " enctype="multipart/form-data">
+                                    <form class="form-horizontal form-element" method="POST" action="{{route('data.submit.email')}} " enctype="multipart/form-data">
                                         {{ csrf_field() }}
 
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label for="site_name" class="control-label">Enter Email Address</label>
                                                 <small class="text text-danger">Separate email addresses with comma</small>
-                                                <input type="text" name="email" id="site_name" class="form-control" autofocus="" placeholder="Email Address" value="{{ old('email') }}">
+                                                <input type="text" name="email" id="site_name" class="form-control" autofocus="" placeholder="Email Address" value="{{ $email_addresses }}">
                                             </div>
                                             @if ($errors->has('email'))
 				                            <span class="helper-text" data-error="wrong" data-success="right">

@@ -39,16 +39,17 @@ Send SMS |
                         <div class="form-layout">
                             <div class="row mg-b-25">
                                 <div class="col-md-6 col-sm-12">
-
-
-                                    <form class="form-horizontal form-element" method="POST" action="{{route('admin.submit.data')}} " enctype="multipart/form-data">
+                                    {{-- lklkjkljsa --}}
+                                    
+                                    {{-- {{ $phone }} --}}
+                                    <form class="form-horizontal form-element" method="POST" action="{{route('data.submit.sms')}} " enctype="multipart/form-data">
                                         {{ csrf_field() }}
 
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label for="site_name" class="control-label">Enter Phone Numbers</label>
-                                                <small class="text text-danger">Separate phone numbers with comma</small>
-                                                <input type="text" name="phone" id="site_name" class="form-control" autofocus="" placeholder="Phone numbers" value="{{ old('phone') }}">
+                                                {{-- <small class="text text-danger">Separate phone numbers with comma</small> --}}
+                                                <input type="text" name="phone" id="site_name" class="form-control" autofocus="" placeholder="Phone numbers" value="{{ $phone_numbers }}">
                                             </div>
                                             @if ($errors->has('phone'))
 				                            <span class="helper-text" data-error="wrong" data-success="right">

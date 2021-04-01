@@ -37,8 +37,9 @@ All Due Payments |
 				<div class="box" >
 					<div class="box-header">
 						<h3 class="box-title">Due Payments</h3>
-					</div>
 
+					</div>
+					<button type="button" onclick="generatePayment()" class="btn btn-success">Generate Payment</button>
 					<!-- /.box-header -->
 					<div class="box-body table-responsive">
 						<table class="display table table-bordered data_table_main">
@@ -144,6 +145,33 @@ All Due Payments |
         
     }
     
+</script>
+<script type="text/javascript">
+	function generatePayment()
+	{
+		event.preventDefault();
+		var base_url = "{{ url('/') }}"
+       if (confirm("Are you sure you want to generate payment?")) {
+	       	$.ajax({
+	       		headers: {
+			    	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			  	},
+	            url: base_url + "/accountant/generate-seller-payment",
+	            method: 'POST',
+	            success: function(result)
+	            {
+	            	toastr.success("{{ Session::get('message') }}")
+	            	location.reload()
+	            }
+
+	        }); 
+
+       } else {
+        	toastr.error("{{ Session::get('message') }}")
+       		location.reload()
+       }
+
+	}
 </script>
 <script>
         function activateUser22(id) {
