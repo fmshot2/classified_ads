@@ -42,7 +42,7 @@ class ContactController extends Controller
             $email = $request->get('email');
             $subject = $request->get('subject');
             $message = $request->get('message');
-            $phone = $request->get('message');
+            $phone = $request->get('phone');
 
             Mail::to($email)->send(new ContactUs($email, $subject, $message));
             Mail::to('support@efcontact.com')->send(new ContactUsAdmin($name, $email, $subject, $message, $phone));

@@ -153,7 +153,7 @@
                                                 @for ($i = 1; $i < 4; $i++)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/seekingworks/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/seekingworks/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
+                                                            <img src="{{ asset('uploads/seekingworks/noserviceimage.png') }}" class="img-fluid glide-img noserviceimg" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endfor
@@ -174,7 +174,7 @@
                                                 @for ($i = 1; $i < 3; $i++)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/seekingworks/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/seekingworks/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
+                                                            <img src="{{ asset('uploads/seekingworks/noserviceimage.png') }}" class="img-fluid glide-img noserviceimg" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endfor
@@ -195,7 +195,7 @@
                                                 @for ($i = 1; $i < 2; $i++)
                                                     <li class="glide__slide">
                                                         <a data-lightbox="roadtrip" href="{{asset('uploads/seekingworks/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/seekingworks/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
+                                                            <img src="{{ asset('uploads/seekingworks/noserviceimage.png') }}" class="img-fluid glide-img noserviceimg" alt="{{$seekingWorkDetail->name}}">
                                                         </a>
                                                     </li>
                                                 @endfor
@@ -224,7 +224,7 @@
                                             @for ($i = 1; $i <= 4; $i++)
                                                 <li class="glide__slide">
                                                     <a data-lightbox="roadtrip" href="{{asset('uploads/seekingworks/noserviceimage.png')}}">
-                                                        <img src="{{ asset('uploads/seekingworks/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$seekingWorkDetail->name}}">
+                                                        <img src="{{ asset('uploads/seekingworks/noserviceimage.png') }}" class="img-fluid glide-img noserviceimg" alt="{{$seekingWorkDetail->name}}">
                                                     </a>
                                                 </li>
                                             @endfor
@@ -266,23 +266,29 @@
                                         @if ($seekingWorkDetail->gender)
                                         <p><strong>Gender: </strong>{{ $seekingWorkDetail->gender }}</p>
                                         @endif
+                                        @if ($seekingWorkDetail->marital_status)
+                                        <p><strong>Marital Status: </strong>{{ $seekingWorkDetail->marital_status }}</p>
+                                        @endif
+                                        @if ($seekingWorkDetail->education)
+                                        <p><strong>Education: </strong>{!! $seekingWorkDetail->education !!}</p>
+                                        @endif
+                                        @if ($seekingWorkDetail->still_studying)
+                                        <p><strong>Still Studying: </strong>{{ $seekingWorkDetail->highest_qualification }}</p>
+                                        @endif
                                         @if ($seekingWorkDetail->highest_qualification)
                                         <p><strong>Highest Qualification: </strong>{{ $seekingWorkDetail->highest_qualification }}</p>
                                         @endif
                                         @if ($seekingWorkDetail->employment_status)
                                         <p><strong>Employment Status: </strong>{{ $seekingWorkDetail->employment_status }}</p>
                                         @endif
+                                        @if ($seekingWorkDetail->expected_salary)
+                                        <p><strong>Expected Salary: </strong>{{ $seekingWorkDetail->expected_salary }}</p>
+                                        @endif
                                         @if ($seekingWorkDetail->work_experience)
                                         <p><strong>Work Experience: </strong>{!! $seekingWorkDetail->work_experience !!}</p>
                                         @endif
-                                        @if ($seekingWorkDetail->education)
-                                        <p><strong>Education: </strong>{!! $seekingWorkDetail->education !!}</p>
-                                        @endif
                                         @if ($seekingWorkDetail->certifications)
                                         <p><strong>Certification: </strong>{!! $seekingWorkDetail->certifications !!}</p>
-                                        @endif
-                                        @if ($seekingWorkDetail->marital_status)
-                                        <p><strong>Marital Status: </strong>{{ $seekingWorkDetail->marital_status }}</p>
                                         @endif
                                     </div>
                                 </div>

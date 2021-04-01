@@ -74,7 +74,6 @@ foreach($request->file('files') as $image)
             $category->image = json_encode($names);
 }
 */
-$slug = Str::random(5);
 
                 // Image set up
     // if ( $request->hasFile('thumbnail') ) {
@@ -172,11 +171,10 @@ $slug = Str::random(5);
        $present_user = Auth::user();
         $user_hasUploadedService = $present_user->hasUploadedService;
         if ($user_hasUploadedService == 1) {
-            $success_notification = array(
+            return redirect()->route('seller.service.show.service', ['slug' => $latest_service->slug])->with([
                 'message' => 'Service created successfully!',
                 'alert-type' => 'success'
-            );
-            return redirect()->route('seller.service.show.service', ['id' => $latest_service_id])->with($success_notification);
+            ]);
 
         }
         $present_user->hasUploadedService = 1;
@@ -194,11 +192,11 @@ $slug = Str::random(5);
         );
        //$this->saveReferLink();
         // return redirect()->route('seller/service/' . $latest_service_id);
-        return redirect()->route('seller.service.show.service', ['id' => $latest_service_id])->with($success_notification);
+        return redirect()->route('seller.service.show.service', ['slug' => $latest_service->slug])->with($success_notification);
 
         }
 
-        return redirect()->route('seller.service.show.service', ['id' => $latest_service_id]);
+        return redirect()->route('seller.service.show.service', ['slug' => $latest_service->slug]);
 
    }
 

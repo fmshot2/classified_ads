@@ -333,11 +333,12 @@
                                 {{-- <h5 class="text-muted text-center">There are no services yet within this category</h5> --}}
                             @endforelse
                         </div>
+                        @if ($category_services->isEmpty())
+                            <h5 class="text-muted text-center" style="margin-bottom: 20px;">There are no services yet within this category</h5>
+                        @endif
                     </div>
 
-                    @if ($category_services->isEmpty())
-                        <h5 class="text-muted text-center" style="margin-bottom: 20px;">There are no services yet within this category</h5>
-                    @endif
+
 
 
                     <div class="col-lg-3 col-md-12">

@@ -136,7 +136,7 @@ Route::post('dropzone/store', 'DropzoneController@dropzoneStore')->name('dropzon
 
 Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('serviceDetail');
-Route::get('/job-applicant/details/{slug}', 'OperationalController@seekingWorkDetails')->name('job.applicant.detail');
+Route::get('job-applicant/details/{slug}', 'OperationalController@seekingWorkDetails')->name('job.applicant.detail');
 Route::post('saveContacts', 'ServiceController@saveContacts')->name('saveContacts');
 Route::get('/contacts', 'ServiceController@showContacts')->name('contacts');
 Route::get('/allservices', 'ServiceController@allServices')->name('allServices');
@@ -256,6 +256,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
     {
         Route::get('/dashboard/make_withdrawal_request/{refer_id}', 'DashboardController@make_withdrawal_request')->name('seller.make_withdrawal_request');
         Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('service_detail_4_provider');
+        Route::get('/job-applicant/details/{slug}', 'OperationalController@seekingWorkPreviewDetails')->name('job.applicant.preview.detail');
 
 
         Route::get('/dashboard', 'DashboardController@seller')->name('seller.dashboard');
@@ -275,9 +276,12 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::post('/service/createpay4Advert', 'BadgeController@createpay4Advert');
         Route::get('/service/adverts', 'BadgeController@adverts')->name('seller.service.adverts');
 
-        Route::get('/service/{id}', [ServiceImageController::class, 'showService'])->name('seller.service.show.service');
+        Route::get('/service/{slug}', [ServiceImageController::class, 'showService'])->name('seller.service.show.service');
+        Route::get('/seekingwork/{slug}', [OperationalController::class, 'showCV'])->name('seller.show.cv');
         Route::post('/service/images/store/{id}', [ServiceImageController::class, 'imagesStore'])->name('service.images.store');
+        Route::post('/seekingwork/images/store/{id}', [OperationalController::class, 'imagesSeekingWorkStore'])->name('seekingwork.images.store');
         Route::get('/service/images/delete/{id}', [ServiceImageController::class, 'imagesDelete'])->name('service.image.delete');
+        Route::get('/seekingwork/images/delete/{seekingworkid}/{id}', [OperationalController::class, 'imagesDelete'])->name('seekingwork.image.delete');
         Route::get('/service/post_advert', 'SellerController@post_advert')->name('seller.post_advert');
 
         Route::get('/service/create_service_page', 'ServiceController@create_service_page')->name('create_service_page');

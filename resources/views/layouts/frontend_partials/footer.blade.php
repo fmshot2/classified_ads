@@ -3,7 +3,7 @@
       <div class="row">
         <div class="col-lg-8 footer-cta-text">
           <h2><a href="{{ route('register') }}">Register Your Service Today!</a></h2>
-          <span>Take advantage of our platform to showcase your skills and services to a wide range of clients.</span>
+          <span>Take advantage of our platform to showcase your skills, products and services to customers and clients.</span>
         </div>
         <div class="col-lg-4 footer-cta-btn text-center">
             <a class="btn btn-success" href="{{ route('register') }}"><i class="fa fa-user-plus"></i> Register Now!</a>
@@ -109,23 +109,21 @@
                     </div>
                 </div>
             </div>
- <form action="" method="POST">
 
-                        </form>
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                 <div class="footer-item clearfix">
                     <h4>Subscribe</h4>
                     <div class="s-border"></div>
                     <div class="m-border"></div>
                     <div class="Subscribe-box">
-                        <p>Subscribe to get the latest services.</p>
-                        <form action="{{route('subscribe')}}" method="POST">
-                                {{ csrf_field() }}
-
-                                <input type="email" required class="form-contact form-control" name="email" placeholder="Enter Your Email">
-                                <button type="submit" name="submitNewsletter" class="btn btn-block text-white bg-warning">
-                                    Subscribe
-                                </button>
+                        <p>Subscribe to get the latest news, updates and promotional offers.</p>
+                        {{-- <form action="{{route('subscribe')}}" method="POST"> --}}
+                        <form id="subscribeForm" method="POST">
+                            @csrf
+                            <input type="email" required class="form-contact form-control" id="email" name="email" placeholder="Enter Your Email">
+                            <button type="submit" name="submitNewsletter" id="subscribeFooterBtn" class="btn btn-block text-white bg-warning">
+                                Subscribe
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -196,11 +194,11 @@
                     {{-- <button type="button" class="close" data-dismiss="modal">&times;</button> --}}
                 </div>
                 <div class="modal-body">
-                    <p>Subscribe to get updates on our latest services.</p>
-                    <form action="{{route('subscribe')}}" method="POST">
-                        {{ csrf_field() }}
-                        <input type="email" required class="form-contact form-control" name="email" placeholder="Enter Your Email">
-                        <button type="submit" name="submitNewsletter" class="btn btn-block text-white bg-warning" style="margin-top: 10px">
+                    <p>Subscribe to get the latest news, updates and promotional offers.</p>
+                    <form id="subscribeForm" method="POST">
+                        @csrf
+                        <input type="email" required class="form-contact form-control" id="email" name="email" placeholder="Enter Your Email">
+                        <button type="submit" name="submitNewsletter" id="subscribeFooterBtn" class="btn btn-block text-white bg-warning">
                             Subscribe
                         </button>
                     </form>
@@ -233,3 +231,35 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#subscribeFooterBtn").click(function(e){
+                e.preventDefault();
+
+                $("#subscribeFooterBtn").text('Please wait, subscribing!!!')
+                $("#subscribeFooterBtn").css({"opacity": "0.5", "cursor":"default"});
+
+                var _token = $("input[name='_token']").val();
+                var email = $("#email").val();
+
+                $.ajax({
+                    url: '/subscribe',
+                    method:'POST',
+                    data: {_token:_token, email },
+                    success: function(data) {
+                        $("#email").val('')
+                        $("#subscribeFooterBtn").css({"opacity": "1", "cursor":"pointer"});
+                        $("#subscribeFooterBtn").text('Subscribe')
+
+                        toastr.success('You are successfully subscribed to our mailing list!')
+                    },
+                    error: function(error){
+                        toastr.error('Subscription Failed! Try again.')
+                        $("#subscribeFooterBtn").text('Subscribe')
+                        console.log(error)
+                    }
+                });
+            });
+        })
+    </script>
