@@ -858,14 +858,14 @@ class OperationalController extends Controller
     public function seekingWorkDetails($slug)
     {
 
-        $seekingWorkDetail = SeekingWork::where('slug', $slug)->firstorFail();
+        $seekingWorkDetail = SeekingWork::where('slug', $slug)->where('status', 1)->firstorFail();
 
         $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
         $approvedServices = Service::where('status', 1)->with('user')->get();
         $categories = Category::paginate(8);
         $seekingWorkDetail_id = $seekingWorkDetail->id;
         $seekingWorkDetail_likes = Like::where('service_id', $seekingWorkDetail_id)->count();
-        $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$seekingWorkDetail_id])->firstOrFail();
+        $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$seekingWorkDetail_id])->first();
         $service_category_id = $seekingWorkDetail->category_id;
         $seekingWorkDetail_state = $seekingWorkDetail->state;
         $images_4_service = $seekingWorkDetail->images;
