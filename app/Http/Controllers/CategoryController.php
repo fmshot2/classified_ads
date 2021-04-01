@@ -433,4 +433,20 @@ return $this->index();
         return response()->json($sub_categories);
     }
 
+
+
+
+
+    public function getSubCategoryList($slug)
+    {
+        $category = Category::where('slug', $slug)->first();
+
+        $sub_category = DB::table("sub_categories")
+        ->where("category_id",$category->id)->orderBy('name')
+        ->get();
+        $sub_categories = json_encode($sub_category);
+
+        return response()->json($sub_categories);
+    }
+
 }

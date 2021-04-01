@@ -1,3 +1,12 @@
+<div style="background-color: rgba(255, 255, 255, 0.76); padding: 0px; border-top: 10px solid #03a84d; border-bottom: 10px solid #03a84d;">
+    {{-- border-top: 5px solid #03a84d65; border-bottom: 5px solid #03a84d65; --}}
+    <marquee onmouseover="this.stop();" onmouseout="this.start();" direction="left" style="color: black; font-size: 15px; padding-top: 8px;">
+        <strong>
+            No. 1 e-COMMERCE DIRECTORY IN NIGERIA    ****    PROMOTING EMPLOYMENT BY GIVING YOUTHS ACCESS TO PROSPECTIVE EMPLOYERS NATIONWIDE    ****    PROVIDE GOVERNMENT SKILL ACQUISITION BENEFICIARIES ACCESS TO MARKET & ADVERTISE THEIR PRODUCTS AND SERVICES    ****    PROMOTING THE SMALL AND MEDIUM BUSINESS ENTERPRISES. (SMES)    ****    PROVIDE A PLATFORM FOR EMPLOYERS TO POST THEIR JOB OPENINGS    ****    DRAWING BUSINESS TRAFFIC TO BUSINESSES FOR BETTER INCOME **** HELPING ARTISANS-CUSTOMERS FIND EACH OTHER
+        </strong>
+    </marquee>
+</div>
+
 <div class="banner homepage-top-banner" id="banner">
 	<div id="bannerCarousole" class="carousel slide" data-ride="carousel" data-interval="5000">
 		<div class="carousel-inner">

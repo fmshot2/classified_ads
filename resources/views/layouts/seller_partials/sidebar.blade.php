@@ -42,6 +42,20 @@
         </li>
 
 
+        <li class="treeview {{ url()->current() == route('seller.sub.all') ? 'background-color: #cc8a19' : '' }}">
+            <a href="#">
+                <i class="fa fa-home"></i>
+                <span> My Subscriptions </span>
+                <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href=" {{ route('seller.sub.create') }} "><i class="fa fa-circle-o"></i> Create New Subscription</a></li>
+                <!-- <li><a href=" {{ route('seller.sub.all') }} "><i class="fa fa-circle-o"></i> All My Subscriptions </a></li> -->
+            </ul>
+        </li>
+
 
 
         <li class="{{ url()->current() == route('seller.message.all') ? 'active' : '' }}">
@@ -118,6 +132,7 @@
             </span>
           </a>
         </li>
+
 
         <li class="{{ url()->current() == route('provider.clientfeedbacks.all') ? 'active' : '' }}">
           <a href=" {{route ('provider.clientfeedbacks.all') }}">

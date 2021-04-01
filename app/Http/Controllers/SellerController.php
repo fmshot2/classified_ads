@@ -131,7 +131,7 @@ $slug = Str::random(5);
                 $image->move(public_path('uploads/services/'),$file_name);
 
                 $image_resize = Image::make(public_path('uploads/services/').$file_name);
-                $image_resize->fit(300, 300);
+                $image_resize->resize(300, 300);
                 $image_resize->save(public_path('uploads/services/' .$file_name));
 
                 $service->images()->create(['image_path' => $file_name]);

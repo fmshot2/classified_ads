@@ -6,6 +6,9 @@
         border-radius: 50px !important;
         border: 2px solid #e7a32d9d !important;
     }
+    .search-area-2 {
+        padding-top: 5px !important;
+    }
     .search-section.bg-grea {
         background: #ca830921;
     }
@@ -30,7 +33,7 @@
         font-size: 15px !important;
         text-transform: uppercase;
         border-radius: 200px;
-        border: 2px solid #e7a32d9d;
+        border: 2px solid #e7a32d9d !important;
         padding: 15px 40px;
         background: #ffffff !important;
         color: #e7a32d !important;
@@ -41,14 +44,14 @@
         font-size: 14px !important;
         text-transform: uppercase;
         border-radius: 200px;
-        border: 2px solid #e7a32d9d;
+        border: 2px solid #e7a32d9d !important;
         padding: 15px 30px;
         background: #ffffff !important;
         color: #e7a32d !important;
         cursor: pointer;
         box-shadow: 0 0 0 rgb(204 169 44 / 40%);
     }
-    .search-section .location:hover, .search-section .jxcategory:hover{
+    .search-section .location:hover, .search-section .jxcategory:hover, .search-section .location:hover span, .search-section .jxcategory:hover span{
         background: #CA8309 !important;
         color: #ffffff !important;
         transition: .7s all;
@@ -169,13 +172,28 @@
         transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
     }
 
+    @media (min-width: 768px){
+        #desktopSearchForm{
+            display: block !important;
+            padding-top: 20px;
+        }
+        #mobileSearchForm{
+            display: none;
+        }
+    }
+
     @media (max-width: 768px){
+        #desktopSearchForm{
+            display: none;
+        }
+        #mobileSearchForm{
+            display: block !important;
+        }
         .searchInput{
             padding-top: 20px !important;
             padding-left: 20px !important;
             padding-bottom: 20px !important;
             border-radius: 50px !important;
-            border: 0 !important;
         }
         .search-section .navbar-top-post-btn {
             display: flex;
@@ -216,7 +234,33 @@
         .stateLGApopup{
             display: none;
         }
+        .form-group{
+            margin-bottom: 5px !important;
+        }
+        .showStateFg{
+            padding-left: 15px;
+        }
+        .showCatFg{
+            padding-right: 15px;
+        }
+        .categoriesModalList li a{
+            display: inline-block;
+            justify-content: space-evenly;
+        }
+        .categoriesModalList li a.selectSubOption{
+            color: #11a182;
+        }
     }
+
+    .buttontext{
+        width: 100px;
+        overflow: hidden;
+        white-space: nowrap;
+        display: block;
+        text-overflow: ellipsis;
+        color: #CA8309
+    }​
+    button{}
 </style>
 <div id="" class="search-section search-area-2 bg-grea hm-search-form-comp">
 
@@ -224,24 +268,58 @@
         <div class="search-section-area">
             <div class="search-area-inner">
                 <div class="container">
-                    {{-- <form action="{{route('search3')}}" method="GET" class="desktop-top-search-form"> --}}
-                    <form action="{{route('dap.search')}}" method="GET">
+                    <form id="desktopSearchForm" action="{{route('dap.search')}}" method="GET">
                         <div class="row">
-                            <div class="col-lg-2 col-md-4 col-sm-6">
-                                <button type="button" data-toggle="modal" data-target="#showStatesModal" id="searchStateBtn" class="btn btn-success location"><i class="fa fa-map-marker"></i> All States</button>
-                            </div>
-                            <div class="col-lg-6 col-md-4 col-sm-12">
+                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6 showStateFg">
                                 <div class="form-group">
-                                    <input type="text" name="keyword" id="jxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g Barber) - Search nationwide or select a state.">
+                                    <button type="button" data-toggle="modal" data-target="#showStatesModal" id="searchStateBtn" class="btn btn-success location"><i class="fa fa-map-marker"></i> All States</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-4 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <input type="text" name="keyword" id="jxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g Barber, Plumber...)">
                                     <div id="service_list" class="ajaxSearchList"></div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-4 col-sm-6">
-                                <button type="button" data-toggle="modal" data-target="#showCategoriesModal" id="searchCategoryBtn" class="btn btn-success jxcategory"><i class="fa fa-archive"></i> All Categories</button>
+                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6 showCatFg">
+                                <div class="form-group">
+                                    <button type="button" data-toggle="modal" data-target="#showCategoriesModal" id="searchCategoryBtn" class="btn btn-success jxcategory"><i class="fa fa-archive"></i> All Categories</button>
+                                </div>
                             </div>
                             <input type="hidden" name="category" id="searchCategoryInput" value="">
+                            <input type="hidden" name="subcategory" id="searchSubCategoryInput" value="">
                             <input type="hidden" name="state" id="searchStateInput" value="">
                             <input type="hidden" name="city" id="searchLGAInput" value="">
+                            <div class="col-lg-2">
+                                <div class="mr-3 navbar-top-post-btn">
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form id="mobileSearchForm" action="{{route('dap.search')}}" method="GET">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6 showStateFg">
+                                <div class="form-group">
+                                    <button type="button" data-toggle="modal" data-target="#showMobileStatesModal" id="searchMobileStateBtn" class="btn btn-success location"><i class="fa fa-map-marker"></i> All States</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6 showCatFg">
+                                <div class="form-group">
+                                    <button type="button" data-toggle="modal" data-target="#showMobileCategoriesModal" id="searchMobileCategoryBtn" class="btn btn-success jxcategory"><i class="fa fa-archive"></i> All Categories</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-4 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <input type="text" name="keyword" id="mobilejxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g Barber, Plumber...)">
+                                    <div id="mobile_service_list" class="ajaxSearchList"></div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="category" id="searchMobileCategoryInput" value="">
+                            <input type="hidden" name="subcategory" id="searchMobileSubCategoryInput" value="">
+                            <input type="hidden" name="state" id="searchMobileStateInput" value="">
+                            <input type="hidden" name="city" id="searchMobileLGAInput" value="">
                             <div class="col-lg-2">
                                 <div class="mr-3 navbar-top-post-btn">
                                     <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
@@ -278,7 +356,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-body">
-                    @if ($categories)
+                    @if (isset($categories))
                         <h4 class="searchFilterModalTitle">All Categories {{-- -
                             {{ $allgeneralservices->count() ? $allgeneralservices->count().' service' : 'No service yet!'  }}{{ $allgeneralservices->count() > 1 ? 's' : ''  }} --}}</h4>
                         <p style="margin-top: -20px">Search in all categories or select a category here. 👇</p>
@@ -343,7 +421,211 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-body">
-                    @if ($allgeneralstates)
+                    @if (isset($allgeneralstates))
+                        <h4 class="searchFilterModalTitle">All States</h4>
+                        <p style="margin-top: -20px">Search nationwide or select a state here. 👇</p>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <ul class="categoriesModalList">
+                                    @foreach ($allgeneralstates as $allgeneralstate)
+                                        @if ($loop->index <= 12)
+                                            <li data-dismiss="modal" class="popover__wrapper">
+                                                <a onclick="addStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}</a>
+                                                <div class="popover__content">
+                                                    <ul>
+                                                        @if(isset($allgeneralstate->local_governments))
+                                                            @foreach($allgeneralstate->local_governments as $local_government)
+                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                            @endforeach
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="categoriesModalList">
+                                    @foreach ($allgeneralstates as $allgeneralstate)
+                                        @if ($loop->index > 12 && $loop->index <= 24)
+                                            <li data-dismiss="modal" class="popover__wrapper">
+                                                <a onclick="addStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}</a>
+                                                <div class="popover__content">
+                                                    <ul>
+                                                        @if(isset($allgeneralstate->local_governments))
+                                                            @foreach($allgeneralstate->local_governments as $local_government)
+                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                            @endforeach
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="categoriesModalList">
+                                    @foreach ($allgeneralstates as $allgeneralstate)
+                                        @if ($loop->index > 24)
+                                            <li data-dismiss="modal" class="popover__wrapper">
+                                                <a onclick="addStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}</a>
+                                                <div class="popover__content">
+                                                    <ul>
+                                                        @if(isset($allgeneralstate->local_governments))
+                                                            @foreach($allgeneralstate->local_governments as $local_government)
+                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                            @endforeach
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SEARCH MOBILE CATEGORIES MODAL -->
+
+<div class="sCatModal">
+    <div id="showMobileCategoriesModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content" style="border: 0">
+                <div data-dismiss="modal" style="width: 100%; display: flex; justify-content: flex-end; padding: 5px 10px; color: rgb(235, 94, 94); cursor: pointer;"> <i style="padding-top: 2px;" class="fa fa-close"></i> Close</div>
+
+                <div class="modal-body">
+                    @if (isset($categories))
+                        <h4 class="searchFilterModalTitle">All Categories {{-- -
+                            {{ $allgeneralservices->count() ? $allgeneralservices->count().' service' : 'No service yet!'  }}{{ $allgeneralservices->count() > 1 ? 's' : ''  }} --}}</h4>
+                        <p style="margin-top: -20px">Search in all categories or select a category here. 👇</p>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <ul class="categoriesModalList">
+                                    @foreach ($categories as $category)
+                                        @if ($loop->index <= 12)
+                                            <li>
+                                                <a data-dismiss="modal" onclick="addMobileCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
+                                                </a>
+                                                <a class="selectSubOption" data-toggle="modal" data-target="#showSubMobileCategoriesModal{{ $category->id }}" href="#">- or Select City</a>
+                                            </li>
+
+                                            <div id="showSubMobileCategoriesModal{{ $category->id }}" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content" style="border: 0; box-shadow: 0 0 5px rgba(0, 0, 0, 0.308)">
+                                                        <div data-dismiss="modal" style="width: 100%; display: flex; justify-content: flex-end; padding: 5px 10px; color: rgb(235, 94, 94); cursor: pointer;"> <i style="padding-top: 2px;" class="fa fa-close"></i> Close</div>
+
+                                                        <div class="modal-body">
+                                                            <ul class="categoriesModalList">
+                                                                @if ($category->sub_categories)
+                                                                    @foreach ($category->sub_categories as $subcategory)
+                                                                        <li data-dismiss="modal" onclick="addMobileSubCategoryToForm('{{ $subcategory->name }}', '{{ $subcategory->slug }}')">{{ $subcategory->name }}</li>
+                                                                    @endforeach
+                                                                @else
+                                                                    <p>No Sub Category Here</p>
+                                                                @endif
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="categoriesModalList">
+                                    @foreach ($categories as $category)
+                                        @if ($loop->index > 12 && $loop->index <= 24)
+                                            <li>
+                                                <a data-dismiss="modal" onclick="addMobileCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
+                                                </a>
+                                                <a href="#">- or Select City</a>
+                                            </li>
+
+                                            <div id="showSubMobileCategoriesModal{{ $category->id }}" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content" style="border: 0; box-shadow: 0 0 5px rgba(0, 0, 0, 0.308)">
+                                                        <div data-dismiss="modal" style="width: 100%; display: flex; justify-content: flex-end; padding: 5px 10px; color: rgb(235, 94, 94); cursor: pointer;"> <i style="padding-top: 2px;" class="fa fa-close"></i> Close</div>
+
+                                                        <div class="modal-body">
+                                                            <ul class="categoriesModalList">
+                                                                @if ($category->sub_categories)
+                                                                    @foreach ($category->sub_categories as $subcategory)
+                                                                        <li data-dismiss="modal" onclick="addMobileSubCategoryToForm('{{ $subcategory->name }}', '{{ $subcategory->slug }}')">{{ $subcategory->name }}</li>
+                                                                    @endforeach
+                                                                @else
+                                                                    <p>No Sub Category Here</p>
+                                                                @endif
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <ul class="categoriesModalList">
+                                    @foreach ($categories as $category)
+                                        @if ($loop->index > 24)
+                                            <li>
+                                                <a data-dismiss="modal" onclick="addMobileCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
+                                                </a>
+                                                <a href="#">- or Select City</a>
+                                            </li>
+
+                                            <div id="showSubMobileCategoriesModal{{ $category->id }}" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content" style="border: 0; box-shadow: 0 0 5px rgba(0, 0, 0, 0.308)">
+                                                        <div data-dismiss="modal" style="width: 100%; display: flex; justify-content: flex-end; padding: 5px 10px; color: rgb(235, 94, 94); cursor: pointer;"> <i style="padding-top: 2px;" class="fa fa-close"></i> Close</div>
+
+                                                        <div class="modal-body">
+                                                            <ul class="categoriesModalList">
+                                                                @if ($category->sub_categories)
+                                                                    @foreach ($category->sub_categories as $subcategory)
+                                                                        <li data-dismiss="modal" onclick="addMobileSubCategoryToForm('{{ $subcategory->name }}', '{{ $subcategory->slug }}')">{{ $subcategory->name }}</li>
+                                                                    @endforeach
+                                                                @else
+                                                                    <p>No Sub Category Here</p>
+                                                                @endif
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SEARCH MOBILE STATES MODAL -->
+<div class="sStateModal" id="sStateModal">
+    <div id="showMobileStatesModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    @if (isset($allgeneralstates))
                         <h4 class="searchFilterModalTitle">All States</h4>
                         <p style="margin-top: -20px">Search nationwide or select a state here. 👇</p>
                         <div class="row">
@@ -444,57 +726,117 @@
             $('#service_list').fadeOut();
         });
 
+        $('#mobilejxservices').keyup(function(){
+            var query = $('#mobilejxservices').val();
+            if(query != '')
+            {
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{ route('ajax.search.result') }}",
+                    method:"GET",
+                    data:{service:query},
+                    success:function(data){
+                        $('#mobile_service_list').fadeIn();
+                        $('#mobile_service_list').html(data);
+                    }
+                });
+            }
+            else{
+                $('#mobile_service_list').hide();
+            }
+        });
+
+        $(document).on('click', 'li', function(){
+            $('#mobilejxservices').val($('#jxservices').text());
+            $('#mobile_service_list').fadeOut();
+        });
+
     });
-    // $(document).ready(function(){
-    //     $('#jxservices').keyup(function(){
-    //         var query = $(this).val();
-    //         console.log(query)
-    //         if(query != '')
-    //         {
-    //             var _token = $('input[name="_token"]').val();
-    //             $.ajax({
-    //                 url:"{{ route('ajax.search.result') }}",
-    //                 method:"GET",
-    //                 data:{service:query},
-    //                 success:function(data){
-    //                     $('#service_list').fadeIn();
-    //                     $('#service_list').html(data);
-    //                 }
-    //             });
-    //         }
-    //         else{
-    //             $('#service_list').hide();
-    //         }
-    //     });
 
-    //     $(document).on('click', 'li', function(){
-    //         $('#jxservices').val($(this).text());
-    //         $('#service_list').fadeOut();
-    //     });
+    /**
+        $(document).ready(function(){
+            $('#jxservices').keyup(function(){
+                var query = $(this).val();
+                console.log(query)
+                if(query != '')
+                {
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url:"{{ route('ajax.search.result') }}",
+                        method:"GET",
+                        data:{service:query},
+                        success:function(data){
+                            $('#service_list').fadeIn();
+                            $('#service_list').html(data);
+                        }
+                    });
+                }
+                else{
+                    $('#service_list').hide();
+                }
+            });
 
-    // });
+            $(document).on('click', 'li', function(){
+                $('#jxservices').val($(this).text());
+                $('#service_list').fadeOut();
+            });
+
+        });
+    **/
 
     function addStateToForm(thestate) {
-        document.getElementById('searchStateBtn').innerHTML = thestate
+        document.getElementById('searchStateBtn').innerHTML = '<span class="buttontext">' + thestate + '</span>'
         document.getElementById('searchStateInput').value = thestate
     }
     function addLGAToForm(thelga, thestate) {
-        document.getElementById('searchStateBtn').innerHTML = thelga
+        document.getElementById('searchStateBtn').innerHTML = '<span class="buttontext">' + thelga + '</span>'
         document.getElementById('searchLGAInput').value = thelga
         document.getElementById('searchStateInput').value = thestate
     }
     function addCategoryToForm(thecategoryname,thecategoryslug) {
-        document.getElementById('searchCategoryBtn').innerHTML = thecategoryname
+        document.getElementById('searchCategoryBtn').innerHTML = '<span class="buttontext">' + thecategoryname + '</span>'
         document.getElementById('searchCategoryInput').value = thecategoryslug
+        document.getElementById('searchSubCategoryInput').value = ''
+    }
+    function addSubCategoryToForm(thesubcategoryname,thesubcategoryslug,thecategoryslug) {
+        document.getElementById('searchMobileCategoryBtn').innerHTML = '<span class="buttontext">' + thesubcategoryname + '</span>'
+        document.getElementById('searchCategoryInput').value = thecategoryslug
+        document.getElementById('searchMobileSubCategoryInput').value = thesubcategoryslug
+    }
+
+    // Mobile Functions
+    function addMobileLGAToForm(thelga, thestate) {
+        document.getElementById('searchMobileStateBtn').innerHTML = '<span class="buttontext">' + thelga + '</span>'
+        document.getElementById('searchMobileLGAInput').value = thelga
+        document.getElementById('searchMobileStateInput').value = thestate
+    }
+    function addMobileStateToForm(thestate) {
+        document.getElementById('searchMobileStateBtn').innerHTML = '<span class="buttontext">' + thestate + '</span>'
+        document.getElementById('searchMobileStateInput').value = thestate
+    }
+    function addMobileCategoryToForm(thecategoryname,thecategoryslug) {
+        document.getElementById('searchMobileCategoryBtn').innerHTML = '<span class="buttontext">' + thecategoryname + '</span>'
+        document.getElementById('searchMobileCategoryInput').value = thecategoryslug
+        document.getElementById('searchMobileSubCategoryInput').value = ''
+    }
+    function addMobileSubCategoryToForm(thesubcategoryname,thesubcategoryslug,thecategoryslug) {
+        document.getElementById('searchMobileCategoryBtn').innerHTML = '<span class="buttontext">' + thesubcategoryname + '</span>'
+        document.getElementById('searchMobileSubCategoryInput').value = thesubcategoryslug
+        document.getElementById('searchMobileCategoryInput').value = thecategoryslug
     }
 
     $(document).mouseup(function(e) {
-        var container = $("#service_list");
+        var service_list_container = $("#service_list");
+        var mobile_service_list_container = $("#mobile_service_list");
 
         // if the target of the click isn't the container nor a descendant of the container
-        if (!container.is(e.target) && container.has(e.target).length === 0)
+        if (!service_list_container.is(e.target) && service_list_container.has(e.target).length === 0)
         {
-            container.hide();
+            service_list_container.hide();
+        }
+        if (!mobile_service_list_container.is(e.target) && mobile_service_list_container.has(e.target).length === 0)
+        {
+            mobile_service_list_container.hide();
         }
     });
 </script>
@@ -539,7 +881,7 @@
 
 
     $('#categories').on('change',function(){
-        var categoryID = $(this).val();
+        var categoryID = $('#categories').val();
         if(categoryID){
             $.ajax({
                 type:"GET",
@@ -562,6 +904,33 @@
         }else{
             $("#sub_category").empty();
         }
+    });
+
+
+    $('#state').on('change',function(){
+        var state_name = $('#state').val();
+        if(state_name){
+            $.ajax({
+                type:"GET",
+                url: 'api/get-city-list/'+state_name,
+                success:function(res){
+                    if(res){
+                        console.log(res);
+                        console.log(state_name);
+                        $("#city").empty();
+                        $.each(res,function(key,value){
+                            $("#city").append('<option value="'+key+'">'+value+'</option>');
+                        });
+
+                    }else{
+                        $("#city").empty();
+                    }
+                }
+            });
+        }else{
+            $("#city").empty();
+        }
+
     });
 
 
@@ -595,33 +964,6 @@
     });
 
 
-    $('#state').on('change',function(){
-        var state_name = $(this).val();
-        if(state_name){
-            $.ajax({
-                type:"GET",
-                url: 'api/get-city-list/'+state_name,
-                success:function(res){
-                    if(res){
-                        console.log(res);
-                        console.log(state_name);
-                        $("#city").empty();
-                        $.each(res,function(key,value){
-                            $("#city").append('<option value="'+key+'">'+value+'</option>');
-                        });
-
-                    }else{
-                        $("#city").empty();
-                    }
-                }
-            });
-        }else{
-            $("#city").empty();
-        }
-
-    });
-
-
     $('#mobilestate').on('change',function(){
         var state_name = $(this).val();
         if(state_name){
@@ -647,6 +989,7 @@
         }
 
     });
+});
 
 </script>
 

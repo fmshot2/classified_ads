@@ -192,6 +192,7 @@
     </div>
 </div>
 
+
 <header class="top-header top-header-ads-mobile" style="display: flex; justify-content: center; background: linear-gradient(90deg, rgba(251,219,35,1) 52%, rgba(243,163,27,1) 66%); width: 100%; margin: 20px 0 0 0">
     @if ($advertisements)
         <div class="animate__animated animate__fadeInLeft">

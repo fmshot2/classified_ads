@@ -51,9 +51,10 @@
         @include('layouts.backend_partials.status')
 
         <section class="content-header">
-            <h3 class="page-title">Get a Badge <small class="infoLinkNote">(<a data-toggle="modal"
-                        data-target="#theinfoModal">How it works?</a>)</small></h3>
-            <p class="page-description">Here, You Can Request For A Badge.</p>
+        	<p class="page-description text-danger">Here, You Can Request To Extend Your Subscription.</p>
+        	<h3 class="page-title">Get a New Subscription <small class="infoLinkNote">(<a data-toggle="modal"
+        		data-target="#theinfoModal">How it works?</a>)</small></h3>
+        			<p>Your Subscription ends:<span><h1>{{ Carbon\Carbon::parse($current_subscription_end_date)->format('d-m-Y') }}</h1></span></p>
         </section>
 
         <section class="content">
@@ -66,23 +67,23 @@
                             <i class="fa fa-star"></i>
                         </div>
                         <div class="box-body box-profile text-center">
-                            <h4>Super</h4>
+                            <h4>Annually</h4>
                             <ol class="text-left">
-                                <li>Your service(s) will be featured on all efcontact pages.</li>
-                                <li>Upload as much as (8) images of your services.</li>
-                                <li>Appear on the top when inquirers search for services related to yours</li>
-                                <li>Cost: &#8358;15,000</li>
+                                <li>Your service(s) will be available on efcontact for a period of 6 months.</li>                            	
+                                <!-- <li>Upload as much as (8) images of your services.</li> -->
+                                <!-- <li>Appear on the top when inquirers search for services related to yours</li> -->
+                                <li>Cost: &#8358;2,400</li>
                             </ol>
                         </div>
 
-                        <input hidden id="badge_type" type="hidden" name="badge_type" value="1">
+                        <input hidden id="sub_type" type="hidden" name="badge_type" value="1">
                         <input hidden id="amount" type="hidden" name="amount" value="1">
                         <input hidden type="hidden" class="form-control" name="email-addres3" id="email-address3"
                             value="{{ Auth::User()->email }}">
 
                         <div class="box-footer box-profile text-center">
                             <!-- <a onclick="payWithPaystack1()" class="btn">Click here to apply</a> -->
-                            <a onclick="requestBadge(1)" class="btn">Click here to apply</a>
+                            <a onclick="requestBadge(3)" class="btn">Click here to subscribe</a>
 
                         </div>
                     </div>
@@ -94,16 +95,16 @@
                             <i class="fa fa-star"></i>
                         </div>
                         <div class="box-body box-profile text-center">
-                            <h4>Moderate</h4>
+                            <h4>Bi-anually</h4>
                             <ol class="text-left">
-                                <li>Your service(s) will be featured on all efcontact pages.</li>
-                                <li>Upload as much as (6) images of your services.</li>
-                                <li>Appear after <b>Super</b> when inquirers search for services related to yours</li>
-                                <li>Cost: &#8358;10,000</li>
+                                <li>Your service(s) will be available on efcontact for a period of 6 months.</li>
+                              <!--   <li>Upload as much as (6) images of your services.</li>
+                                <li>Appear after <b>Super</b> when inquirers search for services related to yours</li> -->
+                                <li>Cost: &#8358;1,200</li>
                             </ol>
                         </div>
                         <div class="box-footer box-profile text-center">
-                            <a onclick="requestBadge(2)" class="btn">Click here to apply</a>
+                            <a onclick="requestBadge(2)" class="btn">Click here to subscribe</a>
                         </div>
                     </div>
                 </div>
@@ -113,16 +114,16 @@
                             <i class="fa fa-star"></i>
                         </div>
                         <div class="box-body box-profile text-center">
-                            <h4>Basic</h4>
+                            <h4>Monthly</h4>
                             <ol class="text-left">
-                                <li>Your service(s) will be featured on most of efcontact pages..</li>
-                                <li>Upload as much as (4) images of your services.</li>
-                                <li>Appear after <b>Moderate</b> when inquirers search for services related to yours</li>
-                                <li>Cost: &#8358;5,000</li>
+                                <li>Your service(s) will be available on efcontact for one month.</li>
+                              <!--   <li>Upload as much as (4) images of your services.</li>
+                                <li>Appear after <b>Moderate</b> when inquirers search for services related to yours</li> -->
+                                <li>Cost: &#8358;200</li>
                             </ol>
                         </div>
                         <div class="box-footer box-profile text-center">
-                            <a onclick="requestBadge(3)" class="btn">Click here to apply</a>
+                            <a onclick="requestBadge(1)" class="btn">Click here to subscribe</a>
                         </div>
                     </div>
                 </div>
@@ -148,12 +149,12 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="">Badge Type: </label> <span id="badgeType"></span> Badge
+                                        <label for="">Subscription Type: </label> <span id="sub_type"></span> Subscription
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="">Amount: </label> &#8358;<span id="badgeCost"></span>
+                                        <label for="">Amount: </label> &#8358;<span id="sub_cost"></span>
                                     </div>
                                 </div>
                                 <input hidden id="badge_type" type="text" name="badge_type" value="">
@@ -183,20 +184,20 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="background-color: #cc8a19; color: #fff">
-                            <h4 class="modal-title">Badge Info</h5>
+                            <h4 class="modal-title">Subscription Info</h5>
                                 {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button> --}}
                         </div>
                         <div class="modal-body">
-                            A badge is a verification tag that is given to service providers on E.F Contact. Service
+                          <!--   A badge is a verification tag that is given to service providers on E.F Contact. Service
                             providers with E.F badges have the following advantages:
                             <ol>
                                 <li>Appear to customers/clients before other service providers</li>
                                 <li>Potential customers/clients tend to go for service providers with the badge.</li>
                                 <li>Service providers with a badge appear on all search pages and appear first.</li>
                                 <li>Service providers with badges are given bonus subsequently.</li>
-                            </ol>
+                            </ol> -->
 
                         </div>
                         <div class="modal-footer">
@@ -212,13 +213,13 @@
             <script>
                 function requestBadge(id) {
                     $.ajax({
-                        url: '/requestbadge/' + id,
+                        url: '/requestsubscription/' + id,
                         method: 'GET',
                         success: function(data) {
-                            // $('#badgeType').text(data.badge_type)
-                            $('#badge_type').val(id)
-                            $('#badgeCost').text(data.badge_cost)
-                            $('#amount').val(data.badge_cost)
+                            $('#sub_type').text(data.sub_type)
+                            $('#sub_type').val(id)
+                            $('#sub_cost').text(data.sub_cost)
+                            $('#sub_cost').val(data.sub_cost)
                             // Show modal
                             $('#badgeRequestModal').modal('show')
 
@@ -236,8 +237,8 @@
                 var _token = $("input[name='_token']").val();
 
                 // var email1 = $("#email-address3").val();
-                var amount = $("#amount").val();
-                var badge_type = $("#badge_type").val();
+                var amount = $("#sub_cost").val();
+                var sub_type = $("#sub_type").val();
 
                 function payWithPaystack1() {
                     $('#badgeRequestModal').modal('hide');
@@ -258,20 +259,21 @@
                         callback: function(response) {
 
                             var email = document.getElementById("email-address3").value;
-                            var amount = $("#amount").val();
+                            var amount = $("#sub_cost").val();
                             var ref_no1 =  response.reference;
-                            var badge_type = $("#badge_type").val();
+                            var sub_type = $("#sub_type").val();
+                            console.log(email, amount, ref_no1, sub_type)
                             
                             $.ajax({
                               method: "POST",
-                              url: base_Url + '/provider/service/createpay',
+                              url: base_Url + '/provider/service/create_sub',
                               dataType: "json",
                               data: {
                                 _token: _token,
                                 email: email,
                                 amount: amount,
                                 ref_no: ref_no1,
-                                badge_type: badge_type
+                                sub_type: sub_type
                               },
                               success: function (data) {
                                   console.log(data)

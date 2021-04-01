@@ -329,7 +329,7 @@
                                             <div class="form-group">
                                                 <label for="">Expected Salary</label><small class="text-danger">*</small>
                                                 <select class="form-control" name="expected_salary" value="{{ old('expected_salary') }}">
-                                                    <option value="self_employed">Below	&#8358;50,000</option>
+                                                    <option value="self_employed">Below &#8358;50,000</option>
                                                     <option value="degree">&#8358;50,000 - &#8358;75,000</option>
                                                     <option value="diploma">&#8358;75,000 - &#8358;100,000</option>
                                                     <option value="hnd">&#8358;100,000 - 125,000</option>

@@ -7,8 +7,10 @@ use App\Advertisement;
 use App\AdvertLocation;
 use App\Category;
 use App\General_Info;
+use App\Image as ModelImage;
 use App\Like;
 use App\Mail\UsersFeedback;
+use App\Message;
 use App\PageContent;
 use App\Service;
 use App\Slider;
@@ -20,8 +22,10 @@ use App\Refererlink;
 use App\SeekingWork;
 use App\State;
 use App\Tourism;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Image;
 
 
 class OperationalController extends Controller
@@ -416,26 +420,7 @@ class OperationalController extends Controller
 
     public function ajaxSearchResult(Request $request)
     {
-        // $services = Service::query()
-        //         ->where('name', 'LIKE', "%{$q}%")
-        //         ->orWhere('description', 'LIKE', "%{$q}%");
-
-        //     $seekingworks = SeekingWork::query()
-        //         ->where('job_title', 'LIKE', "%{$q}%")
-        //         ->orWhere('fullname', 'LIKE', "%{$q}%");
-
-        //     // $data = collect(($services)->merge ($seekingworks))->get();
-
-        //     // $data = collect ($services)->merge ($seekingworks)->paginate (7);
-        //     $data = $services->get ()->concat ($seekingworks->get ());
-
-        //     dd($data);
-
         if($request->ajax()) {
-            // $data = Service::query()
-            // ->where('name', 'LIKE', "%{$request->service}%")
-            // ->orWhere('description', 'LIKE', "%{$request->service}%")
-            // ->get();
 
             $services = Service::query()
                 ->where('name', 'LIKE', "%{$request->service}%")
@@ -454,10 +439,10 @@ class OperationalController extends Controller
                 $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
                 foreach ($data as $row){
                     if ($row->name) {
-                        $output .= '<li class="list-group-item"><a style="" href="'. route('serviceDetail',  $row->slug) .'">'. $row->name .'</a> in <a class="ajaxSearchCategoryList" href="'. route('services',  $row->category->slug) .'">'.$row->category->name.'</a></li>';
+                        $output .= '<li class="list-group-item"><a style="display:block" href="'. route('serviceDetail',  $row->slug) .'">'. $row->name .' in <span class="ajaxSearchCategoryList">'.$row->category->name.'</span></li>';
                     }
                     else{
-                        $output .= '<li class="list-group-item"><a style="" href="'. route('serviceDetail',  $row->slug) .'">'. $row->job_title .'</a> in <a class="ajaxSearchCategoryList" href="'. route('services',  $row->category->slug) .'">'.$row->category->name.' & CVs</a></li>';
+                        $output .= '<li class="list-group-item"><a style="display:block" href="'. route('job.applicant.detail',  $row->slug) .'">'. $row->job_title .' in <span class="ajaxSearchCategoryList">'.$row->category->name.' & CVs</span></li>';
                     }
                 }
                 $output .= '</ul>';
@@ -473,6 +458,7 @@ class OperationalController extends Controller
     {
         $keyword = $request->keyword ? $request->keyword : 'Nothing!';
         $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+        $categories = Category::orderBy('name', 'asc')->get();
 
 
         if ($request->category == null && $request->city == null && $request->keyword == null) {
@@ -498,11 +484,21 @@ class OperationalController extends Controller
                                 $query->where('id', $categoryId);
                             })->get();
 
-                return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services,
-                    "featuredServices" => $featuredServices
-                ]);
+                if (!$services->isEmpty()) {
+                    return view('dapSearchResult', [
+                        "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
+                        "services" => $services,
+                        "featuredServices" => $featuredServices,
+                        "categories" => $categories,
+                    ]);
+                }
+                else{
+                    return view('dapSearchResult', [
+                        "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                        "featuredServices" => $featuredServices,
+                        "categories" => $categories,
+                    ]);
+                }
             }
             elseif ($request->category != null && $request->city != null) {
                 $services = Service::query()
@@ -516,7 +512,9 @@ class OperationalController extends Controller
 
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services
+                    "services" => $services,
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
             elseif ($request->keyword == null && $request->category != null) {
@@ -533,7 +531,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
             elseif ($request->city != null && $request->keyword != null) {
@@ -549,7 +548,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
             elseif ($request->category != null) {
@@ -565,7 +565,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
             else {
@@ -581,7 +582,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
 
@@ -617,7 +619,8 @@ class OperationalController extends Controller
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$request->city.'</strong>',
                     "services" => $services,
                     "related_services" => $related_services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
             else{
@@ -630,7 +633,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
         }elseif ($request->state != null) {
@@ -645,7 +649,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$request->state.'</strong>',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
             else{
@@ -658,7 +663,8 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
         }
@@ -673,13 +679,16 @@ class OperationalController extends Controller
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong>',
                     "services" => $services,
-                    "featuredServices" => $featuredServices
-                    // "related_services" => $related_services
+                    "featuredServices" => $featuredServices,
+                    // "related_services" => $related_services,
+                    "categories" => $categories,
                 ]);
             }
             else{
                 return view('dapSearchResult', [
-                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches your search keyword.'
+                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches your search keyword.',
+                    "categories" => $categories,
+                    "featuredServices" => $featuredServices,
                 ]);
             }
         }
@@ -720,41 +729,48 @@ class OperationalController extends Controller
             $fileInfo = $image->getClientOriginalName();
             $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
             $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
-            $file_name = $filename.'-'.time().'.'.$extension;
-            $image->move(public_path('uploads/seekingworks'),$file_name);
+            $file_name= $filename.'-'.time().'.'.$extension;
+
+            //Fullsize
+            $image->move(public_path('uploads/seekingworks/'),$file_name);
+
+            $image_resize = Image::make(public_path('uploads/seekingworks/').$file_name);
+            $image_resize->resize(300, 300);
+            $image_resize->save(public_path('uploads/seekingworks/' .$file_name));
         }
 
-        $data = [
-            'user_id'               => $request->user()->id,
-            'fullname'              => $request->name,
-            'phone'                 => $request->phone,
-            'job_type'              => $request->job_type,
-            'job_title'             => $request->job_title,
-            'slug'                  => Str::of($request->job_title)->slug('-').'-'.time(),
-            'job_experience'        => $request->job_experience,
-            'still_studying'        => $request->still_studying,
-            'gender'                => $request->gender,
-            'age'                   => $request->age,
-            'marital_status'        => $request->marital_status,
-            'employment_status'     => $request->employment_status,
-            'highest_qualification' => $request->highest_qualification,
-            'expected_salary'       => $request->expected_salary,
-            'user_state'            => $request->user_state,
-            'user_lga'              => $request->user_lga,
-            'address'               => $request->address,
-            'work_experience'       => $request->work_experience,
-            'education'             => $request->education,
-            'certifications'        => $request->certifications,
-            'skills'                => $request->skills,
-            'category_id'           => $request->category_id,
-            'is_featured'           => $request->is_featured,
-            'picture'               => $file_name
-        ];
+            $sWork = new SeekingWork();
 
+            $sWork->user_id               = Auth::user()->id;
+            $sWork->fullname              = $request->name;
+            $sWork->phone                 = $request->phone;
+            $sWork->job_type              = $request->job_type;
+            $sWork->job_title             = $request->job_title;
+            $sWork->slug                  = Str::of($request->job_title)->slug('-').'-'.time();
+            $sWork->job_experience        = $request->job_experience;
+            $sWork->still_studying        = $request->still_studying;
+            $sWork->gender                = $request->gender;
+            $sWork->age                   = $request->age;
+            $sWork->marital_status        = $request->marital_status;
+            $sWork->employment_status     = $request->employment_status;
+            $sWork->highest_qualification = $request->highest_qualification;
+            $sWork->expected_salary       = $request->expected_salary;
+            $sWork->user_state            = $request->user_state;
+            $sWork->user_lga              = $request->user_lga;
+            $sWork->address               = $request->address;
+            $sWork->work_experience       = $request->work_experience;
+            $sWork->education             = $request->education;
+            $sWork->certifications        = $request->certifications;
+            $sWork->skills                = $request->skills;
+            $sWork->category_id           = $request->category_id;
+            $sWork->is_featured           = $request->is_featured;
+            $sWork->picture               = $file_name;
 
-        $sWork = new SeekingWork();
+        if ($sWork->save()) {
+            $sWork->images()->create(['image_path' => $file_name]);
+            $sWork->thumbnail = $sWork->images()->first()->image_path;
+            $sWork->save();
 
-        if ($sWork->create($data)) {
             return redirect()->route('seller.dashboard')->with([
                 'message' => 'CV succesfully created!',
                 'alert-type' => 'success'
@@ -766,8 +782,45 @@ class OperationalController extends Controller
                 'alert-type' => 'error'
             ]);
         }
-
     }
+
+    public function seekingWorkDetails($slug)
+    {
+
+        $seekingWorkDetail = SeekingWork::where('slug', $slug)->firstorFail();
+
+        $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+        $approvedServices = Service::where('status', 1)->with('user')->get();
+        $categories = Category::paginate(8);
+        $seekingWorkDetail_id = $seekingWorkDetail->id;
+        $seekingWorkDetail_likes = Like::where('service_id', $seekingWorkDetail_id)->count();
+        $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$seekingWorkDetail_id])->first();
+        $service_category_id = $seekingWorkDetail->category_id;
+        $seekingWorkDetail_state = $seekingWorkDetail->state;
+        $images_4_service = $seekingWorkDetail->images;
+        // $images_4_service = Image::where('imageable_id', $seekingWorkDetail_id)->get();
+        $similarProducts = Service::where([['category_id', $service_category_id], ['state', $seekingWorkDetail_state] ])->inRandomOrder()->limit(8)->get();
+
+        $user_id = $seekingWorkDetail->user_id;
+        $userMessages = Message::where('service_id', $seekingWorkDetail_id)->orderBy('created_at','desc')->take(7)->get();
+
+        $the_user = User::find($user_id);
+        $the_user_name = $the_user->name;
+        $the_provider_f_name = explode(' ', trim($the_user_name))[0];
+
+        $expiresAt = now()->addHours(24);
+        views($seekingWorkDetail)->cooldown($expiresAt)->record();
+
+        return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck']));
+    }
+
+
+    // public function getMobileSubCategory($slug)
+    // {
+    //     $categories = Category::where('slug', $slug)->firstOrFail();
+    //     $subcategory = $categories->sub_categories;
+    //     return $subcategory;
+    // }
 
 
 }

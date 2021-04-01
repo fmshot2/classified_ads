@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\OperationalController;
 use App\Http\Controllers\ServiceImageController;
+// use App\Http\Controllers\SubscriptionController;
+
 use Illuminate\Support\Facades\Route;
 use App\Message;
 use App\Notification;
@@ -21,6 +23,7 @@ use App\Service;
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 // Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 Route::get('ajaxSearchResult/{slug}', 'OperationalController@ajaxSearchResult');
+// Route::get('getMobileSubCategory/{slug}', 'OperationalController@getMobileSubCategory');
 
 //Agent Middleware starts here
 Route::post('create_user', 'AuthController@create_user');
@@ -104,6 +107,9 @@ Route::get ( 'findgeo2',  'ServiceController@findNearestRestaurants');
 Route::get( '/catpagesortby/{letter}',  'OperationalController@catPageSortBy');
 Route::get( '/requestbadge/{id}',  'BadgeController@requestbadge');
 Route::post( '/requestbadge/{id}',  'BadgeController@requestbadge')->name('badge.request');
+
+Route::get( '/requestsubscription/{id}',  'SubscriptionController@requestsubscription');
+
 Route::post( '/user-feedback',  'OperationalController@feedbackform')->name('feedback.form');
 
 Route::get('/benefits-of-efcontact','OperationalController@get_benefits_of_efcontact')->name('benefits-of-efcontact');
@@ -135,6 +141,7 @@ Route::post('dropzone/store', 'DropzoneController@dropzoneStore')->name('dropzon
 
 Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('serviceDetail');
+Route::get('/job-applicant/details/{slug}', 'OperationalController@seekingWorkDetails')->name('job.applicant.detail');
 Route::post('saveContacts', 'ServiceController@saveContacts')->name('saveContacts');
 Route::get('/contacts', 'ServiceController@showContacts')->name('contacts');
 Route::get('/allservices', 'ServiceController@allServices')->name('allServices');
@@ -185,6 +192,7 @@ Route::get('/getlocal_governments/{id}','CategoryController@getlocal_governments
 Route::get('api/get-city-list/{state_name}','CategoryController@getCityList');
 Route::get('api/get-category-list/{state_name}','CategoryController@getCategoryList');
 
+Route::get('api/get-subcategory-list/{category_slug}','CategoryController@getSubCategoryList');
 Route::get('api/get-like-list/{id}','ServiceController@getLikeList');
 
 Route::get('frequently-asked-questions','FaqController@get_faq')->name('faq');
@@ -205,6 +213,7 @@ App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail
 Route::post('/createUser2', 'OldCodeController@createUser2')->name('createUser2');
 
 Route::get('/register', 'AuthController@showRegister')->name('register');
+Route::get('/group-register', 'AuthController@showGroupRegister')->name('register');
 Route::post('/register2', 'AuthController@createUser')->name('register2');
 //original payment and registration with gtpay
 Route::post('/register', 'AuthController@pay_with_gtpay')->name('register');
@@ -250,11 +259,16 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
 
     Route::prefix('provider')->group(function ()
     {
+        Route::get('/dashboard/make_withdrawal_request/{refer_id}', 'DashboardController@make_withdrawal_request')->name('seller.make_withdrawal_request');
         Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('service_detail_4_provider');
 
-        Route::get('/dashboard/make_withdrawal_request/{refer_id}', 'DashboardController@make_withdrawal_request')->name('seller.make_withdrawal_request');
 
         Route::get('/dashboard', 'DashboardController@seller')->name('seller.dashboard');
+
+        Route::get('/dashboard/sub/all', 'SubscriptionController@allSub')->name('seller.sub.all');
+        Route::get('/sub/add', 'SubscriptionController@createSub')->name('seller.sub.create');
+        Route::post('/service/create_sub', 'SubscriptionController@createSubpay')->name('createSubpay');
+
 
         Route::get('/service/add', 'SellerController@createService')->name('seller.service.create');
         Route::get('/service/badges', 'BadgeController@badges')->name('seller.service.badges');
@@ -513,6 +527,14 @@ Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //S
     Route::get('dashboard/single/category/{id}', 'CategoryController@categoryShow')->name('superadmin.single.category.show');
     Route::put('dashboard/single/category/{id}', 'CategoryController@categoryUpdate')->name('superadmin.single.category.update');
     Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
+
+    // Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
+    // Route::get('/admin/dashboard/category/show', 'CategoryController@index')->name('admin.category.show');
+    // Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
+    // Route::get('/admin/category/{id}', 'CategoryController@destroy')->name('admin.category.delete');
+    // Route::get('/admin/dashboard/single/category/{id}', 'CategoryController@categoryShow')->name('admin.single.category.show');
+    // Route::put('/admin/dashboard/single/category/{id}', 'CategoryController@categoryUpdate')->name('admin.single.category.update');
+
 
     Route::get('dashboard/subcategory/show', 'CategoryController@subcategoryIndex')->name('superadmin.subcategory.show');
     Route::get('subcategory/{id}', 'CategoryController@subCatDestroy')->name('superadmin.subcategory.delete');

@@ -153,9 +153,14 @@ class ServiceController extends Controller
 
 
 
-    $featuredServices = Service::where('is_featured', 1)->with('user')->orderBy('badge_type', 'asc')->paginate(30);
+    $featuredServices = Service::where('is_featured', 1)
+                ->where('status', 1)
+                ->with('user')
+                ->orderBy('badge_type', 'asc')
+                ->paginate(30);
+
     $allServices = Service::where([
-      ['is_approved', '=', 1] ])->inRandomOrder()->get();
+      ['is_approved', '=', 1] ])->where('status', 1)->inRandomOrder()->get();
 
     foreach ($allServices as $key => $serv) {
       // this is assigning a new field called total_likes to allservices
@@ -170,14 +175,14 @@ class ServiceController extends Controller
     //   return $serve->total_likes;
     // });
 
-    $hotServices = collect($allServices->sortByDesc('total_likes'))->sortBy('badge_type');;
+    $hotServices = collect($allServices->where('status', 1)->sortByDesc('total_likes'))->sortBy('badge_type');;
     $approvedServices = Service::where('status', 1)->with('user')->get();
-    $advertServices = Service::where('is_approved', 1)->with('user')->get();
-    $recentServices = Service::where('is_approved', 1)->orderBy('created_at', 'asc')->paginate(16);
+    $advertServices = Service::where('is_approved', 1)->where('status', 1)->with('user')->get();
+    $recentServices = Service::where('is_approved', 1)->where('status', 1)->orderBy('created_at', 'asc')->paginate(16);
     $categories = Category::orderBy('id', 'asc')->get();
     $search_form_categories = Category::orderBy('name')->get();
     $sliders = Slider::all();
-    $trendingServices = Service::orderByUniqueViews()->get();
+    $trendingServices = Service::where('status', 1)->orderByUniqueViews()->get();
     $states = State::all();
     $local_governments = Local_government::all();
     $user11 = session()->get('user11');
@@ -243,17 +248,19 @@ public function services()
 
 public function serviceDetail($slug)
 {
-  $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
-  $approvedServices = Service::where('status', 1)->with('user')->get();
-  $advertServices = Service::where('is_approved', 1)->with('user')->get();
-  $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
-  $categories = Category::paginate(8);
-  $serviceDetail = Service::where('slug', $slug)->first();
-  $all_states = State::all();
+
+    $serviceDetail = Service::where('slug', $slug)->firstOrFail();
+
+    $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+    $approvedServices = Service::where('status', 1)->with('user')->get();
+    $advertServices = Service::where('is_approved', 1)->with('user')->get();
+    $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
+    $categories = Category::paginate(8);
+    $all_states = State::all();
     // $images_4_service = $serviceDetail->image;
     // $images_4_service = $images_4_servic->image_path;
   $serviceDetail_id = $serviceDetail->id;
-  $images_4_service = Image::where('imageable_id', $serviceDetail_id)->get();
+  $images_4_service = $serviceDetail->images;
         // dd($images_4_service);
   $serviceDetail_state = $serviceDetail->state;
   $service_likes = Like::where('service_id', $serviceDetail_id)->count();
@@ -298,10 +305,10 @@ public function serviceDetail($slug)
 
 public function allServices()
 {
-  $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
-  $approvedServices = Service::with('user')->orderBy('badge_type', 'asc')->inRandomOrder()->paginate(100);
-  $advertServices = Service::where('is_approved', 1)->with('user')->get();
-  $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
+  $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
+  $approvedServices = Service::with('user')->where('status', 1)->orderBy('badge_type', 'asc')->inRandomOrder()->paginate(100);
+  $advertServices = Service::where('is_approved', 1)->where('status', 1)->with('user')->get();
+  $recentServices = Service::where('is_approved', 1)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
   $categories = Category::paginate(8);
   $featuredcategories = Category::orderBy('id', 'asc')->limit(12)->get();
   $all_states = State::all();
@@ -309,7 +316,7 @@ public function allServices()
       //$service_likes = Like::where('service_id', $serviceDetail_id)->count();
       //$service_category_id = $serviceDetail->category;
       //$similarProducts = Service::where('category', $service_category_id)->get();
-  $featuredServices2 = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+  $featuredServices2 = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
       //$user_id = $serviceDetail->user_id;
       //$userMessages = Message::where('service_id', $id)->get();
   if($userser2 = session()->get('userSer')) {
@@ -332,11 +339,11 @@ public function allServices()
 
 public function allSellers()
 {
-  $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
-  $allFeaturedServices = Service::where('is_featured', 1)->with('user')->paginate(32);
-  $approvedServices = Service::with('user')->paginate(6);
-  $advertServices = Service::where('is_approved', 1)->with('user')->get();
-  $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
+  $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
+  $allFeaturedServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->paginate(32);
+  $approvedServices = Service::where('status', 1)->with('user')->paginate(6);
+  $advertServices = Service::where('is_approved', 1)->where('status', 1)->with('user')->get();
+  $recentServices = Service::where('is_approved', 1)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
   $categories = Category::paginate(8);
       //$serviceDetail = Service::find($id);
   $all_states = State::all();
@@ -344,7 +351,7 @@ public function allSellers()
       //$service_likes = Like::where('service_id', $serviceDetail_id)->count();
       //$service_category_id = $serviceDetail->category;
       //$similarProducts = Service::where('category', $service_category_id)->get();
-  $featuredServices2 = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+  $featuredServices2 = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
       //$user_id = $serviceDetail->user_id;
       //$userMessages = Message::where('service_id', $id)->get();
   if($userser2 = session()->get('userSer')) {
@@ -368,11 +375,11 @@ public function allSellers()
 
 public function allFeaturedSellers()
 {
-  $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
-  $allFeaturedServices = Service::where('is_featured', 1)->with('user')->paginate(32);
-  $approvedServices = Service::with('user')->paginate(6);
-  $advertServices = Service::where('is_approved', 1)->with('user')->get();
-  $recentServices = Service::where('is_approved', 1)->orderBy('id', 'desc')->paginate(10);
+  $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
+  $allFeaturedServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->paginate(32);
+  $approvedServices = Service::where('status', 1)->where('status', 1)->with('user')->paginate(6);
+  $advertServices = Service::where('is_approved', 1)->where('status', 1)->with('user')->get();
+  $recentServices = Service::where('is_approved', 1)->where('status', 1)->orderBy('id', 'desc')->paginate(10);
   $categories = Category::paginate(8);
       //$serviceDetail = Service::find($id);
   $all_states = State::all();
@@ -380,7 +387,7 @@ public function allFeaturedSellers()
       //$service_likes = Like::where('service_id', $serviceDetail_id)->count();
       //$service_category_id = $serviceDetail->category;
       //$similarProducts = Service::where('category', $service_category_id)->get();
-  $featuredServices2 = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+  $featuredServices2 = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
       //$user_id = $serviceDetail->user_id;
       //$userMessages = Message::where('service_id', $id)->get();
   if($userser2 = session()->get('userSer')) {
@@ -410,7 +417,7 @@ public function allFeaturedSellers()
 
 public function index()
 {
-  $service = Service::orderBy('id', 'desc')->paginate(5);
+  $service = Service::where('status', 1)->orderBy('id', 'desc')->paginate(5);
 }
 
     /**
@@ -604,8 +611,8 @@ public function homepage_search(Request $request){
   $ranges = $request->input('ranges');
   //$serviceDetail_id = $request->input('serviceDetail_id');
   $all_states = State::all();
-  $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
-  $keywordResponses = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+  $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
+  $keywordResponses = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
 
 
   // $keywordResponses = Service::where(function ($query) use ($keyword, $category, $state) {
@@ -787,7 +794,7 @@ if($category)
 
 
   $keywordResponses5 = Service::where(function ($query) use ($keyword) {
-    $query->where('name', 'like', '%' . $keyword . '%');
+    $query->where('name', 'like', '%' . $keyword . '%')->where('status', 1);
   })
   ->where(function ($query) use ($state) {
     $query->where('state', '=', $state);
@@ -795,7 +802,7 @@ if($category)
   })->get();
 
  $keywordResponses4 = Service::where(function ($query) use ($keyword) {
-    $query->where('name', 'like', '%' . $keyword . '%');
+    $query->where('name', 'like', '%' . $keyword . '%')->where('status', 1);
   })
   ->where(function ($query) use ($category) {
     $query->where('category_id', '=', $category);
@@ -803,47 +810,47 @@ if($category)
   })->get();
 
  $keywordResponses6 = Service::where(function ($query) use ($category) {
-    $query->where('category_id', '=', $category);
+    $query->where('category_id', '=', $category)->where('status', 1);
   })
   ->where(function ($query) use ($state) {
-    $query->where('state', '=', $state);
+    $query->where('state', '=', $state)->where('status', 1);
 
   })->get();
 
 
   $keywordResponses1 = Service::where(function ($query) use ($keyword) {
-    $query->where('name', 'like', '%' . $keyword . '%');
+    $query->where('name', 'like', '%' . $keyword . '%')->where('status', 1);
   })->get();
 
   $keywordResponses2 = Service::where(function ($query) use ($category) {
-    $query->where('category_id', 'like', '%' . $category . '%');
+    $query->where('category_id', 'like', '%' . $category . '%')->where('status', 1);
   })->get();
 
   $keywordResponses3 = Service::where(function ($query) use ($state) {
-    $query->where('state', '=', $state);
+    $query->where('state', '=', $state)->where('status', 1);
   })->get();
 
 
   $keywordResponses7 = Service::where(function ($query) use ($category) {
-    $query->where('category_id', '=', $category);
+    $query->where('category_id', '=', $category)->where('status', 1);
   })
   ->where(function ($query) use ($state) {
-    $query->where('state', '=', $state);
+    $query->where('state', '=', $state)->where('status', 1);
 
   })->where(function ($query) use ($keyword) {
-    $query->where('name', 'like', '%' . $keyword . '%');
+    $query->where('name', 'like', '%' . $keyword . '%')->where('status', 1);
 
   })->get();
 
 
   $keyword_and_Categories = Service::where(function ($query) use ($keyword, $category) {
     $query->where('name', 'like', '%' . $keyword . '%')
-    ->where('category_id', '=', $category);
+    ->where('category_id', '=', $category)->where('status', 1);
   })->get();
   // return response()->json($keyword_and_Categories);
 
   $keyword_and_state = Service::where(function ($query) use ($keyword, $state) {
-    $query->where('name', 'like', '%' . $keyword . '%')
+    $query->where('name', 'like', '%' . $keyword . '%')->where('status', 1)
     ->orWhere('state',  $state);
   })->get();
 
@@ -854,7 +861,7 @@ if($category)
   })->get();
 
   $category_response = Service::where(function ($query) use ($category) {
-    $query->where('category_id', 'like', '%' . $category . '%');
+    $query->where('category_id', 'like', '%' . $category . '%')->where('status', 1);
   })->get();
 
 
@@ -929,11 +936,11 @@ if($category)
   public function search_by_city($city){
     $d_city = $city;
 
-    $services_in_city = Service::where('city', $d_city)->with('user')->get();
+    $services_in_city = Service::where('city', $d_city)->where('status', 1)->with('user')->get();
     $all_states = State::all();
     $all_categories = Category::all();
 
-    $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+    $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
 
     return view('city_services')->with('services_in_city', $services_in_city)->with('featuredServices', $featuredServices)->with('all_states', $all_states)->with('all_categories', $all_categories);
 
@@ -983,7 +990,7 @@ if (count ( $seller ) > 0){
 
             });
         }
-        $category_services = Service::where('id', $serviceDetailId)->get();
+        $category_services = Service::where('id', $serviceDetailId)->where('status', 1)->get();
 
 //return redirect()->to('job_view/'.$id);
         return view ('searchService')->with($serviceDetailId)->with('user11', $user11)

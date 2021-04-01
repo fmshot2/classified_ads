@@ -127,7 +127,7 @@
                                             <div class="category-overlay">
                                                 <div class="category-content">
                                                     <h3 class="category-title">
-                                                        <a href="#">{{ $tourist_attraction->name }}</a>
+                                                        <a href="#">{{ $tourist_attraction->states }}</a>
                                                     </h3>
                                                 </div>
                                             </div>
@@ -141,7 +141,7 @@
                                             <div class="category-overlay">
                                                 <div class="category-content">
                                                     <h3 class="category-title">
-                                                        <a href="#">{{ $tourist_attraction->name }}</a>
+                                                        <a href="#">{{ $tourist_attraction->states }}</a>
                                                     </h3>
                                                 </div>
                                             </div>
@@ -157,7 +157,7 @@
                                             <div class="category-overlay">
                                                 <div class="category-content">
                                                     <h3 class="category-title">
-                                                        <a href="#">{{ $tourist_attraction->name }}</a>
+                                                        <a href="#">{{ $tourist_attraction->states }}</a>
                                                     </h3>
                                                 </div>
                                             </div>
