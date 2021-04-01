@@ -95,8 +95,8 @@ class Register extends Component
 
     public function save_user()
     {
-     $request->session()->forget('url.intended');
-     session(['url.intended' => url()->previous()]);
+     // $request->session()->forget('url.intended');
+     // dd((Session::get('url.intended')));
      $slug3 = Str::random(8);
 
         // Get id of owner of $link_from_url if available
@@ -104,7 +104,7 @@ class Register extends Component
         $saveIdOfRefree = User::where('refererLink', $this->referParam)->first();
         $this->refererId = $saveIdOfRefree->id;
     }
-    
+
         // Get id of owner of $agent code if available
     if ($this->agent_code) {
         $saveIdOfAgent = Agent::where('agent_code', $this->agent_code)->first();
@@ -151,14 +151,17 @@ class Register extends Component
         $link->refererlink = $present_user->refererLink;
         $link->save();
 
-        
+
             // $subscription              = new Subscription();
             // $subscription->user_id     = $present_user->id;
             // $subscription->user_registration_date = $present_user->refererLink;
             // $subscription->save();
 
         if (Auth::user()->role == 'buyer') {
-            return  Redirect::to(Session::get('url.intended'));
+            return  Redirect::to(session(url()->previous()));
+            // dd('sss');
+            // return back();
+
         }
 
         $person_that_refered = $present_user->idOfReferer;
