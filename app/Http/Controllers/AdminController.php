@@ -21,11 +21,8 @@ use App\Agent;
 use App\Event;
 use App\Subscription;
 use App\UserFeedback;
-<<<<<<< HEAD
 use App\ProviderSubscription;
-=======
 use App\Helpers\SmsHelper;
->>>>>>> 1d8757f44c35d8412e4957b3cfc29dae805d7ce6
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -308,7 +305,7 @@ class AdminController extends Controller
 
   public function submitEmail(Request $request)
   {
-    
+
     $this->validate($request, [
       'phone' => 'required',
       'subject' => 'required',
