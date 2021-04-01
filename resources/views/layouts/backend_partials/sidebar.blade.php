@@ -195,6 +195,21 @@
         </ul>
       </li>
 
+
+      <li class="treeview" style="{{ url()->current() == route('admin.subscription.all') ? 'background-color: #f8d053' : '' }}">
+        <a href="#">
+          <i class="fa fa-briefcase"></i>
+          <span> Subscriptions</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href=" {{ route('admin.subscription.all') }} "><i class="fa fa-circle-o"></i> All Subscriptions</a></li>
+
+        </ul>
+      </li>
+
       <li class="" style=" {{ url()->current() == route('admin.users.feedback') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('admin.users.feedback') }}">
           <i class="fa fa-comments-o"></i> <span> User Feedbacks </span>

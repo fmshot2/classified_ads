@@ -21,12 +21,14 @@ use App\Agent;
 use App\Event;
 use App\Subscription;
 use App\UserFeedback;
+use App\ProviderSubscription;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Carbon;
 use Geocoder;
+
 
 
 
@@ -288,6 +290,13 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
     $pending_service = Service::where('status', 0)->paginate(10);
     return view ('admin.service.pending', compact('pending_service') );
   }
+
+    public function allSubscription()
+  {
+    $all_subscriptions = ProviderSubscription::all();
+    return view ('admin.subscription.index', compact('all_subscriptions') );
+  }
+
   public function pending_advert_requests()
   {
     $pending_advert_requests = Advertrequest::where('status', 0)->paginate(10);

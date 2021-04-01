@@ -51,8 +51,8 @@ class Register extends Component
             'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password'              => ['required', 'string', 'min:6', 'confirmed'],
             'role'                  => ['required', Rule::in(['seller', 'buyer'])],
-            'agent_code'            => ['nullable'],
-            'terms'                 => ['required'],
+            'agent_code'            => ['nullable', 'exists:agents,agent_code'],
+            'terms'                 => ['accepted'],
         ]);
 
         $data = [

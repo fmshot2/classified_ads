@@ -24,7 +24,7 @@ All Seller |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Seller Table</h3>
+						<h3 class="box-title"> Subscription Table</h3>
 					</div>
 
 					<!-- /.box-header -->
@@ -41,24 +41,24 @@ All Seller |
 									<th> Activate/Deactivate</th>
 								</tr>	
 
-									@foreach($seller as $key => $sellers)
+									@foreach($all_subscriptions as $key => $all_subscription)
 
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-									<td> {{ $sellers->name }} </td>
-									<td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
-									<td> {{ $sellers->role }} </td>
-									<td> {{ $sellers->created_at->diffForHumans() }} </span></td>
+									<td> {{ $all_subscription->user->name }} </td>
+									<td><span class="text-muted"> </i> {{ $all_subscription->user->email }} </span> </td>
+									<td> {{ $all_subscription->user->role }} </td>
+									<td> {{ $all_subscription->user->created_at->diffForHumans() }} </span></td>
 									<td>
-										@if($sellers->status == 1)
+										@if($all_subscription->user->status == 1)
 										<span><p id="active_text">Activated</p></span>
-										@elseif($sellers->status == 0)
+										@elseif($all_subscription->user->status == 0)
 										<span id="active_text2">Deactivated</span>
 										@endif 
 									</td>
 					
 									<td>
-										<button id="" class="activate-submit btn-success" onclick="activateUser({{$sellers->id}})" type="button" class="btn btn-success">
-											@if($sellers->status == 0)<span id="activate1">Activate User</span>@elseif($sellers->status == 1)<span id="activate2">Deactivate</span>
+										<button id="" class="activate-submit btn-success" onclick="activateUser({{$all_subscription->user->id}})" type="button" class="btn btn-success">
+											@if($all_subscription->user->status == 0)<span id="activate1">Activate User</span>@elseif($all_subscription->user->status == 1)<span id="activate2">Deactivate</span>
 										@endif</button> 
 									</td>
 
