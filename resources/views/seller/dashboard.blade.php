@@ -505,7 +505,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        <textarea type="text" class="form-control" name="description" placeholder="Tell us about your service." rows="3"></textarea>
+                                        <textarea type="text" class="form-control summernote" name="description" placeholder="Tell us about your service." rows="3"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1" id="servicePriceRange">How much do you want to charge for this service?</label>
@@ -733,28 +733,28 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="">Work Experience</label>
-                                                <textarea id='workexperience' name="work_experience" class="form-control" placeholder="Your work experience.">{{ old('work_experience') }}</textarea>
+                                                <textarea id='workexperience' name="work_experience" class="form-control summernote" placeholder="Your work experience.">{{ old('work_experience') }}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="">Education</label><small class="text-danger">*</small>
-                                                <textarea id='education' name="education" class="form-control" placeholder="Educational Background." required>{{ old('education') }}</textarea>
+                                                <textarea id='education' name="education" class="form-control summernote" placeholder="Educational Background." required>{{ old('education') }}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="">Certifications</label>
-                                                <textarea id='certifications' name="certifications" class="form-control" placeholder="Any certifications?">{{ old('certifications') }}</textarea>
+                                                <textarea id='certifications' name="certifications" class="form-control summernote" placeholder="Any certifications?">{{ old('certifications') }}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="">Skills</label><small class="text-danger">*</small>
-                                                <textarea id='skills' name="skills" class="form-control" placeholder="List your skills.">{{ old('skills') }}</textarea>
+                                                <textarea id='skills' name="skills" class="form-control summernote" placeholder="List your skills.">{{ old('skills') }}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -1092,6 +1092,15 @@
         });
     });
 
+</script>
+
+
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script type="text/javascript">
+    $('.summernote').summernote({
+        height: 120
+    });
 </script>
 
 @endsection
