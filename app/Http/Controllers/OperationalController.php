@@ -33,7 +33,7 @@ class OperationalController extends Controller
     public function agentDashboard(Request $request)
     {
 
-        $agent_code_check = Refererlink::where(['user_id'=>Auth::id()])->first();
+        $agent_code_check = Refererlink::where(['user_id'=>Auth::id()])->firstOrFail();
 
         $service_count = Refererlink::where('user_id', Auth::id() )->count();
             return view ('agent.dashboard', compact('service_count', 'agent_code_check'));
@@ -392,7 +392,7 @@ class OperationalController extends Controller
         $this->thefavourites = [];
 
         foreach ($likecheck as $key => $all_service) {
-            $this->thefavourites[] = Service::where('id', $all_service->service_id )->first();
+            $this->thefavourites[] = Service::where('id', $all_service->service_id )->firstOrFail();
         }
 
         $allfavourites = $this->thefavourites;
@@ -457,7 +457,7 @@ class OperationalController extends Controller
     public function dapSearch(Request $request)
     {
         $keyword = $request->keyword ? $request->keyword : 'Nothing!';
-        $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+        $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
         $categories = Category::orderBy('name', 'asc')->get();
 
 
@@ -470,7 +470,7 @@ class OperationalController extends Controller
 
 
         if ($request->category != null) {
-            $category = Category::where('slug', $request->category)->first();
+            $category = Category::where('slug', $request->category)->firstOrFail();
             $categoryId = $category->id;
             $categoryname = $category->name;
 
@@ -479,6 +479,7 @@ class OperationalController extends Controller
                             ->where('name', 'LIKE', "%{$request->keyword}%")
                             ->where('city', '=', "%{$request->city}%")
                             ->where('state', '=', "%{$request->state}%")
+                            ->where('status', 1)
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
                                 $query->where('id', $categoryId);
@@ -505,6 +506,7 @@ class OperationalController extends Controller
                             ->where('name', 'LIKE', "%{$request->keyword}%")
                             ->where('city', '=', "%{$request->city}%")
                             ->where('state', '=', "%{$request->state}%")
+                            ->where('status', 1)
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
                                 $query->where('id', $categoryId);
@@ -520,6 +522,7 @@ class OperationalController extends Controller
             elseif ($request->keyword == null && $request->category != null) {
                 $services = Service::query()
                             ->where('name', 'LIKE', "%{$request->keyword}%")
+                            ->where('status', 1)
                             ->orWhere('description', 'LIKE', "%{$request->keyword}%")
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
@@ -540,6 +543,7 @@ class OperationalController extends Controller
                             ->where('name', 'LIKE', "%{$request->keyword}%")
                             ->where('city', '=', "%{$request->city}%")
                             ->where('state', '=', "%{$request->state}%")
+                            ->where('status', 1)
                             ->with('category')
                             ->orWhereHas('category', function($query) use ($categoryId)  {
                                 $query->where('id', $categoryId);
@@ -555,6 +559,7 @@ class OperationalController extends Controller
             elseif ($request->category != null) {
                 $services = Service::query()
                             ->where('name', 'LIKE', "%{$request->keyword}%")
+                            ->where('status', 1)
                             ->orWhere('city', '=', "%{$request->city}%")
                             ->orWhere('state', '=', "%{$request->state}%")
                             ->with('category')
@@ -572,6 +577,7 @@ class OperationalController extends Controller
             else {
                 $services = Service::query()
                             ->where('name', 'LIKE', "%{$request->keyword}%")
+                            ->where('status', 1)
                             ->orWhere('city', '=', "%{$request->city}%")
                             ->orWhere('state', '=', "%{$request->state}%")
                             ->with('category')
@@ -597,12 +603,14 @@ class OperationalController extends Controller
                     ->where('city', '=', "%{$request->city}%")
                     ->where('name', 'LIKE', "%{$request->keyword}%")
                     ->where('state', '=', "%{$request->state}%")
+                    ->where('status', 1)
                     ->orderBy('badge_type', 'asc')
                     ->get();
             }
             else {
                 $services = Service::query()
                     ->where('city', 'like', "%{$request->city}%")
+                    ->where('status', 1)
                     ->orwhere('state', 'like', "%{$request->state}%")
                     ->orderBy('badge_type', 'asc')
                     ->get();
@@ -610,6 +618,7 @@ class OperationalController extends Controller
 
             $related_services = Service::query()
             ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->where('status', 1)
             ->orwhere('state', '=', "%{$request->state}%")
             ->orwhere('city', '=', "%{$request->city}%")
             ->get();
@@ -626,6 +635,7 @@ class OperationalController extends Controller
             else{
                 $services = Service::query()
                 ->where('name', 'LIKE', "%{$request->keyword}%")
+                ->where('status', 1)
                 ->orWhere('description', 'LIKE', "%{$request->keyword}%")
                 ->orderBy('badge_type', 'asc')
                 ->get();
@@ -641,6 +651,7 @@ class OperationalController extends Controller
             $services = Service::query()
             ->where('state', 'LIKE', "%{$request->state}%")
             ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->where('status', 1)
             ->orWhere('description', 'LIKE', "%{$request->keyword}%")
             ->orderBy('badge_type', 'asc')
             ->get();
@@ -656,6 +667,7 @@ class OperationalController extends Controller
             else{
                 $services = Service::query()
                 ->where('name', 'LIKE', "%{$request->keyword}%")
+                ->where('status', 1)
                 ->orWhere('description', 'LIKE', "%{$request->keyword}%")
                 ->orderBy('badge_type', 'asc')
                 ->get();
@@ -671,6 +683,7 @@ class OperationalController extends Controller
         elseif ($request->keyword != null){
             $services = Service::query()
                         ->where('name', 'LIKE', "%{$request->keyword}%")
+                        ->where('status', 1)
                         ->orWhere('description', 'LIKE', "%{$request->keyword}%")
                         ->orderBy('badge_type', 'asc')
                         ->get();
@@ -794,7 +807,7 @@ class OperationalController extends Controller
         $categories = Category::paginate(8);
         $seekingWorkDetail_id = $seekingWorkDetail->id;
         $seekingWorkDetail_likes = Like::where('service_id', $seekingWorkDetail_id)->count();
-        $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$seekingWorkDetail_id])->first();
+        $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$seekingWorkDetail_id])->firstOrFail();
         $service_category_id = $seekingWorkDetail->category_id;
         $seekingWorkDetail_state = $seekingWorkDetail->state;
         $images_4_service = $seekingWorkDetail->images;

@@ -164,12 +164,49 @@
         transition-duration: 0.3s;
         transition-property: transform;
     }
-    .popover__wrapper:hover .popover__content {
-        z-index: 10;
-        opacity: 1;
-        visibility: visible;
-        transform: translate(0, -20px);
-        transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+
+
+    /* Mobile Popover  */
+    .popover__mobile__content {
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        left: 100px;
+        top: 50px;
+        transform: translate(0, 10px);
+        background-color: #f5f5f5;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+        width: auto;
+    }
+    .popover__mobile__content ul li {
+        color: #000 !important;
+        padding-left: 30px;
+        padding-right: 30px;
+        display: block;
+    }
+    .popover__mobile__content ul li:first-child {
+        padding-top: 15px;
+    }
+    .popover__mobile__content ul li a{
+        color: #000 !important;
+        display: block;
+    }
+    .popover__mobile__content ul li:hover a{
+        color: #e7a32d !important;
+        margin-left: 3px;
+        transition: .5s margin-left;
+    }
+    .popover__mobile__content:before {
+        position: absolute;
+        z-index: -1;
+        content: "";
+        right: calc(50% - 10px);
+        top: -8px;
+        border-style: solid;
+        border-width: 0 10px 10px 10px;
+        border-color: transparent transparent #f5f5f5 transparent;
+        transition-duration: 0.3s;
+        transition-property: transform;
     }
 
     @media (min-width: 768px){
@@ -179,6 +216,13 @@
         }
         #mobileSearchForm{
             display: none;
+        }
+        .popover__wrapper:hover .popover__content {
+            z-index: 10;
+            opacity: 1;
+            visibility: visible;
+            transform: translate(0, -20px);
+            transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
         }
     }
 
@@ -249,6 +293,13 @@
         }
         .categoriesModalList li a.selectSubOption{
             color: #11a182;
+        }
+        .popover__content {
+            z-index: 10;
+            opacity: 1;
+            visibility: visible;
+            transform: translate(0, -20px);
+            transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
         }
     }
 
@@ -512,32 +563,24 @@
                                 <ul class="categoriesModalList">
                                     @foreach ($categories as $category)
                                         @if ($loop->index <= 12)
-                                            <li>
-                                                <a data-dismiss="modal" onclick="addMobileCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
-                                                </a>
-                                                <a class="selectSubOption" data-toggle="modal" data-target="#showSubMobileCategoriesModal{{ $category->id }}" href="#">- or Select City</a>
-                                            </li>
+                                            <li class="popover__wrapper">
+                                                <a data-dismiss="modal" onclick="addMobileCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}</a>
+                                                <a class="selectSubOption" onclick="launchPopoverSubCategory({{ $category->id }})" href="#">- or Subcategory</a>
 
-                                            <div id="showSubMobileCategoriesModal{{ $category->id }}" class="modal fade" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <!-- Modal content-->
-                                                    <div class="modal-content" style="border: 0; box-shadow: 0 0 5px rgba(0, 0, 0, 0.308)">
-                                                        <div data-dismiss="modal" style="width: 100%; display: flex; justify-content: flex-end; padding: 5px 10px; color: rgb(235, 94, 94); cursor: pointer;"> <i style="padding-top: 2px;" class="fa fa-close"></i> Close</div>
+                                                <div id="categoryId{{ $category->id }}" class="popover__close popover__mobile__content">
+                                                    <ul>
+                                                        <li><div onclick="closePopoverSub()" style="width: 100%; display: flex; justify-content: flex-end; color: rgb(235, 94, 94); cursor: pointer;"> <i style="padding-top: 5px; padding-right: 5px" class="fa fa-close"></i> Close</div></li>
 
-                                                        <div class="modal-body">
-                                                            <ul class="categoriesModalList">
-                                                                @if ($category->sub_categories)
-                                                                    @foreach ($category->sub_categories as $subcategory)
-                                                                        <li data-dismiss="modal" onclick="addMobileSubCategoryToForm('{{ $subcategory->name }}', '{{ $subcategory->slug }}')">{{ $subcategory->name }}</li>
-                                                                    @endforeach
-                                                                @else
-                                                                    <p>No Sub Category Here</p>
-                                                                @endif
-                                                            </ul>
-                                                        </div>
-                                                    </div>
+                                                        @if(isset($category->sub_categories))
+                                                            @foreach($category->sub_categories as $subcategory)
+                                                                <li data-dismiss="modal" onclick="addMobileSubCategoryToForm('{{ $subcategory->name }}', '{{ $subcategory->slug }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif">{{ $subcategory->name }}</li>
+                                                            @endforeach
+                                                        @elseif($category->sub_categories->isEmpty())
+                                                            <p>No Sub Category</p>
+                                                        @endif
+                                                    </ul>
                                                 </div>
-                                            </div>
+                                            </li>
                                         @endif
                                     @endforeach
                                 </ul>
@@ -546,32 +589,24 @@
                                 <ul class="categoriesModalList">
                                     @foreach ($categories as $category)
                                         @if ($loop->index > 12 && $loop->index <= 24)
-                                            <li>
-                                                <a data-dismiss="modal" onclick="addMobileCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
-                                                </a>
-                                                <a href="#">- or Select City</a>
-                                            </li>
+                                            <li class="popover__wrapper">
+                                                <a data-dismiss="modal" onclick="addMobileCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}</a>
+                                                <a class="selectSubOption" onclick="launchPopoverSubCategory({{ $category->id }})" href="#">- or Subcategory</a>
 
-                                            <div id="showSubMobileCategoriesModal{{ $category->id }}" class="modal fade" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <!-- Modal content-->
-                                                    <div class="modal-content" style="border: 0; box-shadow: 0 0 5px rgba(0, 0, 0, 0.308)">
-                                                        <div data-dismiss="modal" style="width: 100%; display: flex; justify-content: flex-end; padding: 5px 10px; color: rgb(235, 94, 94); cursor: pointer;"> <i style="padding-top: 2px;" class="fa fa-close"></i> Close</div>
+                                                <div id="categoryId{{ $category->id }}" class="popover__close popover__mobile__content">
+                                                    <ul>
+                                                        <li><div onclick="closePopoverSub()" style="width: 100%; display: flex; justify-content: flex-end; color: rgb(235, 94, 94); cursor: pointer;"> <i style="padding-top: 5px; padding-right: 5px" class="fa fa-close"></i> Close</div></li>
 
-                                                        <div class="modal-body">
-                                                            <ul class="categoriesModalList">
-                                                                @if ($category->sub_categories)
-                                                                    @foreach ($category->sub_categories as $subcategory)
-                                                                        <li data-dismiss="modal" onclick="addMobileSubCategoryToForm('{{ $subcategory->name }}', '{{ $subcategory->slug }}')">{{ $subcategory->name }}</li>
-                                                                    @endforeach
-                                                                @else
-                                                                    <p>No Sub Category Here</p>
-                                                                @endif
-                                                            </ul>
-                                                        </div>
-                                                    </div>
+                                                        @if(isset($category->sub_categories))
+                                                            @foreach($category->sub_categories as $subcategory)
+                                                                <li data-dismiss="modal" onclick="addMobileSubCategoryToForm('{{ $subcategory->name }}', '{{ $subcategory->slug }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif">{{ $subcategory->name }}</li>
+                                                            @endforeach
+                                                        @elseif($category->sub_categories->isEmpty())
+                                                            <p>No Sub Category</p>
+                                                        @endif
+                                                    </ul>
                                                 </div>
-                                            </div>
+                                            </li>
                                         @endif
                                     @endforeach
                                 </ul>
@@ -580,32 +615,24 @@
                                 <ul class="categoriesModalList">
                                     @foreach ($categories as $category)
                                         @if ($loop->index > 24)
-                                            <li>
-                                                <a data-dismiss="modal" onclick="addMobileCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
-                                                </a>
-                                                <a href="#">- or Select City</a>
-                                            </li>
+                                            <li class="popover__wrapper">
+                                                <a data-dismiss="modal" onclick="addMobileCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}</a>
+                                                <a class="selectSubOption" onclick="launchPopoverSubCategory({{ $category->id }})" href="#">- or Subcategory</a>
 
-                                            <div id="showSubMobileCategoriesModal{{ $category->id }}" class="modal fade" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <!-- Modal content-->
-                                                    <div class="modal-content" style="border: 0; box-shadow: 0 0 5px rgba(0, 0, 0, 0.308)">
-                                                        <div data-dismiss="modal" style="width: 100%; display: flex; justify-content: flex-end; padding: 5px 10px; color: rgb(235, 94, 94); cursor: pointer;"> <i style="padding-top: 2px;" class="fa fa-close"></i> Close</div>
+                                                <div id="categoryId{{ $category->id }}" class="popover__close popover__mobile__content">
+                                                    <ul>
+                                                        <li><div onclick="closePopoverSub()" style="width: 100%; display: flex; justify-content: flex-end; color: rgb(235, 94, 94); cursor: pointer;"> <i style="padding-top: 5px; padding-right: 5px" class="fa fa-close"></i> Close</div></li>
 
-                                                        <div class="modal-body">
-                                                            <ul class="categoriesModalList">
-                                                                @if ($category->sub_categories)
-                                                                    @foreach ($category->sub_categories as $subcategory)
-                                                                        <li data-dismiss="modal" onclick="addMobileSubCategoryToForm('{{ $subcategory->name }}', '{{ $subcategory->slug }}')">{{ $subcategory->name }}</li>
-                                                                    @endforeach
-                                                                @else
-                                                                    <p>No Sub Category Here</p>
-                                                                @endif
-                                                            </ul>
-                                                        </div>
-                                                    </div>
+                                                        @if(isset($category->sub_categories))
+                                                            @foreach($category->sub_categories as $subcategory)
+                                                                <li data-dismiss="modal" onclick="addMobileSubCategoryToForm('{{ $subcategory->name }}', '{{ $subcategory->slug }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif">{{ $subcategory->name }}</li>
+                                                            @endforeach
+                                                        @elseif($category->sub_categories->isEmpty())
+                                                            <p>No Sub Category</p>
+                                                        @endif
+                                                    </ul>
                                                 </div>
-                                            </div>
+                                            </li>
                                         @endif
                                     @endforeach
                                 </ul>
@@ -624,6 +651,8 @@
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
             <div class="modal-content">
+                <div data-dismiss="modal" style="width: 100%; display: flex; justify-content: flex-end; padding: 5px 10px; color: rgb(235, 94, 94); cursor: pointer;"> <i style="padding-top: 2px;" class="fa fa-close"></i> Close</div>
+
                 <div class="modal-body">
                     @if (isset($allgeneralstates))
                         <h4 class="searchFilterModalTitle">All States</h4>
@@ -633,14 +662,20 @@
                                 <ul class="categoriesModalList">
                                     @foreach ($allgeneralstates as $allgeneralstate)
                                         @if ($loop->index <= 12)
-                                            <li data-dismiss="modal" class="popover__wrapper">
-                                                <a onclick="addStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}</a>
-                                                <div class="popover__content">
+                                            <li class="popover__wrapper">
+                                                <a data-dismiss="modal" onclick="addMobileStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}</a>
+                                                <a class="selectSubOption" onclick="launchPopoverState({{ $allgeneralstate->id }})" href="#">- or Select a City</a>
+
+                                                <div id="stateId{{ $allgeneralstate->id }}" class="popover__close popover__mobile__content">
                                                     <ul>
+                                                        <li><div onclick="closePopoverSub()" style="width: 100%; display: flex; justify-content: flex-end; color: rgb(235, 94, 94); cursor: pointer;"> <i style="padding-top: 5px; padding-right: 5px" class="fa fa-close"></i> Close</div></li>
+
                                                         @if(isset($allgeneralstate->local_governments))
                                                             @foreach($allgeneralstate->local_governments as $local_government)
-                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                                <li data-dismiss="modal" onclick="addMobileLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" href="#">{{ $local_government->name }}</a></li>
                                                             @endforeach
+                                                        @else
+                                                            <p>No city</p>
                                                         @endif
                                                     </ul>
                                                 </div>
@@ -653,14 +688,20 @@
                                 <ul class="categoriesModalList">
                                     @foreach ($allgeneralstates as $allgeneralstate)
                                         @if ($loop->index > 12 && $loop->index <= 24)
-                                            <li data-dismiss="modal" class="popover__wrapper">
-                                                <a onclick="addStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}</a>
-                                                <div class="popover__content">
+                                            <li class="popover__wrapper">
+                                                <a data-dismiss="modal" onclick="addMobileStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}</a>
+                                                <a class="selectSubOption" onclick="launchPopoverState({{ $allgeneralstate->id }})" href="#">- or Select a City</a>
+
+                                                <div id="stateId{{ $allgeneralstate->id }}" class="popover__close popover__mobile__content">
                                                     <ul>
+                                                        <li><div onclick="closePopoverSub()" style="width: 100%; display: flex; justify-content: flex-end; color: rgb(235, 94, 94); cursor: pointer;"> <i style="padding-top: 5px; padding-right: 5px" class="fa fa-close"></i> Close</div></li>
+
                                                         @if(isset($allgeneralstate->local_governments))
                                                             @foreach($allgeneralstate->local_governments as $local_government)
-                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                                <li data-dismiss="modal" onclick="addMobileLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" href="#">{{ $local_government->name }}</a></li>
                                                             @endforeach
+                                                        @else
+                                                            <p>No city</p>
                                                         @endif
                                                     </ul>
                                                 </div>
@@ -673,14 +714,20 @@
                                 <ul class="categoriesModalList">
                                     @foreach ($allgeneralstates as $allgeneralstate)
                                         @if ($loop->index > 24)
-                                            <li data-dismiss="modal" class="popover__wrapper">
-                                                <a onclick="addStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}</a>
-                                                <div class="popover__content">
+                                            <li class="popover__wrapper">
+                                                <a data-dismiss="modal" onclick="addMobileStateToForm('{{ $allgeneralstate->name }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $allgeneralstate->name }}</a>
+                                                <a class="selectSubOption" onclick="launchPopoverState({{ $allgeneralstate->id }})" href="#">- or Select a City</a>
+
+                                                <div id="stateId{{ $allgeneralstate->id }}" class="popover__close popover__mobile__content">
                                                     <ul>
+                                                        <li><div onclick="closePopoverSub()" style="width: 100%; display: flex; justify-content: flex-end; color: rgb(235, 94, 94); cursor: pointer;"> <i style="padding-top: 5px; padding-right: 5px" class="fa fa-close"></i> Close</div></li>
+
                                                         @if(isset($allgeneralstate->local_governments))
                                                             @foreach($allgeneralstate->local_governments as $local_government)
-                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                                <li data-dismiss="modal" onclick="addMobileLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" href="#">{{ $local_government->name }}</a></li>
                                                             @endforeach
+                                                        @else
+                                                            <p>No city</p>
                                                         @endif
                                                     </ul>
                                                 </div>
@@ -753,6 +800,16 @@
 
     });
 
+    function launchPopoverState(stateId) {
+        $('#stateId'+stateId).toggleClass('popover__content')
+    }
+    function launchPopoverSubCategory(categoryId) {
+        $('#categoryId'+categoryId).toggleClass('popover__content')
+    }
+    function closePopoverSub() {
+        $('.popover__close').removeClass('popover__content')
+    }
+
     /**
         $(document).ready(function(){
             $('#jxservices').keyup(function(){
@@ -784,25 +841,27 @@
         });
     **/
 
-    function addStateToForm(thestate) {
-        document.getElementById('searchStateBtn').innerHTML = '<span class="buttontext">' + thestate + '</span>'
-        document.getElementById('searchStateInput').value = thestate
-    }
-    function addLGAToForm(thelga, thestate) {
-        document.getElementById('searchStateBtn').innerHTML = '<span class="buttontext">' + thelga + '</span>'
-        document.getElementById('searchLGAInput').value = thelga
-        document.getElementById('searchStateInput').value = thestate
-    }
-    function addCategoryToForm(thecategoryname,thecategoryslug) {
-        document.getElementById('searchCategoryBtn').innerHTML = '<span class="buttontext">' + thecategoryname + '</span>'
-        document.getElementById('searchCategoryInput').value = thecategoryslug
-        document.getElementById('searchSubCategoryInput').value = ''
-    }
-    function addSubCategoryToForm(thesubcategoryname,thesubcategoryslug,thecategoryslug) {
-        document.getElementById('searchMobileCategoryBtn').innerHTML = '<span class="buttontext">' + thesubcategoryname + '</span>'
-        document.getElementById('searchCategoryInput').value = thecategoryslug
-        document.getElementById('searchMobileSubCategoryInput').value = thesubcategoryslug
-    }
+    // Desktop Add Input
+        function addStateToForm(thestate) {
+            document.getElementById('searchStateBtn').innerHTML = '<span class="buttontext">' + thestate + '</span>'
+            document.getElementById('searchStateInput').value = thestate
+        }
+        function addLGAToForm(thelga, thestate) {
+            document.getElementById('searchStateBtn').innerHTML = '<span class="buttontext">' + thelga + '</span>'
+            document.getElementById('searchLGAInput').value = thelga
+            document.getElementById('searchStateInput').value = thestate
+        }
+        function addCategoryToForm(thecategoryname,thecategoryslug) {
+            document.getElementById('searchCategoryBtn').innerHTML = '<span class="buttontext">' + thecategoryname + '</span>'
+            document.getElementById('searchCategoryInput').value = thecategoryslug
+            document.getElementById('searchSubCategoryInput').value = ''
+        }
+        function addSubCategoryToForm(thesubcategoryname,thesubcategoryslug,thecategoryslug) {
+            document.getElementById('searchMobileCategoryBtn').innerHTML = '<span class="buttontext">' + thesubcategoryname + '</span>'
+            document.getElementById('searchCategoryInput').value = thecategoryslug
+            document.getElementById('searchMobileSubCategoryInput').value = thesubcategoryslug
+        }
+    //
 
     // Mobile Functions
     function addMobileLGAToForm(thelga, thestate) {
