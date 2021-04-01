@@ -1,8 +1,9 @@
 
+
 @extends('layouts.admin')
 
 @section('title')
-All Seller | 
+All Data Entry Officers | 
 @endsection
 
 @section('content')
@@ -24,43 +25,39 @@ All Seller |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Seller Table</h3>
+						<h3 class="box-title"> Data Entry Officers Table</h3>
 					</div>
 
 					<!-- /.box-header -->
-					<div class="box-body">
+					<div class="box-body table-responsive">
 						<table class="display table table-bordered data_table_main">
 							<thead>
 								<tr>
 									<th> # </th>
 									<th> Name </th>
 									<th> Email </th>
-									<th> role </th>
-									<th> Applied for Approval?</th>
 									<th> Date </th>
-									<th> Activate/Deactivate</th>
+									<th> Status</th>
+									<th> Activate/Deactivate</th>									
 								</tr>	
-
-									@foreach($seller as $key => $sellers)
-
-									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-									<td> {{ $sellers->name }} </td>
-									<td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
-									<td> {{ $sellers->role }} </td>
-									<td> {{ $sellers->created_at->diffForHumans() }} </span></td>
-									<td>
-										@if($sellers->status == 1)
-										<span><p id="active_text">Activated</p></span>
-										@elseif($sellers->status == 0)
-										<span id="active_text2">Deactivated</span>
-										@endif 
-									</td>
+</thead>
+								<tbody>
+								@foreach($admins as $key => $admin)
+								<tr>
+									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
+									<td> {{ $admin->name }} </td>
+									<td><span class="text-muted"> </i> {{ $admin->email }} </span> </td>
+									<td> {{ $admin->created_at->diffForHumans() }} </span></td>
+									<td>@if($admin->status == 1)<span id="active_text" class="">Activated</span>@elseif($admin->status == 0)<span id="active_text" class="">Deactivated</span>@endif </td>
 					
 									<td>
-										<button id="" class="activate-submit btn-success" onclick="activateUser({{$sellers->id}})" type="button" class="btn btn-success">
-											@if($sellers->status == 0)<span id="activate1">Activate User</span>@elseif($sellers->status == 1)<span id="activate2">Deactivate</span>
-										@endif</button> 
+										<button id="" class="activate-submit btn-success" onclick="activateUser({{$admin->id}})" type="button" class="btn btn-success">
+											@if($admin->status == 0)<span id="activate">Activate User</span>@elseif($admin->status == 1)<span id="activate">Deactivate</span>
+										@endif</button>
 									</td>
+										
+										
+									{{-- {{ $general_info->register_section_1_title ? $general_info->register_section_1_title : '' }} --}}
 
 							</tr>
 
@@ -71,6 +68,7 @@ All Seller |
 
 
 					</table>
+    {{-- {{ $admins->links() }} --}}
 
 
 				</div>
@@ -87,9 +85,26 @@ All Seller |
 
 </div>
 </section>
+</div>
 
 
 
+{{-- 
+<script type="text/javascript">
+	$(document).ready( function () {
+	    $('#data_table1').DataTable({
+			dom: 'Bfrtip',
+			buttons: [
+				'copy', 'csv', 'excel', 'pdf', 'print'
+			],
+		  "language": {
+    "paginate": {
+      "previous": "Previous page"
+    }
+  }
+		});
+	});
+</script> --}}
 
 <script>
         function activateUser22(id) {
@@ -137,24 +152,21 @@ $.ajax({
             url: '/activate_user/' + id,
             method: 'get',
             success: function(results){
-            	// alert(results);
+            	alert(results);
             	console.log(results);
-            	if (results.success == true)  {
+            	if (results.success === true)  {
 swal("Done!", results.message, "success");
-document.getElementById("activate1").innerHTML = results.message;
-document.getElementById("activate2").innerHTML = results.status_message;
+document.getElementById("activate").innerHTML = results.message;
+document.getElementById("active_text").innerHTML = results.status_message;
 if (results.message === 'Activate') {
 	document.getElementById("active_text").style.color='#dc3545';
 
 } else {
-		document.getElementById("active_text2").style.color='blue';
+		document.getElementById("active_text").style.color='blue';
 
 }
 
-
 window.location.assign(window.location.href);
-
-
 } else {
 swal("Error!", results.message, "error");
 }

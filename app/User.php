@@ -77,4 +77,28 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         return $this->hasMany('App\PaymentRequest');
     }
+
+    public function likes(){
+        return $this->hasMany('\App\Like'); //Product Model Name
+    }
+
+     public function provider_subscriptions(){
+        return $this->hasMany('\App\ProviderSubscription'); //ProviderSubscription Model Name
+    }
+
+
+    /**
+     * Get all of the post's comments.
+     */
+    public function referals()
+    {
+        return $this->morphMany(Referal::class, 'referalable');
+    }
+
+      public function referal()
+    {
+        return $this->belongsTo('App\Referal');
+    }
+
+    
 }

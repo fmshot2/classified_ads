@@ -3,7 +3,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Add Accountant | 
+Add Data Entry Officer | 
 @endsection
 
 @section('content')
@@ -23,7 +23,7 @@ Add Accountant |
 
 <div class="box">
               <div class="box-header">
-                <h3 class="box-title">Add Accountant</h3>
+                <h3 class="box-title">Add Data Entry Officer</h3>
                 <!-- tools box -->
                 <div class="pull-right box-tools">
                   <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
@@ -40,14 +40,14 @@ Add Accountant |
                             <div class="row mg-b-25">
                                 <div class="col-md-6 col-sm-12">
 
-
-                                    <form class="form-horizontal form-element" method="POST" action="{{Auth::user()->role == 'admin' ? route('submit_accountant') : route('superadmin.submit_accountant')}} " enctype="multipart/form-data">
+                                    {{-- @if(Auth::user()->role == 'admin') --}}
+                                    <form class="form-horizontal form-element" method="POST" action="{{Auth::user()->role == 'admin' ? route('admin.submit.data') : route('superadmin.submit.data')}} " enctype="multipart/form-data">
                                         {{ csrf_field() }}
 
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label for="site_name" class="control-label">Name</label>
-                                                <input type="text" name="name" id="site_name" class="form-control" autofocus="" placeholder="Name of Accountant" value="{{ old('name') }}">
+                                                <input type="text" name="name" id="site_name" class="form-control" autofocus="" placeholder="Name of Data Entry Officer" value="{{ old('name') }}">
                                             </div>
                                             @if ($errors->has('name'))
 				                            <span class="helper-text" data-error="wrong" data-success="right">
@@ -59,7 +59,7 @@ Add Accountant |
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label for="site_name" class="control-label">Email</label>
-                                                <input type="text" name="email" id="site_name" class="form-control" autofocus="" placeholder="Email Address of Accountant" value="{{ old('email') }}">
+                                                <input type="text" name="email" id="site_name" class="form-control" autofocus="" placeholder="Email Address of Data Entry Officer" value="{{ old('email') }}">
                                                 
                                             </div>
                                             @if ($errors->has('email'))
@@ -80,20 +80,10 @@ Add Accountant |
 				                            </span>
 				                            @endif
                                         </div>
-                                        
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <label for="" style="float: left; margin-top: -15px; margin-bottom: 20px; margin-left: 20px; font-size: 14px">
-                                                	</label>
-					                                <input type="checkbox" onclick="showPassword()" style="float: left;">Show Password
-					                            
-                                            </div>
-                                        </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-warning btn-sm"> Add Accontant </button>
+                                            <button type="submit" class="btn btn-warning btn-sm"> Add Data Entry Officer </button>
                                         </div>
-                                        
                                     </div>
 
                                 </form>

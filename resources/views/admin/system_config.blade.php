@@ -37,7 +37,7 @@
                             <div class="row mg-b-25">
                                 <div class="col-md-6 col-sm-12">
 
-
+                                    
                                     <form class="form-horizontal form-element" method="POST" action="{{route('system.config.store', $check_general_info == 0 ? $general_info->id : 0 )}} " enctype="multipart/form-data">
                                         {{ csrf_field() }}
 

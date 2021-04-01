@@ -718,13 +718,19 @@ class AuthController extends Controller
                     'message' => 'You are successfully logged in!',
                     'alert-type' => 'success'
                 );
-                return redirect()->route('admin.dashboard')->with($success_notification);
+                return redirect()->route('superadmin.dashboard')->with($success_notification);
             } else if (Auth::user()->role == 'cmo') {
                 $success_notification = array(
                     'message' => 'You are successfully logged in!',
                     'alert-type' => 'success'
                 );
-                return redirect()->route('admin.dashboard')->with($success_notification);
+                return redirect()->route('cmo.dashboard')->with($success_notification);
+            }  else if (Auth::user()->role == 'data') {
+                $success_notification = array(
+                    'message' => 'You are successfully logged in!',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('data.dashboard')->with($success_notification);
             } else if (Auth::user()->role == 'accountant') {
                 $success_notification = array(
                     'message' => 'You are successfully logged in!',

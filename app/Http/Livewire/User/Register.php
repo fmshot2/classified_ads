@@ -51,8 +51,8 @@ class Register extends Component
             'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password'              => ['required', 'string', 'min:6', 'confirmed'],
             'role'                  => ['required', Rule::in(['seller', 'buyer'])],
-            'agent_code'            => ['nullable'],
-            'terms'                 => ['required'],
+            'agent_code'            => ['nullable', 'exists:agents,agent_code'],
+            'terms'                 => ['accepted'],
         ]);
 
         $data = [
@@ -151,6 +151,8 @@ class Register extends Component
         $link->refererlink = $present_user->refererLink;
         $link->save();
 
+        
+
 
             // $subscription              = new Subscription();
             // $subscription->user_id     = $present_user->id;
@@ -170,6 +172,8 @@ class Register extends Component
             if ($referer) {
                 $referer->refererAmount = $referer->refererAmount + 200;
                 $referer->save();
+
+                $referer->referals()->create(['user_id' => Auth::id()]);
             }
         }
 
@@ -179,6 +183,8 @@ class Register extends Component
             if ($referer2) {
                 $referer2->refererAmount = $referer2->refererAmount + 100;
                 $referer2->save();
+
+                $referer2->referals()->create(['user_id' => Auth::id()]);
             }
         }
 
