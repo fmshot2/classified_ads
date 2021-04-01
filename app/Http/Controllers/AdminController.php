@@ -724,17 +724,20 @@ public function save_faq(Request $request)
 
       public function subscribe(Request $request)
       {
-       $this->validate($request,[
-        'email' => ['required'],
-      ]);
+            $this->validate($request,[
+                'email' => ['required'],
+            ]);
 
 
-       $subscription = new Subscription();
+            $subscription = new Subscription();
 
-       $subscription->email = $request->email;
-       $subscription->save();
+            $subscription->email = $request->get('email');
+            $subscription->save();
 
-       return back()->with('success', 'Your email was sent successfully');
+            return back()->with([
+                'message'    => 'You are successfully subscribed to our mailing list!',
+                'alert-type' => 'success'
+            ]);
      }
 
 

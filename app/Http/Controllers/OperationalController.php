@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Advert;
 use App\Advertisement;
 use App\AdvertLocation;
+use App\Agent;
 use App\Category;
 use App\General_Info;
 use App\Image as ModelImage;
@@ -922,6 +923,7 @@ class OperationalController extends Controller
     //     $subcategory = $categories->sub_categories;
     //     return $subcategory;
     // }
+
 
 
 }
