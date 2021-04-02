@@ -336,6 +336,9 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::post('seeking-work/create', 'OperationalController@seekingWorkCreate')->name('provider.seeking.work.create');
         // Route::get('payment-history', 'SellerController@PaymentHistory')->name('seller.payment.history');
 
+
+        Route::post('badge_paid_for/', 'OperationalController@paidForBadge')->name('provider.paid.for.badge');
+
     });
 
 
