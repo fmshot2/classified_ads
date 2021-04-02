@@ -49,10 +49,11 @@ All unpaid Referals |
 									<th> Amount Requested </th>
 									<th> Total Remaining Balance </th>
 									<th> Bank </th>
+									<th>Account Name</th>
 									<th> Account Number </th>
 									<th> Payment Status </th>
 									<th>Date of Request</th>
-									<th>Due Date</th>	
+									{{-- <th>Due Date</th>	 --}}
 									<th> Action </th>									
 								</tr>	
 							</thead>
@@ -61,12 +62,22 @@ All unpaid Referals |
 								<tr>
 									<td>{{ ++$key }}</td>
 									<td style="display: none;" id="userID">{{ $unpaid_payment->id }}</td>
-									<td> {{ $unpaid_payment->user->name }} </td>
+									@if($unpaid_payment->getOwner())
+										<td> {{ $unpaid_payment->getOwner()->name }} </td>
+									@endif
 									<td>{{ $unpaid_payment->user_type }}</td>
 									<td>₦<span class="text-muted">{{ number_format($unpaid_payment->amount_requested) }} </span> </td>
-									<td> ₦{{ number_format($unpaid_payment->user->refererAmount) }} </td>
-									<td> {{ $unpaid_payment->user->bank_name }} </span></td>
-									<td> <span class="text text-success">{{ $unpaid_payment->user->account_number }}</span> </span></td>
+									@if($unpaid_payment->getOwner())
+										<td> ₦{{ number_format($unpaid_payment->getOwner()->refererAmount) }} </td>
+										<td> {{ $unpaid_payment->getOwner()->bank_name }} </span></td>
+										<td> <span class="text text-success">{{ $unpaid_payment->getOwner()->account_name }}</span> </span></td>
+										<td> <span class="text text-success">{{ $unpaid_payment->getOwner()->account_number }}</span> </span></td>
+									@endif
+									{{-- @if($unpaid_payment->getOwner())
+										<td> {{ $unpaid_payment->user->bank_name }} </span></td>
+									@endif
+									
+									<td> <span class="text text-success">{{ $unpaid_payment->user->account_number }}</span> </span></td> --}}
 									@if($unpaid_payment->is_paid == 0)
 
 										<td> <span class="text text-danger">Pending</span></td>
@@ -74,7 +85,7 @@ All unpaid Referals |
 										<td> <span class="text text-danger">Paid</span></td>
 									@endif
 									<td>{{ date('d-m-Y', strtotime($unpaid_payment->created_at)) }}</td>
-									@php
+									{{-- @php
 										$today = new \Carbon\Carbon;
 										if($today->dayOfWeek == \Carbon\Carbon::FRIDAY){
 											echo "<td> <span class='text text-warning'>Due</span></td>";
@@ -82,7 +93,7 @@ All unpaid Referals |
 											echo "<td> <span class='text text-danger'>Not Due</span></td>";
 										}
 										
-									@endphp
+									@endphp --}}
 									{{-- <td> <span class="text text-danger">Paid</span></td> --}}
 									<td><button class="btn btn-success" onclick="makepayment()">Pay</button> </td>
 								</tr>

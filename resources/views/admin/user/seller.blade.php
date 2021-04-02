@@ -29,7 +29,7 @@ All Seller |
 
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table class="display table table-bordered data_table_main2">
+						<table class="display table table-bordered data_table_main">
 							<thead>
 								<tr>
 									<th> # </th>

@@ -23,7 +23,7 @@
 
                     <div class="box" >
                         <div class="box-header">
-                            <h3 class="box-title"> Favourite Services </h3>
+                            <h3 class="box-title"> My Refferals </h3>
                             <h6 class="box-subtitle"> Sorting is from the most recent. </h6>
                         </div>
 
@@ -34,18 +34,18 @@
                                     <thead>
                                         <tr>
                                             <th> # </th>
-                                            <th> Full Name </th>
-                                            <th> Date </th>
+                                            <th> Referee Name </th>
+                                            <th> Date Created </th>
                                             <th> Action </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @if ($all_notification)
-                                            @foreach($all_notification as $key => $all_notifications)
+                                         @if ($myreferrals)
+                                            @foreach($myreferrals as $key => $myreferral)
                                                 <tr>
                                                     <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                                                    <td> {{ Str::limit( $all_notifications->description, 100) }} </td>
-                                                    <td> {{ $all_notifications->created_at->diffForHumans() }} </td>
+                                                    <td> {{ $myreferral->user->name }} </td>
+                                                    <td> {{ $myreferral->created_at->diffForHumans() }} </td>
                                                     <td>
                                                         <div class="btn-group">
                                                             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -55,7 +55,6 @@
                                                             <ul class="dropdown-menu" role="menu">
                                                                 <!-- View -->
                                                                 <li>
-                                                                    <a href=" {{ route('seller.notification.view',$all_notifications->slug) }}" class="btn btn-block" style="margin-left: 8px;"> View </a>
                                                                 </li>
                                                             </ul>
 
@@ -65,7 +64,7 @@
 
                                                 </tr>
                                             @endforeach
-                                        @endif --}}
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>

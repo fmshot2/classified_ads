@@ -8,6 +8,7 @@ use App\Payment;
 use App\Badge;
 use App\AdvertPayment;
 use App\PaymentRequest;
+use App\Agent;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -57,6 +58,38 @@ class AccountantController extends Controller
     	return view('admin.user.add_accountant');
     }
 
+    public function viewDuePayments()
+    {
+        $dues = DB::table('users')->where('refererAmount', '>=', 1000)->get();
+        return view('accountant.payments.due_payments', [
+            'dues' => $dues
+        ]);
+    }
+
+    public function agentDuePayments()
+    {
+        $dues = DB::table('agents')->where('refererAmount', '>=', 1000)->get();
+        return view('accountant.payments.agent_due_payments', [
+            'dues' => $dues
+        ]);
+    }
+
+    public function settledPayments()
+    {
+        $settled = DB::table('users')->where('refererAmount', '>=', 1000)->get();
+        return view('accountant.payments.settled_payments', [
+            'settled' => $settled
+        ]);
+    }
+
+    public function agentSettledPayments()
+    {
+        $settled = DB::table('agents')->where('refererAmount', '>=', 1000)->where('is_paid', '=', 1)->get();
+        return view('accountant.payments.agent_settled_payments', [
+            'settled' => $settled
+        ]);
+    }
+
     public function allPayments()
     {
     	$all_payments = PaymentRequest::where('user_type',  'agent')->get();
@@ -75,7 +108,9 @@ class AccountantController extends Controller
 
     public function pendingPayments()
     {
-    	$pending_payments = DB::table('payment_requests')->where(['user_type' => 'agent', 'is_paid' => 0])->get();
+    	// $pending_payments = DB::table('payment_requests')->where(['user_type' => 'agent', 'is_paid' => 0])->get();
+        $pending_payments = PaymentRequest::where(['user_type' => 'agent', 'is_paid' => 0])->get();
+        // dd($pending_payments);
     	return view('accountant.payments.unpaid_payments', [
     		'pending_payments' => $pending_payments
     	]);
@@ -209,6 +244,149 @@ class AccountantController extends Controller
 
             ]);
         }
+    }
+
+    public function makePayment1(Request $request, $id)
+    {
+        $success = true;
+        $message = "Payment is pending";
+        $status_message = "pending";
+
+        $payment = User::where('id' , $id)->first();
+        if ($payment->is_paid == 1) {
+            $payment->is_paid = 0;
+            $payment->update();
+
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+                'status_message' => $status_message,
+            ]);
+       
+        }
+        if ($payment->is_paid == 0) {
+              $message = "Payment successful";
+              $status_message = "Paid";
+
+            $payment->is_paid = 1;
+            $payment->update();
+
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+                'status_message' => $status_message,
+
+            ]);
+        }
+    }
+
+    public function makePayment2(Request $request, $id)
+    {
+        $success = true;
+        $message = "Payment is pending";
+        $status_message = "pending";
+
+        $payment = Agent::where('id' , $id)->first();
+        // if ($payment->is_paid == 1) {
+
+        //     $total = $payment->refererAmount;
+        //     $payment->refererAmount = 0;
+        //     $payment->total_paid += $total;
+        //     $payment->is_paid = 0;
+        //     $payment->update();
+
+        //     return response()->json([
+        //         'success' => $success,
+        //         'message' => $message,
+        //         'status_message' => $status_message,
+        //     ]);
+       
+        // }
+        if ($payment->is_paid == 0) {
+              $message = "Payment successful";
+              $status_message = "Paid";
+
+
+            $total = $payment->refererAmount;
+            $payment->is_paid = 1;
+            $payment->refererAmount = 0;
+            $payment->total_paid += $total;
+            $payment->update();
+
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+                'status_message' => $status_message,
+
+            ]);
+        }
+    }
+
+    public function generatePayment()
+    {
+        // $agents = DB::table('agents')->where('refererAmount', '>=', 1000)->get();
+        $agents = Agent::where('refererAmount', '>=', 1000)->get();
+        foreach ($agents as $agent) {
+
+            $payment_request = new PaymentRequest;
+            $payment_request->user_id = $agent->id;
+            $payment_request->user_type = 'agent';
+            $payment_request->amount_requested = $agent->refererAmount;
+            $payment_request->is_paid = 0;
+
+            $payment_request->save();
+
+            $total = $agent->refererAmount;
+
+            $agent->refererAmount = 0;
+            $agent->total_paid += $total;
+
+            $agent->save();
+        }
+
+        $success = true;
+        $message = "Request successful";
+        $status_message = "Requested";
+
+        return response()->json([
+            'success' => $success,
+            'message' => $message,
+            'status_message' => $status_message,
+
+        ]);
+    }
+
+    public function generateSellerPayment()
+    {
+        $sellers = User::where('refererAmount', '>=', 1000)->get();
+        foreach ($sellers as $seller) {
+
+            $payment_request = new PaymentRequest;
+            $payment_request->user_id = $seller->id;
+            $payment_request->user_type = 'seller';
+            $payment_request->amount_requested = $seller->refererAmount;
+            $payment_request->is_paid = 0;
+
+            $payment_request->save();
+
+            $total = $seller->refererAmount;
+
+            $seller->refererAmount = 0;
+            $seller->total_paid += $total;
+
+            $seller->save();
+        }
+
+        $success = true;
+        $message = "Request successful";
+        $status_message = "Requested";
+
+        return response()->json([
+            'success' => $success,
+            'message' => $message,
+            'status_message' => $status_message,
+
+        ]);
     }
 
     public function viewPayment($id)

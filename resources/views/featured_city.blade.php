@@ -123,6 +123,16 @@
         to {opacity: 1}
     }
 
+    .alert {
+        text-transform: uppercase;
+        font-size: 17px;
+        text-align: center;
+    }
+    .alert-success{
+        background-color: #03A84E !important;
+        color: #fff;
+    }
+
     @media (max-width: 768px){
         .touristImage{
             height: 80px !important;
@@ -181,6 +191,15 @@
                         @endforeach
                     @endif
                 </div>
+
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <div class="alert alert-success" role="alert">
+                            Take advantage of our platform to showcase your skills, products and services to customers and clients.
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 

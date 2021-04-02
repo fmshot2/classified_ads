@@ -41,7 +41,7 @@ Add Accountant |
                                 <div class="col-md-6 col-sm-12">
 
 
-                                    <form class="form-horizontal form-element" method="POST" action="{{route('submit_accountant')}} " enctype="multipart/form-data">
+                                    <form class="form-horizontal form-element" method="POST" action="{{Auth::user()->role == 'admin' ? route('submit_accountant') : route('superadmin.submit_accountant')}} " enctype="multipart/form-data">
                                         {{ csrf_field() }}
 
                                         <div class="col-lg-12">
@@ -90,7 +90,10 @@ Add Accountant |
                                             </div>
                                         </div>
                                     <div class="col-lg-12">
-                                        <button type="submit" class="btn btn-warning btn-sm"> Add Accontant </button>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-warning btn-sm"> Add Accontant </button>
+                                        </div>
+                                        
                                     </div>
 
                                 </form>

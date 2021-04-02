@@ -41,6 +41,7 @@ class Register extends Component
     public $states = [];
     public $cities = [];
 
+
     public $tab = 1;
 
 
@@ -86,7 +87,7 @@ class Register extends Component
         $this->validate([
             'bankname'           => ['required', 'string', 'max:255'],
             'accountname'        => ['required', 'string'],
-            'accountno'          => ['required', 'string'],
+            'accountno'          => ['required', 'numeric'],
             'password'           => ['required', 'string', 'max:255'],
         ]);
 
@@ -140,8 +141,17 @@ class Register extends Component
     public function save_user()
     {
 
-        $slug3 = Str::random(8);      
+        $slug3 = Str::random(8);  
 
+        $state =  State::where('id', $this->state_id)->first();
+        $result = $state->abbr;
+        $ist_3_result = strtoupper($result);
+        $randomCode = mt_rand(1000, 9999);
+        //To Get The Last Letter
+        // $length = 1;
+        // $last_letter = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $length);
+        // $code = $ist_3_result . $randomCode . $last_letter;
+        $code = $result . $randomCode;
 
         //save user
         $user = Agent::where('email', $this->agent_email)->first();
@@ -153,10 +163,18 @@ class Register extends Component
         }
 
         if ($user) {
-        $user->name     = $this->agent_name;
-        $user->email    = $this->agent_email;
-        $user->password = Hash::make($this->password);
-        $user->identification_type    = $this->identification_type;
+        $user->name                     = $this->agent_name;
+        $user->email                    = $this->agent_email;
+        $user->password                 = Hash::make($this->password);
+        $user->identification_type      = $this->identification_type;
+        $user->identification_id        = $this->identification_id;
+        $user->state                    = $this->state_id;
+        $user->lga                      = $this->city_id;
+        $user->address                  = $this->address;
+        $user->accountname              = $this->accountname;
+        $user->bankname                 = $this->bankname;
+        $user->accountno                = $this->accountno;
+        $user->agent_code               = $code;
 
 
         //send mail

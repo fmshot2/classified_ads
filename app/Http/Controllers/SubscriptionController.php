@@ -34,15 +34,16 @@ class SubscriptionController extends Controller
 
 	public function createSub()
 	{
-		$current_subscription = ProviderSubscription::where('user_id', Auth::id())->first();
+		if ($current_subscription = ProviderSubscription::where('user_id', Auth::id())->first()) {
 		$current_subscription_end_date = $current_subscription->subscription_end_date;
-		$current_subscription_end_date2 = Carbon::createFromFormat('Y-m-d H:i:s', $current_subscription_end_date)->format('d-m-Y');
+		}else{
+		$current_subscription_end_date = null;
+		}
+		// $current_subscription_end_date2 = Carbon::createFromFormat('Y-m-d H:i:s', $current_subscription_end_date)->format('d-m-Y');
 		// $current_subscription_end_date3 = $current_subscription_end_date2->diffForHumans();
 		
-		$category = Category::orderBy('name', 'asc')->get();
-		$subcategory = SubCategory::orderBy('name', 'asc')->get();
-		$states = State::all();
-		return view ('seller.subscription.create_sub', compact('category', 'states', 'subcategory', 'current_subscription_end_date') );
+		
+		return view ('seller.subscription.create_sub', compact('current_subscription_end_date') );
 	}
 
 	public function allSub()
