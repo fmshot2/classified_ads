@@ -60,19 +60,19 @@ class SubscriptionController extends Controller
 		if ($id == 1) {
 			$sub = [
 				'sub_type' => 'monthly',
-				'sub_cost' => 200
+				'sub_cost' => 20000
 			];
 		}
 		elseif ($id == 2) {
 			$sub = [
 				'sub_type' => 'bi-annual',
-				'sub_cost' => 1200
+				'sub_cost' => 120000
 			];
 		}
 		elseif ($id == 3) {
 			$sub = [
 				'sub_type' => 'yearly',
-				'sub_cost' => 2200
+				'sub_cost' => 240000
 			];
 		}
 
@@ -108,30 +108,37 @@ class SubscriptionController extends Controller
 		]);
 					// 	$user_check->badgetype = $data['badge_type'];
 		// 	$user_check->save();
-		if ($data['amount'] == '200') {
+				// return response()->json(['success3'=>$data['amount']]);
+
+		if ($data['amount'] == '20000') {
 			$added_days = 31;
 			$sub_type = 'monthly';
 		}
-		if ($data['amount'] == '1200') {
+		if ($data['amount'] == '120000') {
 			$added_days = 186;
              $sub_type = 'bi-annual';			
 		}
-		if ($data['amount'] == '2400') {
+		if ($data['amount'] == '240000') {
 			$added_days = 372;
             $sub_type = null;			
 		}
 
 		$sub_check = ProviderSubscription::where(['user_id'=>Auth::id()])->first();
 
+		$initial_end_date = $sub_check->subscription_end_date;
+
 		$sub_check->user_id = Auth::id();
 		$sub_check->sub_type = $sub_type;
 		$sub_check->user_type = 'provider';
 		$sub_check->last_amount_paid = $data['amount'];
-		$sub_check->subscription_end_date = Carbon::now()->addDays($added_days);
+		$sub_check->subscription_end_date = Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s');
+		// return response()->json(['success3'=>$sub_check->subscription_end_date]);
 		$sub_check->last_subscription_starts = $current_date_time;
 		$sub_check->save();
+		$sub_check->subscription_end_date = Carbon::parse($sub_check->subscription_end_date)->toDayDateTimeString();
+		
 
-		return response()->json(['success'=>$sub_check, 'success3'=>$current_date_time], 200);
+		return response()->json(['success'=>'Your Subscription was successfull', 'new_date'=>$sub_check->subscription_end_date], 200);
 
 	}
 	
