@@ -133,6 +133,13 @@
         color: #fff;
     }
 
+    .team-1 .team-details {
+        padding: 15px 10px;
+    }
+    .content-area {
+        padding: 30px 5px 30px;
+    }
+
     @media (max-width: 768px){
         .touristImage{
             height: 80px !important;
@@ -152,6 +159,10 @@
         .mySlidesContent{
             font-size: 15px
         }
+        .team-1 .team-details {
+            text-align: center;
+            padding: 10px 5px;
+        }
     }
 </style>
 
@@ -159,10 +170,10 @@
     <div class="container">
         <div class="page-name">
             <div class="sub-banner-text-content">
-                <h1>Tourist Sites in Nigeria</h1>
+                <h1>House of Assembly Members</h1>
                 <ul>
                     <li><a href="http://127.0.0.1:8000">Home</a></li>
-                    <li><span>/</span>Tourist Sites</li>
+                    <li><span>/</span>House of Assembly</li>
                 </ul>
             </div>
         </div>
@@ -172,35 +183,42 @@
         <div class="featured-properties content-area">
             <div class="container-fluid">
                 <div class="row">
-                    @if ($states)
-                        @foreach ($states as $key=>$state)
+                    @if ($officials)
+                        @foreach ($officials as $key=>$official)
                             <div class="col-lg-2 col-md-6 col-sm-6">
-                                <div class="team-1" style="background-color: #fff">
+                                <div data-toggle="modal" data-target="#officialModal{{ $official->id }}" class="team-1" style="background-color: #fff">
                                     <div class="team-photo">
                                         <a href="#">
-                                            <img src="img/avatar/avatar-{{ $key + 1}}.jpg" alt="agent-2" class="img-fluid">
+                                            <img src="{{ asset('uploads/governmentofficials/'.$official->image) }}" alt="agent-2" class="img-fluid">
                                         </a>
                                     </div>
                                     <div class="team-details">
-                                        <h5><a href="agent-detail.html">Martin Smith</a></h5>
-                                        <h6>Web Developer</h6>
-                                        <h5 style="font-weight: 600">{{ $state->name }}</h5>
+                                        <h5 style="font-weight: 600"><a href="#">{{ $official->name }}</a></h5>
+                                        <h6>{{ $official->position }}</h6>
+                                        <h6 style="font-size: 18px">{{ $official->state }}</h6>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div id="officialModal{{ $official->id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog modal-md">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-body" style="padding: 0">
+                                            <img src="{{ asset('uploads/governmentofficials/'.$official->image) }}" alt="agent-2" class="img-fluid" style="width: 100%">
+                                            <div style="padding: 20px">
+                                                <h4 style="font-family: Poppins-Regular">{{ $official->name }}</h4>
+                                                <h6>Region: <span>{{ $official->region }}</span></h6>
+                                                {!! $official->description !!}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     @else
-                        <h4>No States Available</h4>
+                        <h4>No Official Available</h4>
                     @endif
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 offset-md-3">
-                        <div class="alert alert-success" role="alert">
-                            Take advantage of our platform to showcase your skills, products and services to customers and clients.
-                        </div>
-                    </div>
                 </div>
 
             </div>

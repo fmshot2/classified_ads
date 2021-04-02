@@ -1,34 +1,16 @@
+
 @extends('layouts.admin')
-@section('title', 'Government Officials | ')
+@section('title', 'Cities | ')
 
 @section('content')
-    <style>
-        table th{
-            font-weight: 600 !important;
-        }
-    </style>
-    @include('layouts.backend_partials.status')
     <div class="content-wrapper" style="min-height: 868px;">
         <div class="container">
-            <div class="w-75">
-                @include('layouts.backend_partials.status')
-            </div>
-        </div>
-
-        <section class="content-header">
-            <h3 class="page-title">All Tourist Sites</h3>
-            <p class="page-description">This Page Is for creating and managing tourist sites on EFContact platform.</p>
-        </section>
-
-        <section class="content">
-            <div class="row">
-                <div class="col-md-8">
-                    @include('admin/section/cities_table')
-                </div>
-                <div class="col-md-4">
+            @include('layouts.backend_partials.status')
+            <div class="row" style="margin-top: 20px">
+                <div class="col-md-12">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Add New Site</h3>
+                            <h3 class="box-title">Add Tourist</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body" style="padding: 20px">
@@ -81,18 +63,55 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    @include('admin/section/cities_table')
+                </div>
+            </div>
+        </div>
     </div>
-
-    <script>
-
-    </script>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    <script type="text/javascript">
-        $('.summernote').summernote({
-            height: 120
-        });
-    </script>
 @endsection
 
+<script>
+
+    function editCategory(id) {
+
+        event.preventDefault();
+
+        $.ajax({
+            url: '/admin/dashboard/single/category/' + id,
+            method: 'GET',
+            success: function(result){
+                console.log(result);
+                $('#editCategoryName').val(result.name);
+                var url = '/admin/dashboard/single/category/' + id;
+                $('form#editCategoryForm').attr('action', url);
+                $('#editCategoryModal').modal('show');
+            }
+        });
+
+    }
+</script>
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script type="text/javascript">
+tinymce.init({
+  selector: 'textarea#basic-example',
+  height: 500,
+  menubar: false,
+  plugins: [
+    'advlist autolink lists link image charmap print preview anchor',
+    'searchreplace visualblocks code fullscreen',
+    'insertdatetime media table paste code help wordcount'
+  ],
+  toolbar: 'undo redo | formatselect | ' +
+  'bold italic backcolor | alignleft aligncenter ' +
+  'alignright alignjustify | bullist numlist outdent indent | ' +
+  'removeformat | help',
+  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+});
+
+
+</script>

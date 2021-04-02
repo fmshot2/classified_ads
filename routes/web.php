@@ -137,7 +137,7 @@ Route::post('delete', 'ImageController@delete');
 
 Route::post('/subscribe', 'AdminController@subscribe')->name('subscribe');
 Route::view('/tourist-sites-in-nigeria', 'featured_city')->name('allcities');
-Route::view('/house-of-assembly', 'house_assembly')->name('house.assembly');
+Route::get('/house-of-assembly', 'GovernmentOfficialController@index')->name('government.officials');
 
 Route::get('/send/email', 'ServiceController@mail');
 
@@ -461,6 +461,11 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::put('/admin/update-city/{slug}', 'TourismController@update_city')->name('admin.update.city');
     Route::put('/admin/add_city_images/{slug}', 'TourismController@add_city_images')->name('admin.add_city_images');
     Route::get('/admin/delete-city/{slug}', 'TourismController@deleteCity')->name('admin.delete.city');
+
+    // Government Officials
+    Route::get('/admin/government-officials', 'GovernmentOfficialController@officials')->name('admin.government.officials');
+    Route::post('/admin/official/create', 'GovernmentOfficialController@create_official')->name('admin.government.create');
+    Route::get('/admin/official/delete/{id}', 'GovernmentOfficialController@delete_official')->name('admin.delete.official');
 
     //add admin
     Route::get('add-admin', 'AdminController@add_admin')->name('admin.add.admin');

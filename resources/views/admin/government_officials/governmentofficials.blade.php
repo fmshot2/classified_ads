@@ -16,29 +16,35 @@
         </div>
 
         <section class="content-header">
-            <h3 class="page-title">All Tourist Sites</h3>
-            <p class="page-description">This Page Is for creating and managing tourist sites on EFContact platform.</p>
+            <h3 class="page-title">All Officials</h3>
+            <p class="page-description">This Page Is for creating and managing government officials on EFContact platform.</p>
         </section>
 
         <section class="content">
             <div class="row">
                 <div class="col-md-8">
-                    @include('admin/section/cities_table')
+                    @include('admin/government_officials/officials_table')
                 </div>
                 <div class="col-md-4">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Add New Site</h3>
+                            <h3 class="box-title">Add New Official</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body" style="padding: 20px">
                             <!-- form start -->
-                            <form class="form-horizontal form-element" method="POST" action="{{route('admin.save_city')}}" enctype="multipart/form-data">
-                                {{ csrf_field() }}
-                                     <div class="col-md-12">
+                            <form class="form-horizontal form-element" method="POST" action="{{route('admin.government.create')}}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="">Name of site: </label>
-                                        <input type="text" name="name" id="editSubCategoryName" class="form-control" required>
+                                        <label for="">Offical Name: </label>
+                                        <input type="text" name="name" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Offical Position: </label>
+                                        <input type="text" name="position" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -57,18 +63,18 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Region: </label>
-                                        <input type="text" name="region" id="editSubCategoryName" class="form-control" required>
+                                        <input type="text" name="region" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Description: </label>
-                                        <textarea name="description" id="basic-example" class="form-control"></textarea>
+                                        <textarea name="description" class="form-control summernote"></textarea>
                                     </div>
                                 </div>
                                     <div class="form-group">
-                                        <label for="file">Thumbnail:</label>
-                                        <input type="file" id="file" name="thumb" class="form-control" required>
+                                        <label for="file">Official Image:</label>
+                                        <input type="file" id="image" name="image" class="form-control" required>
                                     </div>
                                     <!-- /.box-body -->
                                     <div class="box-footer">
