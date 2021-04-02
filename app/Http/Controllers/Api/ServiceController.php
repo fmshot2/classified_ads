@@ -243,6 +243,10 @@ class ServiceController extends Controller
 
     public function search(Request $request)
     {
+        return response()->json([
+            'message' => 'Unfortunately, we did not find anything that matches these criteria.',
+        ], 200);
+
         $keyword = $request->keyword ? $request->keyword : 'Nothing!';
         $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
         $categories = Category::orderBy('name', 'asc')->get();
