@@ -50,11 +50,11 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">State: </label>
-                                        <select class="form-control" required id="state" name="state" required>
+                                        <select class="form-control" name="state" required>
                                             <option value="">-- Select State --</option>
                                             @if(isset($states))
                                                 @foreach($states as $state)
-                                                    <option id="state" value="{{$state->name}}"> {{ $state->name }}  </option>
+                                                    <option value="{{$state->name}}"> {{ $state->name }}  </option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -72,15 +72,17 @@
                                         <textarea name="description" class="form-control summernote"></textarea>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="file">Official Image:</label>
-                                        <input type="file" id="image" name="image" class="form-control" required>
+                                        <input type="file" id="image" name="image" class="form-control" accept="image/*" required>
                                     </div>
-                                    <!-- /.box-body -->
-                                    <div class="box-footer">
-                                        <button type="submit" class="btn btn-warning pull-right"> Submit </button>
-                                    </div>
-                                    <!-- /.box-footer -->
+                                </div>
+                                <!-- /.box-body -->
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-warning pull-right"> Submit </button>
+                                </div>
+                                <!-- /.box-footer -->
                             </form>
 
                         </div>

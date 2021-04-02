@@ -87,6 +87,76 @@ class GovernmentOfficialController extends Controller
         ]);
 	}
 
+    public function update_official(Request $request, $id)
+	{
+
+
+        $official = GovernmentOfficial::findOrFail($id);
+        $data = array(
+            'name'         => $request->name,
+            'position'     => $request->position,
+            'state'        => $request->state,
+            'region'       => $request->region,
+            'description'  => $request->description,
+            'image'        => $request->image,
+        );
+
+        $validator = \Validator::make($data, [
+            'name'         => 'string',
+            'position'     => 'string',
+            'state'        => 'string',
+            'region'       => 'string',
+            'description'  => 'string',
+            // 'image'        => 'mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+
+        if($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        }
+
+
+        if ( $request->hasFile('image') ) {
+            $image = $request->file('image');
+            $fileInfo = $image->getClientOriginalName();
+            $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
+            $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
+            $file_name= $filename.'-'.time().'.'.$extension;
+
+            //Fullsize
+            $image->move(public_path('uploads/governmentofficials/'),$file_name);
+
+            $image_resize = Image::make(public_path('uploads/governmentofficials/').$file_name);
+            $image_resize->resize(null, 400, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $image_resize->save(public_path('uploads/governmentofficials/' .$file_name));
+
+            $official->image = $file_name ? $file_name : $official->image;
+	    }
+
+        $official->name = $request->name;
+        $official->position = $request->position;
+        $official->state = $request->state;
+        $official->region = $request->region;
+        $official->description = $request->description;
+        $official->slug = Str::slug($request->name, '-'.time());
+
+        if($official->update())
+        {
+            return redirect()->back()->with([
+                'message' => 'Official updated successfully!',
+                'alert-type' => 'success'
+            ]);
+        }
+        return redirect()->back()->with([
+            'message' => 'Something went horribly wrong!',
+            'alert-type' => 'error'
+        ]);
+	}
+
+
     public function delete_official($id)
     {
 
