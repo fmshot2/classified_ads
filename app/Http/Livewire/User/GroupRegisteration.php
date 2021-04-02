@@ -55,6 +55,7 @@ class GroupRegisteration extends Component
 
     public function save_user()
     {
+        
         // validate form
         $this->validate([
             'name'       => ['required', 'string', 'max:255'],
@@ -62,7 +63,7 @@ class GroupRegisteration extends Component
             'password'   => ['required', 'string', 'min:6', 'confirmed'],
             'agent_code' => ['nullable'],
             'group_code' => ['required', 'exists:group_registration_codes,code'],
-            'terms'      => ['required'],
+            'terms'      => ['accepted'],
         ]);
 
         // check if the group code exists and has not been used to limit
