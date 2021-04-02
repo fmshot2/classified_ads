@@ -241,11 +241,231 @@ class ServiceController extends Controller
         }
     }
 
-    public function search($query)
+    public function search(Request $request)
     {
-        $services = Service::where('name', 'like', '%'.$query.'%')->get();
-        return new ServiceResourceCollection($services);
+        $keyword = $request->keyword ? $request->keyword : 'Nothing!';
+        $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
+        $categories = Category::orderBy('name', 'asc')->get();
+
+
+        if ($request->category == null && $request->city == null && $request->keyword == null) {
+            return response()->json([
+                'message' => 'Unfortunately, we did not find anything that matches these criteria.',
+            ], 404);
+        }
+
+
+        if ($request->category != null) {
+            $category = Category::where('slug', $request->category)->firstOrFail();
+            $categoryId = $category->id;
+            $categoryname = $category->name;
+
+            if ($request->category != null && $request->city != null && $request->keyword != null) {
+                $services = Service::query()
+                            ->where('name', 'LIKE', "%{$request->keyword}%")
+                            ->where('city', '=', "%{$request->city}%")
+                            ->where('state', '=', "%{$request->state}%")
+                            ->where('status', 1)
+                            ->with('category')
+                            ->whereHas('category', function($query) use ($categoryId)  {
+                                $query->where('id', $categoryId);
+                })->get();
+
+                if (!$services->isEmpty()) {
+                    return response()->json([
+                        $services,
+                    ], 200);
+                }
+            }
+            elseif ($request->category != null && $request->city != null) {
+                $services = Service::query()
+                            ->where('name', 'LIKE', "%{$request->keyword}%")
+                            ->where('city', '=', "%{$request->city}%")
+                            ->where('state', '=', "%{$request->state}%")
+                            ->where('status', 1)
+                            ->with('category')
+                            ->whereHas('category', function($query) use ($categoryId)  {
+                                $query->where('id', $categoryId);
+                })->get();
+
+                if (!$services->isEmpty()) {
+                    return response()->json([
+                        $services,
+                    ], 200);
+                }
+            }
+            elseif ($request->keyword == null && $request->category != null) {
+                $services = Service::query()
+                            ->where('name', 'LIKE', "%{$request->keyword}%")
+                            ->where('status', 1)
+                            ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+                            ->with('category')
+                            ->whereHas('category', function($query) use ($categoryId)  {
+                                $query->where('id', $categoryId);
+                            })
+                            ->orderBy('badge_type', 'asc')
+                            ->get();
+
+                if (!$services->isEmpty()) {
+                    return response()->json([
+                        $services,
+                    ], 200);
+                }
+            }
+            elseif ($request->city != null && $request->keyword != null) {
+                $services = Service::query()
+                            ->where('name', 'LIKE', "%{$request->keyword}%")
+                            ->where('city', '=', "%{$request->city}%")
+                            ->where('state', '=', "%{$request->state}%")
+                            ->where('status', 1)
+                            ->with('category')
+                            ->orWhereHas('category', function($query) use ($categoryId)  {
+                                $query->where('id', $categoryId);
+                            })->get();
+
+                if (!$services->isEmpty()) {
+                    return response()->json([
+                        $services,
+                    ], 200);
+                }
+            }
+            elseif ($request->category != null) {
+                $services = Service::query()
+                            ->where('name', 'LIKE', "%{$request->keyword}%")
+                            ->where('status', 1)
+                            ->orWhere('city', '=', "%{$request->city}%")
+                            ->orWhere('state', '=', "%{$request->state}%")
+                            ->with('category')
+                            ->whereHas('category', function($query) use ($categoryId)  {
+                                $query->where('id', $categoryId);
+                            })->get();
+
+                if (!$services->isEmpty()) {
+                    return response()->json([
+                        $services,
+                    ], 200);
+                }
+            }
+            else {
+                $services = Service::query()
+                            ->where('name', 'LIKE', "%{$request->keyword}%")
+                            ->where('status', 1)
+                            ->orWhere('city', '=', "%{$request->city}%")
+                            ->orWhere('state', '=', "%{$request->state}%")
+                            ->with('category')
+                            ->prwhereHas('category', function($query) use ($categoryId)  {
+                                $query->where('id', $categoryId);
+                            })->get();
+
+                if (!$services->isEmpty()) {
+                    return response()->json([
+                        $services,
+                    ], 200);
+                }
+            }
+
+        }
+
+
+
+        if ($request->city != null) {
+            if ($request->keyword != null) {
+                $services = Service::query()
+                    ->where('city', '=', "%{$request->city}%")
+                    ->where('name', 'LIKE', "%{$request->keyword}%")
+                    ->where('state', '=', "%{$request->state}%")
+                    ->where('status', 1)
+                    ->orderBy('badge_type', 'asc')
+                    ->get();
+            }
+            else {
+                $services = Service::query()
+                    ->where('city', 'like', "%{$request->city}%")
+                    ->where('status', 1)
+                    ->orwhere('state', 'like', "%{$request->state}%")
+                    ->orderBy('badge_type', 'asc')
+                    ->get();
+            }
+
+            $related_services = Service::query()
+            ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->where('status', 1)
+            ->orwhere('state', '=', "%{$request->state}%")
+            ->orwhere('city', '=', "%{$request->city}%")
+            ->get();
+
+            if (!$services->isEmpty()) {
+                return response()->json([
+                    $services,
+                    $related_services
+                ], 200);
+            }
+            else{
+                $services = Service::query()
+                ->where('name', 'LIKE', "%{$request->keyword}%")
+                ->where('status', 1)
+                ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+                ->orderBy('badge_type', 'asc')
+                ->get();
+
+                if (!$services->isEmpty()) {
+                    return response()->json([
+                        $services,
+                    ], 200);
+                }
+            }
+        }elseif ($request->state != null) {
+            $services = Service::query()
+            ->where('state', 'LIKE', "%{$request->state}%")
+            ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->where('status', 1)
+            ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+            ->orderBy('badge_type', 'asc')
+            ->get();
+
+            if (!$services->isEmpty()) {
+                return response()->json([
+                    $services,
+                ], 200);
+            }
+            else{
+                $services = Service::query()
+                ->where('name', 'LIKE', "%{$request->keyword}%")
+                ->where('status', 1)
+                ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+                ->orderBy('badge_type', 'asc')
+                ->get();
+
+                if (!$services->isEmpty()) {
+                    return response()->json([
+                        $services,
+                    ], 200);
+                }
+            }
+        }
+        elseif ($request->keyword != null){
+            $services = Service::query()
+                        ->where('name', 'LIKE', "%{$request->keyword}%")
+                        ->where('status', 1)
+                        ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+                        ->orderBy('badge_type', 'asc')
+                        ->get();
+            if (!$services->isEmpty()) {
+                return response()->json([
+                    $services,
+                ], 200);
+            }
+            else{
+                return response()->json([
+                    'message' => 'Unfortunately, we did not find anything that matches these criteria.',
+                ], 404);
+            }
+        }
+
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.
