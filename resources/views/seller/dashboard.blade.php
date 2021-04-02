@@ -458,7 +458,7 @@
 
                             </li>
                             <li>
-                                When your referral clicks your link and registers, you automatically get N200. The more the people register using your link the more your bonuses will increase.
+                                When your referral registers with EFContact or uses your agent code to register, you earn &#8358;200. The more the people register using your link the more your bonuses will increase.
                             </li>
                             <li>
                                 When your commission reaches &#8358;1000, it will be sent to you on the pay day.
