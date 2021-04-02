@@ -156,8 +156,8 @@
                                         <label for="">Amount: </label> &#8358;<span id="badgeCost"></span>
                                     </div>
                                 </div>
-                                <input hidden id="badge_type" type="text" name="badge_type" value="">
-                                <input hidden id="amount" type="text" name="amount" value="">
+                                <input hidden type="hidden" class="form-control" name="badgeCost2" id="badgeCost2">
+                              
                                 {{-- <input hidden type="hidden" class="form-control" name="email-addres3" id="email-address3" value="{{Auth::User()->email}}"> --}}
 
 
@@ -167,7 +167,7 @@
                                 </p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" onclick="payWithPaystack1()" class="btn pd-x-20"
+                                <button type="button" onclick="payWithPaystack1(badgeCost22)" class="btn pd-x-20"
                                     style="background-color: #cc8a19; color: #fff">Click to make payment</button>
                                 <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Cancel</button>
                             </div>
@@ -211,13 +211,17 @@
 
             <script>
                 function requestBadge(id) {
+                    console.log(id);
                     $.ajax({
                         url: '/requestbadge/' + id,
                         method: 'GET',
                         success: function(data) {
+                        console.log(id);
+
                             // $('#badgeType').text(data.badge_type)
                             $('#badge_type').val(id)
-                            $('#badgeCost').text(data.badge_cost)
+                           var amount2 = $('#badgeCost').text(data.badge_cost)
+                            var badgeCost22 = data.badge_cost
                             $('#amount').val(data.badge_cost)
                             // Show modal
                             $('#badgeRequestModal').modal('show')
@@ -233,20 +237,16 @@
 
                 base_Url = "{{ url('/') }}"
 
-                var _token = $("input[name='_token']").val();
+               
 
-                // var email1 = $("#email-address3").val();
-                var amount = $("#amount").val();
-                var badge_type = $("#badge_type").val();
-
-                function payWithPaystack1() {
+                function payWithPaystack1(amt) {
                     $('#badgeRequestModal').modal('hide');
                     console.log(base_Url);
 
                     var handler = PaystackPop.setup({
                         key: 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
                         email: document.getElementById("email-address3").value,
-                        amount: 2000000,
+                        amount: amt,
                         ref: '' + Math.floor((Math.random() * 1000000000) + 1),
                         metadata: {
                             custom_fields: [{
@@ -261,7 +261,7 @@
                             var amount = $("#amount").val();
                             var ref_no1 =  response.reference;
                             var badge_type = $("#badge_type").val();
-                            
+                            console.log(amount, ref_no1, badge_type);
                             $.ajax({
                               method: "POST",
                               url: base_Url + '/provider/service/createpay',
@@ -274,7 +274,9 @@
                                 badge_type: badge_type
                               },
                               success: function (data) {
-                                  console.log(data)
+                                  console.log(data);
+                                  // swal("Done!", "success");
+
                               },
                               error: function(error) {
                                   console.log(error)

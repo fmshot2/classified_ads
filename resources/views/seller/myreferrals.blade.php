@@ -36,8 +36,8 @@
                                             <th> # </th>
                                             <th> Referee Name </th>
                                             <th> Date Created </th>
-                                            <th> Action </th>
-                                        </tr>
+<!--                                             <th> Action </th>
+ -->                                        </tr>
                                     </thead>
                                     <tbody>
                                          @if ($myreferrals)
@@ -46,21 +46,19 @@
                                                     <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                                     <td> {{ $myreferral->user->name }} </td>
                                                     <td> {{ $myreferral->created_at->diffForHumans() }} </td>
-                                                    <td>
+                                                  <!--   <td>
                                                         <div class="btn-group">
                                                             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                                                                 <span class="caret"></span>
                                                                 <span class="sr-only">Toggle Dropdown</span>
                                                             </button>
                                                             <ul class="dropdown-menu" role="menu">
-                                                                <!-- View -->
                                                                 <li>
                                                                 </li>
                                                             </ul>
-
-                                                            </ul>
+                                                           
                                                         </div>
-                                                    </td>
+                                                    </td> -->
 
                                                 </tr>
                                             @endforeach

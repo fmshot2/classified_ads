@@ -34,12 +34,12 @@
         </span>
         @endif
     </div>
-
+<!-- 
     <div class="form-group form-box clearfix">
         <input class="input-text" placeholder="Confirm Password" type="password" wire:model='password_confirmation'>
-    </div>
+    </div> -->
 
-    <p>
+    <div>
         <h6>What do you want to do?</h6>
         <div class="col-lg-12">
             <div class="form-group">
@@ -55,8 +55,9 @@
             </span>
             @enderror
         </div>
-    </p>
-    <p>
+    </div>
+       
+    <div>
     @if(!$referParam)
     <div class="form-group form-box">
     <h6 class="text-center">Where you referred by our agent?</h6>
@@ -68,8 +69,27 @@
         @endif
     </div>
     @endif
-    </p>
-    <p>
+    </div>
+
+     <div>
+        <h6>Choose a plan</h6>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" wire:model='plan'>
+                    <option selected> Choose... </option>
+                    <option value=20000> One Month (#200) </option>
+                    <option value=120000> Six Months (#1200) </option>
+                    <option value=240000> One Year (#2400) </option>
+                </select>
+            </div>
+            @error('role')
+            <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                <strong class="text-danger">{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>
+    </div>
+    <div>
         <label>
             <input type="checkbox" name="terms" class="filled-in" wire:model='terms'/>
             <span>By registering you accept our <a href="{{route('terms-of-use')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy-policy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
@@ -79,7 +99,7 @@
             <strong class="text-danger">{{ $message }}</strong>
         </span>
         @enderror
-    </p>
+    </div>
 
     <div>
         @if (session()->has('message'))

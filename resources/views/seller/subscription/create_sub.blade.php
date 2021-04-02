@@ -1,6 +1,6 @@
 @extends('layouts.seller')
 
-@section('title', 'Request for Badge | ')
+@section('title', 'Request for Subscription | ')
 
 @section('content')
 
@@ -64,9 +64,9 @@
                 <div class="col-md-4">
                     <div class="box box-primary">
                         <div class="box-header bg-warning text-center">
+                           <!--  <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i> -->
                         </div>
                         <div class="box-body box-profile text-center">
                             <h4>Annually</h4>
@@ -93,9 +93,9 @@
                 <div class="col-md-4">
                     <div class="box box-primary">
                         <div class="box-header bg-success text-center">
+                            <!-- <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
+                        </div> -->
                         <div class="box-body box-profile text-center">
                             <h4>Bi-anually</h4>
                             <ol class="text-left">
@@ -113,7 +113,7 @@
                 <div class="col-md-4">
                     <div class="box box-primary">
                         <div class="box-header bg-primary text-center">
-                            <i class="fa fa-star"></i>
+                            <!-- <i class="fa fa-star"></i> -->
                         </div>
                         <div class="box-body box-profile text-center">
                             <h4>Monthly</h4>
@@ -249,7 +249,7 @@
                     var handler = PaystackPop.setup({
                         key: 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
                         email: document.getElementById("email-address3").value,
-                        amount: 2000000,
+                        amount: $("#sub_cost").val(),
                         ref: '' + Math.floor((Math.random() * 1000000000) + 1),
                         metadata: {
                             custom_fields: [{

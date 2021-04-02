@@ -106,22 +106,25 @@ class SubscriptionController extends Controller
 			'amount' => 'required',
 			'email' => 'required',
 		]);
-		$sub_check = ProviderSubscription::where(['user_id'=>Auth::id()])->first();
 					// 	$user_check->badgetype = $data['badge_type'];
 		// 	$user_check->save();
 		if ($data['amount'] == '200') {
 			$added_days = 31;
+			$sub_type = 'monthly';
 		}
 		if ($data['amount'] == '1200') {
 			$added_days = 186;
+             $sub_type = 'bi-annual';			
 		}
 		if ($data['amount'] == '2400') {
 			$added_days = 372;
+            $sub_type = null;			
 		}
 
-		$sub_check = new ProviderSubscription();
+		$sub_check = ProviderSubscription::where(['user_id'=>Auth::id()])->first();
+
 		$sub_check->user_id = Auth::id();
-		$sub_check->sub_type = $data['sub_type'];
+		$sub_check->sub_type = $sub_type;
 		$sub_check->user_type = 'provider';
 		$sub_check->last_amount_paid = $data['amount'];
 		$sub_check->subscription_end_date = Carbon::now()->addDays($added_days);

@@ -21,11 +21,8 @@ use App\Agent;
 use App\Event;
 use App\Subscription;
 use App\UserFeedback;
-<<<<<<< HEAD
 use App\ProviderSubscription;
-=======
 use App\Helpers\SmsHelper;
->>>>>>> 1d8757f44c35d8412e4957b3cfc29dae805d7ce6
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -569,7 +566,7 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
     public function updateServiceStatus(Request $request, $id)
     {
      $service = Service::find($id);
-     $status = $service->status == 1 ? 0 : 1;
+     $status = $service->status == 0 ? 1 : 0;
      $service->status = $status;
      $service->save();
      $request->session()->flash('status', 'Task was successful!');

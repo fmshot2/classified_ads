@@ -7,6 +7,7 @@ use App\Mail\UserRegistered;
 use App\Refererlink;
 use App\User;
 use App\Subscription;
+use App\ProviderSubscription;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
+
 
 class Register extends Component
 {
@@ -30,6 +33,7 @@ class Register extends Component
     public $refererId;
     public $agent_Id;
     public $current_view;
+    public $plan;
 
     public function mount()
     {
@@ -49,15 +53,17 @@ class Register extends Component
             'referParam'            => ['nullable', 'string', 'max:255'],
             'name'                  => ['required', 'string', 'max:255'],
             'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password'              => ['required', 'string', 'min:6', 'confirmed'],
+            'password'              => ['required', 'string', 'min:6'],
             'role'                  => ['required', Rule::in(['seller', 'buyer'])],
             'agent_code'            => ['nullable', 'exists:agents,agent_code'],
             'terms'                 => ['accepted'],
+            'plan'                  => ['required', Rule::in([20000, 120000, 240000])],
+
         ]);
 
         $data = [
             'key'    => 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
-            'amount' => 200 * 100,
+            'amount' => $this->plan,
             'email'  => $this->email,
             'name'   => $this->name,
         ];
@@ -83,17 +89,69 @@ class Register extends Component
 
         // dd($json_resp);
 
-        // dd($status, $amount);
-        if($status === 'success' && ($amount/100) == 200){
-            $this->save_user();
+        // $t = (int)($this->plan);
+        // dd($status, $amount, $this->plan, $t);
+        if($status === 'success' && ($amount == (int)($this->plan))){
+            $this->save_user($amount);
         } else {
             session()->flash('message', 'there was an error with your payment, please contact admin.');
         }
     }
 
 
+    public function createSubpay(Request $request)
+    {
+        $added_days = 0;
+        $mytime = Carbon::now();
 
-    public function save_user()
+     // Produces something like "2019-03-11 12:25:00"
+        $current_date_time = Carbon::now()->toDateTimeString();
+// 
+        $added_date_time = Carbon::now()->addDays(5)->toDateTimeString();
+
+
+
+
+        $data = $request->all();
+
+
+
+        $this->validate($request,[
+            'amount' => 'required',
+            'email' => 'required',
+        ]);
+        $sub_check = ProviderSubscription::where(['user_id'=>Auth::id()])->first();
+                    //  $user_check->badgetype = $data['badge_type'];
+        //  $user_check->save();
+        if ($data['amount'] == '200') {
+            $added_days = 31;
+        }
+        if ($data['amount'] == '1200') {
+            $added_days = 186;
+        }
+        if ($data['amount'] == '2400') {
+            $added_days = 372;
+        }
+
+        $sub_check = new ProviderSubscription();
+        $sub_check->user_id = Auth::id();
+        $sub_check->sub_type = $data['sub_type'];
+        $sub_check->user_type = 'provider';
+        $sub_check->last_amount_paid = $data['amount'];
+        $sub_check->subscription_end_date = Carbon::now()->addDays($added_days);
+        $sub_check->last_subscription_starts = $current_date_time;
+        $sub_check->save();
+
+        return response()->json(['success'=>$sub_check, 'success3'=>$current_date_time], 200);
+
+    }
+    
+
+
+
+
+
+    public function save_user($amount)
     {
      // $request->session()->forget('url.intended');
      // dd((Session::get('url.intended')));
@@ -141,8 +199,6 @@ class Register extends Component
         }
     }
 
-
-
     if (Auth::check()) {
         $present_user = Auth::user();
             // if referrer link is available, save it to referer table
@@ -151,7 +207,9 @@ class Register extends Component
         $link->refererlink = $present_user->refererLink;
         $link->save();
 
-        
+
+
+
 
 
             // $subscription              = new Subscription();
@@ -164,7 +222,38 @@ class Register extends Component
             // dd('sss');
             // return back();
 
+        }else{
+          // 'amount' => $this->plan,
+         //    'email'  => $this->email,
+         //    'name'   => $this->name,
+
+        // save user's subscription module
+
+            if ($amount == 20000) {
+                $added_days = 31;
+                $sub_type = 'monthly';
+            }elseif ($amount == 120000) {
+             $added_days = 186;
+             $sub_type = 'bi-annual';
+         }elseif ($amount == 240000) {
+             $added_days = 372;
+             $sub_type = 'yearly';
+         }else{
+            $added_days = 0;
+            $sub_type = null;
         }
+        $current_date_time = Carbon::now()->toDateTimeString();
+
+        $sub_check = new ProviderSubscription();
+        $sub_check->user_id = Auth::id();
+        $sub_check->sub_type = $sub_type;
+        $sub_check->user_type = 'provider';
+        $sub_check->last_amount_paid = $this->plan;
+        $sub_check->subscription_end_date = Carbon::now()->addDays($added_days);
+        $sub_check->last_subscription_starts = $current_date_time;
+        $sub_check->save();
+
+
 
         $person_that_refered = $present_user->idOfReferer;
         if ($person_that_refered) {
@@ -227,6 +316,7 @@ class Register extends Component
             return redirect()->route('admin.dashboard');
         }
     }
+}
 }
 
 public function render()

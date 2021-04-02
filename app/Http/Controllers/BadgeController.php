@@ -350,19 +350,19 @@ class BadgeController extends Controller
         if ($id == 1) {
             $badge = [
                 'badge_type' => 'Super',
-                'badge_cost' => 15000
+                'badge_cost' => 1500000
             ];
         }
         elseif ($id == 2) {
             $badge = [
                 'badge_type' => 'Moderate',
-                'badge_cost' => 10000
+                'badge_cost' => 1000000
             ];
         }
         elseif ($id == 3) {
             $badge = [
                 'badge_type' => 'Basic',
-                'badge_cost' => 5000
+                'badge_cost' => 500000
             ];
         }
 
@@ -374,7 +374,7 @@ class BadgeController extends Controller
       {
 
        $data = $request->all();
-    //    return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$data]);
+       return response()->json('success');
        // $badge_service_id = $data['service_id'];
 
 
@@ -384,6 +384,7 @@ class BadgeController extends Controller
         'email' => 'required',
       ]);
        if ($user_check = User::where(['email'=>$data['email']])->first()){
+      return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$user_check]);
        $user_check->badgetype = $data['badge_type'];
        $user_check->save();
 
