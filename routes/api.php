@@ -55,7 +55,7 @@ Route::prefix('v1')->group(function ()
     // SERVICES
     Route::get('services', [ServiceController::class, 'index']);
     Route::get('services/{id}', [ServiceController::class, 'show']);
-    Route::get('services/search/{query}', [ServiceController::class, 'search']);
+    Route::get('services/search/', [ServiceController::class, 'search']);
 
     // CATEGORIES
     Route::get('/categories', [ServiceController::class, 'categories']);

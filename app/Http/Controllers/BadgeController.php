@@ -152,7 +152,14 @@ class BadgeController extends Controller
 	public function badges() {
 		$services_dropdown_check = 1;
 		$services = Service::where('user_id', Auth::id() )->get();
-		return view('seller.service.service_badges', compact('services'));
+
+        $badge_data = [
+            'badge_one_cost' => 15000,
+            'badge_two_cost' => 10000,
+            'badge_three_cost' => 5000
+        ];
+
+		return view('seller.service.service_badges', compact('services', 'badge_data'));
 	}
 
 	public function adverts() {
@@ -374,7 +381,7 @@ class BadgeController extends Controller
       {
 
        $data = $request->all();
-       return response()->json('success');
+       return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$data]);
        // $badge_service_id = $data['service_id'];
 
 
@@ -416,7 +423,7 @@ class BadgeController extends Controller
                         $referer->refererAmount = $referer->refererAmount + 300;
                         $referer->save();
                       }
-                        
+
                     }
                 }
 
@@ -437,9 +444,9 @@ class BadgeController extends Controller
                         $referer2->refererAmount = $referer->refererAmount + 300;
                         $referer2->save();
                       }
-                        
+
                     }
-                        
+
                     }
                 }
 
@@ -458,8 +465,8 @@ class BadgeController extends Controller
 
        $badge->save();
         return response()->json(['success'=>'Badge created successfullyy!'], 200);
-      }       
-    }    
+      }
+    }
 
         return response()->json(['failed'=>'User not available'], 200);
  }
@@ -479,8 +486,8 @@ class BadgeController extends Controller
         $service_check->paid_featured = 1;
         $service_check->save();
 
-        return response()->json(['success'=>'Your Service is now featured!'], 200);            
-      }    
+        return response()->json(['success'=>'Your Service is now featured!'], 200);
+      }
 
       return response()->json(['failed'=>'Service not available'], 200);
  }

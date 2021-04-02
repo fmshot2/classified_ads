@@ -5,6 +5,9 @@ span.info-box-icon.push-bottom.bg-warning {
     margin-top: 5px;
 }
 
+table th {
+    font-weight: 600 !important;
+}
 .alert-warning,
 .bg-warning,
 .callout.callout-warning,

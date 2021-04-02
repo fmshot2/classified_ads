@@ -305,7 +305,7 @@ class AdminController extends Controller
 
   public function submitEmail(Request $request)
   {
-    
+
     $this->validate($request, [
       'phone' => 'required',
       'subject' => 'required',

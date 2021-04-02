@@ -6,6 +6,7 @@ use App\Advert;
 use App\Advertisement;
 use App\AdvertLocation;
 use App\Agent;
+use App\Badge;
 use App\Category;
 use App\General_Info;
 use App\Image as ModelImage;
@@ -821,7 +822,9 @@ class OperationalController extends Controller
         $image->move(public_path('uploads/seekingworks/'),$file_name);
 
         $image_resize = Image::make(public_path('uploads/seekingworks/').$file_name);
-        $image_resize->resize(300, 300);
+        $image_resize->resize(null, 400, function ($constraint) {
+            $constraint->aspectRatio();
+        });
         $image_resize->save(public_path('uploads/seekingworks/' .$file_name));
 
         // Saving it with this service
@@ -923,6 +926,31 @@ class OperationalController extends Controller
     //     $subcategory = $categories->sub_categories;
     //     return $subcategory;
     // }
+
+
+    public function paidForBadge(Request $request)
+    {
+        $user = $request->user();
+
+        $user->badgetype = $request->get('badge_type');
+
+        if ($request->get('badge_type') == 1) {
+            $badge_name = 'Super User';
+        }
+        elseif ($request->get('badge_type') == 2) {
+            $badge_name = 'Moderate User';
+        }
+        elseif ($request->get('badge_type') == 3) {
+            $badge_name = 'Basic User';
+        }
+
+        if ($user->save()) {
+            return collect($badge_name);
+        }
+        else {
+            return 'Something went wrong!';
+        }
+    }
 
 
 

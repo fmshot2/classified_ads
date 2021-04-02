@@ -82,7 +82,7 @@
                         </button>
                     </div>
                     <div>
-                        <p id="refererlinkText" hidden>{{ $agent_code_check->agent_code}}</p>
+                        <p id="refererlinkText" hidden>{{ $agent_code_check->agent_code }}</p>
                     </div>
                 </div>
             </div>

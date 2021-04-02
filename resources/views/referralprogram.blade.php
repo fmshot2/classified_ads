@@ -88,7 +88,7 @@
                                                         <ul style="list-style: none">
                                                             <li>* Register your account - You don't need to have a service or product to sell before you can register on EFContact, you can also register as "Looking for a service" and you will get your referral link and start earning.</li>
                                                             <li>* Fill the registration form</li>
-                                                            <li>* Payment - If you register as a "Service provider", you will be redirected to our secured payment page where you will pay a sum of N200 for 1 Month subscription, or N1200 for 6 Months subscription, or 2400 for 1-year subscription.</li>
+                                                            <li>* Payment - If you register as a "Service provider", you will be redirected to our secured payment page where you will pay a sum of &#8358;200 for 1 Month subscription, or &#8358;1200 for 6 Months subscription, or 2400 for 1-year subscription.</li>
                                                         </ul>
                                                         <p><strong>Note that this step does not apply to you if you register as "Looking for a service"</strong></p>
 
@@ -109,7 +109,7 @@
                                                         <p>As soon as your bonus reaches this threshold (&#8358;1000) the money will be transferred automatically to the account number provided on your profile the following week.</p>
 
                                                         <h6>How much is the minimum earning threshold?</h6>
-                                                        <p>N1000 is the minimum earning threshold and you can withdraw only on any Friday. <br> For more information about our Referral Program, send us an email at info@efcontact.com</p>
+                                                        <p>&#8358;&#8358;1000 is the minimum earning threshold and you can withdraw only on any Friday. <br> For more information about our Referral Program, send us an email at info@efcontact.com</p>
                                                         <p>What are you waiting for? Fill the form below and start earning</p>
                                                     </div>
                                                 </div>
@@ -207,14 +207,14 @@
                                                         <ul style="list-style: none">
                                                             <li>1.	When You Are Approved, You Will Receive Your Agent Code Which You Will Use For All Your Transactions, Referrals And Commission Payments.</li>
                                                             <li>2.	You Will Receive Your Commission Every Two Weeks.</li>
-                                                            <li>3.	You Have A Chance Of Making At Minimum Income Of Between N50,000 To N100,000 Monthly.</li>
-                                                            <li>4.	When You Are Approved, You Can Recruit People Under You (Sub-Agents) Or Refer Them To Us And When Anyone Subscribes You Get N100 Each.  We Will Issue To You A Daily Report On Your Sub-Agents And Activities. See Chart Below For Commission Scales.</li>
+                                                            <li>3.	You Have A Chance Of Making At Minimum Income Of Between &#8358;50,000 To &#8358;100,000 Monthly.</li>
+                                                            <li>4.	When You Are Approved, You Can Recruit People Under You (Sub-Agents) Or Refer Them To Us And When Anyone Subscribes You Earn &#8358;200 Each.  We Will Issue To You A Daily Report On Your Sub-Agents And Activities. See Chart Below For Commission Scales.</li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <ul style="list-style: none">
                                                             <li>5.	You Can Work At Anytime You Want, Create Your Schedule Or Use This To Suppliment Your Income.</li>
-                                                            <li>6.	You Can Make An Extra 20% On Any Other Adverts Request By Your Subscribers.  Say For An Example Your Subscriber Buys An Advert Of N100,000 A Month, You Will Make An Additional N20,000.00 Monthly. If That Advert Is For A Year You Will Make N240,000.00 On That Case Alone. If You Have Five Of Such In A Year It Is N24000 X 5= N1,200,000.00. Upon That You Will Still Get Commissions On Adverts And Your Recruits. We Estimated That A Good Agent Should Average N5,000,000.00  Yearly.</li>
+                                                            <li>6.	You Can Make An Extra 20% On Any Other Adverts Request By Your Subscribers.  Say For An Example Your Subscriber Buys An Advert Of &#8358;100,000 A Month, You Will Make An Additional &#8358;20,000.00 Monthly. If That Advert Is For A Year You Will Make &#8358;240,000.00 On That Case Alone. If You Have Five Of Such In A Year It Is &#8358;24000 X 5 = &#8358;1,200,000.00. Upon That You Will Still Get Commissions On Adverts And Your Recruits. We Estimated That A Good Agent Should Average &#8358;5,000,000.00  Yearly.</li>
                                                         </ul>
                                                         <div style="text-align: center; color:#e45050; font-weight:600">Note: The registration to be an agent on EFContact will attract a fee of &#8358;500.</div>
                                                     </div>

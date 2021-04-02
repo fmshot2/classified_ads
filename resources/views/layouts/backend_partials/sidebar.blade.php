@@ -138,13 +138,14 @@
       <li class="treeview" style=" {{ url()->current() == route('superadmin.cities') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
           <i class="fa fa-file"></i>
-          <span> Tourism </span>
+          <span> Officials </span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href=" {{ route('superadmin.cities') }}"><i class="fa fa-circle-o"></i> All Cities </a></li>
+          <li><a href=" {{ route('superadmin.cities') }}"><i class="fa fa-circle-o"></i> Tourist Sites </a></li>
+          <li><a href=" {{ route('admin.government.officials') }}"><i class="fa fa-circle-o"></i> Government Officials </a></li>
         </ul>
       </li>
 
@@ -318,13 +319,14 @@
       <li class="treeview" style=" {{ url()->current() == route('admin.cities') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
           <i class="fa fa-file"></i>
-          <span> Tourism </span>
+          <span> Officials </span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href=" {{ route('admin.cities') }}"><i class="fa fa-circle-o"></i> All Cities </a></li>
+          <li><a href=" {{ route('admin.cities') }}"><i class="fa fa-circle-o"></i> Tourist Sites </a></li>
+          <li><a href=" {{ route('admin.government.officials') }}"><i class="fa fa-circle-o"></i> Government Officials </a></li>
         </ul>
       </li>
 
@@ -405,7 +407,7 @@
         </a>
       </li>
 
-      
+
 
       <li class="treeview" style=" {{ url()->current() == route('cmo.show_faq') ? 'background-color: #f8d053' : '' }}
       {{ url()->current() == route('cmo.privacy.policy') ? 'background-color: #f8d053' : '' }}
@@ -434,13 +436,14 @@
       <li class="treeview" style=" {{ url()->current() == route('cmo.cities') ? 'background-color: #f8d053' : '' }}">
         <a href="#">
           <i class="fa fa-file"></i>
-          <span> Tourism </span>
+          <span> Officials </span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href=" {{ route('cmo.cities') }}"><i class="fa fa-circle-o"></i> All Cities </a></li>
+          <li><a href=" {{ route('cmo.cities') }}"><i class="fa fa-circle-o"></i> Tourist Sites </a></li>
+          <li><a href=" {{ route('admin.government.officials') }}"><i class="fa fa-circle-o"></i> Government Officials </a></li>
         </ul>
       </li>
 
