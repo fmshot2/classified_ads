@@ -287,7 +287,7 @@
                                 </div>
                                 <div class="tab-pane fade " id="three" role="tabpanel" aria-labelledby="three-tab">
                                     <div class="property-details mb-40">
-                                        <h6 class="heading-2">This User has {{$service_likes}} like{{$service_likes > 1 ? 's' : ''}}</h6>
+                                        <h6 class="heading-2">This User has <span id="likeTab2">{{ $service_likes != 0 ? $service_likes : '0'}}</span> like{{$service_likes > 1 ? 's' : ''}}</h6>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade " id="four" role="tabpanel" aria-labelledby="four-tab">
@@ -991,6 +991,7 @@
         likebtn    = document.getElementById('likeBtn');
         dislikebtn = document.getElementById('dislikeBtn');
         liketab    = document.getElementById('likeTab');
+        liketab2    = document.getElementById('likeTab2');
 
         $.ajax({
             url: '/admin2/like/' + id,
@@ -999,6 +1000,7 @@
                 dislikebtn.style.display = 'block';
                 likebtn.style.display = 'none';
                 liketab.innerHTML = like;
+                liketab2.innerHTML = like;
             }
         });
 
@@ -1008,6 +1010,7 @@
         likebtn    = document.getElementById('likeBtn');
         dislikebtn = document.getElementById('dislikeBtn');
         liketab    = document.getElementById('likeTab');
+        liketab2    = document.getElementById('likeTab2');
 
         $.ajax({
             url: '/admin2/like/' + id,
@@ -1015,7 +1018,7 @@
             success: function(like){
                 dislikebtn.style.display = 'none';
                 likebtn.style.display = 'block';
-                liketab.innerHTML = like;
+                liketab2.innerHTML = like;
                 console.log(like);
             }
         });

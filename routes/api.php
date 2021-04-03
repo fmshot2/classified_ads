@@ -39,14 +39,29 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 ], function ($router) {
+    // ACCOUNT MANAGEMENT
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::get('profile', [AuthController::class, 'profile']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
+
+    //DASHBOARD
+    Route::get('/dashboard', [ServiceController::class, 'dashboard']);
+
+    // SERVICES
     Route::get('user/services', [ServiceController::class, 'myServices']);
     Route::post('user/service/create', [ServiceController::class, 'createService']);
     Route::delete('user/service/delete/{id}', [ServiceController::class, 'deleteService']);
+
+    // SEEKING WORK
+    Route::post('seeking-work/create', [ServiceController::class, 'seekingWorkCreate']);
+    Route::get('/seekingwork/{slug}', [ServiceController::class, 'showCV']);
+    Route::post('/seekingwork/images/store/{id}', [ServiceController::class, 'imagesSeekingWorkStore']);
+    Route::get('/seekingwork/images/delete/{seekingworkid}/{id}', [ServiceController::class, 'imagesDelete']);
+
+    //Favourites
+    Route::get('my-favourites/', [ServiceController::class, 'myFavourites']);
 });
 
 
@@ -55,7 +70,11 @@ Route::prefix('v1')->group(function ()
     // SERVICES
     Route::get('services', [ServiceController::class, 'index']);
     Route::get('services/{id}', [ServiceController::class, 'show']);
-    Route::get('services/search/', [ServiceController::class, 'search']);
+    Route::get('search/', [ServiceController::class, 'search']);
+
+    // SEEKING WORK (CV)
+    Route::get('job-applicant/details/{slug}', [ServiceController::class, 'seekingWorkDetails']);
+
 
     // CATEGORIES
     Route::get('/categories', [ServiceController::class, 'categories']);

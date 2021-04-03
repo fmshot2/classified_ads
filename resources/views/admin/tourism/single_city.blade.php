@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="file">Thumbnail:</label>
-                                    <input type="file" id="file" name="thumb" class="form-control">
+                                    <input type="file" id="file" name="thumb" class="form-control" accept="image/*">
                                 </div>
                                 <!-- /.box-body -->
                                 <div class="box-footer">

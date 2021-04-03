@@ -170,10 +170,10 @@
     <div class="container">
         <div class="page-name">
             <div class="sub-banner-text-content">
-                <h1>House of Assembly Members</h1>
+                <h1>National Assembly</h1>
                 <ul>
                     <li><a href="http://127.0.0.1:8000">Home</a></li>
-                    <li><span>/</span>House of Assembly</li>
+                    <li><span>/</span>National Assembly</li>
                 </ul>
             </div>
         </div>
