@@ -57,7 +57,8 @@
         		data-target="#theinfoModal">How it works?</a>)</small></h3>
                 @if($current_subscription_end_date)
         			<!-- <p id="sub_end">Your Subscription ends:<span><h1>{{  Carbon\Carbon::parse($current_subscription_end_date)->format('d-m-Y')  }}</h1></span></p> -->
-                    <p>Your Subscription ends:<span><h1 id="sub_end2"></h1></span></p>
+                    <p id="sub_end">Your Subscription ends:<span><h4>{{  Carbon\Carbon::parse($current_subscription_end_date)->toDayDateTimeString()  }}</h4></span></p>                    
+                    <!-- <p>Your Subscription ends:<span><h1 id="sub_end2"></h1></span></p> -->
                 @endif
         </section>
 
@@ -281,11 +282,10 @@
                               },
                               success: function (data) {
                                 console.log(data);
-                                toastr.success('You are now a ' + data[0])
+                                toastr.success('You have purchased a new subscription!')
                                 // $("#sub_end2").innerHTML = data.new_date;
                                  $("#sub_end2").html(data.new_date);
-                                 $('#sub_message').css("display", "block");
-                                 // $('#sub_message').addClass('d-block');
+                                 // $('#sub_message').css("display", "block");
                               },
                               error: function(error) {
                                   console.log(error)

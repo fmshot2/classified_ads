@@ -14,7 +14,7 @@ class AddLevel2ToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->string('level2')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddLevel2ToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('level2');
         });
     }
 }

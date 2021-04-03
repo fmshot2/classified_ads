@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddLevel1ToUsersTable extends Migration
+class AddLevel3ToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddLevel1ToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('level1')->nullable();
+            $table->string('level3')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddLevel1ToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('level1');
+            $table->dropColumn('level3');
         });
     }
 }

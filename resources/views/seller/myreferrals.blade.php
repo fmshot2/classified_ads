@@ -33,10 +33,14 @@
                                 <table class="display table table-bordered data_table_main">
                                     <thead>
                                         <tr>
-                                            <th> # </th>
+                                            <th> Level </th>
                                             <th> Referee Name </th>
                                             <th> Date Created </th>
-<!--                                             <th> Action </th>
+                                            <th> Referer Link </th>
+                                            <th> Code </th>
+                                            <th> Bonus </th>
+
+<!--                                        <th> Action </th>
  -->                                        </tr>
                                     </thead>
                                     <tbody>
@@ -45,6 +49,9 @@
                                                 <tr>
                                                     <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                                     <td> {{ $myreferral->user->name }} </td>
+                                                    <td> {{ $myreferral->user->refererLink }} </td>
+                                                    <td> {{ $myreferral->user->agent_code }} </td>
+                                                    <td> {{ $myreferral->user->refererAmount }} </td>
                                                     <td> {{ $myreferral->created_at->diffForHumans() }} </td>
                                                   <!--   <td>
                                                         <div class="btn-group">
