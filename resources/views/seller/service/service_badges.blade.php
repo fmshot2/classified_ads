@@ -234,7 +234,6 @@
                                         </div>
                                     </div>
                                 </div>
-<<<<<<< HEAD
                                 <input hidden type="hidden" class="form-control" name="badgeCost2" id="badgeCost2">
                               
                                 {{-- <input hidden type="hidden" class="form-control" name="email-addres3" id="email-address3" value="{{Auth::User()->email}}"> --}}
@@ -249,9 +248,6 @@
                                 <button type="button" onclick="payWithPaystack1(badgeCost22)" class="btn pd-x-20"
                                     style="background-color: #cc8a19; color: #fff">Click to make payment</button>
                                 <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Cancel</button>
-=======
-
->>>>>>> 9ae92e1cfcf3392025ee2ecc1ba1f59e020b326e
                             </div>
                         </div>
                     </div>
@@ -300,7 +296,6 @@
                         url: '/requestbadge/' + id,
                         method: 'GET',
                         success: function(data) {
-<<<<<<< HEAD
                         console.log(id);
 
                             // $('#badgeType').text(data.badge_type)
@@ -308,13 +303,11 @@
                            var amount2 = $('#badgeCost').text(data.badge_cost)
                             var badgeCost22 = data.badge_cost
                             $('#amount').val(data.badge_cost)
-=======
                             console.log(data.badge_cost)
                             $('#badgeType').text(data.badge_type)
                             $('#badge_type').val(id)
                             $('#badgeCost').text(data.badge_cost)
                             $('#thebadgecost').value = data.badge_cost
->>>>>>> 9ae92e1cfcf3392025ee2ecc1ba1f59e020b326e
                             // Show modal
                             $('#badgeRequestModal').modal('show')
                         }
@@ -328,17 +321,14 @@
 
                 base_Url = "{{ url('/') }}"
 
-<<<<<<< HEAD
                
 
                 function payWithPaystack1(amt) {
-=======
                 var _token = $("input[name='_token']").val();
 
                 // var email1 = $("#email-address3").val();
 
                 function payWithPaystack1(badgecost, badgetype) {
->>>>>>> 9ae92e1cfcf3392025ee2ecc1ba1f59e020b326e
                     $('#badgeRequestModal').modal('hide');
                     console.log(badgetype);
 
@@ -348,11 +338,8 @@
                     var handler = PaystackPop.setup({
                         key: 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
                         email: document.getElementById("email-address3").value,
-<<<<<<< HEAD
                         amount: amt,
-=======
                         amount: badge_amount,
->>>>>>> 9ae92e1cfcf3392025ee2ecc1ba1f59e020b326e
                         ref: '' + Math.floor((Math.random() * 1000000000) + 1),
                         metadata: {
                             custom_fields: [{
@@ -366,7 +353,6 @@
                             var email = document.getElementById("email-address3").value;
                             var amount = badge_amount;
                             var ref_no1 =  response.reference;
-<<<<<<< HEAD
                             var badge_type = $("#badge_type").val();
                             console.log(amount, ref_no1, badge_type);
                             $.ajax({
@@ -389,7 +375,6 @@
                                   console.log(error)
                               }
                             })
-=======
                             var badgetype = badge_type
                             var badgesuperboxtype = document.getElementById("superbadgebox")
                             var badgemoderateboxtype = document.getElementById("moderatebadgebox")
@@ -445,7 +430,6 @@
                                     footer: '<a href="/contact-us">Why do I have this issue?</a>'
                                 })
                             }
->>>>>>> 9ae92e1cfcf3392025ee2ecc1ba1f59e020b326e
                         },
                         onClose: function() {
                             swal({

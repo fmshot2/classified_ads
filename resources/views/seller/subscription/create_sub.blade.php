@@ -280,7 +280,8 @@
                                 sub_type: sub_type
                               },
                               success: function (data) {
-                                  console.log(data)
+                                console.log(data);
+                                toastr.success('You are now a ' + data[0])
                                 // $("#sub_end2").innerHTML = data.new_date;
                                  $("#sub_end2").html(data.new_date);
                                  $('#sub_message').css("display", "block");
