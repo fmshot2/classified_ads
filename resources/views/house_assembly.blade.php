@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'House of Assembly | ')
+@section('title', 'National Assembly | ')
 
 @section('content')
 

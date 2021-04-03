@@ -129,8 +129,11 @@
         text-align: center;
     }
     .alert-success{
-        background-color: #03A84E !important;
+        background-color: #138a49c7 !important;
         color: #fff;
+    }
+    .property-box .detail .location i {
+        color: #ca8309;
     }
 
     @media (max-width: 768px){
@@ -195,7 +198,7 @@
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
                         <div class="alert alert-success" role="alert">
-                            Take advantage of our platform to showcase your skills, products and services to customers and clients.
+                            If you want your state to be featured here kindly <a style="color: #90fff5" href="{{ route('contact') }}">contact us</a>.
                         </div>
                     </div>
                 </div>

@@ -137,7 +137,7 @@ Route::post('delete', 'ImageController@delete');
 
 Route::post('/subscribe', 'AdminController@subscribe')->name('subscribe');
 Route::view('/tourist-sites-in-nigeria', 'featured_city')->name('allcities');
-Route::get('/house-of-assembly', 'GovernmentOfficialController@index')->name('government.officials');
+Route::get('/national-assembly', 'GovernmentOfficialController@index')->name('government.officials');
 
 Route::get('/send/email', 'ServiceController@mail');
 
