@@ -468,6 +468,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     // Government Officials
     Route::get('/admin/government-officials', 'GovernmentOfficialController@officials')->name('admin.government.officials');
     Route::post('/admin/official/create', 'GovernmentOfficialController@create_official')->name('admin.government.create');
+    Route::put('/admin/official/update/{id}', 'GovernmentOfficialController@update_official')->name('admin.government.update');
     Route::get('/admin/official/delete/{id}', 'GovernmentOfficialController@delete_official')->name('admin.delete.official');
 
     //add admin

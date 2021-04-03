@@ -80,7 +80,7 @@
                         </li> -->
 
                         <li class="">
-                            <a href="{{route('government.officials')}}" class="grey-text text-lighten-3">House of Assembly</a>
+                            <a href="{{route('government.officials')}}" class="grey-text text-lighten-3">National Assembly</a>
                         </li>
 
                         <li class="">
@@ -225,7 +225,7 @@
                         <li><a href="{{route('allCategories')}}">All Categories</a></li>
                         {{-- <li><a href="{{route('allSellers')}}">Service Providers</a></li> --}}
                         <li><a href="{{route('allcities')}}">Tourist Sites in Nigeria</a></li>
-                        <li><a href="{{route('government.officials')}}">House of Assembly</a></li>
+                        <li><a href="{{route('government.officials')}}">National Assembly</a></li>
                         <li><a href="{{route('benefits-of-efcontact')}}">Benefits of EFContact</a></li>
                         <li><a href="{{route('referralprogram')}}">Referral Program</a></li>
                         <li><a href="{{route('advertisement')}}">Advertise With Us</a></li>
