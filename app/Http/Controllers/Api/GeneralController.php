@@ -54,7 +54,6 @@ class GeneralController extends Controller
     }
 
 
-
     protected function guard()
     {
         return Auth::guard();
