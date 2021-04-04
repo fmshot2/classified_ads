@@ -310,7 +310,7 @@ class Register extends Component
                             $referer3->refererAmount = $referer3->refererAmount + 150;
                             $referer3->level2 = Auth::id();
                             $referer3->save();
-                            $present_user->level2 = $referer3->id;
+                            // $present_user->level2 = $referer3->id;
                         }
                     }
                 }
@@ -328,20 +328,13 @@ class Register extends Component
                             $referer3->refererAmount = $referer3->refererAmount + 150;
                             $referer3->level2 = Auth::id();
                             $referer3->save();
-                            $present_user->level2 = $referer3->id;
+                            // $present_user->level2 = $referer3->id;
                         }
                     }
                 }
             }
 
             //end level 2 payment
-
-
-
-
-
-
-
 
 
             //start level 3
@@ -367,7 +360,7 @@ class Register extends Component
                                     $referer4->refererAmount = $referer4->refererAmount + 100;
                                     $referer4->level3 = Auth::id();
                                     $referer4->save();
-                                    $present_user->level2 = $referer3->id;
+                                    // $present_user->level2 = $referer3->id;
                                 }
                             }
                         }
@@ -397,7 +390,7 @@ class Register extends Component
                                     $referer4->refererAmount = $referer4->refererAmount + 100;
                                     $referer4->level3 = Auth::id();
                                     $referer4->save();
-                                    $present_user->level2 = $referer3->id;
+                                    // $present_user->level2 = $referer3->id;
                                 }
                             }
                         }
@@ -405,12 +398,6 @@ class Register extends Component
                 }
             }
             //end level 3 payment
-
-
-
-
-
-
 
 
             //start level 4 payment
@@ -444,7 +431,7 @@ class Register extends Component
                                             $referer5->refererAmount = $referer5->refererAmount + 50;
                                             $referer5->level4 = Auth::id();
                                             $referer5->save();
-                                            $present_user->level2 = $referer3->id;
+                                            // $present_user->level2 = $referer3->id;
                                         }
                                     }
                                 }
@@ -483,7 +470,7 @@ class Register extends Component
                                             $referer5->refererAmount = $referer5->refererAmount + 50;
                                             $referer5->level4 = Auth::id();
                                             $referer5->save();
-                                            $present_user->level2 = $referer3->id;
+                                            // $present_user->level2 = $referer3->id;
                                         }
                                     }
                                 }

@@ -106,13 +106,13 @@
           </a>
         </li> --}}
 
-        <li class="{{ url()->current() == route('provider.myreferrals') ? 'active' : '' }}">
+       <!--  <li class="{{ url()->current() == route('provider.myreferrals') ? 'active' : '' }}">
             <a href=" {{ route ('provider.myreferrals') }} ">
               <i class="fa fa-group"></i> <span> My Referrals </span>
               <span class="pull-right-container">
               </span>
             </a>
-          </li>
+          </li> -->
 
 
           <li class="{{ url()->current() == route('seller.service.badges') ? 'active' : '' }}">

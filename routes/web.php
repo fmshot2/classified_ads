@@ -49,7 +49,9 @@ Route::get('dapo/search/', 'OperationalController@dapSearch')->name('dap.search'
 // Route::middleware(['auth:agent'])->group(function () {
 
     Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
-    Route::get('/agent/referal/all', 'AgentController@allReferals')->name('agent.referal.all');
+    Route::get('/agent/referal/all', 'AgentController@myreferrals')->name('agent.referal.all');
+    Route::get('/agent/referer/downline/{id}', 'AgentController@myDownlines')->name('agent.downline');
+
     Route::get('/agent/profile/', 'AgentController@viewProfile')->name('agent.profile');
     Route::get('/agent/notification/all', 'AgentController@allNotifications')->name('agent.notification.all');
     Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
