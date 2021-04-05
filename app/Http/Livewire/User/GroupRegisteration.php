@@ -156,7 +156,7 @@ class GroupRegisteration extends Component
         $this->email                 = '';
         $this->terms                 = '';
 
-        session()->flash('message', 'Seller created successfuly.');
+        session()->flash('message', 'Account created successfuly. Click <a href="login">here</a> to login');
 
     }
 
