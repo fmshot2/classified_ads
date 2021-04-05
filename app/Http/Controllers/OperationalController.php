@@ -319,9 +319,6 @@ class OperationalController extends Controller
     }
 
 
-
-
-
     public function advertisement() {
         $advert_locations = AdvertLocation::all();
         return view('advertisement', compact('advert_locations'));

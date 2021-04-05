@@ -12,6 +12,7 @@ use App\Http\Resources\ServiceResource;
 use App\Http\Resources\ServiceResourceCollection;
 use App\Http\Resources\SliderResourceCollection;
 use App\Service;
+use App\General_Info;
 use App\Slider;
 use App\State;
 use App\User;
@@ -34,7 +35,7 @@ class GeneralController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'categories', 'showcategory', 'banner_slider', 'search', 'advertisement']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'categories', 'showcategory', 'banner_slider', 'search', 'advertisement', 'systemConfig']]);
         $this->user = $this->guard()->user();
     }
 
@@ -53,6 +54,24 @@ class GeneralController extends Controller
         return new AdvertisementResourceCollection(Advertisement::paginate(50));
     }
 
+
+    public function systemConfig()
+    {
+        $general_info = General_Info::all();
+        $check_general_info = collect($general_info)->isEmpty();
+
+        if (!$general_info->isEmpty()) {
+            return response()->json([
+                'general_info' => $general_info
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'message' => 'No Config Found!'
+            ], 404);
+        }
+        
+    }
 
 
     protected function guard()
