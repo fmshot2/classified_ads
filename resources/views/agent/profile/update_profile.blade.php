@@ -53,7 +53,7 @@ Update Profile |
 					<ul class="nav nav-tabs">
 
 						<li class="active"><a href="#timeline" data-toggle="tab">Update Profile</a></li>
-						<li><a href="#password" data-toggle="tab">Change Password</a></li>
+						<!-- <li><a href="#password" data-toggle="tab">Change Password</a></li> -->
 					</ul>
 
 					<div class="tab-content">
@@ -97,14 +97,7 @@ Update Profile |
 									</div>
 								</div>
 
-							<!-- 	<div class="form-group">
-									<label for="inputSkills" class="col-sm-2 control-label">About Me</label>
-
-									<div class="col-sm-10">
-										<textarea class="form-control" name="about" placeholder=""> {{ Auth::guard('agent')->user()->about }} </textarea>
-									</div>
-								</div>
- -->
+				
 								<div class="form-group">
 									<label for="inputSkills" class="col-sm-2 control-label">Address</label>
 
@@ -120,11 +113,10 @@ Update Profile |
 								</div>
 							</form>
 						</div>
-						<!-- /.tab-pane -->
 
 
-						<div class="tab-pane" id="password">
-							<form class="form-horizontal form-element" method="POST" action="{{route('profile.updateAgent.password', Auth::guard('agent')->id() )}}" enctype="multipart/form-data">
+						<!-- <div class="tab-pane" id="password">
+							<form class="form-horizontal form-element" method="POST" action="{{route('home')}}" enctype="multipart/form-data">
 								{{ csrf_field() }}
 
 								<div class="form-group">
@@ -155,16 +147,16 @@ Update Profile |
 									</div>
 								</div>
 							</form>
-						</div>
-						<!-- /.tab-pane -->
+						</div> -->
+
 					</div>
-					<!-- /.tab-content -->
+
 				</div>
-				<!-- /.nav-tabs-custom -->
+
 			</div>
-			<!-- /.col -->
+
 		</div>
-		<!-- /.row -->
+
 
 	</section>
 

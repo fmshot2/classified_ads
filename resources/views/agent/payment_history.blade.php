@@ -29,7 +29,7 @@ Agent's Payment History |
 
     <!-- Main content -->
     <section class="content">
-      <div class="row">
+     <!--  <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-cubes text-white" aria-hidden="true"></i>  </span>
@@ -42,14 +42,12 @@ Agent's Payment History |
                 <div class="progress-bar progress-bar-blue" style="width:  %"></div>
               </div>
               <span class="progress-description">
-                <!-- Extra content can go here -->
               </span>
             </div>
-            <!-- /.info-box-content -->
           </div>
-          <!-- /.info-box -->
         </div>
-        <!-- /.col -->
+
+
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-money text-white" aria-hidden="true"></i> </span>
@@ -62,14 +60,15 @@ Agent's Payment History |
                 <div class="progress-bar progress-bar-success" style="width: %"></div>
               </div>
               <span class="progress-description">
-                <!-- Extra content can go here -->
+
               </span>
             </div>
-            <!-- /.info-box-content -->
+
           </div>
-          <!-- /.info-box -->
+
         </div>
-        <!-- /.col -->
+
+
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-credit-card-alt text-white" aria-hidden="true"></i> </span>
@@ -82,14 +81,14 @@ Agent's Payment History |
                 <div class="progress-bar progress-bar-success" style="width: %"></div>
               </div>
               <span class="progress-description">
-                <!-- Extra content can go here -->
+
               </span>
             </div>
-            <!-- /.info-box-content -->
+
           </div>
-          <!-- /.info-box -->
+
         </div>
-        <!-- /.col -->
+
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-calculator text-white" aria-hidden="true"></i> </span>
@@ -102,16 +101,16 @@ Agent's Payment History |
                 <div class="progress-bar progress-bar-success" style="width: %"></div>
               </div>
               <span class="progress-description">
-                <!-- Extra content can go here -->
+
               </span>
             </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-      </div>
 
+          </div>
+
+        </div>
+
+      </div>
+ -->
 
   <div class="row">
     <div class="col-md-12 connectedSortable">

@@ -18,6 +18,7 @@ class AgentController extends Controller
     public function agentDashboard(Request $request)
     {
         // dd($Auth::guard('agent')->id());
+        $myreferrals = Auth::guard('agent')->user()->referals;
 
         $agent_code_check = Refererlink::where(['agent_id'=> Auth::guard('agent')->id()])->first();
         $present_user_id = Auth::guard('agent')->user()->id;
@@ -28,7 +29,7 @@ class AgentController extends Controller
         $agent_amount_earned = (int)$agent_amount_earned;
         // dd( Auth::guard('agent')->user()->id);
         // dd(Agent::all());
-        return view ('agent.dashboard', compact('agent_code_check', 'agent_code_users_count', 'agent_amount_earned'));
+        return view ('agent.dashboard', compact('agent_code_check', 'agent_code_users_count', 'agent_amount_earned', 'myreferrals'));
 
     }
 
