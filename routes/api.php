@@ -46,23 +46,25 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
 
-    //DASHBOARD
-    Route::get('/dashboard', [ServiceController::class, 'dashboard']);
+    Route::prefix('user')->group(function () {
+        //DASHBOARD
+        Route::get('dashboard', [ServiceController::class, 'dashboard']);
 
-    // SERVICES
-    Route::get('user/services', [ServiceController::class, 'myServices']);
-    Route::post('user/service/create', [ServiceController::class, 'createService']);
-    Route::delete('user/service/delete/{id}', [ServiceController::class, 'deleteService']);
+        // SERVICES
+        Route::get('services', [ServiceController::class, 'myServices']);
+        Route::post('service/create', [ServiceController::class, 'createService']);
+        Route::delete('service/delete/{id}', [ServiceController::class, 'deleteService']);
 
-    // SEEKING WORK
-    Route::post('user/seeking-work/create', [ServiceController::class, 'seekingWorkCreate']);
-    Route::get('user/seekingwork/{slug}', [ServiceController::class, 'showCV']);
-    Route::post('user/seekingwork/images/store/{id}', [ServiceController::class, 'imagesSeekingWorkStore']);
-    Route::get('user/seekingwork/images/delete/{seekingworkid}/{id}', [ServiceController::class, 'imagesDelete']);
-    Route::delete('user/seeking-work/delete/{id}', [ServiceController::class, 'deleteSeekingWork']);
+        // SEEKING WORK
+        Route::post('seeking-work/create', [ServiceController::class, 'seekingWorkCreate']);
+        Route::get('seekingwork/{slug}', [ServiceController::class, 'showCV']);
+        Route::post('seekingwork/images/store/{id}', [ServiceController::class, 'imagesSeekingWorkStore']);
+        Route::get('seekingwork/images/delete/{seekingworkid}/{id}', [ServiceController::class, 'imagesDelete']);
+        Route::delete('seeking-work/delete/{id}', [ServiceController::class, 'deleteSeekingWork']);
 
-    //Favourites
-    Route::get('my-favourites/', [ServiceController::class, 'myFavourites']);
+        //Favourites
+        Route::get('my-favourites/', [ServiceController::class, 'myFavourites']);
+    });
 });
 
 
