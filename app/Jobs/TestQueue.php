@@ -2,11 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Mail\TestMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
 class TestQueue implements ShouldQueue
 {
@@ -29,6 +31,13 @@ class TestQueue implements ShouldQueue
      */
     public function handle()
     {
-        //
+        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
+        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
+        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
+        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
+        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
+        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
+        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
+        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
     }
 }

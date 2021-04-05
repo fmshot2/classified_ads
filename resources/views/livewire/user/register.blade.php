@@ -77,9 +77,9 @@
             <div class="form-group">
                 <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" wire:model='plan'>
                     <option selected> Choose... </option>
-                    <option value=20000> One Month (#200) </option>
-                    <option value=120000> Six Months (#1200) </option>
-                    <option value=240000> One Year (#2400) </option>
+                    <option value=20000> One Month (&#8358;200) </option>
+                    <option value=120000> Six Months (&#8358;1200) </option>
+                    <option value=240000> One Year (&#8358;2400) </option>
                 </select>
             </div>
             @error('role')

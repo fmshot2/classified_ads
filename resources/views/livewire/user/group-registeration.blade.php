@@ -1,6 +1,7 @@
 <form wire:submit.prevent='save_user'>
 
     <div class="form-group form-box col-md-6">
+        <label>Group Code</label>
         <input type="text" class="input-text" name="group_code" autofocus placeholder="Enter Group Code" wire:model='group_code'>
         @error('group_code')
         <span class="helper-text text-danger" data-error="wrong" data-success="right">
@@ -10,6 +11,7 @@
     </div>
 
     <div class="form-group form-box col-md-6">
+        <label>Agent Code (optional)</label>
         <input type="text" class="input-text" name="agent_code" autofocus placeholder="Agent Code" wire:model='agent_code'>
         @error('agent_code')
         <span class="helper-text text-danger" data-error="wrong" data-success="right">
@@ -23,6 +25,7 @@
     </div>
 
     <div class="form-group form-box col-md-6">
+        <label>Full Name</label>
         <input type="text" class="input-text" name="name" autofocus placeholder="Full Name" wire:model='name'>
         @error('name')
         <span class="helper-text text-danger" data-error="wrong" data-success="right">
@@ -32,6 +35,7 @@
     </div>
 
     <div class="form-group form-box col-md-6">
+        <label>Email</label>
         <input type="text" class="input-text" name="email" placeholder="Email" wire:model='email'>
         @error('email')
         <span class="helper-text text-danger" data-error="wrong" data-success="right">
@@ -41,6 +45,7 @@
     </div>
 
     <div class="form-group form-box col-md-6">
+        <label>Password</label>
         <input type="password" class="input-text" name="password" placeholder="Password (min: 6 chars)" wire:model='password'>
         @error('password')
         <span class="helper-text text-danger" data-error="wrong" data-success="right">
@@ -50,6 +55,7 @@
     </div>
 
     <div class="form-group form-box col-md-6">
+        <label>Confirm Password</label>
         <input type="password" class="input-text" name="name" placeholder="Confirm Password" wire:model='password_confirmation'>
     </div>
 

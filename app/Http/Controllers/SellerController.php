@@ -132,7 +132,9 @@ foreach($request->file('files') as $image)
                 $image->move(public_path('uploads/services/'),$file_name);
 
                 $image_resize = Image::make(public_path('uploads/services/').$file_name);
-                $image_resize->resize(300, 300);
+                $image_resize->resize(null, 300, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
                 $image_resize->save(public_path('uploads/services/' .$file_name));
 
                 $service->images()->create(['image_path' => $file_name]);
@@ -458,9 +460,9 @@ public function badgeNotice()
 
      public function myreferrals()
     {
-        // $myreferrals = Auth::user()->referals;
+        $myreferrals = Auth::user()->referals;
 
-        $myreferrals = Agent::find(50)->referals;
+        // $myreferrals = Agent::find(50)->referals;
          return view('seller.myreferrals', compact('myreferrals'));
     }
 

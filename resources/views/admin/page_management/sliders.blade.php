@@ -177,7 +177,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for=""> Buttton Text </label>
-                                        <input type="text" name="buttontext" class="form-control" placeholder="Get Started!">
+                                        <input type="text" name="buttontext" class="form-control" id="editButtontext" placeholder="Get Started!">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
@@ -416,6 +416,7 @@
                         $('#editTitle').val(result.title);
                         $('#editDetails').val(result.details);
                         $('#editLinks').val(result.links);
+                        $('#editButtontext').val(result.buttontext);
                         $('#editButtonLocation').val(result.buttonlocation);
                         $('#editSlider_id').val(result.id);
                         var url = '/admin/update/slider/' + id;

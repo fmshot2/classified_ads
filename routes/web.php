@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\OperationalController;
 use App\Http\Controllers\ServiceImageController;
+use App\Jobs\TestQueue;
+use App\Mail\TestMail;
 // use App\Http\Controllers\SubscriptionController;
 
 use Illuminate\Support\Facades\Route;
 use App\Message;
 use App\Notification;
 use App\Service;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +22,13 @@ use App\Service;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/tester', function ()
+{
+    // Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
+    TestQueue::dispatch();
+    return 'done';
+});
 
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 // Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
@@ -49,7 +59,9 @@ Route::get('dapo/search/', 'OperationalController@dapSearch')->name('dap.search'
 // Route::middleware(['auth:agent'])->group(function () {
 
     Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
-    Route::get('/agent/referal/all', 'AgentController@allReferals')->name('agent.referal.all');
+    Route::get('/agent/referal/all', 'AgentController@myreferrals')->name('agent.referal.all');
+    Route::get('/agent/referer/downline/{id}', 'AgentController@myDownlines')->name('agent.downline');
+
     Route::get('/agent/profile/', 'AgentController@viewProfile')->name('agent.profile');
     Route::get('/agent/notification/all', 'AgentController@allNotifications')->name('agent.notification.all');
     Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
@@ -137,7 +149,7 @@ Route::post('delete', 'ImageController@delete');
 
 Route::post('/subscribe', 'AdminController@subscribe')->name('subscribe');
 Route::view('/tourist-sites-in-nigeria', 'featured_city')->name('allcities');
-Route::get('/house-of-assembly', 'GovernmentOfficialController@index')->name('government.officials');
+Route::get('/national-assembly', 'GovernmentOfficialController@index')->name('government.officials');
 
 Route::get('/send/email', 'ServiceController@mail');
 
@@ -221,7 +233,7 @@ App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail
 Route::post('/createUser2', 'OldCodeController@createUser2')->name('createUser2');
 
 Route::get('/register', 'AuthController@showRegister')->name('register');
-Route::get('/group-register', 'AuthController@showGroupRegister')->name('register');
+Route::get('/groupreg', 'AuthController@showGroupRegister')->name('register');
 Route::post('/register2', 'AuthController@createUser')->name('register2');
 //original payment and registration with gtpay
 Route::post('/register', 'AuthController@pay_with_gtpay')->name('register');
