@@ -89,13 +89,13 @@ Update Profile |
 								</div>
 
 
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label for="inputExperience" class="col-sm-2 control-label">Image</label>
 
 									<div class="col-sm-10">
 										<input type="file" class="form-control" name="file">
 									</div>
-								</div>
+								</div> -->
 
 				
 								<div class="form-group">
