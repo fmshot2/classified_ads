@@ -47,7 +47,7 @@
           </a>
         </li>
 
-        <li class="treeview" style=" {{ url()->current() == route('admin.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.all') ? 'background-color: #f8d053' : '' }}">
+        <li class="treeview" style=" {{ url()->current() == route('agent.view.request.blade') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('agent.payment.history') ? 'background-color: #f8d053' : '' }}">
           <a href="#">
             <i class="fa fa-briefcase"></i>
             <span> Payments </span>
@@ -56,8 +56,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=" {{ route('agent.view.request.blade') }} "><i class="fa fa-circle-o"></i> Make Withdrawal</a></li>
-            <li><a href=" {{ route ('agent.payment.history') }} "><i class="fa fa-circle-o"></i> Payment History </a></li>
+            <li><a href="{{ route('agent.view.request.blade') }}"><i class="fa fa-circle-o"></i> Make Withdrawal</a></li>
+            <li><a href=" {{ route ('agent.payment.history') }}"><i class="fa fa-circle-o"></i> Payment History </a></li>
 
           </ul>
         </li>
