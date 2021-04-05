@@ -12,7 +12,7 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-	<title> @yield('title') EFContact Agent </title>
+	<title> @yield('title') - EFContact Agent </title>
 
 	<!-- bootstrap 3.3.7 -->
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_components/bootstrap/dist/css/bootstrap.css')}}">
@@ -61,7 +61,7 @@
 
 <style type="text/css">
 	.dt-buttons .dt-button {
-		background: #f8d053 !important;
+		background: #cc8a19 !important;
 		color: white !important;
     }
     .dz-image img {
@@ -83,6 +83,10 @@
 .dropzone .dz-preview .dz-error-message {
     top: 144px;
 }
+
+	.navbar {
+		background-color: #cc8a19 !important;
+	}
 
 </style>
 
