@@ -145,4 +145,24 @@ class AgentController extends Controller
             'total_pending' => $total_pending
         ]);
     }
+
+
+         public function myreferrals()
+    {
+        $myreferrals = Auth::guard('agent')->user()->referals;
+
+        // $myreferrals = Agent::find(50)->referals;
+         return view('agent.referals.all', compact('myreferrals'));
+    }
+
+    public function myDownlines($id)
+    {
+        $myreferrals2 = User::find($id);
+        return response()->json(['success' => $myreferrals2], 200);
+
+
+        // $myreferrals = Agent::find(50)->referals;
+         // return view('agent.referals.all', compact('myreferrals2'));
+    }
+
 }

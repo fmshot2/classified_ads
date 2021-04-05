@@ -40,23 +40,13 @@
                 <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> My Services </a></li>
             </ul>
         </li>
-
-
-        <li class="treeview {{ url()->current() == route('seller.sub.all') ? 'background-color: #cc8a19' : '' }}">
-            <a href="#">
-                <i class="fa fa-home"></i>
-                <span> My Subscriptions </span>
-                <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-                </span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href=" {{ route('seller.sub.create') }} "><i class="fa fa-circle-o"></i> Create New Subscription</a></li>
-                <!-- <li><a href=" {{ route('seller.sub.all') }} "><i class="fa fa-circle-o"></i> All My Subscriptions </a></li> -->
-            </ul>
+        <li class="{{ url()->current() == route('seller.sub.all') ? 'active' : '' }}" style="">
+          <a href=" {{route('seller.sub.create') }}">
+            <i class="fa fa-dashboard"></i> <span>My Subscriptions </span>
+            <span class="pull-right-container">
+            </span>
+          </a>
         </li>
-
-
 
         <li class="{{ url()->current() == route('seller.message.all') ? 'active' : '' }}">
           <a href=" {{route ('seller.message.all') }}">
@@ -116,13 +106,13 @@
           </a>
         </li> --}}
 
-        <li class="{{ url()->current() == route('provider.myreferrals') ? 'active' : '' }}">
+       <!--  <li class="{{ url()->current() == route('provider.myreferrals') ? 'active' : '' }}">
             <a href=" {{ route ('provider.myreferrals') }} ">
               <i class="fa fa-group"></i> <span> My Referrals </span>
               <span class="pull-right-container">
               </span>
             </a>
-          </li>
+          </li> -->
 
 
           <li class="{{ url()->current() == route('seller.service.badges') ? 'active' : '' }}">

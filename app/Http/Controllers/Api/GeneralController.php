@@ -70,7 +70,7 @@ class GeneralController extends Controller
                 'message' => 'No Config Found!'
             ], 404);
         }
-        
+
     }
 
 

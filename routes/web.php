@@ -49,7 +49,9 @@ Route::get('dapo/search/', 'OperationalController@dapSearch')->name('dap.search'
 // Route::middleware(['auth:agent'])->group(function () {
 
     Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
-    Route::get('/agent/referal/all', 'AgentController@allReferals')->name('agent.referal.all');
+    Route::get('/agent/referal/all', 'AgentController@myreferrals')->name('agent.referal.all');
+    Route::get('/agent/referer/downline/{id}', 'AgentController@myDownlines')->name('agent.downline');
+
     Route::get('/agent/profile/', 'AgentController@viewProfile')->name('agent.profile');
     Route::get('/agent/notification/all', 'AgentController@allNotifications')->name('agent.notification.all');
     Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
@@ -221,7 +223,7 @@ App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail
 Route::post('/createUser2', 'OldCodeController@createUser2')->name('createUser2');
 
 Route::get('/register', 'AuthController@showRegister')->name('register');
-Route::get('/group-register', 'AuthController@showGroupRegister')->name('register');
+Route::get('/groupreg', 'AuthController@showGroupRegister')->name('register');
 Route::post('/register2', 'AuthController@createUser')->name('register2');
 //original payment and registration with gtpay
 Route::post('/register', 'AuthController@pay_with_gtpay')->name('register');
@@ -284,7 +286,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::post('/service/createpay', 'BadgeController@createBadgepay')->name('createpaystack');
         Route::post('/service/create_pay_featured', 'BadgeController@create_pay_featured')->name('create_pay_featured');
 
-        Route::post('/service/createpay', 'AuthController@createPaystackpay')->name('createpaypaystack2');
+        Route::post('/service/createPaystackpay', 'AuthController@createPaystackpay')->name('createpaypaystack2');
 
         Route::post('/service/createpay4Advert', 'BadgeController@createpay4Advert');
         Route::get('/service/adverts', 'BadgeController@adverts')->name('seller.service.adverts');

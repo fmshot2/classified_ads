@@ -234,7 +234,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                <input hidden type="hidden" class="form-control" name="badgeCost2" id="badgeCost2">
+                              
+                                {{-- <input hidden type="hidden" class="form-control" name="email-addres3" id="email-address3" value="{{Auth::User()->email}}"> --}}
 
+
+                                <p style="text-align: center; font-size: 17px"
+                                    class="animate__animated animate__tada animate__infinite">
+                                    You will be redirected to our payments page to continue the payment process.
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" onclick="payWithPaystack1(badgeCost22)" class="btn pd-x-20"
+                                    style="background-color: #cc8a19; color: #fff">Click to make payment</button>
+                                <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -278,10 +291,18 @@
 
             <script>
                 function requestBadge(id) {
+                    console.log(id);
                     $.ajax({
                         url: '/requestbadge/' + id,
                         method: 'GET',
                         success: function(data) {
+                        console.log(id);
+
+                            // $('#badgeType').text(data.badge_type)
+                            $('#badge_type').val(id)
+                           var amount2 = $('#badgeCost').text(data.badge_cost)
+                            var badgeCost22 = data.badge_cost
+                            $('#amount').val(data.badge_cost)
                             console.log(data.badge_cost)
                             $('#badgeType').text(data.badge_type)
                             $('#badge_type').val(id)
@@ -300,6 +321,9 @@
 
                 base_Url = "{{ url('/') }}"
 
+               
+
+                function payWithPaystack1(amt) {
                 var _token = $("input[name='_token']").val();
 
                 function payWithPaystack1(badgecost, badgetype) {
@@ -312,6 +336,7 @@
                     var handler = PaystackPop.setup({
                         key: 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
                         email: document.getElementById("email-address3").value,
+                        amount: amt,
                         amount: badge_amount,
                         ref: '' + Math.floor((Math.random() * 1000000000) + 1),
                         metadata: {
@@ -326,6 +351,28 @@
                             var email = document.getElementById("email-address3").value;
                             var amount = badge_amount;
                             var ref_no1 =  response.reference;
+                            var badge_type = $("#badge_type").val();
+                            console.log(amount, ref_no1, badge_type);
+                            $.ajax({
+                              method: "POST",
+                              url: base_Url + '/provider/service/createpay',
+                              dataType: "json",
+                              data: {
+                                _token: _token,
+                                email: email,
+                                amount: amount,
+                                ref_no: ref_no1,
+                                badge_type: badge_type
+                              },
+                              success: function (data) {
+                                  console.log(data);
+                                  // swal("Done!", "success");
+
+                              },
+                              error: function(error) {
+                                  console.log(error)
+                              }
+                            })
                             var badgetype = badge_type
                             var badgesuperboxtype = document.getElementById("superbadgebox")
                             var badgemoderateboxtype = document.getElementById("moderatebadgebox")

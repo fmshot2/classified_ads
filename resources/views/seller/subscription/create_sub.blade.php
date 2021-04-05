@@ -1,6 +1,6 @@
 @extends('layouts.seller')
 
-@section('title', 'Request for Badge | ')
+@section('title', 'Request for Subscription | ')
 
 @section('content')
 
@@ -51,11 +51,14 @@
         @include('layouts.backend_partials.status')
 
         <section class="content-header">
+            <p id="sub_message" class="page-description text-success" style="display: none;">Your Subscription was added successfully!!</p>
         	<p class="page-description text-danger">Here, You Can Request To Extend Your Subscription.</p>
         	<h3 class="page-title">Get a New Subscription <small class="infoLinkNote">(<a data-toggle="modal"
         		data-target="#theinfoModal">How it works?</a>)</small></h3>
                 @if($current_subscription_end_date)
-        			<p>Your Subscription ends:<span><h1>{{  Carbon\Carbon::parse($current_subscription_end_date)->format('d-m-Y')  }}</h1></span></p>
+        			<!-- <p id="sub_end">Your Subscription ends:<span><h1>{{  Carbon\Carbon::parse($current_subscription_end_date)->format('d-m-Y')  }}</h1></span></p> -->
+                    <p id="sub_end">Your Subscription ends:<span><h4>{{  Carbon\Carbon::parse($current_subscription_end_date)->toDayDateTimeString()  }}</h4></span></p>                    
+                    <!-- <p>Your Subscription ends:<span><h1 id="sub_end2"></h1></span></p> -->
                 @endif
         </section>
 
@@ -64,9 +67,9 @@
                 <div class="col-md-4">
                     <div class="box box-primary">
                         <div class="box-header bg-warning text-center">
+                           <!--  <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i> -->
                         </div>
                         <div class="box-body box-profile text-center">
                             <h4>Annually</h4>
@@ -93,8 +96,8 @@
                 <div class="col-md-4">
                     <div class="box box-primary">
                         <div class="box-header bg-success text-center">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
+                            <!-- <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i> -->
                         </div>
                         <div class="box-body box-profile text-center">
                             <h4>Bi-anually</h4>
@@ -113,7 +116,7 @@
                 <div class="col-md-4">
                     <div class="box box-primary">
                         <div class="box-header bg-primary text-center">
-                            <i class="fa fa-star"></i>
+                            <!-- <i class="fa fa-star"></i> -->
                         </div>
                         <div class="box-body box-profile text-center">
                             <h4>Monthly</h4>
@@ -249,7 +252,7 @@
                     var handler = PaystackPop.setup({
                         key: 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
                         email: document.getElementById("email-address3").value,
-                        amount: 2000000,
+                        amount: $("#sub_cost").val(),
                         ref: '' + Math.floor((Math.random() * 1000000000) + 1),
                         metadata: {
                             custom_fields: [{
@@ -278,7 +281,11 @@
                                 sub_type: sub_type
                               },
                               success: function (data) {
-                                  console.log(data)
+                                console.log(data);
+                                toastr.success('You have purchased a new subscription!')
+                                // $("#sub_end2").innerHTML = data.new_date;
+                                 $("#sub_end2").html(data.new_date);
+                                 // $('#sub_message').css("display", "block");
                               },
                               error: function(error) {
                                   console.log(error)

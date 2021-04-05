@@ -566,7 +566,7 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
     public function updateServiceStatus(Request $request, $id)
     {
      $service = Service::find($id);
-     $status = $service->status == 1 ? 0 : 1;
+     $status = $service->status == 0 ? 1 : 0;
      $service->status = $status;
      $service->save();
      $request->session()->flash('status', 'Task was successful!');

@@ -28,16 +28,18 @@
                         </div>
 
                         <!-- /.box-header -->
-                        <div class="box-body">
+                     <!--    <div class="box-body">
                             <div class="table-responsive">
                                 <table class="display table table-bordered data_table_main">
                                     <thead>
                                         <tr>
-                                            <th> # </th>
+                                            <th> Level </th>
                                             <th> Referee Name </th>
                                             <th> Date Created </th>
-                                            <th> Action </th>
-                                        </tr>
+                                            <th> Referer Link </th>
+                                            <th> Code </th>
+                                            <th> Bonus </th>
+                                         </tr>
                                     </thead>
                                     <tbody>
                                          @if ($myreferrals)
@@ -45,22 +47,11 @@
                                                 <tr>
                                                     <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                                     <td> {{ $myreferral->user->name }} </td>
+                                                    <td> {{ $myreferral->user->refererLink }} </td>
+                                                    <td> {{ $myreferral->user->agent_code }} </td>
+                                                    <td> {{ $myreferral->user->refererAmount }} </td>
                                                     <td> {{ $myreferral->created_at->diffForHumans() }} </td>
-                                                    <td>
-                                                        <div class="btn-group">
-                                                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                                                <span class="caret"></span>
-                                                                <span class="sr-only">Toggle Dropdown</span>
-                                                            </button>
-                                                            <ul class="dropdown-menu" role="menu">
-                                                                <!-- View -->
-                                                                <li>
-                                                                </li>
-                                                            </ul>
-
-                                                            </ul>
-                                                        </div>
-                                                    </td>
+                                              
 
                                                 </tr>
                                             @endforeach
@@ -68,7 +59,67 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div> -->
+
+
+
+
+
+
+
+
+
+
+    <div id="main_referer_table" class="box-body">
+                  <div class="table-responsive">
+                    <table class="display table table-bordered data_table_main">
+                        <thead>
+                            <tr>
+                             <th> S/N </th>
+<!--                        <th> Referee Name </th>
+-->                       
+<th> Referer Link </th>
+<!-- <th> Agent Code </th> -->
+<th> Bonus </th>
+<th> Date Created </th>
+                                        <!-- <th> Status </th>
+                                            <th> Action </th> -->
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        @foreach($myreferrals as $key =>  $myreferral)
+
+
+                                        <tr role="row" class="odd">
+                                           <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                                           <!-- <td> {{ $myreferral->user->name }} </td> -->
+                                           <td> {{ $myreferral->user->refererLink }} </td>
+                                           <td> {{ $myreferral->user->refererAmount }} </td>
+                                           <td> {{ $myreferral->created_at->diffForHumans() }} </td>
+                                           <!-- <td> {{ $myreferral->status == 1 ? 'read' : 'unread' }} </td> -->
+
+                                           <td class="center">
+                                            <a onclick="getDetails({{$myreferral->user->id}})" class="btn btn-warning "><i class="fa fa-eye"></i>View Downline</a>
+                                        </td>
+                                    </tr>
+
+                                    @endforeach
+
+                                </tbody>
+
+
+                            </table>
                         </div>
+                    </div>
+
+
+
+
+
+
+
                     </div>
                 </div>
             </div>

@@ -194,14 +194,21 @@ class Register extends Component
                 $link = new Refererlink();
                 $link->agent_id = $present_user->id;
                 $link->agent_code = $present_user->agent_code;
-                $link->save();               
+                $link->save();   
+
+
+
+
+
+
+                            
 
                     //if login pass,redirect to agent dashboard page
                 session()->flash('success', 'Content Created Successfully.');
                 
                 return redirect()->route('agent.dashboard');
             } else {
-                session()->flash('fail', ' Credentials2 Incorect');
+                session()->flash('fail', ' Credentials Incorect');
                 return view('auth.agent_login');
             }
         }

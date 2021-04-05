@@ -25,6 +25,8 @@
 	<script type="text/javascript" src="{{asset('dropzone/dist/dropzone.js')}}"></script>
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
 
 
 

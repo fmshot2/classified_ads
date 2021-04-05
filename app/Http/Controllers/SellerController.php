@@ -460,9 +460,9 @@ public function badgeNotice()
 
      public function myreferrals()
     {
-        // $myreferrals = Auth::user()->referals;
+        $myreferrals = Auth::user()->referals;
 
-        $myreferrals = Agent::find(50)->referals;
+        // $myreferrals = Agent::find(50)->referals;
          return view('seller.myreferrals', compact('myreferrals'));
     }
 
