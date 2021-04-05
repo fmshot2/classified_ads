@@ -10,7 +10,7 @@
 		@include('layouts.backend_partials.status')
 	</div>
     <section class="content-header">
-        <p id="referer_text" style="font-size: 21px">You Can View All Your Referals Here.</p>
+        <p id="referer_text" style="font-size: 21px">You can view all your Referral activities here.</p>
         <p class="downline_text" style="font-size: 21px; display: none;">You Can View A Specific Downline Here.</p>
 
     </section>

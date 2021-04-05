@@ -19,7 +19,7 @@
       <!-- sidebar menu-->
       <ul class="sidebar-menu" data-widget="tree">
 
-        <li class="" style="{{ url()->current() == route('agent.dashboard') ? 'background-color: #f8d053' : '' }}">
+        <li  class="{{ url()->current() == route('agent.dashboard') ? 'active' : '' }}">
           <a href=" {{route ('agent.dashboard') }}">
             <i class="fa fa-dashboard"></i> <span> Dashboard </span>
             <span class="pull-right-container">
@@ -27,7 +27,7 @@
           </a>
         </li>
 
-        <li class="" style="{{ url()->current() == route('agent.referal.all') ? 'background-color: #f8d053' : '' }}">
+        <li class="{{ url()->current() == route('agent.referal.all') ? 'active' : '' }}">
           <a href=" {{route ('agent.referal.all') }}">
             <i class="fa fa-briefcase"></i> <span> All My Referrals </span>
             <!-- <span class="pull-right-container">
@@ -38,7 +38,7 @@
 
 
 
-        <li class="" style=" {{ url()->current() == route('agent.notification.all') ? 'background-color: #f8d053' : '' }}">
+        <li class="{{ url()->current() == route('agent.notification.all') ? 'active' : '' }}">
           <a href=" {{route ('agent.notification.all') }}">
             <i class="fa fa-bell"></i> <span> General Notice </span>
             <!-- <span class="pull-right-container">
@@ -47,7 +47,7 @@
           </a>
         </li>
 
-        <li class="treeview" style=" {{ url()->current() == route('agent.view.request.blade') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('agent.payment.history') ? 'background-color: #f8d053' : '' }}">
+        <li class="treeview"  class="{{ url()->current() == route('agent.view.request.blade') ? 'active' : '' }} {{ url()->current() == route('admin.service.pending') ? 'active' : '' }} {{ url()->current() == route('agent.payment.history') ? 'active' : '' }}">
           <a href="#">
             <i class="fa fa-briefcase"></i>
             <span> Payments </span>
@@ -62,7 +62,7 @@
           </ul>
         </li>
 
-        <li style="{{ url()->current() == route('agent.profile') ? 'background-color: #f8d053' : '' }}">
+        <li style="{{ url()->current() == route('agent.profile') ? 'active' : '' }}">
           <a href=" {{ route ('agent.profile') }} ">
             <i class="fa fa-user"></i> <span> Profile </span>
             <span class="pull-right-container">
