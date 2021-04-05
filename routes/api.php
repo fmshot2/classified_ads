@@ -55,10 +55,11 @@ Route::group([
     Route::delete('user/service/delete/{id}', [ServiceController::class, 'deleteService']);
 
     // SEEKING WORK
-    Route::post('seeking-work/create', [ServiceController::class, 'seekingWorkCreate']);
-    Route::get('/seekingwork/{slug}', [ServiceController::class, 'showCV']);
-    Route::post('/seekingwork/images/store/{id}', [ServiceController::class, 'imagesSeekingWorkStore']);
-    Route::get('/seekingwork/images/delete/{seekingworkid}/{id}', [ServiceController::class, 'imagesDelete']);
+    Route::post('user/seeking-work/create', [ServiceController::class, 'seekingWorkCreate']);
+    Route::get('user/seekingwork/{slug}', [ServiceController::class, 'showCV']);
+    Route::post('user/seekingwork/images/store/{id}', [ServiceController::class, 'imagesSeekingWorkStore']);
+    Route::get('user/seekingwork/images/delete/{seekingworkid}/{id}', [ServiceController::class, 'imagesDelete']);
+    Route::delete('user/seeking-work/delete/{id}', [ServiceController::class, 'deleteSeekingWork']);
 
     //Favourites
     Route::get('my-favourites/', [ServiceController::class, 'myFavourites']);

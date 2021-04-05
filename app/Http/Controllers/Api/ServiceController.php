@@ -113,49 +113,40 @@ class ServiceController extends Controller
 
         $status = "hghgcc";
 
-        $accruedAmount = Auth::user()->refererAmount;
+        $accruedAmount = $user->refererAmount;
 
-        $linkcheck2 = Refererlink::where(['user_id'=>Auth::id()])->first();
+        $linkcheck2 = Refererlink::where(['user_id'=>$user->id])->first();
         if ($linkcheck2) {
             $linkcheck = $linkcheck2;
             return response()->json([
-                $service_count,
-                $pending_service_count,
-                $active_service_count,
-                $message_count,
-                $unread_message,
-                $unread_message_count,
-                $read_message,
-                $read_message_count,
-                $all_service,
-                $active_service,
-                $all_notification_count,
-                $unread_notification,
-                $pending_service,
-                $servicesLikeCounter,
-                $all_service2,
-                $count_badge,
-                $status,
-                $linkcheck,
-                $accruedAmount
+                'all_services' => $service_count,
+                'pending_services' => $pending_service_count,
+                'active_services' => $active_service_count,
+                'messages_count' => $message_count,
+                'unread_messages' => $unread_message,
+                'unread_essages_count' => $unread_message_count,
+                'read_messages' => $read_message,
+                'read_messages_count' => $read_message_count,
+                'all_notifications' => $all_notification_count,
+                'unread_notifications' => $unread_notification,
+                'your_service_likes_count' => $servicesLikeCounter,
+                'your_referral_bonus' => $accruedAmount
             ]);
 
         }else{
             $linkcheck = null;
             return response()->json([
-                $service_count,
-                $pending_service_count,
-                $active_service_count,
-                $message_count,
-                $unread_message,
-                $unread_message_count,
-                $read_message,
-                $read_message_count,
-                $all_service,
-                $active_service,
-                $unread_notification,
-                $pending_service,
-                $servicesLikeCounter
+                'all_services' => $service_count,
+                'pending_services' => $pending_service_count,
+                'active_services' => $active_service_count,
+                'messages_count' => $message_count,
+                'unread_messages' => $unread_message,
+                'unread_essages_count' => $unread_message_count,
+                'read_messages' => $read_message,
+                'read_messages_count' => $read_message_count,
+                'all_notifications' => $all_notification_count,
+                'unread_notifications' => $unread_notification,
+                'your_service_likes_count' => $servicesLikeCounter
             ]);
         }
 
@@ -163,6 +154,14 @@ class ServiceController extends Controller
 
     public function createService(Request $request)
     {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
         $data = $request->all();
         $this->validate($request,[
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
@@ -205,14 +204,13 @@ class ServiceController extends Controller
         $service->slug = $slug;
         // $service->video_link = $request->video_link;$data['category_id'];
         $service->save();
-        $latest_service = Service::where('user_id', Auth::id())->latest()->first();
+        $latest_service = Service::where('user_id', $user->id)->latest()->first();
         $latest_service_id = $latest_service->id;
 
         $service->sub_categories()->attach($request->sub_category);
 
-        $service_owner = Auth::user();
-        $service_owner->name = Auth::user()->name;
-        $service_owner->email = Auth::user()->email;
+        $service_owner->name = $user->name;
+        $service_owner->email = $user->email;
 
 
         if ($service->save()) {
@@ -328,39 +326,6 @@ class ServiceController extends Controller
             ->setStatusCode(200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name'        => 'required',
-            'description' => 'required',
-            'city'        => 'required',
-            'state'       => 'required',
-        ]);
-
-        $nService = new Service();
-        $nService->name = $request->name;
-        $nService->description = $request->description;
-        $nService->city = $request->city;
-        $nService->state = $request->state;
-
-        if ($nService->save()) {
-            return response()->json([
-                $nService,
-                'message' => 'Service saved successfully!'
-            ], 200);
-        }
-        else{
-            return response()->json([
-                'error' => 'Something went wrong!'
-            ], 400);
-        }
-    }
 
     /**
      * Update the specified resource in storage.
@@ -407,8 +372,7 @@ class ServiceController extends Controller
             'work_experience'       => 'string',
             'education'             => 'string|required',
             'certifications'        => 'string',
-            'skills'                => 'string|required',
-            'user_image'            => 'image|required'
+            'skills'                => 'string|required'
         ]);
 
 
@@ -428,33 +392,36 @@ class ServiceController extends Controller
             });
             $image_resize->save(public_path('uploads/seekingworks/' .$file_name), 60);
         }
+        else {
+            $file_name = 'noserviceimage.png';
+        }
 
-            $sWork = new SeekingWork();
+        $sWork = new SeekingWork();
 
-            $sWork->user_id               = Auth::user()->id;
-            $sWork->fullname              = $request->name;
-            $sWork->phone                 = $request->phone;
-            $sWork->job_type              = $request->job_type;
-            $sWork->job_title             = $request->job_title;
-            $sWork->slug                  = Str::of($request->job_title)->slug('-').'-'.time();
-            $sWork->job_experience        = $request->job_experience;
-            $sWork->still_studying        = $request->still_studying;
-            $sWork->gender                = $request->gender;
-            $sWork->age                   = $request->age;
-            $sWork->marital_status        = $request->marital_status;
-            $sWork->employment_status     = $request->employment_status;
-            $sWork->highest_qualification = $request->highest_qualification;
-            $sWork->expected_salary       = $request->expected_salary;
-            $sWork->user_state            = $request->user_state;
-            $sWork->user_lga              = $request->user_lga;
-            $sWork->address               = $request->address;
-            $sWork->work_experience       = $request->work_experience;
-            $sWork->education             = $request->education;
-            $sWork->certifications        = $request->certifications;
-            $sWork->skills                = $request->skills;
-            $sWork->category_id           = $request->category_id;
-            $sWork->is_featured           = $request->is_featured;
-            $sWork->picture               = $file_name;
+        $sWork->user_id               = Auth::user()->id;
+        $sWork->fullname              = $request->name;
+        $sWork->phone                 = $request->phone;
+        $sWork->job_type              = $request->job_type;
+        $sWork->job_title             = $request->job_title;
+        $sWork->slug                  = Str::of($request->job_title)->slug('-').'-'.time();
+        $sWork->job_experience        = $request->job_experience;
+        $sWork->still_studying        = $request->still_studying;
+        $sWork->gender                = $request->gender;
+        $sWork->age                   = $request->age;
+        $sWork->marital_status        = $request->marital_status;
+        $sWork->employment_status     = $request->employment_status;
+        $sWork->highest_qualification = $request->highest_qualification;
+        $sWork->expected_salary       = $request->expected_salary;
+        $sWork->user_state            = $request->user_state;
+        $sWork->user_lga              = $request->user_lga;
+        $sWork->address               = $request->address;
+        $sWork->work_experience       = $request->work_experience;
+        $sWork->education             = $request->education;
+        $sWork->certifications        = $request->certifications;
+        $sWork->skills                = $request->skills;
+        $sWork->category_id           = $request->category_id;
+        $sWork->is_featured           = $request->is_featured;
+        $sWork->picture               = $file_name;
 
         if ($sWork->save()) {
             $sWork->images()->create(['image_path' => $file_name]);
@@ -473,6 +440,26 @@ class ServiceController extends Controller
             ]);
         }
     }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+     public function deleteSeekingWork($id)
+     {
+         $sw_service = SeekingWork::findOrFail($id);
+ 
+         if ($sw_service->delete()) {
+             return response()->json([
+                 $sw_service,
+                 'message' => 'This CV was Deleted Successfully!',
+             ], 200);
+         }
+ 
+         return response()->json(['message' => 'Something went wrong!'], 400);
+     }
+
 
     public function showCV($slug)
     {
