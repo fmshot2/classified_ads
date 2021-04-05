@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\OperationalController;
 use App\Http\Controllers\ServiceImageController;
+use App\Jobs\TestQueue;
+use App\Mail\TestMail;
 // use App\Http\Controllers\SubscriptionController;
 
 use Illuminate\Support\Facades\Route;
 use App\Message;
 use App\Notification;
 use App\Service;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +22,13 @@ use App\Service;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/tester', function ()
+{
+    // Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
+    TestQueue::dispatch();
+    return 'done';
+});
 
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 // Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
