@@ -37,8 +37,8 @@
                        
                         <th> Referer Name </th>
                         <!-- <th> Agent Code </th> -->
-                        <th> Bonus Earned </th>
-                        <th> Date Created </th>
+                        <th> Total Earnings </th>
+                        <th> Date Registered </th>
                         <th> Action </th>
 
                                         <!-- <th> Status </th>
@@ -101,7 +101,7 @@
                                         <!-- <th> Status </th>
                                             <th> Action </th> -->
                                         </tr>
-                                    </thead>g
+                                    </thead>
 
                                     <tbody>
 
@@ -133,7 +133,7 @@
                     <!-- /.box-body -->
                     
                     <div>
-                            <button class="btn btn-success downline_text w-10" style="display: none;" onclick="goBack()">Go Back</button>
+                            <button class="btn btn-warning downline_text w-10" style="display: none;" onclick="goBack()">Go Back</button>
                         
                 </div>
 
@@ -167,6 +167,7 @@
 
                                 // $("#sub_end2").innerHTML = data.new_date;
                                 $("#name").html(data.success.name);
+                                    console.log(data.success);
                                 if (data.success.level1) {
                                     var level1_value = 200;
                                     $("#level1").html(200);
@@ -220,8 +221,10 @@
 </script>
 <script type="text/javascript">
     function goBack(){
-    $('#main_referer_table').css("display", "block");
-    $('#downline_table').css("display", "none");
+    // $('#main_referer_table').css("display", "block");
+    // $('#downline_table').css("display", "none");
+    location.reload(true)
+
       // window.history.back();
   }
 </script>

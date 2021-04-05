@@ -158,6 +158,8 @@ class AgentController extends Controller
 
     public function myDownlines($id)
     {
+                // return response()->json(['success' => $id], 200);
+
         $myreferrals2 = User::find($id);
         return response()->json(['success' => $myreferrals2], 200);
 

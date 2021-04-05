@@ -181,8 +181,18 @@
                 </div>
                 <!-- /.col -->
             </div>
+        </section>
 
+ <section class="content">
 
+      <div class="row">
+       <div class="col-xs-12">
+
+        <div class="box" >
+         <div class="box-header">
+          <h3 class="box-title"> Referals </h3>
+          <h5 class="text-success downline_text" style="display: none;"> These are the bonuses you've gained from this particular referer </h5>
+      </div>
 
   <div class="table-responsive table-bordered ">
         @if(isset($myreferrals))
@@ -198,8 +208,8 @@
 
                      <th> Referer Name </th>
                      <!-- <th> Agent Code </th> -->
-                     <th> Bonus Earned </th>
-                     <th> Date Created </th>
+                     <th> Total Earnings </th>
+                     <th> Date Registered </th>
                      <th> Action </th>
 
                                         <!-- <th> Status </th>
@@ -291,14 +301,16 @@
                             </table>
                         </div>
                          <div>
-                            <button class="btn btn-success downline_text w-10" style="display: none;" onclick="goBack()">Go Back</button>
+                            <button class="btn btn-warning downline_text w-10" style="display: none;" onclick="goBack()">Go Back</button>
                         
                 </div>
                     </div>
                     <!-- /.box-body --> 
 
                 </div>
-
+            </div>
+        </div>
+    </div>
 
         </section>
 
@@ -400,9 +412,11 @@
 </script>
 <script type="text/javascript">
     function goBack(){
-    $('#main_referer_table').css("display", "block");
-    $('#downline_table').css("display", "none");
+    // $('#main_referer_table').css("display", "block");
+    // $('#downline_table').css("display", "none");
       // window.history.back();
+          location.reload(true)
+
   }
 </script>
 
