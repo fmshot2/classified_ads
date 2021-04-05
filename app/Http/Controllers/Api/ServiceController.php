@@ -305,6 +305,39 @@ class ServiceController extends Controller
             ]);
         }
     }
+    public function clientfeedbacks()
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $all_services = Service::where('user_id', $user->id)->get();
+
+        $this->thecomments = [];
+
+        foreach ($all_services as $key => $all_service) {
+            foreach ($all_service->comments as $key => $thecomments) {
+                $this->thecomments[] = $thecomments;
+            }
+        }
+        $allcomments = collect($this->thecomments);
+
+        if (!$allcomments->isEmpty()) {
+            return response()->json([
+                'user_feedbacks' => $allcomments,
+                'all_services' => $all_services
+            ]);
+        }
+        else{
+            return response()->json([
+                'message' => 'No Feedback Yet!'
+            ]);
+        }
+    }
 
     /**
      * Display the specified resource.

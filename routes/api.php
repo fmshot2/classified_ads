@@ -64,6 +64,9 @@ Route::group([
 
         //Favourites
         Route::get('my-favourites/', [ServiceController::class, 'myFavourites']);
+
+        //Feedbacks
+        Route::get('my-client-feedbacks/', [ServiceController::class, 'clientfeedbacks']);
     });
 });
 
@@ -89,4 +92,6 @@ Route::prefix('v1')->group(function ()
 
     // ADVERTS
     Route::get('sponsored/advertisements', [GeneralController::class, 'advertisement']);
+
+    Route::get('system-config/', [GeneralController::class, 'systemConfig']);
 });
