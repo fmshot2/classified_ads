@@ -405,7 +405,7 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
 
   public function allService()
   {
-    $all_service = Service::all();
+    $all_service = Service::orderBy('created_at', 'desc')->get();
     return view ('admin.service.index', compact('all_service') );
   }
 

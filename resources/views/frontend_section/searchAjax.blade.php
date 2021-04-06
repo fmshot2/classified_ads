@@ -416,12 +416,22 @@
                                 <ul class="categoriesModalList">
                                     @foreach ($categories as $category)
                                         @if ($loop->index <= 12)
-                                            <li>
-                                                <a data-dismiss="modal" onclick="addCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
+                                            <li data-dismiss="modal" class="popover__wrapper">
+                                                <a onclick="addCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
                                                 <span>
                                                     ({{ $category->services->count() ? $category->services->count().' service' : 'No service yet!'  }}{{ $category->services->count() > 1 ? 's' : ''  }})
                                                 </span>
                                                 </a>
+
+                                                <div class="popover__content">
+                                                    <ul>
+                                                        @if(isset($category->sub_categories))
+                                                            @foreach($category->sub_categories as $sub_category)
+                                                                <li data-dismiss="modal" onclick="addSubCategoryToForm('{{ $sub_category->name }}', '{{ $sub_category->slug }}', '{{ $category->slug }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addSubCategoryToForm('{{ $sub_category->name }}', '{{ $sub_category->slug }}', '{{ $category->slug }}')" href="#">{{ $sub_category->name }}</a></li>
+                                                            @endforeach
+                                                        @endif
+                                                    </ul>
+                                                </div>
                                             </li>
                                         @endif
                                     @endforeach
@@ -857,9 +867,9 @@
             document.getElementById('searchSubCategoryInput').value = ''
         }
         function addSubCategoryToForm(thesubcategoryname,thesubcategoryslug,thecategoryslug) {
-            document.getElementById('searchMobileCategoryBtn').innerHTML = '<span class="buttontext">' + thesubcategoryname + '</span>'
+            document.getElementById('searchCategoryBtn').innerHTML = '<span class="buttontext">' + thesubcategoryname + '</span>'
             document.getElementById('searchCategoryInput').value = thecategoryslug
-            document.getElementById('searchMobileSubCategoryInput').value = thesubcategoryslug
+            document.getElementById('searchSubCategoryInput').value = thesubcategoryslug
         }
     //
 
