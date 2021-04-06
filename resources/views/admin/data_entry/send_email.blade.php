@@ -44,7 +44,7 @@ Send Mail |
                                     <form class="form-horizontal form-element" method="POST" action="{{route('data.submit.email')}} " enctype="multipart/form-data">
                                         {{ csrf_field() }}
 
-                                        <div class="col-lg-12">
+                                        {{-- <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label for="site_name" class="control-label">Enter Email Address</label>
                                                 <small class="text text-danger">Separate email addresses with comma</small>
@@ -55,7 +55,7 @@ Send Mail |
 				                                <strong class="text-danger">{{ $errors->first('email') }}</strong>
 				                            </span>
 				                            @endif
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-lg-12">
                                             <div class="form-group">
@@ -73,7 +73,7 @@ Send Mail |
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label for="site_name" class="control-label">Message</label>
-                                                <textarea class="form-control" name="message" rows="4"></textarea>
+                                                <textarea class="form-control" name="message" id="summernote"></textarea>
                                             </div>
                                             @if ($errors->has('message'))
 				                            <span class="helper-text" data-error="wrong" data-success="right">
@@ -118,6 +118,13 @@ Send Mail |
 </section>
 </div>
 
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script type="text/javascript">
+    $('#summernote').summernote({
+        height: 120
+    });
+</script>
 
 
 @endsection

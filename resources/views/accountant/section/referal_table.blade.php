@@ -32,9 +32,9 @@
 					<tr>
 						<td>{{ ++$key }}</td>
 						<td style="display: none;" id="userID">{{ $all_payment->id }}</td>
-						<td> {{ $all_payment->user->name }} </td>
+						<td> {{ $all_payment->getOwner()->name }} </td>
 						<td>₦<span class="text-muted">{{ number_format($all_payment->amount_requested) }} </span> </td>
-						<td> ₦{{ number_format($all_payment->user->refererAmount) }} </td>
+						<td> ₦{{ number_format($all_payment->getOwner()->refererAmount) }} </td>
 						@if($all_payment->is_paid == 0)
 
 							<td> <span class="text text-danger">Pending</span></td>

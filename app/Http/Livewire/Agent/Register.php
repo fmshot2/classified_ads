@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Http;
 use App\State;
 use App\Local_government;
 use App\Mail\SendMailable;
+use Config;
+
 
 class Register extends Component
 {
@@ -106,7 +108,17 @@ class Register extends Component
      // }
 
         $data = [
-            'key'    => 'pk_live_8921deda409e1196f265fd3a7dcc4eff81d52cdb',
+
+            // $url = config('example.url');
+
+            // 'key'    => 'pk_live_8921deda409e1196f265fd3a7dcc4eff81d52cdb',
+            // 'key'    => 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
+            
+            //test variable from env
+            // 'key'    => config('variable.paystack_pk_test'),
+
+            // live variable
+            'key'    => config('variable.paystack_pk_live'),
             'amount' => 500 * 100,
             'email'  => $this->agent_email,
             'name'   => $this->agent_name,
@@ -118,10 +130,18 @@ class Register extends Component
 
     public function verifyPaystackAmount($paystack_response)
     {
+        // $sk_test    = config('variable.paystack_sk_test');
+
+        $sk_live    = config('variable.paystack_sk_live');
+
         $response = Http::withHeaders([
             'content-type' => 'application/json',
         ])
-        ->withToken('sk_live_567bac30399617933d4403048429bcfbd565cba1')
+        // ->withToken('sk_live_567bac30399617933d4403048429bcfbd565cba1')
+        // ->withToken('sk_test_11395d522a279cf6fb0f8c6cf0fd7f41b2c15200')
+
+
+        ->withToken($sk_live)
         ->get("https://api.paystack.co/transaction/verify/" . $paystack_response['trxref']);
 
         $json_resp = $response->json();
