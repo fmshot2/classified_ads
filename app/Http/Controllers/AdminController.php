@@ -23,17 +23,14 @@ use App\Subscription;
 use App\UserFeedback;
 use App\ProviderSubscription;
 use App\Helpers\SmsHelper;
+use App\Mail\ServiceApproved;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Carbon;
 use Geocoder;
-
-
-
-
-
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -568,9 +565,32 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
      $service = Service::find($id);
      $status = $service->status == 0 ? 1 : 0;
      $service->status = $status;
-     $service->save();
-     $request->session()->flash('status', 'Task was successful!');
+
+     if($service->save()){
+        if ($service->status == 1) {
+            $status = 'Approved';
+           try{
+               Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
+           }
+           catch(\Exception $e){
+               $failedtosendmail = 'Failed to Mail!.';
+           }
+        }
+        else {
+           $status = 'Disapproved';
+           try{
+               Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
+           }
+           catch(\Exception $e){
+               $failedtosendmail = 'Failed to Mail!.';
+           }
+        }
+        $request->session()->flash('status', 'Service was '.$status);
+        return back();
+     }
+     $request->session()->flash('error', 'Something went wrong');
      return back();
+     
    }
 
    public function serviceSearch(Request $request)

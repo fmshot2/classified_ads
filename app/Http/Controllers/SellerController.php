@@ -52,7 +52,7 @@ class SellerController extends Controller
             'city' => 'required',
             'name' => 'required',
             'state' => 'required',
-            'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
         ]);
        $image = $request->file('image');
        $random = Str::random(3);

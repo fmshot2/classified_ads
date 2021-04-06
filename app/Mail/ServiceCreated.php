@@ -34,6 +34,6 @@ class ServiceCreated extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.service-created')->subject('You created a service!');
+        return $this->markdown('emails.services.service-created')->subject('You created a service!');
     }
 }

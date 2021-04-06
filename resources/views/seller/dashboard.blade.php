@@ -590,6 +590,8 @@
                         </div>
                     </form>
 
+
+
                     <form id="seekingworkForm" action="{{route('provider.seeking.work.create')}}" method="POST" enctype="multipart/form-data">@csrf
                         <div class="modal-body">
                             <div class="row">

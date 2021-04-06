@@ -29,6 +29,9 @@ Route::get('/tester', function ()
     TestQueue::dispatch();
     return 'done';
 });
+Route::get('email', function () {
+    return new App\Mail\ServiceApproved();
+});
 
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 // Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
@@ -53,7 +56,7 @@ Route::post('/agent/agent_Complete_Reg_none', 'OldCodeController@agent_save_comp
 
 Route::get('get-tourist-sites/{state}', 'OperationalController@getTouristSites')->name('gettouristsites');
 Route::get('ajax/search/', 'OperationalController@ajaxSearchResult')->name('ajax.search.result');
-Route::get('dapo/search/', 'OperationalController@dapSearch')->name('dap.search');
+Route::get('services/search/', 'OperationalController@dapSearch')->name('dap.search');
 
 
 // Route::middleware(['auth:agent'])->group(function () {
