@@ -29,6 +29,9 @@ Route::get('/tester', function ()
     TestQueue::dispatch();
     return 'done';
 });
+Route::get('email', function () {
+    return new App\Mail\ServiceApproved();
+});
 
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 // Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');

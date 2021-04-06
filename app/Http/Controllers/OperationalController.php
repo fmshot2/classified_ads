@@ -423,10 +423,12 @@ class OperationalController extends Controller
 
             $services = Service::query()
                 ->where('name', 'LIKE', "%{$request->service}%")
+                ->where('status', 1)
                 ->orWhere('description', 'LIKE', "%{$request->service}%");
 
             $seekingworks = SeekingWork::query()
                 ->where('job_title', 'LIKE', "%{$request->service}%")
+                ->where('status', 1)
                 ->orWhere('fullname', 'LIKE', "%{$request->service}%");
 
 
