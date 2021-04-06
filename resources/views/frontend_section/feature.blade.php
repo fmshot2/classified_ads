@@ -1,4 +1,4 @@
-<div class="blog content-area bg-grea-3 hm-feat-ser-mid-sec">
+<div class="blog content-area bg-grea-3 bg-grea-3-hft hm-feat-ser-mid-sec">
     <div class="service-detail-container">
             <!-- Main title -->
         <div class="main-title" style="margin-top: -50px;">

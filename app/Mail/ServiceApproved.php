@@ -18,7 +18,8 @@ class ServiceApproved extends Mailable
      *
      * @return void
      */
-    public function __construct($name = 'Ethipoia', $description = 'efbwe hebfjewhfbj efbfbew hfefjhfwbbewjhfbef hbf  efbh eb  f bffbjfb jefbje', $thumbnail = 'serrt.jpg', $slug = 'ethiopia', $status = 'Approved')
+    // public function __construct($name = 'Ethipoia', $description = 'efbwe hebfjewhfbj efbfbew hfefjhfwbbewjhfbef hbf  efbh eb  f bffbjfb jefbje', $thumbnail = 'serrt.jpg', $slug = 'ethiopia', $status = 'Approved')
+    public function __construct($name, $description, $thumbnail, $slug, $status)
     {
         $this->name = $name;
         $this->description = $description;

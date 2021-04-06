@@ -41,6 +41,9 @@
         color: rgb(238, 56, 56);
         font-size: 17px;
     }
+    .bg-grea-3-hft{
+        background: #ca830921;
+    }
 
     @media (max-width: 768px){
         .float-referrer{
@@ -109,22 +112,20 @@ function getLocation() {
 
 function showPosition(position) {
 
-    console.log('latitude', position.coords.latitude);
+    // console.log('latitude', position.coords.latitude);
 
-        var lat = document.getElementById("latitude_id").value = position.coords.latitude;
-    console.log('lat', lat);
-     var long = document.getElementById("longitude_id").value = position.coords.longitude;
-    console.log('long', long);
-
-   $.ajax({
+    $.ajax({
             type:'GET',
             url: 'findgeo',
-            data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
-           success: function(result){
+            data: {
+                latitude:position.coords.latitude, 
+                longitude:position.coords.longitude 
+            },
+            success: function(result){
                     $('#servClosesToYouArea').show();
                         services = result.data;
                         services.forEach(service => {
-                            badge = service.badge_type
+                            badge = service.user.badgetype
                             if (badge == 1) {
                               badge = '<span class="featured bg-warning" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Super</span>';
                             }
@@ -134,7 +135,7 @@ function showPosition(position) {
                             if (badge == 3) {
                               badge = '<span class="featured bg-primary" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i> Basic</span>';
                             }
-                            if (badge == 4) {
+                            if (badge == 0) {
                               badge = '';
                             }
                             // if (service.badge_type == 'trusted') {

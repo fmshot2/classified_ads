@@ -116,7 +116,11 @@ class ServiceController extends Controller
     ->offset(0)
      ->inRandomOrder()->limit(20)->get();
 
-    return response()->json(['data'=>$servicesss]);
+    return response()->json([
+      'data' => $servicesss,
+      'latitude' => $latitude,
+      'longitude' => $longitude
+      ]);
 
   }
 
