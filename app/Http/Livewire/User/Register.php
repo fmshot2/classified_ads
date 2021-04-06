@@ -322,10 +322,27 @@
                 $referer = User::where('id', $person_that_refered)->first();
                 if ($referer) {
 
+
+
                     $person_that_refered2 = $referer->idOfReferer;
                     if ($person_that_refered2) {
                         $referer3 = User::where('id', $person_that_refered2)->first();
                         if ($referer3) {
+
+
+
+                              if($referer3->level2) {
+                            $check_referer = User::where('id', $referer3->level2)->first();
+                            if($check_referer->idOfReferer == $person_that_refered) {
+                            $referer3->refererAmount = $referer3->refererAmount + 0; 
+                            $referer3->save();
+                           if ($present_user->role == 'seller') {
+                            return redirect()->route('seller.dashboard');
+                        } else if ($present_user->role == 'buyer') {
+                            return  Redirect::to(Session::get('url.intended'));
+                        } 
+                    }
+                }
 
 //re-route to dashboard if my upline level2 has been given level 2 bonus previously by my upline level 1
 
@@ -343,18 +360,7 @@
 
 
 
-                            if($referer->level1) {
-                            $check_referer = User::where('id', $referer->level1)->first();
-                            if($check_referer->level1) {
-                            $referer3->refererAmount = $referer3->refererAmount + 0; 
-                            $referer3->save();
-                           if ($present_user->role == 'seller') {
-                            return redirect()->route('seller.dashboard');
-                        } else if ($present_user->role == 'buyer') {
-                            return  Redirect::to(Session::get('url.intended'));
-                        } 
-                    }
-                }
+
 
                         $referer3->refererAmount = $referer3->refererAmount + 150;
                         $referer3->level2 = Auth::id();
@@ -375,9 +381,10 @@
                     $referer3 = Agent::where('id', $person_that_refered2)->first();
                     if ($referer3) {
 
-                          if($referer->level1) {
-                            $check_referer = User::where('id', $referer->level1)->first();
-                            if($check_referer->level1) {
+                    
+                              if($referer3->level2) {
+                            $check_referer = User::where('id', $referer3->level2)->first();
+                            if($check_referer->idOfReferer == $person_that_refered) {
                             $referer3->refererAmount = $referer3->refererAmount + 0; 
                             $referer3->save();
                            if ($present_user->role == 'seller') {
