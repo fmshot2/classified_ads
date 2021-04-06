@@ -33,7 +33,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Carbon;
 use Geocoder;
-use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
