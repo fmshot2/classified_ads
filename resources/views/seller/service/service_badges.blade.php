@@ -310,7 +310,7 @@
                     var badge_type = badgetype;
 
                     var handler = PaystackPop.setup({
-                        key: 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
+                        key: 'pk_live_8921deda409e1196f265fd3a7dcc4eff81d52cdb',
                         email: document.getElementById("email-address3").value,
                         amount: badge_amount,
                         ref: '' + Math.floor((Math.random() * 1000000000) + 1),
