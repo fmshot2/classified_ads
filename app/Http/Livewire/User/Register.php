@@ -36,9 +36,6 @@
     public $current_view;
     public $plan;
 
-    public function url() {
-        return config('example.url');
-    }
 
     public function mount()
     {
@@ -70,7 +67,15 @@
             // $url = config('example.url');
 
             // 'key'    => 'pk_live_8921deda409e1196f265fd3a7dcc4eff81d52cdb',
-            'key'    => config('variable.paystack_pk_live'),
+            // 'key'    => 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
+
+            
+            //test variable from env
+            // 'key'    => config('variable.paystack_pk_test'),
+
+            // live variable
+            // 'key'    => config('variable.paystack_pk_live'),
+            'key'    => config('variable.paystack_pk_test'),      
             'amount' => $this->plan,
             'email'  => $this->email,
             'name'   => $this->name,
@@ -84,11 +89,16 @@
 
     public function verifyPaystackAmount($paystack_response)
     {
-        $sk_live    = config('variable.paystack_sk_live');
+        $sk_test    = config('variable.paystack_sk_test');
+
+        // $sk_live    = config('variable.paystack_sk_live');
         $response = Http::withHeaders([
             'content-type' => 'application/json',
         ])
-        ->withToken($sk_live)
+        // ->withToken('sk_live_567bac30399617933d4403048429bcfbd565cba1')
+        // ->withToken('sk_test_11395d522a279cf6fb0f8c6cf0fd7f41b2c15200')
+
+        ->withToken($sk_test)
         ->get("https://api.paystack.co/transaction/verify/" . $paystack_response['trxref']);
 
         $json_resp = $response->json();
@@ -317,15 +327,34 @@
                         $referer3 = User::where('id', $person_that_refered2)->first();
                         if ($referer3) {
 
-//re-route to dashboard if my upline level2 has been given level 2 bonus previously
+//re-route to dashboard if my upline level2 has been given level 2 bonus previously by my upline level 1
 
-                          if($referer->level1 && ($referer3->level2 == $referer->level1) {
-                           if (Auth::user()->role == 'seller') {
+                //           if($referer->level1) {
+                //             $check_referer = User::where('id', $referer->level1)->first();
+                //             if($check_referer->level1) {
+                //            if ($present_user->role == 'seller') {
+                //             return redirect()->route('seller.dashboard');
+                //         } else if ($present_user->role == 'buyer') {
+                //             return  Redirect::to(Session::get('url.intended'));
+                //         } 
+                //     }
+                // }
+
+
+
+
+                            if($referer->level1) {
+                            $check_referer = User::where('id', $referer->level1)->first();
+                            if($check_referer->level1) {
+                            $referer3->refererAmount = $referer3->refererAmount + 0; 
+                            $referer3->save();
+                           if ($present_user->role == 'seller') {
                             return redirect()->route('seller.dashboard');
-                        } else if (Auth::user()->role == 'buyer') {
+                        } else if ($present_user->role == 'buyer') {
                             return  Redirect::to(Session::get('url.intended'));
                         } 
                     }
+                }
 
                         $referer3->refererAmount = $referer3->refererAmount + 150;
                         $referer3->level2 = Auth::id();
@@ -346,13 +375,18 @@
                     $referer3 = Agent::where('id', $person_that_refered2)->first();
                     if ($referer3) {
 
-                        if($referer->level1 && ($referer3->level2 == $referer->level1) {
-                           if (Auth::user()->role == 'seller') {
+                          if($referer->level1) {
+                            $check_referer = User::where('id', $referer->level1)->first();
+                            if($check_referer->level1) {
+                            $referer3->refererAmount = $referer3->refererAmount + 0; 
+                            $referer3->save();
+                           if ($present_user->role == 'seller') {
                             return redirect()->route('seller.dashboard');
-                        } else if (Auth::user()->role == 'buyer') {
+                        } else if ($present_user->role == 'buyer') {
                             return  Redirect::to(Session::get('url.intended'));
                         } 
                     }
+                }
 
                     $referer3->refererAmount = $referer3->refererAmount + 150;
                     $referer3->level2 = Auth::id();
