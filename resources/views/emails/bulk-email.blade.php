@@ -42,7 +42,7 @@
     </div>
 
     <div style="padding: 20px;">
-        <h2>{{ $body }}</h2>
+        <h2>{!! $body !!}</h2>
 
         
 
