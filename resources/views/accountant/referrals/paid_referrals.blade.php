@@ -55,12 +55,12 @@ All Paid Referals |
 								@forelse($all_payments as $key => $all_payment)
 								<tr>
 									<td>{{ ++$key }}</td>
-									<td> {{ $all_payment->getOwner()->name }} </td>
-									<td>₦<span class="text-muted">{{ number_format($all_payment->amount_requested) }} </span> </td>
-									<td> ₦{{ number_format($all_payment->getOwner()->refererAmount) }} </td>
+									<td> {{ $all_payment->getOwner()->name ?? '' }} </td>
+									<td>₦<span class="text-muted">{{ number_format($all_payment->amount_requested) ?? '0' }} </span> </td>
+									<td> ₦{{ number_format($all_payment->getOwner()->refererAmount) ?? '0' }} </td>
 									<td> <span class="text text-success">Paid</span></td>
 									<td>{{ date('d-m-Y', strtotime($all_payment->updated_at)) }}</td>
-									<td><a href="{{ route('accountant.view.payment', $all_payment->getOwner()->id) }}"><i class="fa fa-eye" data-toggle="tooltip" data-placement="bottom" title="View History"></i></a></td>
+									<td><a href="{{ route('accountant.view.payment', $all_payment->getOwner()->id) ?? ''}}"><i class="fa fa-eye" data-toggle="tooltip" data-placement="bottom" title="View History"></i></a></td>
 								</tr>
 
 								@empty

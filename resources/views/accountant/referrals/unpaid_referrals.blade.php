@@ -63,15 +63,15 @@ All unpaid Referals |
 									<td>{{ ++$key }}</td>
 									<td style="display: none;" id="userID">{{ $unpaid_payment->id }}</td>
 									@if($unpaid_payment->getOwner())
-										<td> {{ $unpaid_payment->getOwner()->name }} </td>
+										<td> {{ $unpaid_payment->getOwner()->name ?? '' }} </td>
 									@endif
 									<td>{{ $unpaid_payment->user_type }}</td>
 									<td>₦<span class="text-muted">{{ number_format($unpaid_payment->amount_requested) }} </span> </td>
 									@if($unpaid_payment->getOwner())
-										<td> ₦{{ number_format($unpaid_payment->getOwner()->refererAmount) }} </td>
+										<td> ₦{{ number_format($unpaid_payment->getOwner()->refererAmount) ?? '0' }} </td>
 										<td> {{ $unpaid_payment->getOwner()->bank_name }} </span></td>
-										<td> <span class="text text-success">{{ $unpaid_payment->getOwner()->account_name }}</span> </span></td>
-										<td> <span class="text text-success">{{ $unpaid_payment->getOwner()->account_number }}</span> </span></td>
+										<td> <span class="text text-success">{{ $unpaid_payment->getOwner()->account_name ?? '' }}</span> </span></td>
+										<td> <span class="text text-success">{{ $unpaid_payment->getOwner()->account_number ?? '' }}</span> </span></td>
 									@endif
 									{{-- @if($unpaid_payment->getOwner())
 										<td> {{ $unpaid_payment->user->bank_name }} </span></td>
