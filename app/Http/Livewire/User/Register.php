@@ -18,6 +18,7 @@
  use Illuminate\Support\Str;
  use Illuminate\Support\Facades\Http;
  use Carbon\Carbon;
+ use Config;
 
 
  class Register extends Component
@@ -34,6 +35,10 @@
     public $agent_Id;
     public $current_view;
     public $plan;
+
+    public function url() {
+        return config('example.url');
+    }
 
     public function mount()
     {
@@ -62,7 +67,10 @@
         ]);
 
         $data = [
-            'key'    => 'pk_live_8921deda409e1196f265fd3a7dcc4eff81d52cdb',
+            // $url = config('example.url');
+
+            // 'key'    => 'pk_live_8921deda409e1196f265fd3a7dcc4eff81d52cdb',
+            'key'    => config('variable.paystack_pk_live'),
             'amount' => $this->plan,
             'email'  => $this->email,
             'name'   => $this->name,
@@ -76,10 +84,11 @@
 
     public function verifyPaystackAmount($paystack_response)
     {
+        $sk_live    = config('variable.paystack_sk_live');
         $response = Http::withHeaders([
             'content-type' => 'application/json',
         ])
-        ->withToken('sk_live_567bac30399617933d4403048429bcfbd565cba1')
+        ->withToken($sk_live)
         ->get("https://api.paystack.co/transaction/verify/" . $paystack_response['trxref']);
 
         $json_resp = $response->json();
@@ -310,13 +319,13 @@
 
 //re-route to dashboard if my upline level2 has been given level 2 bonus previously
 
-                    //       if($referer->level1 && ($referer3->level2 == $referer->level1) {
-                    //        if (Auth::user()->role == 'seller') {
-                    //         return redirect()->route('seller.dashboard');
-                    //     } else if (Auth::user()->role == 'buyer') {
-                    //         return  Redirect::to(Session::get('url.intended'));
-                    //     } 
-                    // }
+                          if($referer->level1 && ($referer3->level2 == $referer->level1) {
+                           if (Auth::user()->role == 'seller') {
+                            return redirect()->route('seller.dashboard');
+                        } else if (Auth::user()->role == 'buyer') {
+                            return  Redirect::to(Session::get('url.intended'));
+                        } 
+                    }
 
                         $referer3->refererAmount = $referer3->refererAmount + 150;
                         $referer3->level2 = Auth::id();
@@ -337,13 +346,13 @@
                     $referer3 = Agent::where('id', $person_that_refered2)->first();
                     if ($referer3) {
 
-                    //     if($referer->level1 && ($referer3->level2 == $referer->level1) {
-                    //        if (Auth::user()->role == 'seller') {
-                    //         return redirect()->route('seller.dashboard');
-                    //     } else if (Auth::user()->role == 'buyer') {
-                    //         return  Redirect::to(Session::get('url.intended'));
-                    //     } 
-                    // }
+                        if($referer->level1 && ($referer3->level2 == $referer->level1) {
+                           if (Auth::user()->role == 'seller') {
+                            return redirect()->route('seller.dashboard');
+                        } else if (Auth::user()->role == 'buyer') {
+                            return  Redirect::to(Session::get('url.intended'));
+                        } 
+                    }
 
                     $referer3->refererAmount = $referer3->refererAmount + 150;
                     $referer3->level2 = Auth::id();
