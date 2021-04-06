@@ -62,7 +62,7 @@
         ]);
 
         $data = [
-            'key'    => 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
+            'key'    => 'pk_live_8921deda409e1196f265fd3a7dcc4eff81d52cdb',
             'amount' => $this->plan,
             'email'  => $this->email,
             'name'   => $this->name,
@@ -79,7 +79,7 @@
         $response = Http::withHeaders([
             'content-type' => 'application/json',
         ])
-        ->withToken('sk_test_11395d522a279cf6fb0f8c6cf0fd7f41b2c15200')
+        ->withToken('sk_live_567bac30399617933d4403048429bcfbd565cba1')
         ->get("https://api.paystack.co/transaction/verify/" . $paystack_response['trxref']);
 
         $json_resp = $response->json();
