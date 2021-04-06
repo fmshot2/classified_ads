@@ -931,6 +931,25 @@ class OperationalController extends Controller
 
         $user->badgetype = $request->get('badge_type');
 
+        $badge = new Badge();
+        $badge->user_id = $user->id;
+
+        if ($request->get('badge_type') == 1) {
+            $badge->badge_type = 'Super User';
+        }
+        elseif ($request->get('badge_type') == 2) {
+            $badge->badge_type = 'Moderate User';
+        }
+        elseif ($request->get('badge_type') == 3) {
+            $badge->badge_type = 'Basic User';
+        }
+
+        $badge->amount = $request->get('amount');
+        $badge->ref_no = $request->get('trans_reference');
+        $badge->seller_name = $user->name;
+        $badge->save();
+
+
         if ($request->get('badge_type') == 1) {
             $badge_name = 'Super User';
         }

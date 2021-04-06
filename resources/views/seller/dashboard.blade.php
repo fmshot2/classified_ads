@@ -548,7 +548,7 @@
                                                 <img src="" alt="">
                                             </div>
                                         <div class="controls" style="display: none;">
-                                            <input type="file" name="thumbnail" class="form-control show-tick" />
+                                            <input type="file" name="thumbnail" class="form-control show-tick" required />
                                         </div>
                                     </div>
 
