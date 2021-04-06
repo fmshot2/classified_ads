@@ -310,13 +310,13 @@
 
 //re-route to dashboard if my upline level2 has been given level 2 bonus previously
 
-                            if($referer3->level2) {
-                             if (Auth::user()->role == 'seller') {
-                                return redirect()->route('seller.dashboard');
-                            } else if (Auth::user()->role == 'buyer') {
-                                return  Redirect::to(Session::get('url.intended'));
-                            } 
-                        }
+                    //       if($referer->level1 && ($referer3->level2 == $referer->level1) {
+                    //        if (Auth::user()->role == 'seller') {
+                    //         return redirect()->route('seller.dashboard');
+                    //     } else if (Auth::user()->role == 'buyer') {
+                    //         return  Redirect::to(Session::get('url.intended'));
+                    //     } 
+                    // }
 
                         $referer3->refererAmount = $referer3->refererAmount + 150;
                         $referer3->level2 = Auth::id();
@@ -337,13 +337,13 @@
                     $referer3 = Agent::where('id', $person_that_refered2)->first();
                     if ($referer3) {
 
-                       if($referer3->level2) {
-                         if (Auth::user()->role == 'seller') {
-                            return redirect()->route('seller.dashboard');
-                        } else if (Auth::user()->role == 'buyer') {
-                            return  Redirect::to(Session::get('url.intended'));
-                        } 
-                    }
+                    //     if($referer->level1 && ($referer3->level2 == $referer->level1) {
+                    //        if (Auth::user()->role == 'seller') {
+                    //         return redirect()->route('seller.dashboard');
+                    //     } else if (Auth::user()->role == 'buyer') {
+                    //         return  Redirect::to(Session::get('url.intended'));
+                    //     } 
+                    // }
 
                     $referer3->refererAmount = $referer3->refererAmount + 150;
                     $referer3->level2 = Auth::id();
