@@ -28,6 +28,7 @@ use App\Message;
 use App\Notification;
 use App\Refererlink;
 
+
 class ServiceController extends Controller
 {
     protected $user;
