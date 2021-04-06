@@ -273,7 +273,7 @@
                                         <p><strong>Education: </strong>{!! $seekingWorkDetail->education !!}</p>
                                         @endif
                                         @if ($seekingWorkDetail->still_studying)
-                                        <p><strong>Still Studying: </strong>{{ $seekingWorkDetail->highest_qualification }}</p>
+                                        <p><strong>Still Studying: </strong>{{ $seekingWorkDetail->still_studying }}</p>
                                         @endif
                                         @if ($seekingWorkDetail->highest_qualification)
                                         <p><strong>Highest Qualification: </strong>{{ $seekingWorkDetail->highest_qualification }}</p>
