@@ -65,12 +65,12 @@ Agent's Pending Payments |
 									@if($unpaid_payment->getOwner())
 										<td> {{ $unpaid_payment->getOwner()->name ?? '' }} </td>
 									@endif
-									<td>₦<span class="text-muted">{{ number_format($unpaid_payment->amount_requested) ?? '0' }} </span> </td>
+									<td>₦<span class="text-muted">{{ number_format($unpaid_payment->amount_requested  ?? '0') }} </span> </td>
 									@if($unpaid_payment->getOwner())
-										<td> ₦{{ number_format($unpaid_payment->getOwner()->refererAmount) ?? '0' }} </td>
-										<td> {{ number_format($unpaid_payment->getOwner()->bankname) ?? '' }} </td>
-										<td> {{ number_format($unpaid_payment->getOwner()->accountname) ?? '' }} </td>
-										<td> {{ number_format($unpaid_payment->getOwner()->accountno) ?? '' }} </td>
+										<td> ₦{{ number_format($unpaid_payment->getOwner()->refererAmount ?? '0') }} </td>
+										<td> {{ $unpaid_payment->getOwner()->bankname ?? '' }} </td>
+										<td> {{ $unpaid_payment->getOwner()->accountname ?? '' }} </td>
+										<td> {{ $unpaid_payment->getOwner()->accountno ?? '' }} </td>
 									@endif
 									@if($unpaid_payment->is_paid == 0)
 

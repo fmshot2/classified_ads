@@ -68,7 +68,7 @@ All unpaid Referals |
 									<td>{{ $unpaid_payment->user_type }}</td>
 									<td>₦<span class="text-muted">{{ number_format($unpaid_payment->amount_requested) }} </span> </td>
 									@if($unpaid_payment->getOwner())
-										<td> ₦{{ number_format($unpaid_payment->getOwner()->refererAmount) ?? '0' }} </td>
+										<td> ₦{{ number_format($unpaid_payment->getOwner()->refererAmount ?? '0') }} </td>
 										<td> {{ $unpaid_payment->getOwner()->bank_name }} </span></td>
 										<td> <span class="text text-success">{{ $unpaid_payment->getOwner()->account_name ?? '' }}</span> </span></td>
 										<td> <span class="text text-success">{{ $unpaid_payment->getOwner()->account_number ?? '' }}</span> </span></td>

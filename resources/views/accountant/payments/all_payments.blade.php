@@ -60,8 +60,8 @@ All Agent Payments |
 									<td>{{ ++$key }}</td>
 									<td style="display: none;" id="userID">{{ $all_payment->id }}</td>
 									<td> {{ $all_payment->getOwner()->name ?? '' }} </td>
-									<td>₦<span class="text-muted">{{ number_format($all_payment->amount_requested) ?? '0' }} </span> </td>
-									<td> ₦{{ number_format($all_payment->getOwner()->refererAmount) ?? '0' }} </td>
+									<td>₦<span class="text-muted">{{ number_format($all_payment->amount_requested ?? '0') }} </span> </td>
+									<td> ₦{{ number_format($all_payment->getOwner()->refererAmount ?? '0') }} </td>
 									<td> {{ $all_payment->getOwner()->bank_name ?? '' }} </span></td>
 									<td> <span class="text text-success">{{ $all_payment->getOwner()->account_number ?? '' }}</span> </span></td>
 									@if($all_payment->is_paid == 0)
