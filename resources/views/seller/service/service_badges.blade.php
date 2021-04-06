@@ -342,8 +342,9 @@
                                     data: {
                                         _token: _token,
                                         email: email,
-                                        amount: amount,
-                                        ref_no: ref_no1,
+                                        amount: badgecost,
+                                        ref_no: response.transaction,
+                                        trans_reference: response.trxref,
                                         badge_type: badgetype
                                     },
                                     success: function (data) {
@@ -355,7 +356,7 @@
                                             badgesuperboxbtn.setAttribute('disabled', 'true');
                                             badgesuperboxbtn.removeAttribute('data-target');
 
-                                            
+
                                             badgemoderateboxtype.style.opacity = '1';
                                             badgebasicboxtype.style.opacity = '1';
 
@@ -365,7 +366,7 @@
                                             badgemoderateboxbtn.setAttribute('disabled', 'true');
                                             badgemoderateboxbtn.removeAttribute('data-target');
 
-                                            
+
                                             badgesuperboxbtn.style.opacity = '1';
                                             badgebasicboxtype.style.opacity = '1';
                                         }
@@ -374,7 +375,7 @@
                                             badgebasicboxbtn.setAttribute('disabled', 'true');
                                             badgebasicboxbtn.removeAttribute('data-target');
 
-                                            
+
                                             badgesuperboxbtn.style.opacity = '1';
                                             badgemoderateboxtype.style.opacity = '1';
                                         }

@@ -164,6 +164,14 @@ class ServiceController extends Controller
 
         $data = $request->all();
         $this->validate($request,[
+            'description' => 'required',
+            'category_id' => 'required',
+            'min_price' => 'required|numeric',
+            'address' => 'nullable',
+            'description' => 'required',
+            'city' => 'required',
+            'name' => 'required',
+            'state' => 'required',
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
         ]);
         $image = $request->file('image');
@@ -482,14 +490,14 @@ class ServiceController extends Controller
      public function deleteSeekingWork($id)
      {
          $sw_service = SeekingWork::findOrFail($id);
- 
+
          if ($sw_service->delete()) {
              return response()->json([
                  $sw_service,
                  'message' => 'This CV was Deleted Successfully!',
              ], 200);
          }
- 
+
          return response()->json(['message' => 'Something went wrong!'], 400);
      }
 

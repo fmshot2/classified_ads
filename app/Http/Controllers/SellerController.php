@@ -38,22 +38,22 @@ class SellerController extends Controller
         return view ('seller.service.create', compact('category', 'states', 'subcategory') );
     }
 
-   public function storeService(Request $request)
+    public function storeService(Request $request)
     {
 
 
-    $data = $request->all();
-       $this->validate($request,[
-        // 'description' => 'required',
-        // 'category_id' => 'required',
-        // 'address' => 'required',
-        // 'description' => 'required',
-        // 'slug' => 'unique:services,slug',
-        // //'city' => 'required',
-        // 'name' => 'required',
-        // 'state' => 'required',
-        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
-    ]);
+        $data = $request->all();
+        $this->validate($request,[
+            'description' => 'required',
+            'category_id' => 'required',
+            'min_price' => 'required|numeric',
+            'address' => 'nullable',
+            'description' => 'required',
+            'city' => 'required',
+            'name' => 'required',
+            'state' => 'required',
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
+        ]);
        $image = $request->file('image');
        $random = Str::random(3);
        $slug = Str::of($request->name)->slug('-').''.$random;
