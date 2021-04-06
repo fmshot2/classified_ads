@@ -44,7 +44,7 @@ Send Mail |
                                     <form class="form-horizontal form-element" method="POST" action="{{route('data.submit.email')}} " enctype="multipart/form-data">
                                         {{ csrf_field() }}
 
-                                        <div class="col-lg-12">
+                                        {{-- <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label for="site_name" class="control-label">Enter Email Address</label>
                                                 <small class="text text-danger">Separate email addresses with comma</small>
@@ -55,7 +55,7 @@ Send Mail |
 				                                <strong class="text-danger">{{ $errors->first('email') }}</strong>
 				                            </span>
 				                            @endif
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-lg-12">
                                             <div class="form-group">

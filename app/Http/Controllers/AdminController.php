@@ -22,6 +22,9 @@ use App\Event;
 use App\Subscription;
 use App\UserFeedback;
 use App\ProviderSubscription;
+use App\Mail\SendEmail;
+use App\SendMail;
+use Illuminate\Support\Facades\Mail;
 use App\Helpers\SmsHelper;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -306,12 +309,45 @@ class AdminController extends Controller
   public function submitEmail(Request $request)
   {
 
+    $agents_phone = Agent::all();
+    $plucked = $agents_phone->pluck('email', 'name')->toArray();
+
+    $sellers = DB::table('users')->where('role', '=', 'seller')->get();
+    $plucked_email = $sellers->pluck('email', 'name')->toArray();
+
+    $buyers = DB::table('users')->where('role', '=', 'buyer')->get();
+    $plucked_emailplucked_email = $sellers->pluck('email', 'name')->toArray();
+
+    // $email_addresses = ['veeqanto@gmail.com', 'anto@eftechnology.net'];
+        $email_addresses = array_merge($plucked, $plucked_email, $plucked_email);
+        // dd($email_addresses);
+
+    $data = array(
+      'subject' => $request->subject,
+      'message' => $request->message
+    );
+
     $this->validate($request, [
-      'phone' => 'required',
       'subject' => 'required',
       'message' => 'required'
     ]);
 
+    // $message = new SendMail;
+    // $message->create($data);
+    foreach($email_addresses as $name=>$email)
+    {
+      // Mail::to($email)->send(new SendEmail($request->message, $request->subject));
+
+      Mail::to($email)->queue(new SendEmail($request->message, $request->subject, $name));
+    }
+    
+
+    $sent_notification = array(
+          'message' => 'Email sent successfully!',
+          'alert-type' => 'success'
+    );
+
+    return redirect()->back()->with($sent_notification);
 
   }
   public function lat()
