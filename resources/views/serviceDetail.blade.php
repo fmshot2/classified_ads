@@ -282,7 +282,7 @@
                                         <h3 class="heading-2">
                                             Description
                                         </h3>
-                                        <p>{{$serviceDetail->description}}</p>
+                                        <p>{!! $serviceDetail->description !!}</p>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade " id="three" role="tabpanel" aria-labelledby="three-tab">

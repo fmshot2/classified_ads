@@ -70,16 +70,16 @@
                             <span class="right"><strong>Expected Salary: </strong> {{ $service->expected_salary }}</span>
                         </li>
                         <li class="list-group-item">
-                            <span class="right"><strong>Work Experience: </strong> {{ $service->work_experience }}</span>
+                            <span class="right"><strong>Work Experience: </strong> {!! $service->work_experience !!}</span>
                         </li>
                         <li class="list-group-item">
-                            <span class="right"><strong>Education: </strong> {{ $service->education }}</span>
+                            <span class="right"><strong>Education: </strong> {!! $service->education !!}</span>
                         </li>
                         <li class="list-group-item">
                             <span class="right"><strong>Highest Qualification: </strong> {{ $service->highest_qualification }}</span>
                         </li>
                         <li class="list-group-item">
-                            <span class="right"><strong>Skills: </strong> {{ $service->skills }}</span>
+                            <span class="right"><strong>Skills: </strong> {!! $service->skills !!}</span>
                         </li>
                         <li class="list-group-item">
                             <strong>Country : </strong>
