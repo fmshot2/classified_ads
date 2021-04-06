@@ -55,7 +55,7 @@
                             <span class="right"><strong>Posted: </strong> {{ $service->created_at->diffForHumans() }}</span>
                         </li>
                         <li class="list-group-item">
-                            <span class="right"><strong>Description: </strong> {{ $service->description  }}</span>
+                            <span class="right"><strong>Description: </strong> {!! $service->description !!}</span>
                         </li>
                         <li class="list-group-item">
                             <span class="right"><strong>Category: </strong> {{ $service->category->name }}</span>
