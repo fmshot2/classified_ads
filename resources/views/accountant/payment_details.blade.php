@@ -59,11 +59,11 @@ Request History |
 								<tr>
 									<td>{{ ++$key }}</td>
 									<td style="display: none;" id="userID">{{ $all_payment->id }}</td>
-									<td> {{ $all_payment->user->name }} </td>
+									<td> {{ $all_payment->getOwner()->name }} </td>
 									<td>₦<span class="text-muted">{{ $all_payment->amount_requested }} </span> </td>
-									<td> ₦{{ $all_payment->user->refererAmount }} </td>
-									<td> {{ $all_payment->user->bank_name }} </span></td>
-									<td> <span class="text text-success">{{ $all_payment->user->account_number }}</span> </span></td>
+									<td> ₦{{ $all_payment->getOwner()->refererAmount }} </td>
+									<td> {{ $all_payment->getOwner()->bank_name }} </span></td>
+									<td> <span class="text text-success">{{ $all_payment->getOwner()->account_number }}</span> </span></td>
 									@if($all_payment->is_paid == 0)
 
 										<td> <span class="text text-danger">Pending</span></td>

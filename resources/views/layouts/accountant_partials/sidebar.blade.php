@@ -60,7 +60,7 @@
             {{-- <li><a href=" {{ route('accountant.agent.settled.payments') }} " style="{{ url()->current() == route('accountant.successful.payments') ? 'background-color: #f8d053' : '' }}"><i class="fa fa-circle-o"></i> Settled Payments </a></li> --}}
           </ul>
         </li>
-        <li class="treeview" style=" {{ url()->current() == route('accountant.unsuccessful.payments') ? 'background-color: #f8d053' : '' }}">
+        <li class="treeview" style=" {{ url()->current() == route('accountant.pending.agent.payments') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('accountant.paid.agent.payments') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('accountant.all.agent.payments') ? 'background-color: #f8d053' : '' }}">
           <a href="#">
             <i class="fa fa-credit-card-alt"></i>
             <span> Agent Requests </span>
@@ -75,7 +75,7 @@
           </ul>
         </li>
 
-        <li class="treeview" style=" {{ url()->current() == route('accountant.all.referrals') ? 'background-color: #f8d053' : '' }} ">
+        <li class="treeview" style=" {{ url()->current() == route('accountant.unsuccessful.referrals') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('accountant.successful.referrals') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('accountant.all.referrals') ? 'background-color: #f8d053' : '' }} ">
           <a href="#">
             <i class="fa fa-briefcase"></i>
             <span> Payment Requests </span>

@@ -118,7 +118,7 @@ class AccountantController extends Controller
 
      public function paidPayments()
     {
-        $successful_payments = DB::table('payment_requests')->where(['user_type' => 'agent', 'is_paid' => 1])->get();
+        $successful_payments =PaymentRequest::where(['user_type' => 'agent', 'is_paid' => 1])->get();
         return view('accountant.payments.paid_payments', [
             'successful_payments' => $successful_payments
         ]);
