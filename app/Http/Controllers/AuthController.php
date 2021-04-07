@@ -39,7 +39,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'email'    => ['required', 'string', 'email', 'max:255', 'exists:agents,email'],
-            'password' => ['required', 'string', 'min:6', 'exists:agents,password']
+            'password' => ['required', 'string', 'min:6']
 
         ]);
         Auth::guard('agent')->attempt(['email' => $request->email, 'password' => $request->password]);
@@ -52,13 +52,13 @@ class AuthController extends Controller
             );
             return redirect()->route('agent.dashboard')->with($success_notification);
         } else {
-        $success_notification = array(
-            'message' => 'Incorrect credentials! Try again.',
-            'alert-type' => 'error'
-        );
+        // $success_notification = array(
+        //     'message' => 'Incorrect credentials! Try again.',
+        //     'alert-type' => 'error'
+        // );
         session()->flash('fail', 'Incorrect username or password');
 
-        return redirect()->route('show_agent_Login')->with($success_notification);
+        return redirect()->route('show_agent_Login');
 
             //   $success_notification = array(
             //     'fail' => 'You are successfully logged in!',

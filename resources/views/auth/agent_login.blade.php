@@ -55,12 +55,12 @@ Login
 
                         <!-- @include('layouts.frontend_partials.status') -->
                         
-                      <!--   @if (session('fail'))
+                        @if (session('fail'))
 
                         <span class="helper-text" data-error="wrong" data-success="right">
                             <strong class="text-danger">{{ session('fail') }}</strong>
                         </span>
-                        @endif -->
+                        @endif
                         <form action="{{route('save_agent_Login')}}" method="POST">
                             @csrf
                             <div class="form-group form-box">
