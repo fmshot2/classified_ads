@@ -461,7 +461,7 @@ class OperationalController extends Controller
         $keyword = $request->keyword ? $request->keyword : 'Nothing!';
         $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
         $categories = Category::orderBy('name', 'asc')->get();
-        
+
         if ($request->category == null && $request->city == null && $request->keyword == null) {
             return back()->with([
                 'message' => 'No result found for your search!',
@@ -477,7 +477,7 @@ class OperationalController extends Controller
             $categoryname = $category->name;
             $subcategoryId = $subcategory->id;
             $subcategoryname = $subcategory->name;
-            
+
 
             if ($request->city != null && $request->keyword != null) {
                 $services = Service::query()
@@ -486,7 +486,7 @@ class OperationalController extends Controller
                     ->where('state', '=', "%{$request->state}%")
                     ->where('status', 1)
                     ->with('sub_categories')
-                    ->whereHas('sub_category', function($query) use ($subcategoryId)  {
+                    ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
                         $query->where('id', $subcategoryId);
                     })
                     ->with('category')
@@ -494,7 +494,7 @@ class OperationalController extends Controller
                         $query->where('id', $categoryId);
                     })
                     ->get();
-                            
+
                 $seekingworks = SeekingWork::query()
                     ->where('job_title', 'LIKE', "%{$request->service}%")
                     ->where('status', 1)
@@ -526,13 +526,38 @@ class OperationalController extends Controller
                             ->where('name', 'LIKE', "%{$request->keyword}%")
                             ->where('state', '=', "%{$request->state}%")
                             ->where('status', 1)
+                            ->with('sub_categories')
+                            ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
+                                $query->where('id', $subcategoryId);
+                            })
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
                                 $query->where('id', $categoryId);
                             })->get();
 
                 return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
+                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$subcategoryname.'</strong>',
+                    "services" => $services,
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
+                ]);
+            }
+            elseif ($request->state == null && $request->city == null) {
+                $services = Service::query()
+                    ->where('name', 'LIKE', "%{$request->keyword}%")
+                    ->where('state', '=', "%{$request->state}%")
+                    ->where('status', 1)
+                    ->with('sub_categories')
+                    ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
+                        $query->where('sub_categorable_id', $subcategoryId);
+                    })
+                    ->with('category')
+                    ->whereHas('category', function($query) use ($categoryId)  {
+                        $query->where('id', $categoryId);
+                    })->get();
+
+                return view('dapSearchResult', [
+                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$subcategoryname.'</strong>',
                     "services" => $services,
                     "featuredServices" => $featuredServices,
                     "categories" => $categories,
@@ -546,7 +571,7 @@ class OperationalController extends Controller
             $category = Category::where('slug', $request->category)->firstOrFail();
             $categoryId = $category->id;
             $categoryname = $category->name;
-            
+
 
             if ($request->city != null && $request->keyword != null) {
                 $services = Service::query()
@@ -558,7 +583,7 @@ class OperationalController extends Controller
                     ->whereHas('category', function($query) use ($categoryId)  {
                         $query->where('id', $categoryId);
                     });
-                            
+
                 $seekingworks = SeekingWork::query()
                     ->where('job_title', 'LIKE', "%{$request->service}%")
                     ->where('status', 1)
@@ -614,7 +639,7 @@ class OperationalController extends Controller
                     ->where('state', '=', "%{$request->state}%")
                     ->where('status', 1)
                     ->get();
-                            
+
                 $seekingworks = SeekingWork::query()
                     ->where('job_title', 'LIKE', "%{$request->service}%")
                     ->where('status', 1)
@@ -622,7 +647,7 @@ class OperationalController extends Controller
                     ->where('user_state', '=', "%{$request->state}%")
                     ->orWhere('fullname', 'LIKE', "%{$request->service}%")
                     ->get();
-            
+
                 dd($services);
 
                 if (!$data->isEmpty()) {
@@ -652,7 +677,7 @@ class OperationalController extends Controller
                     ->where('state', $request->state)
                     ->where('status', 1)
                     ->get();
-                            
+
                 $seekingworks = SeekingWork::query()
                     ->where('job_title', 'LIKE', "%{$request->service}%")
                     ->where('status', 1)
