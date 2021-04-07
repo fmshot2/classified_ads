@@ -168,4 +168,35 @@ class AgentController extends Controller
          // return view('agent.referals.all', compact('myreferrals2'));
     }
 
+
+
+     public function updateAccount(Request $request, $id)
+    {
+        $user = User::find($id);
+        $validatedData = $request->validate([
+            'bank_name' => ['required', 'string'],
+            'account_name' => ['required', 'string'],
+            'account_number' => ['required', 'numeric'],
+        ]);
+
+        $user->bank_name = $request->bank_name;
+        $user->account_name = $request->account_name;
+        $user->account_number = $request->account_number;
+
+        if ($user->save()) {
+            $success_notification = array(
+                'message' => 'Account details successfully updated!',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->back()->with($success_notification);
+        }
+
+        $success_notification = array(
+            'message' => 'Account details could not be updated!! Try again',
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($success_notification);
+    }
+
 }

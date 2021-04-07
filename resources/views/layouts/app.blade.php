@@ -195,8 +195,8 @@
                                                             <div class="row">
                                                                 <div class="col-md-12">
                                                                     <button type="submit" class="btn btn-lg btn-warning text-white">Submit</button>
-                                                                 <!--    <small class="">Or,
-                                                                        <a href="#" class="text-success">CLICK HERE</a> To Resend Link</small> -->
+                                                                    <!-- <small class="">Or,
+                                                                        <a type="submit" class="text-success">CLICK HERE</a> To Resend Link</small> -->
                                                                 </div>
                                                             </div>
                                                             <div style="margin-top: 20px;">

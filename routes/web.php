@@ -59,7 +59,7 @@ Route::get('ajax/search/', 'OperationalController@ajaxSearchResult')->name('ajax
 Route::get('services/search/', 'OperationalController@dapSearch')->name('dap.search');
 
 
-// Route::middleware(['auth:agent'])->group(function () {
+Route::middleware(['auth:agent'])->group(function () {
 
     Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
     Route::get('/agent/referal/all', 'AgentController@myreferrals')->name('agent.referal.all');
@@ -71,8 +71,9 @@ Route::get('services/search/', 'OperationalController@dapSearch')->name('dap.sea
     Route::get('/agent/make-request-for-payment', 'AgentController@viewBlade')->name('agent.view.request.blade');
     Route::post('/agent/submit-withdrawal-request', 'AgentController@agentRequest')->name('agent.make.request');
     Route::get('/agent/payment-history', 'AgentController@paymentHistory')->name('agent.payment.history');
+    Route::post('/agent/update/account/{id}', 'AgentController@updateAccount')->name('agentprofile.profile.update');
 
-// });
+});
 //Agent Middleware ends here
 
 //Accountant Middleware starts here
@@ -255,6 +256,9 @@ Route::post('/login', 'AuthController@login')->name('login');
 
 Route::get('/agent_Login', 'AuthController@show_agent_Login')->name('show_agent_Login');
 Route::post('/agent_Login', 'AuthController@agent_login')->name('show_agent_Login');
+
+
+
 
 
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
