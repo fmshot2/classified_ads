@@ -62,7 +62,8 @@ class CategoryController extends Controller
 
     public function allCategories()
     {
-        $categories = Category::orderBy('name', 'asc')->get();
+        $categories = Category::all();
+        // $categories = Category::orderBy('name', 'asc')->get();
         return view ('allCategories', compact('categories') );
     }
 
