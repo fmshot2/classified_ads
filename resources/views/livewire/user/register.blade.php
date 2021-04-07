@@ -135,6 +135,7 @@
 
 
 <script>
+
 window.addEventListener('pay_with_paystack', event => {
     // alert('Name updated to: ' + event.detail.newName);
     let handler = PaystackPop.setup({

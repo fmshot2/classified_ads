@@ -49,7 +49,7 @@
 
                 <div class="col-lg-6 bg-color-15 align-self-center pad-0 p-3">
                     <div>
-                        <img src="{{ asset('Group16.svg') }}" alt="" class="animate__animated animate__flash" style="width: 90%;margin: 0 auto;display: block;">
+                        <img src="{{ asset('promo.svg') }}" alt="" id="probonanza" class="animate__animated" style="width: 80%;margin: 0 auto;display: block;">
                     </div>
                     @if(isset($general_info->register_section_1_title))
                         <h6 class="text-center"> {{ $general_info->register_section_1_title ? $general_info->register_section_1_title : '' }} </h6>
@@ -111,6 +111,11 @@
             passField.type = "password";
         }
     }
+    $(document).ready(function() {
+        setInterval(function() {
+            $("#probonanza").toggleClass('animate__flash');
+        }, 4000);
+    });
 </script>
 
 {{-- reg with paystack --}}
