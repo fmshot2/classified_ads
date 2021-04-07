@@ -8,7 +8,7 @@ Update Profile |
 
 <div class="content-wrapper" style="min-height: 868px;">
 
-	@include('layouts.backend_partials.status')
+	@include('layouts.agent_partials.status')
 
 	<section class="content-header">
 		<h3 class="page-title">Your Profile</h3>
@@ -136,16 +136,16 @@ Update Profile |
 									<label for="inputEmail" class="col-sm-2 control-label">New Password</label>
 
 									<div class="col-sm-10">
-										<input class="form-control" name="password" type="password">
+										<input class="form-control" name="new_password" type="password">
 									</div>
 								</div>
-								<div class="form-group">
+							<!-- 	<div class="form-group">
 									<label for="inputPhone" class="col-sm-2 control-label">Confirm New Password</label>
 
 									<div class="col-sm-10">
 										<input class="form-control" name="password_confirmation" type="password">
 									</div>
-								</div>
+								</div> -->
 
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">

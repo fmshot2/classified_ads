@@ -38,8 +38,8 @@ class AuthController extends Controller
     public function agent_login(Request $request)
     {
         $request->validate([
-            'email'    => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:6']
+            'email'    => ['required', 'string', 'email', 'max:255', 'exists:agents,email'],
+            'password' => ['required', 'string', 'min:6', 'exists:agents,password']
 
         ]);
         Auth::guard('agent')->attempt(['email' => $request->email, 'password' => $request->password]);
@@ -50,10 +50,21 @@ class AuthController extends Controller
                 'message' => 'You are successfully logged in!',
                 'alert-type' => 'success'
             );
-            // return redirect()->intended('agent/dashboard')->with($success_notification);
-            return redirect()->route('agent.dashboard');
+            return redirect()->route('agent.dashboard')->with($success_notification);
         } else {
-            return Redirect::to(Session::get('url.intended'));
+        $success_notification = array(
+            'message' => 'Incorrect credentials! Try again.',
+            'alert-type' => 'error'
+        );
+        session()->flash('fail', 'Incorrect username or password');
+
+        return redirect()->route('show_agent_Login')->with($success_notification);
+
+            //   $success_notification = array(
+            //     'fail' => 'You are successfully logged in!',
+            //     'alert-type' => 'success'
+            // );
+            // return Redirect::to(Session::get('url.intended'))->with($success_notification);
         }
     }
 
@@ -664,8 +675,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email'    => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:6']
+            'email'    => ['required', 'string', 'email', 'max:255', 'exists:users,email'],
+            'password' => ['required', 'string', 'min:6', 'exists:users,password']
 
         ]);
 

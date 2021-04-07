@@ -11,7 +11,7 @@ use App\PaymentRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
- 
+
 
 class AgentController extends Controller
 {
@@ -209,28 +209,36 @@ class AgentController extends Controller
 
         $user = Agent::find($id);
         $validatedData = $request->validate([
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'new_password' => ['required', 'string', 'min:6'],
         ]);
 
-        $hashedPassword = Auth::user()->password;
+        $hashedPassword = Auth::guard('agent')->user()->password;
 
         if (Hash::check($request->old_password, $hashedPassword)) {
             // Authentication passed...
             $user->password = Hash::make($request->new_password);
-            $user->save();
+            if ($user->save()) {
+                session()->flash('status', 'Password successfully changed!');
+                return redirect()->back();
 
-            $success_notification = array(
-                'message' => 'Password successfully changed!',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($success_notification);
+            }else{
+                session()->flash('fail', 'new password was not saved, please try again');
+                return redirect()->back();
+            }
+
+            // $success_notification = array(
+            //     'status' => 'Password successfully changed!',
+            //     'alert-type' => 'success'
+            // );
+           
         } else {
-            $success_notification = array(
-                'message' => 'Password could not be updated!! Try again',
-                'alert-type' => 'error'
-            );
+            // $success_notification = array(
+            //     'fail' => 'Your old password is incorrect!',
+            //     'alert-type' => 'error'
+            // );
+            session()->flash('fail', ' Your old password is incorrect. Please retry');
 
-            return redirect()->back()->with($success_notification);
+            return redirect()->back();
         }
     }
 
