@@ -676,7 +676,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'email'    => ['required', 'string', 'email', 'max:255', 'exists:users,email'],
-            'password' => ['required', 'string', 'min:6', 'exists:users,password']
+            'password' => ['required', 'string', 'min:6']
 
         ]);
 
@@ -757,13 +757,13 @@ class AuthController extends Controller
             }
         }
 
-        $success_notification = array(
-            'message' => 'Incorrect credentials! Try again.',
-            'alert-type' => 'error'
-        );
-        session()->flash('fail', 'Incorrect username or password');
+        // $success_notification = array(
+        //     'message' => 'Incorrect credentials! Try again.',
+        //     'alert-type' => 'error'
+        // );
+        session()->flash('fail', 'The password is incorrect');
 
-        return redirect()->route('login')->with($success_notification);
+        return redirect()->route('login');
     }
 
     public function showLogin(Request $request)

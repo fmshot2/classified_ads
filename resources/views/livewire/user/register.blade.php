@@ -45,7 +45,7 @@
 
         <div class="col-lg-12">
             <div class="form-group">
-                <select class="custom-select my-1 mr-sm-2 input-text" id="inlineFormCustomSelectPref" wire:model='role'>
+                <select class="custom-select my-1 mr-sm-2 input-text" id="inlineFormCustomSelectPref1" wire:model='role'>
                     <option selected> Choose... </option>
                     <option value="seller"> Provide a service </option>
                     <option value="buyer"> I'm looking for a service </option>
@@ -72,7 +72,7 @@
     </div>
     @endif
     </div>
-
+@if($role != 'buyer' )
      <div>
         <h6>Choose a plan</h6>
         <div class="col-lg-12">
@@ -91,6 +91,7 @@
             @enderror
         </div>
     </div>
+@endif    
     <div>
         <label>
             <input type="checkbox" name="terms" class="filled-in" wire:model='terms'/>
