@@ -75,9 +75,7 @@
                         document.getElementById('logout-form').submit();" style="font-weight: 600; padding: 10px;"><i class="fa fa-power-off"></i> Logout</a>
                     @endauth
                     @auth('agent')
-                    <a class="text-warning" href="{{ route('agent.dashboard') }}"><i class="fa fa-user"></i> My Account</a>
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();" style="font-weight: 600; padding: 10px;"><i class="fa fa-power-off"></i> Logout</a>
+                        <a class="text-warning" href="{{ route('agent.dashboard') }}"><i class="fa fa-user"></i> My Account</a>
                     @endauth
                 </ul>
             </div>
@@ -107,6 +105,8 @@
                     @auth
                         @if(Auth::user()->role == 'seller')
                             <a href="{{ route('seller.dashboard') }}"> Dashboard</a>
+                        @elseif(Auth::user()->role == 'buyer')
+                            <a href="{{ route('buyer.dashboard') }}"> My Account</a>
                         @endif
                             <a href="{{ route('logout') }}" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();" style="font-weight: 600; color: rgb(253, 75, 75); border: 1px solid  rgb(255, 91, 91); padding: 10px;"><i class="fa fa-power-off"></i></a>
@@ -116,8 +116,8 @@
                             @if(Auth::guard('agent')->check())
                             <a href="{{ route('agent.dashboard') }}"> Dashboard</a>
                             @endif
-                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();" style="font-weight: 600; color: rgb(253, 75, 75); border: 1px solid  rgb(255, 91, 91); padding: 10px;"><i class="fa fa-power-off"></i></a>
+                            {{-- <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();" style="font-weight: 600; color: rgb(253, 75, 75); border: 1px solid  rgb(255, 91, 91); padding: 10px;"><i class="fa fa-power-off"></i></a> --}}
                             @endauth
                 </ul>
 
