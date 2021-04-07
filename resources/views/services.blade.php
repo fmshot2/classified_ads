@@ -3,6 +3,18 @@
 @section('title', $one_category->name . ' | ')
 
 @section('content')
+    <style>
+        @media (max-width: 768px){
+            .service-detail-container{
+                margin-left: 0;
+                margin-right: 0;
+            }
+            .jobApSerMobile{
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+    </style>
     <div class="main">
         <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/categorybg.jpg')}})">
             <div class="container">
@@ -337,8 +349,6 @@
                             <h5 class="text-muted text-center" style="margin-bottom: 20px;">There are no services yet within this category</h5>
                         @endif
                     </div>
-
-
 
 
                     <div class="col-lg-3 col-md-12">

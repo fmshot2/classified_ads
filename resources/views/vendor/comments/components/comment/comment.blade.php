@@ -3,8 +3,11 @@
         @else
             <li id="comment-{{ $comment->id }}" class="media">
                 @endif
-                <img class="mr-3" src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email) }}.jpg?s=54"
-                     alt="{{ $comment->commenter->name }} Avatar">
+                {{-- <img class="mr-3" src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email) }}.jpg?s=54"
+                     alt="{{ $comment->commenter->name }} Avatar"> --}}
+
+                <img class="mr-3" src="{{  asset($comment->commenter->image ? $comment->commenter->image : 'nouserimage.png')  }}"
+                     alt="{{ $comment->commenter->name }} Avatar" style="width: 54px">
                 <div class="media-body">
                     <h6 class="mt-0 mb-1">
                         {{ $comment->commenter->name }}

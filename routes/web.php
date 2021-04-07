@@ -426,10 +426,12 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::put('/admin/dashboard/single/subcategory/{id}', 'CategoryController@subCategoryUpdate')->name('admin.single.subcategory.update');
 
     Route::get('/admin/dashboard/service/all', 'AdminController@allService')->name('admin.service.all');
+    Route::get('/admin/dashboard/seekingwork/all', 'AdminController@allSeekingwork')->name('admin.seekingwork.all');
     Route::get('/admin/dashboard/service/active', 'AdminController@activeService')->name('admin.service.active');
     Route::get('/admin/dashboard/service/pending', 'AdminController@pendingService')->name('admin.service.pending');
     Route::get('/admin/dashboard/service/pending', 'AdminController@pendingService')->name('admin.service.pending');
     Route::get('/admin/dashboard/service/status/{id}', 'AdminController@updateServiceStatus')->name('admin.service.status');
+    Route::get('/admin/dashboard/seekingwork/status/{id}', 'AdminController@updateSeekingworkStatus')->name('admin.seekingwork.status');
     Route::get('/admin/dashboard/service/destroy/{id}', 'AdminController@destroy')->name('admin.service.destroy');
     Route::get('admin/dashboard/service/view/{slug}', 'AdminController@viewService')->name('admin.view');
 

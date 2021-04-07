@@ -47,7 +47,7 @@
           </a>
         </li>
 
-        <li class="treeview"  class="{{ url()->current() == route('agent.view.request.blade') ? 'active' : '' }} {{ url()->current() == route('admin.service.pending') ? 'active' : '' }} {{ url()->current() == route('agent.payment.history') ? 'active' : '' }}">
+        <li class="treeview {{ url()->current() == route('agent.view.request.blade') ? 'active' : '' }} {{ url()->current() == route('admin.service.pending') ? 'active' : '' }} {{ url()->current() == route('agent.payment.history') ? 'active' : '' }}">
           <a href="#">
             <i class="fa fa-briefcase"></i>
             <span> Payments </span>
@@ -62,7 +62,7 @@
           </ul>
         </li>
 
-        <li style="{{ url()->current() == route('agent.profile') ? 'active' : '' }}">
+        <li class="{{ url()->current() == route('agent.profile') ? 'active' : '' }}">
           <a href=" {{ route ('agent.profile') }} ">
             <i class="fa fa-user"></i> <span> Profile </span>
             <span class="pull-right-container">

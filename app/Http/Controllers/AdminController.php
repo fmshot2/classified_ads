@@ -27,6 +27,7 @@ use App\SendMail;
 use Illuminate\Support\Facades\Mail;
 use App\Helpers\SmsHelper;
 use App\Mail\ServiceApproved;
+use App\SeekingWork;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -336,7 +337,7 @@ class AdminController extends Controller
 
       Mail::to($email)->queue(new SendEmail($request->message, $request->subject, $name));
     }
-    
+
 
     $sent_notification = array(
           'message' => 'Email sent successfully!',
@@ -442,6 +443,11 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
   {
     $all_service = Service::orderBy('created_at', 'desc')->get();
     return view ('admin.service.index', compact('all_service') );
+  }
+  public function allSeekingwork()
+  {
+    $all_service = SeekingWork::orderBy('created_at', 'desc')->get();
+    return view ('admin.service.sw_table', compact('all_service') );
   }
 
   public function activeService()
@@ -625,7 +631,47 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
      }
      $request->session()->flash('error', 'Something went wrong');
      return back();
-     
+
+   }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateSeekingworkStatus(Request $request, $id)
+    {
+        $service = SeekingWork::find($id);
+        $status = $service->status == 0 ? 1 : 0;
+        $service->status = $status;
+
+        if($service->save()){
+            if ($service->status == 1) {
+                $status = 'Approved';
+            try{
+                Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+            }
+            else {
+            $status = 'Disapproved';
+            try{
+                Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+            }
+            $request->session()->flash('status', 'CV was '.$status);
+            return back();
+        }
+        $request->session()->flash('error', 'Something went wrong');
+        return back();
+
    }
 
    public function serviceSearch(Request $request)
