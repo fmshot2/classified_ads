@@ -10,6 +10,8 @@ use App\Agent;
 use App\PaymentRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+ 
 
 class AgentController extends Controller
 {
@@ -172,16 +174,16 @@ class AgentController extends Controller
 
      public function updateAccount(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = Agent::find($id);
         $validatedData = $request->validate([
             'bank_name' => ['required', 'string'],
             'account_name' => ['required', 'string'],
             'account_number' => ['required', 'numeric'],
         ]);
 
-        $user->bank_name = $request->bank_name;
-        $user->account_name = $request->account_name;
-        $user->account_number = $request->account_number;
+        $user->bankname = $request->bank_name;
+        $user->accountname = $request->account_name;
+        $user->accountno = $request->account_number;
 
         if ($user->save()) {
             $success_notification = array(
@@ -197,6 +199,39 @@ class AgentController extends Controller
             'alert-type' => 'error'
         );
         return redirect()->back()->with($success_notification);
+    }
+
+
+
+
+      public function updatePassword(Request $request, $id)
+    {
+
+        $user = Agent::find($id);
+        $validatedData = $request->validate([
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+
+        $hashedPassword = Auth::user()->password;
+
+        if (Hash::check($request->old_password, $hashedPassword)) {
+            // Authentication passed...
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+
+            $success_notification = array(
+                'message' => 'Password successfully changed!',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($success_notification);
+        } else {
+            $success_notification = array(
+                'message' => 'Password could not be updated!! Try again',
+                'alert-type' => 'error'
+            );
+
+            return redirect()->back()->with($success_notification);
+        }
     }
 
 }

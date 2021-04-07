@@ -35,10 +35,11 @@ Update Profile |
 									<h5> {{ Auth::guard('agent')->user()->email }} </h5>
 									<p>Phone</p>
 									<h5> {{ Auth::guard('agent')->user()->phone }}</h5>
-									<p>About Me</p>
-									<h5> {{ Auth::guard('agent')->user()->about }}</h5>
+									<!-- <p>About Me</p>
+									<h5> {{ Auth::guard('agent')->user()->about }}</h5> -->
 									<p>Address</p>
 									<h5> {{ Auth::guard('agent')->user()->address }}</h5>
+									{{ Auth::guard('agent')->user()->id}}
 								</div>
 							</div>
 						</div>
@@ -53,7 +54,7 @@ Update Profile |
 					<ul class="nav nav-tabs">
 
 						<li class="active"><a href="#timeline" data-toggle="tab">Update Profile</a></li>
-						<!-- <li><a href="#password" data-toggle="tab">Change Password</a></li> -->
+						<li><a href="#password" data-toggle="tab">Change Password</a></li>
 						<li><a href="#bankaccount" data-toggle="tab">Account Details</a></li>
 					</ul>
 
@@ -108,6 +109,8 @@ Update Profile |
 									</div>
 								</div>
 
+								{{ Auth::guard('agent')->user()->accountname ? Auth::guard('agent')->user()->accountname : '' }}
+
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
 										<button type="submit" class="btn btn-warning">Update <i class="fa fa-refresh"></i></button>
@@ -118,8 +121,8 @@ Update Profile |
 						<!-- /.tab-pane -->
 
 
-						<!-- <div class="tab-pane" id="password">
-							<form class="form-horizontal form-element" method="POST" action="{{route('home')}}" enctype="multipart/form-data">
+						<div class="tab-pane" id="password">
+							<form class="form-horizontal form-element" method="POST" action="{{route('agentprofile.update.password', Auth::guard('agent')->id())}}" enctype="multipart/form-data">
 								{{ csrf_field() }}
 
 								<div class="form-group">
@@ -150,26 +153,26 @@ Update Profile |
 									</div>
 								</div>
 							</form>
-						</div> -->
+						</div>
 
 
 						<!-- /.tab-pane -->
 
 
 						         <div class="tab-pane" id="bankaccount">
-							<form class="form-horizontal form-element" method="POST" action="{{route('profile.update.account', Auth::id() )}}">
+							<form class="form-horizontal form-element" method="POST" action="{{route('agentprofile.update.account', Auth::guard('agent')->id() )}}">
 								@csrf
 								<div class="form-group">
 									<label for="bank_name" class="col-sm-2 control-label">Account Name</label>
 									<div class="col-sm-10">
-										<input type="text" id="account_name" class="form-control" name="account_name" value="{{ Auth::user()->account_name ? Auth::user()->account_name : '' }}" placeholder="Enter the name on the account (e.g Egen Jacobs)">
+										<input type="text" id="account_name" class="form-control" name="account_name" value="{{ Auth::guard('agent')->user()->accountname ? Auth::guard('agent')->user()->accountname : '' }}" placeholder="Enter the name on the account (e.g Egen Jacobs)">
 									</div>
 								</div>
 
 								<div class="form-group">
 									<label for="bank_name" class="col-sm-2 control-label">Bank Name</label>
 									<div class="col-sm-10">
-										<input type="text" id="bank_name" class="form-control" name="bank_name" value="{{ Auth::user()->bank_name ? Auth::user()->bank_name : '' }}" placeholder="Enter the bank name. (e.g. Access Bank)">
+										<input type="text" id="bank_name" class="form-control" name="bank_name" value="{{ Auth::guard('agent')->user()->bankname ? Auth::guard('agent')->user()->bankname : '' }}" placeholder="Enter the bank name. (e.g. Access Bank)">
 									</div>
 								</div>
 
@@ -177,7 +180,7 @@ Update Profile |
 								<div class="form-group">
 									<label for="account_number" class="col-sm-2 control-label">Account Number</label>
 									<div class="col-sm-10">
-										<input type="number" class="form-control" name="account_number" value="{{Auth::user()->account_number ? Auth::user()->account_number : '' }}" placeholder="Enter your account number here. (e.g 01237474483)">
+										<input type="number" class="form-control" name="account_number" value="{{Auth::guard('agent')->user()->accountno ? Auth::guard('agent')->user()->accountno : '' }}" placeholder="Enter your account number here. (e.g 01237474483)">
 									</div>
 								</div>
 

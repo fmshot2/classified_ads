@@ -72,6 +72,10 @@ Route::middleware(['auth:agent'])->group(function () {
     Route::post('/agent/submit-withdrawal-request', 'AgentController@agentRequest')->name('agent.make.request');
     Route::get('/agent/payment-history', 'AgentController@paymentHistory')->name('agent.payment.history');
     Route::post('/agent/update/account/{id}', 'AgentController@updateAccount')->name('agentprofile.profile.update');
+    Route::post('/agent/update/account/{id}', 'AgentController@updateAccount')->name('agentprofile.update.account');
+    Route::post('/agent/update/{id}', 'AgentController@updatePassword')->name('agentprofile.update.password');
+
+
 
 });
 //Agent Middleware ends here

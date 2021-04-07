@@ -72,7 +72,6 @@
     </div>
     @endif
     </div>
-
      <div>
         <h6>Choose a plan</h6>
         <div class="col-lg-12">
@@ -90,8 +89,8 @@
             </span>
             @enderror
         </div>
-    </div>
     <div>
+
         <label>
             <input type="checkbox" name="terms" class="filled-in" wire:model='terms'/>
             <span>By registering you accept our <a href="{{route('terms-of-use')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy-policy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
