@@ -1,8 +1,8 @@
 $(document).ready(function () {
     $("body").bind("cut copy", function (e) {
-        e.preventDefault();
+        // e.preventDefault();
     });
     $("body").on("contextmenu", function (e) {
-        return false;
+        // return false;
     });
 });

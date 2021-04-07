@@ -47,6 +47,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href=" {{ route('superadmin.service.all') }} "><i class="fa fa-circle-o"></i> All Service</a></li>
+          <li><a href=" {{ route('superadmin.service.all') }} "><i class="fa fa-circle-o"></i> All Seeking Works</a></li>
           <li><a href=" {{ route ('superadmin.category.show') }} "><i class="fa fa-circle-o"></i> Categories </a></li>
           <li><a href=" {{ route ('superadmin.subcategory.show') }} "><i class="fa fa-circle-o"></i> Sub-categories </a></li>
 
@@ -216,6 +217,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href=" {{ route('admin.service.all') }} "><i class="fa fa-circle-o"></i> All Service</a></li>
+          <li><a href=" {{ route('admin.seekingwork.all') }} "><i class="fa fa-circle-o"></i> All Seeking Works</a></li>
           <li><a href=" {{ route ('admin.category.show') }} "><i class="fa fa-circle-o"></i> Categories </a></li>
           <li><a href=" {{ route ('admin.subcategory.show') }} "><i class="fa fa-circle-o"></i> Sub-categories </a></li>
 

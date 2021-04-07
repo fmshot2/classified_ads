@@ -42,12 +42,15 @@
                         </div>
 
                         <div class="clearfix"></div>
-                       
+
                           @livewire('user.register', ['referParam' => $referParam])
                     </div>
                 </div>
 
                 <div class="col-lg-6 bg-color-15 align-self-center pad-0 p-3">
+                    <div>
+                        <img src="{{ asset('Group16.svg') }}" alt="" class="animate__animated animate__flash" style="width: 90%;margin: 0 auto;display: block;">
+                    </div>
                     @if(isset($general_info->register_section_1_title))
                         <h6 class="text-center"> {{ $general_info->register_section_1_title ? $general_info->register_section_1_title : '' }} </h6>
                         <hr>
