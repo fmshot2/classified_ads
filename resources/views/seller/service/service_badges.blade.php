@@ -300,7 +300,7 @@
 
                 base_Url = "{{ url('/') }}";
 
-                var paystack_pk = "{{env('paystack_pk')}}"
+                var paystack_pk = "{{env('paystack_pk')}}";
 
                 var _token = $("input[name='_token']").val();
 
