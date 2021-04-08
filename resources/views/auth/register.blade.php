@@ -36,7 +36,11 @@
                         <h3>Create an account</h3>
                         <div class="btn-section clearfix">
                             <a href="{{route('login')}}" class="link-btn active btn-1 default-bg">Login</a>
-                            <a href="{{route('register')}}" class="link-btn btn-1 active-bg">Register</a>
+                            @if($referParam)
+                            <a class="link-btn btn-1 active-bg">Register</a>
+                            @else
+                             <a  href="{{route('register')}}" disabled class="link-btn btn-1 active-bg">Register</a>
+                            @endif
                             <a data-toggle="modal" data-target="#launchAgentModal" href="#" class="link-btn btn-2 default-bg">Agent</a>
 
                         </div>

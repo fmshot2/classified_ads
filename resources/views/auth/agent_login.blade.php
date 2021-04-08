@@ -35,46 +35,52 @@ Login
                 <div class="form-section align-self-center">
                     <h3>Login into your agent account</h3>
                     <div class="btn-section clearfix">
-                        {{-- <a href="{{route('login')}}" class="link-btn active btn-1 active-bg">Login</a>
+                        {{-- <a href="{{route('login')}}" class="link-btn btn-1 active-bg">Login</a>
                         <a href="{{route('register')}}" class="link-btn btn-2 default-bg">Register</a> --}}
                     </div>
                     <div class="clearfix"></div>
 
-{{--
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
+                    {{--
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div><br />
-                    @endif
+                                @endforeach
+                            </ul>
+                        </div><br />
+                        @endif
 
-                    --}}
+                        --}}
 
-                    {{-- @include('layouts.frontend_partials.status') --}}
+                        <!-- @include('layouts.frontend_partials.status') -->
+                        
+                        @if (session('fail'))
 
-                    <form action="{{route('show_agent_Login')}}" method="POST">
-                        @csrf
-                        <div class="form-group form-box">
-                            <input type="email" name="email" value="{{ old('email') }}" class="input-text" placeholder="Email Address">
+                        <span class="helper-text" data-error="wrong" data-success="right">
+                            <strong class="text-danger">{{ session('fail') }}</strong>
+                        </span>
+                        @endif
+                        <form action="{{route('save_agent_Login')}}" method="POST">
+                            @csrf
+                            <div class="form-group form-box">
+                                <input type="email" name="email" value="{{ old('email') }}" class="input-text" placeholder="Email Address">
+                            </div>
                             @if ($errors->has('email'))
                             <span class="helper-text" data-error="wrong" data-success="right">
                                 <strong class="text-danger">{{ $errors->first('email') }}</strong>
                             </span>
                             @endif
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group mb-3">
-                                <input type="password" name="password" id="passwordField"
-                                class="form-control" placeholder="Password" aria-label="Password" aria-describedby="Password">
-                                <div class="input-group-append" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()">
-                                  <span class="input-group-text" id="basic-addon1"><i class="fa fa-eye"></i></span>
-                                </div>
-                            </div>
-                            @if ($errors->has('password'))
-                            <span class="helper-text" data-error="wrong" data-success="right">
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="password" name="password" id="passwordField"
+                                    class="form-control" placeholder="Password" aria-label="Password" aria-describedby="Password">
+                                    <div class="input-group-append" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()">
+                                      <span class="input-group-text" id="basic-addon1"><i class="fa fa-eye"></i></span>
+                                  </div>
+                              </div>
+                              @if ($errors->has('password'))
+                              <span class="helper-text" data-error="wrong" data-success="right">
                                 <strong class="text-danger">{{ $errors->first('password') }}</strong>
                             </span>
                             @endif
