@@ -25,6 +25,21 @@
         outline: none;
         z-index: 1;
     }
+    .contact-section .bg-img {
+        background: rgba(0, 0, 0, 0.04) url('efmobilemockup.jpg') top left repeat;
+        background-size: cover;
+        top: 0;
+        bottom: 0;
+        border-radius: 0 20px 20px 0;
+        opacity: 1;
+        width: 100%;
+        z-index: 999;
+        min-height: 496px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
 
 <div class="contact-section">
