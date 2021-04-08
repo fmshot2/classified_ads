@@ -100,7 +100,7 @@
                         </div>
                         <p class="text-left" style="margin-bottom: 20px">
                             <label>
-                                <input type="checkbox" name="remember" class="filled-in" {{ old('remember') ? 'checked' : '' }} />
+                                <input type="checkbox" name="remember" value="1" class="filled-in" {{ old('remember') ? 'checked' : '' }} />
                                 <span>{{ __('Remember Me') }}</span>
                             </label>
                         </p>
