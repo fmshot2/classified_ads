@@ -699,9 +699,12 @@ class AuthController extends Controller
         // 	  return redirect('/')->with($success_notification)->withErrors($validator)->withInput();
         // }
 
+        $remember_me  = ( !empty( $request->remember ) )? TRUE : FALSE;
+
         $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
+
+        if (Auth::attempt($credentials, $remember_me)) {
 
             if (Auth::user()->role == 'seller') {
                 $success_notification = array(
