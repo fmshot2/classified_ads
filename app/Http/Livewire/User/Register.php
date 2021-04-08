@@ -326,7 +326,8 @@ class Register extends Component
                     if ($person_that_refered2) {
                         $referer2 = User::where('id', $person_that_refered2)->first();
                         if ($referer2) {
-                            if ($referer->level1) {
+                            if ($referer2->level2) {
+
                                 if (Auth::user()->role == 'seller') {
                                     return redirect()->route('seller.dashboard');
                                 } else if (Auth::user()->role == 'buyer') {
@@ -353,7 +354,7 @@ class Register extends Component
                     if ($person_that_refered2) {
                         $referer2 = Agent::where('id', $person_that_refered2)->first();
                         if ($referer2) {
-                            if ($referer->level1) {
+                            if ($referer2->level2) {
                                 if (Auth::user()->role == 'seller') {
                                     return redirect()->route('seller.dashboard');
                                 } else if (Auth::user()->role == 'buyer') {
@@ -395,160 +396,162 @@ class Register extends Component
                                 //level 3 referer
                                 $referer4 = User::where('id', $person_that_refered3)->first();
                                 if ($referer4) {
-                                //    if($referer4->level3) {
-                                //      if (Auth::user()->role == 'seller') {
-                                //         return redirect()->route('seller.dashboard');
-                                //     } else if (Auth::user()->role == 'buyer') {
-                                //         return  Redirect::to(Session::get('url.intended'));
-                                //     } 
-                                // }
+                                 if($referer4->level3) {
+                                   if (Auth::user()->role == 'seller') {
+                                    return redirect()->route('seller.dashboard');
+                                } else if (Auth::user()->role == 'buyer') {
+                                    return  Redirect::to(Session::get('url.intended'));
+                                } 
+                            }
 
                                     // add amount to level 3 referer amount
-                                    $referer4->refererAmount = $referer4->refererAmount + 100;
-                                    $referer4->level3 = Auth::id();
-                                    $referer4->save();
+                            $referer4->refererAmount = $referer4->refererAmount + 100;
+                            $referer4->level3 = Auth::id();
+                            $referer4->save();
                                     // $present_user->level2 = $referer3->id;
-                                }
-                            }
                         }
                     }
                 }
             }
+        }
+    }
 
             //level 1 referer id
-            $person_that_refered = $present_user->idOfReferer;
-            if ($person_that_refered) {
+    $person_that_refered = $present_user->idOfReferer;
+    if ($person_that_refered) {
                 //level 1 referer
-                $referer = User::where('id', $person_that_refered)->first();
-                if ($referer) {
+        $referer = User::where('id', $person_that_refered)->first();
+        if ($referer) {
                     //level 2 referer id
-                    $person_that_refered2 = $referer->idOfReferer;
+            $person_that_refered2 = $referer->idOfReferer;
                     //level 2 referer
-                    if ($person_that_refered2) {
-                        $referer3 = User::where('id', $person_that_refered2)->first();
-                        if ($referer3) {
+            if ($person_that_refered2) {
+                $referer3 = User::where('id', $person_that_refered2)->first();
+                if ($referer3) {
                             //level 3 agent id
-                            $person_that_refered3 = $referer3->idOfAgent;
-                            if ($person_that_refered3) {
+                    $person_that_refered3 = $referer3->idOfAgent;
+                    if ($person_that_refered3) {
                                 //level 3 agent
-                                $referer4 = Agent::where('id', $person_that_refered3)->first();
-                                if ($referer4) {
-                                    //    if($referer4->level3) {
-                                //      if (Auth::user()->role == 'seller') {
-                                //         return redirect()->route('seller.dashboard');
-                                //     } else if (Auth::user()->role == 'buyer') {
-                                //         return  Redirect::to(Session::get('url.intended'));
-                                //     } 
-                                // }
+                        $referer4 = Agent::where('id', $person_that_refered3)->first();
+                        if ($referer4) {
+                         if($referer4->level3) {
+                           if (Auth::user()->role == 'seller') {
+                            return redirect()->route('seller.dashboard');
+                        } else if (Auth::user()->role == 'buyer') {
+                            return  Redirect::to(Session::get('url.intended'));
+                        } 
+                    }
 
                                     // add amount to level 3 referer amount
-                                    $referer4->refererAmount = $referer4->refererAmount + 100;
-                                    $referer4->level3 = Auth::id();
-                                    $referer4->save();
+                    $referer4->refererAmount = $referer4->refererAmount + 100;
+                    $referer4->level3 = Auth::id();
+                    $referer4->save();
                                     // $present_user->level2 = $referer3->id;
-                                }
-                            }
-                        }
-                    }
                 }
             }
+        }
+    }
+}
+}
             //end level 3 payment
 
 
             //start level 4 payment
 
             //level 1 referer id
-            $person_that_refered = $present_user->idOfReferer;
-            if ($person_that_refered) {
+$person_that_refered = $present_user->idOfReferer;
+if ($person_that_refered) {
                 //level 1 referer
-                $referer = User::where('id', $person_that_refered)->first();
-                if ($referer) {
+    $referer = User::where('id', $person_that_refered)->first();
+    if ($referer) {
                     //level 2 referer id
-                    $person_that_refered2 = $referer->idOfReferer;
+        $person_that_refered2 = $referer->idOfReferer;
                     //level 2 referer
-                    if ($person_that_refered2) {
-                        $referer3 = User::where('id', $person_that_refered2)->first();
-                        if ($referer3) {
+        if ($person_that_refered2) {
+            $referer3 = User::where('id', $person_that_refered2)->first();
+            if ($referer3) {
                             //level 3 referer id
-                            $person_that_refered3 = $referer3->idOfReferer;
-                            if ($person_that_refered3) {
+                $person_that_refered3 = $referer3->idOfReferer;
+                if ($person_that_refered3) {
                                 //level 3 referer
-                                $referer4 = User::where('id', $person_that_refered3)->first();
-                                if ($referer4) {
+                    $referer4 = User::where('id', $person_that_refered3)->first();
+                    if ($referer4) {
 
-                                    $person_that_refered4 = $referer4->idOfReferer;
+                        $person_that_refered4 = $referer4->idOfReferer;
 
-                                    if ($person_that_refered4) {
-                                        $referer5 = User::where('id', $person_that_refered4)->first();
+                        if ($person_that_refered4) {
+                            $referer5 = User::where('id', $person_that_refered4)->first();
+                            if ($referer5) {
 
-                                        if ($referer5) {
-                                            //    if($referer5->level4) {
-                                //      if (Auth::user()->role == 'seller') {
-                                //         return redirect()->route('seller.dashboard');
-                                //     } else if (Auth::user()->role == 'buyer') {
-                                //         return  Redirect::to(Session::get('url.intended'));
-                                //     } 
-                                // }
-                                            // add amount to level 4 referer amount
-                                            $referer5->refererAmount = $referer5->refererAmount + 50;
-                                            $referer5->level4 = Auth::id();
-                                            $referer5->save();
-                                            // $present_user->level2 = $referer3->id;
-                                        }
-                                    }
-                                }
+                                if ($referer5->level4) {
+                                   if (Auth::user()->role == 'seller') {
+                                    return redirect()->route('seller.dashboard');
+                                } else if (Auth::user()->role == 'buyer') {
+                                    return  Redirect::to(Session::get('url.intended'));
+                                } 
                             }
+
+                                            // add amount to level 4 referer amount
+                            $referer5->refererAmount = $referer5->refererAmount + 50;
+                            $referer5->level4 = Auth::id();
+                            $referer5->save();
+                                            // $present_user->level2 = $referer3->id;
                         }
                     }
+
                 }
             }
+        }
+    }
+}
+}
 
             //level 1 referer id
-            $person_that_refered = $present_user->idOfReferer;
-            if ($person_that_refered) {
+$person_that_refered = $present_user->idOfReferer;
+if ($person_that_refered) {
                 //level 1 referer
-                $referer = User::where('id', $person_that_refered)->first();
-                if ($referer) {
+    $referer = User::where('id', $person_that_refered)->first();
+    if ($referer) {
                     //level 2 referer id
-                    $person_that_refered2 = $referer->idOfReferer;
+        $person_that_refered2 = $referer->idOfReferer;
                     //level 2 referer
-                    if ($person_that_refered2) {
-                        $referer3 = User::where('id', $person_that_refered2)->first();
-                        if ($referer3) {
+        if ($person_that_refered2) {
+            $referer3 = User::where('id', $person_that_refered2)->first();
+            if ($referer3) {
                             //level 3 referer id
-                            $person_that_refered3 = $referer3->idOfReferer;
-                            if ($person_that_refered3) {
+                $person_that_refered3 = $referer3->idOfReferer;
+                if ($person_that_refered3) {
                                 //level 3 referer
-                                $referer4 = User::where('id', $person_that_refered3)->first();
-                                if ($referer4) {
+                    $referer4 = User::where('id', $person_that_refered3)->first();
+                    if ($referer4) {
 
-                                    $person_that_refered4 = $referer4->idOfReferer;
+                        $person_that_refered4 = $referer4->idOfAgent;
 
-                                    if ($person_that_refered4) {
-                                        $referer5 = Agent::where('id', $person_that_refered4)->first();
+                        if ($person_that_refered4) {
+                            $referer5 = Agent::where('id', $person_that_refered4)->first();
 
-                                        if ($referer5) {
-                                              //    if($referer5->level4) {
-                                //      if (Auth::user()->role == 'seller') {
-                                //         return redirect()->route('seller.dashboard');
-                                //     } else if (Auth::user()->role == 'buyer') {
-                                //         return  Redirect::to(Session::get('url.intended'));
-                                //     } 
-                                // }
+                            if ($referer5) {
+                               if($referer5->level4) {
+                                   if (Auth::user()->role == 'seller') {
+                                    return redirect()->route('seller.dashboard');
+                                } else if (Auth::user()->role == 'buyer') {
+                                    return  Redirect::to(Session::get('url.intended'));
+                                } 
+                            }
 
                                             // add amount to level 4 referer amount
-                                            $referer5->refererAmount = $referer5->refererAmount + 50;
-                                            $referer5->level4 = Auth::id();
-                                            $referer5->save();
+                            $referer5->refererAmount = $referer5->refererAmount + 50;
+                            $referer5->level4 = Auth::id();
+                            $referer5->save();
                                             // $present_user->level2 = $referer3->id;
-                                        }
-                                    }
-                                }
-                            }
                         }
                     }
                 }
             }
+        }
+    }
+}
+}
 
             // end level 4 payment
 
@@ -561,18 +564,18 @@ class Register extends Component
 
 
 
-            if (Auth::user()->role == 'seller') {
-                return redirect()->route('seller.dashboard');
-            } else if (Auth::user()->role == 'buyer') {
-                return  Redirect::to(Session::get('url.intended'));
-            } else {
-                return redirect()->route('admin.dashboard');
-            }
-        }
-    }
+if (Auth::user()->role == 'seller') {
+    return redirect()->route('seller.dashboard');
+} else if (Auth::user()->role == 'buyer') {
+    return  Redirect::to(Session::get('url.intended'));
+} else {
+    return redirect()->route('admin.dashboard');
+}
+}
+}
 
-    public function render()
-    {
-        return view($this->current_view);
-    }
+public function render()
+{
+    return view($this->current_view);
+}
 }
