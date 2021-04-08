@@ -53,7 +53,7 @@
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 									<td>
 										<a href="https://www.efcontact.com/admin/properties/classic-crib">
-											<img src="{{asset('images')}}/{{$all_services->service_image}}" alt="{{ $all_services->name }}" width="60" class="img-responsive img-rounded">
+											<img src="{{asset('uploads/services')}}/{{$all_services->thumbnail}}" alt="{{ $all_services->name }}" width="60" class="img-responsive img-rounded">
 										</a>
 									</td>
 									<td> {{ $all_services->name }} </td>
