@@ -37,7 +37,7 @@ class CreateServicesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('category_id')->nullable();
             $table->timestamps();
-            $table->string('badge_type')->nullable()->default('basic');
+            $table->string('badge_type')->nullable()->default(0);
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
 
