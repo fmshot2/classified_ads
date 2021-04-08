@@ -1,6 +1,6 @@
 ---
 deployment:
   tasks:
-    # - export DEPLOYPATH=/home/efcontact/public_html/
-    - export DEPLOYPATH=/home/efcontact/sandbox/
+    # - export DEPLOYPATH=/home/eftechnology/efcontact/
+    - export DEPLOYPATH=/home/eftechnology/efcontact_sandbox/
     - /bin/cp -R * $DEPLOYPATH
