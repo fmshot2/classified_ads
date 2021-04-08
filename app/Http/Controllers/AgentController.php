@@ -209,7 +209,7 @@ class AgentController extends Controller
 
         $user = Agent::find($id);
         $validatedData = $request->validate([
-            'new_password' => ['required', 'string', 'min:6'],
+            'new_password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
 
         $hashedPassword = Auth::guard('agent')->user()->password;
