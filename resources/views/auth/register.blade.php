@@ -53,7 +53,7 @@
 
                 <div class="col-lg-6 bg-color-15 align-self-center pad-0 p-3">
                     <div>
-                        <img src="{{ asset('promo.svg') }}" alt="" id="probonanza" class="animate__animated" style="width: 80%;margin: 0 auto;display: block;">
+                        <img src="{{ asset('promos.svg') }}" alt="" id="probonanza" class="animate__animated" style="width: 80%;margin: 0 auto;display: block;">
                     </div>
                     @if(isset($general_info->register_section_1_title))
                         <h6 class="text-center"> {{ $general_info->register_section_1_title ? $general_info->register_section_1_title : '' }} </h6>
