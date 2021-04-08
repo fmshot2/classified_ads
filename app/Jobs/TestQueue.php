@@ -31,13 +31,13 @@ class TestQueue implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
-        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
-        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
-        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
-        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
-        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
-        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
-        Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
+        Mail::to('sherikokong@gmail.com')->send(new TestMail());
+        Mail::to('sherikokong@gmail.com')->send(new TestMail());
+        Mail::to('sherikokong@gmail.com')->send(new TestMail());
+        Mail::to('sherikokong@gmail.com')->send(new TestMail());
+        Mail::to('sherikokong@gmail.com')->send(new TestMail());
+        Mail::to('sherikokong@gmail.com')->send(new TestMail());
+        Mail::to('sherikokong@gmail.com')->send(new TestMail());
+        Mail::to('sherikokong@gmail.com')->send(new TestMail());
     }
 }
