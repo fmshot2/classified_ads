@@ -119,7 +119,7 @@ class Register extends Component
             // 'key'    => config('variable.paystack_pk_live'),
 
             // live variable
-            'key'    => config('variable.paystack_pk_live'),
+            'key'    => config('variable.paystack_pk_test'),
             'amount' => 500 * 100,
             'email'  => $this->agent_email,
             'name'   => $this->agent_name,
@@ -142,7 +142,7 @@ class Register extends Component
         // ->withToken('sk_test_11395d522a279cf6fb0f8c6cf0fd7f41b2c15200')
 
 
-        ->withToken($sk_live)
+        ->withToken($sk_test)
         ->get("https://api.paystack.co/transaction/verify/" . $paystack_response['trxref']);
 
         $json_resp = $response->json();
