@@ -46,13 +46,13 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">Offical Name: </label>
+                                                    <label for="">Official Name: </label>
                                                     <input type="text" name="name" value="{{ $official->name }}" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">Offical Position: </label>
+                                                    <label for="">Official Position: </label>
                                                     <input type="text" name="position" value="{{ $official->position }}" class="form-control">
                                                 </div>
                                             </div>

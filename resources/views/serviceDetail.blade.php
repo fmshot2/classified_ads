@@ -133,6 +133,7 @@
                                         <h3 class="service-name">{{$serviceDetail->name}}</h3>
                                         <p><span><i class="fa fa-map-marker"></i> Location:</span> <span style="color: #ca8309" class="tt-capitalize" id="userAddress">{{$serviceDetail->state}}</span></p>
                                         <p><span><i class="fa fa-user"></i> Service Provider: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->user->name}}</span></p>
+                                        <p><span><i class="fa fa-archive"></i> Service Category: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->category->name}}</span></p>
                                         <p><span><i class="fa fa-clock-o"></i> Posted on: </span><span style="color: #ca8309"> {{ $serviceDetail->created_at->diffForHumans() }}</span></p>
                                         <p><span><i class="fa fa-eye"></i> Views: </span><span style="color: #ca8309"> {{ $serviceDetail->views->count() }}</span></p>
                                     </div>

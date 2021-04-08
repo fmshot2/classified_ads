@@ -37,13 +37,13 @@
                                 @csrf
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="">Offical Name: </label>
+                                        <label for="">Official Name: </label>
                                         <input type="text" name="name" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="">Offical Position: </label>
+                                        <label for="">Official Position: </label>
                                         <input type="text" name="position" class="form-control" required>
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Description: </label>
-                                        <textarea name="description" class="form-control summernote"></textarea>
+                                        <textarea name="description" class="form-control summernote" required></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
