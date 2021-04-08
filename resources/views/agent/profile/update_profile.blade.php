@@ -109,7 +109,6 @@ Update Profile |
 									</div>
 								</div>
 
-								{{ Auth::guard('agent')->user()->accountname ? Auth::guard('agent')->user()->accountname : '' }}
 
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
