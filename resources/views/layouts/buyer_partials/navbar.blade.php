@@ -1,4 +1,8 @@
-
+<style>
+    .skin-blue .main-header .navbar .nav > li > a{
+        font-size: 16px;
+    }
+</style>
 <header class="main-header ">
   <!-- Logo -->
   <a href="index.html" class="logo">
@@ -8,7 +12,7 @@
     <span class="logo-lg"><b> Yellow</b>Page</span>
   </a>
   <!-- Header Navbar -->
-  <nav class="navbar navbar-static-top" style="background-color: #f8d053">
+  <nav class="navbar navbar-static-top">
     <!-- Sidebar toggle button-->
     <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
       <span class="sr-only">Toggle navigation</span>
@@ -19,7 +23,11 @@
         <!-- User Account -->
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" class="user-image" alt="User Image">
+            @if (Auth::user()->image == null)
+                <i class="fa fa-user" style="color: #fff"; font-size: 50px !important;></i>
+            @else
+                <img src="{{ '/images/'.Auth::user()->image  }}" class="user-image" alt="User Image">
+            @endif
           </a>
           <ul class="dropdown-menu scale-up">
             <!-- User image -->
@@ -86,7 +94,7 @@
                   <a href="{{ route('seller.message.view',$unread_messages->slug) }}">
 
                     <div class="mail-contnet">
-                      <span style="font-weight: bold;"> {{ Str::limit($unread_messages->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_messages->created_at->diffForHumans() }} </small> </span> 
+                      <span style="font-weight: bold;"> {{ Str::limit($unread_messages->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_messages->created_at->diffForHumans() }} </small> </span>
                     </div>
                   </a>
                 </li>
@@ -116,7 +124,7 @@
                   <a href="{{ route('seller.notification.view',$unread_notifications->slug) }}">
 
                     <div class="mail-contnet">
-                      <span style="font-weight: bold;"> {{ Str::limit($unread_notifications->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_notifications->created_at->diffForHumans() }} </small> </span> 
+                      <span style="font-weight: bold;"> {{ Str::limit($unread_notifications->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_notifications->created_at->diffForHumans() }} </small> </span>
                     </div>
                   </a>
                 </li>

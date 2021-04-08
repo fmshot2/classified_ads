@@ -1,9 +1,7 @@
 
 @extends('layouts.buyer')
 
-@section('title')
-Buyer Dashboard | 
-@endsection
+@section('title', 'Buyer Dashboard | ')
 
 @section('content')
 
@@ -23,7 +21,7 @@ Buyer Dashboard |
         <li><a href=" {{ route('buyer.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
       </ol>
-      
+
     </section>
 
 
@@ -117,18 +115,18 @@ Buyer Dashboard |
 
   <div class="row">
     <div class="col-md-6 connectedSortable">
-     @include('buyer/section/unread_message_table')  
+     @include('buyer/section/unread_message_table')
     </div>
 
     <div class="col-md-6 connectedSortable">
-      @include('buyer/section/unread_notification_table')    
+      @include('buyer/section/unread_notification_table')
    </div>
  </div>
 
 
 {{--  <div class="row">
   <div class="col-md-12 connectedSortable">
-   @include('seller/section/all_service_table') 
+   @include('seller/section/all_service_table')
  </div>
 </div> --}}
 <!-- Row end here -->

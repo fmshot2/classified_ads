@@ -338,6 +338,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/message/{slug}', 'SellerController@viewMessage')->name('seller.message.view');
         Route::get('/message/reply/{slug}', 'SellerController@replyMessage')->name('seller.message.reply');
         Route::post('/message/reply/', 'SellerController@storeReplyMessage')->name('seller.message.reply.store');
+        Route::get('/message/read/status/{slug}', 'OperationalController@readStatusMessage')->name('seller.message.read.status');
 
         Route::get('/dashboard/service/active', 'SellerController@activeService')->name('seller.service.active');
         Route::get('/dashboard/service/pending', 'SellerController@pendingService')->name('seller.service.pending');
@@ -394,6 +395,7 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
     Route::get('/buyer/message/{slug}', 'BuyerController@viewMessage')->name('buyer.message.view');
     Route::get('/buyer/message/reply/{slug}', 'BuyerController@replyMessage')->name('buyer.message.reply');
     Route::post('/buyer/message/reply/', 'BuyerController@storeReplyMessage')->name('buyer.message.reply.store');
+    Route::get('/buyer/message/read/status/{slug}', 'OperationalController@readStatusMessage')->name('buyer.message.read.status');
 
     Route::post('/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
 
