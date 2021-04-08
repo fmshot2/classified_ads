@@ -15,24 +15,12 @@
     </div>
     <!-- search form -->
 
-    <br>
-    <hr>
-
     <!-- /.search form -->
     <!-- sidebar menu-->
     <ul class="sidebar-menu" data-widget="tree">
-{{--
-      <li class="" style="{{ url()->current() == route('buyer.dashboard') ? 'background-color: #f8d053' : '' }}">
-        <a href=" {{route ('seller.dashboard') }}">
-          <i class="fa fa-dashboard"></i> <span> Dashboard </span>
-          <span class="pull-right-container">
-          </span>
-        </a>
-      </li>
-      --}}
 
 
-      <li class="" style="{{ url()->current() == route('buyer.dashboard') ? 'background-color: #f8d053' : '' }}">
+      <li class="{{ url()->current() == route('buyer.dashboard') ? 'active' : '' }}">
         <a href=" {{route ('buyer.dashboard') }}">
           <i class="fa fa-dashboard"></i> <span> Dashboard </span>
           <span class="pull-right-container">
@@ -42,7 +30,7 @@
 
 
 
-      <li class="" style="{{ url()->current() == route('buyer.message.all') ? 'background-color: #f8d053' : '' }}">
+      <li class="{{ url()->current() == route('buyer.message.all') ? 'active' : '' }}">
         <a href=" {{route ('buyer.message.all') }}">
           <i class="fa fa-briefcase"></i> <span> My Messages </span>
           <span class="pull-right-container">
@@ -68,7 +56,7 @@
       </li>
       --}}
 
-      <li class="" style=" {{ url()->current() == route('buyer.service.all') ? 'background-color: #f8d053' : '' }} ">
+      <li class="{{ url()->current() == route('buyer.service.all') ? 'active' : '' }}">
         <a href=" {{ route('buyer.service.all') }} ">
           <i class="fa fa-search"></i> <span> Request A Service </span>
           <span class="pull-right-container">
@@ -85,7 +73,7 @@
       </li> --}}
 
 
-      <li class="" style=" {{ url()->current() == route('buyer.notification.all') ? 'background-color: #f8d053' : '' }}">
+      <li class="{{ url()->current() == route('buyer.notification.all') ? 'active' : '' }}">
         <a href=" {{route ('buyer.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notices </span>
           <span class="pull-right-container">
@@ -108,7 +96,7 @@
         </ul>
       </li> --}}
 
-      <li style="{{ url()->current() == route('buyer.profile') ? 'background-color: #f8d053' : '' }}">
+      <li class="{{ url()->current() == route('buyer.profile') ? 'active' : '' }}">
         <a href=" {{ route ('buyer.profile') }} ">
           <i class="fa fa-user"></i> <span> Profile </span>
           <span class="pull-right-container">

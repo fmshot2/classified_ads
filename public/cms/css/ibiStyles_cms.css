@@ -81,7 +81,10 @@ table th {
 .skin-blue .sidebar-menu > li.active > a,
 .skin-blue .sidebar-menu > li.menu-open > a {
     color: #ffffff;
-    background: #cc8a19;
+    background: #cc8a19 !important;
+}
+.skin-blue .main-header .navbar{
+    background-color: #cc8a19;
 }
 @-webkit-keyframes pulsePostBtn {
     0% {

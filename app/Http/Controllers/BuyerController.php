@@ -8,6 +8,7 @@ use\App\Category;
 use Illuminate\Support\Facades\Auth;
 use App\Service;
 use App\Notification;
+use Illuminate\Support\Str;
 
 class BuyerController extends Controller
 {
@@ -65,7 +66,7 @@ public function replyMessage($slug)
 {
   $message = Message::where('slug', $slug)->first();
   return view ('buyer.message.reply_message', compact('message') );
-}   
+}
 
 public function storeReplyMessage(Request $request)
 {
@@ -74,7 +75,6 @@ public function storeReplyMessage(Request $request)
   ]);
 
   $slug = Str::random(3);
-  $request->session()->flash('status', 'Task was successful!');
 
   $message = New Message();
   $message->subject = $request->subject;
@@ -87,8 +87,16 @@ public function storeReplyMessage(Request $request)
   $message->reply = 'yes';
   $message->phone = $request->phone;
   $message->slug = $slug;
-  $message->save();
-  return $this->allMessage();
+
+  if ($message->save()) {
+    $request->session()->flash('status', 'Your reply was sent successfully!');
+    return redirect()->back();
+  }
+    return redirect()->back()->with([
+        'meesage' => 'Something went wrong!',
+        'alert-type' => 'error'
+    ]);
+
 }
 
 }

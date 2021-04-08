@@ -1005,4 +1005,19 @@ class OperationalController extends Controller
 
 
 
+    public function readStatusMessage($slug)
+    {
+        $message = Message::where('slug', $slug)->first();
+        $message->status = 1;
+        if ($message->save()) {
+            return response()->json([
+                'message' => 'Message marked as read!',
+                'alert-type' => 'success'
+            ]);
+        }
+        return response()->json([
+            'message' => 'Message couldn\'t marked as read!',
+            'alert-type' => 'error'
+        ]);
+    }
 }

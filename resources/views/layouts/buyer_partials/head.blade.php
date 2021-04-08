@@ -41,6 +41,8 @@
 
 	<link rel="stylesheet" href="{{asset('dropzone/dist/dropzone.css')}}">
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
+
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -55,15 +57,17 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
+<link href="{{ asset('cms/css/ibiStyles_cms.css') }}" rel="stylesheet" type="text/css" />
 
 <style type="text/css">
 	.dt-buttons .dt-button {
-		background: #f8d053 !important;
+		background: #cc8a19 !important;
 		color: white !important;
 	}
 </style>
 
 
-
+<script src="{{ asset('js/jquery-2.2.0.min.js') }}"></script>
+<script src="{{ asset('toastr/toastr.min.js') }}"></script>
 </head>
 

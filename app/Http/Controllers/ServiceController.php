@@ -117,7 +117,7 @@ class ServiceController extends Controller
     ->where('status', 1)
      ->inRandomOrder()->limit(15)->get();
 
-    return response()->json([
+     return response()->json([
       'data' => $servicesss,
       'latitude' => $latitude,
       'longitude' => $longitude
