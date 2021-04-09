@@ -78,6 +78,9 @@ Route::prefix('v1')->group(function ()
     Route::get('services/{id}', [ServiceController::class, 'show']);
     Route::get('search/', [ServiceController::class, 'search']);
 
+    // SERVICES CLOSE TO YOU
+    Route::get('services-close-to-me', [ServiceController::class, 'findNearestServices']);
+
     // SEEKING WORK (CV)
     Route::get('job-applicant/details/{slug}', [ServiceController::class, 'seekingWorkDetails']);
 

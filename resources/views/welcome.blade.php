@@ -112,7 +112,8 @@ var z = document.getElementById("longitude_id");
 
 function showPosition(position) {
 
-    // console.log('latitude', position.coords.latitude);
+    console.log('latitude', position.coords.latitude);
+    console.log('longitude', position.coords.longitude);
 
     $.ajax({
             type:'GET',

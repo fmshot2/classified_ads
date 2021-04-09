@@ -39,7 +39,7 @@ class ServiceController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories', 'findNearestServices']]);
         $this->user = $this->guard()->user();
     }
 
@@ -889,6 +889,39 @@ class ServiceController extends Controller
         return (new CategoryResource($category))
             ->response()
             ->setStatusCode(200);
+    }
+
+    public function findNearestServices(Request $request)
+    {
+        $latitude = $request->latitude;
+        $longitude = $request->longitude;
+        $radius = 100000;
+        $services = Service::selectRaw("id, name, address, state, thumbnail, user_id, badge_type, slug,
+        ( 6371000 * acos( cos( radians(?) ) *
+        cos( radians( latitude ) )
+                        * cos( radians( longitude ) - radians(?)
+        ) + sin( radians(?) ) *
+        sin( radians( latitude ) ) )
+        ) AS distance", [$latitude, $longitude, $latitude])
+            ->having("distance", "<", $radius)->with('user')->with('images')
+            ->orderBy("distance",'asc')
+            ->offset(0)
+            ->where('status', 1)
+            ->inRandomOrder()->limit(15)->get();
+
+        if (!$services->isEmpty()) {
+            return response()->json([
+                'services' => $services,
+                'latitude' => $latitude,
+                'longitude' => $longitude
+                ], 200);
+        }
+        else{
+            return response()->json([
+                'message' => 'No service close to you!',
+                ], 404);
+        }
+
     }
 
 
