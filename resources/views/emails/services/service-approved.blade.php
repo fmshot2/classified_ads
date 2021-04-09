@@ -16,7 +16,7 @@
 </div>
 
 @component('mail::panel')
-Thanks for your patronage, hope to see you soon. 😀
+Thanks for your patronage, hope to see you soon. 😀👍
 @endcomponent
 
 Thanks,<br>
