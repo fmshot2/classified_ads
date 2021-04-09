@@ -339,7 +339,7 @@
                             if (response.status == 'success') {
                                 $.ajax({
                                     method: "POST",
-                                    url: base_Url + '/provider/badge_paid_for/',
+                                    url: base_Url + '/provider/badge_paid_for',
                                     dataType: "json",
                                     data: {
                                         _token: _token,
