@@ -16,14 +16,19 @@
 </div>
 
 @component('mail::panel')
-Promote your service by sharing it on different platforms. Social media, forums etc.
+Thanks for your patronage, hope to see you soon. 😀
 @endcomponent
 
 Thanks,<br>
 <em>Wishing you all the best</em><br>
 <strong>{{ config('app.name') }}</strong>
+<div class="table" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; padding-bottom: 15px;font-size: 13px; margin-top: -15px">
+    📞 {{ $general_info->hot_line ? $general_info->hot_line : '' }} <br>
+</div>
 
 <div class="table" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; padding-bottom: 15px; text-align: center; font-size: 13px">
 Please do not reply to this email.
+
+<p style="font-size:13px; line-height:1.5;"><small><strong>DISCLAIMER:</strong> This email and any information transmitted with it are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error please notify the system manager. This message contains confidential information and is intended only for the individual named. If you are not the named addressee you should not disseminate, distribute or copy this e-mail. Please notify the sender immediately by e-mail if you have received this e-mail by mistake and delete this e-mail from your system. If you are not the intended recipient you are notified that disclosing, copying, distributing or taking any action in reliance on the contents of this information is strictly prohibited. If you are the intended please note that you are not to share or disclose the content of this mail.</small></p>
 </div>
 @endcomponent
