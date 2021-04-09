@@ -343,6 +343,7 @@
                                     dataType: "json",
                                     data: {
                                         _token: _token,
+                                        _method: 'POST',
                                         email: email,
                                         amount: badgecost,
                                         ref_no: response.transaction,
