@@ -59,7 +59,7 @@ class Register extends Component
             'role'                  => ['required', Rule::in(['seller', 'buyer'])],
             'agent_code'            => ['nullable', 'exists:agents,agent_code'],
             'terms'                 => ['accepted'],
-            'plan'                  => ['nullable', Rule::in([1200, 2400])],
+            'plan'                  => ['nullable', Rule::in([200, 600, 1200, 2400])],
 
         ]);
 
@@ -77,7 +77,7 @@ class Register extends Component
 
             // live variable
             // 'key'    => config('variable.paystack_pk_live'),
-            'key'    => config('variable.paystack_pk_test'),      
+            'key'    => env('paystack_pk'),      
             'amount' => $this->plan * 100,
             'email'  => $this->email,
             'name'   => $this->name,
@@ -91,16 +91,15 @@ class Register extends Component
 
     public function verifyPaystackAmount($paystack_response)
     {
-        $sk_test    = config('variable.paystack_sk_test');
+        $paystack_sk    = env('paystack_sk');
 
-        $sk_live    = config('variable.paystack_sk_live');
         $response = Http::withHeaders([
             'content-type' => 'application/json',
         ])
         // ->withToken('sk_live_567bac30399617933d4403048429bcfbd565cba1')
         // ->withToken('sk_test_11395d522a279cf6fb0f8c6cf0fd7f41b2c15200')
 
-        ->withToken($sk_test)
+        ->withToken($paystack_sk)
         ->get("https://api.paystack.co/transaction/verify/" . $paystack_response['trxref']);
 
         $json_resp = $response->json();
@@ -238,31 +237,17 @@ class Register extends Component
             $link->refererlink = $present_user->refererLink;
             $link->save();
 
-
-
-
-            // $subscription              = new Subscription();
-            // $subscription->user_id     = $present_user->id;
-            // $subscription->user_registration_date = $present_user->refererLink;
-            // $subscription->save();
-
             if (Auth::user()->role == 'buyer') {
                 return  Redirect::to(session(url()->previous()));
-                // dd('sss');
-                // return back();
-
             }
-
-
-            // 'amount' => $this->plan,
-            //    'email'  => $this->email,
-            //    'name'   => $this->name,
-
             // save user's subscription module
 
             if ($amount == 20000) {
                 $added_days = 31;
                 $sub_type = 'monthly';
+            }elseif ($amount == 60000) {
+                $added_days = 186;
+                $sub_type = '3 months';   
             } elseif ($amount == 120000) {
                 $added_days = 186;
                 $sub_type = 'bi-annual';
@@ -291,6 +276,19 @@ class Register extends Component
             if ($person_that_refered) {
                 $referer = User::where('id', $person_that_refered)->first();
                 if ($referer) {
+                    //if your refferer is an efmarketer staff, redirect user to dashboard
+                    if ($referer->is_ef_marketer) {
+
+                        if (Auth::user()->role == 'seller') {
+                        return redirect()->route('seller.dashboard');
+                        } else if (Auth::user()->role == 'buyer') {
+                        return  Redirect::to(Session::get('url.intended'));
+                        } else {
+                        return redirect()->route('admin.dashboard');
+                        }                    
+                    }
+
+
                     $referer->refererAmount = $referer->refererAmount + 200;
                     //save my id  as level 1 on the table of the one that reffered me
                     $referer->level1 = Auth::id();
@@ -304,6 +302,17 @@ class Register extends Component
             if ($agent_that_refered) {
                 $referer2 = Agent::where('id', $agent_that_refered)->first();
                 if ($referer2) {
+                    //if your agent is an efmarketer staff, redirect user to dashboard
+                    if ($referer2->is_ef_marketer) {
+
+                        if (Auth::user()->role == 'seller') {
+                        return redirect()->route('seller.dashboard');
+                        } else if (Auth::user()->role == 'buyer') {
+                        return  Redirect::to(Session::get('url.intended'));
+                        } else {
+                        return redirect()->route('admin.dashboard');
+                        }                    
+                    }
                     $referer2->refererAmount = $referer2->refererAmount + 200;
 
                     //if my referee is an agent, save my id  as level 1 on the table of the Agent that reffered me

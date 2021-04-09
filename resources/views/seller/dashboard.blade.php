@@ -529,7 +529,7 @@
                                         <p id="featuredText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
                                     </div>
                                     <div class="form-group">
-                                        <label>Sub Category <small class="text-info">(You can select multiple sub category)</small></label>
+                                        <label>Sub Category <small class="text-info">(You can select multiple sub categories)</small></label>
                                         <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple>
                                             <option value="">-- Please select a category to populate this --</option>
                                             @foreach($subcategories as $subcategory)
@@ -552,11 +552,11 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group form-float" id="youtubeLink">
+                                    <!-- <div class="form-group form-float" id="youtubeLink">
                                         <label class="form-label">Video (Youtube)</label>
                                         <small class="form-text text-muted">Your youtube video link.</small>
                                         <input type="text" class="form-control" name="video_link">
-                                    </div>
+                                    </div> -->
 
                                     <div class="form-group">
                                         <label class="form-label">Location</label><small class="text-danger">*</small>
@@ -580,11 +580,24 @@
                                         <input id="address" type="text"  value="{{ old('address') }}" class="form-control" name="address" placeholder="Enter your address here.">
                                     </div>
 
+
+                                    <div id="errMess" style="display: none;">
+                                       <p> <small class="text-danger">1. The category field is required.</small></p>
+                                        <p><small class="text-danger">2. The service name is required.</small></p>
+                                        <p><small class="text-danger">3. The service description is required.</small></p>
+                                        <p><small class="text-danger">4. The price name is required.</small></p>
+                                        <p><small class="text-danger">5. The phone name is required.</small></p>
+                                        <p><small class="text-danger">6. Image is required.</small></p>
+                                        <p><small class="text-danger">7. Location  is required.</small></p>
+                                        <p><small class="text-danger">8. Local Government is required.</small></p>
+                                        <p><small class="text-danger">9. Address is required.</small></p>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-warning" style="background-color: #cc8a19; color: #fff; border:1px solid #cc8a19;">Next <i class="fa fa-arrow-right"></i>
+                            <button type="submit" onclick="showError()" class="btn btn-warning" style="background-color: #cc8a19; color: #fff; border:1px solid #cc8a19;">Next <i class="fa fa-arrow-right"></i>
                             </button>
                             <button id="closeytplayer" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
@@ -879,9 +892,14 @@
 
 
 
-
+<script type="text/javascript">
+    function
+</script>
 
 <script>
+    function showError(){
+            document.getElementById('errMess').style.display = 'block';
+    }
     document.getElementById('seekingworkForm').style.display = 'none'
 
     var checkBox = document.getElementById("featured");

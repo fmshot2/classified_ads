@@ -70,19 +70,19 @@
     <div class="content-wrapper">
         <section class="content-header">
 
-            @if(isset($agent_code_check->agent_code))
+            @if(isset(Auth::user()->agent_code))
             <div class="refererArea">
                 <h5>Here Is Your Agent Dashboard</h5>
 
                 <h4>My Agent Code <small>(<a data-toggle="modal" data-target="#referralInfoModal">How it works?</a>)</small></h4>
                 <div class="referralContainer">
                     <div>
-                        <button class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="{{$agent_code_check->agent_code}}" onclick="copyToClipboard('#refererlinkText') ">
+                        <button class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="{{Auth::user()->agent_code}}" onclick="copyToClipboard('#refererlinkText') ">
                             Click here to copy your code
                         </button>
                     </div>
                     <div>
-                        <p id="refererlinkText" hidden>{{ $agent_code_check->agent_code }}</p>
+                        <p id="refererlinkText" hidden>{{ Auth::user()->agent_code }}</p>
                     </div>
                 </div>
             </div>

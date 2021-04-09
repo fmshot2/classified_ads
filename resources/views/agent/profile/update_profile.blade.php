@@ -36,60 +36,59 @@ Update Profile |
 									<p>Phone</p>
 									<h5> {{ Auth::guard('agent')->user()->phone }}</h5>
 									<!-- <p>About Me</p>
-									<h5> {{ Auth::guard('agent')->user()->about }}</h5> -->
-									<p>Address</p>
-									<h5> {{ Auth::guard('agent')->user()->address }}</h5>
-									{{ Auth::guard('agent')->user()->id}}
+										<h5> {{ Auth::guard('agent')->user()->about }}</h5> -->
+										<p>Address</p>
+										<h5> {{ Auth::guard('agent')->user()->address }}</h5>
+									</div>
 								</div>
 							</div>
 						</div>
+						<!-- /.box-body -->
 					</div>
-					<!-- /.box-body -->
+					<!-- /.box -->
 				</div>
-				<!-- /.box -->
-			</div>
-			<!-- /.col -->
-			<div class="col-md-8">
-				<div class="nav-tabs-custom">
-					<ul class="nav nav-tabs">
+				<!-- /.col -->
+				<div class="col-md-8">
+					<div class="nav-tabs-custom">
+						<ul class="nav nav-tabs">
 
-						<li class="active"><a href="#timeline" data-toggle="tab">Update Profile</a></li>
-						<li><a href="#password" data-toggle="tab">Change Password</a></li>
-						<li><a href="#bankaccount" data-toggle="tab">Account Details</a></li>
-					</ul>
+							<li class="active"><a href="#timeline" data-toggle="tab">Update Profile</a></li>
+							<li><a href="#password" data-toggle="tab">Change Password</a></li>
+							<li><a href="#bankaccount" data-toggle="tab">Account Details</a></li>
+						</ul>
 
-					<div class="tab-content">
-						<!-- /.tab-pane -->
+						<div class="tab-content">
+							<!-- /.tab-pane -->
 
-						<div class="active tab-pane" id="timeline">
+							<div class="active tab-pane" id="timeline">
 
-							<form class="form-horizontal form-element" method="POST" action="{{route('agent.profile.update', Auth::guard('agent')->id() )}}" enctype="multipart/form-data">
-								{{ csrf_field() }}
+								<form class="form-horizontal form-element" method="POST" action="{{route('agent.profile.update', Auth::guard('agent')->id() )}}" enctype="multipart/form-data">
+									{{ csrf_field() }}
 
-								<div class="form-group">
-									<label for="inputName" class="col-sm-2 control-label">Full Name</label>
+									<div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Full Name</label>
 
-									<div class="col-sm-10">
-										<input type="text" id="name" class="form-control" name="name" value=" {{ Auth::guard('agent')->user()->name }} ">
+										<div class="col-sm-10">
+											<input type="text" id="name" class="form-control" name="name" value=" {{ Auth::guard('agent')->user()->name }} ">
+										</div>
 									</div>
-								</div>
 
 
-								<div class="form-group">
-									<label for="inputEmail" class="col-sm-2 control-label">Email</label>
+									<div class="form-group">
+										<label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
-									<div class="col-sm-10">
-										<input type="email" class="form-control" name="email" value=" {{ Auth::guard('agent')->user()->email }}">
+										<div class="col-sm-10">
+											<input type="email" class="form-control" name="email" value=" {{ Auth::guard('agent')->user()->email }}">
+										</div>
 									</div>
-								</div>
 
-								<div class="form-group">
-									<label for="inputPhone" class="col-sm-2 control-label">Phone</label>
+										<div class="form-group">
+											<label for="inputPhone" class="col-sm-2 control-label">Phone</label>
 
-									<div class="col-sm-10">
-										<input type="number" class="form-control" name="phone" value="{{ Auth::guard('agent')->user()->phone }}">
-									</div>
-								</div>
+											<div class="col-sm-10">
+												<input type="number" class="form-control" name="phone" value="{{ Auth::guard('agent')->user()->phone }}">
+											</div>
+										</div>
 
 
 								<!-- <div class="form-group">
@@ -100,7 +99,7 @@ Update Profile |
 									</div>
 								</div> -->
 
-				
+
 								<div class="form-group">
 									<label for="inputSkills" class="col-sm-2 control-label">Address</label>
 
@@ -109,7 +108,6 @@ Update Profile |
 									</div>
 								</div>
 
-								{{ Auth::guard('agent')->user()->accountname ? Auth::guard('agent')->user()->accountname : '' }}
 
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
@@ -126,26 +124,26 @@ Update Profile |
 								{{ csrf_field() }}
 
 								<div class="form-group">
-									<label for="inputName" class="col-sm-2 control-label">Current Password</label>
+									<label for="inputOld_password" class="col-sm-2 control-label">Current Password</label>
 
 									<div class="col-sm-10">
-										<input class="form-control" name="old_password" type="password" placeholder="*********">
+										<input class="form-control" name="old_password" type="password" placeholder="Enter Your current Password">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail" class="col-sm-2 control-label">New Password</label>
+									<label for="inputNew_password" class="col-sm-2 control-label">New Password</label>
 
 									<div class="col-sm-10">
 										<input class="form-control" name="new_password" type="password">
 									</div>
 								</div>
-							<!-- 	<div class="form-group">
-									<label for="inputPhone" class="col-sm-2 control-label">Confirm New Password</label>
+								<div class="form-group">
+									<label for="inputPassword_confirmation" class="col-sm-2 control-label">Confirm New Password</label>
 
 									<div class="col-sm-10">
 										<input class="form-control" name="password_confirmation" type="password">
 									</div>
-								</div> -->
+								</div>
 
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
@@ -159,7 +157,7 @@ Update Profile |
 						<!-- /.tab-pane -->
 
 
-						         <div class="tab-pane" id="bankaccount">
+						<div class="tab-pane" id="bankaccount">
 							<form class="form-horizontal form-element" method="POST" action="{{route('agentprofile.update.account', Auth::guard('agent')->id() )}}">
 								@csrf
 								<div class="form-group">
