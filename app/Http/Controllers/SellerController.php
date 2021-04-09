@@ -45,6 +45,7 @@ class SellerController extends Controller
         $data = $request->all();
         $this->validate($request,[
             'description' => 'required',
+            'phone' => 'required',
             'category_id' => 'required',
             'min_price' => 'required|numeric',
             'address' => 'nullable',
