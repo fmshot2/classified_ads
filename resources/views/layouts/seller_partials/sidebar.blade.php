@@ -140,7 +140,14 @@
             @endif
           </a>
         </li>
-        <li class="treeview" style=" {{ url()->current() == route('admin.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.all') ? 'background-color: #f8d053' : '' }}">
+        <li style=" {{ url()->current() == route('seller.payment.history') ? 'background-color: #f8d053' : '' }}">
+          <a href=" {{ route ('seller.payment.history') }}">
+            <i class="fa fa-globe"></i> <span> Payment History </span>
+            <span class="pull-right-container">
+            </span>
+          </a>
+        </li>
+        {{-- <li class="treeview" style=" {{ url()->current() == route('admin.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.all') ? 'background-color: #f8d053' : '' }}">
           <a href="#">
             <i class="fa fa-briefcase"></i>
             <span> Payments </span>
@@ -153,7 +160,7 @@
             <li><a href=" {{ route ('seller.payment.history') }} "><i class="fa fa-circle-o"></i> Payment History </a></li>
 
           </ul>
-        </li>
+        </li> --}}
         <li class="" style=" {{ url()->current() == route('provider.myfavourites') ? 'background-color: #f8d053' : '' }}">
           <a href=" {{route ('provider.myfavourites') }}">
             <i class="fa fa-heart"></i> <span> My Favourites </span>
