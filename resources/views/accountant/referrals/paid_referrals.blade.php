@@ -45,6 +45,9 @@ All Paid Referals |
 									<th> # </th>
 									<th> Name </th>
 									<th> Amount Requested </th>
+									<th>Account Name</th>
+									<th>Bank</th>
+									<th>Account Number</th>
 									<th> Total Remaining Balance </th>
 									<th> Payment Status </th>
 									<th>Date of Payment</th>
@@ -57,6 +60,9 @@ All Paid Referals |
 									<td>{{ ++$key }}</td>
 									<td> {{ $all_payment->getOwner()->name ?? '' }} </td>
 									<td>₦<span class="text-muted">{{ number_format($all_payment->amount_requested ?? '0') }} </span> </td>
+									<td> {{ $all_payment->getOwner()->account_name ?? '' }} </td>
+									<td> {{ $all_payment->getOwner()->bank_name ?? '' }} </td>
+									<td> {{ $all_payment->getOwner()->account_number ?? '' }} </td>
 									<td> ₦{{ number_format($all_payment->getOwner()->refererAmount ?? '0') }} </td>
 									<td> <span class="text text-success">Paid</span></td>
 									<td>{{ date('d-m-Y', strtotime($all_payment->updated_at)) }}</td>

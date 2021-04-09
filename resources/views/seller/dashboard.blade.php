@@ -398,9 +398,9 @@
                         </span>
                         <div class="info-box-content">
                             <span class="info-box-text"> Referral Bonus: <br> &#8358;{{$accruedAmount ?? 0}}</span>
-                            <span class="progress-description">
+                            {{-- <span class="progress-description">
                                 <button class="btn btn-success btn-sm" style="cursor: pointer; display: block; margin-top: 5px;" data-toggle="modal" data-target="#exampleModal">Make Withdrawal</button>
-                            </span>
+                            </span> --}}
                             {{-- <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style="width: {{$accruedAmount ?? 0}}%"></div>
                             </div> --}}
