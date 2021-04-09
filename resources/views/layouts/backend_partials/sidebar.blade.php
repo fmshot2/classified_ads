@@ -37,7 +37,7 @@
         </a>
       </li>
 
-      <li class="treeview" style=" {{ url()->current() == route('superadmin.subcategory.show') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('superadmin.category.show') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('superadmin.service.all') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview {{ url()->current() == route('superadmin.subcategory.show') ? 'active' : '' }} {{ url()->current() == route('superadmin.category.show') ? 'active' : '' }} {{ url()->current() == route('superadmin.service.all') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-briefcase"></i>
           <span> Service Management </span>
@@ -54,13 +54,13 @@
         </ul>
       </li>
 
-      <li class="" style=" {{ url()->current() == route('superadmin.users.feedback') ? 'background-color: #f8d053' : '' }}">
+      <li class="{{ url()->current() == route('superadmin.users.feedback') ? 'active' : '' }}">
         <a href=" {{route ('superadmin.users.feedback') }}">
           <i class="fa fa-comments-o"></i> <span> User Feedbacks </span>
         </a>
       </li>
 
-      <li class="" style=" {{ url()->current() == route('superadmin.notification.all') ? 'background-color: #f8d053' : '' }}">
+      <li class="{{ url()->current() == route('superadmin.notification.all') ? 'active' : '' }}">
         <a href=" {{route ('superadmin.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
           @if (Auth::user()->unreadNotifications->count() > 0)
@@ -71,7 +71,7 @@
         </a>
       </li>
 
-      <li style="{{ url()->current() == route('superadmin.profile') ? 'background-color: #f8d053' : '' }}">
+      <li class="{{ url()->current() == route('superadmin.profile') ? 'active' : '' }}">
         <a href=" {{ route ('superadmin.profile') }} ">
           <i class="fa fa-user"></i> <span> Profile Config </span>
           <span class="pull-right-container">
@@ -79,7 +79,7 @@
         </a>
       </li>
 
-      <li class="treeview" style=" {{ url()->current() == route('superadmin.buyer') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('superadmin.seller') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview {{ url()->current() == route('superadmin.buyer') ? 'active' : '' }} {{ url()->current() == route('superadmin.seller') ? 'active' : '' }}" style=" ">
         <a href="#">
           <i class="fa fa-users"></i>
           <span> Users </span>
@@ -100,7 +100,7 @@
         </ul>
       </li>
 
-      <li class="treeview" style=" {{ url()->current() == route('superadmin.all.data') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('superadmin.add.data') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview {{ url()->current() == route('superadmin.all.data') ? 'active' : '' }} {{ url()->current() == route('superadmin.add.data') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-users"></i>
           <span> Data Entry Officers </span>
@@ -115,10 +115,10 @@
       </li>
 
 
-      <li class="treeview" style=" {{ url()->current() == route('superadmin.show_faq') ? 'background-color: #f8d053' : '' }}
-      {{ url()->current() == route('superadmin.privacy.policy') ? 'background-color: #f8d053' : '' }}
-      {{ url()->current() == route('superadmin.sliders') ? 'background-color: #f8d053' : '' }}
-       {{ url()->current() == route('superadmin.termsOfUse') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview {{ url()->current() == route('superadmin.show_faq') ? 'active' : '' }}
+        {{ url()->current() == route('superadmin.privacy.policy') ? 'active' : '' }}
+        {{ url()->current() == route('superadmin.sliders') ? 'active' : '' }}
+         {{ url()->current() == route('superadmin.termsOfUse') ? 'active' : '' }}" style=" ">
         <a href="#">
           <i class="fa fa-file"></i>
           <span> Pages Management </span>
@@ -136,7 +136,7 @@
         </ul>
       </li>
 
-      <li class="treeview" style=" {{ url()->current() == route('superadmin.cities') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview {{ url()->current() == route('superadmin.cities') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-file"></i>
           <span> Officials </span>
@@ -152,9 +152,9 @@
 
 
 
-        <li class="treeview" style=" {{ url()->current() == route('pending_advert_requests') ? 'background-color: #f8d053' : '' }}
-        {{ url()->current() == route('treated_advert_requests') ? 'background-color: #f8d053' : '' }}
-        {{ url()->current() == route('active_adverts') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('superadmin.all_adverts') ? 'background-color: #f8d053' : '' }}">
+        <li class="treeview {{ url()->current() == route('pending_advert_requests') ? 'active' : '' }}
+            {{ url()->current() == route('treated_advert_requests') ? 'active' : '' }}
+            {{ url()->current() == route('active_adverts') ? 'active' : '' }} {{ url()->current() == route('superadmin.all_adverts') ? 'active' : '' }}" style=" ">
             <a href="#">
                 <i class="fa fa-file"></i>
                 <span> Advert Management </span>
@@ -169,7 +169,7 @@
                 <li><a href="{{ route('active_adverts') }}"><i class="fa fa-circle-o"></i> Active Adverts </a></li> -->
             </ul>
         </li>
-        <li class="treeview" style=" {{ url()->current() == route('superadmin.send_sms') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('superadmin.send_email') ? 'background-color: #f8d053' : '' }}">
+        <li class="treeview {{ url()->current() == route('superadmin.send_sms') ? 'active' : '' }} {{ url()->current() == route('superadmin.send_email') ? 'active' : '' }}" style=" ">
         <a href="#">
           <i class="fa fa-users"></i>
           <span> Data Entry </span>
@@ -199,7 +199,7 @@
             </a>
         </li>
         @elseif(Auth::user()->role == 'admin')
-        <li style="{{ url()->current() == route('cmo.dashboard') ? 'background-color: #f8d053' : '' }}">
+        <li class="{{ url()->current() == route('cmo.dashboard') ? 'active' : '' }}">
         <a href=" {{route ('admin.dashboard') }}">
           <i class="fa fa-dashboard"></i> <span> Dashboard </span>
           <span class="pull-right-container">
@@ -207,7 +207,7 @@
         </a>
       </li>
 
-      <li class="treeview" style=" {{ url()->current() == route('admin.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.all') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview {{ url()->current() == route('admin.service.active') ? 'active' : '' }} {{ url()->current() == route('admin.service.pending') ? 'active' : '' }} {{ url()->current() == route('admin.service.all') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-briefcase"></i>
           <span> Service Management </span>
@@ -225,7 +225,7 @@
       </li>
 
 
-      <li class="treeview" style="{{ url()->current() == route('admin.subscription.all') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview {{ url()->current() == route('admin.subscription.all') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-briefcase"></i>
           <span> Subscriptions</span>
@@ -239,13 +239,13 @@
         </ul>
       </li>
 
-      <li class="" style=" {{ url()->current() == route('admin.users.feedback') ? 'background-color: #f8d053' : '' }}">
+      <li class="{{ url()->current() == route('admin.users.feedback') ? 'active' : '' }}">
         <a href=" {{route ('admin.users.feedback') }}">
           <i class="fa fa-comments-o"></i> <span> User Feedbacks </span>
         </a>
       </li>
 
-      <li class="" style=" {{ url()->current() == route('admin.notification.all') ? 'background-color: #f8d053' : '' }}">
+      <li class="{{ url()->current() == route('admin.notification.all') ? 'active' : '' }}">
         <a href=" {{route ('admin.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
           @if (Auth::user()->unreadNotifications->count() > 0)
@@ -256,7 +256,7 @@
         </a>
       </li>
 
-      <li style="{{ url()->current() == route('admin.profile') ? 'background-color: #f8d053' : '' }}">
+      <li class="{{ url()->current() == route('admin.profile') ? 'active' : '' }}">
         <a href=" {{ route ('admin.profile') }} ">
           <i class="fa fa-user"></i> <span> Profile Config </span>
           <span class="pull-right-container">
@@ -264,7 +264,7 @@
         </a>
       </li>
 
-      <li class="treeview" style=" {{ url()->current() == route('admin.buyer') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.seller') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview {{ url()->current() == route('admin.buyer') ? 'active' : '' }} {{ url()->current() == route('admin.seller') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-users"></i>
           <span> Users </span>
@@ -283,7 +283,7 @@
         </ul>
       </li>
 
-      <li class="treeview" style=" {{ url()->current() == route('admin.all.data') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.add.data') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview {{ url()->current() == route('admin.all.data') ? 'active' : '' }} {{ url()->current() == route('admin.add.data') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-users"></i>
           <span> Data Entry Officers </span>
@@ -297,10 +297,10 @@
         </ul>
       </li>
 
-      <li class="treeview" style=" {{ url()->current() == route('admin.show_faq') ? 'background-color: #f8d053' : '' }}
-      {{ url()->current() == route('admin.privacy.policy') ? 'background-color: #f8d053' : '' }}
-      {{ url()->current() == route('admin.sliders') ? 'background-color: #f8d053' : '' }}
-       {{ url()->current() == route('admin.termsOfUse') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview {{ url()->current() == route('admin.show_faq') ? 'active' : '' }}
+        {{ url()->current() == route('admin.privacy.policy') ? 'active' : '' }}
+        {{ url()->current() == route('admin.sliders') ? 'active' : '' }}
+         {{ url()->current() == route('admin.termsOfUse') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-file"></i>
           <span> Pages Management </span>
@@ -318,7 +318,7 @@
         </ul>
       </li>
 
-      <li class="treeview" style=" {{ url()->current() == route('admin.cities') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview {{ url()->current() == route('admin.cities') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-file"></i>
           <span> Officials </span>
@@ -334,9 +334,9 @@
 
 
 
-        <li class="treeview" style=" {{ url()->current() == route('pending_advert_requests') ? 'background-color: #f8d053' : '' }}
-        {{ url()->current() == route('treated_advert_requests') ? 'background-color: #f8d053' : '' }}
-        {{ url()->current() == route('active_adverts') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.all_adverts') ? 'background-color: #f8d053' : '' }}">
+        <li class="treeview {{ url()->current() == route('pending_advert_requests') ? 'active' : '' }}
+            {{ url()->current() == route('treated_advert_requests') ? 'active' : '' }}
+            {{ url()->current() == route('active_adverts') ? 'active' : '' }} {{ url()->current() == route('admin.all_adverts') ? 'active' : '' }}">
             <a href="#">
                 <i class="fa fa-file"></i>
                 <span> Advert Management </span>
@@ -351,7 +351,7 @@
                 <li><a href="{{ route('active_adverts') }}"><i class="fa fa-circle-o"></i> Active Adverts </a></li> -->
             </ul>
         </li>
-        <li class="treeview" style=" {{ url()->current() == route('admin.send_sms') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('superadmin.send_email') ? 'background-color: #f8d053' : '' }}">
+        <li class="treeview {{ url()->current() == route('admin.send_sms') ? 'active' : '' }} {{ url()->current() == route('superadmin.send_email') ? 'active' : '' }}">
           <a href="#">
             <i class="fa fa-users"></i>
             <span> Data Entry </span>
@@ -382,7 +382,7 @@
         </li>
         @elseif(Auth::user()->role == 'cmo')
 
-        <li style="{{ url()->current() == route('cmo.dashboard') ? 'background-color: #f8d053' : '' }}">
+        <li class="{{ url()->current() == route('cmo.dashboard') ? 'active' : '' }}">
         <a href=" {{route ('admin.dashboard') }}">
           <i class="fa fa-dashboard"></i> <span> Dashboard </span>
           <span class="pull-right-container">
@@ -390,7 +390,7 @@
         </a>
       </li>
 
-      <li class="" style=" {{ url()->current() == route('cmo.notification.all') ? 'background-color: #f8d053' : '' }}">
+      <li class="{{ url()->current() == route('cmo.notification.all') ? 'active' : '' }}">
         <a href=" {{route ('cmo.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
           @if (Auth::user()->unreadNotifications->count() > 0)
@@ -401,7 +401,7 @@
         </a>
       </li>
 
-      <li style="{{ url()->current() == route('cmo.profile') ? 'background-color: #f8d053' : '' }}">
+      <li class="{{ url()->current() == route('cmo.profile') ? 'active' : '' }}">
         <a href=" {{ route ('cmo.profile') }} ">
           <i class="fa fa-user"></i> <span> Profile Config </span>
           <span class="pull-right-container">
@@ -411,13 +411,13 @@
 
 
 
-      <li class="treeview" style=" {{ url()->current() == route('cmo.show_faq') ? 'background-color: #f8d053' : '' }}
-      {{ url()->current() == route('cmo.privacy.policy') ? 'background-color: #f8d053' : '' }}
-      {{ url()->current() == route('cmo.show_faq') ? 'background-color: #f8d053' : '' }}
-      {{ url()->current() == route('cmo.events') ? 'background-color: #f8d053' : '' }}
-      {{ url()->current() == route('cmo.sliders') ? 'background-color: #f8d053' : '' }}
-      {{ url()->current() == route('cmo.pagescontents') ? 'background-color: #f8d053' : '' }}
-       {{ url()->current() == route('cmo.termsOfUse') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview {{ url()->current() == route('cmo.show_faq') ? 'active' : '' }}
+      {{ url()->current() == route('cmo.privacy.policy') ? 'active' : '' }}
+      {{ url()->current() == route('cmo.show_faq') ? 'active' : '' }}
+      {{ url()->current() == route('cmo.events') ? 'active' : '' }}
+      {{ url()->current() == route('cmo.sliders') ? 'active' : '' }}
+      {{ url()->current() == route('cmo.pagescontents') ? 'active' : '' }}
+       {{ url()->current() == route('cmo.termsOfUse') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-file"></i>
           <span> Pages Management </span>
@@ -435,7 +435,7 @@
         </ul>
       </li>
 
-      <li class="treeview" style=" {{ url()->current() == route('cmo.cities') ? 'background-color: #f8d053' : '' }}">
+      <li class="treeview {{ url()->current() == route('cmo.cities') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-file"></i>
           <span> Officials </span>
@@ -450,7 +450,7 @@
       </li>
 
 
-        <li style="{{ url()->current() == route('cmo.system.config') ? 'background-color: #f8d053' : ''}}">
+        <li class="{{ url()->current() == route('cmo.system.config') ? 'active' : ''}}">
             <a href=" {{ route ('cmo.system.config') }} ">
             <i class="fa fa-globe"></i> <span> System Config </span>
             <span class="pull-right-container">
@@ -458,14 +458,14 @@
             </a>
         </li>
         @else
-         <li style="{{ url()->current() == route('data.dashboard') ? 'background-color: #f8d053' : '' }}">
+         <li class="{{ url()->current() == route('data.dashboard') ? 'active' : '' }}">
         <a href=" {{route ('admin.dashboard') }}">
           <i class="fa fa-dashboard"></i> <span> Dashboard </span>
           <span class="pull-right-container">
           </span>
         </a>
       </li>
-      <li class="" style=" {{ url()->current() == route('data.notification.all') ? 'background-color: #f8d053' : '' }}">
+      <li class="{{ url()->current() == route('data.notification.all') ? 'active' : '' }}">
         <a href=" {{route ('data.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
           @if (Auth::user()->unreadNotifications->count() > 0)
@@ -475,7 +475,7 @@
           @endif
         </a>
       </li>
-        <li class="treeview" style=" {{ url()->current() == route('data.send_email') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('data.send_sms') ? 'background-color: #f8d053' : '' }}">
+        <li style="treeview {{ url()->current() == route('data.send_email') ? 'active' : '' }} {{ url()->current() == route('data.send_sms') ? 'active' : '' }}">
           <a href="#">
             <i class="fa fa-users"></i>
             <span> Data Entry </span>
