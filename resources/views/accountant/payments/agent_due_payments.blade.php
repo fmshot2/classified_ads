@@ -48,6 +48,10 @@ All Agents Due Payments |
 									<th style="display: none;"></th>
 									<th> Name </th>
 									<th> Agent Code </th>
+									<th>Account Name</th>
+									<th>Bank</th>
+									<th>Account Number</th>
+									
 									<th> Total Remaining Balance </th>
 									{{-- <th> Payment Status </th> --}}
 									{{-- <th> Action </th>									 --}}
@@ -60,6 +64,10 @@ All Agents Due Payments |
 									<td style="display: none;" id="userID">{{ $unpaid_payment->id }}</td>
 									<td> {{ $unpaid_payment->name }} </td>
 									<td> {{ $unpaid_payment->agent_code }} </td>
+									<td> {{ $unpaid_payment->account_name }} </td>
+									<td> {{ $unpaid_payment->bank_name }} </td>
+									<td> {{ $unpaid_payment->account_number }} </td>
+									
 									{{-- <td>₦<span class="text-muted">{{ number_format($unpaid_payment->amount_requested) }} </span> </td> --}}
 									<td> ₦{{ number_format($unpaid_payment->refererAmount) }} </td>
 									{{-- @if($unpaid_payment->is_paid == 0)

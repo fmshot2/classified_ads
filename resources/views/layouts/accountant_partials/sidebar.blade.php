@@ -37,7 +37,7 @@
         <li class="treeview" style=" {{ url()->current() == route('accountant.all.due.payments') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('accountant.settled.payments') ? 'background-color: #f8d053' : '' }}">
           <a href="#">
             <i class="fa fa-calendar-check-o"></i>
-            <span> Seller Due Payements </span>
+            <span> Seller Due Payments </span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -50,7 +50,7 @@
         <li class="treeview" style=" {{ url()->current() == route('accountant.agent.due.payments') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('accountant.agent.settled.payments') ? 'background-color: #f8d053' : '' }}">
           <a href="#">
             <i class="fa fa-calendar"></i>
-            <span> Agent Due Payements </span>
+            <span> Agent Due Payments </span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

@@ -255,6 +255,7 @@ public function serviceDetail($slug)
 {
 
     $serviceDetail = Service::where('slug', $slug)->firstOrFail();
+      // dd($serviceDetail);
 
     $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
     $approvedServices = Service::where('status', 1)->with('user')->get();

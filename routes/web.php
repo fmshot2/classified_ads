@@ -353,8 +353,8 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('totalservicelikes/', 'OperationalController@sellerLikesCount')->name('provider.totalservicelikes');
         Route::get('my-favourites/', 'OperationalController@myFavourites')->name('provider.myfavourites');
 
-        Route::get('make-payment-request', 'SellerController@getSellerPage')->name('seller.make.request');
-        Route::post('submit-payment-request', 'PaymentRequestController@submitRequest')->name('seller.submit.payemnt.request');
+        // Route::get('make-payment-request', 'SellerController@getSellerPage')->name('seller.make.request');
+        // Route::post('submit-payment-request', 'PaymentRequestController@submitRequest')->name('seller.submit.payemnt.request');
         Route::get('payment-history', 'SellerController@PaymentHistory')->name('seller.payment.history');
 
         Route::post('seeking-work/create', 'OperationalController@seekingWorkCreate')->name('provider.seeking.work.create');
