@@ -45,6 +45,7 @@ Route::group([
     Route::get('profile', [AuthController::class, 'profile']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::get('check-if-email-exist', [AuthController::class, 'checkEmailIfExist']);
 
     Route::prefix('user')->group(function () {
         //DASHBOARD
@@ -82,6 +83,7 @@ Route::prefix('v1')->group(function ()
     Route::get('services-close-to-me', [ServiceController::class, 'findNearestServices']);
 
     // SEEKING WORK (CV)
+    Route::get('job-applicants/all', [ServiceController::class, 'seekingWorkLists']);
     Route::get('job-applicant/details/{slug}', [ServiceController::class, 'seekingWorkDetails']);
 
 
@@ -89,6 +91,7 @@ Route::prefix('v1')->group(function ()
     Route::get('/categories', [ServiceController::class, 'categories']);
     Route::get('/category/{id}', [ServiceController::class, 'showcategory']);
     Route::get('/subcategories', [ServiceController::class, 'sub_categories']);
+    Route::get('/thecategory/services/', [ServiceController::class, 'servicesByCategory']);
 
     // BANNER
     Route::get('banner/sliders', [GeneralController::class, 'banner_slider']);
