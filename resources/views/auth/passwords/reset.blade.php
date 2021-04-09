@@ -34,6 +34,21 @@
     .contact-section .bg-img {
         min-height: 600px;
     }
+    .contact-section .bg-img {
+        background: rgba(0, 0, 0, 0.04) url('/efmobilemockup.jpg') top left repeat;
+        background-size: cover;
+        top: 0;
+        bottom: 0;
+        border-radius: 0 20px 20px 0;
+        opacity: 1;
+        width: 100%;
+        z-index: 999;
+        min-height: 496px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
 
 <div class="contact-section">
@@ -106,7 +121,7 @@
                 </div>
             </div>
             <div class="col-lg-6 bg-color-15 align-self-center pad-0 none-992 bg-img">
-                <div class="info clearfix">
+                {{-- <div class="info clearfix">
                     <div class="logo-2">
                         <a href="{{url('/')}}">
                             <img src="{{ asset('images') }}/{{$check_general_info == 0 ? $general_info->logo : '' }}"  class="cm-logo" alt="black-logo">
@@ -126,7 +141,7 @@
                             <i class="fa fa-linkedin"></i>
                         </a> --}}
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

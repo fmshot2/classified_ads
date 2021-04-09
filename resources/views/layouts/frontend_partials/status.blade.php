@@ -1,4 +1,38 @@
 @if (session('fail'))
+    <script>
+        toastr.error({{ session('fail') }})
+    </script>
+@endif
+
+@if (session('success'))
+    <script>
+        toastr.success({{ session('success') }})
+    </script>
+@endif
+
+
+@if (session('success2'))
+    <script>
+        toastr.success({{ session('success2') }})
+    </script>
+@endif
+
+
+
+
+
+
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <script>
+            toastr.error({{ $error }})
+        </script>
+    @endforeach
+@endif
+
+
+
+{{-- @if (session('fail'))
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
 	{{ session('fail') }}
 	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -40,4 +74,4 @@
 	<li>{{ $error }}</li>
 	@endforeach
 </div>
-@endif
+@endif --}}

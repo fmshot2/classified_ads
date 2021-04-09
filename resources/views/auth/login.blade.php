@@ -26,7 +26,7 @@
         z-index: 1;
     }
     .contact-section .bg-img {
-        background: rgba(0, 0, 0, 0.04) url('efmobilemockup.jpg') top left repeat;
+        background: rgba(0, 0, 0, 0.04) url('/efmobilemockup.jpg') top left repeat;
         background-size: cover;
         top: 0;
         bottom: 0;

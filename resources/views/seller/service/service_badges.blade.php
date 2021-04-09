@@ -298,7 +298,7 @@
 
             <script>
 
-                base_Url = "{{ url('/') }}";
+                var base_Url = "{{ url('/') }}";
 
                 var paystack_pk = "{{env('paystack_pk')}}";
 
@@ -339,10 +339,11 @@
                             if (response.status == 'success') {
                                 $.ajax({
                                     method: "POST",
-                                    url: '/provider/badge_paid_for/',
+                                    url: base_Url + '/provider/badge_paid_for',
                                     dataType: "json",
                                     data: {
                                         _token: _token,
+                                        _method: 'POST',
                                         email: email,
                                         amount: badgecost,
                                         ref_no: response.transaction,

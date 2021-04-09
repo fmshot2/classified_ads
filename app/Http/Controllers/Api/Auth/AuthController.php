@@ -17,7 +17,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'checkEmailIfExist']]);
     }
 
     /**
@@ -78,6 +78,25 @@ class AuthController extends Controller
             'message' => 'User created successfully!',
             'user' => $user
         ]);
+    }
+
+    public function checkEmailIfExist(Request $request)
+    {
+        $email = $request->email;
+        $user = User::where('email', $email)->first();
+
+        if ($user == null) {
+            return response()->json([
+                'status' => 1,
+                'message' => 'This E-mail is available.'
+                ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 0,
+                'error' => 'E-mail is already taken!'
+                ], 404);
+        }
     }
 
     /**
