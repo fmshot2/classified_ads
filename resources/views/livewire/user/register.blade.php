@@ -34,16 +34,18 @@
         </span>
         @endif
     </div>
-<!-- 
+<!--
     <div class="form-group form-box clearfix">
         <input class="input-text" placeholder="Confirm Password" type="password" wire:model='password_confirmation'>
     </div> -->
-
     <div>
+
         <h6>What do you want to do?</h6>
+
+
         <div class="col-lg-12">
             <div class="form-group">
-                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" wire:model='role'>
+                <select class="custom-select my-1 mr-sm-2 input-text" id="inlineFormCustomSelectPref1" wire:model='role'>
                     <option selected> Choose... </option>
                     <option value="seller"> Provide a service </option>
                     <option value="buyer"> I'm looking for a service </option>
@@ -55,8 +57,8 @@
             </span>
             @enderror
         </div>
+
     </div>
-       
     <div>
     @if(!$referParam)
     <div class="form-group form-box">
@@ -70,16 +72,16 @@
     </div>
     @endif
     </div>
-
+@if($role != 'buyer' )
      <div>
         <h6>Choose a plan</h6>
         <div class="col-lg-12">
             <div class="form-group">
-                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" wire:model='plan'>
+                <select class="custom-select my-1 mr-sm-2 input-text" id="inlineFormCustomSelectPref" wire:model='plan'>
                     <option selected> Choose... </option>
-                    <option value=20000> One Month (&#8358;200) </option>
-                    <option value=120000> Six Months (&#8358;1200) </option>
-                    <option value=240000> One Year (&#8358;2400) </option>
+                    <!-- <option value=200> One Month (&#8358;200) </option> -->
+                    <option value=1200> Six Months (&#8358;1200) </option>
+                    <option value=2400> One Year (&#8358;2400) </option>
                 </select>
             </div>
             @error('role')
@@ -89,6 +91,7 @@
             @enderror
         </div>
     </div>
+@endif    
     <div>
         <label>
             <input type="checkbox" name="terms" class="filled-in" wire:model='terms'/>
@@ -133,6 +136,7 @@
 
 
 <script>
+
 window.addEventListener('pay_with_paystack', event => {
     // alert('Name updated to: ' + event.detail.newName);
     let handler = PaystackPop.setup({

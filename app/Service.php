@@ -51,6 +51,14 @@ class Service extends Model implements Viewable, ICommentable
         }
     }
 
+    // // This is checking if your subscription has ended
+    // public function checkSub() {
+    //     $myUsers = $this->user->all();
+    //     foreach ($myUsers as $key => $myuser) {
+    //         # code...
+    //     }
+    // }
+
 
  public function getTotalLikesAttribute()
     {

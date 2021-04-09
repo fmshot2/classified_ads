@@ -101,13 +101,13 @@ var z = document.getElementById("longitude_id");
 
 
 
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-   var res = "Geolocation is not supported by this browser.";
-  }
-}
+// function getLocation() {
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(showPosition);
+//   } else {
+//    var res = "Geolocation is not supported by this browser.";
+//   }
+// }
 
 
 function showPosition(position) {
@@ -118,10 +118,11 @@ function showPosition(position) {
             type:'GET',
             url: 'findgeo',
             data: {
-                latitude:position.coords.latitude, 
-                longitude:position.coords.longitude 
+                latitude:position.coords.latitude,
+                longitude:position.coords.longitude
             },
             success: function(result){
+                console.log(result.data)
                     $('#servClosesToYouArea').show();
                         services = result.data;
                         services.forEach(service => {
@@ -138,9 +139,6 @@ function showPosition(position) {
                             if (badge == 0) {
                               badge = '';
                             }
-                            // if (service.badge_type == 'trusted') {
-                            //   service.badge_type == 'truuuue';
-                            // }
                             $('#servicesCloseToYouRow').append(`<a href="/serviceDetail/`+ service.slug + `" class="property-img">
                                 <div class="col-lg-2 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                     <div class="property-box">
@@ -153,7 +151,7 @@ function showPosition(position) {
                                                     `+ service.user.name.substring(0, 10) + "..." + `
                                                 </p>
                                             </div>
-                                            <img class="d-block w-100 service_images" src="/uploads/services/`+ service.thumbnail + `" alt="properties">
+                                            <img class="d-block w-100 service_images" src="/uploads/services/`+ service.thumbnail + `" alt="`+ service.name + `">
 
                                         </div>
                                         <div class="detail">
@@ -277,7 +275,12 @@ owl.owlCarousel({
 
 <script type="text/javascript">
     $(document).ready( function () {
-        getLocation();
+        // getLocation();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            var res = "Geolocation is not supported by this browser.";
+        }
 
         $('#servClosesToYouArea').hide();
     });

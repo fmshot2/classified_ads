@@ -222,6 +222,159 @@
                         </div>
                     @endif
 
+                    <!-- SEEKING WORKS -->
+                    @if (isset($seekingworks) && !$seekingworks->isEmpty())
+                        <h4>JOB APPLICANTS</h4>
+                        <div class="row row-flex searchResults 1">
+                            @foreach($seekingworks as $sw_work)
+                                @if ($loop->index < 30 && $sw_work->badge_type == 1)
+                                    <a href="{{ route('job.applicant.detail', $sw_work->slug) }}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-warning"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Super</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize;">
+                                                            {{ Str::limit($sw_work->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/seekingworks')}}/{{$sw_work->thumbnail}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$sw_work->likes->count()}} Like{{$sw_work->likes->count() > 1 ? 's' : ''}}
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('job.applicant.detail', $sw_work->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$sw_work->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @elseif ($loop->index < 30 && $sw_work->badge_type == 2)
+                                    <a href="{{route('job.applicant.detail', $sw_work->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-success"><i class="fa fa-star"></i><i class="fa fa-star"></i> Moderate</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($sw_work->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/seekingworks')}}/{{$sw_work->thumbnail}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$sw_work->likes->count()}} Like{{$sw_work->likes->count() > 1 ? 's' : ''}}
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('job.applicant.detail', $sw_work->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$sw_work->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @elseif ($loop->index < 30 && $sw_work->badge_type == 3)
+                                    <a href="{{route('job.applicant.detail', $sw_work->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="listing-badges">
+                                                        <span class="featured bg-primary"><i class="fa fa-star"></i> Basic</span>
+                                                    </div>
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($sw_work->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/seekingworks')}}/{{$sw_work->thumbnail}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$sw_work->likes->count()}} Like{{$sw_work->likes->count() > 1 ? 's' : ''}}
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('job.applicant.detail', $sw_work->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$sw_work->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @else
+                                    <a href="{{route('job.applicant.detail', $sw_work->slug)}}" class="property-img">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
+                                            <div class="property-box">
+                                                <div class="property-thumbnail">
+                                                    <div class="price-ratings-box">
+                                                        <p class="price" style="text-transform: capitalize">
+                                                            {{ Str::limit($sw_work->user->name, 20) }}
+                                                        </p>
+                                                    </div>
+                                                    <img class="d-block w-100 service_images" src="{{asset('uploads/seekingworks')}}/{{$sw_work->thumbnail}}" alt="properties">
+
+                                                </div>
+                                                <div class="detail">
+                                                    <div>
+                                                        <a class="title title-dk" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 22) }}</a>
+                                                        <a class="title title-mb" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 15) }}</a>
+                                                    </div>
+
+                                                    <ul class="d-flex flex-row justify-content-between info">
+                                                        <li>
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$sw_work->likes->count()}} Like{{$sw_work->likes->count() > 1 ? 's' : ''}}
+                                                        </li>
+                                                        <li>
+                                                            <a class="pull-right" href="{{route('job.applicant.detail', $sw_work->slug)}}">
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$sw_work->state}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
+
+
+                    <!-- RELATED SERVICES -->
                     @if (isset($related_services))
                         <div class="panel panel-warning">
                             <div class="panel-body">

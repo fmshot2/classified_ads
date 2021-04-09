@@ -8,6 +8,7 @@ use App\AdvertLocation;
 use App\Agent;
 use App\Badge;
 use App\Category;
+use App\SubCategory;
 use App\General_Info;
 use App\Image as ModelImage;
 use App\Like;
@@ -460,7 +461,7 @@ class OperationalController extends Controller
         $keyword = $request->keyword ? $request->keyword : 'Nothing!';
         $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
         $categories = Category::orderBy('name', 'asc')->get();
-        
+
         if ($request->category == null && $request->city == null && $request->keyword == null) {
             return back()->with([
                 'message' => 'No result found for your search!',
@@ -469,38 +470,45 @@ class OperationalController extends Controller
         }
 
 
-        if ($request->category != null) {
+        if ($request->subcategory != null) {
             $category = Category::where('slug', $request->category)->firstOrFail();
+            $subcategory = SubCategory::where('slug', $request->subcategory)->firstOrFail();
             $categoryId = $category->id;
             $categoryname = $category->name;
-            
+            $subcategoryId = $subcategory->id;
+            $subcategoryname = $subcategory->name;
 
-            if ($request->category != null && $request->city != null && $request->keyword != null) {
+
+            if ($request->city != null && $request->keyword != null) {
                 $services = Service::query()
                     ->where('name', 'LIKE', "%{$request->keyword}%")
                     ->where('city', '=', "%{$request->city}%")
                     ->where('state', '=', "%{$request->state}%")
                     ->where('status', 1)
+                    ->with('sub_categories')
+                    ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
+                        $query->where('id', $subcategoryId);
+                    })
                     ->with('category')
-                    ->whereHas('category', function($query) use ($categoryId)  {
+                    ->orWhereHas('category', function($query) use ($categoryId)  {
                         $query->where('id', $categoryId);
-                    });
-                            
+                    })
+                    ->get();
+
                 $seekingworks = SeekingWork::query()
-                    ->where('job_title', 'LIKE', "%{$request->service}%")
+                    ->where('job_title', 'LIKE', "%{$request->keyword}%")
                     ->where('status', 1)
                     ->whereHas('category', function($query) use ($categoryId)  {
                         $query->where('id', $categoryId);
                     })
-                    ->orWhere('fullname', 'LIKE', "%{$request->service}%");
-            
-            
-                $data = $services->get ()->concat ($seekingworks->get ());
+                    ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
+                    ->get();
 
-                if (!$data->isEmpty()) {
+                if (!$services->isEmpty()) {
                     return view('dapSearchResult', [
                         "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                        "services" => $data,
+                        "services" => $services,
+                        "seekingworks" => $seekingworks,
                         "featuredServices" => $featuredServices,
                         "categories" => $categories,
                     ]);
@@ -513,209 +521,223 @@ class OperationalController extends Controller
                     ]);
                 }
             }
-            elseif ($request->category != null && $request->city != null) {
+            elseif ($request->keyword != null && $request->state != null) {
                 $services = Service::query()
                             ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('city', '=', "%{$request->city}%")
                             ->where('state', '=', "%{$request->state}%")
                             ->where('status', 1)
-                            ->with('category')
-                            ->whereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
-                            })->get();
-
-                return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services,
-                    "featuredServices" => $featuredServices,
-                    "categories" => $categories,
-                ]);
-            }
-            elseif ($request->keyword == null && $request->category != null) {
-                $services = Service::query()
-                            ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('status', 1)
-                            ->orWhere('description', 'LIKE', "%{$request->keyword}%")
-                            ->with('category')
-                            ->whereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
+                            ->with('sub_categories')
+                            ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
+                                $query->where('id', $subcategoryId);
                             })
-                            ->orderBy('badge_type', 'asc')
-                            ->get();
-
-                return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services,
-                    "featuredServices" => $featuredServices,
-                    "categories" => $categories,
-                ]);
-            }
-            elseif ($request->city != null && $request->keyword != null) {
-                $services = Service::query()
-                            ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('city', '=', "%{$request->city}%")
-                            ->where('state', '=', "%{$request->state}%")
-                            ->where('status', 1)
-                            ->with('category')
-                            ->orWhereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
-                            })->get();
-
-                return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services,
-                    "featuredServices" => $featuredServices,
-                    "categories" => $categories,
-                ]);
-            }
-            elseif ($request->category != null) {
-                $services = Service::query()
-                            ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('status', 1)
-                            ->orWhere('city', '=', "%{$request->city}%")
-                            ->orWhere('state', '=', "%{$request->state}%")
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
                                 $query->where('id', $categoryId);
                             })->get();
 
                 return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
+                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$subcategoryname.'</strong>',
                     "services" => $services,
                     "featuredServices" => $featuredServices,
                     "categories" => $categories,
                 ]);
             }
-            else {
+            elseif ($request->state == null && $request->city == null && $request->keyword != null) {
                 $services = Service::query()
-                            ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('status', 1)
-                            ->orWhere('city', '=', "%{$request->city}%")
-                            ->orWhere('state', '=', "%{$request->state}%")
-                            ->with('category')
-                            ->prwhereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
-                            })->get();
-
-                return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services,
-                    "featuredServices" => $featuredServices,
-                    "categories" => $categories,
-                ]);
-            }
-
-        }
-
-
-
-        if ($request->city != null) {
-            if ($request->keyword != null) {
-                $services = Service::query()
-                    ->where('city', '=', "%{$request->city}%")
                     ->where('name', 'LIKE', "%{$request->keyword}%")
                     ->where('state', '=', "%{$request->state}%")
                     ->where('status', 1)
-                    ->orderBy('badge_type', 'asc')
-                    ->get();
+                    ->with('sub_categories')
+                    ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
+                        $query->where('sub_categorable_id', $subcategoryId);
+                    })
+                    ->with('category')
+                    ->whereHas('category', function($query) use ($categoryId)  {
+                        $query->where('id', $categoryId);
+                    })->get();
+
+                return view('dapSearchResult', [
+                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$subcategoryname.'</strong>',
+                    "services" => $services,
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
+                ]);
             }
-            else {
+
+        }
+
+
+        if ($request->category != null) {
+            $category = Category::where('slug', $request->category)->firstOrFail();
+            $categoryId = $category->id;
+            $categoryname = $category->name;
+
+
+            if ($request->city != null && $request->keyword != null) {
                 $services = Service::query()
-                    ->where('city', 'like', "%{$request->city}%")
+                    ->where('name', 'LIKE', "%{$request->keyword}%")
+                    ->where('city', '=', "%{$request->city}%")
+                    ->where('state', '=', "%{$request->state}%")
                     ->where('status', 1)
-                    ->orwhere('state', 'like', "%{$request->state}%")
-                    ->orderBy('badge_type', 'asc')
+                    ->with('category')
+                    ->whereHas('category', function($query) use ($categoryId)  {
+                        $query->where('id', $categoryId);
+                    });
+
+                $seekingworks = SeekingWork::query()
+                    ->where('job_title', 'LIKE', "%{$request->keyword}%")
+                    ->where('status', 1)
+                    ->whereHas('category', function($query) use ($categoryId)  {
+                        $query->where('id', $categoryId);
+                    })
+                    ->orWhere('fullname', 'LIKE', "%{$request->keyword}%");
+
+                if (!$services->isEmpty() || !$seekingworks->isEmpty() ) {
+                    return view('dapSearchResult', [
+                        "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
+                        "services" => $services,
+                        "seekingworks" => $seekingworks,
+                        "featuredServices" => $featuredServices,
+                        "categories" => $categories,
+                    ]);
+                }
+                else{
+                    return view('dapSearchResult', [
+                        "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                        "featuredServices" => $featuredServices,
+                        "categories" => $categories,
+                    ]);
+                }
+            }
+            elseif ($request->keyword != null && $request->state != null) {
+                $services = Service::query()
+                            ->where('name', 'LIKE', "%{$request->keyword}%")
+                            ->where('state', '=', "%{$request->state}%")
+                            ->where('status', 1)
+                            ->with('category')
+                            ->whereHas('category', function($query) use ($categoryId)  {
+                                $query->where('id', $categoryId);
+                            })->get();
+
+                return view('dapSearchResult', [
+                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
+                    "services" => $services,
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
+                ]);
+            }
+
+        }
+
+
+
+        if($request->city != null){
+            if ($request->keyword != null) {
+                $services = Service::query()
+                    ->where('name', 'LIKE', "%{$request->keyword}%")
+                    ->where('city', '=', "%{$request->city}%")
+                    ->where('state', '=', "%{$request->state}%")
+                    ->where('status', 1)
                     ->get();
-            }
 
-            $related_services = Service::query()
-            ->where('name', 'LIKE', "%{$request->keyword}%")
-            ->where('status', 1)
-            ->orwhere('state', '=', "%{$request->state}%")
-            ->orwhere('city', '=', "%{$request->city}%")
-            ->get();
+                $seekingworks = SeekingWork::query()
+                    ->where('job_title', 'LIKE', "%{$request->keyword}%")
+                    ->where('status', 1)
+                    ->where('user_lga', '=', "%{$request->city}%")
+                    ->where('user_state', '=', "%{$request->state}%")
+                    ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
+                    ->get();
 
-            if (!$services->isEmpty()) {
-                return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$request->city.'</strong>',
-                    "services" => $services,
-                    "related_services" => $related_services,
-                    "featuredServices" => $featuredServices,
-                    "categories" => $categories,
-                ]);
-            }
-            else{
-                $services = Service::query()
-                ->where('name', 'LIKE', "%{$request->keyword}%")
-                ->where('status', 1)
-                ->orWhere('description', 'LIKE', "%{$request->keyword}%")
-                ->orderBy('badge_type', 'asc')
-                ->get();
+                dd($services);
 
-                return view('dapSearchResult', [
-                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
-                    "services" => $services,
-                    "featuredServices" => $featuredServices,
-                    "categories" => $categories,
-                ]);
-            }
-        }elseif ($request->state != null) {
-            $services = Service::query()
-            ->where('state', 'LIKE', "%{$request->state}%")
-            ->where('name', 'LIKE', "%{$request->keyword}%")
-            ->where('status', 1)
-            ->orWhere('description', 'LIKE', "%{$request->keyword}%")
-            ->orderBy('badge_type', 'asc')
-            ->get();
-
-            if (!$services->isEmpty()) {
-                return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$request->state.'</strong>',
-                    "services" => $services,
-                    "featuredServices" => $featuredServices,
-                    "categories" => $categories,
-                ]);
-            }
-            else{
-                $services = Service::query()
-                ->where('name', 'LIKE', "%{$request->keyword}%")
-                ->where('status', 1)
-                ->orWhere('description', 'LIKE', "%{$request->keyword}%")
-                ->orderBy('badge_type', 'asc')
-                ->get();
-
-                return view('dapSearchResult', [
-                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
-                    "services" => $services,
-                    "featuredServices" => $featuredServices,
-                    "categories" => $categories,
-                ]);
+                if (!$data->isEmpty()) {
+                    return view('dapSearchResult', [
+                        "message" => 'Your search result for <strong>'.$keyword. '</strong>',
+                        "services" => $services,
+                        "seekingworks" => $seekingworks,
+                        "featuredServices" => $featuredServices,
+                        "categories" => $categories,
+                    ]);
+                }
+                else{
+                    return view('dapSearchResult', [
+                        "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                        "featuredServices" => $featuredServices,
+                        "categories" => $categories,
+                    ]);
+                }
             }
         }
-        elseif ($request->keyword != null){
-            $services = Service::query()
-                        ->where('name', 'LIKE', "%{$request->keyword}%")
-                        ->where('status', 1)
-                        ->orWhere('description', 'LIKE', "%{$request->keyword}%")
-                        ->orderBy('badge_type', 'asc')
-                        ->get();
 
-            if (!$services->isEmpty()) {
+
+        if($request->state != null){
+            if ($request->keyword != null) {
+                $services = Service::query()
+                    ->where('name', 'LIKE', "%{$request->keyword}%")
+                    ->where('state', $request->state)
+                    ->where('status', 1)
+                    ->get();
+
+                $seekingworks = SeekingWork::query()
+                    ->where('job_title', 'LIKE', "%{$request->keyword}%")
+                    ->where('status', 1)
+                    ->where('user_state', '=', $request->state)
+                    ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
+                    ->get();
+
+                if (!$services->isEmpty()) {
+                    return view('dapSearchResult', [
+                        "message" => 'Your search result for <strong>'.$keyword. '</strong>',
+                        "services" => $services,
+                        "seekingworks" => $seekingworks,
+                        "featuredServices" => $featuredServices,
+                        "categories" => $categories,
+                    ]);
+                }
+                else{
+                    return view('dapSearchResult', [
+                        "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                        "featuredServices" => $featuredServices,
+                        "categories" => $categories,
+                    ]);
+                }
+            }
+        }
+
+
+        if($request->keyword != null){
+            $services = Service::query()
+                ->where('name', 'LIKE', "%{$request->keyword}%")
+                ->where('status', 1)
+                ->orWhere('city', '=', "$request->city")
+                ->orWhere('state', '=', "$request->state")
+                ->get();
+
+            $seekingworks = SeekingWork::query()
+                ->where('job_title', 'LIKE', "%{$request->keyword}%")
+                ->where('status', 1)
+                ->orWhere('user_lga', '=', "$request->city")
+                ->orWhere('user_state', '=', "$request->state")
+                ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
+                ->get();
+
+            if (!$services->isEmpty() || !$seekingworks->isEmpty()) {
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong>',
                     "services" => $services,
+                    "seekingworks" => $seekingworks,
                     "featuredServices" => $featuredServices,
-                    // "related_services" => $related_services,
                     "categories" => $categories,
                 ]);
             }
             else{
                 return view('dapSearchResult', [
-                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches your search keyword.',
-                    "categories" => $categories,
+                    "message" => 'No result found for your search <strong>'.$keyword. '</strong>',
                     "featuredServices" => $featuredServices,
+                    "categories" => $categories,
                 ]);
             }
+
         }
 
     }
@@ -983,4 +1005,19 @@ class OperationalController extends Controller
 
 
 
+    public function readStatusMessage($slug)
+    {
+        $message = Message::where('slug', $slug)->first();
+        $message->status = 1;
+        if ($message->save()) {
+            return response()->json([
+                'message' => 'Message marked as read!',
+                'alert-type' => 'success'
+            ]);
+        }
+        return response()->json([
+            'message' => 'Message couldn\'t marked as read!',
+            'alert-type' => 'error'
+        ]);
+    }
 }

@@ -59,7 +59,7 @@ Route::get('ajax/search/', 'OperationalController@ajaxSearchResult')->name('ajax
 Route::get('services/search/', 'OperationalController@dapSearch')->name('dap.search');
 
 
-// Route::middleware(['auth:agent'])->group(function () {
+Route::middleware(['auth:agent'])->group(function () {
 
     Route::get('/agent/dashboard', 'AgentController@agentDashboard')->name('agent.dashboard');
     Route::get('/agent/referal/all', 'AgentController@myreferrals')->name('agent.referal.all');
@@ -71,8 +71,13 @@ Route::get('services/search/', 'OperationalController@dapSearch')->name('dap.sea
     Route::get('/agent/make-request-for-payment', 'AgentController@viewBlade')->name('agent.view.request.blade');
     Route::post('/agent/submit-withdrawal-request', 'AgentController@agentRequest')->name('agent.make.request');
     Route::get('/agent/payment-history', 'AgentController@paymentHistory')->name('agent.payment.history');
+    Route::post('/agent/update/account/{id}', 'AgentController@updateAccount')->name('agentprofile.profile.update');
+    Route::post('/agent/update/account/{id}', 'AgentController@updateAccount')->name('agentprofile.update.account');
+    Route::post('/agent/update/{id}', 'AgentController@updatePassword')->name('agentprofile.update.password');
 
-// });
+
+
+});
 //Agent Middleware ends here
 
 //Accountant Middleware starts here
@@ -254,7 +259,10 @@ Route::get('/login', 'AuthController@showLogin')->name('login');
 Route::post('/login', 'AuthController@login')->name('login');
 
 Route::get('/agent_Login', 'AuthController@show_agent_Login')->name('show_agent_Login');
-Route::post('/agent_Login', 'AuthController@agent_login')->name('show_agent_Login');
+Route::post('/agent_Login', 'AuthController@agent_login')->name('save_agent_Login');
+
+
+
 
 
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
@@ -330,6 +338,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/message/{slug}', 'SellerController@viewMessage')->name('seller.message.view');
         Route::get('/message/reply/{slug}', 'SellerController@replyMessage')->name('seller.message.reply');
         Route::post('/message/reply/', 'SellerController@storeReplyMessage')->name('seller.message.reply.store');
+        Route::get('/message/read/status/{slug}', 'OperationalController@readStatusMessage')->name('seller.message.read.status');
 
         Route::get('/dashboard/service/active', 'SellerController@activeService')->name('seller.service.active');
         Route::get('/dashboard/service/pending', 'SellerController@pendingService')->name('seller.service.pending');
@@ -386,6 +395,7 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
     Route::get('/buyer/message/{slug}', 'BuyerController@viewMessage')->name('buyer.message.view');
     Route::get('/buyer/message/reply/{slug}', 'BuyerController@replyMessage')->name('buyer.message.reply');
     Route::post('/buyer/message/reply/', 'BuyerController@storeReplyMessage')->name('buyer.message.reply.store');
+    Route::get('/buyer/message/read/status/{slug}', 'OperationalController@readStatusMessage')->name('buyer.message.read.status');
 
     Route::post('/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
 
@@ -418,10 +428,12 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::put('/admin/dashboard/single/subcategory/{id}', 'CategoryController@subCategoryUpdate')->name('admin.single.subcategory.update');
 
     Route::get('/admin/dashboard/service/all', 'AdminController@allService')->name('admin.service.all');
+    Route::get('/admin/dashboard/seekingwork/all', 'AdminController@allSeekingwork')->name('admin.seekingwork.all');
     Route::get('/admin/dashboard/service/active', 'AdminController@activeService')->name('admin.service.active');
     Route::get('/admin/dashboard/service/pending', 'AdminController@pendingService')->name('admin.service.pending');
     Route::get('/admin/dashboard/service/pending', 'AdminController@pendingService')->name('admin.service.pending');
     Route::get('/admin/dashboard/service/status/{id}', 'AdminController@updateServiceStatus')->name('admin.service.status');
+    Route::get('/admin/dashboard/seekingwork/status/{id}', 'AdminController@updateSeekingworkStatus')->name('admin.seekingwork.status');
     Route::get('/admin/dashboard/service/destroy/{id}', 'AdminController@destroy')->name('admin.service.destroy');
     Route::get('admin/dashboard/service/view/{slug}', 'AdminController@viewService')->name('admin.view');
 

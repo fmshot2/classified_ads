@@ -38,7 +38,7 @@ class AuthController extends Controller
     public function agent_login(Request $request)
     {
         $request->validate([
-            'email'    => ['required', 'string', 'email', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'exists:agents,email'],
             'password' => ['required', 'string', 'min:6']
 
         ]);
@@ -50,10 +50,21 @@ class AuthController extends Controller
                 'message' => 'You are successfully logged in!',
                 'alert-type' => 'success'
             );
-            // return redirect()->intended('agent/dashboard')->with($success_notification);
-            return redirect()->route('agent.dashboard');
+            return redirect()->route('agent.dashboard')->with($success_notification);
         } else {
-            return Redirect::to(Session::get('url.intended'));
+        // $success_notification = array(
+        //     'message' => 'Incorrect credentials! Try again.',
+        //     'alert-type' => 'error'
+        // );
+        session()->flash('fail', 'Incorrect username or password');
+
+        return redirect()->route('show_agent_Login');
+
+            //   $success_notification = array(
+            //     'fail' => 'You are successfully logged in!',
+            //     'alert-type' => 'success'
+            // );
+            // return Redirect::to(Session::get('url.intended'))->with($success_notification);
         }
     }
 
@@ -664,7 +675,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email'    => ['required', 'string', 'email', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'exists:users,email'],
             'password' => ['required', 'string', 'min:6']
 
         ]);
@@ -688,9 +699,12 @@ class AuthController extends Controller
         // 	  return redirect('/')->with($success_notification)->withErrors($validator)->withInput();
         // }
 
+        $remember_me  = ( !empty( $request->remember ) )? TRUE : FALSE;
+
         $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
+
+        if (Auth::attempt($credentials, $remember_me)) {
 
             if (Auth::user()->role == 'seller') {
                 $success_notification = array(
@@ -746,13 +760,13 @@ class AuthController extends Controller
             }
         }
 
-        $success_notification = array(
-            'message' => 'Incorrect credentials! Try again.',
-            'alert-type' => 'error'
-        );
-        session()->flash('fail', 'Incorrect username or password');
+        // $success_notification = array(
+        //     'message' => 'Incorrect credentials! Try again.',
+        //     'alert-type' => 'error'
+        // );
+        session()->flash('fail', 'The password is incorrect');
 
-        return redirect()->route('login')->with($success_notification);
+        return redirect()->route('login');
     }
 
     public function showLogin(Request $request)

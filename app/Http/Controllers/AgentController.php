@@ -10,6 +10,8 @@ use App\Agent;
 use App\PaymentRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
 
 class AgentController extends Controller
 {
@@ -166,6 +168,78 @@ class AgentController extends Controller
 
         // $myreferrals = Agent::find(50)->referals;
          // return view('agent.referals.all', compact('myreferrals2'));
+    }
+
+
+
+     public function updateAccount(Request $request, $id)
+    {
+        $user = Agent::find($id);
+        $validatedData = $request->validate([
+            'bank_name' => ['required', 'string'],
+            'account_name' => ['required', 'string'],
+            'account_number' => ['required', 'numeric'],
+        ]);
+
+        $user->bankname = $request->bank_name;
+        $user->accountname = $request->account_name;
+        $user->accountno = $request->account_number;
+
+        if ($user->save()) {
+            $success_notification = array(
+                'message' => 'Account details successfully updated!',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->back()->with($success_notification);
+        }
+
+        $success_notification = array(
+            'message' => 'Account details could not be updated!! Try again',
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($success_notification);
+    }
+
+
+
+
+      public function updatePassword(Request $request, $id)
+    {
+
+        $user = Agent::find($id);
+        $validatedData = $request->validate([
+            'new_password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+
+        $hashedPassword = Auth::guard('agent')->user()->password;
+
+        if (Hash::check($request->old_password, $hashedPassword)) {
+            // Authentication passed...
+            $user->password = Hash::make($request->new_password);
+            if ($user->save()) {
+                session()->flash('status', 'Password successfully changed!');
+                return redirect()->back();
+
+            }else{
+                session()->flash('fail', 'new password was not saved, please try again');
+                return redirect()->back();
+            }
+
+            // $success_notification = array(
+            //     'status' => 'Password successfully changed!',
+            //     'alert-type' => 'success'
+            // );
+           
+        } else {
+            // $success_notification = array(
+            //     'fail' => 'Your old password is incorrect!',
+            //     'alert-type' => 'error'
+            // );
+            session()->flash('fail', ' Your old password is incorrect. Please retry');
+
+            return redirect()->back();
+        }
     }
 
 }

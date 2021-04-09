@@ -1,8 +1,6 @@
 @extends('layouts.buyer')
 
-@section('title')
-All Service Table | 
-@endsection
+@section('title', 'All Services Table | ')
 
 @section('content')
 
@@ -10,8 +8,7 @@ All Service Table |
 
 <div class="content-wrapper" style="min-height: 518px;">
 <section class="content-header">
-      <h1>
-        Request A Service      </h1>
+      <h1>Request A Service</h1>
       <ol class="breadcrumb">
         <li><a href=" {{ route('buyer.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">All Services</li>
@@ -30,7 +27,7 @@ All Service Table |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Message </h3>
+						<h3 class="box-title"> All Services </h3>
 						<h6 class="box-subtitle"> Sorting is from the most recent. </h6>
 					</div>
 
@@ -56,7 +53,7 @@ All Service Table |
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 									<td>
 										<a href="https://www.efcontact.com/admin/properties/classic-crib">
-											<img src="{{asset('images')}}/{{$all_services->image}}" alt="classic crib" width="60" class="img-responsive img-rounded">
+											<img src="{{asset('uploads/services')}}/{{$all_services->thumbnail}}" alt="{{ $all_services->name }}" width="60" class="img-responsive img-rounded">
 										</a>
 									</td>
 									<td> {{ $all_services->name }} </td>
@@ -86,7 +83,7 @@ All Service Table |
 
 
 				<!-- /.content -->
-			</div>	
+			</div>
 
 
 

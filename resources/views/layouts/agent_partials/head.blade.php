@@ -42,6 +42,8 @@
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css')}}">
 
 	<link rel="stylesheet" href="{{asset('dropzone/dist/dropzone.css')}}">
+	    <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
+
 
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -91,7 +93,6 @@
 </style>
 
 <script src="{{ asset('js/jquery-2.2.0.min.js') }}"></script>
-<link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
 <script src="{{ asset('toastr/toastr.min.js') }}"></script>
 
 </head>

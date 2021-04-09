@@ -74,7 +74,7 @@
                         <div class="box-body box-profile text-center">
                             <h4>Annually</h4>
                             <ol class="text-left">
-                                <li>Your service(s) will be available on efcontact for a period of 6 months.</li>                            	
+                                <li>Your service(s) will be available on efcontact for a period of 1 year.</li>                            	
                                 <!-- <li>Upload as much as (8) images of your services.</li> -->
                                 <!-- <li>Appear on the top when inquirers search for services related to yours</li> -->
                                 <li>Cost: &#8358;2,400</li>
@@ -100,7 +100,7 @@
                             <i class="fa fa-star"></i> -->
                         </div>
                         <div class="box-body box-profile text-center">
-                            <h4>Bi-anually</h4>
+                            <h4>Six Months</h4>
                             <ol class="text-left">
                                 <li>Your service(s) will be available on efcontact for a period of 6 months.</li>
                               <!--   <li>Upload as much as (6) images of your services.</li>
@@ -237,7 +237,8 @@
 
             <script>
 
-                base_Url = "{{ url('/') }}"
+                base_Url = "{{ url('/') }}";
+                var paystack_pk = "{{env('paystack_pk')}}";
 
                 var _token = $("input[name='_token']").val();
 
@@ -250,7 +251,7 @@
                     console.log(base_Url);
 
                     var handler = PaystackPop.setup({
-                        key: 'pk_live_8921deda409e1196f265fd3a7dcc4eff81d52cdb',
+                        key: paystack_pk,
                         email: document.getElementById("email-address3").value,
                         amount: $("#sub_cost").val(),
                         ref: '' + Math.floor((Math.random() * 1000000000) + 1),

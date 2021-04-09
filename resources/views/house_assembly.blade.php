@@ -139,6 +139,9 @@
     .content-area {
         padding: 30px 5px 30px;
     }
+    .team-photo{
+        height: 220px;
+    }
 
     @media (max-width: 768px){
         .touristImage{
@@ -162,6 +165,9 @@
         .team-1 .team-details {
             text-align: center;
             padding: 10px 5px;
+        }
+        .team-photo{
+            height: 125px;
         }
     }
 </style>
@@ -187,9 +193,9 @@
                         @foreach ($officials as $key=>$official)
                             <div class="col-lg-2 col-md-6 col-sm-6">
                                 <div data-toggle="modal" data-target="#officialModal{{ $official->id }}" class="team-1" style="background-color: #fff">
-                                    <div class="team-photo">
+                                    <div class="team-photo" style="background: rgba(0, 0, 0, 0.04) url('{{ asset('uploads/governmentofficials/'.$official->image) }}') top left repeat;background-size: cover;">
                                         <a href="#">
-                                            <img src="{{ asset('uploads/governmentofficials/'.$official->image) }}" alt="agent-2" class="img-fluid">
+                                            {{-- <img src="{{ asset('uploads/governmentofficials/'.$official->image) }}" alt="agent-2" class="img-fluid"> --}}
                                         </a>
                                     </div>
                                     <div class="team-details">

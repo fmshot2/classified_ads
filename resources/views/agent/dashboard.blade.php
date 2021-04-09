@@ -70,19 +70,19 @@
     <div class="content-wrapper">
         <section class="content-header">
 
-            @if(isset($agent_code_check->agent_code))
+            @if(isset(Auth::user()->agent_code))
             <div class="refererArea">
                 <h5>Here Is Your Agent Dashboard</h5>
 
                 <h4>My Agent Code <small>(<a data-toggle="modal" data-target="#referralInfoModal">How it works?</a>)</small></h4>
                 <div class="referralContainer">
                     <div>
-                        <button class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="{{$agent_code_check->agent_code}}" onclick="copyToClipboard('#refererlinkText') ">
+                        <button class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="{{Auth::user()->agent_code}}" onclick="copyToClipboard('#refererlinkText') ">
                             Click here to copy your code
                         </button>
                     </div>
                     <div>
-                        <p id="refererlinkText" hidden>{{ $agent_code_check->agent_code }}</p>
+                        <p id="refererlinkText" hidden>{{ Auth::user()->agent_code }}</p>
                     </div>
                 </div>
             </div>
@@ -106,12 +106,12 @@
                             <div class="info-box-content">
                                 <span class="info-box-text"> My Refferal{{ $agent_code_users_count > 1 ? 's' : '' }} </span>
                                 <span class="info-box-number"> {{ $agent_code_users_count }} </span>
-                                <div class="progress">
+                                {{-- <div class="progress">
                                     <div class="progress-bar progress-bar-danger" style="width: {{ $agent_code_users_count}}%"></div>
                                 </div>
                                 <span class="progress-description">
                                     <!-- Extra content can go here -->
-                                </span>
+                                </span> --}}
                             </div>
                             <!-- /.info-box-content -->
                         </a>
@@ -126,12 +126,12 @@
                         <div class="info-box-content">
                             <span class="info-box-text"> Total  Earnings </span>
                             <span class="info-box-number"> ₦{{ $agent_amount_earned }} </span>
-                            <div class="progress">
+                            {{-- <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style=""></div>
                             </div>
                             <span class="progress-description">
                                 <!-- Extra content can go here -->
-                            </span>
+                            </span> --}}
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -146,16 +146,16 @@
                             <div class="info-box-content">
                                 <span class="info-box-text"> Gen. Notice </span>
                                 <!-- <span class="info-box-number"> ₦{{ $agent_amount_earned }} </span> -->
-                                <div class="progress">
+                                {{-- <div class="progress">
                                     <div class="progress-bar progress-bar-danger" style=""></div>
                                 </div>
                                 <span class="progress-description">
                                     <!-- Extra content can go here -->
-                                </span>
+                                </span> --}}
                             </div>
                             <!-- /.info-box-content -->
                         </div>
-                    </a>                    
+                    </a>
                     <!-- /.info-box -->
                 </div>
                 <!-- /.col -->
@@ -167,9 +167,9 @@
                             <div class="info-box-content">
                                 <span class="info-box-text"> Payment History </span>
                                 <!-- <span class="info-box-number"> ₦{{ $agent_amount_earned }} </span> -->
-                                <div class="progress">
+                                {{-- <div class="progress">
                                     <div class="progress-bar progress-bar-danger" style=""></div>
-                                </div>
+                                </div> --}}
                                 <span class="progress-description">
                                     <!-- Extra content can go here -->
                                 </span>
@@ -257,7 +257,7 @@
                                 <tr>
                                  <!-- <th> S/N </th> -->
 <!--                        <th> Referee Name </th>
--->                       
+-->
 <th> Referer Name </th>
 <!-- <th> Agent Code </th> -->
 <th> Level 1 Bonus </th>
@@ -284,7 +284,7 @@
                                            <td id="level1">  </td>
                                            <td id="level2">  </td>
                                            <td id="level3">  </td>
-                                           <td id="level4">  </td>                           
+                                           <td id="level4">  </td>
                                            <td id="total">  </td>
 
                                            <!-- <td class="center">
@@ -302,10 +302,10 @@
                         </div>
                          <div>
                             <button class="btn btn-warning downline_text w-10" style="display: none;" onclick="goBack()">Go Back</button>
-                        
+
                 </div>
                     </div>
-                    <!-- /.box-body --> 
+                    <!-- /.box-body -->
 
                 </div>
             </div>

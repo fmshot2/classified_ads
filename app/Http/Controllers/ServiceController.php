@@ -114,9 +114,10 @@ class ServiceController extends Controller
     ->having("distance", "<", $radius)->with('user')->with('images')
     ->orderBy("distance",'asc')
     ->offset(0)
-     ->inRandomOrder()->limit(20)->get();
+    ->where('status', 1)
+     ->inRandomOrder()->limit(15)->get();
 
-    return response()->json([
+     return response()->json([
       'data' => $servicesss,
       'latitude' => $latitude,
       'longitude' => $longitude
