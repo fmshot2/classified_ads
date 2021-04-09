@@ -2,6 +2,8 @@
 
 namespace App;
 
+
+
 use Illuminate\Database\Eloquent\Model;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
@@ -152,5 +154,6 @@ public function scopeSearchCategory($query, $category)
     {
         return $this->morphToMany(SubCategory::class, 'sub_categorable');
     }
+
 
 }
