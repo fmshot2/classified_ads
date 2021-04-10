@@ -183,19 +183,21 @@ public function scopeSearchCategory($query, $category)
 
 
 
- public static function booted()
-    {   
+
+
+ // public  function booted()
+ //    {   
        
-        static::addGlobalScope('ancient', function (Builder $builder) {
-            $userss = Auth::user();
-            // dd($userss->id);
-            $object2 = ProviderSubscription::find($userss->id);
-            // dd($object2);
-            $obj3 = $object2->subscription_end_date;
-            dd($obj3);
-            // $builder->where($object2->, '=', null);
-        });
-    }
+ //        static::addGlobalScope('ancient', function (Builder $builder) {
+ //            $userss = Auth::id();
+ //            // dd($userss->id);
+ //            $object2 = ProviderSubscription::find($userss);
+ //            // dd($object2);
+ //            $obj3 = $object2->subscription_end_date;
+ //            dd($obj3);
+ //            // $builder->where($object2->, '=', null);
+ //        });
+ //    }
 
     public function scopePopular($query)
     {
