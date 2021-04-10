@@ -258,7 +258,7 @@ Route::post('/agent/register2', 'OldCodeController@createAgent')->name('agent.re
 Route::get('/login', 'AuthController@showLogin')->name('login');
 Route::post('/login', 'AuthController@login')->name('login');
 
-Route::get('/agent_Login', 'AuthController@show_agent_Login')->name('show_agent_Login');
+Route::get('/agent', 'AuthController@show_agent_Login')->name('show_agent_Login');
 Route::post('/agent_Login', 'AuthController@agent_login')->name('save_agent_Login');
 
 
