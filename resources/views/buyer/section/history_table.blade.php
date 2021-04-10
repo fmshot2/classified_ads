@@ -2,7 +2,7 @@
 <div class="box">
 
   <div class="box-header with-border">
-    <h3 class="box-title"> {{ url()->current() == route('buyer.payment.history') ?  'Payment History' : 'All Your Activity Shows Here' }} 
+    <h3 class="box-title"> {{ url()->current() == route('buyer.payment.history') ?  'Payment History' : 'All Your Activity Shows Here' }}
       {{-- {{ $unread_message->count() }} </h3> --}}
 
 
@@ -18,49 +18,42 @@
         </div>
       </form>
     </div>
-    @endif --}} 
+    @endif --}}
 
   </div>
   <!-- /.box-header -->
   <div class="box-body ">
-    <table class="display table table-bordered data_table_main">
-
-      <tbody>
-
-        <tr>
-          <th> # </th>
-          {{-- <th style="display: none;"></th> --}}
-          <th> Requested On </th>
-          <th> Date Disbursed </th>
-          <th> Payment Status </th>
-          {{-- <th> Action </th> --}}
-        </tr>
-
-        
-          @forelse($payment_history as $key => $history)
-          <tr>
-          <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-          {{-- <td style="display: none;" id="history">{{ $history->id }}</td> --}}
-          <td> {{ date('d-m-Y', strtotime($history->created_at)) }} </td>
-          <td> {{ date('d-m-Y', strtotime($history->updated_at)) }} </td>
-          <td> {{ $history->is_paid == 1 ? 'Paid' : 'Pending' }} </td>
-
-          {{-- <td class="center">
-            <a href="" class="btn btn-danger " data-toggle="tooltip" data-placement="top" title="Delete" onclick="deleteHistory()"><i class="fa fa-trash"></i></a>
-          </td> --}}
-          @empty 
-        </tr>
-        <tr>
-            <p class="alert alert-danger">No history to show!</p>
-          </tr>
-@endforelse
-        
-
-      </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="display table table-bordered data_table_main">
+            <thead>
+                <tr>
+                    <th> # </th>
+                    {{-- <th style="display: none;"></th> --}}
+                    <th> Requested On </th>
+                    <th> Date Disbursed </th>
+                    <th> Payment Status </th>
+                    {{-- <th> Action </th> --}}
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($payment_history as $key => $history)
+                    <tr>
+                        <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                        <td> {{ date('d-m-Y', strtotime($history->created_at)) }} </td>
+                        <td> {{ date('d-m-Y', strtotime($history->updated_at)) }} </td>
+                        <td> {{ $history->is_paid == 1 ? 'Paid' : 'Pending' }} </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <p class="alert alert-danger">No history to show!</p>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
   </div>
   <!-- /.box-body -->
-{{-- 
+{{--
   @if (url()->current() == route('buyer.message.unread') )
   <div class="box-footer clearfix">
 
@@ -71,6 +64,6 @@
 
 </div>
 
-@include('seller/modal/create_service') 
+@include('seller/modal/create_service')
 
 
