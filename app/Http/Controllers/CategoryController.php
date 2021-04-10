@@ -14,7 +14,6 @@ use App\SubCategory;
 
 
 
-
 class CategoryController extends Controller
 {
     /**
@@ -276,9 +275,6 @@ return $this->index();
         $local_governments = Local_government::all();
         $search_form_categories = Category::orderBy('name')->get();
 
-
-
-
         $one_category = Category::where('slug', $slug)->first();
         $category_id = $one_category->id;
         $category_services = Service::where('category_id', $category_id)->orderBy('badge_type', 'asc')->inRandomOrder()->paginate(100);
@@ -297,6 +293,41 @@ return $this->index();
         //return $category_city;
 
         return view ('services', compact('category_services', 'toShowOtherSearch', 'one_category', 'category_city', 'all_categories', 'all_states', 'featuredServices', 'categories', 'states', 'local_governments', 'sub_categories', 'search_form_categories') );
+    }
+
+
+    public function show_subcat_items($slug)
+    {
+        //$service = Service::find($id);
+      //$service_slug = $service->slug;//
+        $categories = Category::orderBy('id', 'asc')->paginate(35);
+        $states = State::all();
+        $local_governments = Local_government::all();
+        $search_form_categories = Category::orderBy('name')->get();
+
+
+
+
+        // $one_sub_category = Category::where('slug', $slug)->first();
+        // $category_id = $one_category->id;
+        // $category_services = Service::where('category_id', $category_id)->orderBy('badge_type', 'asc')->inRandomOrder()->paginate(100);
+
+        // $sub_categories = SubCategory::where("category_id",$category_id)->orderBy('name', 'asc')->get();
+        $sub_category = SubCategory::where('slug', $slug)->first();
+        $sub_categories = Service::where("subcategory_id",$sub_category->id)->orderBy('name', 'asc')->get();
+        $related_sub_categories = SubCategory::where("category_id", $sub_category->category_id)->orderBy('name', 'asc')->get();
+
+        //return $category_services;
+        //$category_city = Service::all()->pluck("city");
+        // $category_city = Service::all();
+        $all_states = State::all();
+        // dd($all_states);
+        $all_categories = Category::all();
+        $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+        //$category_id = $id;
+        //return $category_city;
+
+        return view ('subcat_services', compact('related_sub_categories', 'categories', 'search_form_categories', 'sub_category', 'all_states', 'featuredServices', 'states', 'local_governments', 'sub_categories', 'search_form_categories'));
     }
 
 
