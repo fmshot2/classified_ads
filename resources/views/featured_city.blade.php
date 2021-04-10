@@ -198,7 +198,7 @@
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
                         <div class="alert alert-success" role="alert">
-                            If you want your state to be featured here kindly <a style="color: #90fff5" href="{{ route('contact') }}">contact us</a>.
+                            <a style="color: #90fff5" href="{{ route('contact') }}">Contact Us</a> to Upload Tourist Sites and Attractions in your state.
                         </div>
                     </div>
                 </div>

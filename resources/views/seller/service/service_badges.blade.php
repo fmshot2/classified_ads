@@ -338,13 +338,8 @@
 
                             if (response.status == 'success') {
                                 $.ajax({
-<<<<<<< HEAD
                                     method: "POST",
                                     url: base_Url + '/provider/badge_paid_for',
-=======
-                                    method: "GET",
-                                    url: '/provider/badge_paid_for/',
->>>>>>> 7c72cd1d7d0805ebf5c9ae9be8f2a5dcc03d26a1
                                     dataType: "json",
                                     data: {
                                         _token: _token,

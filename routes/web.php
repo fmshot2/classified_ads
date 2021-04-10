@@ -325,6 +325,8 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/notification/all', 'SellerController@allNotification')->name('seller.notification.all');
         Route::get('/notification/{slug}', 'SellerController@viewNotification')->name('seller.notification.view');
         Route::get('/notifications/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('seller.notification.markallasread');
+        Route::post('/notification/markasread', 'NotificationController@notificationMarkAsRead')->name('seller.notification.markasread');
+        Route::post('/notification/delete', 'NotificationController@notificationDelete')->name('seller.notification.delete');
 
         Route::get('/profile/', 'SellerController@viewProfile')->name('seller.profile');
         // Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
@@ -458,6 +460,8 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::post('/admin/notification/general/send', 'NotificationController@GeneralNofications')->name('admin.notification.general.send');
     Route::post('/admin/notification/send', 'AdminController@sendNotification')->name('admin.notification.send');
     Route::get('/admin/notification/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('admin.notification.markallasread');
+    Route::post('/notification/markasread', 'NotificationController@notificationMarkAsRead')->name('seller.notification.markasread');
+    Route::post('/notification/delete', 'NotificationController@notificationDelete')->name('seller.notification.delete');
 
     Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
     Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
