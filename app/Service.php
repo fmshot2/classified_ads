@@ -2,7 +2,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Database\Eloquent\Model;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
@@ -10,6 +12,8 @@ use CyrildeWit\EloquentViewable\Contracts\Viewable;
 
 use tizis\laraComments\Contracts\ICommentable;
 use tizis\laraComments\Traits\Commentable;
+use App\ProviderSubscription;
+
 
 class Service extends Model implements Viewable, ICommentable
 {
@@ -18,10 +22,17 @@ class Service extends Model implements Viewable, ICommentable
     protected $removeViewsOnDelete = true;
     protected $guarded = [];
 
+    //  public function __construct()
+    // {
+    //     $this->user = Auth::user();
+    // }
+
     public function user()
     {
         return $this->belongsTo('App\User');
     }
+
+
 
     public function image_uploads()
     {
@@ -156,4 +167,38 @@ public function scopeSearchCategory($query, $category)
     }
 
 
+ // protected static function booted()
+ //    {
+ //          // $object = new User;
+ //        // $object2 = $object->$this->provider_subscriptions->subscription_end_date->first();
+ //        // echo $object->foo;
+ //        // $userId = $this->user->id
+
+ //        $object2 = $this->user->provider_subscriptions->subscription_end_date->first();
+
+ //        static::addGlobalScope('subscriptionEnded', function (Builder $builder) {
+ //            $builder->where($object2, '<', now());
+ //        });
+ //    }
+
+
+
+ public static function booted()
+    {   
+       
+        static::addGlobalScope('ancient', function (Builder $builder) {
+            $userss = Auth::user();
+            // dd($userss->id);
+            $object2 = ProviderSubscription::find($userss->id);
+            // dd($object2);
+            $obj3 = $object2->subscription_end_date;
+            dd($obj3);
+            // $builder->where($object2->, '=', null);
+        });
+    }
+
+    public function scopePopular($query)
+    {
+        return $query->where('created_at', '=', null);
+    }
 }
