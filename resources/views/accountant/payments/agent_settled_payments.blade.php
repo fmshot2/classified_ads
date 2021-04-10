@@ -49,6 +49,9 @@ All Agents Settled Payments |
 									<th> Name </th>
 									<th> Agent Code </th>
 									<th> Total Paid Amount </th>
+									<th>Account Name</th>
+									<th>Bank</th>
+									<th>Account Number</th>
 									{{-- <th> Payment Status </th>
 									<th> Action </th> --}}									
 								</tr>	
@@ -60,6 +63,9 @@ All Agents Settled Payments |
 									<td style="display: none;" id="userID">{{ $settled_payment->id }}</td>
 									<td> {{ $settled_payment->name }} </td>
 									<td> {{ $settled_payment->agent_code }} </td>
+									<td> {{ $unpaid_payment->accountname }} </td>
+									<td> {{ $unpaid_payment->bankname }} </td>
+									<td> {{ $unpaid_payment->accountno }} </td>
 									{{-- <td>₦<span class="text-muted">{{ number_format($settled_payment->amount_requested) }} </span> </td> --}}
 									<td> ₦{{ number_format($settled_payment->total_paid) }} </td>
 									{{-- @if($settled_payment->is_paid == 0)
