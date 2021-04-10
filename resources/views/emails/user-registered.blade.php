@@ -12,7 +12,7 @@ Login Now
 @endcomponent
 
 @component('mail::panel')
-Thank you for registering to our platform. Start promoting your skills now!
+Thank you for registering to our platform. Start promoting your products and services!
 @endcomponent
 
 Thanks,<br>

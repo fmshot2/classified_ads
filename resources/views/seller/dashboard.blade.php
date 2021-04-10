@@ -233,12 +233,12 @@
                             <div class="info-box-content">
                                 <span class="info-box-text"> My Service{{ $service_count > 1 ? 's' : '' }} </span>
                                 <span class="info-box-number"> {{ $service_count }} </span>
-                                <div class="progress">
+                                {{-- <div class="progress">
                                     <div class="progress-bar progress-bar-danger" style="width: {{ $service_count}}%"></div>
                                 </div>
                                 <span class="progress-description">
                                     <!-- Extra content can go here -->
-                                </span>
+                                </span> --}}
                             </div>
                             <!-- /.info-box-content -->
                         </a>
@@ -253,12 +253,12 @@
                         <div class="info-box-content">
                             <span class="info-box-text"> Pending Service{{ $pending_service_count > 1 ? 's' : '' }} </span>
                             <span class="info-box-number"> {{ $pending_service_count }} </span>
-                            <div class="progress">
+                            {{-- <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style="width: {{ $pending_service_count }}%"></div>
                             </div>
                             <span class="progress-description">
                                 <!-- Extra content can go here -->
-                            </span>
+                            </span> --}}
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -272,12 +272,12 @@
                         <div class="info-box-content">
                             <span class="info-box-text"> Active Service{{ $active_service_count > 1 ? 's' : '' }} </span>
                             <span class="info-box-number"> {{ $active_service_count }} </span>
-                            <div class="progress">
+                            {{-- <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style="width: {{ $active_service_count }}%"></div>
                             </div>
                             <span class="progress-description">
                                 <!-- Extra content can go here -->
-                            </span>
+                            </span> --}}
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -291,12 +291,12 @@
                         <div class="info-box-content">
                             <span class="info-box-text"> My Service{{ $service_count > 1 ? 's' : '' }} Likes </span>
                             <span class="info-box-number"> {{ $servicesLikeCounter }} </span>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-danger" style="width: {{ $all_notification_count }}%"></div>
+                            {{-- <div class="progress">
+                                <div class="progress-bar progress-bar-danger"></div>
                             </div>
                             <span class="progress-description">
                                 <!-- Extra content can go here -->
-                            </span>
+                            </span> --}}
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -313,12 +313,12 @@
                             <div class="info-box-content">
                                 <span class="info-box-text"> My Message{{ $message_count > 1 ? 's' : '' }} </span>
                                 <span class="info-box-number"> {{ $message_count }} </span>
-                                <div class="progress">
+                                {{-- <div class="progress">
                                     <div class="progress-bar progress-bar-danger" style="width: {{ $message_count}}%"></div>
                                 </div>
                                 <span class="progress-description">
                                     <!-- Extra content can go here -->
-                                </span>
+                                </span> --}}
                             </div>
                             <!-- /.info-box-content -->
                         </a>
@@ -335,12 +335,12 @@
                         <div class="info-box-content">
                             <span class="info-box-text"> Unread Message{{ $unread_message_count > 1 ? 's' : '' }} </span>
                             <span class="info-box-number"> {{ $unread_message_count }} </span>
-                            <div class="progress">
+                            {{-- <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style="width: {{ $unread_message_count }}%"></div>
                             </div>
                             <span class="progress-description">
                                 <!-- 50% Increase in 28 Days -->
-                            </span>
+                            </span> --}}
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -500,8 +500,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Service Name</label><small class="text-danger">*</small>
-                                        <small class="form-text text-muted">Enter the name of the service you want to offer. <input readonly type="text" name="countdown" size="1" value="20" style="border: 0; padding: 0;margin-right: -25px"> chars left</small>
-                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" onkeydown="limitText(this.form.name,this.form.countdown,20);" onkeyup='limitText(this.form.name,this.form.countdown,20);' placeholder="e.g. Adamu Boutique..." required>
+                                        <small class="form-text text-muted">Enter the name of the service you want to offer. <input readonly type="text" name="countdown" size="1" value="50" style="border: 0; padding: 0;margin-right: -25px"> chars left</small>
+                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" onkeydown="limitText(this.form.name,this.form.countdown,50);" onkeyup='limitText(this.form.name,this.form.countdown,50);' placeholder="e.g. Adamu Boutique..." required>
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
@@ -510,7 +510,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1" id="servicePriceRange">How much do you want to charge for this service?</label>
                                         <small class="form-text text-muted" id="servicePriceRangeLabel">Enter the amount you want on this service.</small>
-                                        <input type="number" name="min_price" class="form-control" onkeydown="limitText(this.form.message,this.form.countdown,20);" onkeyup='limitText(this.form.message,this.form.countdown,20);' placeholder="e.g. 20000">
+                                        <input type="number" name="min_price" class="form-control" placeholder="e.g. 20000">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Phone</label><small class="text-danger">*</small>

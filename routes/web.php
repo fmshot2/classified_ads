@@ -464,8 +464,8 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::post('/admin/notification/general/send', 'NotificationController@GeneralNofications')->name('admin.notification.general.send');
     Route::post('/admin/notification/send', 'AdminController@sendNotification')->name('admin.notification.send');
     Route::get('/admin/notification/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('admin.notification.markallasread');
-    Route::post('/notification/markasread', 'NotificationController@notificationMarkAsRead')->name('seller.notification.markasread');
-    Route::post('/notification/delete', 'NotificationController@notificationDelete')->name('seller.notification.delete');
+    Route::post('/notification/markasread', 'NotificationController@notificationMarkAsRead')->name('admin.notification.markasread');
+    Route::post('/notification/delete', 'NotificationController@notificationDelete')->name('admin.notification.delete');
 
     Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
     Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');

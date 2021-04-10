@@ -1,23 +1,7 @@
 
   <div class="box">
-
     <div class="box-header with-border">
-    <h3 class="box-title"> {{ url()->current() == route('seller.notification.unread') ?  'Notification' : 'Recent Notification' }} ({{ $unread_notification->count() }}) </h3>
-
-      @if (url()->current() == route('seller.message.all') )
-      <div class="box-tools">
-        <form class="" method="GET" action="{{ route('admin.service.search') }}">
-        <div class="input-group input-group-sm" style="width: 150px;">
-          <input type="search" class="form-control pull-right" placeholder="Search" name="query"  value="{{ isset($query) ? $query : '' }}" required>
-
-          <div class="input-group-btn">
-            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-          </div>
-        </div>
-      </form>
-      </div>
-      @endif
-
+        <h3 class="box-title">Recent Notification{{ Auth::user()->unreadNotifications->count() > 1 ? 's' :'' }} ({{ Auth::user()->unreadNotifications->count() }}) <a href="{{route('seller.notification.all') }}" class="text-success" style="font-weight: bold; font-size: 14px"> See all  notification </a></h3>
     </div>
     <!-- /.box-header -->
     <div class="box-body ">
@@ -33,40 +17,91 @@
             </thead>
 
             <tbody>
-                @foreach($unread_notification as $key => $unread_notifications)
-                    <tr>
+                @forelse(Auth::user()->unreadNotifications as $key => $unread_notification)
+                    <tr id="notification{{ $unread_notification->id }}">
                         <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                        <td> {{ Str::limit( $unread_notifications->description, 100) }} </td>
-                        <td> {{ $unread_notifications->created_at->diffForHumans() }} </td>
+                        <td> {{ Str::limit( $unread_notification->data[0]['message'], 100) }} </td>
+                        <td> {{ $unread_notification->created_at->diffForHumans() }} </td>
 
                         <td>
-                            <button onclick="notificationRead()" type="button" class="btn btn-success">
-                                <i class="fa fa-check"></i>
-                            </button>
-                            {{-- <button type="button" class="btn btn-danger">
-                                <i class="fa fa-trash"></i>
-                            </button> --}}
+                            @if ($unread_notification->read_at == null)
+                                <a id="markAsRead{{ $unread_notification->id }}" onclick="markNotificationRead('{{ $unread_notification->id }}')" href="#" class="btn btn-success markAsRead"> <i class="fa fa-check"></i> </a>
+                            @endif
+                            <a onclick="deleteNotification('{{ $unread_notification->id }}')" href="#" class="btn btn-danger"> <i class="fa fa-trash"></i> </a>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr class="text-center"><td colspan="4">No new notifications!</td></tr>
+                @endforelse
             </tbody>
         </table>
       </div>
     </div>
     <!-- /.box-body -->
 
-
-@if (url()->current() == route('seller.notification.unread') )
-<div class="box-footer clearfix">
-
-{{ $unread_notification->links() }}
-
-</div>
-@endif
-
 <script>
-    function notificationRead(){
-        toastr.success('Notification Read!');
+    var base_Url = "{{ url('/') }}";
+    var _token = $("input[name='_token']").val();
+
+    function markNotificationRead(id) {
+        $.ajax({
+            method: "POST",
+            url: "{{ route('seller.notification.markasread') }}",
+            dataType: "json",
+            data: {
+                _token: _token,
+                notification_id: id,
+            },
+            success: function (data) {
+                toastr.success('Notification marked as read!')
+                $('#markAsRead'+id).hide()
+                $('#notification'+id).hide()
+            },
+            error: function(error) {
+                toastr.error('Something went wrong!')
+                console.log(error)
+            }
+        })
+    }
+
+    function deleteNotification(id) {
+        $.ajax({
+            method: "POST",
+            url: "{{ route('seller.notification.delete') }}",
+            dataType: "json",
+            data: {
+                _token: _token,
+                notification_id: id,
+            },
+            success: function (data) {
+                toastr.success('Notification deleted!')
+                $('#notification'+id).hide()
+            },
+            error: function(error) {
+                toastr.error('Something went wrong!')
+                console.log(error)
+            }
+        })
+    }
+
+
+    function markAllAsRead() {
+        var markAllAsReadBtn = document.getElementById('markAllAsRead')
+        var markAsReadBtn = document.getElementsByClassName('markAsRead')
+        markAllAsReadBtn.setAttribute('disabled', 'true')
+
+        $.ajax({
+            method: "GET",
+            url: "{{ route('seller.notification.markallasread') }}",
+            success: function (data) {
+                toastr.success('All notifications marked as read!')
+                markAllAsReadBtn.setAttribute('disabled', 'false')
+                $('.markAsRead').hide()
+            },
+            error: function(error) {
+                toastr.error('Something went wrong!')
+            }
+        })
     }
 </script>
 

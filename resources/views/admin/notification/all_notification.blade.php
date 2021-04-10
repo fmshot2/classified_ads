@@ -129,7 +129,7 @@
         function markNotificationRead(id) {
             $.ajax({
                 method: "POST",
-                url: "{{ route('seller.notification.markasread') }}",
+                url: "{{ route('admin.notification.markasread') }}",
                 dataType: "json",
                 data: {
                     _token: _token,
@@ -149,7 +149,7 @@
         function deleteNotification(id) {
             $.ajax({
                 method: "POST",
-                url: "{{ route('seller.notification.delete') }}",
+                url: "{{ route('admin.notification.delete') }}",
                 dataType: "json",
                 data: {
                     _token: _token,
