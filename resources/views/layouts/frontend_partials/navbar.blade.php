@@ -137,7 +137,7 @@
                 -->
 
                 <li class="nav-item">
-                    <a data-toggle="modal" data-target="#showCategoriesModal_4_navBar" id="searchCategoryBtn" class="nav-link">Categories</a>
+                    <a data-toggle="modal" data-target="#showCategoriesModal_4_navBar" id="searchCategoryBtn2" class="nav-link">Categories</a>
                 </li>
 
                 <!--  <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6 showCatFg">
@@ -259,7 +259,7 @@
                                         @foreach ($categories as $category)
                                         @if ($loop->index > 13 && $loop->index <= 27)
                                         <li data-dismiss="modal" class="popover__wrapper">
-                                            <a onclick="addCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
+                                            <a  href="{{ route('services', $category->slug) }}"><i class="fa fa-chevron-right"></i> {{ $category->name }}
                                                 {{-- <span>
                                                     ({{ $category->services->count() ? $category->services->count().' service' : 'No service yet!'  }}{{ $category->services->count() > 1 ? 's' : ''  }})
                                                 </span> --}}
@@ -270,7 +270,7 @@
                                                     @if(isset($category->sub_categories))
                                                     @if ($category->sub_categories->count() > 0)
                                                     @foreach($category->sub_categories as $sub_category)
-                                                    <li data-dismiss="modal" onclick="addSubCategoryToForm('{{ $sub_category->name }}', '{{ $sub_category->slug }}', '{{ $category->slug }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addSubCategoryToForm('{{ $sub_category->name }}', '{{ $sub_category->slug }}', '{{ $category->slug }}')" href="#">{{ $sub_category->name }}</a></li>
+                                                   <a href="{{ route('show_subcat_items', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('show_subcat_items', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
                                                     @endforeach
                                                     @else
                                                     <li>No Sub Category!</li>
@@ -288,7 +288,7 @@
                                         @foreach ($categories as $category)
                                         @if ($loop->index > 26)
                                         <li data-dismiss="modal" class="popover__wrapper">
-                                            <a onclick="addCategoryToForm('{{ $category->name }}', '{{ $category->slug }}')" href="#"><i class="fa fa-chevron-right"></i> {{ $category->name }}
+                                            <a  href="{{ route('services', $category->slug) }}"><i class="fa fa-chevron-right"></i> {{ $category->name }}
                                                 {{-- <span>
                                                     ({{ $category->services->count() ? $category->services->count().' service' : 'No service yet!'  }}{{ $category->services->count() > 1 ? 's' : ''  }})
                                                 </span> --}}
@@ -299,7 +299,7 @@
                                                     @if(isset($category->sub_categories))
                                                     @if ($category->sub_categories->count() > 0)
                                                     @foreach($category->sub_categories as $sub_category)
-                                                    <li data-dismiss="modal" onclick="addSubCategoryToForm('{{ $sub_category->name }}', '{{ $sub_category->slug }}', '{{ $category->slug }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addSubCategoryToForm('{{ $sub_category->name }}', '{{ $sub_category->slug }}', '{{ $category->slug }}')" href="#">{{ $sub_category->name }}</a></li>
+                                                     <a href="{{ route('show_subcat_items', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('show_subcat_items', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
                                                     @endforeach
                                                     @else
                                                     <li>No Sub Category!</li>
