@@ -243,5 +243,23 @@
 
     function notiDialog(id) {
         $('#notificationDialog'+id).appendTo("body");
+
+        $.ajax({
+            method: "POST",
+            url: "{{ route('seeker.notification.markasread') }}",
+            dataType: "json",
+            data: {
+                _token: _token,
+                notification_id: id,
+            },
+            success: function (data) {
+                toastr.success('Notification marked as read!')
+                $('#markAsRead'+id).hide()
+            },
+            error: function(error) {
+                toastr.error('Something went wrong!')
+                console.log(error)
+            }
+        })
     }
 </script>

@@ -390,18 +390,18 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
 
 Route::middleware(['auth'])->group(function () { //Auth Middleware protection start here
 
-    Route::get('/buyer/dashboard', 'DashboardController@buyer')->name('buyer.dashboard');
-    Route::get('/buyer/dashboard/service/all', 'BuyerController@allService')->name('buyer.service.all');
-    Route::get('/buyer/message/unread', 'BuyerController@unreadMessage')->name('buyer.message.unread');
-    Route::get('/buyer/message/read', 'BuyerController@readMessage')->name('buyer.message.read');
-    Route::get('/buyer/message/all', 'BuyerController@allMessage')->name('buyer.message.all');
-    Route::get('/buyer/notification/all', 'BuyerController@allNotification')->name('buyer.notification.all');
-    Route::get('/buyer/profile/', 'BuyerController@viewProfile')->name('buyer.profile');
+    Route::get('/seeker/dashboard', 'DashboardController@buyer')->name('buyer.dashboard');
+    Route::get('/seeker/dashboard/service/all', 'BuyerController@allService')->name('buyer.service.all');
+    Route::get('/seeker/message/unread', 'BuyerController@unreadMessage')->name('buyer.message.unread');
+    Route::get('/seeker/message/read', 'BuyerController@readMessage')->name('buyer.message.read');
+    Route::get('/seeker/message/all', 'BuyerController@allMessage')->name('buyer.message.all');
+    Route::get('/seeker/notification/all', 'BuyerController@allNotification')->name('buyer.notification.all');
+    Route::get('/seeker/profile/', 'BuyerController@viewProfile')->name('buyer.profile');
 
-    Route::get('/buyer/message/{slug}', 'BuyerController@viewMessage')->name('buyer.message.view');
-    Route::get('/buyer/message/reply/{slug}', 'BuyerController@replyMessage')->name('buyer.message.reply');
-    Route::post('/buyer/message/reply/', 'BuyerController@storeReplyMessage')->name('buyer.message.reply.store');
-    Route::get('/buyer/message/read/status/{slug}', 'OperationalController@readStatusMessage')->name('buyer.message.read.status');
+    Route::get('/seeker/message/{slug}', 'BuyerController@viewMessage')->name('buyer.message.view');
+    Route::get('/seeker/message/reply/{slug}', 'BuyerController@replyMessage')->name('buyer.message.reply');
+    Route::post('/seeker/message/reply/', 'BuyerController@storeReplyMessage')->name('buyer.message.reply.store');
+    Route::get('/seeker/message/read/status/{slug}', 'OperationalController@readStatusMessage')->name('buyer.message.read.status');
 
     Route::post('/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
 
@@ -409,6 +409,12 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
         Route::post('/profile/update/{id}', 'AuthController@update_Password_4_Agent')->name('profile.updateAgent.password');
 
     Route::post('/profile/update/account/{id}', 'AuthController@updateAccount')->name('profile.update.account');
+
+
+    Route::get('seeker/notification/all', 'BuyerController@allNotification')->name('seeker.notification.all');
+    Route::get('seeker/notifications/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('seeker.notification.markallasread');
+    Route::post('seeker/notification/markasread', 'NotificationController@notificationMarkAsRead')->name('seeker.notification.markasread');
+    Route::post('seeker/notification/delete', 'NotificationController@notificationDelete')->name('seeker.notification.delete');
 
 
 
