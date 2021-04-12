@@ -294,13 +294,13 @@
                                             <div class="popover__content">
                                                 <ul>
                                                     @if(isset($category->sub_categories))
-                                                    @if ($category->sub_categories->count() > 0)
-                                                    @foreach($category->sub_categories as $sub_category)
-                                                    <a href="{{ route('services.subcategory', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('services.subcategory', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
-                                                    @endforeach
-                                                    @else
-                                                    <li>No Sub Category!</li>
-                                                    @endif
+                                                        @if ($category->sub_categories->count() > 0)
+                                                            @foreach($category->sub_categories as $sub_category)
+                                                                <a href="{{ route('services.subcategory', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('services.subcategory', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
+                                                            @endforeach
+                                                        @else
+                                                            <li>No Sub Category!</li>
+                                                        @endif
                                                     @endif
                                                 </ul>
                                             </div>
@@ -313,7 +313,7 @@
                                     <ul class="categoriesModalList">
                                         @foreach ($categories as $category)
                                         @if ($loop->index > 13 && $loop->index <= 27)
-                                        <li data-dismiss="modal" class="popover__wrapper">
+                                        <li class="popover__wrapper">
                                             <a  href="{{ route('services', $category->slug) }}"><i class="fa fa-chevron-right"></i> {{ $category->name }}
                                                 {{-- <span>
                                                     ({{ $category->services->count() ? $category->services->count().' service' : 'No service yet!'  }}{{ $category->services->count() > 1 ? 's' : ''  }})
@@ -323,13 +323,13 @@
                                             <div class="popover__content">
                                                 <ul>
                                                     @if(isset($category->sub_categories))
-                                                    @if ($category->sub_categories->count() > 0)
-                                                    @foreach($category->sub_categories as $sub_category)
-                                                   <a href="{{ route('services.subcategory', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('services.subcategory', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
-                                                    @endforeach
-                                                    @else
-                                                    <li>No Sub Category!</li>
-                                                    @endif
+                                                        @if ($category->sub_categories->count() > 0)
+                                                            @foreach($category->sub_categories as $sub_category)
+                                                                <a href="{{ route('services.subcategory', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('services.subcategory', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
+                                                            @endforeach
+                                                        @else
+                                                            <li>No Sub Category!</li>
+                                                        @endif
                                                     @endif
                                                 </ul>
                                             </div>
@@ -342,7 +342,7 @@
                                     <ul class="categoriesModalList">
                                         @foreach ($categories as $category)
                                         @if ($loop->index > 26)
-                                        <li data-dismiss="modal" class="popover__wrapper">
+                                        <li class="popover__wrapper">
                                             <a  href="{{ route('services', $category->slug) }}"><i class="fa fa-chevron-right"></i> {{ $category->name }}
                                                 {{-- <span>
                                                     ({{ $category->services->count() ? $category->services->count().' service' : 'No service yet!'  }}{{ $category->services->count() > 1 ? 's' : ''  }})
