@@ -48,8 +48,8 @@
         z-index: -2;
         left: -50%;
         top: -50%;
-        width: 200%;
-        height: 200%;
+        width: 300%;
+        height: 300%;
         background-color: #399953;
         background-repeat: no-repeat;
         background-size: 50% 50%, 50% 50%;
