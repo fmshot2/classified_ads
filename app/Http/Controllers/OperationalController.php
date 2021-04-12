@@ -462,7 +462,7 @@ class OperationalController extends Controller
         $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
         $categories = Category::orderBy('name', 'asc')->get();
 
-        if ($request->category == null && $request->city == null && $request->keyword == null) {
+        if ($request->category == null && $request->city == null && $request->keyword == null && $request->state == null) {
             return back()->with([
                 'message' => 'No result found for your search!',
                 'alert-type' => 'error'
@@ -575,8 +575,8 @@ class OperationalController extends Controller
             if ($request->city != null && $request->keyword != null) {
                 $services = Service::query()
                     ->where('name', 'LIKE', "%{$request->keyword}%")
-                    ->where('city', '=', "%{$request->city}%")
-                    ->where('state', '=', "%{$request->state}%")
+                    ->where('city', '=', "$request->city")
+                    ->where('state', '=', "$request->state")
                     ->where('status', 1)
                     ->with('category')
                     ->whereHas('category', function($query) use ($categoryId)  {
@@ -616,7 +616,7 @@ class OperationalController extends Controller
             elseif ($request->keyword != null && $request->state != null) {
                 $services = Service::query()
                             ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('state', '=', "%{$request->state}%")
+                            ->where('state', '=', "$request->state")
                             ->where('status', 1)
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
@@ -632,7 +632,7 @@ class OperationalController extends Controller
             }
             elseif ($request->state != null) {
                 $services = Service::query()
-                            ->where('state', '=', "%{$request->state}%")
+                            ->where('state', '=', "$request->state")
                             ->where('status', 1)
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
@@ -719,6 +719,35 @@ class OperationalController extends Controller
                         "categories" => $categories,
                     ]);
                 }
+            }
+            else{
+                $services = Service::query()
+                ->where('state', $request->state)
+                ->where('status', 1)
+                ->get();
+
+                $seekingworks = SeekingWork::query()
+                    ->where('user_state', '=', $request->state)
+                    ->where('status', 1)
+                    ->get();
+
+                if (!$services->isEmpty() && !$services->isEmpty()) {
+                    return view('dapSearchResult', [
+                        "featuredServices" => $featuredServices,
+                        "services" => $services,
+                        "seekingworks" => $seekingworks,
+                        "categories" => $categories,
+                    ]);
+                }
+                else {
+                    return view('dapSearchResult', [
+                        "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                        "featuredServices" => $featuredServices,
+                        "categories" => $categories,
+                    ]);
+                }
+
+
             }
         }
 

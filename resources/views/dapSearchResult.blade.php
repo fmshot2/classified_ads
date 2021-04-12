@@ -255,7 +255,7 @@
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('job.applicant.detail', $sw_work->slug)}}">
-                                                                <i class="fa fa-map-marker text-warning"></i> {{$sw_work->state}}
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$sw_work->user_state}}
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -291,7 +291,7 @@
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('job.applicant.detail', $sw_work->slug)}}">
-                                                                <i class="fa fa-map-marker text-warning"></i> {{$sw_work->state}}
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$sw_work->user_state}}
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -327,7 +327,7 @@
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('job.applicant.detail', $sw_work->slug)}}">
-                                                                <i class="fa fa-map-marker text-warning"></i> {{$sw_work->state}}
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$sw_work->user_state}}
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -360,7 +360,7 @@
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('job.applicant.detail', $sw_work->slug)}}">
-                                                                <i class="fa fa-map-marker text-warning"></i> {{$sw_work->state}}
+                                                                <i class="fa fa-map-marker text-warning"></i> {{$sw_work->user_state}}
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -567,7 +567,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Local Government</label>
                                             <select class="form-control" id="user_lga" name="city">
-                                                <option disabled selected>👈 Select a State</option>
+                                                <option selected>👈 Select a State</option>
                                             </select>
                                         </div>
                                     </div>

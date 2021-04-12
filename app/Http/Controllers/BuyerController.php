@@ -45,7 +45,7 @@ class BuyerController extends Controller
 
 public function allNotification()
 {
-  $all_notification = Notification::paginate(8);
+  $all_notification = auth()->user()->notifications;
   return view ('buyer.notification.all_notification', compact('all_notification') );
 }
 

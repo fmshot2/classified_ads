@@ -5,37 +5,37 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body ">
-      <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th> # </th>
-                    <th> Notification </th>
-                    <th> Date </th>
-                    <th> Action </th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @forelse(Auth::user()->unreadNotifications as $key => $unread_notification)
-                    <tr id="notification{{ $unread_notification->id }}">
-                        <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                        <td> {{ Str::limit( $unread_notification->data[0]['message'], 100) }} </td>
-                        <td> {{ $unread_notification->created_at->diffForHumans() }} </td>
-
-                        <td>
-                            @if ($unread_notification->read_at == null)
-                                <a id="markAsRead{{ $unread_notification->id }}" onclick="markNotificationRead('{{ $unread_notification->id }}')" href="#" class="btn btn-success markAsRead"> <i class="fa fa-check"></i> </a>
-                            @endif
-                            <a onclick="deleteNotification('{{ $unread_notification->id }}')" href="#" class="btn btn-danger"> <i class="fa fa-trash"></i> </a>
-                        </td>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th> # </th>
+                        <th> Notification </th>
+                        <th> Date </th>
+                        <th> Action </th>
                     </tr>
-                @empty
-                    <tr class="text-center"><td colspan="4">No new notifications!</td></tr>
-                @endforelse
-            </tbody>
-        </table>
-      </div>
+                </thead>
+
+                <tbody>
+                    @forelse(Auth::user()->unreadNotifications as $key => $unread_notification)
+                        <tr id="notification{{ $unread_notification->id }}">
+                            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                            <td> {{ Str::limit( $unread_notification->data[0]['message'], 100) }} </td>
+                            <td> {{ $unread_notification->created_at->diffForHumans() }} </td>
+
+                            <td>
+                                @if ($unread_notification->read_at == null)
+                                    <a id="markAsRead{{ $unread_notification->id }}" onclick="markNotificationRead('{{ $unread_notification->id }}')" href="#" class="btn btn-success markAsRead"> <i class="fa fa-check"></i> </a>
+                                @endif
+                                <a onclick="deleteNotification('{{ $unread_notification->id }}')" href="#" class="btn btn-danger"> <i class="fa fa-trash"></i> </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr class="text-center"><td colspan="4">No new notifications!</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
     <!-- /.box-body -->
 
