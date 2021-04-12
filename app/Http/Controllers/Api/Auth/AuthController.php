@@ -85,7 +85,7 @@ class AuthController extends Controller
         $email = $request->email;
         $user = User::where('email', $email)->first();
 
-        if ($user == null) {
+        if ($user === null && collect($user)->isEmpty()) {
             return response()->json([
                 'status' => 1,
                 'message' => 'This E-mail is available.'
