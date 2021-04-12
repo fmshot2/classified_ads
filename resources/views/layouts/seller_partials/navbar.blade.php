@@ -155,14 +155,29 @@
           <!-- inner menu: contains the actual data -->
           <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><ul class="menu inner-content-div" style="overflow: hidden; width: auto; height: 200px;">
             @foreach(Auth::user()->unreadNotifications as $unread_notification)
-            <li><!-- start message -->
-              <a href="">
-
-                <div class="mail-contnet">
-                  <span style="font-weight: bold;"> {{ Str::limit($unread_notification->data[0]['message'], 20) }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_notification->created_at->diffForHumans() }} </small> </span>
-              </div>
-            </a>
-          </li>
+                <li data-toggle="modal" data-target="#notificationDialog{{ $unread_notification->id }}" onclick="notiDialog('{{ $unread_notification->id }}')"><!-- start message -->
+                    <a href="#" style="display: block">
+                        <div class="mail-contnet">
+                        <span style="font-weight: bold;"> {{ Str::limit($unread_notification->data[0]['message'], 20) }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_notification->created_at->diffForHumans() }} </small> </span>
+                        </div>
+                    </a>
+                    <div id="notificationDialog{{ $unread_notification->id }}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: #cc8a19; color: #fff">
+                                    <h4 class="modal-title">Your Notification</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>{{ $unread_notification->data[0]['message'] }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn" style="background-color: #cc8a19; color: #fff" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
           @endforeach
 
           <!-- end message -->
@@ -173,6 +188,7 @@
     </ul>
   </li>
 </ul>
+
 
 
 
@@ -198,21 +214,22 @@
 }
 </style>
 <div id="tourGuideModal" class="modal fade" role="dialog">
-<div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-        <div class="modal-body" style="margin:0; padding:0">
-            {{-- <video id="vid-player" src="{{ asset('videos/Youtube-Subscribe.mp4') }}" autoplay controls style="width: 100%; margin:0; padding:0"></video> --}}
-            <div class="youtube">
-                <iframe id="yt-player" frameborder="0" style="width: 100%; height: 100%; margin:0; padding:0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body" style="margin:0; padding:0">
+                {{-- <video id="vid-player" src="{{ asset('videos/Youtube-Subscribe.mp4') }}" autoplay controls style="width: 100%; margin:0; padding:0"></video> --}}
+                <div class="youtube">
+                    <iframe id="yt-player" frameborder="0" style="width: 100%; height: 100%; margin:0; padding:0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
             </div>
-        </div>
-        <div class="modal-footer" style="margin: -10px 0 0 0; background-color: #000000">
-            <button id="closeytplayer" type="button" class="btn btn-default" data-dismiss="modal" style="background-color: rgb(0, 0, 0); border:2px solid #fff;color:#fff; border-radius: 25px; margin-top: 10px">Close</button>
+            <div class="modal-footer" style="margin: -10px 0 0 0; background-color: #000000">
+                <button id="closeytplayer" type="button" class="btn btn-default" data-dismiss="modal" style="background-color: rgb(0, 0, 0); border:2px solid #fff;color:#fff; border-radius: 25px; margin-top: 10px">Close</button>
+            </div>
         </div>
     </div>
 </div>
-</div>
+
 
 
 <script>
@@ -223,4 +240,8 @@
         $('#yt-player').attr('src', '');
         $('#vid-player').attr('src', '');
     });
+
+    function notiDialog(id) {
+        $('#notificationDialog'+id).appendTo("body");
+    }
 </script>
