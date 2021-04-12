@@ -461,6 +461,8 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/dashboard/service-seekers', 'AuthController@buyer')->name('admin.buyer');
     Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');
     Route::get('/activate_agent/{id}', 'AdminController@activate_agent')->name('admin.activate.agent');
+    Route::get('dashboard/ef-marketers', 'AdminController@all_ef_marketers')->name('admin.all_ef_marketers');
+
 
     Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
 
@@ -624,6 +626,8 @@ Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //S
 
     Route::get('dashboard/service-providers', 'AuthController@seller')->name('superadmin.seller');
     Route::get('dashboard/all-agents', 'AuthController@allagents')->name('superadmin.allagents');
+    Route::get('dashboard/ef-marketers', 'AuthController@all_ef_marketers')->name('superadmin.all_ef_marketers');
+    
     Route::get('dashboard/service-seekers', 'AuthController@buyer')->name('superadmin.buyer');
     Route::get('/activate_user/{id}', 'Admin@activate_user')->name('superadmin.activate');
     Route::get('/activate_agent/{id}', 'Admin@activate_agent')->name('superadmin.activate.agent');

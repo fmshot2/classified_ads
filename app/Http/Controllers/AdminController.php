@@ -1070,4 +1070,11 @@ public function save_faq(Request $request)
         }
     }
 
+      public function all_ef_marketers ()
+    {
+        $efmarketers = User::where('is_ef_marketer', '1')->orderBy('id', 'asc')->paginate(8);
+        // Category::orderBy('id', 'asc')->paginate(35);
+        return view('admin.user.ef_marketers', compact('efmarketers'));
+    }
+
 }
