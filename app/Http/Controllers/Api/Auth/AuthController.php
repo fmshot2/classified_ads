@@ -88,13 +88,13 @@ class AuthController extends Controller
         if ($user === null && collect($user)->isEmpty()) {
             return response()->json([
                 'status' => 1,
-                'message' => 'This E-mail is available.'
+                'message' => 'This E-mail address is available.'
                 ], 200);
         }
         else{
             return response()->json([
                 'status' => 0,
-                'error' => 'E-mail is already taken!'
+                'error' => 'E-mail address is already taken!'
                 ], 404);
         }
     }
