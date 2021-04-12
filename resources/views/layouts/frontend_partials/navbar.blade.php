@@ -241,7 +241,7 @@
                                                     @if(isset($category->sub_categories))
                                                     @if ($category->sub_categories->count() > 0)
                                                     @foreach($category->sub_categories as $sub_category)
-                                                    <a href="{{ route('show_subcat_items', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('show_subcat_items', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
+                                                    <a href="{{ route('services.subcategory', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('services.subcategory', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
                                                     @endforeach
                                                     @else
                                                     <li>No Sub Category!</li>
@@ -270,7 +270,7 @@
                                                     @if(isset($category->sub_categories))
                                                     @if ($category->sub_categories->count() > 0)
                                                     @foreach($category->sub_categories as $sub_category)
-                                                   <a href="{{ route('show_subcat_items', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('show_subcat_items', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
+                                                   <a href="{{ route('services.subcategory', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('services.subcategory', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
                                                     @endforeach
                                                     @else
                                                     <li>No Sub Category!</li>
@@ -299,7 +299,7 @@
                                                     @if(isset($category->sub_categories))
                                                     @if ($category->sub_categories->count() > 0)
                                                     @foreach($category->sub_categories as $sub_category)
-                                                     <a href="{{ route('show_subcat_items', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('show_subcat_items', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
+                                                     <a href="{{ route('services.subcategory', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('services.subcategory', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
                                                     @endforeach
                                                     @else
                                                     <li>No Sub Category!</li>
