@@ -487,7 +487,7 @@ class OperationalController extends Controller
                     ->where('status', 1)
                     ->with('sub_categories')
                     ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
-                        $query->where('id', $subcategoryId);
+                        $query->where('sub_categorable_id', $subcategoryId);
                     })
                     ->with('category')
                     ->orWhereHas('category', function($query) use ($categoryId)  {
@@ -528,7 +528,7 @@ class OperationalController extends Controller
                             ->where('status', 1)
                             ->with('sub_categories')
                             ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
-                                $query->where('id', $subcategoryId);
+                                $query->where('sub_categorable_id', $subcategoryId);
                             })
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
