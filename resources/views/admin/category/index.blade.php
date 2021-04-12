@@ -6,6 +6,69 @@
     <div class="content-wrapper" style="min-height: 868px;">
         <div class="container">
             @include('layouts.backend_partials.status')
+            @if(Auth::user()->role == 'superadmin')
+            <div class="row" style="margin-top: 20px">
+                <div class="col-md-8">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Add Category</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body" style="padding: 20px">
+                            <!-- form start -->
+                            <form class="form-horizontal form-element" method="POST" action="{{route('superadmin.category.store')}}" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                    <div class="form-group">
+                                        <label for="name" class="control-label">Category Name:</label>
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter Category Name Here" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="file">Category Image:</label>
+                                        <input type="file" id="file" name="file" class="form-control">
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <div class="box-footer">
+                                        <button type="submit" class="btn btn-warning pull-right"> Submit </button>
+                                    </div>
+                                    <!-- /.box-footer -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Add Sub Category</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body" style="padding: 20px">
+                        <!-- form start -->
+                            <form class="form-horizontal form-element" method="POST" action="{{route('superadmin.subcategory.store')}}">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <label for="maincategory" class="control-label">Parent Category:</label>
+                                    <select class="form-control" name="maincategory" id="maincategory" required>
+                                        <option disabled selected>- Select A Category -</option>
+                                        @foreach($categoriesList as $key => $maincategory)
+                                            <option value="{{ $maincategory->id }}">{{ $maincategory->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="control-label">Sub-Category Name:</label>
+                                    <input type="text" class="form-control" name="name" id="subcategoryname" placeholder="Enter Sub Category Name" required>
+                                </div>
+                                <!-- /.box-body -->
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-warning pull-right">Add Sub-Category</button>
+                                </div>
+                                <!-- /.box-footer -->
+                            </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            @elseif(Auth::user()->role == 'admin')
             <div class="row" style="margin-top: 20px">
                 <div class="col-md-8">
                     <div class="box">
@@ -67,6 +130,70 @@
                     </div>
                 </div>
             </div>
+            @elseif(Auth::user()->role == 'cmo')
+            <div class="row" style="margin-top: 20px">
+                <div class="col-md-8">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Add Category</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body" style="padding: 20px">
+                            <!-- form start -->
+                            <form class="form-horizontal form-element" method="POST" action="{{route('cmo.category.store')}}" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                    <div class="form-group">
+                                        <label for="name" class="control-label">Category Name:</label>
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter Category Name Here" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="file">Category Image:</label>
+                                        <input type="file" id="file" name="file" class="form-control">
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <div class="box-footer">
+                                        <button type="submit" class="btn btn-warning pull-right"> Submit </button>
+                                    </div>
+                                    <!-- /.box-footer -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Add Sub Category</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body" style="padding: 20px">
+                        <!-- form start -->
+                            <form class="form-horizontal form-element" method="POST" action="{{route('cmo.subcategory.store')}}">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <label for="maincategory" class="control-label">Parent Category:</label>
+                                    <select class="form-control" name="maincategory" id="maincategory" required>
+                                        <option disabled selected>- Select A Category -</option>
+                                        @foreach($categoriesList as $key => $maincategory)
+                                            <option value="{{ $maincategory->id }}">{{ $maincategory->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="control-label">Sub-Category Name:</label>
+                                    <input type="text" class="form-control" name="name" id="subcategoryname" placeholder="Enter Sub Category Name" required>
+                                </div>
+                                <!-- /.box-body -->
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-warning pull-right">Add Sub-Category</button>
+                                </div>
+                                <!-- /.box-footer -->
+                            </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            @else
+            @endif
         </div>
 
         <div class="container">

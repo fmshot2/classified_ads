@@ -771,6 +771,7 @@ Route::prefix('cmo')->middleware(['cmo'])->group(function () { //CMO Middleware 
 
      Route::get('events', 'AdminController@events')
     ->name('cmo.events');
+    Route::post('save_event/', 'AdminController@save_event')->name('cmo.save_event');
     Route::post('system/{id}', 'AdminController@storeSystemConfig')->name('cmo.system.config.store');
 
     Route::get('pages/faq', 'AdminController@FAQs')->name('cmo.pages.faq');

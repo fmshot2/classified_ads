@@ -41,7 +41,7 @@ Add Admin |
                                 <div class="col-md-6 col-sm-12">
 
 
-                                    <form class="form-horizontal form-element" method="POST" action="{{route('admin.submit.admin')}} " enctype="multipart/form-data">
+                                    <form class="form-horizontal form-element" method="POST" action="{{route('superadmin.submit.admin')}} " enctype="multipart/form-data">
                                         {{ csrf_field() }}
 
                                         <div class="col-lg-12">
