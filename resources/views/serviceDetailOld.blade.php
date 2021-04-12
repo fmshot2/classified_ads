@@ -77,26 +77,6 @@
     .nav-link:hover #liketab{
         color: #fff !important;
     }
-    .lgtbxDiv{
-        display: block;
-        height: 200px;
-        width: auto;
-        background-size: cover !important;
-        background-position: center !important;
-    }
-
-    @media (max-width: 768px){
-        .lgtbxDiv{
-            height: 100px;
-        }
-        .tabbing-box.col-sm-12{
-            padding-left: 0;
-            padding-right: 0;
-        }
-        .tabbing-box .nav-tabs li {
-            margin-bottom: 5px;
-        }
-    }
 
 </style>
 
@@ -174,12 +154,16 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services')}}/{{$image->image_path}}');"></a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                        </a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 4; $i++)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services/noserviceimage.png')}}');"></a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                        </a>
                                                     </li>
                                                 @endfor
                                             </ul>
@@ -191,12 +175,16 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services')}}/{{$image->image_path}}');"></a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                        </a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 3; $i++)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services/noserviceimage.png')}}');"></a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                        </a>
                                                     </li>
                                                 @endfor
                                             </ul>
@@ -208,12 +196,16 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services')}}/{{$image->image_path}}');"></a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                        </a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 2; $i++)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services/noserviceimage.png')}}');"></a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
+                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                        </a>
                                                     </li>
                                                 @endfor
                                             </ul>
@@ -225,7 +217,9 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services')}}/{{$image->image_path}}');"></a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
+                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                        </a>
                                                     </li>
                                                 @endforeach
                                             </ul>
@@ -238,7 +232,9 @@
                                         <ul class="glide__slides">
                                             @for ($i = 1; $i <= 4; $i++)
                                                 <li class="glide__slide">
-                                                    <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services/noserviceimage.png')}}');"></a>
+                                                    <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
+                                                        <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
+                                                    </a>
                                                 </li>
                                             @endfor
                                         </ul>

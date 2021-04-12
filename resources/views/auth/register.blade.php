@@ -26,6 +26,9 @@
         outline: none;
         z-index: 1;
     }
+    .registerSidebar h6{
+        color: #af7615
+    }
 </style>
 
     <div class="contact-section">
@@ -51,7 +54,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 bg-color-15 align-self-center pad-0 p-3">
+                <div class="col-lg-6 bg-color-15 align-self-center pad-0 p-3 registerSidebar">
                     <div>
                         <img src="{{ asset('promos.svg') }}" alt="" id="probonanza" class="animate__animated" style="width: 80%;margin: 0 auto;display: block;">
                     </div>

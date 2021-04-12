@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,6 +13,13 @@ use tizis\laraComments\Traits\Commenter;
 class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 {
     use Notifiable, Commenter;
+
+
+ // public function __construct()
+ //    {
+ //        $this->user = auth()->user();
+ //    }
+
 
     /**
      * The attributes that are mass assignable.
@@ -98,8 +106,5 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
       public function referal()
     {
         return $this->belongsTo('App\Referal');
-    }
-
-
-    
+    }    
 }

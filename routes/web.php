@@ -199,6 +199,7 @@ Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard')
 Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile');
 Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messages');
 Route::get('services/{slug}','CategoryController@show')->name('services');
+
 Route::get('/services/sub/{slug}','CategoryController@subcategory')->name('services.subcategory');
 Route::get('/categoryDetail/{id}', 'CategoryController@categoryDetail')->name('categoryDetail');
 Route::get('/catdet/{id}', 'CategoryController@show')->name('catdet');
@@ -258,7 +259,7 @@ Route::post('/agent/register2', 'OldCodeController@createAgent')->name('agent.re
 Route::get('/login', 'AuthController@showLogin')->name('login');
 Route::post('/login', 'AuthController@login')->name('login');
 
-Route::get('/agent_Login', 'AuthController@show_agent_Login')->name('show_agent_Login');
+Route::get('/agent', 'AuthController@show_agent_Login')->name('show_agent_Login');
 Route::post('/agent_Login', 'AuthController@agent_login')->name('save_agent_Login');
 
 
@@ -325,6 +326,8 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/notification/all', 'SellerController@allNotification')->name('seller.notification.all');
         Route::get('/notification/{slug}', 'SellerController@viewNotification')->name('seller.notification.view');
         Route::get('/notifications/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('seller.notification.markallasread');
+        Route::post('/notification/markasread', 'NotificationController@notificationMarkAsRead')->name('seller.notification.markasread');
+        Route::post('/notification/delete', 'NotificationController@notificationDelete')->name('seller.notification.delete');
 
         Route::get('/profile/', 'SellerController@viewProfile')->name('seller.profile');
         // Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
@@ -361,7 +364,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         // Route::get('payment-history', 'SellerController@PaymentHistory')->name('seller.payment.history');
 
 
-        Route::post('badge_paid_for/', 'OperationalController@paidForBadge')->name('provider.paid.for.badge');
+        Route::get('badge_paid_for/', 'OperationalController@paidForBadge')->name('provider.paid.for.badge');
 
     });
 
@@ -435,6 +438,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/dashboard/service/status/{id}', 'AdminController@updateServiceStatus')->name('admin.service.status');
     Route::get('/admin/dashboard/seekingwork/status/{id}', 'AdminController@updateSeekingworkStatus')->name('admin.seekingwork.status');
     Route::get('/admin/dashboard/service/destroy/{id}', 'AdminController@destroy')->name('admin.service.destroy');
+    Route::get('/admin/dashboard/seekingwork/destroy/{id}', 'AdminController@seekingWorkDestroy')->name('admin.seekingwork.destroy');
     Route::get('admin/dashboard/service/view/{slug}', 'AdminController@viewService')->name('admin.view');
 
 
@@ -458,6 +462,8 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::post('/admin/notification/general/send', 'NotificationController@GeneralNofications')->name('admin.notification.general.send');
     Route::post('/admin/notification/send', 'AdminController@sendNotification')->name('admin.notification.send');
     Route::get('/admin/notification/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('admin.notification.markallasread');
+    Route::post('/notification/markasread', 'NotificationController@notificationMarkAsRead')->name('admin.notification.markasread');
+    Route::post('/notification/delete', 'NotificationController@notificationDelete')->name('admin.notification.delete');
 
     Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
     Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');

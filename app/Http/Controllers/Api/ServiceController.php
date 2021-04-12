@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AdvertisementResource;
 use App\Http\Resources\AdvertisementResourceCollection;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\SeekingWorkResource;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\ServiceResourceCollection;
 use App\Service;
@@ -24,6 +25,7 @@ use App\SeekingWork;
 use App\SubCategory;
 use App\Image as ModelImage;
 use App\Like;
+use App\Local_government;
 use App\Message;
 use App\Notification;
 use App\Refererlink;
@@ -39,7 +41,7 @@ class ServiceController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'seekingWorkLists', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories', 'findNearestServices', 'servicesByCategory']]);
         $this->user = $this->guard()->user();
     }
 
@@ -51,7 +53,20 @@ class ServiceController extends Controller
     public function index()
     {
         // return ServiceResource::collection(Service::paginate(5));
-        return (new ServiceResourceCollection(Service::all()))
+        return (new ServiceResourceCollection(Service::where('status', 1)->get()))
+            ->response()
+            ->setStatusCode(200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function seekingWorkLists()
+    {
+        // return ServiceResource::collection(Service::paginate(5));
+        return (new SeekingWorkResource(SeekingWork::where('status', 1)->get()))
             ->response()
             ->setStatusCode(200);
     }
@@ -889,6 +904,60 @@ class ServiceController extends Controller
         return (new CategoryResource($category))
             ->response()
             ->setStatusCode(200);
+    }
+
+    public function servicesByCategory(Request $request)
+    {
+        $slug = $request->slug;
+        $the_category = Category::where('slug', $slug)->first();
+        $category_id = $the_category->id;
+        $category_services = Service::where('category_id', $category_id)->orderBy('badge_type', 'asc')->where('status', 1)->paginate(100);
+
+
+        if (!$category_services->isEmpty()) {
+            return response()->json([
+                'category' => $the_category->name,
+                'services' => $category_services
+                ], 200);
+        }
+        else{
+            return response()->json([
+                'message' => 'No service in this category!',
+                ], 404);
+        }
+    }
+
+    public function findNearestServices(Request $request)
+    {
+        $latitude = $request->latitude;
+        $longitude = $request->longitude;
+        $radius = 100000;
+        $services = Service::selectRaw("id, name, address, state, thumbnail, user_id, badge_type, slug,
+        ( 6371000 * acos( cos( radians(?) ) *
+        cos( radians( latitude ) )
+                        * cos( radians( longitude ) - radians(?)
+        ) + sin( radians(?) ) *
+        sin( radians( latitude ) ) )
+        ) AS distance", [$latitude, $longitude, $latitude])
+            ->having("distance", "<", $radius)->with('user')->with('images')
+            ->orderBy("distance",'asc')
+            ->offset(0)
+            ->where('status', 1)
+            ->inRandomOrder()->limit(15)->get();
+
+        if (!$services->isEmpty()) {
+            return response()->json([
+                'services' => $services,
+                'latitude' => $latitude,
+                'longitude' => $longitude
+                ], 200);
+        }
+        else{
+            return response()->json([
+                'message' => 'No service close to you!',
+                ], 404);
+        }
+
     }
 
 

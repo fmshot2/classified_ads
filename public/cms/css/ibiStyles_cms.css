@@ -16,6 +16,17 @@ table th {
     background-color: #cc8a19;
 }
 
+.info-box-text,
+.progress-description {
+    display: block;
+    font-size: 16px;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: visible;
+    text-overflow: initial;
+    font-weight: 400;
+}
+
 .navbar-top-post-btn a {
     font-size: 17px !important;
     text-transform: uppercase;
@@ -83,7 +94,7 @@ table th {
     color: #ffffff;
     background: #cc8a19 !important;
 }
-.skin-blue .main-header .navbar{
+.skin-blue .main-header .navbar {
     background-color: #cc8a19;
 }
 @-webkit-keyframes pulsePostBtn {

@@ -572,7 +572,6 @@ class OperationalController extends Controller
             $categoryId = $category->id;
             $categoryname = $category->name;
 
-
             if ($request->city != null && $request->keyword != null) {
                 $services = Service::query()
                     ->where('name', 'LIKE', "%{$request->keyword}%")
@@ -608,10 +607,31 @@ class OperationalController extends Controller
                         "categories" => $categories,
                     ]);
                 }
+                return view('dapSearchResult', [
+                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
+                ]);
             }
             elseif ($request->keyword != null && $request->state != null) {
                 $services = Service::query()
                             ->where('name', 'LIKE', "%{$request->keyword}%")
+                            ->where('state', '=', "%{$request->state}%")
+                            ->where('status', 1)
+                            ->with('category')
+                            ->whereHas('category', function($query) use ($categoryId)  {
+                                $query->where('id', $categoryId);
+                            })->get();
+
+                return view('dapSearchResult', [
+                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
+                    "services" => $services,
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
+                ]);
+            }
+            elseif ($request->state != null) {
+                $services = Service::query()
                             ->where('state', '=', "%{$request->state}%")
                             ->where('status', 1)
                             ->with('category')
@@ -648,9 +668,7 @@ class OperationalController extends Controller
                     ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
                     ->get();
 
-                dd($services);
-
-                if (!$data->isEmpty()) {
+                if (!$services->isEmpty() || !$seekingworks->isEmpty() ) {
                     return view('dapSearchResult', [
                         "message" => 'Your search result for <strong>'.$keyword. '</strong>',
                         "services" => $services,
@@ -740,6 +758,12 @@ class OperationalController extends Controller
 
         }
 
+
+        return view('dapSearchResult', [
+            "message" => 'No result found for your search <strong>'.$keyword. '</strong>',
+            "featuredServices" => $featuredServices,
+            "categories" => $categories,
+        ]);
     }
 
 

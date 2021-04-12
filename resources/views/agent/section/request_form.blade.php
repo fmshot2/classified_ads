@@ -1,10 +1,10 @@
 
 <div class="box">
-  
+
   <!-- /.box-header -->
   <div class="box-body" style="padding: 20px">
 
-    <p class="text text-danger">Payment requests if successful are processed and sent on Friday of each week.</p>
+    <p class="text text-danger">Payment requests if successful are processed and sent the following week.</p>
     <br>
       <!-- form start -->
       <form class="form-horizontal form-element" method="POST" action="{{route('agent.make.request')}}" enctype="multipart/form-data">

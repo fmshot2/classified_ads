@@ -26,7 +26,7 @@
         z-index: 1;
     }
     .contact-section .bg-img {
-        background: rgba(0, 0, 0, 0.04) url('efmobilemockup.jpg') top left repeat;
+        background: rgba(0, 0, 0, 0.04) url('/efmobilemockup.jpg') top left repeat;
         background-size: cover;
         top: 0;
         bottom: 0;
@@ -112,7 +112,7 @@
                 </div>
             </div>
             <div class="col-lg-6 bg-color-15 align-self-center pad-0 none-992 bg-img">
-                <div class="info clearfix">
+                {{-- <div class="info clearfix">
                     <div class="logo-2">
                         <a href="{{url('/')}}">
                             <img src="images/{{$check_general_info == 0 ? $general_info->logo : '' }}"  class="cm-logo" alt="black-logo">
@@ -128,11 +128,11 @@
                         <a href="{{ $check_general_info == 0 ? $general_info->instagram : '' }}" class="google-bg">
                             <i class="fa fa-instagram"></i>
                         </a>
-                        {{-- <a href="#" class="linkedin-bg">
+                        <a href="#" class="linkedin-bg">
                             <i class="fa fa-linkedin"></i>
-                        </a> --}}
+                        </a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

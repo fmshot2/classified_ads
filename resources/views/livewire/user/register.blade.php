@@ -79,7 +79,8 @@
             <div class="form-group">
                 <select class="custom-select my-1 mr-sm-2 input-text" id="inlineFormCustomSelectPref" wire:model='plan'>
                     <option selected> Choose... </option>
-                    <!-- <option value=200> One Month (&#8358;200) </option> -->
+                    <option value=200> One Month (&#8358;200) </option>
+                    <option value=600> Three Months (&#8358;600) </option>
                     <option value=1200> Six Months (&#8358;1200) </option>
                     <option value=2400> One Year (&#8358;2400) </option>
                 </select>

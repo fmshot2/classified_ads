@@ -14,7 +14,6 @@ use App\SubCategory;
 
 
 
-
 class CategoryController extends Controller
 {
     /**
@@ -275,9 +274,6 @@ return $this->index();
         $states = State::all();
         $local_governments = Local_government::all();
         $search_form_categories = Category::orderBy('name')->get();
-
-
-
 
         $one_category = Category::where('slug', $slug)->first();
         $category_id = $one_category->id;

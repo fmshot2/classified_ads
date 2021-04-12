@@ -27,7 +27,7 @@
           </a>
         </li>
 
-        <li class="treeview {{ url()->current() == route('seller.service.all') ? 'background-color: #cc8a19' : '' }}">
+        <li class="treeview {{ url()->current() == route('seller.service.all') ? 'active' : '' }}">
             <a href="#">
                 <i class="fa fa-home"></i>
                 <span> My Services </span>
@@ -40,7 +40,7 @@
                 <li><a href=" {{ route('seller.service.all') }} "><i class="fa fa-circle-o"></i> My Services </a></li>
             </ul>
         </li>
-        <li class="{{ url()->current() == route('seller.sub.all') ? 'active' : '' }}" style="">
+        <li class="{{ url()->current() == route('seller.sub.create') ? 'active' : '' }}" style="">
           <a href=" {{route('seller.sub.create') }}">
             <i class="fa fa-dashboard"></i> <span>My Subscriptions </span>
             <span class="pull-right-container">
@@ -51,9 +51,11 @@
         <li class="{{ url()->current() == route('seller.message.all') ? 'active' : '' }}">
           <a href=" {{route ('seller.message.all') }}">
             <i class="fa fa-briefcase"></i> <span> My Messages </span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small>
-            </span>
+            @if ($unread_message_count > 0)
+                <span class="pull-right-container">
+                    <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small>
+                </span>
+            @endif
           </a>
         </li>
 
@@ -115,7 +117,7 @@
           </li> -->
 
 
-          <li class="{{ url()->current() == route('seller.service.badges') ? 'active' : '' }}">
+        <li class="{{ url()->current() == route('seller.service.badges') ? 'active' : '' }}">
           <a href=" {{ route ('seller.service.badges') }} ">
             <i class="fa fa-certificate"></i> <span> Apply for Badge </span>
             <span class="pull-right-container">
@@ -130,7 +132,7 @@
           </a>
         </li>
 
-        <li class="" style=" {{ url()->current() == route('seller.notification.all') ? 'background-color: #f8d053' : '' }}">
+        <li class=" {{ url()->current() == route('seller.notification.all') ? 'active' : '' }}">
           <a href=" {{route ('seller.notification.all') }}">
             <i class="fa fa-bell"></i> <span> General Notice </span>
             @if (Auth::user()->unreadNotifications->count() > 0)
@@ -140,7 +142,7 @@
             @endif
           </a>
         </li>
-        <li style=" {{ url()->current() == route('seller.payment.history') ? 'background-color: #f8d053' : '' }}">
+        <li class=" {{ url()->current() == route('seller.payment.history') ? 'active' : '' }}">
           <a href=" {{ route ('seller.payment.history') }}">
             <i class="fa fa-globe"></i> <span> Payment History </span>
             <span class="pull-right-container">
@@ -161,7 +163,7 @@
 
           </ul>
         </li> --}}
-        <li class="" style=" {{ url()->current() == route('provider.myfavourites') ? 'background-color: #f8d053' : '' }}">
+        <li class=" {{ url()->current() == route('provider.myfavourites') ? 'active' : '' }}">
           <a href=" {{route ('provider.myfavourites') }}">
             <i class="fa fa-heart"></i> <span> My Favourites </span>
           </a>

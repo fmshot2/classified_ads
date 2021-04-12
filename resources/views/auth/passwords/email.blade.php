@@ -25,6 +25,21 @@
         outline: none;
         z-index: 1;
     }
+    .contact-section .bg-img {
+        background: rgba(0, 0, 0, 0.04) url('/efmobilemockup.jpg') top left repeat;
+        background-size: cover;
+        top: 0;
+        bottom: 0;
+        border-radius: 0 20px 20px 0;
+        opacity: 1;
+        width: 100%;
+        z-index: 999;
+        min-height: 496px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
 
 <div class="contact-section">
@@ -41,17 +56,17 @@
                     <div class="clearfix"></div>
 
 
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <script>
-                                    toastr.error({{ $error }})
-                                </script>
-                            @endforeach
-                        </ul>
-                    </div><br />
-                    @endif
+                    {{-- @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <script>
+                                        toastr.error({{ $error }})
+                                    </script>
+                                @endforeach
+                            </ul>
+                        </div><br />
+                    @endif --}}
 
 
 
@@ -63,9 +78,11 @@
                             <label for="">{{ __('E-Mail Address') }}</label>
                             <input type="email" name="email" value="{{ old('email') }}" class="input-text  @error('email') is-invalid @enderror" placeholder="Your Account Email Address" required autocomplete="email" autofocus>
                             @if ($errors->has('email'))
-                            <span class="helper-text" data-error="wrong" data-success="right">
-                                <strong class="text-danger">{{ $errors->first('email') }}</strong>
-                            </span>
+                                <div style="margin-top: 70px;">
+                                    <span class="helper-text" data-error="wrong" data-success="right">
+                                        <strong class="text-danger">{{ $errors->first('email') }}</strong>
+                                    </span>
+                                </div>
                             @endif
                         </div>
                         <div class="form-group clearfix mb-0">
@@ -75,7 +92,7 @@
                 </div>
             </div>
             <div class="col-lg-6 bg-color-15 align-self-center pad-0 none-992 bg-img">
-                <div class="info clearfix">
+                {{-- <div class="info clearfix">
                     <div class="logo-2">
                         <a href="{{url('/')}}">
                             <img src="{{ asset('images') }}/{{$check_general_info == 0 ? $general_info->logo : '' }}"  class="cm-logo" alt="black-logo">
@@ -91,11 +108,11 @@
                         <a href="{{ $check_general_info == 0 ? $general_info->instagram : '' }}" class="google-bg">
                             <i class="fa fa-instagram"></i>
                         </a>
-                        {{-- <a href="#" class="linkedin-bg">
+                        <a href="#" class="linkedin-bg">
                             <i class="fa fa-linkedin"></i>
-                        </a> --}}
+                        </a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

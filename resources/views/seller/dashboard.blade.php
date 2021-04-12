@@ -233,12 +233,12 @@
                             <div class="info-box-content">
                                 <span class="info-box-text"> My Service{{ $service_count > 1 ? 's' : '' }} </span>
                                 <span class="info-box-number"> {{ $service_count }} </span>
-                                <div class="progress">
+                                {{-- <div class="progress">
                                     <div class="progress-bar progress-bar-danger" style="width: {{ $service_count}}%"></div>
                                 </div>
                                 <span class="progress-description">
                                     <!-- Extra content can go here -->
-                                </span>
+                                </span> --}}
                             </div>
                             <!-- /.info-box-content -->
                         </a>
@@ -253,12 +253,12 @@
                         <div class="info-box-content">
                             <span class="info-box-text"> Pending Service{{ $pending_service_count > 1 ? 's' : '' }} </span>
                             <span class="info-box-number"> {{ $pending_service_count }} </span>
-                            <div class="progress">
+                            {{-- <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style="width: {{ $pending_service_count }}%"></div>
                             </div>
                             <span class="progress-description">
                                 <!-- Extra content can go here -->
-                            </span>
+                            </span> --}}
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -272,12 +272,12 @@
                         <div class="info-box-content">
                             <span class="info-box-text"> Active Service{{ $active_service_count > 1 ? 's' : '' }} </span>
                             <span class="info-box-number"> {{ $active_service_count }} </span>
-                            <div class="progress">
+                            {{-- <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style="width: {{ $active_service_count }}%"></div>
                             </div>
                             <span class="progress-description">
                                 <!-- Extra content can go here -->
-                            </span>
+                            </span> --}}
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -291,12 +291,12 @@
                         <div class="info-box-content">
                             <span class="info-box-text"> My Service{{ $service_count > 1 ? 's' : '' }} Likes </span>
                             <span class="info-box-number"> {{ $servicesLikeCounter }} </span>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-danger" style="width: {{ $all_notification_count }}%"></div>
+                            {{-- <div class="progress">
+                                <div class="progress-bar progress-bar-danger"></div>
                             </div>
                             <span class="progress-description">
                                 <!-- Extra content can go here -->
-                            </span>
+                            </span> --}}
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -313,12 +313,12 @@
                             <div class="info-box-content">
                                 <span class="info-box-text"> My Message{{ $message_count > 1 ? 's' : '' }} </span>
                                 <span class="info-box-number"> {{ $message_count }} </span>
-                                <div class="progress">
+                                {{-- <div class="progress">
                                     <div class="progress-bar progress-bar-danger" style="width: {{ $message_count}}%"></div>
                                 </div>
                                 <span class="progress-description">
                                     <!-- Extra content can go here -->
-                                </span>
+                                </span> --}}
                             </div>
                             <!-- /.info-box-content -->
                         </a>
@@ -335,12 +335,12 @@
                         <div class="info-box-content">
                             <span class="info-box-text"> Unread Message{{ $unread_message_count > 1 ? 's' : '' }} </span>
                             <span class="info-box-number"> {{ $unread_message_count }} </span>
-                            <div class="progress">
+                            {{-- <div class="progress">
                                 <div class="progress-bar progress-bar-danger" style="width: {{ $unread_message_count }}%"></div>
                             </div>
                             <span class="progress-description">
                                 <!-- 50% Increase in 28 Days -->
-                            </span>
+                            </span> --}}
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -500,8 +500,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Service Name</label><small class="text-danger">*</small>
-                                        <small class="form-text text-muted">Enter the name of the service you want to offer. <input readonly type="text" name="countdown" size="1" value="20" style="border: 0; padding: 0;margin-right: -25px"> chars left</small>
-                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" onkeydown="limitText(this.form.name,this.form.countdown,20);" onkeyup='limitText(this.form.name,this.form.countdown,20);' placeholder="e.g. Adamu Boutique..." required>
+                                        <small class="form-text text-muted">Enter the name of the service you want to offer. <input readonly type="text" name="countdown" size="1" value="50" style="border: 0; padding: 0;margin-right: -25px"> chars left</small>
+                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" onkeydown="limitText(this.form.name,this.form.countdown,50);" onkeyup='limitText(this.form.name,this.form.countdown,50);' placeholder="e.g. Adamu Boutique..." required>
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
@@ -510,7 +510,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail1" id="servicePriceRange">How much do you want to charge for this service?</label>
                                         <small class="form-text text-muted" id="servicePriceRangeLabel">Enter the amount you want on this service.</small>
-                                        <input type="number" name="min_price" class="form-control" onkeydown="limitText(this.form.message,this.form.countdown,20);" onkeyup='limitText(this.form.message,this.form.countdown,20);' placeholder="e.g. 20000">
+                                        <input type="number" name="min_price" class="form-control" placeholder="e.g. 20000">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Phone</label><small class="text-danger">*</small>
@@ -529,7 +529,7 @@
                                         <p id="featuredText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
                                     </div>
                                     <div class="form-group">
-                                        <label>Sub Category <small class="text-info">(You can select multiple sub category)</small></label>
+                                        <label>Sub Category <small class="text-info">(You can select multiple sub categories)</small></label>
                                         <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple>
                                             <option value="">-- Please select a category to populate this --</option>
                                             @foreach($subcategories as $subcategory)
@@ -552,11 +552,11 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group form-float" id="youtubeLink">
+                                    <!-- <div class="form-group form-float" id="youtubeLink">
                                         <label class="form-label">Video (Youtube)</label>
                                         <small class="form-text text-muted">Your youtube video link.</small>
                                         <input type="text" class="form-control" name="video_link">
-                                    </div>
+                                    </div> -->
 
                                     <div class="form-group">
                                         <label class="form-label">Location</label><small class="text-danger">*</small>
@@ -580,11 +580,24 @@
                                         <input id="address" type="text"  value="{{ old('address') }}" class="form-control" name="address" placeholder="Enter your address here.">
                                     </div>
 
+
+                                    <div id="errMess" style="display: none;">
+                                       <p> <small class="text-danger">1. The category field is required.</small></p>
+                                        <p><small class="text-danger">2. The service name is required.</small></p>
+                                        <p><small class="text-danger">3. The service description is required.</small></p>
+                                        <p><small class="text-danger">4. The price name is required.</small></p>
+                                        <p><small class="text-danger">5. The phone name is required.</small></p>
+                                        <p><small class="text-danger">6. Image is required.</small></p>
+                                        <p><small class="text-danger">7. Location  is required.</small></p>
+                                        <p><small class="text-danger">8. Local Government is required.</small></p>
+                                        <p><small class="text-danger">9. Address is required.</small></p>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-warning" style="background-color: #cc8a19; color: #fff; border:1px solid #cc8a19;">Next <i class="fa fa-arrow-right"></i>
+                            <button type="submit" onclick="showError()" class="btn btn-warning" style="background-color: #cc8a19; color: #fff; border:1px solid #cc8a19;">Next <i class="fa fa-arrow-right"></i>
                             </button>
                             <button id="closeytplayer" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
@@ -879,9 +892,14 @@
 
 
 
-
+<script type="text/javascript">
+    function
+</script>
 
 <script>
+    function showError(){
+            document.getElementById('errMess').style.display = 'block';
+    }
     document.getElementById('seekingworkForm').style.display = 'none'
 
     var checkBox = document.getElementById("featured");

@@ -10,7 +10,7 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-	<title> @yield('title') - EFContact Admin </title>
+	<title> @yield('title') EFContact Admin </title>
 
 	<!-- bootstrap 3.3.7 -->
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_components/bootstrap/dist/css/bootstrap.css')}}">
@@ -60,7 +60,8 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/basic.css" rel="stylesheet" type="text/css" />
-<link href="{{ asset('css/ibiStyles.css') }}" rel="stylesheet" type="text/css" />
+{{-- <link href="{{ asset('css/ibiStyles.css') }}" rel="stylesheet" type="text/css" /> --}}
+<link href="{{ asset('cms/css/ibiStyles_cms.css') }}" rel="stylesheet" type="text/css" />
 
 <style type="text/css">
     .dropzone {
