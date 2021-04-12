@@ -200,7 +200,6 @@ Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile
 Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messages');
 Route::get('services/{slug}','CategoryController@show')->name('services');
 Route::get('subcat_services/{slug}','CategoryController@show_subcat_items')->name('show_subcat_items');
-// Route::get('/subcat_services/{slug}', [CategoryController::class, 'showSubcatService'])->name('seller.service.show.service');
 
 
 Route::get('/services/sub/{slug}','CategoryController@subcategory')->name('services.subcategory');
