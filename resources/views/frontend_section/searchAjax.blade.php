@@ -529,7 +529,7 @@
                                                     <ul>
                                                         @if(isset($allgeneralstate->local_governments))
                                                             @foreach($allgeneralstate->local_governments as $local_government)
-                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ trim($local_government->name) }}', '{{ trim($allgeneralstate->name) }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ trim($local_government->name) }}', '{{ trim($allgeneralstate->name) }}')" href="#">{{ trim($local_government->name) }}</a></li>
                                                             @endforeach
                                                         @endif
                                                     </ul>
@@ -549,7 +549,7 @@
                                                     <ul>
                                                         @if(isset($allgeneralstate->local_governments))
                                                             @foreach($allgeneralstate->local_governments as $local_government)
-                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ trim($local_government->name) }}', '{{ trim($allgeneralstate->name) }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ trim($local_government->name) }}', '{{ trim($allgeneralstate->name) }}')" href="#">{{ trim($local_government->name) }}</a></li>
                                                             @endforeach
                                                         @endif
                                                     </ul>
@@ -569,7 +569,7 @@
                                                     <ul>
                                                         @if(isset($allgeneralstate->local_governments))
                                                             @foreach($allgeneralstate->local_governments as $local_government)
-                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ trim($local_government->name) }}', '{{ trim($allgeneralstate->name) }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ trim($local_government->name) }}', '{{ trim($allgeneralstate->name) }}')" href="#">{{ trim($local_government->name) }}</a></li>
                                                             @endforeach
                                                         @endif
                                                     </ul>

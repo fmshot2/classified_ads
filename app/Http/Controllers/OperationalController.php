@@ -479,32 +479,34 @@ class OperationalController extends Controller
             $subcategoryname = $subcategory->name;
 
 
-            if ($request->city != null && $request->keyword != null) {
+            if ($request->keyword != null && $request->city != null) {
                 $services = Service::query()
-                    ->where('name', 'LIKE', "%{$request->keyword}%")
-                    ->where('city', '=', "%{$request->city}%")
-                    ->where('state', '=', "%{$request->state}%")
+                    ->where('name', 'LIKE', "$request->keyword")
+                    ->where('city', '=', "$request->city")
+                    ->where('state', '=', "$request->state")
                     ->where('status', 1)
                     ->with('sub_categories')
                     ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
                         $query->where('sub_categorable_id', $subcategoryId);
                     })
                     ->with('category')
-                    ->orWhereHas('category', function($query) use ($categoryId)  {
+                    ->whereHas('category', function($query) use ($categoryId)  {
                         $query->where('id', $categoryId);
                     })
                     ->get();
 
                 $seekingworks = SeekingWork::query()
-                    ->where('job_title', 'LIKE', "%{$request->keyword}%")
+                    ->where('job_title', 'LIKE', "$request->keyword")
                     ->where('status', 1)
+                    ->where('user_lga', '=', "$request->city")
+                    ->where('user_state', '=', "$request->state")
                     ->whereHas('category', function($query) use ($categoryId)  {
                         $query->where('id', $categoryId);
                     })
                     ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
                     ->get();
 
-                if (!$services->isEmpty()) {
+                if (!$services->isEmpty() || !$seekingworks->isEmpty()) {
                     return view('dapSearchResult', [
                         "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
                         "services" => $services,
@@ -524,7 +526,7 @@ class OperationalController extends Controller
             elseif ($request->keyword != null && $request->state != null) {
                 $services = Service::query()
                             ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('state', '=', "%{$request->state}%")
+                            ->where('state', '=', "$request->state")
                             ->where('status', 1)
                             ->with('sub_categories')
                             ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
@@ -542,19 +544,18 @@ class OperationalController extends Controller
                     "categories" => $categories,
                 ]);
             }
-            elseif ($request->state == null && $request->city == null && $request->keyword != null) {
+            elseif ($request->keyword == null) {
                 $services = Service::query()
-                    ->where('name', 'LIKE', "%{$request->keyword}%")
-                    ->where('state', '=', "%{$request->state}%")
-                    ->where('status', 1)
-                    ->with('sub_categories')
-                    ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
-                        $query->where('sub_categorable_id', $subcategoryId);
-                    })
-                    ->with('category')
-                    ->whereHas('category', function($query) use ($categoryId)  {
-                        $query->where('id', $categoryId);
-                    })->get();
+                            ->where('state', '=', "$request->state")
+                            ->where('status', 1)
+                            ->with('sub_categories')
+                            ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
+                                $query->where('sub_categorable_id', $subcategoryId);
+                            })
+                            ->with('category')
+                            ->whereHas('category', function($query) use ($categoryId)  {
+                                $query->where('id', $categoryId);
+                            })->get();
 
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$subcategoryname.'</strong>',
