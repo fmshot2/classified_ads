@@ -593,6 +593,14 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
     session()->flash('status', 'Task was successful!');
     return back();
   }
+  public function seekingWorkDestroy($id)
+  {
+    $seekingwork = SeekingWork::findOrFail($id);
+    //Storage::disk('public')->delete($service->image);
+    $seekingwork->delete();
+    session()->flash('status', 'Applicant deleted successfully!');
+    return redirect()->back();
+  }
 
     /**
      * Update the specified resource in storage.
