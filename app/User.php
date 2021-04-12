@@ -106,5 +106,5 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
       public function referal()
     {
         return $this->belongsTo('App\Referal');
-    }    
+    }
 }

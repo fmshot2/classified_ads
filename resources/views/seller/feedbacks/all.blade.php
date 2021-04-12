@@ -20,7 +20,7 @@
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Client Feedbacks </h3>
+						{{-- <h3 class="box-title"> Client Feedbacks </h3> --}}
 						<h6 class="box-subtitle"> Sorting is from the most recent. </h6>
 					</div>
 
@@ -37,7 +37,7 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach($allcomments as  $key => $allcomment)
+                                    @foreach(array_reverse($allcomments) as  $key => $allcomment)
                                     <tr role="row" class="odd">
                                         <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                         <td> {!! $allcomment->comment !!} </td>

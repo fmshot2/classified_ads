@@ -186,8 +186,8 @@ public function scopeSearchCategory($query, $category)
 
 
  // public  function booted()
- //    {   
-       
+ //    {
+
  //        static::addGlobalScope('ancient', function (Builder $builder) {
  //            $userss = Auth::id();
  //            // dd($userss->id);

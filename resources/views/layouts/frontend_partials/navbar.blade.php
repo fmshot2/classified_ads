@@ -19,6 +19,56 @@
     .topnav-advert-slides { width: 100%; }
     .topnav-advert-slides-hidden { display : none; }
     /* Referral Image Slider Ends */
+
+    @-webkit-keyframes rotate {
+        100% {
+            transform: rotate(1turn);
+        }
+    }
+
+    @keyframes rotate {
+        100% {
+            transform: rotate(1turn);
+        }
+    }
+    .main-header .navbar-expand-lg .navbar-nav .rainbow .nav-link {
+        padding: 25px 15px 0px !important;
+        display: block;
+    }
+    .rainbow {
+        position: relative;
+        z-index: 0;
+        border-radius: 500px;
+        overflow: hidden;
+        margin-top: 6px;
+    }
+    .rainbow::before {
+        content: "";
+        position: absolute;
+        z-index: -2;
+        left: -50%;
+        top: -50%;
+        width: 200%;
+        height: 200%;
+        background-color: #399953;
+        background-repeat: no-repeat;
+        background-size: 50% 50%, 50% 50%;
+        background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+        background-image: linear-gradient(#399953, #399953), linear-gradient(#fbb300, #fbb300), linear-gradient(#d53e33, #d53e33), linear-gradient(#377af5, #377af5);
+        -webkit-animation: rotate 4s linear infinite;
+                animation: rotate 4s linear infinite;
+    }
+    .rainbow::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        left: 6px;
+        top: 6px;
+        width: calc(100% - 12px);
+        height: calc(100% - 12px);
+        background: white;
+        border-radius: 500px;
+    }
 </style>
 
 <script>
@@ -154,6 +204,11 @@
                     <a data-toggle="modal" data-target="#launchAgentModal" href="#"  class="nav-link">Become our Agent</a>
                 </li>
 
+                <li class="nav-item rainbow">
+                    <a href="{{ route('register') }}"  class="nav-link">Promo Registration</a>
+                </li>
+
+
                 {{-- <li class="nav-item">
                     <a href="{{ route('allServices') }}"  class="nav-link">Services</a>
                 </li> --}}
@@ -163,11 +218,11 @@
             </ul>
             @auth
             @if(Auth::user()->role == 'seller')
-            <ul class="navbar-nav ml-auto">
-                <li class="mr-3 navbar-top-post-btn">
-                    <a class="btn btn-success" href="{{ route('seller.service.create') }}"><i class="fa fa-plus"></i> <span style="font-size: 15px !important;color:#fff">Post A Service</span></a>
-                </li>
-            </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="mr-3 navbar-top-post-btn">
+                        <a class="btn btn-success" href="{{ route('seller.service.create') }}"><i class="fa fa-plus"></i> <span style="font-size: 15px !important;color:#fff">Post A Service</span></a>
+                    </li>
+                </ul>
             @endif
             @endauth
             @if(!Auth::guard('agent')->check())
@@ -239,13 +294,13 @@
                                             <div class="popover__content">
                                                 <ul>
                                                     @if(isset($category->sub_categories))
-                                                    @if ($category->sub_categories->count() > 0)
-                                                    @foreach($category->sub_categories as $sub_category)
-                                                    <a href="{{ route('services.subcategory', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('services.subcategory', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
-                                                    @endforeach
-                                                    @else
-                                                    <li>No Sub Category!</li>
-                                                    @endif
+                                                        @if ($category->sub_categories->count() > 0)
+                                                            @foreach($category->sub_categories as $sub_category)
+                                                                <a href="{{ route('services.subcategory', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('services.subcategory', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
+                                                            @endforeach
+                                                        @else
+                                                            <li>No Sub Category!</li>
+                                                        @endif
                                                     @endif
                                                 </ul>
                                             </div>
@@ -258,7 +313,7 @@
                                     <ul class="categoriesModalList">
                                         @foreach ($categories as $category)
                                         @if ($loop->index > 13 && $loop->index <= 27)
-                                        <li data-dismiss="modal" class="popover__wrapper">
+                                        <li class="popover__wrapper">
                                             <a  href="{{ route('services', $category->slug) }}"><i class="fa fa-chevron-right"></i> {{ $category->name }}
                                                 {{-- <span>
                                                     ({{ $category->services->count() ? $category->services->count().' service' : 'No service yet!'  }}{{ $category->services->count() > 1 ? 's' : ''  }})
@@ -268,13 +323,13 @@
                                             <div class="popover__content">
                                                 <ul>
                                                     @if(isset($category->sub_categories))
-                                                    @if ($category->sub_categories->count() > 0)
-                                                    @foreach($category->sub_categories as $sub_category)
-                                                   <a href="{{ route('services.subcategory', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('services.subcategory', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
-                                                    @endforeach
-                                                    @else
-                                                    <li>No Sub Category!</li>
-                                                    @endif
+                                                        @if ($category->sub_categories->count() > 0)
+                                                            @foreach($category->sub_categories as $sub_category)
+                                                                <a href="{{ route('services.subcategory', $sub_category->slug) }}"><li style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a href="{{ route('services.subcategory', $sub_category->slug) }}">{{ $sub_category->name }}</a></li></a>
+                                                            @endforeach
+                                                        @else
+                                                            <li>No Sub Category!</li>
+                                                        @endif
                                                     @endif
                                                 </ul>
                                             </div>
@@ -287,7 +342,7 @@
                                     <ul class="categoriesModalList">
                                         @foreach ($categories as $category)
                                         @if ($loop->index > 26)
-                                        <li data-dismiss="modal" class="popover__wrapper">
+                                        <li class="popover__wrapper">
                                             <a  href="{{ route('services', $category->slug) }}"><i class="fa fa-chevron-right"></i> {{ $category->name }}
                                                 {{-- <span>
                                                     ({{ $category->services->count() ? $category->services->count().' service' : 'No service yet!'  }}{{ $category->services->count() > 1 ? 's' : ''  }})

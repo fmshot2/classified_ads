@@ -27,8 +27,8 @@
           </a>
         </li>
 
-        <li class="treeview {{ url()->current() == route('seller.service.all') ? 'active' : '' }}">
-            <a href="#">
+        <li class="treeview" style="{{ url()->current() == route('seller.service.all') ? 'background-color: #CA8309; color: #fff !important' : '' }}">
+            <a href="#" style="{{ url()->current() == route('seller.service.all') ? 'color: #fff !important' : '' }}">
                 <i class="fa fa-home"></i>
                 <span> My Services </span>
                 <span class="pull-right-container">
