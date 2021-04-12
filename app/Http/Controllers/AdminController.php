@@ -1077,4 +1077,11 @@ public function save_faq(Request $request)
         return view('admin.user.ef_marketers', compact('efmarketers'));
     }
 
+
+    public function ef_marketers_downline($id)
+    {
+        $efMarketerDownline = User::where('idOfReferer', $id)->orderBy('id', 'asc')->paginate(8);
+        // Category::orderBy('id', 'asc')->paginate(35);
+        return view('admin.user.ef_marketers_downline', compact('efMarketerDownline'));
+    }
 }

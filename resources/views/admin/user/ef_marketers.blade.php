@@ -55,12 +55,15 @@ All E.F Maketers |
 										<span id="active_text2">Deactivated</span>
 										@endif 
 									</td>
-					
+									 <td class="center">
+                                            <a href="{{route('efMarketerDownline', $efmarketer->id)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downline</a>
+                                    </td>
+					<!-- 
 									<td>
 										<button id="" class="activate-submit btn-success" onclick="activateUser({{$efmarketer->id}})" type="button" class="btn btn-success">
 											@if($efmarketer->status == 0)<span id="activate1">Activate User</span>@elseif($efmarketer->status == 1)<span id="activate2">Deactivate</span>
 										@endif</button> 
-									</td>
+									</td> -->
 
 							</tr>
 
