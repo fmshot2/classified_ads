@@ -146,7 +146,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href=" {{ route('superadmin.cities') }}"><i class="fa fa-circle-o"></i> Tourist Sites </a></li>
-          <li><a href=" {{ route('admin.government.officials') }}"><i class="fa fa-circle-o"></i> Government Officials </a></li>
+          <li><a href=" {{ route('superadmin.government.officials') }}"><i class="fa fa-circle-o"></i> Government Officials </a></li>
         </ul>
       </li>
 
@@ -192,13 +192,19 @@
 
 
         <li>
-            <a href=" {{ route ('badge.request') }} ">
+            <a href=" {{ route ('superadmin.badge.request') }} ">
             <i class="fa fa-globe"></i> <span> Badge Requests </span>
             <span class="pull-right-container">
             </span>
             </a>
         </li>
+
+
+
         @elseif(Auth::user()->role == 'admin')
+
+
+
         <li style="{{ url()->current() == route('cmo.dashboard') ? 'background-color: #f8d053' : '' }}">
         <a href=" {{route ('admin.dashboard') }}">
           <i class="fa fa-dashboard"></i> <span> Dashboard </span>
@@ -374,12 +380,14 @@
 
 
         <li>
-            <a href=" {{ route ('superadmin.badge.request') }} ">
+            <a href=" {{ route ('badge.request') }} ">
             <i class="fa fa-globe"></i> <span> Badge Requests </span>
             <span class="pull-right-container">
             </span>
             </a>
         </li>
+        
+
         @elseif(Auth::user()->role == 'cmo')
 
         <li style="{{ url()->current() == route('cmo.dashboard') ? 'background-color: #f8d053' : '' }}">
@@ -445,7 +453,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href=" {{ route('cmo.cities') }}"><i class="fa fa-circle-o"></i> Tourist Sites </a></li>
-          <li><a href=" {{ route('admin.government.officials') }}"><i class="fa fa-circle-o"></i> Government Officials </a></li>
+          <li><a href=" {{ route('cmo.government.officials') }}"><i class="fa fa-circle-o"></i> Government Officials </a></li>
         </ul>
       </li>
 

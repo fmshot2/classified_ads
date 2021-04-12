@@ -462,7 +462,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
     Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
 
-    Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('system.config.store');
+    Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('admin.system.config.store');
 
     Route::get('/admin/pages/faq', 'AdminController@FAQs')->name('admin.pages.faq');
     Route::get('/admin/badge/requests', 'AdminController@allBadges')->name('badge.request');
@@ -537,7 +537,10 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::post('/admin/save_event/', 'AdminController@save_event')->name('admin.save_event');
 
     Route::get('admin/send-email', 'AdminController@send_email')->name('admin.send_email');
-   Route::get('admin/send-sms', 'AdminController@send_sms')->name('admin.send_sms');
+    Route::post('admin/send-email', 'AdminController@submitEmail')->name('admin.submit.email');
+
+   Route::get('admin/send-sms', 'AdminController@sendSms')->name('admin.send_sms');
+   Route::post('admin/send-sms', 'AdminController@submit_sms')->name('admin.submit.sms');
 
     Route::get('/admin/add-data-entry', 'AdminController@add_data')->name('admin.add.data');
     Route::post('/admin/submit-data', 'AdminController@submit_data')->name('admin.submit.data');
@@ -653,6 +656,13 @@ Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //S
     Route::put('add_city_images/{slug}', 'TourismController@add_city_images')->name('superadmin.add_city_images');
     Route::get('delete-city/{slug}', 'TourismController@deleteCity')->name('superadmin.delete.city');
 
+
+    //Officials
+    Route::get('government-officials', 'GovernmentOfficialController@officials')->name('superadmin.government.officials');
+    Route::post('official/create', 'GovernmentOfficialController@create_official')->name('superadmin.government.create');
+    Route::put('official/update/{id}', 'GovernmentOfficialController@update_official')->name('superadmin.government.update');
+    Route::get('official/delete/{id}', 'GovernmentOfficialController@delete_official')->name('superadmin.delete.official');
+
     //add accountant
     Route::get('add-accountant', 'AccountantController@add_accountant')->name('superadmin.add-accountant');
     Route::post('submit-accountant', 'AccountantController@submit_accountant')->name('superadmin.submit_accountant');
@@ -716,12 +726,10 @@ Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //S
     Route::get('send-email', 'AdminController@send_email')->name('superadmin.send_email');
     Route::get('create-sms', 'AdminController@sendSms')->name('superadmin.send_sms');
 
-   Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
-   Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
+   Route::post('send-sms', 'AdminController@submit_sms')->name('super.submit.sms');
 
 
-   Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
-   Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
+   Route::post('send-email', 'AdminController@submitEmail')->name('super.submit.email');
     //accountant routes
     Route::get('all-accountants', 'AdminController@allAccountants')->name('superadmin.all_accountants');
 
@@ -757,7 +765,7 @@ Route::prefix('cmo')->middleware(['cmo'])->group(function () { //CMO Middleware 
 
      Route::get('events', 'AdminController@events')
     ->name('cmo.events');
-    Route::post('system/{id}', 'AdminController@storeSystemConfig')->name('system.config.store');
+    Route::post('system/{id}', 'AdminController@storeSystemConfig')->name('cmo.system.config.store');
 
     Route::get('pages/faq', 'AdminController@FAQs')->name('cmo.pages.faq');
     // Route::get('/admin/badge/requests', 'AdminController@allBadges')->name('badge.request');
@@ -787,7 +795,11 @@ Route::prefix('cmo')->middleware(['cmo'])->group(function () { //CMO Middleware 
     Route::put('add_city_images/{slug}', 'TourismController@add_city_images')->name('cmo.add_city_images');
     Route::get('delete-city/{slug}', 'TourismController@deleteCity')->name('cmo.delete.city');
 
-
+    //Officials
+    Route::get('government-officials', 'GovernmentOfficialController@officials')->name('cmo.government.officials');
+    Route::post('official/create', 'GovernmentOfficialController@create_official')->name('cmo.government.create');
+    Route::put('official/update/{id}', 'GovernmentOfficialController@update_official')->name('cmo.government.update');
+    Route::get('official/delete/{id}', 'GovernmentOfficialController@delete_official')->name('cmo.delete.official');
 
     // PAGES CONTENTS TABLE
     Route::get('pages-contents', 'PageContentController@pagescontents')->name('cmo.pagescontents');
