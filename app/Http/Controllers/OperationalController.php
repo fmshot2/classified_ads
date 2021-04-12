@@ -575,8 +575,8 @@ class OperationalController extends Controller
             if ($request->city != null && $request->keyword != null) {
                 $services = Service::query()
                     ->where('name', 'LIKE', "%{$request->keyword}%")
-                    ->where('city', '=', "%{$request->city}%")
-                    ->where('state', '=', "%{$request->state}%")
+                    ->where('city', '=', "$request->city")
+                    ->where('state', '=', "$request->state")
                     ->where('status', 1)
                     ->with('category')
                     ->whereHas('category', function($query) use ($categoryId)  {
@@ -616,7 +616,7 @@ class OperationalController extends Controller
             elseif ($request->keyword != null && $request->state != null) {
                 $services = Service::query()
                             ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('state', '=', "%{$request->state}%")
+                            ->where('state', '=', "$request->state")
                             ->where('status', 1)
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
@@ -632,7 +632,7 @@ class OperationalController extends Controller
             }
             elseif ($request->state != null) {
                 $services = Service::query()
-                            ->where('state', '=', "%{$request->state}%")
+                            ->where('state', '=', "$request->state")
                             ->where('status', 1)
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
