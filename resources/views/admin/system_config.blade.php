@@ -35,10 +35,11 @@
                     <div class="card">
                         <div class="form-layout">
                             <div class="row mg-b-25">
+                                @if(Auth::user()->role == 'superadmin')
                                 <div class="col-md-6 col-sm-12">
 
                                     
-                                    <form class="form-horizontal form-element" method="POST" action="{{route('system.config.store', $check_general_info == 0 ? $general_info->id : 0 )}} " enctype="multipart/form-data">
+                                    <form class="form-horizontal form-element" method="POST" action="{{route('super.system.config.store', $check_general_info == 0 ? $general_info->id : 0 )}} " enctype="multipart/form-data">
                                         {{ csrf_field() }}
 
 
@@ -183,6 +184,307 @@
 
 
                             </div>
+                            @elseif(Auth::user(Auth::user()->role == 'admin'))
+                            <div class="col-md-6 col-sm-12">
+
+                                    
+                                    <form class="form-horizontal form-element" method="POST" action="{{route('admin.system.config.store', $check_general_info == 0 ? $general_info->id : 0 )}} " enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+
+
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Site Name</label>
+                                                <input type="text" name="site_name" id="site_name" class="form-control" autofocus="" value="{{ $check_general_info == 0 ? $general_info->site_name : ''  }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">About Us</label>
+                                                <textarea name="about_site" id="summernote" class="form-control" rows="7" value="{{ $check_general_info == 0 ? $general_info->about_site : ''  }}" style="border: 1px solid #d2d6de; padding: 10px">
+                                                    {{ $check_general_info == 0 ? $general_info->about_site : ''  }}
+                                                </textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Hot-line</label>
+                                                <input type="text" name="hotline" id="hotline" class="form-control" value="{{ $check_general_info == 0 ? $general_info->hot_line : '' }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Hot-line2</label>
+                                                <input type="text" name="hotline2" id="hot_line_2" class="form-control" value="{{ $check_general_info == 0 ? $general_info->hot_line_2 : ''}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">WhatsApp Number</label>
+                                                <input type="text" name="hotline3" id="hot_line_3" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->hot_line_3 : ''}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Contact E-mail</label>
+                                                <input type="text" name="contact_email" id="contact_email" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->contact_email : ''}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Support E-mail</label>
+                                                <input type="text" name="support_email" id="site_email" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->support_email : ''}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                         <div class="form-group">
+                                            <label for="site_name" class="control-label">Address</label>
+                                            <input type="text" name="address" id="site_address" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->address : ''}}">
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="site_name" class="control-label">Facebook Handle</label>
+                                            <input type="url" name="facebook" id="facebook" class="form-control" value="{{ $check_general_info == 0 ? $general_info->facebook : ''}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="site_name" class="control-label">Twitter Handle</label>
+                                            <input type="url" name="twitter" id="twitter" class="form-control" value="{{ $check_general_info == 0 ? $general_info->twitter : ''}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="site_name" class="control-label">Linkedin Handle</label>
+                                            <input type="url" name="linkedin" id="linkedin" class="form-control" value="{{ $check_general_info == 0 ? $general_info->linkedin : ''}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="site_name" class="control-label">Instagram</label>
+                                            <input type="url" name="instagram" id="instagram" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->instagram : ''}}">
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="register_section_1" class="control-label"> Register Section 1 Title </label>
+                                            <input type="text" name="register_section_1_title" id="register_section_1_title" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->register_section_1_title : ''}}">
+                                            <label for="register_section_1" class="control-label"> Register Section 1 Description </label>
+                                            <textarea class="form-control" name="register_section_1"> {{ $check_general_info == 0 ? $general_info->register_section_1 : ''}} </textarea>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="register_section_2" class="control-label"> Register Section 2 Title </label>
+                                            <input type="text" name="register_section_2_title" id="register_section_2_title" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->register_section_2_title : ''}}">
+                                            <label for="register_section_2" class="control-label"> Register Section 2 Description </label>
+                                            <textarea class="form-control" name="register_section_2"> {{ $check_general_info == 0 ? $general_info->register_section_2 : ''}} </textarea>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="register_section_3" class="control-label"> Register Section 3 Title </label>
+                                            <input type="text" name="register_section_3_title" id="register_section_3_title" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->register_section_3_title : ''}}">
+                                            <label for="register_section_3" class="control-label"> Register Section 3 Description </label>
+                                            <textarea class="form-control" name="register_section_3"> {{ $check_general_info == 0 ? $general_info->register_section_3 : ''}} </textarea>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="site_name" class="control-label">Logo</label>
+                                            <input type="file" name="file" id="logo" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-warning btn-sm"> Update Settings </button>
+                                    </div>
+
+                                </form>
+
+
+
+                            </div>
+                            @elseif(Auth::user()->role == 'cmo')
+                            <div class="col-md-6 col-sm-12">
+
+                                    
+                                    <form class="form-horizontal form-element" method="POST" action="{{route('cmo.system.config.store', $check_general_info == 0 ? $general_info->id : 0 )}} " enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+
+
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Site Name</label>
+                                                <input type="text" name="site_name" id="site_name" class="form-control" autofocus="" value="{{ $check_general_info == 0 ? $general_info->site_name : ''  }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">About Us</label>
+                                                <textarea name="about_site" id="summernote" class="form-control" rows="7" value="{{ $check_general_info == 0 ? $general_info->about_site : ''  }}" style="border: 1px solid #d2d6de; padding: 10px">
+                                                    {{ $check_general_info == 0 ? $general_info->about_site : ''  }}
+                                                </textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Hot-line</label>
+                                                <input type="text" name="hotline" id="hotline" class="form-control" value="{{ $check_general_info == 0 ? $general_info->hot_line : '' }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Hot-line2</label>
+                                                <input type="text" name="hotline2" id="hot_line_2" class="form-control" value="{{ $check_general_info == 0 ? $general_info->hot_line_2 : ''}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">WhatsApp Number</label>
+                                                <input type="text" name="hotline3" id="hot_line_3" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->hot_line_3 : ''}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Contact E-mail</label>
+                                                <input type="text" name="contact_email" id="contact_email" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->contact_email : ''}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Support E-mail</label>
+                                                <input type="text" name="support_email" id="site_email" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->support_email : ''}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                         <div class="form-group">
+                                            <label for="site_name" class="control-label">Address</label>
+                                            <input type="text" name="address" id="site_address" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->address : ''}}">
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="site_name" class="control-label">Facebook Handle</label>
+                                            <input type="url" name="facebook" id="facebook" class="form-control" value="{{ $check_general_info == 0 ? $general_info->facebook : ''}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="site_name" class="control-label">Twitter Handle</label>
+                                            <input type="url" name="twitter" id="twitter" class="form-control" value="{{ $check_general_info == 0 ? $general_info->twitter : ''}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="site_name" class="control-label">Linkedin Handle</label>
+                                            <input type="url" name="linkedin" id="linkedin" class="form-control" value="{{ $check_general_info == 0 ? $general_info->linkedin : ''}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="site_name" class="control-label">Instagram</label>
+                                            <input type="url" name="instagram" id="instagram" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->instagram : ''}}">
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="register_section_1" class="control-label"> Register Section 1 Title </label>
+                                            <input type="text" name="register_section_1_title" id="register_section_1_title" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->register_section_1_title : ''}}">
+                                            <label for="register_section_1" class="control-label"> Register Section 1 Description </label>
+                                            <textarea class="form-control" name="register_section_1"> {{ $check_general_info == 0 ? $general_info->register_section_1 : ''}} </textarea>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="register_section_2" class="control-label"> Register Section 2 Title </label>
+                                            <input type="text" name="register_section_2_title" id="register_section_2_title" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->register_section_2_title : ''}}">
+                                            <label for="register_section_2" class="control-label"> Register Section 2 Description </label>
+                                            <textarea class="form-control" name="register_section_2"> {{ $check_general_info == 0 ? $general_info->register_section_2 : ''}} </textarea>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="register_section_3" class="control-label"> Register Section 3 Title </label>
+                                            <input type="text" name="register_section_3_title" id="register_section_3_title" class="form-control" value=" {{ $check_general_info == 0 ? $general_info->register_section_3_title : ''}}">
+                                            <label for="register_section_3" class="control-label"> Register Section 3 Description </label>
+                                            <textarea class="form-control" name="register_section_3"> {{ $check_general_info == 0 ? $general_info->register_section_3 : ''}} </textarea>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="site_name" class="control-label">Logo</label>
+                                            <input type="file" name="file" id="logo" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-warning btn-sm"> Update Settings </button>
+                                    </div>
+
+                                </form>
+
+
+
+                            </div>
+                            @else
+                            You do not have permission to view this form
+                            @endif
                             <div class="col-md-6 col-sm-12">
 
                                 <h4>Default Site Settings</h4>

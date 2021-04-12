@@ -33,6 +33,63 @@
                         <!-- /.box-header -->
                         <div class="box-body" style="padding: 20px">
                             <!-- form start -->
+                            @if(Auth::user()->role == 'superadmin')
+                            <form class="form-horizontal form-element" method="POST" action="{{route('superadmin.government.create')}}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Official Name: </label>
+                                        <input type="text" name="name" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Official Position: </label>
+                                        <input type="text" name="position" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">State: </label>
+                                        <select class="form-control" name="state" required>
+                                            <option value="">-- Select State --</option>
+                                            @if(isset($states))
+                                                @foreach($states as $state)
+                                                    <option value="{{$state->name}}"> {{ $state->name }}  </option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Region: </label>
+                                        <input type="text" name="region" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Description: </label>
+                                        <textarea name="description" class="form-control summernote" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="file">Official Image:</label>
+                                        <input type="file" id="image" name="image" class="form-control" accept="image/*" required>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-warning pull-right"> Submit </button>
+                                </div>
+                                <!-- /.box-footer -->
+                            </form>
+                            
+
+                            @elseif(Auth::user()->role == 'admin')
+
+                            
                             <form class="form-horizontal form-element" method="POST" action="{{route('admin.government.create')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="col-md-12">
@@ -84,7 +141,61 @@
                                 </div>
                                 <!-- /.box-footer -->
                             </form>
-
+                            @elseif(Auth::user()->role == 'cmo')
+                            <form class="form-horizontal form-element" method="POST" action="{{route('cmo.government.create')}}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Official Name: </label>
+                                        <input type="text" name="name" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Official Position: </label>
+                                        <input type="text" name="position" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">State: </label>
+                                        <select class="form-control" name="state" required>
+                                            <option value="">-- Select State --</option>
+                                            @if(isset($states))
+                                                @foreach($states as $state)
+                                                    <option value="{{$state->name}}"> {{ $state->name }}  </option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Region: </label>
+                                        <input type="text" name="region" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Description: </label>
+                                        <textarea name="description" class="form-control summernote" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="file">Official Image:</label>
+                                        <input type="file" id="image" name="image" class="form-control" accept="image/*" required>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-warning pull-right"> Submit </button>
+                                </div>
+                                <!-- /.box-footer -->
+                            </form>
+                            @else
+                            You do not have the permission to add a new official
+                            @endif
                         </div>
                     </div>
                 </div>

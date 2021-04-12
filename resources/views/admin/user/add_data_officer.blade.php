@@ -41,7 +41,9 @@ Add Data Entry Officer |
                                 <div class="col-md-6 col-sm-12">
 
                                     {{-- @if(Auth::user()->role == 'admin') --}}
+                                    {{-- <form class="form-horizontal form-element" method="POST" action="{{Auth::user()->role == 'admin' ? route('admin.submit.data') : route('superadmin.submit.data')}} " enctype="multipart/form-data"> --}}
                                     <form class="form-horizontal form-element" method="POST" action="{{Auth::user()->role == 'admin' ? route('admin.submit.data') : route('superadmin.submit.data')}} " enctype="multipart/form-data">
+                                        
                                         {{ csrf_field() }}
 
                                         <div class="col-lg-12">

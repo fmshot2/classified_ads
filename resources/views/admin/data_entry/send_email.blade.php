@@ -34,6 +34,7 @@ Send Mail |
                     <!-- /. tools -->
                 </div>
                 <!-- /.box-header -->
+                @if(Auth::user()->role == 'superadmin')
                 <div class="box-body pad">
                     <div class="card">
                         <div class="form-layout">
@@ -41,7 +42,7 @@ Send Mail |
                                 <div class="col-md-6 col-sm-12">
 
 
-                                    <form class="form-horizontal form-element" method="POST" action="{{route('data.submit.email')}} " enctype="multipart/form-data">
+                                    <form class="form-horizontal form-element" method="POST" action="{{route('super.submit.email')}} " enctype="multipart/form-data">
                                         {{ csrf_field() }}
 
                                         {{-- <div class="col-lg-12">
@@ -102,8 +103,145 @@ Send Mail |
                 <!-- /.box -->
 
             </div>
+            @elseif(Auth::user()->role == 'admin')
+            <div class="box-body pad">
+                    <div class="card">
+                        <div class="form-layout">
+                            <div class="row mg-b-25">
+                                <div class="col-md-6 col-sm-12">
 
 
+                                    <form class="form-horizontal form-element" method="POST" action="{{route('admin.submit.email')}} " enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+
+                                        {{-- <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Enter Email Address</label>
+                                                <small class="text text-danger">Separate email addresses with comma</small>
+                                                <input type="text" name="email" id="site_name" class="form-control" autofocus="" placeholder="Email Address" value="{{ $email_addresses }}">
+                                            </div>
+                                            @if ($errors->has('email'))
+                                            <span class="helper-text" data-error="wrong" data-success="right">
+                                                <strong class="text-danger">{{ $errors->first('email') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div> --}}
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Subject</label>
+                                                <input type="text" name="subject" id="site_name" class="form-control" autofocus="" placeholder="Subject of message" value="{{ old('subject') }}">
+                                                
+                                            </div>
+                                            @if ($errors->has('subject'))
+                                            <span class="helper-text" data-error="wrong" data-success="right">
+                                                <strong class="text-danger">{{ $errors->first('subject') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Message</label>
+                                                <textarea class="form-control" name="message" id="summernote"></textarea>
+                                            </div>
+                                            @if ($errors->has('message'))
+                                            <span class="helper-text" data-error="wrong" data-success="right">
+                                                <strong class="text-danger">{{ $errors->first('message') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-warning btn-sm"> Send Mail </button>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+
+
+                            </div>
+
+                            
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+            </div>
+            @else
+            <div class="box-body pad">
+                    <div class="card">
+                        <div class="form-layout">
+                            <div class="row mg-b-25">
+                                <div class="col-md-6 col-sm-12">
+
+
+                                    <form class="form-horizontal form-element" method="POST" action="{{route('data.submit.email')}} " enctype="multipart/form-data">
+                                        {{ csrf_field() }}
+
+                                        {{-- <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Enter Email Address</label>
+                                                <small class="text text-danger">Separate email addresses with comma</small>
+                                                <input type="text" name="email" id="site_name" class="form-control" autofocus="" placeholder="Email Address" value="{{ $email_addresses }}">
+                                            </div>
+                                            @if ($errors->has('email'))
+                                            <span class="helper-text" data-error="wrong" data-success="right">
+                                                <strong class="text-danger">{{ $errors->first('email') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div> --}}
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Subject</label>
+                                                <input type="text" name="subject" id="site_name" class="form-control" autofocus="" placeholder="Subject of message" value="{{ old('subject') }}">
+                                                
+                                            </div>
+                                            @if ($errors->has('subject'))
+                                            <span class="helper-text" data-error="wrong" data-success="right">
+                                                <strong class="text-danger">{{ $errors->first('subject') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="site_name" class="control-label">Message</label>
+                                                <textarea class="form-control" name="message" id="summernote"></textarea>
+                                            </div>
+                                            @if ($errors->has('message'))
+                                            <span class="helper-text" data-error="wrong" data-success="right">
+                                                <strong class="text-danger">{{ $errors->first('message') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-warning btn-sm"> Send Mail </button>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+
+
+                            </div>
+
+                            
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+            </div>
+            @endif
 			</div>
 
 
