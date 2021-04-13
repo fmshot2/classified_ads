@@ -274,7 +274,7 @@ class Register extends Component
 
             $reg_payments = new Payment();
             $reg_payments->user_id = Auth::id();
-            $reg_payments->payment_type = 'subscription';
+            $reg_payments->payment_type = 'registration';
             $reg_payments->amount = $this->plan;
             $reg_payments->tranx_ref = $tranxRef;
             $reg_payments->save();

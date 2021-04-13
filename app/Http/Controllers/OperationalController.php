@@ -1061,14 +1061,14 @@ class OperationalController extends Controller
         }
 
         if ($user->save()) {
-            return collect($badge_name);
-
             $reg_payments = new Payment();
             $reg_payments->user_id = Auth::id();
             $reg_payments->payment_type = 'Badge payment';
             $reg_payments->amount = $request->get('amount');
             $reg_payments->tranx_ref = $request->get('trans_reference');
             $reg_payments->save();
+
+            return collect($badge_name);
         }
         else {
             return 'Something went wrong!';
