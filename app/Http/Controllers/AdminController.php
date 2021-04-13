@@ -1072,16 +1072,17 @@ public function save_faq(Request $request)
 
       public function all_ef_marketers ()
     {
-        $efmarketers = User::where('is_ef_marketer', '1')->orderBy('id', 'asc')->paginate(8);
+        $efmarketers = User::where('is_ef_marketer', '1')->get();
         // Category::orderBy('id', 'asc')->paginate(35);
         return view('admin.user.ef_marketers', compact('efmarketers'));
     }
 
 
-    public function ef_marketers_downline($id)
+    public function ef_marketers_downline($slug)
     {
-        $efMarketerDownline = User::where('idOfReferer', $id)->orderBy('id', 'asc')->paginate(8);
+        $efmarketer =  User::where('slug', $slug)->first();
+        $efmarketers_downlines = User::where('idOfReferer', $efmarketer->id)->get();
         // Category::orderBy('id', 'asc')->paginate(35);
-        return view('admin.user.ef_marketers_downline', compact('efMarketerDownline'));
+        return view('admin.user.ef_marketers_downline', compact('efmarketers_downlines'));
     }
 }

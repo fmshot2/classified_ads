@@ -42,7 +42,7 @@ All Seller |
 								</tr>	
 
 									@foreach($seller as $key => $sellers)
-
+<tr>
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 									<td> {{ $sellers->name }} </td>
 									<td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>

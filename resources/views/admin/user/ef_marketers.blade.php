@@ -24,7 +24,7 @@ All E.F Maketers |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Seller Table</h3>
+						<h3 class="box-title"> All E.F Marketers</h3>
 					</div>
 
 					<!-- /.box-header -->
@@ -39,10 +39,11 @@ All E.F Maketers |
 									<th> Applied for Approval?</th>
 									<th> Date </th>
 									<th> Activate/Deactivate</th>
-								</tr>	
-
+								</tr>
+								</thead>	
+<tbody>
 									@foreach($efmarketers as $key => $efmarketer)
-
+<tr>
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 									<td> {{ $efmarketer->name }} </td>
 									<td><span class="text-muted"> </i> {{ $efmarketer->email }} </span> </td>
@@ -56,22 +57,14 @@ All E.F Maketers |
 										@endif 
 									</td>
 									 <td class="center">
-                                            <a href="{{route('efMarketerDownline', $efmarketer->id)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downline</a>
+                                            <a href="{{route('efMarketerDownline', $efmarketer->slug)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
                                     </td>
-					<!-- 
-									<td>
-										<button id="" class="activate-submit btn-success" onclick="activateUser({{$efmarketer->id}})" type="button" class="btn btn-success">
-											@if($efmarketer->status == 0)<span id="activate1">Activate User</span>@elseif($efmarketer->status == 1)<span id="activate2">Deactivate</span>
-										@endif</button> 
-									</td> -->
+			
 
 							</tr>
 
 							@endforeach
-
-
 						</tbody>
-
 
 					</table>
 

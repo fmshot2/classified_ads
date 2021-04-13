@@ -462,7 +462,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');
     Route::get('/activate_agent/{id}', 'AdminController@activate_agent')->name('admin.activate.agent');
     Route::get('dashboard/ef-marketers', 'AdminController@all_ef_marketers')->name('admin.all_ef_marketers');
-    Route::get('dashboard/ef-marketers/{id}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
+    Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
 
 
 
