@@ -40,12 +40,17 @@
                     <h1 class="mb-10">Contact us</h1>
                 </div> --}}
                 <div class="contact-info">
-                    <div class="row">
-                        <div class="col-md-4 col-sm-6 mrg-btn-50">
-                            <i class="flaticon-location"></i>
-                            <p>Office Address</p>
-                            <strong>{{ $general_info->address ? $general_info->address : '' }} </strong>
-                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-sm-6 mrg-btn-50"></div>
+
+                        @if ($general_info->address)
+                            <div class="col-md-4 col-sm-6 mrg-btn-50">
+                                <i class="flaticon-location"></i>
+                                <p>Office Address</p>
+                                <strong>{{ $general_info->address ? $general_info->address : '' }} </strong>
+                            </div>
+                        @endif
+
                         <div class="col-md-4 col-sm-6 mrg-btn-50 phone-area">
                             <i class="flaticon-technology-1"></i>
                             <p>Phone Number</p>
@@ -76,6 +81,7 @@
                             <p>Support</p>
                             <strong>info@maxwellochadefoundation.com</strong>
                         </div>--}}
+                            <div class="col-md-2 col-sm-6 mrg-btn-50"></div>
                     </div>
                 </div>
 
