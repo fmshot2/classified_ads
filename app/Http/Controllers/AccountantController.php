@@ -421,13 +421,19 @@ class AccountantController extends Controller
 
     public function all()
     {
-
-        dd('here we go');
+        $payments = Payment::all();
+        return view('accountant.payments.all_ef_payments', [
+            'payments' => $payments
+        ]);
     }
 
     public function featured()
     {
-        dd('here we go again');
+        $featured = Payment::where('payment_type','=', 'featured')->get();
+        return view('accountant.payments.featured', [
+            'featured' => $featured
+        ]);
+        
     }
 }
 
