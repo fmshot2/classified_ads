@@ -331,6 +331,9 @@ class AccountantController extends Controller
             $payment_request = new PaymentRequest;
             $payment_request->user_id = $agent->id;
             $payment_request->user_type = 'agent';
+            $payment_request->account_name = $agent->accountname;
+            $payment_request->account_number = $agent->accountno;
+            $payment_request->bank_name = $agent->bankname;
             $payment_request->amount_requested = $agent->refererAmount;
             $payment_request->is_paid = 0;
 
@@ -364,6 +367,9 @@ class AccountantController extends Controller
             $payment_request = new PaymentRequest;
             $payment_request->user_id = $seller->id;
             $payment_request->user_type = 'seller';
+            $payment_request->account_number = $seller->account_number;
+            $payment_request->account_name = $seller->account_name;
+            $payment_request->bank_name = $seller->bank_name;
             $payment_request->amount_requested = $seller->refererAmount;
             $payment_request->is_paid = 0;
 
