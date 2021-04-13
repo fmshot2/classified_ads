@@ -316,7 +316,7 @@ class ServiceController extends Controller
             $this->thefavourites[] = Service::where('id', $all_service->service_id )->firstOrFail();
         }
 
-        $allfavourites = $this->thefavourites;
+        $allfavourites = array_reverse($this->thefavourites);
 
         if ($allfavourites) {
             return response()->json([
@@ -348,7 +348,7 @@ class ServiceController extends Controller
                 $this->thecomments[] = $thecomments;
             }
         }
-        $allcomments = collect($this->thecomments);
+        $allcomments = collect(array_reverse($this->thecomments));
 
         if (!$allcomments->isEmpty()) {
             return response()->json([
@@ -917,7 +917,7 @@ class ServiceController extends Controller
         if (!$category_services->isEmpty()) {
             return response()->json([
                 'category' => $the_category->name,
-                'services' => $category_services
+                'services' => (new ServiceResourceCollection($category_services))
                 ], 200);
         }
         else{

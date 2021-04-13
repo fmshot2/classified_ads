@@ -37,7 +37,7 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach(array_reverse($allcomments) as  $key => $allcomment)
+                                    @foreach($allcomments as  $key => $allcomment)
                                     <tr role="row" class="odd">
                                         <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                         <td> {!! $allcomment->comment !!} </td>

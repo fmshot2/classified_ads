@@ -124,7 +124,9 @@
                             <div style="display: inline-flex; flex-wrap: wrap">
                                 <div>
                                     <img src="{{ asset('uploads/services/'.$image->image_path) }}" alt="" style="display: block;width:100px;">
-                                    <a href="{{ route('service.image.delete', ['id' => $image->id]) }}" style="display:block">Delete</a>
+                                    @if ($service->images->count() != 1)
+                                        <a href="{{ route('service.image.delete', ['id' => $image->id, 'service_id' => $service->id]) }}" style="display:block">Delete</a>
+                                    @endif
                                 </div>
                             </div>
                         @empty
@@ -190,7 +192,7 @@
                             <a href="{{ route('service_detail_4_provider', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
                         </center>
                     @else
-                        <p style="font-size: 16px; text-align:center; margin: 20px 0"><a href="{{ route('seller.service.badges') }}" style="color: #cc8a19;" >Upgrade</a> your account with a badge to upload images</p>
+                        <p style="font-size: 16px; text-align:center; margin: 20px 0"><a href="{{ route('seller.service.badges') }}" style="color: #cc8a19;" >Upgrade</a> your account with a badge to upload more images.</p>
                     @endif
 
                 </div>
