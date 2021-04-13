@@ -12,6 +12,7 @@ use App\SubCategory;
 use App\General_Info;
 use App\Image as ModelImage;
 use App\Like;
+use App\Mail\Newsletter;
 use App\Mail\UsersFeedback;
 use App\Message;
 use App\PageContent;
@@ -1083,4 +1084,21 @@ class OperationalController extends Controller
             'alert-type' => 'error'
         ]);
     }
+
+
+    // public function Newsletter()
+    // {
+    //     $category = Category::inRandomOrder()->first();
+    //     $services = Service::inRandomOrder()->limit(5)->get();
+    //     $username = 'James Connor';
+
+    //     try{
+    //         Mail::to('adeolewfb@gmail.com')->send(new Newsletter($username, $category, $services));
+    //     }
+    //     catch(\Exception $e){
+    //         $failedtosendmail = 'Failed to Mail!.';
+    //     }
+
+    //     return $services;
+    // }
 }

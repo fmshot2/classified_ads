@@ -30,8 +30,7 @@
             </div>
         </div>
 
-        @include('frontend_section/searchAjax
-        ')
+        @include('frontend_section/searchAjax')
 
         <!-- Properties Details page start -->
         <div class="properties-details-page content-area-7 job-ap-services-page" style="margin-top: -20px">

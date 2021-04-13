@@ -30,8 +30,9 @@ Route::get('/tester', function ()
     return 'done';
 });
 Route::get('email', function () {
-    return new App\Mail\ServiceApproved();
+    return new App\Mail\Newsletter();
 });
+// Route::get('newsletter/', 'OperationalController@Newsletter');
 
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 // Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
@@ -364,7 +365,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         // Route::get('payment-history', 'SellerController@PaymentHistory')->name('seller.payment.history');
 
 
-        Route::post('badge_paid_for', 'OperationalController@paidForBadge')->name('provider.paid.for.badge');
+        Route::post('badge_paid_for/', 'OperationalController@paidForBadge')->name('provider.paid.for.badge');
 
     });
 
