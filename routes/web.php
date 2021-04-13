@@ -317,7 +317,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/seekingwork/{slug}', [OperationalController::class, 'showCV'])->name('seller.show.cv');
         Route::post('/service/images/store/{id}', [ServiceImageController::class, 'imagesStore'])->name('service.images.store');
         Route::post('/seekingwork/images/store/{id}', [OperationalController::class, 'imagesSeekingWorkStore'])->name('seekingwork.images.store');
-        Route::get('/service/images/delete/{id}', [ServiceImageController::class, 'imagesDelete'])->name('service.image.delete');
+        Route::get('/service/images/delete/{id}/{service_id}', [ServiceImageController::class, 'imagesDelete'])->name('service.image.delete');
         Route::get('/seekingwork/images/delete/{seekingworkid}/{id}', [OperationalController::class, 'imagesDelete'])->name('seekingwork.image.delete');
         Route::get('/service/post_advert', 'SellerController@post_advert')->name('seller.post_advert');
 
@@ -364,7 +364,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         // Route::get('payment-history', 'SellerController@PaymentHistory')->name('seller.payment.history');
 
 
-        Route::get('badge_paid_for/', 'OperationalController@paidForBadge')->name('provider.paid.for.badge');
+        Route::post('badge_paid_for', 'OperationalController@paidForBadge')->name('provider.paid.for.badge');
 
     });
 
@@ -629,7 +629,7 @@ Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //S
     Route::get('dashboard/service-providers', 'AuthController@seller')->name('superadmin.seller');
     Route::get('dashboard/all-agents', 'AuthController@allagents')->name('superadmin.allagents');
     Route::get('dashboard/ef-marketers', 'AuthController@all_ef_marketers')->name('superadmin.all_ef_marketers');
-    
+
     Route::get('dashboard/service-seekers', 'AuthController@buyer')->name('superadmin.buyer');
     Route::get('/activate_user/{id}', 'Admin@activate_user')->name('superadmin.activate');
     Route::get('/activate_agent/{id}', 'Admin@activate_agent')->name('superadmin.activate.agent');

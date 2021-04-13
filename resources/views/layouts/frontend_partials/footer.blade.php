@@ -28,7 +28,10 @@
                             </li>
                         @endif
                         <li>
-                            <strong style="color: rgb(190, 190, 190)"><i class="fa fa-envelope-open"></i> Email:</strong> <a href="mailto: {{ $general_info->contact_email ? $general_info->contact_email : ''}}"> {{ $general_info->contact_email ? $general_info->support_email : ''}} </a>
+                            <strong style="color: rgb(190, 190, 190)"><i class="fa fa-envelope-open"></i> Email:</strong> <a href="mailto:{{ $general_info->support_email ? $general_info->support_email : ''}}"> {{ $general_info->support_email ? $general_info->support_email : ''}} </a>
+                        </li>
+                        <li style="margin-top: -15px">
+                            <strong style="color: rgba(190, 190, 190, 0), 0.027), 0.027); opacity: 0"><i class="fa fa-envelope-open"></i> Email:</strong> <a href="mailto: {{ $general_info->contact_email ? $general_info->contact_email : ''}}"> {{ $general_info->contact_email ? $general_info->contact_email : ''}} </a>
                         </li>
                         <li>
                             <strong style="color: rgb(190, 190, 190)"><i class="fa fa-phone"></i> Phone:</strong> <a href="tel:  {{ $general_info->hot_line ? $general_info->hot_line : '' }}">  {{ $general_info->hot_line ? $general_info->hot_line : '' }} </a>

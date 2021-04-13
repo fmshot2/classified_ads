@@ -162,12 +162,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12" id="negotiableChBox">
+                                        {{-- <div class="col-md-12" id="negotiableChBox">
                                             <div class="form-check">
                                                 <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable">
                                                 <label class="form-check-label" for="negotiable"> Is this service negotiable?</label>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-12">
                                             <div class="form-group">

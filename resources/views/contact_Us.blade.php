@@ -69,11 +69,11 @@
                         <div class="col-md-4 col-sm-6 mrg-btn-50">
                             <i class="flaticon-envelope"></i>
                             <p>Email Address</p>
-                            <strong><a href="mailto:{{ $general_info->contact_email ? $general_info->contact_email : '' }} ">
-                                {{ $general_info->contact_email ? $general_info->contact_email : '' }}
+                            <strong><a href="mailto:{{ $general_info->contact_email ? $general_info->contact_email : ''}}">
+                                {{ $general_info->contact_email ? $general_info->contact_email : ''}}
                             </a></strong> <br>
-                            <strong><a href="mailto:{{ $general_info->support_email ? $general_info->support_email : '' }} ">
-                                {{ $general_info->support_email ? $general_info->support_email : '' }}
+                            <strong><a href="mailto:{{ $general_info->support_email ? $general_info->support_email : ''}}">
+                                {{ $general_info->support_email ? $general_info->support_email : ''}}
                             </a></strong>
                         </div>
                         {{-- <div class="col-md-3 col-sm-6 mrg-btn-50">

@@ -51,21 +51,30 @@ class ServiceImageController extends Controller
 
     }
 
-    public function imagesDelete($id)
+    public function imagesDelete($id, $service_id)
     {
         $image = ServiceImage::find($id);
         $filename = $image->image_path;
-        $image->delete();
 
-        $path = public_path('uploads/services/').$filename;
-        if (file_exists($path)) {
-            unlink($path);
+        $service = Service::find($service_id);
+
+        if ($service->images->count() != 1) {
+            $image->delete();
+
+            $path = public_path('uploads/services/').$filename;
+
+            if (file_exists($path)) {
+                unlink($path);
+            }
+            return redirect()->back()->with([
+                'message' => 'Image deleted successfully!',
+                'alert-type' => 'success'
+            ]);
         }
 
-        $success_notification = array(
-            'message' => 'Image deleted successfully!',
+        return redirect()->back()->with([
+            'message' => 'You cannot delete the last image!',
             'alert-type' => 'error'
-        );
-        return redirect()->back()->with($success_notification);
+        ]);
     }
 }

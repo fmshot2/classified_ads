@@ -35,15 +35,15 @@
                     <div class="col-md-12">
                         <div class="form-group">
                         <label class="form-label">Service Name </label>
-                        <input readonly type="text" name="countdown" size="1" value="20" style="border: 0; padding: 0;margin-right: -25px"> chars left
-                        <input id='name' type="text" required name="name" value="{{ $service->name }}"" class="form-control" placeholder="Enter the name of the service you want to offer (e.g. Hair Stylist)" onkeydown="limitText(this.form.name,this.form.countdown,20);" onkeyup='limitText(this.form.name,this.form.countdown,20);'>
+                        <input readonly type="text" name="countdown" size="1" value="50" style="border: 0; padding: 0;margin-right: -25px"> chars left
+                        <input id='name' type="text" required name="name" value="{{ $service->name }}" class="form-control" placeholder="Enter the name of the service you want to offer (e.g. Hair Stylist)" onkeydown="limitText(this.form.name,this.form.countdown,50);" onkeyup='limitText(this.form.name,this.form.countdown,50);'>
                         </div>
                     </div>
 
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="">Description</label>
-                            <textarea id='description' name="description" class="form-control" placeholder="Tell us about your service.">{{ $service->description }}</textarea>
+                            <textarea id='description' name="description" class="form-control summernote" placeholder="Tell us about your service.">{!! $service->description !!}</textarea>
                         </div>
                     </div>
 
@@ -61,12 +61,12 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12" id="negotiableChBox">
+                    {{-- <div class="col-md-12" id="negotiableChBox">
                         <div class="form-check">
-                            <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable">
+                            <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable" {{ $service->is_featured == 1 ? 'checked' : '' }}>
                             <label class="form-check-label" for="negotiable"> Is this service negotiable?</label>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-md-12">
                         <div class="form-group">
@@ -75,7 +75,7 @@
                                 <option value="">-- Select State --</option>
                                 @if(isset($states))
                                     @foreach($states as $state)
-                                        <option id="state" value="{{$state->name}}" {{ $service->state == $state->name ? 'selected' : '' }}> {{ $state->name }}  </option>
+                                        <option id="state" value="{{ trim($state->name) }}" {{ trim($service->state) == trim($state->name) ? 'selected' : '' }}> {{ $state->name }}  </option>
                                     @endforeach
                                 @endif
                             </select>
@@ -114,7 +114,7 @@
                             <select name="category_id" required class="form-control show-tick" id="categories">
                                 <option value="">-- Please select --</option>
                                 @foreach($category as $categories)
-                                    <option id="category_id" value="{{ $categories->id }}" {{ $categories->id == $service->category_id ? 'selected' : '' }}> {{ $categories->name }} </option>
+                                    <option id="category_id" value="{{ $categories->id }}" {{ $categories->id == $service->category_id ? 'selected' : '' }} {{ $categories->id == 1 ? 'disabled' : '' }}> {{ $categories->name }} </option>
                                 @endforeach
                             </select>
                         </div>
@@ -130,7 +130,7 @@
 
                         <div class="form-group">
                             <div class="form-check">
-                                <input id="featured" class="form-check-input" type="checkbox" value="1" name="is_featured" onclick="featuredCheckbbox()">
+                                <input id="featured" class="form-check-input" type="checkbox" value="1" name="is_featured" onclick="featuredCheckbbox()" {{ $service->is_featured == 1 ? 'checked' : '' }}>
                                 <label class="form-check-label" for="featured"> Do you want this service featured?  <small class="infoLinkNote">(<a data-toggle="modal" data-target="#featuredInfoModal">How it works?</a>)</small></label>
                             </div>
                             <p id="featuredText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
@@ -138,7 +138,7 @@
 
                         <div class="form-group" id="youtubeLink">
                             <label for="" id="youtubeLink">Video (Youtube) <small>(Optional)</small></label>
-                            <input type="text" class="form-control" name="video_link">
+                            <input type="text" class="form-control" name="video_link" value="{{ $service->video_link }}">
                             <div class="help-info">Youtube video Link</div>
 
                         </div>
@@ -178,7 +178,9 @@
                             <div style="display: inline-flex; flex-wrap: wrap">
                                 <div>
                                     <img src="{{ asset('uploads/services/'.$image->image_path) }}" alt="" style="display: block;width:100px;">
-                                    <a href="{{ route('service.image.delete', ['id' => $image->id]) }}" style="display:block">Delete</a>
+                                    @if ($service->images->count() != 1)
+                                        <a href="{{ route('service.image.delete', ['id' => $image->id, 'service_id' => $service->id]) }}" style="display:block">Delete</a>
+                                    @endif
                                 </div>
                             </div>
                         @empty
@@ -244,7 +246,7 @@
                             <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
                         </center>
                     @else
-                        <p style="font-size: 16px; text-align:center; margin: 20px 0"><a href="{{ route('seller.service.badges') }}" style="color: #cc8a19;" >Upgrade</a> your account with a badge to upload images</p>
+                        <p style="font-size: 16px; text-align:center; margin: 20px 0"><a href="{{ route('seller.service.badges') }}" style="color: #cc8a19;" >Upgrade</a> your account with a badge to upload more images.</p>
                     @endif
 
                 </div>
@@ -597,5 +599,38 @@
             });
         });
 
+
+        function limitText(limitField, limitCount, limitNum) {
+          if (limitField.value.length > limitNum) {
+            limitField.value = limitField.value.substring(0, limitNum);
+          } else {
+            limitCount.value = limitNum - limitField.value.length;
+
+            if (limitCount.value == 0) {
+                limitField.style.border = '1px solid red'
+                limitCount.style.color = 'red'
+            }else{
+                limitField.style.border = '1px solid #d2d6de'
+                limitCount.style.color = '#333333'
+            }
+          }
+        }
+
+    </script>
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script type="text/javascript">
+        $('.summernote').summernote({
+            height: 120,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ]
+        });
     </script>
 @endsection

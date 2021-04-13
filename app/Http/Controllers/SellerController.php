@@ -53,6 +53,7 @@ class SellerController extends Controller
             'city' => 'required',
             'name' => 'required',
             'state' => 'required',
+            'video_link' => 'nullable',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
         ]);
        $image = $request->file('image');
@@ -112,6 +113,7 @@ foreach($request->file('files') as $image)
         $service->city = $data['city'];
         $service->address = $data['address'];
         $service->max_price = $data['category_id'];
+        $service->video_link = $data['video_link'];
 
        if (isset($request->is_featured)) {
             $service->is_featured = $data['is_featured'];
@@ -217,67 +219,99 @@ public function saveReferLink($refererlink){
    public function storeServiceUpdate(Request $request, $id)
    {
 
-    $service = Service::findOrFail($id);
+        $service = Service::findOrFail($id);
 
-    $this->validate($request,[
-        'description' => 'required',
-        'address' => 'required',
-        'description' => 'required',
-        //'city' => 'required',
-        'name' => 'required',
-        'state' => 'required',
-        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
-           $image = $request->file('image');
-    $slug = Str::random(5);
+        $this->validate($request,[
+            'description' => 'nullable',
+            'address' => 'nullable',
+            'description' => 'nullable',
+            //'city' => 'required',
+            'name' => 'nullable',
+            'state' => 'nullable',
+            'min_price' => 'nullable|numeric',
+            'video_link' => 'nullable',
+            'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $image = $request->file('image');
+        $slug = Str::random(5);
+
                 // Image set up
-    if ( $request->hasFile('files') ) {
-        $names = array();
-        foreach($request->file('files') as $image)
-        {
-            $thumbnailImage = Image::make($image);
-            $thumbnailImage->resize(300,300);
-            $thumbnailImage_name = $slug.'.'.time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = 'images/';
-               /* $image_name = $image->getClientOriginalName();
-               $image->move(public_path('images'),$image_name);*/
-            //$thumbnailImage_name = $thumbnailImage->getClientOriginalName();
-               $thumbnailImage->save($destinationPath . $thumbnailImage_name);
-               array_push($names, $thumbnailImage_name);
-           }
-           $service->image = json_encode($names);
-       }
-     /*  $image = $request->file('image');
-    // Image set up
-       if ( $request->hasFile('file') ) {
-        $image_name = time().'.'.$request->file->extension();
-        $request->file->move(public_path('images'),$image_name);
-        $service->image = $image_name;
-    }*/
+            // if ( $request->hasFile('files') ) {
+            //     $names = array();
+            //     foreach($request->file('files') as $image)
+            //     {
+            //         $thumbnailImage = Image::make($image);
+            //         $thumbnailImage->resize(300,300);
+            //         $thumbnailImage_name = $slug.'.'.time().'.'.$image->getClientOriginalExtension();
+            //         $destinationPath = 'images/';
+            //            /* $image_name = $image->getClientOriginalName();
+            //            $image->move(public_path('images'),$image_name);*/
+            //         //$thumbnailImage_name = $thumbnailImage->getClientOriginalName();
+            //            $thumbnailImage->save($destinationPath . $thumbnailImage_name);
+            //            array_push($names, $thumbnailImage_name);
+            //        }
+            //        $service->image = json_encode($names);
+            //    }
+            /*  $image = $request->file('image');
+            // Image set up
+            if ( $request->hasFile('file') ) {
+                $image_name = time().'.'.$request->file->extension();
+                $request->file->move(public_path('images'),$image_name);
+                $service->image = $image_name;
+            }*/
 
-    $service->user_id = Auth::id();
-    $service->category_id = $request->category_id;
-    $service->name = $request->name;
-    $service->phone = $request->phone;
-    $service->city = $request->city;
-    $service->experience = $request->experience;
-    $service->address = $request->address;
-    $service->min_price = $request->min_price;
-    $service->max_price = $request->max_price;
-    $service->video_link = $request->video_link;
-    $service->description = $request->description;
-    $service->state = $request->state;
+            if ($service->save()) {
+                if ($request->hasFile('thumbnail')) {
+                    $image       = $request->file('thumbnail');
+                    $fileInfo = $image->getClientOriginalName();
+                    $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
+                    $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
+                    $file_name= $filename.'-'.time().'.'.$extension;
 
-    $service->save();
+                    //Fullsize
+                    $image->move(public_path('uploads/services/'),$file_name);
 
-    $success_notification = array(
-        'message' => 'Service created successfully!',
-        'alert-type' => 'success'
-    );
+                    $image_resize = Image::make(public_path('uploads/services/').$file_name);
+                    $image_resize->resize(null, 300, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+                    $image_resize->save(public_path('uploads/services/' .$file_name));
 
-    return $this->allService()->with($success_notification);
+                    $service->images()->create(['image_path' => $file_name]);
+                    $service->thumbnail = $service->images()->first()->image_path;
+                    $service->save();
+                }
+            }
 
-}
+        $service->user_id = Auth::id();
+        $service->category_id = $request->category_id;
+        $service->name = $request->name;
+        $service->phone = $request->phone;
+        $service->city = $request->city;
+        $service->experience = $request->experience;
+        $service->address = $request->address;
+        $service->min_price = $request->min_price;
+        $service->max_price = $request->max_price;
+        $service->video_link = $request->video_link;
+        $service->description = $request->description;
+        $service->state = $request->state;
+
+        if ($service->save()) {
+            return redirect()->back()->with([
+                'message' => 'Service Updated successfully!',
+                'alert-type' => 'success'
+            ]);
+        }
+        else {
+            return redirect()->back()->with([
+                'message' => 'Something went wrong. Try again!',
+                'alert-type' => 'error'
+            ]);
+        }
+
+
+
+    }
 
 
 public function unreadMessage()
@@ -346,7 +380,7 @@ public function pendingService()
 public function allService()
 {
 
-    $all_services = Service::where('user_id', Auth::id() )->get();
+    $all_services = Service::where('user_id', Auth::id() )->orderBy('created_at', 'desc')->get();
          return view ('seller.service.all_service', compact('all_services') );
 }
 
