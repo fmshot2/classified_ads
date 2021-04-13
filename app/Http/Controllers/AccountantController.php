@@ -8,6 +8,7 @@ use App\Payment;
 use App\Badge;
 use App\AdvertPayment;
 use App\PaymentRequest;
+use App\ProviderSubscription;
 use App\Agent;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -410,9 +411,24 @@ class AccountantController extends Controller
         ]); 
     }
 
-    public function printHistory()
+    public function subscriptions()
+    {
+        $subscriptions = ProviderSubscription::all();
+        return view('accountant.payments.subscriptions', [
+            'subscriptions' => $subscriptions
+        ]);
+    }
+
+    public function all()
     {
 
+        dd('here we go');
+    }
+
+    public function featured()
+    {
+        dd('here we go again');
     }
 }
+
 
