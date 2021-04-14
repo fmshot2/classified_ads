@@ -8,6 +8,8 @@ use App\Badge;
 use App\Advert;
 use App\Advertrequest;
 use App\User;
+use App\Payment;
+
 
 
 
@@ -485,6 +487,15 @@ class BadgeController extends Controller
         $service_check->is_featured = 1;
         $service_check->paid_featured = 1;
         $service_check->save();
+
+
+            $reg_payments = new Payment();
+            $reg_payments->user_id = Auth::id();
+            $reg_payments->payment_type = 'featured';
+            $reg_payments->amount = $data['amount'];
+            $reg_payments->tranx_ref =  $data['ref_no'];
+
+            $reg_payments->save();
 
         return response()->json(['success'=>'Your Service is now featured!'], 200);
       }

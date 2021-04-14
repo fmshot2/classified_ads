@@ -8,6 +8,7 @@ use App\Refererlink;
 use App\User;
 use App\Subscription;
 use App\ProviderSubscription;
+use App\Payment;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -111,7 +112,7 @@ class Register extends Component
         // $t = (int)($this->plan);
         // dd($status, $amount, $this->plan, $t);
         if ($status === 'success' && ($amount == (int)($this->plan * 100))) {
-            $this->save_user($amount);
+            $this->save_user($amount, $paystack_response['trxref']);
         } else {
             session()->flash('message', 'there was an error with your payment, please contact admin.');
         }
@@ -168,7 +169,7 @@ class Register extends Component
 
 
 
-    public function save_user($amount)
+    public function save_user($amount, $tranxRef)
     {
         // $request->session()->forget('url.intended');
         // dd((Session::get('url.intended')));
@@ -269,6 +270,14 @@ class Register extends Component
             $sub_check->subscription_end_date = Carbon::now()->addDays($added_days);
             $sub_check->last_subscription_starts = $current_date_time;
             $sub_check->save();
+
+
+            $reg_payments = new Payment();
+            $reg_payments->user_id = Auth::id();
+            $reg_payments->payment_type = 'registration';
+            $reg_payments->amount = $this->plan;
+            $reg_payments->tranx_ref = $tranxRef;
+            $reg_payments->save();
 
 
             //level 1 start

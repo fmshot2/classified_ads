@@ -64,7 +64,7 @@
 
         <section class="content">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="box box-primary">
                         <div class="box-header bg-warning text-center">
                            <!--  <i class="fa fa-star"></i>
@@ -88,12 +88,12 @@
 
                         <div class="box-footer box-profile text-center">
                             <!-- <a onclick="payWithPaystack1()" class="btn">Click here to apply</a> -->
-                            <a onclick="requestBadge(3)" class="btn">Click here to subscribe</a>
+                            <a onclick="requestBadge(4)" class="btn">Click here to subscribe</a>
 
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="box box-primary">
                         <div class="box-header bg-success text-center">
                             <!-- <i class="fa fa-star"></i>
@@ -109,13 +109,35 @@
                             </ol>
                         </div>
                         <div class="box-footer box-profile text-center">
+                            <a onclick="requestBadge(3)" class="btn">Click here to subscribe</a>
+                        </div>
+                    </div>
+                </div>
+
+                  <div class="col-md-3">
+                    <div class="box box-primary">
+                        <div class="box-header bg-primary text-center">
+                            <!-- <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i> -->
+                        </div>
+                        <div class="box-body box-profile text-center">
+                            <h4>Three Months</h4>
+                            <ol class="text-left">
+                                <li>Your service(s) will be available on efcontact for a period of 3 months.</li>
+                              <!--   <li>Upload as much as (6) images of your services.</li>
+                                <li>Appear after <b>Super</b> when inquirers search for services related to yours</li> -->
+                                <li>Cost: &#8358;600</li>
+                            </ol>
+                        </div>
+                        <div class="box-footer box-profile text-center">
                             <a onclick="requestBadge(2)" class="btn">Click here to subscribe</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+
+                <div class="col-md-3">
                     <div class="box box-primary">
-                        <div class="box-header bg-primary text-center">
+                        <div class="box-header bg-info text-center">
                             <!-- <i class="fa fa-star"></i> -->
                         </div>
                         <div class="box-body box-profile text-center">
@@ -223,8 +245,8 @@
                         success: function(data) {
                             $('#sub_type').text(data.sub_type)
                             $('#sub_type').val(id)
-                            $('#sub_cost').text(data.sub_cost)
-                            $('#sub_cost').val(data.sub_cost)
+                            $('#sub_cost').text(data.sub_cost/100)
+                            $('#sub_cost').val(data.sub_cost/100)
                             // Show modal
                             $('#badgeRequestModal').modal('show')
 
@@ -247,13 +269,17 @@
                 var sub_type = $("#sub_type").val();
 
                 function payWithPaystack1() {
+//                                                 var amount = $("#sub_cost").val();
+// console.log(amount);
+// alert(amount);
+// return
                     $('#badgeRequestModal').modal('hide');
                     console.log(base_Url);
 
                     var handler = PaystackPop.setup({
                         key: paystack_pk,
                         email: document.getElementById("email-address3").value,
-                        amount: $("#sub_cost").val(),
+                        amount: $("#sub_cost").val()*100,
                         ref: '' + Math.floor((Math.random() * 1000000000) + 1),
                         metadata: {
                             custom_fields: [{

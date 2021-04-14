@@ -209,6 +209,7 @@
                 base_Url = "{{ url('/') }}"
 
                 var _token = $("input[name='_token']").val();
+                var paystack_pk = "{{env('paystack_pk')}}";                
 
                 // var email1 = $("#email-address3").val();
                 var amount = $("#featured_amount").val();
@@ -219,7 +220,7 @@
                     // return;
 
                     var handler = PaystackPop.setup({
-                        key: 'pk_live_8921deda409e1196f265fd3a7dcc4eff81d52cdb',
+                        key: paystack_pk,
                         email: document.getElementById("user_email").value,
                         amount: 200000,
                         ref: '' + Math.floor((Math.random() * 1000000000) + 1),
