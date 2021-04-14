@@ -128,7 +128,7 @@ function showPosition(position) {
                         services = result.data;
                         services.forEach(service => {
                             badge = service.user.badgetype
-                            ellip = (service.name.length > 25) ? "...": ""
+                            ellip = (service.name.length > 30) ? "...": ""
 
                             if (badge == 1) {
                               badge = '<span class="featured bg-warning" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Super</span>';
@@ -159,7 +159,7 @@ function showPosition(position) {
                                         </div>
                                         <div class="detail">
                                             <div>
-                                                <a class="title title-dk" href="/serviceDetail/`+ service.slug + `">`+ service.name.substring(0, 25) + ellip +`</a>
+                                                <a class="title title-dk" href="/serviceDetail/`+ service.slug + `">`+ service.name.substring(0, 30) + ellip +`</a>
                                                 <a class="title title-mb" href="/serviceDetail/`+ service.slug + `">`+ service.name.substring(0, 13) + "..." + `</a>
                                             </div>
 

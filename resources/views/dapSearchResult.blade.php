@@ -52,6 +52,8 @@
         </div>
     </div>
 
+    @include('frontend_section/searchAjax')
+
     <!-- Properties section body start -->
     <div class="properties-section content-area searchResultPage">
         <div class="service-detail-container">
@@ -94,7 +96,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $service->slug)}}">{{ Str::limit($service->name, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $service->slug)}}">{{ Str::limit($service->name, 30) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $service->slug)}}">{{ Str::limit($service->name, 15) }}</a>
                                                     </div>
 
@@ -130,7 +132,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $service->slug)}}">{{ Str::limit($service->name, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $service->slug)}}">{{ Str::limit($service->name, 30) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $service->slug)}}">{{ Str::limit($service->name, 15) }}</a>
                                                     </div>
 
@@ -166,7 +168,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $service->slug)}}">{{ Str::limit($service->name, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $service->slug)}}">{{ Str::limit($service->name, 30) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $service->slug)}}">{{ Str::limit($service->name, 15) }}</a>
                                                     </div>
 
@@ -199,7 +201,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $service->slug)}}">{{ Str::limit($service->name, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $service->slug)}}">{{ Str::limit($service->name, 30) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $service->slug)}}">{{ Str::limit($service->name, 15) }}</a>
                                                     </div>
 
@@ -245,7 +247,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 30) }}</a>
                                                         <a class="title title-mb" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 15) }}</a>
                                                     </div>
 
@@ -281,7 +283,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 30) }}</a>
                                                         <a class="title title-mb" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 15) }}</a>
                                                     </div>
 
@@ -317,7 +319,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 30) }}</a>
                                                         <a class="title title-mb" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 15) }}</a>
                                                     </div>
 
@@ -350,7 +352,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 30) }}</a>
                                                         <a class="title title-mb" href="{{route('job.applicant.detail', $sw_work->slug)}}">{{ Str::limit($sw_work->job_title, 15) }}</a>
                                                     </div>
 
@@ -402,7 +404,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $related_service->slug)}}">{{ Str::limit($service->name, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $related_service->slug)}}">{{ Str::limit($service->name, 30) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $related_service->slug)}}">{{ Str::limit($service->name, 15) }}</a>
                                                     </div>
 
@@ -438,7 +440,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $related_service->slug)}}">{{ Str::limit($service->name, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $related_service->slug)}}">{{ Str::limit($service->name, 30) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $related_service->slug)}}">{{ Str::limit($service->name, 15) }}</a>
                                                     </div>
 
@@ -474,7 +476,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $related_service->slug)}}">{{ Str::limit($related_service->name, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $related_service->slug)}}">{{ Str::limit($related_service->name, 30) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $related_service->slug)}}">{{ Str::limit($related_service->name, 15) }}</a>
                                                     </div>
 
@@ -507,7 +509,7 @@
                                                 </div>
                                                 <div class="detail">
                                                     <div>
-                                                        <a class="title title-dk" href="{{route('serviceDetail', $related_service->slug)}}">{{ Str::limit($related_service->name, 22) }}</a>
+                                                        <a class="title title-dk" href="{{route('serviceDetail', $related_service->slug)}}">{{ Str::limit($related_service->name, 30) }}</a>
                                                         <a class="title title-mb" href="{{route('serviceDetail', $related_service->slug)}}">{{ Str::limit($related_service->name, 15) }}</a>
                                                     </div>
 
@@ -536,7 +538,7 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="sidebar-left">
                         <!-- Advanced search start -->
-                        <div class="sidebar widget advanced-search none-992">
+                        {{-- <div class="sidebar widget advanced-search none-992">
                             <h3 class="sidebar-title">Search For A Service</h3>
 
                             <form action="{{ route('dap.search') }}" method="GET" enctype="multipart/form-data">
@@ -567,7 +569,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Local Government</label>
                                             <select class="form-control" id="user_lga" name="city">
-                                                <option selected>👈 Select a State</option>
+                                                <option disabled selected>👈 Select a State</option>
                                             </select>
                                         </div>
                                     </div>
@@ -602,13 +604,14 @@
                                     </div>
                                 </div>
                             </form>
-                        </div>
+                        </div> --}}
 
                         <div class="footer-item clearfix container-fluid">
                             <br/>
                             <div class="s-border" style="margin-top: -20px;"></div>
                             <div class="m-border"></div>
                         </div>
+
                         <div class="popular-posts featured-ad-hm-list">
                             <div class="container">
                                 <div id="carouselExampleControls" class="carousel vert slide" data-ride="carousel" data-interval="4000">
@@ -652,7 +655,7 @@
                             <div class="m-border"></div>
                             @if(isset($featuredServices))
                                 @foreach($featuredServices as $featuredService)
-                                    <a href="{{ route('serviceDetail', $featuredService) }}">
+                                    <a href="{{ route('serviceDetail', $featuredService->slug) }}">
                                         <div class="media">
                                             <div class="media-left">
                                                 <img class="media-object" src="{{asset('uploads/services')}}/{{$featuredService->service_image}}" alt="{{ $featuredService->name }}">
@@ -738,8 +741,8 @@
                                 </li>
                                 <li>
                                     <i class="flaticon-envelope"></i>
-                                    <a href="mailto:{{ $check_general_info == 0 ? $general_info->header_email : '' }}">
-                                        {{ $check_general_info == 0 ? $general_info->header_email : '' }}
+                                    <a href="mailto:{{ $general_info->support_email ? $general_info->support_email : ''}}">
+                                        {{ $general_info->support_email ? $general_info->support_email : ''}}
                                     </a>
                                 </li>
                             </ul>
@@ -833,6 +836,23 @@
             });
         }else{
             $("#sub_categories").empty();
+        }
+    });
+</script>
+
+<script>
+    $(document).mouseup(function(e) {
+        var service_list_container = $("#service_list");
+        var mobile_service_list_container = $("#mobile_service_list");
+
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!service_list_container.is(e.target) && service_list_container.has(e.target).length === 0)
+        {
+            service_list_container.hide();
+        }
+        if (!mobile_service_list_container.is(e.target) && mobile_service_list_container.has(e.target).length === 0)
+        {
+            mobile_service_list_container.hide();
         }
     });
 </script>

@@ -1,7 +1,3 @@
-<head>
-
-    Copy the global site tag into the <head> section of your HTML.
-
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0N9KEJ9ZZ9"></script>
 <script>

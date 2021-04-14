@@ -29,7 +29,7 @@
 
         <li class="{{ url()->current() == route('agent.referal.all') ? 'active' : '' }}">
           <a href=" {{route ('agent.referal.all') }}">
-            <i class="fa fa-briefcase"></i> <span> All My Referrals </span>
+            <i class="fa fa-group"></i> <span> All My Referrals </span>
             <!-- <span class="pull-right-container">
               <small class="label pull-right bg-danger">   </small>
             </span> -->
