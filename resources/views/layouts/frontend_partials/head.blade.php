@@ -1,8 +1,3 @@
-
-<head>
-
-    Copy the global site tag into the <head> section of your HTML.
-
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0N9KEJ9ZZ9"></script>
 <script>
@@ -64,7 +59,7 @@
 <link href="{{ asset('css/bootstrap-dropdownhover.min.css') }}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
 
-{{-- 
+{{--
 <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
   type="text/javascript" charset="utf-8"></script>
   <script src="https://js.api.here.com/v3/3.1/mapsjs-core-legacy.js"

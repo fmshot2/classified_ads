@@ -30,7 +30,7 @@ Route::get('/tester', function ()
     return 'done';
 });
 Route::get('email', function () {
-    return new App\Mail\Newsletter();
+    return new App\Mail\CredentialsReset();
 });
 // Route::get('newsletter/', 'OperationalController@Newsletter');
 
@@ -67,8 +67,6 @@ Route::middleware(['auth:agent'])->group(function () {
     Route::get('/agent/referer/downline/{id}', 'AgentController@myDownlines')->name('agent.downline');
 
     Route::get('/agent/profile/', 'AgentController@viewProfile')->name('agent.profile');
-    Route::get('/agent/notification/all', 'AgentController@allNotifications')->name('agent.notification.all');
-    Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
     Route::get('/agent/make-request-for-payment', 'AgentController@viewBlade')->name('agent.view.request.blade');
     Route::post('/agent/submit-withdrawal-request', 'AgentController@agentRequest')->name('agent.make.request');
     Route::get('/agent/payment-history', 'AgentController@paymentHistory')->name('agent.payment.history');
@@ -77,7 +75,11 @@ Route::middleware(['auth:agent'])->group(function () {
     Route::post('/agent/update/{id}', 'AgentController@updatePassword')->name('agentprofile.update.password');
 
 
-
+    Route::get('/agent/notification/all', 'AgentController@allNotifications')->name('agent.notification.all');
+    Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
+    Route::get('/agent/notifications/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('agent.notification.markallasread');
+    Route::post('/agent/notification/markasread', 'NotificationController@notificationMarkAsRead')->name('agent.notification.markasread');
+    Route::post('/agent/notification/delete', 'NotificationController@notificationDelete')->name('agent.notification.delete');
 });
 //Agent Middleware ends here
 

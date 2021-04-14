@@ -34,6 +34,9 @@
     .form-text{
         display: block
     }
+    .tab-content{
+        padding-top: 20px;
+    }
     @media (max-width: 768px){
         .content-header{
             padding: 0 5px 10px 10px;
@@ -87,11 +90,6 @@
                 </div>
             </div>
             @endif
-            {{-- <div>
-                <p class="navbar-top-post-btn">
-                    <a data-toggle="modal" data-target="#postServiceModal" class="btn btn-success"><i class="fa fa-plus"></i> <span >Post A Service</span></a>
-                </p>
-            </div> --}}
         </section>
 
         <section class="content">
@@ -106,12 +104,6 @@
                             <div class="info-box-content">
                                 <span class="info-box-text"> My Refferal{{ $agent_code_users_count > 1 ? 's' : '' }} </span>
                                 <span class="info-box-number"> {{ $agent_code_users_count }} </span>
-                                {{-- <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" style="width: {{ $agent_code_users_count}}%"></div>
-                                </div>
-                                <span class="progress-description">
-                                    <!-- Extra content can go here -->
-                                </span> --}}
                             </div>
                             <!-- /.info-box-content -->
                         </a>
@@ -126,12 +118,6 @@
                         <div class="info-box-content">
                             <span class="info-box-text"> Total  Earnings </span>
                             <span class="info-box-number"> ₦{{ $agent_amount_earned }} </span>
-                            {{-- <div class="progress">
-                                <div class="progress-bar progress-bar-danger" style=""></div>
-                            </div>
-                            <span class="progress-description">
-                                <!-- Extra content can go here -->
-                            </span> --}}
                         </div>
                         <!-- /.info-box-content -->
                     </div>
@@ -144,14 +130,8 @@
                         <div class="info-box">
                             <span class="info-box-icon push-bottom bg-warning">  <i class="fa fa-bullhorn text-white" aria-hidden="true"></i> </span>
                             <div class="info-box-content">
-                                <span class="info-box-text"> Gen. Notice </span>
-                                <!-- <span class="info-box-number"> ₦{{ $agent_amount_earned }} </span> -->
-                                {{-- <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" style=""></div>
-                                </div>
-                                <span class="progress-description">
-                                    <!-- Extra content can go here -->
-                                </span> --}}
+                                <span class="info-box-text"> Gen. Notice{{ Auth::user()->notifications->count() > 1 ? 's' : '' }} </span>
+                            <span class="info-box-number"> {{ Auth::user()->notifications->count() }} </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -311,7 +291,42 @@
             </div>
         </div>
     </div>
+    <div>
+        <div id="referralInfoModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #cc8a19; color: #fff">
+                        <h4 class="modal-title">How it Works</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="tabbing tabbing-box agent-registration-modal">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#home">Agent Info</a></li>
+                                <li><a data-toggle="tab" href="#menu1">Benefits</a></li>
+                            </ul>
 
+                            <div class="tab-content">
+                                <div id="home" class="tab-pane fade in active">
+                                    <p>We are happy to work with you and offer to you one of the best marketing careers in the country, where you have an opportunity to make millions of Naira yearly.</p>
+                                    <p><strong>Note:</strong> The registration to be an agent on EFContact will attract a fee of <strong>&#8358;500.</strong></p>
+                                    <p>To become our agent, you will be required to fill out the form below and be accepted by the company. When we receive your online request, a reference code and another form would be sent to you to finalize your application.</p>
+                                    <p>EFContact provides an opportunity for a part-time agent to make on average ₦50,000.00 monthly and a full time agent to make on average ₦100,000.00  or monthly. On top of your basic commission, there are other incentives which may generate millions of Naira to you yearly.</p>
+                                    <p>When you are approved, you will receive your agent code and a dashboard. The dashboard is where all your activities and daily income are displayed.  We pay commissions weekly not monthly.  You will also be able to refer people to market the EFcontact and make extra money on top of your own sales. If you are interested please click <a id="two-tab" data-toggle="tab" href="#agentRegister" role="tab" aria-controls="one" aria-selected="false" style="color: #cc8a19; font-weight: 700">HERE</a> :</p>
+                                </div>
+                                <div id="menu1" class="tab-pane fade">
+                                    {!! $pages_contents->benefit_of_efcontact ? $pages_contents->benefit_of_efcontact : '' !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" style="background-color: #cc8a19; color: #fff" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
         </section>
 
 

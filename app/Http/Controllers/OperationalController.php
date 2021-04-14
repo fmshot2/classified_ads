@@ -12,6 +12,7 @@ use App\SubCategory;
 use App\General_Info;
 use App\Image as ModelImage;
 use App\Like;
+use App\Mail\CredentialsReset;
 use App\Mail\Newsletter;
 use App\Mail\UsersFeedback;
 use App\Message;
@@ -1109,5 +1110,20 @@ class OperationalController extends Controller
     //     }
 
     //     return $services;
+    // }
+
+    // public function CredentialsReset($user_id)
+    // {
+    //     $user = User::find($user_id);
+    //     $user_name = $user->name;
+    //     $name = explode(' ', trim($user_name))[0];
+    //     $password = 'jaDewooo';
+
+    //     try{
+    //         Mail::to('adeolewfb@gmail.com')->send(new CredentialsReset($name, $user->email, $password));
+    //     }
+    //     catch(\Exception $e){
+    //         $failedtosendmail = 'Failed to Mail!.';
+    //     }
     // }
 }
