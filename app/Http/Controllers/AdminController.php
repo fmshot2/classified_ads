@@ -26,6 +26,7 @@ use App\Mail\SendEmail;
 use App\SendMail;
 use Illuminate\Support\Facades\Mail;
 use App\Helpers\SmsHelper;
+use App\Mail\SeasonGreetings;
 use App\Mail\ServiceApproved;
 use App\SeekingWork;
 use Illuminate\Support\Str;
@@ -333,9 +334,10 @@ class AdminController extends Controller
     // $message->create($data);
     foreach($email_addresses as $name=>$email)
     {
-      // Mail::to($email)->send(new SendEmail($request->message, $request->subject));
+        // Mail::to($email)->send(new SendEmail($request->message, $request->subject));
+        //   Mail::to($email)->queue(new SendEmail($request->message, $request->subject, $name));
 
-      Mail::to($email)->queue(new SendEmail($request->message, $request->subject, $name));
+        Mail::to($email)->queue(new SeasonGreetings($request->message, $request->subject, $name));
     }
 
 

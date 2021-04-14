@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class CredentialsReset extends Mailable
+class CredentialsReset extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
     public $name, $email, $password;

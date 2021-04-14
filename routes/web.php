@@ -30,7 +30,7 @@ Route::get('/tester', function ()
     return 'done';
 });
 Route::get('email', function () {
-    return new App\Mail\CredentialsReset();
+    return new App\Mail\SeasonGreetings();
 });
 // Route::get('newsletter/', 'OperationalController@Newsletter');
 
