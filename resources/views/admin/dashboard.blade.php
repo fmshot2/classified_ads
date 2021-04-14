@@ -28,15 +28,8 @@
             <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-briefcase text-white" aria-hidden="true"></i>  </span>
 
             <div class="info-box-content">
-              <span class="info-box-text"> All Service </span>
+              <span class="info-box-text"> All Service{{ $all_service_count > 1 ? 's' : '' }} </span>
               <span class="info-box-number"> {{ $all_service_count }} </span>
-
-              <div class="progress">
-                <div class="progress-bar progress-bar-danger" style="width: {{ $all_service_count }} %"></div>
-              </div>
-              <span class="progress-description">
-                <!-- Extra content can go here -->
-              </span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -50,13 +43,6 @@
             <div class="info-box-content">
               <span class="info-box-text"> All Categories </span>
               <span class="info-box-number"> {{ $all_categories_count }} </span>
-
-              <div class="progress">
-                <div class="progress-bar progress-bar-danger" style="width: {{ $all_categories_count }}%"></div>
-              </div>
-              <span class="progress-description">
-                <!-- Extra content can go here -->
-              </span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -65,18 +51,11 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-sellsy text-white" aria-hidden="true"></i> </span>
+            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-group text-white" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
-              <span class="info-box-text"> All Sellers </span>
+              <span class="info-box-text"> All Provider{{ $all_sellers_count > 1 ? 's' : '' }} </span>
               <span class="info-box-number"> {{ $all_sellers_count }} </span>
-
-              <div class="progress">
-                <div class="progress-bar progress-bar-danger" style="width: {{ $all_sellers_count }}%"></div>
-              </div>
-              <span class="progress-description">
-               <!-- 85% Increase in 28 Days -->
-             </span>
            </div>
            <!-- /.info-box-content -->
          </div>
@@ -85,18 +64,11 @@
        <!-- /.col -->
        <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box">
-          <span class="info-box-icon push-bottom bg-warning">  <i class="fa fa-money text-white" aria-hidden="true"></i>  </span>
+          <span class="info-box-icon push-bottom bg-warning">  <i class="fa fa-eye text-white" aria-hidden="true"></i>  </span>
 
           <div class="info-box-content">
-            <span class="info-box-text"> All Buyer </span>
+            <span class="info-box-text"> All Seeker{{ $all_buyers_count > 1 ? 's' : '' }} </span>
             <span class="info-box-number"> {{ $all_buyers_count }} </span>
-
-            <div class="progress">
-              <div class="progress-bar progress-bar-danger" style="width: {{ $all_buyers_count }}%"></div>
-            </div>
-            <span class="progress-description">
-             <!-- 50% Increase in 28 Days -->
-           </span>
          </div>
          <!-- /.info-box-content -->
        </div>
@@ -109,15 +81,8 @@
         <span class="info-box-icon push-bottom bg-warning">  <i class="fa fa-check text-white" aria-hidden="true"></i>  </span>
 
         <div class="info-box-content">
-          <span class="info-box-text"> Active Service </span>
+          <span class="info-box-text"> Active Service{{ $active_service_count > 1 ? 's' : '' }} </span>
           <span class="info-box-number"> {{ $active_service_count }} </span>
-
-          <div class="progress">
-            <div class="progress-bar progress-bar-danger" style="width: {{ $active_service_count }}%"></div>
-          </div>
-          <span class="progress-description">
-            <!-- Extra content can go here -->
-          </span>
         </div>
         <!-- /.info-box-content -->
       </div>
@@ -130,15 +95,8 @@
         <span class="info-box-icon push-bottom bg-warning">  <i class="fa fa-ban text-white" aria-hidden="true"></i> </span>
 
         <div class="info-box-content">
-          <span class="info-box-text"> Pending Service </span>
+          <span class="info-box-text"> Pending Service{{ $pending_service_count > 1 ? 's' : '' }} </span>
           <span class="info-box-number"> {{ $pending_service_count }} </span>
-
-          <div class="progress">
-            <div class="progress-bar progress-bar-danger" style="width:  {{ $pending_service_count }}%"></div>
-          </div>
-          <span class="progress-description">
-            <!-- Extra content can go here -->
-          </span>
         </div>
         <!-- /.info-box-content -->
       </div>
@@ -151,15 +109,8 @@
         <span class="info-box-icon push-bottom bg-warning">  <i class="fa fa-comments-o text-white" aria-hidden="true"></i> </span>
 
         <div class="info-box-content">
-          <span class="info-box-text"> User Feedbacks </span>
+          <span class="info-box-text"> User Feedback{{ $feedbacks->count() > 1 ? 's' : '' }} </span>
           <span class="info-box-number"> {{ $feedbacks->count() }} </span>
-
-          <div class="progress">
-            <div class="progress-bar progress-bar-danger" style="width:  {{ $feedbacks->count() }}%"></div>
-          </div>
-          <span class="progress-description">
-            <!-- Extra content can go here -->
-          </span>
         </div>
         <!-- /.info-box-content -->
       </div>

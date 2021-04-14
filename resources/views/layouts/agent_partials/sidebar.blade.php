@@ -47,9 +47,9 @@
           </a>
         </li>
 
-        <li class="treeview {{ url()->current() == route('agent.view.request.blade') ? 'active' : '' }} {{ url()->current() == route('admin.service.pending') ? 'active' : '' }} {{ url()->current() == route('agent.payment.history') ? 'active' : '' }}">
+        <li class="treeview" style="{{ url()->current() == route('agent.view.request.blade') ? 'background-color: #cc8a19;' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #cc8a19;' : '' }} {{ url()->current() == route('agent.payment.history') ? 'background-color: #cc8a19;' : '' }}">
           <a href="#">
-            <i class="fa fa-briefcase"></i>
+            <i class="fa fa-money"></i>
             <span> Payments </span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>

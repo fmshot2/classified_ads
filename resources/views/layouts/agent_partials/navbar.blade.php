@@ -48,12 +48,12 @@
 
   <div class="navbar-custom-menu">
     <ul class="nav navbar-nav">
-        <li>
+        {{-- <li>
             <a id="showTour" data-toggle="modal" data-target="#tourGuideModal" href="#">
                 <i class="fa fa-camera"></i>
                 <span class="label label-danger tour-label">!</span>
             </a>
-        </li>
+        </li> --}}
       <!-- User Account -->
       <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
