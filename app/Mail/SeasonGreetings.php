@@ -11,14 +11,18 @@ class SeasonGreetings extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $message, $subject, $name;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($message, $subject, $name)
     {
-        //
+        $this->message = $message;
+        $this->subject = $subject;
+        $this->name = explode(' ', trim($name))[0];
     }
 
     /**
@@ -28,6 +32,6 @@ class SeasonGreetings extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.users.season-greetings');
+        return $this->markdown('emails.users.season-greetings')->subject($this->subject);
     }
 }
