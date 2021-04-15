@@ -41,8 +41,6 @@
                 </div> --}}
                 <div class="contact-info">
                         <div class="row">
-                            <div class="col-md-2 col-sm-6 mrg-btn-50"></div>
-
                         @if ($general_info->address)
                             <div class="col-md-4 col-sm-6 mrg-btn-50">
                                 <i class="flaticon-location"></i>
@@ -81,7 +79,6 @@
                             <p>Support</p>
                             <strong>info@maxwellochadefoundation.com</strong>
                         </div>--}}
-                            <div class="col-md-2 col-sm-6 mrg-btn-50"></div>
                     </div>
                 </div>
 

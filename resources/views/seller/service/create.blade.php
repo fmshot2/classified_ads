@@ -523,7 +523,7 @@
             $.ajax({
             type:"GET",
                 //url:"{{url('qqq')}}"+stateID,
-                url: '../../api/get-city-list/'+stateID,
+                url: '/api/get-city-list/'+stateID,
                 success:function(res){
                     if(res){
                     console.log(res);
@@ -551,7 +551,7 @@
             $.ajax({
             type:"GET",
                 //url:"{{url('qqq')}}"+stateID,
-                url: '../../api/get-city-list/'+stateID,
+                url: '/api/get-city-list/'+stateID,
                 success:function(res){
                     if(res){
                     console.log(res);
