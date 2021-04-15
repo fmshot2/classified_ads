@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="710" viewBox="0 0 800 710">
+  <g id="Group_16" data-name="Group 16" transform="translate(-3120 352)">
+    <g id="Ellipse_54" data-name="Ellipse 54" transform="translate(3120 -352)" fill="#fff" stroke="#707070" stroke-width="1">
+      <ellipse cx="400" cy="355" rx="400" ry="355" stroke="none"/>
+      <ellipse cx="400" cy="355" rx="399.5" ry="354.5" fill="none"/>
+    </g>
+    <path id="Path_258" data-name="Path 258" d="M175.211,404.514c0,.058,0,.116,0,.174a26.44,26.44,0,1,0,52.88,0c0-.058,0-.116,0-.174Z" transform="translate(3318.793 -481.13)" fill="#03a84e"/>
+    <path id="Path_259" data-name="Path 259" d="M222.41,163.334l-23.8-34.956V84.768a60.637,60.637,0,0,0-48.733-59.451V11.887a11.887,11.887,0,0,0-23.774,0v13.43A60.638,60.638,0,0,0,77.373,84.768v43.611l-23.8,34.956a12.02,12.02,0,0,0,9.937,18.785H212.472a12.021,12.021,0,0,0,9.937-18.785Z" transform="translate(3382.507 -273)" fill="#e91919"/>
+    <text id="Promo_Promo_Introductory_price_200_monthly_two_payment_plans_while_promo_lasts_promo_ends_in_30_days." data-name="Promo!! Promo!! 
+Introductory price ₦200 monthly 
+two payment plans while promo lasts 
+promo ends in 30 days." transform="translate(3520 55)" fill="#e91919" font-size="31" font-family="Poppins-Bold, Poppins" font-weight="700" letter-spacing="0.037em"><tspan x="-144.413" y="0">Promo!! Promo!! </tspan><tspan x="-280.02" y="42">Introductory price </tspan><tspan y="42" font-family="SegoeUI-Bold, Segoe UI">₦</tspan><tspan y="42">200 monthly </tspan><tspan x="-322.214" y="84">two payment plans while promo lasts </tspan><tspan x="-196.044" y="126">promo ends in 30 days.</tspan></text>
+    <g id="Ellipse_55" data-name="Ellipse 55" transform="translate(3120 -352)" fill="none" stroke="#e91919" stroke-width="19">
+      <ellipse cx="400" cy="355" rx="400" ry="355" stroke="none"/>
+      <ellipse cx="400" cy="355" rx="390.5" ry="345.5" fill="none"/>
+    </g>
+    <g id="Ellipse_56" data-name="Ellipse 56" transform="translate(3134 -339)" fill="none" stroke="#03a84e" stroke-width="19">
+      <ellipse cx="386" cy="342" rx="386" ry="342" stroke="none"/>
+      <ellipse cx="386" cy="342" rx="376.5" ry="332.5" fill="none"/>
+    </g>
+  </g>
+</svg>

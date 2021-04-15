@@ -9,6 +9,8 @@
 <body>
 
 	@include('layouts.frontend_partials.navbar')
+    <!-- @include('layouts.frontend_partials.status') -->
+
 
 		@yield('content')
 
@@ -21,6 +23,9 @@
     </a>
 
     <style>
+        h1, h2, h3, h5, h6{
+            font-family: Poppins-Regular !important;
+        }
         .float-feedback{
             position:fixed;
             width:120px;
@@ -47,25 +52,18 @@
             margin-top:22px;
         }
 
-        @media (max-width: 768px){
-            .float-feedback{
-                width:90px;
-                height:30px;
-                font-size: 11px;
-                padding: 7px 10px;
-                top:60px;
-            }
+        .tabbing-box .nav-item .nav-link{
+            border: 1px solid #CA8309;
+            margin-right: 3px;
         }
-    </style>
-
-    <style>
         .tabbing-box .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
             color: #fff !important;
             border-radius: 50px !important;
-            background: #FFC107 !important;
+            background: #CA8309  !important;
         }
         .tabbing-box .nav-tabs .nav-link:hover{
             border-radius: 50px !important;
+            background: #CA8309  !important;
         }
         .agent-registration-modal .form-group label, .checkbox label {
             font-size: 14px !important;
@@ -75,6 +73,32 @@
             border-radius: 0;
             font-size: 14px !important;
         }
+
+        ul li{
+            font-size: 14px !important;
+        }
+
+        thead tr th{
+            font-size: 14px !important;
+        }
+
+
+        tbody tr td{
+            font-size: 13px !important;
+        }
+
+        @media (max-width: 768px){
+            .float-feedback{
+                width:90px;
+                height:30px;
+                font-size: 11px;
+                padding: 7px 10px;
+                top:60px;
+            }
+            .tabbing-box .nav-item .nav-link{
+                font-size: 12px;
+            }
+        }
     </style>
 
     <!-- Modal -->
@@ -83,60 +107,50 @@
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" style="text-transform: uppercase">Become our Agent</h5>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="modal-header" style="background-color: #cc8a19; color: #fff">
+                        <h5 class="modal-title text-white" style="text-transform: uppercase">Agent Info</h5>
+                        <button type="button" class="close" data-dismiss="modal" style="color: #fff">&times;</button>
                     </div>
                         <div class="modal-body">
                             <div class="tabbing tabbing-box agent-registration-modal">
                                 <ul class="nav nav-tabs" id="carTab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active show" id="one-tab" data-toggle="tab" href="#aboutAgent" role="tab" aria-controls="two" aria-selected="false">Who is an Agent?</a>
+                                        <a class="nav-link active show" id="one-tab" data-toggle="tab" href="#aboutAgent" role="tab" aria-controls="two" aria-selected="false">Agent Info</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="two-tab" data-toggle="tab" href="#agentRegister" role="tab" aria-controls="one" aria-selected="false">Register Here</a>
+                                        <a class="nav-link" id="two-tab" data-toggle="tab" href="#agentRegister" role="tab" aria-controls="one" aria-selected="false" style="margin-left: 3px">Request Form</a>
+                                    </li>
+                                     <li class="nav-item">
+                                        <a class="nav-link" id="three-tab" data-toggle="tab" href="#agentBenefit" role="tab" aria-controls="three" aria-selected="false" style="margin-left: 3px">Agent Benefits</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="carTabContent">
                                     <div class="tab-pane fade active show" id="aboutAgent" role="tabpanel" aria-labelledby="one-tab">
                                         <div class="card">
                                             <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                        @if(isset($general_info->register_section_1_title))
-                                                            <h6 class="text-center"> Who is An EFContact Agent? </h6>
-                                                            <hr>
-                                                            <p>
-                                                                An Efcontact Agent is anyone who wishes to make extra cash via the EFContact Platform by becoming a promoter of the EFContact platform.
-                                                            </p>
-                                                        @endif
+                                                {{-- <p>An Efcontact Agent is anyone who wishes to make extra cash via the EFContact Platform by becoming a promoter of the EFContact platform.</p> --}}
 
-                                                        <hr>
-                                                        @if(isset($general_info->register_section_1_title))
-                                                            <h6 class="text-center"> Are EFContact Agents paid? </h6>
-                                                            <hr>
-                                                            <p>
-                                                                Yes. For each person that registers <span class="text-danger"> AND CREATES A SERVICE </span> using your agent code, you will recieve the sum of 100 NGN
-                                                            </p>
-                                                            <small class="text-danger">Note: The Person MUST create A Valid Service For You To Be Eligible For Payment</small>
-                                                        @endif
+                                                {{-- <h4>How it works</h4> --}}
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <ul>
+                                                            {{-- <li>1. After registering as an agent with the sum of &#8358;500 which is the agent fee</li>
+                                                            <li>2.	When You Are Approved, You Will Receive Your Agent Code Which You Will Use For All Your Transactions, Referrals And Commission Payments.</li>
+                                                            <li>2.	You Will Receive Your Commission Every Two Weeks.</li>
+                                                            <li>3.	You Have A Chance Of Making At Minimum Income Of Between &#8358;50,000 To &#8358;100,000 Monthly.</li>
+                                                            <li>4.	When You Are Approved, You Can Recruit People Under You (Sub-Agents) Or Refer Them
+                                                                To Us And When Anyone Subscribes You Get &#8358;100 Each.  We Will Issue To You A Daily Report On Your Sub-Agents And
+                                                                 Activities. See Chart Below For Commission Scales.</li> --}}
+
+                                                            <li>We are happy to work with you and offer to you one of the best marketing careers in the country, where you have an opportunity to make millions of Naira yearly.</li>
+                                                            <li><strong>Note:</strong> The registration to be an agent on EFContact will attract a fee of <strong>&#8358;500.</strong></li>
+                                                            <li>To become our agent, you will be required to fill out the form below and be accepted by the company. When we receive your online request, a reference code and another form would be sent to you to finalize your application.</li>
+                                                            <li>EFContact provides an opportunity for a part-time agent to make on average &#8358;50,000.00 monthly and a full time agent to make on average &#8358;100,000.00  or monthly. On top of your basic commission, there are other incentives which may generate millions of Naira to you yearly.</li>
+                                                            <li>When you are approved, you will receive your agent code and a dashboard. The dashboard is where all your activities and daily income are displayed.  We pay commissions weekly not monthly.  You will also be able to refer people to
+                                                                market the EFcontact and make extra money on top of your own sales. If you are interested please click <a  id="two-tab" data-toggle="tab" href="#agentRegister" role="tab" aria-controls="one" aria-selected="false" href="#" style="color: #cc8a19; font-weight: 700">HERE</a> :</li>
+                                                        </ul>
                                                     </div>
-                                                    <div class="col-md-6">
-                                                        @if(isset($general_info->register_section_2_title))
-                                                            <h6 class="text-center"> How Do I Get To Become An Agent? </h6>
-                                                            <hr>
-                                                            <p>
-                                                                To become an agent, visit <a class="text-warning" id="two-tab" data-toggle="tab" href="#agentRegister">EFContact Registration Page</a> and click on <a class="text-warning" href="#agentRegister" id="two-tab" data-toggle="tab">"Be Our Agent"</a>
-                                                            </p>
-                                                        @endif
-                                                        @if(isset($general_info->register_section_2_title))
-                                                            <h6 class="text-center"> How Can I learn More About This? </h6>
-                                                            <hr>
-                                                            <p>
-                                                                To learn more about an agents and payments, please visit <a class="text-warning" href="www.efcontact.com/faq">EFContact FAQ Page</a> or call <a href="tel:123-456-7890">090- 123-456-7890</a>
-                                                            </p>
-                                                        @endif
-                                                </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -148,7 +162,7 @@
                                                 <form method="POST" action="{{ route('agent.register') }}">
                                                     @csrf
                                                     <div class="row">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label class="form-label">Your Full Name</label><small class="text-danger">*</small>
                                                                 <input type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus placeholder="Full Name" required>
@@ -159,98 +173,67 @@
                                                                 @endif
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="form-label">Phone Number</label><small class="text-danger">*</small>
-                                                                <input type="phone" placeholder="Phone Number" class="form-control" name="phone" value="{{ old('phone') }}" required>
-                                                                @if ($errors->has('phone'))
-                                                                    <span class="helper-text" data-error="wrong" data-success="right">
-                                                                        <strong class="text-danger">{{ $errors->first('phone') }}</strong>
-                                                                    </span>
-                                                                @endif
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="email">Email Address</label><small class="text-danger">*</small>
-                                                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Your email address" required>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <label class="form-label">Select your State</label><small class="text-danger">*</small>
-                                                                <select class="form-control" required id="state" name="state" required>
-                                                                    <option value="">-- Select State --</option>
-                                                                    @if(isset($states))
-                                                                        @foreach($states as $state)
-                                                                            <option value="{{$state->name}}"> {{ $state->name }}  </option>
-                                                                        @endforeach
-                                                                    @endif
-                                                                </select>
-                                                            </div>
-
-                                                            {{-- <div class="form-group">
-                                                                <label class="form-label">Mode of Identification</label><small class="text-danger">*</small>
-                                                                <small class="form-text text-muted" style="margin-top: -10px">Upload Driver's Licence, National ID or Voter's Card</small>
-                                                                <input id="add" type="file"  class="form-control" name="file" required>
-                                                                @if ($errors->has('file'))
-                                                                <span class="helper-text" data-error="wrong" data-success="right">
-                                                                    <strong class="text-danger">{{ $errors->first('file') }}</strong>
+                                                                <label for="email">Email Address</label><small class="text-danger">*</small> <small class="text-success">(A Link Will Be Sent To Your Email Address To Complete Your Registration)</small>
+                                                                <input type="email" class="form-control" name="email" value="{{ old('email') }}"
+                                                                placeholder="Enter A Valid Email Address" required>
+                                                                @if ($errors->has('email'))
+                                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                                    <strong class="text-danger">{{ $errors->first('email') }}</strong>
                                                                 </span>
-                                                                @endif
-                                                            </div> --}}
-                                                        </div>
-                                                        <div class="col-md-6">
+                                                            @endif
+                                                            </div>
                                                             <div class="form-group">
-                                                                <label class="form-label">LGA</label><small class="text-danger">*</small>
-                                                                <select class="form-control" id="lgas" name="lga" required>
-                                                                    <option disabled selected>- Select Local Government -</option>
-                                                                </select>
+                                                                <label for="phone">Phone Number</label>
+                                                                <input type="number" class="form-control" name="phone" value="{{ old('phone') }}"
+                                                                placeholder="Enter Your Phone Number" required>
+                                                                @if ($errors->has('phone'))
+                                                                <span class="helper-text text-danger" data-error="wrong" data-success="right">
+                                                                    <strong class="text-danger">{{ $errors->first('phone') }}</strong>
+                                                                </span>
+                                                            @endif
                                                             </div>
                                                             <div class="row">
-                                                                <div class="col-md-7">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label" for="identification_type">Identification Type</label><small class="text-danger">*</small>
-                                                                        <select class="form-control" name="identification_type" required>
-                                                                            <option selected disabled>- Select an option -</option>
-                                                                            <option value="national_id">National ID</option>
-                                                                            <option value="driver_license">Driver License</option>
-                                                                            <option value="voter_id">Voter's Card</option>
-                                                                            <option value="international_passport">International Passport</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-5">
-                                                                    <div class="form-group">
-                                                                        <label class="form-label">ID Number</label><small class="text-danger">*</small>
-                                                                        <input type="text" class="form-control" name="identification_id" value="{{ old('identification_id') }}" placeholder="ID Number" required>
-                                                                    </div>
+                                                                <div class="col-md-12">
+                                                                    <button type="submit" class="btn btn-lg btn-warning text-white">Submit</button>
+                                                                    <!-- <small class="">Or,
+                                                                        <a type="submit" class="text-success">CLICK HERE</a> To Resend Link</small> -->
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label class="form-label">Choose Password</label><small class="text-danger">*</small>
-                                                                <input type="password" class="form-control" name="password" placeholder="Password (min: 6 characters)" required>
-                                                                @if ($errors->has('password'))
-                                                                <span class="helper-text" data-error="wrong" data-success="right">
-                                                                    <strong class="text-danger">{{ $errors->first('password') }}</strong>
-                                                                </span>
-                                                                @endif
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="form-label">Confirm Password</label><small class="text-danger">*</small>
-                                                                <input class="form-control" placeholder="Confirm Password" type="password" name="password_confirmation" required>
-                                                            </div>
-                                                        </div>
+                                                            <div style="margin-top: 20px;">
+                                                                <div class="col-md-12">
+                                                                    <small class="text-danger">Please, If You Are Not Contacted In Ten Days after Your Request
+                                                                        , Kindly Contact Us Again At, <a href="mailto:agent@efcontact.com">agent@efcontact.com</a>
+                                                                        or call <a href="tel:08091114444">08091114444</a>
+                                                                        When you send this contact, kindly indicate the day of your first request or the reference code sent to you
+                                                                        . Be aware that the position
+                                                                        is limited per state so rush your application
+                                                                         soonest before the positions are filled.
+                                                                        </small>
+                                                                    {{-- <small class="text-danger">Did Not Recieve Link,
+                                                                        <a href="">CLICK HERE</a> To Resend</small> --}}
+                                                                </div>
+                                                                <div style="margin-top: 20px;">
+                                                                    <ul style="list-style: none">
 
-                                                        <div class="col-md-12">
-                                                            <label>
-                                                                <input type="checkbox" name="terms" class="filled-in" required/>
-                                                                <span>By registering you accept our <a href="{{route('terms')}}" target="_blank" style="color: blue">Terms of Use</a> and <a href="{{route('privacy')}}" target="_blank" style="color: blue"> Privacy</a> and agree that we and our selected partners may contact you with relevant offers and services.</span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
 
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <button type="submit" class="btn btn-lg btn-warning pull-right text-white">Register</button>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="agentBenefit" role="tabpanel" aria-labelledby="three-tab">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                            {!! $pages_contents->benefit_of_efcontact ? $pages_contents->benefit_of_efcontact : '' !!}
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -259,7 +242,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-md btn-default text-dark" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-md" data-dismiss="modal" style="background-color: #cc8a19; color: #fff">Close</button>
                         </div>
                 </div>
 
@@ -280,7 +263,7 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <textarea name="userfeedback" id="userfeedback" class="form-control" cols="30" rows="5" placeholder="Tell us your experience on this site..." style="border-radius: 0"></textarea>
+                            <textarea name="userfeedback" id="userfeedback" class="form-control" cols="30" rows="5" placeholder="Tell us your experience on this website..." style="border-radius: 0"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -337,7 +320,7 @@
     @endif
 
 
-	<a id="page_scroller" href="#scroll-top" style="position: fixed; z-index: 2147483647;"><i class="fa fa-chevron-up"></i></a>
+	<a class="scrollToTopBtn" id="page_scroller" style="position: fixed; z-index: 2147483647;"><i class="fa fa-chevron-up"></i></a>
 
 
     <script>
@@ -363,7 +346,47 @@
                 $("#lgas").empty();
             }
         });
+
+
+        $(function() {
+            document.addEventListener("scroll", handleScroll);
+            // get a reference to our predefined button
+            var scrollToTopBtn = document.querySelector(".scrollToTopBtn");
+
+            function handleScroll() {
+                var scrollableHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                var GOLDEN_RATIO = 0.5;
+
+                if ((document.documentElement.scrollTop / scrollableHeight ) > GOLDEN_RATIO) {
+                    //show button
+                    scrollToTopBtn.style.display = "block";
+                } else {
+                    //hide button
+                    scrollToTopBtn.style.display = "none";
+                }
+            }
+
+            scrollToTopBtn.addEventListener("click", scrollToTop);
+
+            function scrollToTop() {
+                // window.scrollTo({
+                //     top: 0,
+                //     behavior: "smooth"
+                // });
+
+                $('body').animate({ scrollTop: top }, {duration: 2000});
+            }
+        });
     </script>
+
+
+    @yield('script')
+
+
+    {{-- livewirescript --}}
+    @livewireScripts
+
+
 
 </body>
 

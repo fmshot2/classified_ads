@@ -57,63 +57,120 @@ class DashboardController extends Controller
     $count_badge =  $all_service2->Where('badge_type', null)->count();
     //$active_service_count = $active_service->count();
 
+    $servicesLikeCounter = 0;
+    foreach ($all_service2 as $key => $all_service) {
+        $servicesLikeCounter += $all_service->likes->count();
+    }
+
 
     $categories = Category::orderBy('name', 'asc')->get();
     $subcategories = SubCategory::orderBy('name', 'asc')->get();
     $states = State::all();
 
     $slug3 = Str::random(8);
-    // $user->randomLink = $slug3;
-    // $referLink = new Refererlink;
-    // $referLink->refererlink = $slug3;
-    // //$new_user = User::where('id', $serviceDetail_id)->count();
-    // $referlink->user_id = Auth::id();
-    // $referLink_>save();
+
     $status = "hghgcc";
 
-$accruedAmount = Auth::user()->refererAmount;
+    $accruedAmount = Auth::user()->refererAmount;
 
-    $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
-    if ($linkcheck) {
+    $linkcheck2 = Refererlink::where(['user_id'=>Auth::id()])->first();
+    if ($linkcheck2) {
+    $linkcheck = $linkcheck2;
 
         return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count',
          'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service',
-          'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service', 'categories', 'subcategories', 'states'));
+          'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service', 'categories', 'subcategories', 'states', 'servicesLikeCounter'));
 
     }else{
-     $link = new Refererlink();
-     $link->user_id = Auth::id();
-     $link->refererlink = $slug3;
-     $link->save();
-     $user = Auth::user();
-     $user->refererLink = $slug3;
-     $user->save();
-     $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
+
+        $linkcheck = null;
 
 
-// $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->first();
-//     if ($likecheck) {
-//      Like::where(['user_id'=>Auth::id(), 'service_id'=>$id])->delete();
-//      $likecount = Like::where(['service_id'=>$id])->count();
-//      return redirect()->to('serviceDetail/'.$service_slug);
-//         //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
-//         //return redirect('/home');
-//    }else{
-//      $like = new Like();
-//      $like->user_id = Auth::id();
-//      $like->service_id = $id;
-//      $like->save();
-//      $likecount = Like::where(['service_id'=>$id])->count();
-//      return redirect()->to('serviceDetail/'.$service_slug);
-//         //return 'Heyyyyy22222'. $likecount;
-//    }
+     return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count',
+        'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification',
+        'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount',
+        'pending_service', 'categories', 'subcategories', 'states', 'servicesLikeCounter'));
+    }
 
-     return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service', 'categories', 'subcategories', 'states'));
-           //dd($linkcount);
- }
-
- // return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge') );
 }
+
+
+public function sellerCopy()
+{
+  $service_count = Service::where('user_id', Auth::id() )->count();
+  $message_count = Message::where('service_user_id', Auth::id())->count();
+  $all_service = Service::where('user_id', Auth::id() )->take(5)->get();
+  $unread_notification = Notification::where('status', 0)->orderBy('id', 'desc')->take(5)->get();
+  $all_notification_count = Notification::count();
+
+  $all_service_active = Service::where('user_id', Auth::id() );
+  $active_service =  $all_service_active->Where('status', 1);
+  $check_active_service_table = collect($active_service)->isEmpty();
+  $active_service_count = $check_active_service_table == true ? 0 : $active_service->count();
+  $active_service = $check_active_service_table == true ? 0 : $active_service->take(5)->get();
+
+  $service = Service::where('user_id', Auth::id() );
+  $pending_service =  $service->Where('status', 0);
+  $check_pending_service_table = collect($pending_service)->isEmpty();
+  $pending_service_count = $check_pending_service_table == true ? 0 : $pending_service->count();
+  $pending_service = $check_pending_service_table == true ? 0 : $pending_service->take(5)->get();
+
+  $all_message = Message::where('service_user_id', Auth::id() );
+  $unread_message =  $all_message->Where('status', 0);
+  $check_unread_message_table = collect($unread_message)->isEmpty();
+  $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
+  $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
+
+  $message = Message::where('service_user_id', Auth::id() );
+  $read_message =  $message->Where('status', 1);
+  $check_read_message_table = collect($read_message)->isEmpty();
+  $read_message_count = $check_read_message_table == true ? 0 : $read_message->count();
+  $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();
+
+
+  $all_service2 = Service::where('user_id', Auth::id())->get();
+  $count_badge =  $all_service2->Where('badge_type', null)->count();
+  //$active_service_count = $active_service->count();
+
+
+  $categories = Category::orderBy('name', 'asc')->get();
+  $subcategories = SubCategory::orderBy('name', 'asc')->get();
+  $states = State::all();
+
+  $slug3 = Str::random(8);
+
+  $status = "hghgcc";
+
+$accruedAmount = Auth::user()->refererAmount;
+
+  $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
+  if ($linkcheck) {
+
+      return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count',
+       'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service',
+        'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service', 'categories', 'subcategories', 'states'));
+
+  }else{
+   $link = new Refererlink();
+   $link->user_id = Auth::id();
+   $link->refererlink = $slug3;
+   $link->save();
+   $user = Auth::user();
+   $user->refererLink = $slug3;
+   $user->save();
+   $linkcheck = Refererlink::where(['user_id'=>Auth::id()])->first();
+
+
+   return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count',
+   'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification',
+    'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount',
+    'pending_service', 'categories', 'subcategories', 'states'));
+         //dd($linkcount);
+}
+
+// return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge') );
+}
+
 
 public function buyer()
 {
@@ -125,7 +182,7 @@ public function buyer()
     $unread_message =   $reply_message_unread->Where('status', 0);
     $check_unread_message_table = collect($unread_message)->isEmpty();
     $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
-    $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
+    $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(10)->get();
 
     $reply_message_read = Message::where('reply', 'yes' );
     $read_message =  $reply_message_read->Where('status', 1);
@@ -133,7 +190,7 @@ public function buyer()
     $read_message_count = $check_read_message_table == true ? 0 : $read_message->count();
     $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();
 
-    $unread_notification = Notification::where('status', 0)->orderBy('id', 'desc')->take(5)->get();
+    $unread_notification = Notification::where('status', 0)->orderBy('id', 'desc')->take(10)->get();
     $all_notification_count = Notification::count();
 
     $all_service = Service::take(6)->get();

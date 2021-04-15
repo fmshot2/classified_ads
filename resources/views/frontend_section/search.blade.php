@@ -88,7 +88,7 @@
 
                     <div class="col-lg-2 col-md-4 col-sm-6 text-center">
                         <div class="form-group">
-                            <button class="btn btn-block bg-warning font-weight-bold text-white btn-warning" style="margin-top: 25px">Search
+                            <button class="btn btn-block bg-warning font-weight-bold text-white btn-warning" style="margin-top: 25px; background-color: #CA8309">Search
                                 <i class="fa fa-search ml-2" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -123,8 +123,31 @@
 
                     <div class="col-lg-6 col-md-4 col-sm-6">
                         <div class="form-group">
+                            <p style="margin-bottom: 0; font-weight: 600;">Choose Category</p>
+                            <select class="form-control" id="mobilecategories" name="category">
+                                <option value="">- Select an Option -</option>
+                                @if(isset($search_form_categories))
+                                    @foreach($search_form_categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <p style="margin-bottom: 0; font-weight: 600;">Sub Category</p>
+                            <select class="form-control" id="mobilesub_category" name="sub_categories">
+                                <option value="">- Select an Option -</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-4 col-sm-6">
+                        <div class="form-group">
                           <p style="margin-bottom: 0; font-weight: 600;">Choose Location</p>
-                          <select class="form-control" id="state" name="state">
+                          <select class="form-control" id="mobilestate" name="state">
                             <option value="">- Select an Option -</option>
                             @if(isset($states))
                                 @foreach($states as $state)
@@ -134,6 +157,24 @@
                           </select>
                         </div>
                     </div>
+
+                    <div class="col-lg-6 col-md-4 col-sm-6">
+                        <div class="form-group">
+                          <p style="margin-bottom: 0; font-weight: 600;">Choose City</p>
+                          <select class="form-control" id="mobilecity" name="city">
+                            <option value="">- Select a Category -</option>
+
+                          </select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-4 col-sm-6 text-center">
+                        <p style="font-weight: 600; margin-bottom: 0;">Choose Distance(in km): <span id="mobiledemo"></span></p>
+                        <div class="slidecontainer" style="margin-bottom: 15px;">
+                            {{-- <input type="range" min="1" max="100" value="50" class="slider form-control" id="myRange2"> --}}
+                            <input type="range" min="1" max="1000" name="ranges"  value="250" class="slider" id="mbilemyRange">
+                        </div>
+                     </div>
                 </div>
                 <div class="row" style="margin-top: -20px">
                     <div class="col-md-6 text-center">
@@ -151,17 +192,30 @@
     </div>
 </div>
 
+
 <header class="top-header top-header-ads-mobile" style="display: flex; justify-content: center; background: linear-gradient(90deg, rgba(251,219,35,1) 52%, rgba(243,163,27,1) 66%); width: 100%; margin: 20px 0 0 0">
-    <a href="https://efskyview.com/">
-      <img src="{{ asset('images/skyviewstickyads.gif') }}" alt="" style="width: 100%; height: 35px">
-    </a>
+    @if ($advertisements)
+        <div class="animate__animated animate__fadeInLeft">
+            @foreach ($advertisements as $advertisement)
+                @if ($advertisement->advert_location == 1)
+                    <a class="topnav-advert-slides topnav-advert-slides-hidden animate__animated animate__fadeInLeft" href="{{ $advertisement->website_link ? $advertisement->website_link : '#' }}">
+                        <img src="{{ asset('uploads/sponsored/'.$advertisement->banner_img) }}" alt="" style="margin: 0 auto; width: 100%; height: 30px">
+                    </a>
+                @endif
+            @endforeach
+        </div>
+    @else
+        <p>No Advert here</p>
+    @endif
 </header>
 
 
 
 <script type="text/javascript">
     var slider = document.getElementById("myRange");
+    var mobileslider = document.getElementById("mbilemyRange");
     var output = document.getElementById("demo");
+    var mobileoutput = document.getElementById("mobiledemo");
     var theCategoryInput = document.getElementById("theCategory");
     var theSubCategoryInput = document.getElementById("theSubCategory");
     var dropDownLabel = document.getElementById("dLabel");
@@ -172,9 +226,16 @@
     }
 
     output.innerHTML = slider.value;
+    mobileoutput.innerHTML = slider.value;
 
     slider.oninput = function() {
       output.innerHTML = this.value;
+      mobileoutput.innerHTML = this.value;
+    }
+
+    mobileslider.oninput = function() {
+      output.innerHTML = this.value;
+      mobileoutput.innerHTML = this.value;
     }
 
     function theCatId(catId, catName) {
@@ -215,6 +276,36 @@
     });
 
 
+    $('#mobilecategories').on('change',function(){
+        var categoryID = $(this).val();
+        if(categoryID){
+            $.ajax({
+                type:"GET",
+                url: 'api/get-category-list/'+categoryID,
+                success:function(res){
+                    if(res){
+                      var res = JSON.parse(res);
+                        $("#mobilesub_category ").empty();
+                        $.each(res,function(key,value){
+                        var chosen_value = value;
+                            $("#mobilesub_category").append(
+                                '<option value="'+key+'">'+chosen_value.name+'</option>'
+                            );
+                        });
+                    }else{
+                        $("#mobilesub_category").empty();
+                        $("#mobilesub_category").append(
+                            '<option>No Sub Category</option>'
+                        );
+                    }
+                }
+            });
+        }else{
+            $("#sub_category").empty();
+        }
+    });
+
+
     $('#state').on('change',function(){
         var state_name = $(this).val();
         if(state_name){
@@ -232,6 +323,33 @@
 
                     }else{
                         $("#city").empty();
+                    }
+                }
+            });
+        }else{
+            $("#city").empty();
+        }
+
+    });
+
+
+    $('#mobilestate').on('change',function(){
+        var state_name = $(this).val();
+        if(state_name){
+            $.ajax({
+                type:"GET",
+                url: 'api/get-city-list/'+state_name,
+                success:function(res){
+                    if(res){
+                        console.log(res);
+                        console.log(state_name);
+                        $("#mobilecity").empty();
+                        $.each(res,function(key,value){
+                            $("#mobilecity").append('<option value="'+key+'">'+value+'</option>');
+                        });
+
+                    }else{
+                        $("#mobilecity").empty();
                     }
                 }
             });

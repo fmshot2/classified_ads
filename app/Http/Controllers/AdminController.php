@@ -17,15 +17,24 @@ use App\Privacypolicy;
 use App\Faq;
 use App\Slider;
 use App\Advertrequest;
+use App\Agent;
 use App\Event;
 use App\Subscription;
 use App\UserFeedback;
+use App\ProviderSubscription;
+use App\Mail\SendEmail;
+use App\SendMail;
+use Illuminate\Support\Facades\Mail;
+use App\Helpers\SmsHelper;
+use App\Mail\SeasonGreetings;
+use App\Mail\ServiceApproved;
+use App\SeekingWork;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Carbon;
 use Geocoder;
-
-
-
-
 
 class AdminController extends Controller
 {
@@ -66,8 +75,280 @@ class AdminController extends Controller
 
   }
 
+  public function allAdmins()
+  {
+    $admins = User::where('role', '=', 'admin')->get();
+
+    return view('admin.user.admins', [
+      'admins' => $admins
+    ]);
+  }
+
+  public function allCmos()
+  {
+    $cmos = User::where('role', '=', 'cmo')->get();
+
+    return view('admin.user.cmos', [
+      'cmos' => $cmos
+    ]);
+  }
+
+  public function add_admin()
+  {
+    return view('admin.user.add_admin');
+  }
+
+  public function add_cmo()
+  {
+    return view('admin.user.add_cmo');
+  }
+
+  public function submit_cmo(Request $request)
+  {
+    $data = array(
+            'name'   => $request->name,
+            'email'   => $request->email,
+            'password' => $request->password,
+        );
+
+      $validator = \Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users|max:255',
+            'password' => 'required|string|min:6',
+        ]);
+
+        if($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        }
+
+        $user = new User;
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($data['password']);
+        $user->role = 'cmo';
+        $user->status = 1;
+
+        $user->save();
+
+        if($user->save())
+        {
+          $success_notification = array(
+                'message' => 'CMO successfully added!',
+                'alert-type' => 'success'
+            );
+        }
+
+        return redirect()->back()->with($success_notification);
+  }
+
+  public function allData()
+  {
+    $admins = User::where('role', '=', 'data')->get();
+
+    return view('admin.user.data', [
+      'admins' => $admins
+    ]);
+  }
+
+  public function add_data()
+  {
+    return view('admin.user.add_data_officer');
+  }
+
+  public function submit_data(Request $request)
+  {
+    $data = array(
+            'name'   => $request->name,
+            'email'   => $request->email,
+            'password' => $request->password,
+        );
+
+      $validator = \Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users|max:255',
+            'password' => 'required|string|min:6',
+        ]);
+
+        if($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        }
+
+        $user = new User;
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($data['password']);
+        $user->role = 'data';
+        $user->status = 1;
+
+        $user->save();
+
+        if($user->save())
+        {
+          $success_notification = array(
+                'message' => 'Data Entry Officer successfully added!',
+                'alert-type' => 'success'
+            );
+        }
+
+        return redirect()->back()->with($success_notification);
+  }
+
+  public function submit_admin(Request $request)
+  {
+    $data = array(
+            'name'   => $request->name,
+            'email'   => $request->email,
+            'password' => $request->password,
+        );
+
+      $validator = \Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users|max:255',
+            'password' => 'required|string|min:6',
+        ]);
+
+        if($validator->fails())
+        {
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        }
+
+        $user = new User;
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($data['password']);
+        $user->role = 'admin';
+        $user->status = 1;
+
+        $user->save();
+
+        if($user->save())
+        {
+          $success_notification = array(
+                'message' => 'Admin successfully added!',
+                'alert-type' => 'success'
+            );
+        }
+
+        return redirect()->back()->with($success_notification);
+  }
+
+  public function send_email()
+  {
+    $agents_phone = Agent::all();
+    $plucked = $agents_phone->pluck('email')->toArray();
+
+    $sellers = DB::table('users')->where('role', '=', 'seller')->get();
+    $plucked_email = $sellers->pluck('email')->toArray();
+
+    $buyers = DB::table('users')->where('role', '=', 'buyer')->get();
+    $plucked_emailplucked_email = $sellers->pluck('email')->toArray();
+
+    $email_addresses = implode(',', array_merge($plucked, $plucked_email, $plucked_email));
+
+    return view('admin.data_entry.send_email', [
+      'email_addresses' => $email_addresses
+    ]);
+  }
+
+  public function sendSms()
+  {
+    $agents_phone = Agent::all();
+    $plucked = $agents_phone->pluck('phone')->toArray();
+
+    $sellers = DB::table('users')->where('role', '=', 'seller')->get();
+    $plucked_phone = $sellers->pluck('phone')->toArray();
+
+    $buyers = DB::table('users')->where('role', '=', 'buyer')->get();
+    $plucked_buyer_phone = $sellers->pluck('phone')->toArray();
+
+    $phone_numbers = implode(',', array_merge($plucked, $plucked_phone, $plucked_buyer_phone));
+
+    return view('admin.data_entry.send_sms', [
+      'phone_numbers' => $phone_numbers,
+    ]);
+  }
+
+  public function submit_sms(Request $request)
+  {
+
+    $this->validate($request, [
+      'phone' => 'required',
+      'subject' => 'nullable',
+      'message' => 'required'
+    ]);
+
+    // dd($request->all());
+    $phone = $request->phone;
+    // dd($phone);
+    $message = $request->message;
+    $sender = 'EFContact';
+
+    try {
+      SmsHelper::send_sms($message, $phone, $sender);
+
+        $sent_notification = array(
+          'message' => 'SMS sent successfully!',
+          'alert-type' => 'success'
+      );
+    }
+    catch(\Exception $e){
+
+    }
+
+    return redirect()->back()->with($sent_notification);
+
+  }
+
+  public function submitEmail(Request $request)
+  {
+
+    $agents_phone = Agent::all();
+    $plucked = $agents_phone->pluck('email', 'name')->toArray();
+
+    $sellers = DB::table('users')->where('role', '=', 'seller')->get();
+    $plucked_email = $sellers->pluck('email', 'name')->toArray();
+
+    $buyers = DB::table('users')->where('role', '=', 'buyer')->get();
+    $plucked_emailplucked_email = $sellers->pluck('email', 'name')->toArray();
+
+    // $email_addresses = ['veeqanto@gmail.com', 'anto@eftechnology.net'];
+        $email_addresses = array_merge($plucked, $plucked_email, $plucked_email);
+        // dd($email_addresses);
+
+    $data = array(
+      'subject' => $request->subject,
+      'message' => $request->message
+    );
+
+    $this->validate($request, [
+      'subject' => 'required',
+      'message' => 'required'
+    ]);
+
+    // $message = new SendMail;
+    // $message->create($data);
+    foreach($email_addresses as $name=>$email)
+    {
+        // Mail::to($email)->send(new SendEmail($request->message, $request->subject));
+        //   Mail::to($email)->queue(new SendEmail($request->message, $request->subject, $name));
+
+        Mail::to($email)->queue(new SeasonGreetings($request->message, $request->subject, $name));
+    }
 
 
+    $sent_notification = array(
+          'message' => 'Email sent successfully!',
+          'alert-type' => 'success'
+    );
+
+    return redirect()->back()->with($sent_notification);
+
+  }
   public function lat()
   {
 
@@ -162,13 +443,13 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
 
   public function allService()
   {
-    $all_service = Service::paginate(10);
+    $all_service = Service::orderBy('created_at', 'desc')->get();
     return view ('admin.service.index', compact('all_service') );
   }
-
-
-  public function advertisement() {
-    return view('advertisement');
+  public function allSeekingwork()
+  {
+    $all_service = SeekingWork::orderBy('created_at', 'desc')->get();
+    return view ('admin.service.sw_table', compact('all_service') );
   }
 
   public function activeService()
@@ -182,6 +463,13 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
     $pending_service = Service::where('status', 0)->paginate(10);
     return view ('admin.service.pending', compact('pending_service') );
   }
+
+    public function allSubscription()
+  {
+    $all_subscriptions = ProviderSubscription::all();
+    return view ('admin.subscription.index', compact('all_subscriptions') );
+  }
+
   public function pending_advert_requests()
   {
     $pending_advert_requests = Advertrequest::where('status', 0)->paginate(10);
@@ -192,6 +480,12 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
   {
     $treated_advert_requests = Advertrequest::where('status', 1)->paginate(10);
     return view ('admin.page_management.treated_advert_requests', compact('treated_advert_requests') );
+  }
+
+  public function all_adverts()
+  {
+    $advertisements = Advertrequest::all();
+return view ('admin.advert_management.sliders', compact('advertisements') );
   }
 
   public function active_adverts()
@@ -301,6 +595,14 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
     session()->flash('status', 'Task was successful!');
     return back();
   }
+  public function seekingWorkDestroy($id)
+  {
+    $seekingwork = SeekingWork::findOrFail($id);
+    //Storage::disk('public')->delete($service->image);
+    $seekingwork->delete();
+    session()->flash('status', 'Applicant deleted successfully!');
+    return redirect()->back();
+  }
 
     /**
      * Update the specified resource in storage.
@@ -312,11 +614,74 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
     public function updateServiceStatus(Request $request, $id)
     {
      $service = Service::find($id);
-     $status = $service->status == 1 ? 0 : 1;
+     $status = $service->status == 0 ? 1 : 0;
      $service->status = $status;
-     $service->save();
-     $request->session()->flash('status', 'Task was successful!');
+
+     if($service->save()){
+        if ($service->status == 1) {
+            $status = 'Approved';
+           try{
+               Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
+           }
+           catch(\Exception $e){
+               $failedtosendmail = 'Failed to Mail!.';
+           }
+        }
+        else {
+           $status = 'Disapproved';
+           try{
+               Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
+           }
+           catch(\Exception $e){
+               $failedtosendmail = 'Failed to Mail!.';
+           }
+        }
+        $request->session()->flash('status', 'Service was '.$status);
+        return back();
+     }
+     $request->session()->flash('error', 'Something went wrong');
      return back();
+
+   }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateSeekingworkStatus(Request $request, $id)
+    {
+        $service = SeekingWork::find($id);
+        $status = $service->status == 0 ? 1 : 0;
+        $service->status = $status;
+
+        if($service->save()){
+            if ($service->status == 1) {
+                $status = 'Approved';
+            try{
+                Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+            }
+            else {
+            $status = 'Disapproved';
+            try{
+                Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+            }
+            $request->session()->flash('status', 'CV was '.$status);
+            return back();
+        }
+        $request->session()->flash('error', 'Something went wrong');
+        return back();
+
    }
 
    public function serviceSearch(Request $request)
@@ -350,10 +715,12 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
 
     $general_info = $id == 1 ? General_Info::find($id) : New General_Info;
     $general_info->site_name = $request->site_name;
+    $general_info->about_site = $request->about_site;
     $general_info->hot_line = $request->hotline;
     $general_info->hot_line_2 = $request->hotline2;
     $general_info->hot_line_3 = $request->hotline3;
     $general_info->support_email = $request->support_email;
+    $general_info->contact_email = $request->contact_email;
     $general_info->address = $request->address;
     $general_info->facebook = $request->facebook;
     $general_info->twitter = $request->twitter;
@@ -374,10 +741,15 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
     }
 
 
-    $general_info->save();
-    $request->session()->flash('status', 'Task was successful!');
 
-    return $this->systemConfig();
+    if ($general_info->save()) {
+        $success_notification = array(
+            'message' => 'Config saved successfully!',
+            'alert-type' => 'success'
+        );
+    }
+
+    return redirect()->back()->with($success_notification);
 
   }
 
@@ -428,13 +800,38 @@ public function FAQs()
 
 public function allBadges()
 {
-  $all_badges = Badge::paginate(10);
+  $all_badges = Badge::all();
   return view ('admin.badge.index', compact('all_badges') );
 }
 public function privacyPolicy()
 {
-  $all_badges = Badge::paginate(10);
-  return view ('admin.page_management.privacy_policy', compact('all_badges') );
+  return view ('admin.page_management.privacy_policy');
+}
+
+public function save_privacyPolicy(Request $request)
+{
+
+  $privacy = new Privacypolicy;
+  $privacy->details = $request->details;
+  $privacy->save();
+  $current_privacy_policy = Privacypolicy::first();
+  if($current_privacy_policy){
+      $current_privacy_policy_details = $current_privacy_policy->details;
+  }
+
+      //$request->session()->flash('status', 'Task was successful!');
+
+  return back()->with('success', 'Task was successful!')->with('policy', 'current_privacy_policy_details');
+
+}
+
+public function privacy()
+{
+    $privacy = Privacypolicy::orderBy('id', 'desc')
+    ->first();
+    // dd($privacy);
+
+    return view('frontend_section.privacy', compact('privacy'));
 }
 
 public function termsOfUse()
@@ -455,21 +852,6 @@ public function save_termsOfUse(Request $request)
   return back()->with('success', 'Task was successful!');
 
 }
-
-public function save_privacyPolicy(Request $request)
-{
-
-  $privacy = new Privacypolicy;
-  $privacy->details = $request->details;
-  $privacy->save();
-
-      //$request->session()->flash('status', 'Task was successful!');
-
-  return back()->with('success', 'Task was successful!');
-
-}
-
-
 
 public function save_faq(Request $request)
 {
@@ -548,6 +930,15 @@ public function save_faq(Request $request)
           return $slider;
         }
 
+        public function allAccountants()
+        {
+          $accountants = User::where('role', '=', 'accountant')->get();
+
+          return view('admin.user.accountant', [
+            'accountants' => $accountants
+          ]);
+        }
+
 
 
         public function save_slider(Request $request)
@@ -586,17 +977,20 @@ public function save_faq(Request $request)
 
       public function subscribe(Request $request)
       {
-       $this->validate($request,[
-        'email' => ['required'],
-      ]);
+            $this->validate($request,[
+                'email' => ['required'],
+            ]);
 
 
-       $subscription = new Subscription();
+            $subscription = new Subscription();
 
-       $subscription->email = $request->email;
-       $subscription->save();
+            $subscription->email = $request->get('email');
+            $subscription->save();
 
-       return back()->with('success', 'Your email was sent successfully');
+            return back()->with([
+                'message'    => 'You are successfully subscribed to our mailing list!',
+                'alert-type' => 'success'
+            ]);
      }
 
 
@@ -645,4 +1039,52 @@ public function save_faq(Request $request)
      // }
    }
 
-   }
+
+    public function activate_agent($id){
+
+        $success = true;
+        $message = "Activate";
+        $status_message = "Disabled";
+
+        $user = Agent::where('id' , $id)->first();
+        if ($user->status == 1) {
+            $user->status = 0;
+            $user->update();
+
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+                'status_message' => $status_message,
+            ]);
+        }
+        if ($user->status == 0) {
+          $message = "Deactivate User";
+          $status_message = "Enabled";
+
+            $user->status = 1;
+            $user->save();
+
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+                'status_message' => $status_message,
+            ]);
+        }
+    }
+
+      public function all_ef_marketers ()
+    {
+        $efmarketers = User::where('is_ef_marketer', '1')->get();
+        // Category::orderBy('id', 'asc')->paginate(35);
+        return view('admin.user.ef_marketers', compact('efmarketers'));
+    }
+
+
+    public function ef_marketers_downline($slug)
+    {
+        $efmarketer =  User::where('slug', $slug)->first();
+        $efmarketers_downlines = User::where('idOfReferer', $efmarketer->id)->get();
+        // Category::orderBy('id', 'asc')->paginate(35);
+        return view('admin.user.ef_marketers_downline', compact('efmarketers_downlines'));
+    }
+}

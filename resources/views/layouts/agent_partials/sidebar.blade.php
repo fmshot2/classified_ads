@@ -6,10 +6,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="image">
-          <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" class="img-circle" alt="User Image">
+          <img src="{{ Auth::guard('agent')->user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::guard('agent')->user()->image  }}" class="img-circle" alt="User Image">
         </div>
         <div class="info">
-          <p> {{ Auth::user()->name }} </p>
+          <p> {{ Auth::guard('agent')->user()->name }} </p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -19,41 +19,51 @@
       <!-- sidebar menu-->
       <ul class="sidebar-menu" data-widget="tree">
 
-        <li class="" style="{{ url()->current() == route('seller.dashboard') ? 'background-color: #f8d053' : '' }}">
-          <a href=" {{route ('seller.dashboard') }}">
+        <li  class="{{ url()->current() == route('agent.dashboard') ? 'active' : '' }}">
+          <a href=" {{route ('agent.dashboard') }}">
             <i class="fa fa-dashboard"></i> <span> Dashboard </span>
             <span class="pull-right-container">
             </span>
           </a>
         </li>
 
-
-
-        <li class="" style="{{ url()->current() == route('seller.message.all') ? 'background-color: #f8d053' : '' }}">
-          <a href=" {{route ('seller.message.all') }}">
-            <i class="fa fa-briefcase"></i> <span> My Messages </span>
-            <span class="pull-right-container">
+        <li class="{{ url()->current() == route('agent.referal.all') ? 'active' : '' }}">
+          <a href=" {{route ('agent.referal.all') }}">
+            <i class="fa fa-group"></i> <span> All My Referrals </span>
+            <!-- <span class="pull-right-container">
               <small class="label pull-right bg-danger">   </small>
-            </span>
+            </span> -->
           </a>
         </li>
 
 
 
-        <li class="" style=" {{ url()->current() == route('seller.notification.all') ? 'background-color: #f8d053' : '' }}">
-          <a href=" {{route ('seller.notification.all') }}">
+        <li class="{{ url()->current() == route('agent.notification.all') ? 'active' : '' }}">
+          <a href=" {{route ('agent.notification.all') }}">
             <i class="fa fa-bell"></i> <span> General Notice </span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-primary">   </small>
-            </span>
+            <!-- <span class="pull-right-container">
+              <small class="label pull-right bg-primary">  </small>
+            </span> -->
           </a>
         </li>
 
+        <li class="treeview {{ url()->current() == route('agent.view.request.blade') ? 'active' : '' }} {{ url()->current() == route('admin.service.pending') ? 'active' : '' }} {{ url()->current() == route('agent.payment.history') ? 'active' : '' }}">
+          <a href="#">
+            <i class="fa fa-briefcase"></i>
+            <span> Payments </span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('agent.view.request.blade') }}"><i class="fa fa-circle-o"></i> Make Withdrawal</a></li>
+            <li><a href=" {{ route ('agent.payment.history') }}"><i class="fa fa-circle-o"></i> Payment History </a></li>
 
+          </ul>
+        </li>
 
-
-        <li style="{{ url()->current() == route('seller.profile') ? 'background-color: #f8d053' : '' }}">
-          <a href=" {{ route ('seller.profile') }} ">
+        <li class="{{ url()->current() == route('agent.profile') ? 'active' : '' }}">
+          <a href=" {{ route ('agent.profile') }} ">
             <i class="fa fa-user"></i> <span> Profile </span>
             <span class="pull-right-container">
             </span>

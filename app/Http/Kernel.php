@@ -36,6 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\LastSeenUserActivity::class,
         ],
 
         'api' => [
@@ -56,6 +57,7 @@ class Kernel extends HttpKernel
         'seller' => \App\Http\Middleware\SellerMiddleware::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'agent' => \App\Http\Middleware\AgentMiddleware::class,
+        'accountant' => \App\Http\Middleware\AccountantMiddleware::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -65,5 +67,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'superadmin' => \App\Http\Middleware\SuperAdminMiddleware::class,
+        'cmo' => \App\Http\Middleware\CMOMiddleware::class,
+        'data' => \App\Http\Middleware\DataEntryMiddleware::class,
     ];
 }

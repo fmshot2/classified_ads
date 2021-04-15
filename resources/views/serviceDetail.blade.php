@@ -3,6 +3,7 @@
 
 @section('title', $serviceDetail->name . ' | ')
 
+
 @section('content')
 
 <style>
@@ -22,7 +23,83 @@
     form label{
         font-size: 16px !important;
     }
+    .b-provider-online-info {
+        width: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 12px 0;
+        border-top: 1px solid #f2f2f2;
+        border-bottom: 1px solid #f2f2f2;
+        margin-bottom: 15px;
+    }
+    .b-provider-online-info-block:not(:last-of-type) {
+        border-right: 1px solid #f2f2f2;
+    }
+    .b-provider-online-info-block {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 0;
+        -ms-flex: 1 0;
+        flex: 1 0;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding: 8px 0;
+    }
+    .b-provider-online-title {
+        color: #efac4e;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 3px;
+    }
+    .b-provider-online-aside {
+        color: #464b4f;
+        font-size: 14px;
+        line-height: 1.5;
+        font-weight: 600;
+    }
+    .nav-link:hover #liketab{
+        color: #fff !important;
+    }
+    .lgtbxDiv{
+        display: block;
+        height: 200px;
+        width: auto;
+        background-size: cover !important;
+        background-position: center !important;
+    }
+
+    @media (max-width: 768px){
+        .lgtbxDiv{
+            height: 100px;
+        }
+        .tabbing-box.col-sm-12{
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .tabbing-box .nav-tabs li {
+            margin-bottom: 5px;
+        }
+    }
+
 </style>
+
 <!-- Sub banner start -->
 <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/servicedetail.jpg')}})">
     <div class="container">
@@ -74,10 +151,17 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h3 class="service-name">{{$serviceDetail->name}}</h3>
-                                        <p><span><i class="fa fa-map-marker"></i> Location:</span> <span style="color: #ca8309" class="tt-capitalize">{{$serviceDetail->state}}</span></p>
+                                        <p><span><i class="fa fa-map-marker"></i> Location:</span> <span style="color: #ca8309" class="tt-capitalize" id="userAddress">{{$serviceDetail->state}}</span></p>
                                         <p><span><i class="fa fa-user"></i> Service Provider: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->user->name}}</span></p>
+                                        <p><span><i class="fa fa-archive"></i> Service Category: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->category->name}}</span></p>
+                                        <p><span><i class="fa fa-clock-o"></i> Posted on: </span><span style="color: #ca8309"> {{ $serviceDetail->created_at->diffForHumans() }}</span></p>
+                                        <p><span><i class="fa fa-eye"></i> Views: </span><span style="color: #ca8309"> {{ $serviceDetail->views->count() }}</span></p>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="container" style="margin: 20px 0">
+                                <div class="addthis_inline_share_toolbox" data-description="{{$serviceDetail->description}}"></div>
                             </div>
                         </div>
 
@@ -90,16 +174,12 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
-                                                        </a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services')}}/{{$image->image_path}}');"></a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 4; $i++)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
-                                                        </a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services/noserviceimage.png')}}');"></a>
                                                     </li>
                                                 @endfor
                                             </ul>
@@ -111,16 +191,12 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
-                                                        </a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services')}}/{{$image->image_path}}');"></a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 3; $i++)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
-                                                        </a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services/noserviceimage.png')}}');"></a>
                                                     </li>
                                                 @endfor
                                             </ul>
@@ -132,16 +208,12 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
-                                                        </a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services')}}/{{$image->image_path}}');"></a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 2; $i++)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
-                                                        </a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services/noserviceimage.png')}}');"></a>
                                                     </li>
                                                 @endfor
                                             </ul>
@@ -153,9 +225,7 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="properties-small">
-                                                        </a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services')}}/{{$image->image_path}}');"></a>
                                                     </li>
                                                 @endforeach
                                             </ul>
@@ -168,9 +238,7 @@
                                         <ul class="glide__slides">
                                             @for ($i = 1; $i <= 4; $i++)
                                                 <li class="glide__slide">
-                                                    <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                        <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="properties-small">
-                                                    </a>
+                                                    <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services/noserviceimage.png')}}');"></a>
                                                 </li>
                                             @endfor
                                         </ul>
@@ -202,14 +270,14 @@
 
 
                                     <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }}
-                                        <span>({{ $service_likes != 0 ? $service_likes : '0'}})</span>
+                                        (<span id="likeTab">{{ $service_likes != 0 ? $service_likes : '0'}}</span>)
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="six-tab" data-toggle="tab" href="#six" role="tab" aria-controls="six" aria-selected="true">Similar Services</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="six" aria-selected="true">Comments</a>
+                                    <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab" aria-controls="six" aria-selected="true">Client Feedback</a>
                                     {{-- {{ $serviceDetail->comments->count() }} --}}
                                 </li>
                             </ul>
@@ -219,12 +287,12 @@
                                         <h3 class="heading-2">
                                             Description
                                         </h3>
-                                        <p>{{$serviceDetail->description}}</p>
+                                        <p>{!! $serviceDetail->description !!}</p>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade " id="three" role="tabpanel" aria-labelledby="three-tab">
                                     <div class="property-details mb-40">
-                                        <h6 class="heading-2">This User has {{$service_likes}} likes</h6>
+                                        <h6 class="heading-2">This User has <span id="likeTab2">{{ $service_likes != 0 ? $service_likes : '0'}}</span> like{{$service_likes > 1 ? 's' : ''}}</h6>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade " id="four" role="tabpanel" aria-labelledby="four-tab">
@@ -257,11 +325,11 @@
                                                                 @foreach($similarProducts as $similarProduct)
                                                                     <tr>
                                                                        <td class="image">
-                                                                            <a href="{{route('serviceDetail', $similarProduct->id)}}"><img alt="properties-small" src="{{asset('uploads/services')}}/{{$similarProduct->service_image}}" class="img-fluid"></a>
+                                                                            <a href="{{route('serviceDetail', $similarProduct->slug)}}"><img alt="{{$similarProduct->name}}" src="{{asset('uploads/services')}}/{{$similarProduct->service_image}}" class="img-fluid"></a>
                                                                         </td>
                                                                         <td>
                                                                             <div class="inner">
-                                                                                <h5><a href="{{route('serviceDetail', $similarProduct->id)}}">{{$similarProduct->name}}</a></h5>
+                                                                                <h5><a href="{{route('serviceDetail', $similarProduct->slug)}}">{{$similarProduct->name}}</a></h5>
                                                                                 <figure class="hedin-div"><i class="fa fa-map-marker"></i> {{$similarProduct->state}}, &nbsp; {{$similarProduct->city}}</figure>
                                                                                 <!--<div class="price-month">$ 27,000</div>-->
                                                                             </div>
@@ -344,7 +412,7 @@
                         @endauth
 
                         @guest
-                        <p>Please login as a service seeker to see your previous conversation with this service provider</p>
+                        <p>Please login to see your previous conversation with this service provider</p>
                         @endguest
 
 
@@ -403,28 +471,43 @@
                             </div>
 
                             <div class="ser-seller-note">
-                                <div>
-                                    <b>Registered:</b>  <i>"{{$serviceDetail->created_at->diffForHumans()}}"</i>
-                                </div>
 
                                 @guest
                                     <p style="margin-bottom: 5px; font-size: 16px;"><a href="{{route('login')}}"><strong style="color: #CA8309; font-size: 16px;">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #28a745">Register</strong></a> to view <strong class="tt-capitalize">{{ $the_provider_f_name }}</strong> contact details.</p>
                                 @endguest
-                            </div>
 
-                            <div class="s-border" style="margin-top: 10px"></div>
-                            <div class="m-border"></div>
+                                <div class="s-border" style="margin-top: 10px"></div>
+                                <div class="m-border"></div>
+
+                                <div class="b-provider-online-info">
+                                    <div class="b-provider-online-info-block">
+                                        <div class="b-provider-online-title">
+                                            {{ $serviceDetail->user->created_at->diffForHumans() }}
+                                        </div>
+                                        <div class="b-provider-online-aside">
+                                            Registered
+                                        </div>
+                                    </div>
+
+                                    <div class="b-provider-online-info-block">
+                                        <div class="b-provider-online-title">
+                                            {{ \Carbon\Carbon::parse($serviceDetail->user->last_seen)->diffForHumans() }}
+                                        </div>
+                                        <div class="b-provider-online-aside">
+                                            Last seen
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             @auth
                                 <p style="text-align: center">
-                                    <a class="btn btn-warning animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309">
-                                        <i class="fa fa-phone"></i> {{$serviceDetail->phone}}
+                                    <a class="btn btn-warning animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309; margin-bottom: 4px">
+                                        <i class="fa fa-phone"></i> Call: {{$serviceDetail->phone}}
                                     </a>
-                                </p>
 
-                                <p style="text-align: center">
                                     <a href="https://wa.me/{{$serviceDetail->phone}}/?text=Good%20day.%20I%20am%20interested%20in%your%20service." class="btn btn-success animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff;">
-                                        <i class="fa fa-whatsapp"></i> {{$serviceDetail->phone}}
+                                        <i class="fa fa-whatsapp"></i> WhatsApp
                                     </a>
                                 </p>
                             @endauth
@@ -504,7 +587,20 @@
                                     @endauth
                                 </form>
                             </div>
-
+                            @if($serviceDetail->address != '')
+                            {{-- <div style="width: 640px; height: 480px" id="mapContainer"></div> --}}
+                            {{-- <div id='map' style='width: 400px; height: 300px; '></div> --}}
+                          <!--   <div class="google-maps">
+                                <div class="mapouter">
+                                    <div class="gmap_canvas">
+                                        <iframe id="gmap_canvas" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31518.588844000613!2d7.492251300000006!3d9.07982880000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x55e2e606f1c6452e!2sE.F.%20Network%20Ltd!5e0!3m2!1sen!2sng!4v1611820893949!5m2!1sen!2sng" frameborder="0" style="border:0; width: 100%; height: 381px;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                                    </div>
+                                </div>
+                            </div> -->
+                            @else
+                            <p class="text text-danger">No address provided.</p>
+                            @endif
+                            <hr>
                             <div class="posts-by-category widget ser-pg-safety-tips" style="margin-top: 20px; padding: 0">
                                 <h3 class="sidebar-title">Safety tips</h3>
                                 <div class="s-border"></div>
@@ -580,7 +676,7 @@
                                                     @endauth
 
                                                     @guest
-                                                        <h6>Please log in as a service seeker to report this provider </h6>
+                                                        <h6>Please <a style="color: #cc8a19" href="{{ route('login') }}">login</a> to report this provider </h6>
                                                     @endguest
 
                                                 </div>
@@ -600,9 +696,167 @@
     </div>
 @endsection
 
-
-
+@section('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaGdhbG9uZSIsImEiOiJja21nbHA4bTgzMWFyMndsYW84ZWxmODV2In0._Ffx_yk8R2WAgjc0a0CD4A';
+    var map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [-74.5, 40], // starting position [lng, lat]
+    zoom: 9 // starting zoom
+    });
+
+    //set the bounds for the map
+    var bounds = [[-123.069003, 45.395273], [-122.303707, 45.612333]];
+    map.setMaxBounds(bounds);
+
+
+
+    // initialize the map canvas to interact with later
+    var canvas = map.getCanvasContainer();
+
+    // an arbitrary start will always be the same
+    // only the end or destination will change
+
+    var start = [-122.662323, 45.523751];
+
+    // create a function to make a directions request
+    function getRoute(end) {
+      // make a directions request using cycling profile
+      // an arbitrary start will always be the same
+      // only the end or destination will change
+      var start = [-122.662323, 45.523751];
+      var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+
+      // make an XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+      var req = new XMLHttpRequest();
+      req.open('GET', url, true);
+      req.onload = function() {
+        var json = JSON.parse(req.response);
+        var data = json.routes[0];
+        var route = data.geometry.coordinates;
+        var geojson = {
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'LineString',
+            coordinates: route
+          }
+        };
+        // if the route already exists on the map, reset it using setData
+        if (map.getSource('route')) {
+          map.getSource('route').setData(geojson);
+        } else { // otherwise, make a new request
+          map.addLayer({
+            id: 'route',
+            type: 'line',
+            source: {
+              type: 'geojson',
+              data: {
+                type: 'Feature',
+                properties: {},
+                geometry: {
+                  type: 'LineString',
+                  coordinates: geojson
+                }
+              }
+            },
+            layout: {
+              'line-join': 'round',
+              'line-cap': 'round'
+            },
+            paint: {
+              'line-color': '#3887be',
+              'line-width': 5,
+              'line-opacity': 0.75
+            }
+          });
+        }
+        // add turn instructions here at the end
+      };
+      req.send();
+    }
+
+    map.on('load', function() {
+      // make an initial directions request that
+      // starts and ends at the same location
+      getRoute(start);
+      console.log(start);
+      // Add starting point to the map
+      map.addLayer({
+        id: 'point',
+        type: 'circle',
+        source: {
+          type: 'geojson',
+          data: {
+            type: 'FeatureCollection',
+            features: [{
+              type: 'Feature',
+              properties: {},
+              geometry: {
+                type: 'Point',
+                coordinates: start
+              }
+            }
+            ]
+          }
+        },
+        paint: {
+          'circle-radius': 10,
+          'circle-color': '#3887be'
+        }
+      });
+      map.on('click', function(e) {
+      var coordsObj = e.lngLat;
+      canvas.style.cursor = '';
+      var coords = Object.keys(coordsObj).map(function(key) {
+        return coordsObj[key];
+      });
+      var end = {
+        type: 'FeatureCollection',
+        features: [{
+          type: 'Feature',
+          properties: {},
+          geometry: {
+            type: 'Point',
+            coordinates: coords
+          }
+        }
+        ]
+      };
+      if (map.getLayer('end')) {
+        map.getSource('end').setData(end);
+      } else {
+        map.addLayer({
+          id: 'end',
+          type: 'circle',
+          source: {
+            type: 'geojson',
+            data: {
+              type: 'FeatureCollection',
+              features: [{
+                type: 'Feature',
+                properties: {},
+                geometry: {
+                  type: 'Point',
+                  coordinates: coords
+                }
+              }]
+            }
+          },
+          paint: {
+            'circle-radius': 10,
+            'circle-color': '#f30'
+          }
+        });
+      }
+      getRoute(coords);
+    });
+
+    });
+</script>
 <script type="text/javascript">
     var baseUrl = "{{url('/')}}"
     $(document).ready(function() {
@@ -669,7 +923,27 @@
         // });
     });
 </script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var platform = new H.service.Platform({
+          'apikey': '{ND-Xev5fNnFaGhfYjub2geEiF0DKntosvZccO7CBFak}'
+        });
+        // Obtain the default map types from the platform object:
+        var defaultLayers = platform.createDefaultLayers();
 
+        // Instantiate (and display) a map object:
+        // var map = new H.Map(
+        //     document.getElementById('mapContainer'),
+        //     defaultLayers.vector.normal.map,
+        //     {
+        //       zoom: 10,
+        //       center: { lat: 52.5, lng: 13.4 }
+        //     });
+        var map = new H.Map(document.getElementById('mapContainer'),
+            defaultLayers.vector.normal.map);
+
+    });
+</script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -715,11 +989,14 @@
 
     });
 
+
+
+
     function likeService(id) {
-        likebtn = document.getElementById('likeBtn');
+        likebtn    = document.getElementById('likeBtn');
         dislikebtn = document.getElementById('dislikeBtn');
-        liketab = document.getElementById('likeTab');
-        loader = document.getElementById('loader');
+        liketab    = document.getElementById('likeTab');
+        liketab2    = document.getElementById('likeTab2');
 
         $.ajax({
             url: '/admin2/like/' + id,
@@ -728,16 +1005,17 @@
                 dislikebtn.style.display = 'block';
                 likebtn.style.display = 'none';
                 liketab.innerHTML = like;
+                liketab2.innerHTML = like;
             }
         });
 
     }
 
     function disLikeService(id) {
-        likebtn = document.getElementById('likeBtn');
+        likebtn    = document.getElementById('likeBtn');
         dislikebtn = document.getElementById('dislikeBtn');
-        likeTab = document.getElementById('likeTab');
-        loader = document.getElementById('loader');
+        liketab    = document.getElementById('likeTab');
+        liketab2    = document.getElementById('likeTab2');
 
         $.ajax({
             url: '/admin2/like/' + id,
@@ -745,10 +1023,49 @@
             success: function(like){
                 dislikebtn.style.display = 'none';
                 likebtn.style.display = 'block';
-                liketab.innerHTML = like;
+                liketab2.innerHTML = like;
                 console.log(like);
             }
         });
 
     }
+</script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-60643ce977f333d6"></script>
+@endsection
+<script type="text/javascript">
+    $(document).ready(function() {
+        var address = document.getElementById('userAddress').innerHTML;
+
+        console.log(address);
+
+        function initMap(address) {
+
+            var geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode({ 'address': address}, function(results, status) {
+                if(status == google.maps.GeocoderStatus.OK) {
+                    var longitude = results[0].geometry.location.lng();
+                    var latitude = results[0].geometry.location.lat();
+                }
+
+                console.log('jkhhjkhkhk',results[0]);
+
+                var MyLngLat = {lat: latitude, lng: longitude};
+
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 4,
+                    center: MyLngLat
+                });
+
+                var marker = new google.maps.Marker({
+                    position: MyLngLat,
+                    map: map,
+                    title: 'Location of service provider'
+                });
+            });
+        }
+    });
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCY2buDtbYIot8Llm_FkQXHW36f0Cme6TI&callback=initMap">
 </script>

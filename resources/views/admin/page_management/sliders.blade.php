@@ -10,6 +10,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="box">
+                        @if ($errors->any())
+                            <div class="alert alert-danger" style="border-radius: 0; background-color: #f15a58">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </div>
+                        @endif
                         <div class="box-header">
                             <!-- tools box -->
                             <div class="pull-right box-tools">
@@ -25,7 +32,7 @@
                         <!-- /.box-header -->
                         <div class="box-body pad" style="">
                             <div class="row">
-                                <div class="col-md-7">
+                                <div class="col-md-12">
                                     <div class="box-body">
                                         <h3 class="box-title">Home Banner Slider <a data-toggle="modal" data-target="#addSlideModal" onclick="addSlide()" class="btn btn-sm btn-success">Add Slide</a></h3>
 
@@ -55,53 +62,8 @@
                                                                 <td> <a href="{{ $slider->links }}">{{ $slider->links }}</a> </td>
 
                                                                 <td class="center">
-                                                                    <a onclick="updateSlide({{$slider->id}})" class="btn btn-sm btn-info " style="margin-bottom: 5px"><i class="fa fa-pencil-square-o"></i></a>
+                                                                    <a onclick="updateSlide({{$slider->id}})" class="btn btn-sm btn-info "><i class="fa fa-pencil-square-o"></i></a>
                                                                     <a onclick="deleteSlide({{$slider->id}})" class="btn btn-sm btn-danger "><i class="fa fa-trash"></i></a>
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                    @else
-                                                        <p>No Slide!</p>
-                                                    @endif
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <!-- /.box-body -->
-                                </div>
-
-
-
-                                <div class="col-md-5">
-                                    <div class="box-body">
-                                        <h3 class="box-title">Advert Slider <a data-toggle="modal" data-target="#addAdvertSlideModal" onclick="addAdvertSlide()" class="btn btn-sm btn-success">Add Advert</a></h3>
-
-                                        <div class="table-responsive">
-                                            <table class="display table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th> SL </th>
-                                                        <th> Slider </th>
-                                                        <th> Location </th>
-                                                        <th> Action </th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                    @if (isset($advertisements))
-                                                        @foreach($advertisements as $key => $adslider)
-                                                            <tr>
-                                                                <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                                                                <td>
-                                                                    <img src="{{ asset('uploads/sponsored') }}/{{ $adslider->banner_img }}"  alt="{{ $adslider->title }}" width="60" class="img-responsive img-rounded">
-                                                                </td>
-                                                                <td>
-                                                                    {{ $adslider->location_name }}
-                                                                </td>
-
-                                                                <td class="center">
-                                                                    <a  onclick="updateAdvert({{$adslider->id}})" class="btn btn-sm btn-info "><i class="fa fa-pencil-square-o"></i></a>
-                                                                    <a onclick="deleteAdvert({{$adslider->id}})" class="btn btn-sm btn-danger "><i class="fa fa-trash"></i></a>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -176,6 +138,11 @@
                                     <div class="form-group">
                                         <label for="image">Slider Image</label>
                                         <input type="file" name="image" class="form-control" placeholder="Select Image"  required>
+                                        @if ($errors->has('image'))
+                                            <span class="helper-text" data-error="wrong" data-success="right">
+                                                <strong class="text-danger">{{ $errors->first('image') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +177,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for=""> Buttton Text </label>
-                                        <input type="text" name="buttontext" class="form-control" placeholder="Get Started!">
+                                        <input type="text" name="buttontext" class="form-control" id="editButtontext" placeholder="Get Started!">
                                     </div>
                                 </div>
                                 <div class="col-md-9">
@@ -328,8 +295,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="image">Ad Image</label>
-                                        <input type="file" name="image" id="editAdvertImage" class="form-control" placeholder="Select Image">
+                                        <label for="ad_image">Ad Image</label>
+                                        <input type="file" name="ad_image" id="editAdvertImage" class="form-control" placeholder="Select Image">
                                     </div>
                                 </div>
                             </div>
@@ -449,6 +416,7 @@
                         $('#editTitle').val(result.title);
                         $('#editDetails').val(result.details);
                         $('#editLinks').val(result.links);
+                        $('#editButtontext').val(result.buttontext);
                         $('#editButtonLocation').val(result.buttonlocation);
                         $('#editSlider_id').val(result.id);
                         var url = '/admin/update/slider/' + id;

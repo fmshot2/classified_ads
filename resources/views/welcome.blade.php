@@ -4,27 +4,23 @@
 @section('content')
 
 
-@include('layouts.frontend_partials.status')
+<!-- @include('layouts.frontend_partials.status') -->
 
 @include('frontend_section/carousel')
 
-@include('frontend_section/search')
+@include('frontend_section/searchAjax')
 
 
 
 {{-- Avatar MODULE  --}}
-{{-- <a href="#" class="float-referrer  animate__animated animate__fadeInLeft">
-    <img src="{{ asset('refer.png') }}" alt="" id="float-referrer">
-</a> --}}
-<a href="{{ route('referralprogram') }}" id="floatReferrer" class="float-referrer animate__animated animate__fadeInLeft">
-    <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('image 1.png') }}">
-    <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('image 2.png') }}">
-</a>
-
-{{-- <section>
-    <img class="slides slides-hidden" src="{{ asset('refer.png') }}">
-    <img class="slides slides-hidden" src="{{ asset('referfd.png') }}">
-</section> --}}
+<div id="floatReferrer" onclick="closeReferrerFloatPop()" class="float-referrer animate__animated animate__fadeInLeft">
+    <button type="button" class="close-referrer-float" id="closeReferrerFloat"><i class="fa fa-close"></i></button>
+    <a href="{{ route('referralprogram') }}" target="_blank">
+        <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('image 1.png') }}">
+        <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('image 2.png') }}">
+        <img class="refer-slides refer-slides-hidden animate__animated animate__fadeInLeft" src="{{ asset('image 3.png') }}">
+    </a>
+</div>
 
 <style>
     .float-referrer{
@@ -36,6 +32,17 @@
     }
     .float-referrer img{
         width: 250px;
+    }
+    .close-referrer-float{
+        display: block;
+        background-color: transparent;
+        border: 0;
+        cursor: pointer;
+        color: rgb(238, 56, 56);
+        font-size: 17px;
+    }
+    .bg-grea-3-hft{
+        background: #ca830921;
     }
 
     @media (max-width: 768px){
@@ -75,6 +82,11 @@
     });
     /* Referral Image Slider Ends */
 
+    function closeReferrerFloatPop() {
+        document.getElementById("floatReferrer").remove();
+    }
+
+
 
 </script>
 
@@ -89,32 +101,35 @@ var z = document.getElementById("longitude_id");
 
 
 
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-   var res = "Geolocation is not supported by this browser.";
-  }
-}
+// function getLocation() {
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(showPosition);
+//   } else {
+//    var res = "Geolocation is not supported by this browser.";
+//   }
+// }
 
 
 function showPosition(position) {
 
     console.log('latitude', position.coords.latitude);
+    console.log('longitude', position.coords.longitude);
 
-        var lat = document.getElementById("latitude_id").value = position.coords.latitude;
-    console.log('lat', lat);
-     var long = document.getElementById("longitude_id").value = position.coords.longitude;
-    console.log('long', long);
-
-   $.ajax({
+    $.ajax({
             type:'GET',
             url: 'findgeo',
-            data: {latitude:position.coords.latitude, longitude:position.coords.longitude },
-           success: function(result){
-                    services = result.data;
+            data: {
+                latitude:position.coords.latitude,
+                longitude:position.coords.longitude
+            },
+            success: function(result){
+                console.log(result.data)
+                    $('#servClosesToYouArea').show();
+                        services = result.data;
                         services.forEach(service => {
-                            badge = service.badge_type
+                            badge = service.user.badgetype
+                            ellip = (service.name.length > 30) ? "...": ""
+
                             if (badge == 1) {
                               badge = '<span class="featured bg-warning" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Super</span>';
                             }
@@ -124,12 +139,9 @@ function showPosition(position) {
                             if (badge == 3) {
                               badge = '<span class="featured bg-primary" style="text-transform: uppercase; font-size: 13px;"><i class="fa fa-star"></i> Basic</span>';
                             }
-                            if (badge == 4) {
+                            if (badge == 0) {
                               badge = '';
                             }
-                            // if (service.badge_type == 'trusted') {
-                            //   service.badge_type == 'truuuue';
-                            // }
                             $('#servicesCloseToYouRow').append(`<a href="/serviceDetail/`+ service.slug + `" class="property-img">
                                 <div class="col-lg-2 col-md-4 col-sm-6 filtr-item" data-category="3, 2, 1" style="">
                                     <div class="property-box">
@@ -142,13 +154,13 @@ function showPosition(position) {
                                                     `+ service.user.name.substring(0, 10) + "..." + `
                                                 </p>
                                             </div>
-                                            <img class="d-block w-100 service_images" src="/uploads/services/`+ service.thumbnail + `" alt="properties">
+                                            <img class="d-block w-100 service_images" src="/uploads/services/`+ service.thumbnail + `" alt="`+ service.name + `">
 
                                         </div>
                                         <div class="detail">
                                             <div>
-                                                <a class="title title-dk" href="">`+ service.name.substring(0, 18) + "..." + `</a>
-                                                <a class="title title-mb" href="">`+ service.name.substring(0, 10) + "..." + `</a>
+                                                <a class="title title-dk" href="/serviceDetail/`+ service.slug + `">`+ service.name.substring(0, 30) + ellip +`</a>
+                                                <a class="title title-mb" href="/serviceDetail/`+ service.slug + `">`+ service.name.substring(0, 13) + "..." + `</a>
                                             </div>
 
                                             <ul class="d-flex flex-row justify-content-between info">
@@ -215,7 +227,7 @@ function showPosition(position) {
 
 @include('frontend_section/category')
 
-<div class="blog content-area bg-grea-3 hm-feat-ser-mid-sec">
+<div id="servClosesToYouArea" class="blog content-area bg-grea-3 hm-feat-ser-mid-sec">
     <div class="service-detail-container">
             <!-- Main title -->
         <div class="main-title" style="margin-top: -50px;">
@@ -265,9 +277,16 @@ owl.owlCarousel({
 
 
 <script type="text/javascript">
-  $(document).ready( function () {
-  getLocation();
-});
+    $(document).ready( function () {
+        // getLocation();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            var res = "Geolocation is not supported by this browser.";
+        }
+
+        $('#servClosesToYouArea').hide();
+    });
 </script>
 
 

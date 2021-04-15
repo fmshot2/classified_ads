@@ -15,7 +15,7 @@
                     <div class="popular-posts featured-service-hm">
                          @if(isset($featuredServices))
                             @foreach($featuredServices as $featuredService)
-                                @if ($loop->index < 16)
+                                @if ($loop->index < 16 && $featuredService->status == 1)
                                     <div class="media p-2">
                                         <a href="{{route('serviceDetail', $featuredService->slug)}}">
                                             <div class="media-left">
@@ -128,9 +128,6 @@
                     <div class="footer-item clearfix container-fluid">
                         <br/>
                         <div class="s-border" style="margin-top: -15px;"></div>
-                        <div class="m-border"></div>
-                        <h5 style="margin-top: -15px; text-transform: uppercase">Featured Adverts</h5>
-                        <div class="s-border"></div>
                         <div class="m-border"></div>
                     </div>
                     <div class="popular-posts featured-ad-hm-list">
