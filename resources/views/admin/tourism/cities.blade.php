@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Government Officials | ')
+@section('title', 'Tourist Sites | ')
 
 @section('content')
     <style>
@@ -44,11 +44,11 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">State: </label>
-                                        <select class="form-control" required id="state" name="state" required>
+                                        <select class="form-control" required id="state" name="state_id" required>
                                             <option value="">-- Select State --</option>
                                             @if(isset($states))
                                                 @foreach($states as $state)
-                                                    <option id="state" value="{{$state->name}}"> {{ $state->name }}  </option>
+                                                    <option id="state" value="{{$state->id}}"> {{ $state->name }}  </option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -63,9 +63,10 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Description: </label>
-                                        <textarea name="description" id="basic-example" class="form-control"></textarea>
+                                        <textarea name="description" id="basic-example" class="form-control summernote"></textarea>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="file">Thumbnail:</label>
                                         <input type="file" id="file" name="thumb" class="form-control" accept="image/*" required>
@@ -75,6 +76,7 @@
                                         <button type="submit" class="btn btn-warning pull-right"> Submit </button>
                                     </div>
                                     <!-- /.box-footer -->
+                                </div>
                             </form>
 
                         </div>
@@ -91,7 +93,15 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script type="text/javascript">
         $('.summernote').summernote({
-            height: 120
+            height: 120,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ]
         });
     </script>
 @endsection

@@ -15,4 +15,9 @@ class Tourism extends Model
     	'images',
     	'slug',
     ];
+
+    public function state()
+    {
+        return $this->belongsTo('App\State');
+    }
 }
