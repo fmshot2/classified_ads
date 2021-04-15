@@ -34,6 +34,6 @@ class AgentRegistration extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('emails.agents.register')->subject('EFContact Agent Registration!');
+        return $this->from('noreply@efcontact.com')->markdown('emails.agents.register')->subject('EFContact Agent Registration!');
     }
 }

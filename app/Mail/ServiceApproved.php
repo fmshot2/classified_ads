@@ -35,6 +35,6 @@ class ServiceApproved extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('emails.services.service-approved')->subject('You service has been '. $this->status .'!');
+        return $this->from('noreply@efcontact.com')->markdown('emails.services.service-approved')->subject('You service has been '. $this->status .'!');
     }
 }
