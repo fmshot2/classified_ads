@@ -124,7 +124,7 @@ Route::middleware(['accountant'])->group(function() {
     Route::get('/accountant/subscriptions', 'AccountantController@subscriptions')->name('accountant.subscriptions');
     Route::get('/accountant/featured-payments', 'AccountantController@featured')->name('accountant.featured');
     Route::get('/accountant/registration-payments', 'AccountantController@registrationPayments')->name('accountant.registration');
-    Route::get('/accountant/all-payments', 'AccountantController@all')->name('accountant.all.payments');
+    Route::get('/accountant/all-ef-payments', 'AccountantController@allEfPayments')->name('accountant.ef.payments');
 
 });
 //Accountant Middleware ends here
