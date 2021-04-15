@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Http;
 
 
 use App\State;
+use App\Bank;
+
 use App\Local_government;
 use App\Mail\SendMailable;
 use Config;
