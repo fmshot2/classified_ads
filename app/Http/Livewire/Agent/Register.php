@@ -42,6 +42,7 @@ class Register extends Component
     public $accountno;
     public $states = [];
     public $cities = [];
+    public $banks = [];
 
 
     public $tab = 1;
@@ -50,6 +51,8 @@ class Register extends Component
     public function mount()
     {
         $this->states = State::all();
+
+        $this->banks = Bank::all();
     }
 
     // public function hydrateStateId($value)
