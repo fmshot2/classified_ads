@@ -419,7 +419,7 @@ class AccountantController extends Controller
         ]);
     }
 
-    public function all()
+    public function allEfPayments()
     {
         $payments = Payment::all();
         return view('accountant.payments.all_ef_payments', [
