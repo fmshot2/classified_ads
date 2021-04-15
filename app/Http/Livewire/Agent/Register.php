@@ -55,6 +55,7 @@ class Register extends Component
         $this->states = State::all();
 
         $this->banks = Bank::all();
+        dd($this->banks);
     }
 
     // public function hydrateStateId($value)
