@@ -45,8 +45,8 @@ All E.F Maketers |
 									@foreach($efmarketers as $key => $efmarketer)
 								<tr>
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-									<td> {{ $efmarketer->name }} </td>
-									<td><span class="text-muted"> </i> {{ $efmarketer->email }} </span> </td>
+									<td> {{ $efmarketer->user->name }} </td>
+									<td><span class="text-muted"> </i> {{ $efmarketer->user->email }} </span> </td>
 									<td> {{ $efmarketer->role }} </td>
 									<td> {{ $efmarketer->created_at->diffForHumans() }} </span></td>
 									<td>
@@ -57,7 +57,7 @@ All E.F Maketers |
 										@endif 
 									</td>
 									 <td class="center">
-                                            <a href="#" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
+                                            <a href="{{route('efMarketerDownline', $efmarketer->slug)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
                                     </td>
 			
 

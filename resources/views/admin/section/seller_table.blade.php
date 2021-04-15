@@ -5,7 +5,7 @@
 	<div class="box">
 
 		<div class="box-header">
-			<h3 class="box-title"> Providers Table <a href="{{route('admin.seller') }}" class="text-success" style="font-weight: bold; font-size: 14px"> See all Providersddd </a></h3>
+			<h3 class="box-title"> Providers Table <a href="{{route('admin.seller') }}" class="text-success" style="font-weight: bold; font-size: 14px"> See all Providers </a></h3>
 		</div>
 
 		<!-- /.box-header -->
