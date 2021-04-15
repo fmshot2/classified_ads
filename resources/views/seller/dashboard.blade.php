@@ -136,6 +136,112 @@
     }
 </style>
 
+<style>
+    /* Style the form */
+    input {
+        padding: 10px;
+        width: 100%;
+        font-size: 17px;
+        font-family: Raleway;
+        border: 1px solid #aaaaaa;
+        border-radius: 0;
+    }
+    .form-control {
+        padding-left: 15px !important;
+        border-radius: 0;
+    }
+
+    /* Mark input boxes that gets an error on validation: */
+    input.invalid {
+        background-color: #ffdddd;
+    }
+
+    /* Hide all steps by default: */
+    .tab {
+        display: none;
+    }
+
+    /* Make circles that indicate the steps of the form: */
+    .step {
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbbbbb;
+        border: none;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.5;
+    }
+
+    /* Mark the active step: */
+    .step.active {
+        opacity: 1;
+    }
+
+    /* Mark the steps that are finished and valid: */
+    .step.finish {
+        background-color: #4CAF50;
+    }
+
+    .form-group label{
+        text-align: left !important;
+    }
+    .contact-section .form-section {
+        text-align: unset;
+    }
+    .contact-section .form-section h3, .form-section .btn {
+        text-align: center;
+    }
+    .contact-section .form-section h3 {
+        text-transform: uppercase;
+        font-weight: 600
+    }
+
+    .tab .tabs-title{
+        font-weight: 600
+    }
+    .tab .col-md-6 h5{
+        font-weight: 600;
+        font-size: 17px;
+    }
+
+    #submitBtn{
+        display: none;
+    }
+    .tabActionBtn{
+        width: 100%; display: flex; justify-content: flex-end;
+    }
+    .input-group-addon{
+        border: 1px solid #ced4da;
+        background-color: #fff;
+        padding: .375rem .75rem;
+        cursor: pointer;
+    }
+
+    @media(max-width: 768px){
+        .tab .tabs-title{
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .form-group .form-label {
+            font-size: 13px !important;
+        }
+
+        .tabActionBtn{
+            flex-direction: column;
+            justify-content: center;
+
+        }
+        .tabActionBtn button{
+            text-align: center;
+            margin-bottom: 10px;
+            width: 100%;
+            margin: 10px 0;
+        }
+    }
+
+</style>
+
 <div class="wrapper">
 
     <!-- Content Wrapper. Contains page content -->
@@ -485,121 +591,68 @@
                     </div>
                     <form id="serviceForm" action="{{ route('service.save') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Select Category</label>
-                                        <small class="text-danger">*</small>
-                                        <select name="category_id" required class="form-control show-tick" id="categories">
-                                            <option value="">-- Please select --</option>
-                                            @foreach($categories as $category)
-                                                <option id="category_id" value=" {{ $category->id }} "> {{ $category->name }} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Service Name</label><small class="text-danger">*</small>
-                                        <small class="form-text text-muted">Enter the name of the service you want to offer. <input readonly type="text" name="countdown" size="1" value="50" style="border: 0; padding: 0;margin-right: -25px"> chars left</small>
-                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" onkeydown="limitText(this.form.name,this.form.countdown,50);" onkeyup='limitText(this.form.name,this.form.countdown,50);' placeholder="e.g. Adamu Boutique..." required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="description">Description</label>
-                                        <textarea type="text" class="form-control summernote" name="description" placeholder="Tell us about your service." rows="3"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1" id="servicePriceRange">How much do you want to charge for this service?</label>
-                                        <small class="form-text text-muted" id="servicePriceRangeLabel">Enter the amount you want on this service.</small>
-                                        <input type="number" name="min_price" class="form-control" placeholder="e.g. 20000">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="">Phone</label><small class="text-danger">*</small>
-                                        <small class="form-text text-muted">Enter your phone number.</small>
-                                        <input id="phone" required type="number"  class="form-control" value="{{ old('phone') }}" placeholder="e.g. 09023456789" name="phone" value=" {{ Auth::user()->phone }}">
-                                    </div>
-                                    <div class="form-check" id="negotiableChBox">
-                                        <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable">
-                                        <label class="form-check-label" for="negotiable"> Is this service negotiable?</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="form-check">
-                                            <input id="featured" class="form-check-input" type="checkbox" value="1" name="is_featured" onclick="featuredCheckbbox()">
-                                            <label class="form-check-label" for="featured"> Do you want this service featured?  <small class="infoLinkNote">(<a data-toggle="modal" data-target="#featuredInfoModal">How it works?</a>)</small></label>
+                        <div class="modal-body" style="padding: 20px">
+                            <div style="padding: 20px">
+                                <!-- One "tab" for each step in the form: -->
+                                <div class="tab">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Select Category</label><small class="text-danger">*</small>
+                                                <small class="form-text text-muted">Select a category to continue.</small>
+                                                <select name="category_id" required class="form-control show-tick" id="categories" oninput="this.className = ''">
+                                                    <option value="">-- Please select --</option>
+                                                    @foreach($categories as $category)
+                                                        <option id="category_id" value=" {{ $category->id }} "> {{ $category->name }} </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                        <p id="featuredText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Sub Category <small class="text-info">(You can select multiple sub categories)</small></label>
-                                        <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple>
-                                            <option value="">-- Please select a category to populate this --</option>
-                                            @foreach($subcategories as $subcategory)
-                                                <option id="category_id" value=" {{ $subcategory->id }} "> {{ $subcategory->name }} </option>
-                                            @endforeach
-                                        </select>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="name">Service Name</label><small class="text-danger">*</small>
+                                                <small class="form-text text-muted">Enter the name of the service you want to offer. <input readonly type="text" name="countdown" size="1" value="50" style="border: 0; padding: 0;margin-right: -20px; display: inline; width:auto; font-size: inherit"> chars left</small>
+                                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" onkeydown="limitText(this.form.name,this.form.countdown,50);" onkeyup='limitText(this.form.name,this.form.countdown,50);' placeholder="e.g. Adamu Boutique..." required>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group file-upload" id="file-upload1">
-                                        <label>Upload Image</label>
-                                        <small class="text-danger">*</small> <br>
-                                        <small class="text-info">Choose a thumbnail for your service.</small>
-                                        <div class="image-box text-center">
-                                                <p>Select an Image</p>
-                                                <img src="" alt="">
-                                            </div>
-                                        <div class="controls" style="display: none;">
-                                            <input type="file" name="thumbnail" class="form-control show-tick" required />
-                                        </div>
-                                    </div>
 
-                                    <!-- <div class="form-group form-float" id="youtubeLink">
-                                        <label class="form-label">Video (Youtube)</label>
-                                        <small class="form-text text-muted">Your youtube video link.</small>
-                                        <input type="text" class="form-control" name="video_link">
-                                    </div> -->
+                                <div class="tab">Contact Info:
+                                    <p><input placeholder="E-mail..." oninput="this.className = ''"></p>
+                                    <p><input placeholder="Phone..." oninput="this.className = ''"></p>
+                                </div>
 
-                                    <div class="form-group">
-                                        <label class="form-label">Location</label><small class="text-danger">*</small>
-                                        <select class="form-control" required id="state"  name="state">
-                                            <option value="">-- Select State --</option>
-                                            @if(isset($states))
-                                            @foreach($states as $state)
-                                            <option id="state" value="{{$state->name}}"> {{ $state->name }}  </option>
-                                            @endforeach
-                                            @endif
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Local Government</label><small class="text-danger">*</small>
-                                        <select class="form-control" id="city" name="city" required>
-                                            <option disabled selected>- Select a State -</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Address</label>
-                                        <input id="address" type="text"  value="{{ old('address') }}" class="form-control" name="address" placeholder="Enter your address here.">
-                                    </div>
+                                {{-- <div class="tab">Birthday:
+                                    <p><input placeholder="dd" oninput="this.className = ''"></p>
+                                    <p><input placeholder="mm" oninput="this.className = ''"></p>
+                                    <p><input placeholder="yyyy" oninput="this.className = ''"></p>
+                                </div>
 
+                                <div class="tab">Login Info:
+                                    <p><input placeholder="Username..." oninput="this.className = ''"></p>
+                                    <p><input placeholder="Password..." oninput="this.className = ''"></p>
+                                </div> --}}
 
-                                    <div id="errMess" style="display: none;">
-                                       <p> <small class="text-danger">1. The category field is required.</small></p>
-                                        <p><small class="text-danger">2. The service name is required.</small></p>
-                                        <p><small class="text-danger">3. The service description is required.</small></p>
-                                        <p><small class="text-danger">4. The price name is required.</small></p>
-                                        <p><small class="text-danger">5. The phone name is required.</small></p>
-                                        <p><small class="text-danger">6. Image is required.</small></p>
-                                        <p><small class="text-danger">7. Location  is required.</small></p>
-                                        <p><small class="text-danger">8. Local Government is required.</small></p>
-                                        <p><small class="text-danger">9. Address is required.</small></p>
+                                {{-- <div style="overflow:auto;">
+                                    <div style="float:right;">
+                                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
                                     </div>
+                                </div> --}}
 
+                                <!-- Circles which indicates the steps of the form: -->
+                                <div style="text-align:center;margin-top:40px;">
+                                    <span class="step"></span>
+                                    <span class="step"></span>
+                                    {{-- <span class="step"></span>
+                                    <span class="step"></span> --}}
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" onclick="showError()" class="btn btn-warning" style="background-color: #cc8a19; color: #fff; border:1px solid #cc8a19;">Next <i class="fa fa-arrow-right"></i>
-                            </button>
-                            <button id="closeytplayer" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-info" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                            <button type="button" class="btn btn-warning"  id="nextBtn" onclick="nextPrev(1)">Next</button>
                         </div>
                     </form>
 
@@ -890,12 +943,6 @@
     </div>
 </div>
 
-
-
-<script type="text/javascript">
-    function
-</script>
-
 <script>
     function showError(){
             document.getElementById('errMess').style.display = 'block';
@@ -1129,6 +1176,84 @@
             ['height', ['height']]
         ]
     });
+</script>
+
+<script>
+
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+  // This function will display the specified tab of the form ...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  // ... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").innerHTML = "Submit";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+  }
+  // ... and run a function that displays the correct step indicator:
+  fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !validateForm()) return false;
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form... :
+  if (currentTab >= x.length) {
+    //...the form gets submitted:
+    document.getElementById("regForm").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+
+function validateForm() {
+  // This function deals with validation of the form fields
+  var x, y, i, valid = true;
+  x = document.getElementsByClassName("tab");
+  y = x[currentTab].getElementsByTagName("input");
+  // A loop that checks every input field in the current tab:
+  for (i = 0; i < y.length; i++) {
+    // If a field is empty...
+    if (y[i].value == "") {
+      // add an "invalid" class to the field:
+      y[i].className += " invalid";
+      // and set the current valid status to false:
+      valid = false;
+    }
+  }
+  // If the valid status is true, mark the step as finished and valid:
+  if (valid) {
+    document.getElementsByClassName("step")[currentTab].className += " finish";
+  }
+  return valid; // return the valid status
+}
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class to the current step:
+  x[n].className += " active";
+}
+
+
 </script>
 
 @endsection

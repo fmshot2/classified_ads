@@ -22,11 +22,16 @@
                     <div class="s-border"></div>
                     <div class="m-border"></div>
                     <ul class="contact-info">
+                        <?php if($general_info->address): ?>
+                            <li>
+                                <strong style="color: rgb(190, 190, 190)"><i class="fa fa-map-marker"></i> Address:</strong> <br> <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31518.588844000613!2d7.492251300000006!3d9.07982880000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x55e2e606f1c6452e!2sE.F.%20Network%20Ltd!5e0!3m2!1sen!2sng!4v1611820893949!5m2!1sen!2sng"> <?php echo e($general_info->address ? $general_info->address : ''); ?> </a>
+                            </li>
+                        <?php endif; ?>
                         <li>
-                            <strong style="color: rgb(190, 190, 190)"><i class="fa fa-map-marker"></i> Address:</strong> <br> <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31518.588844000613!2d7.492251300000006!3d9.07982880000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x55e2e606f1c6452e!2sE.F.%20Network%20Ltd!5e0!3m2!1sen!2sng!4v1611820893949!5m2!1sen!2sng"> <?php echo e($general_info->address ? $general_info->address : ''); ?> </a>
+                            <strong style="color: rgb(190, 190, 190)"><i class="fa fa-envelope-open"></i> Email:</strong> <a href="mailto:<?php echo e($general_info->support_email ? $general_info->support_email : ''); ?>"> <?php echo e($general_info->support_email ? $general_info->support_email : ''); ?> </a>
                         </li>
-                        <li>
-                            <strong style="color: rgb(190, 190, 190)"><i class="fa fa-envelope-open"></i> Email:</strong> <a href="mailto: <?php echo e($general_info->contact_email ? $general_info->contact_email : ''); ?>"> <?php echo e($general_info->contact_email ? $general_info->support_email : ''); ?> </a>
+                        <li style="margin-top: -15px">
+                            <strong style="color: rgba(190, 190, 190, 0), 0.027), 0.027); opacity: 0"><i class="fa fa-envelope-open"></i> Email:</strong> <a href="mailto: <?php echo e($general_info->contact_email ? $general_info->contact_email : ''); ?>"> <?php echo e($general_info->contact_email ? $general_info->contact_email : ''); ?> </a>
                         </li>
                         <li>
                             <strong style="color: rgb(190, 190, 190)"><i class="fa fa-phone"></i> Phone:</strong> <a href="tel:  <?php echo e($general_info->hot_line ? $general_info->hot_line : ''); ?>">  <?php echo e($general_info->hot_line ? $general_info->hot_line : ''); ?> </a>

@@ -19,6 +19,56 @@
     .topnav-advert-slides { width: 100%; }
     .topnav-advert-slides-hidden { display : none; }
     /* Referral Image Slider Ends */
+
+    @-webkit-keyframes rotate {
+        100% {
+            transform: rotate(1turn);
+        }
+    }
+
+    @keyframes  rotate {
+        100% {
+            transform: rotate(1turn);
+        }
+    }
+    .main-header .navbar-expand-lg .navbar-nav .rainbow .nav-link {
+        padding: 25px 15px 0px !important;
+        display: block;
+    }
+    .rainbow {
+        position: relative;
+        z-index: 0;
+        border-radius: 500px;
+        overflow: hidden;
+        margin-top: 6px;
+    }
+    .rainbow::before {
+        content: "";
+        position: absolute;
+        z-index: -2;
+        left: -50%;
+        top: -50%;
+        width: 300%;
+        height: 300%;
+        background-color: #399953;
+        background-repeat: no-repeat;
+        background-size: 50% 50%, 50% 50%;
+        background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+        background-image: linear-gradient(#399953, #399953), linear-gradient(#fbb300, #fbb300), linear-gradient(#d53e33, #d53e33), linear-gradient(#377af5, #377af5);
+        -webkit-animation: rotate 4s linear infinite;
+                animation: rotate 4s linear infinite;
+    }
+    .rainbow::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        left: 6px;
+        top: 6px;
+        width: calc(100% - 12px);
+        height: calc(100% - 12px);
+        background: white;
+        border-radius: 500px;
+    }
 </style>
 
 <script>
@@ -155,16 +205,21 @@
                     <a data-toggle="modal" data-target="#launchAgentModal" href="#"  class="nav-link">Become our Agent</a>
                 </li>
 
+                <li class="nav-item rainbow">
+                    <a href="<?php echo e(route('register')); ?>"  class="nav-link">Promo Registration</a>
+                </li>
+
+
                 
                 
             </ul>
             <?php if(auth()->guard()->check()): ?>
             <?php if(Auth::user()->role == 'seller'): ?>
-            <ul class="navbar-nav ml-auto">
-                <li class="mr-3 navbar-top-post-btn">
-                    <a class="btn btn-success" href="<?php echo e(route('seller.service.create')); ?>"><i class="fa fa-plus"></i> <span style="font-size: 15px !important;color:#fff">Post A Service</span></a>
-                </li>
-            </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="mr-3 navbar-top-post-btn">
+                        <a class="btn btn-success" href="<?php echo e(route('seller.service.create')); ?>"><i class="fa fa-plus"></i> <span style="font-size: 15px !important;color:#fff">Post A Service</span></a>
+                    </li>
+                </ul>
             <?php endif; ?>
             <?php endif; ?>
             <?php if(!Auth::guard('agent')->check()): ?>
@@ -232,13 +287,13 @@
                                             <div class="popover__content">
                                                 <ul>
                                                     <?php if(isset($category->sub_categories)): ?>
-                                                    <?php if($category->sub_categories->count() > 0): ?>
-                                                    <?php $__currentLoopData = $category->sub_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sub_category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <a href="<?php echo e(route('show_subcat_items', $sub_category->slug)); ?>"><li style="<?php if(!$loop->last): ?>border-bottom: 1px solid rgb(105 105 105 / 11%);<?php endif; ?>"><a href="<?php echo e(route('show_subcat_items', $sub_category->slug)); ?>"><?php echo e($sub_category->name); ?></a></li></a>
-                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                    <?php else: ?>
-                                                    <li>No Sub Category!</li>
-                                                    <?php endif; ?>
+                                                        <?php if($category->sub_categories->count() > 0): ?>
+                                                            <?php $__currentLoopData = $category->sub_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sub_category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                <a href="<?php echo e(route('services.subcategory', $sub_category->slug)); ?>"><li style="<?php if(!$loop->last): ?>border-bottom: 1px solid rgb(105 105 105 / 11%);<?php endif; ?>"><a href="<?php echo e(route('services.subcategory', $sub_category->slug)); ?>"><?php echo e($sub_category->name); ?></a></li></a>
+                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                        <?php else: ?>
+                                                            <li>No Sub Category!</li>
+                                                        <?php endif; ?>
                                                     <?php endif; ?>
                                                 </ul>
                                             </div>
@@ -251,7 +306,7 @@
                                     <ul class="categoriesModalList">
                                         <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <?php if($loop->index > 13 && $loop->index <= 27): ?>
-                                        <li data-dismiss="modal" class="popover__wrapper">
+                                        <li class="popover__wrapper">
                                             <a  href="<?php echo e(route('services', $category->slug)); ?>"><i class="fa fa-chevron-right"></i> <?php echo e($category->name); ?>
 
                                                 
@@ -260,13 +315,13 @@
                                             <div class="popover__content">
                                                 <ul>
                                                     <?php if(isset($category->sub_categories)): ?>
-                                                    <?php if($category->sub_categories->count() > 0): ?>
-                                                    <?php $__currentLoopData = $category->sub_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sub_category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                   <a href="<?php echo e(route('show_subcat_items', $sub_category->slug)); ?>"><li style="<?php if(!$loop->last): ?>border-bottom: 1px solid rgb(105 105 105 / 11%);<?php endif; ?>"><a href="<?php echo e(route('show_subcat_items', $sub_category->slug)); ?>"><?php echo e($sub_category->name); ?></a></li></a>
-                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                    <?php else: ?>
-                                                    <li>No Sub Category!</li>
-                                                    <?php endif; ?>
+                                                        <?php if($category->sub_categories->count() > 0): ?>
+                                                            <?php $__currentLoopData = $category->sub_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sub_category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                <a href="<?php echo e(route('services.subcategory', $sub_category->slug)); ?>"><li style="<?php if(!$loop->last): ?>border-bottom: 1px solid rgb(105 105 105 / 11%);<?php endif; ?>"><a href="<?php echo e(route('services.subcategory', $sub_category->slug)); ?>"><?php echo e($sub_category->name); ?></a></li></a>
+                                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                        <?php else: ?>
+                                                            <li>No Sub Category!</li>
+                                                        <?php endif; ?>
                                                     <?php endif; ?>
                                                 </ul>
                                             </div>
@@ -279,7 +334,7 @@
                                     <ul class="categoriesModalList">
                                         <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <?php if($loop->index > 26): ?>
-                                        <li data-dismiss="modal" class="popover__wrapper">
+                                        <li class="popover__wrapper">
                                             <a  href="<?php echo e(route('services', $category->slug)); ?>"><i class="fa fa-chevron-right"></i> <?php echo e($category->name); ?>
 
                                                 
@@ -290,7 +345,7 @@
                                                     <?php if(isset($category->sub_categories)): ?>
                                                     <?php if($category->sub_categories->count() > 0): ?>
                                                     <?php $__currentLoopData = $category->sub_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sub_category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                     <a href="<?php echo e(route('show_subcat_items', $sub_category->slug)); ?>"><li style="<?php if(!$loop->last): ?>border-bottom: 1px solid rgb(105 105 105 / 11%);<?php endif; ?>"><a href="<?php echo e(route('show_subcat_items', $sub_category->slug)); ?>"><?php echo e($sub_category->name); ?></a></li></a>
+                                                     <a href="<?php echo e(route('services.subcategory', $sub_category->slug)); ?>"><li style="<?php if(!$loop->last): ?>border-bottom: 1px solid rgb(105 105 105 / 11%);<?php endif; ?>"><a href="<?php echo e(route('services.subcategory', $sub_category->slug)); ?>"><?php echo e($sub_category->name); ?></a></li></a>
                                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     <?php else: ?>
                                                     <li>No Sub Category!</li>

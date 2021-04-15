@@ -29,7 +29,7 @@
                                     </div>
                                     <div class="detail">
                                         <div>
-                                            <a class="title title-dk" href="<?php echo e(route('serviceDetail', $featuredService->slug)); ?>"><?php echo e(Str::limit($featuredService->name, 21)); ?></a>
+                                            <a class="title title-dk" href="<?php echo e(route('serviceDetail', $featuredService->slug)); ?>"><?php echo e(Str::limit($featuredService->name, 30)); ?></a>
                                             <a class="title title-mb" href="<?php echo e(route('serviceDetail', $featuredService->slug)); ?>"><?php echo e(Str::limit($featuredService->name, 12)); ?></a>
                                         </div>
 
@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="detail">
                                         <div>
-                                            <a class="title title-dk" href="<?php echo e(route('serviceDetail', $featuredService->slug)); ?>"><?php echo e(Str::limit($featuredService->name, 21)); ?></a>
+                                            <a class="title title-dk" href="<?php echo e(route('serviceDetail', $featuredService->slug)); ?>"><?php echo e(Str::limit($featuredService->name, 30)); ?></a>
                                             <a class="title title-mb" href="<?php echo e(route('serviceDetail', $featuredService->slug)); ?>"><?php echo e(Str::limit($featuredService->name, 12)); ?></a>
                                         </div>
 
@@ -107,7 +107,7 @@
                                     </div>
                                     <div class="detail">
                                         <div>
-                                            <a class="title title-dk" href="<?php echo e(route('serviceDetail', $featuredService->slug)); ?>"><?php echo e(Str::limit($featuredService->name, 21)); ?></a>
+                                            <a class="title title-dk" href="<?php echo e(route('serviceDetail', $featuredService->slug)); ?>"><?php echo e(Str::limit($featuredService->name, 30)); ?></a>
                                             <a class="title title-mb" href="<?php echo e(route('serviceDetail', $featuredService->slug)); ?>"><?php echo e(Str::limit($featuredService->name, 12)); ?></a>
                                         </div>
 
@@ -143,7 +143,7 @@
                                     </div>
                                     <div class="detail">
                                         <div>
-                                            <a class="title title-dk" href="<?php echo e(route('serviceDetail', $featuredService->slug)); ?>"><?php echo e(Str::limit($featuredService->name, 21)); ?></a>
+                                            <a class="title title-dk" href="<?php echo e(route('serviceDetail', $featuredService->slug)); ?>"><?php echo e(Str::limit($featuredService->name, 30)); ?></a>
                                             <a class="title title-mb" href="<?php echo e(route('serviceDetail', $featuredService->slug)); ?>"><?php echo e(Str::limit($featuredService->name, 12)); ?></a>
                                         </div>
 

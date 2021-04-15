@@ -34,25 +34,9 @@ use Image;
 use App\Payment;
 
 
+
 class OperationalController extends Controller
 {
-
-    public function credentialsReset(){
-        $name = "Abdul";
-        $email = 'adeoluibidapo@gmail.com';
-        $password = '123456';
-        
-
-        try {
-            Mail::to('adeoluibidapo@gmail.com')->send(new CredentialsReset($name, $email, $password));
-        } catch (\Exception $e) {
-            $failedtosendmail = 'Failed to Mail!';
-        }
-
-        return redirect()->back();
-    }
-
-
     public function agentDashboard(Request $request)
     {
 

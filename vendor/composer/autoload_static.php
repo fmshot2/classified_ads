@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4786fff748d09858d44ff89f746f1cab
+class ComposerStaticInitc09cc0d47d775bc345b0e5fc30eefc1d
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -15,26 +15,26 @@ class ComposerStaticInit4786fff748d09858d44ff89f746f1cab
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
+        'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
+        '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
+        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
-        '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
+        '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
-        '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
-        'cb61d74ad51d00867155534456b38b23' => __DIR__ . '/..' . '/mews/purifier/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
-        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        'cb61d74ad51d00867155534456b38b23' => __DIR__ . '/..' . '/mews/purifier/src/helpers.php',
         '55939d295627a904f01d5f2ab92e8d67' => __DIR__ . '/..' . '/cyrildewit/eloquent-viewable/src/helpers.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         '40275907c8566c390185147049ef6e5d' => __DIR__ . '/..' . '/livewire/livewire/src/helpers.php',
@@ -54,10 +54,6 @@ class ComposerStaticInit4786fff748d09858d44ff89f746f1cab
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
-        ),
-        'X' => 
-        array (
-            'XdgBaseDir\\' => 11,
         ),
         'W' => 
         array (
@@ -215,12 +211,8 @@ class ComposerStaticInit4786fff748d09858d44ff89f746f1cab
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-        ),
-        'XdgBaseDir\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'Whoops\\' => 
         array (
@@ -689,20 +681,28 @@ class ComposerStaticInit4786fff748d09858d44ff89f746f1cab
         'App\\Http\\Resources\\CategoryResource' => __DIR__ . '/../..' . '/app/Http/Resources/CategoryResource.php',
         'App\\Http\\Resources\\ImageResource' => __DIR__ . '/../..' . '/app/Http/Resources/ImageResource.php',
         'App\\Http\\Resources\\MessageCollection' => __DIR__ . '/../..' . '/app/Http/Resources/MessageCollection.php',
+        'App\\Http\\Resources\\SeekingWorkResource' => __DIR__ . '/../..' . '/app/Http/Resources/SeekingWorkResource.php',
         'App\\Http\\Resources\\ServiceResource' => __DIR__ . '/../..' . '/app/Http/Resources/ServiceResource.php',
         'App\\Http\\Resources\\ServiceResourceCollection' => __DIR__ . '/../..' . '/app/Http/Resources/ServiceResourceCollection.php',
         'App\\Http\\Resources\\SliderResource' => __DIR__ . '/../..' . '/app/Http/Resources/SliderResource.php',
         'App\\Http\\Resources\\SliderResourceCollection' => __DIR__ . '/../..' . '/app/Http/Resources/SliderResourceCollection.php',
         'App\\Image' => __DIR__ . '/../..' . '/app/Image.php',
         'App\\ImageUpload' => __DIR__ . '/../..' . '/app/ImageUpload.php',
+        'App\\Jobs\\TestQueue' => __DIR__ . '/../..' . '/app/Jobs/TestQueue.php',
         'App\\Like' => __DIR__ . '/../..' . '/app/Like.php',
         'App\\Local_government' => __DIR__ . '/../..' . '/app/Local_government.php',
         'App\\Mail\\AdvertRequestsForm' => __DIR__ . '/../..' . '/app/Mail/AdvertRequestsForm.php',
         'App\\Mail\\AgentRegistration' => __DIR__ . '/../..' . '/app/Mail/AgentRegistration.php',
         'App\\Mail\\ContactUs' => __DIR__ . '/../..' . '/app/Mail/ContactUs.php',
         'App\\Mail\\ContactUsAdmin' => __DIR__ . '/../..' . '/app/Mail/ContactUsAdmin.php',
+        'App\\Mail\\CredentialsReset' => __DIR__ . '/../..' . '/app/Mail/CredentialsReset.php',
+        'App\\Mail\\Newsletter' => __DIR__ . '/../..' . '/app/Mail/Newsletter.php',
+        'App\\Mail\\SeasonGreetings' => __DIR__ . '/../..' . '/app/Mail/SeasonGreetings.php',
+        'App\\Mail\\SendEmail' => __DIR__ . '/../..' . '/app/Mail/SendEmail.php',
         'App\\Mail\\SendMailable' => __DIR__ . '/../..' . '/app/Mail/SendMailable.php',
+        'App\\Mail\\ServiceApproved' => __DIR__ . '/../..' . '/app/Mail/ServiceApproved.php',
         'App\\Mail\\ServiceCreated' => __DIR__ . '/../..' . '/app/Mail/ServiceCreated.php',
+        'App\\Mail\\TestMail' => __DIR__ . '/../..' . '/app/Mail/TestMail.php',
         'App\\Mail\\UserRegistered' => __DIR__ . '/../..' . '/app/Mail/UserRegistered.php',
         'App\\Mail\\UsersFeedback' => __DIR__ . '/../..' . '/app/Mail/UsersFeedback.php',
         'App\\Message' => __DIR__ . '/../..' . '/app/Message.php',
@@ -721,6 +721,7 @@ class ComposerStaticInit4786fff748d09858d44ff89f746f1cab
         'App\\Referal' => __DIR__ . '/../..' . '/app/Referal.php',
         'App\\Refererlink' => __DIR__ . '/../..' . '/app/Refererlink.php',
         'App\\SeekingWork' => __DIR__ . '/../..' . '/app/SeekingWork.php',
+        'App\\SendMail' => __DIR__ . '/../..' . '/app/SendMail.php',
         'App\\Service' => __DIR__ . '/../..' . '/app/Service.php',
         'App\\Slider' => __DIR__ . '/../..' . '/app/Slider.php',
         'App\\State' => __DIR__ . '/../..' . '/app/State.php',
@@ -1344,6 +1345,7 @@ class ComposerStaticInit4786fff748d09858d44ff89f746f1cab
         'Facade\\FlareClient\\Http\\Response' => __DIR__ . '/..' . '/facade/flare-client-php/src/Http/Response.php',
         'Facade\\FlareClient\\Middleware\\AddGlows' => __DIR__ . '/..' . '/facade/flare-client-php/src/Middleware/AddGlows.php',
         'Facade\\FlareClient\\Middleware\\AnonymizeIp' => __DIR__ . '/..' . '/facade/flare-client-php/src/Middleware/AnonymizeIp.php',
+        'Facade\\FlareClient\\Middleware\\CensorRequestBodyFields' => __DIR__ . '/..' . '/facade/flare-client-php/src/Middleware/CensorRequestBodyFields.php',
         'Facade\\FlareClient\\Report' => __DIR__ . '/..' . '/facade/flare-client-php/src/Report.php',
         'Facade\\FlareClient\\Solutions\\ReportSolution' => __DIR__ . '/..' . '/facade/flare-client-php/src/Solutions/ReportSolution.php',
         'Facade\\FlareClient\\Stacktrace\\Codesnippet' => __DIR__ . '/..' . '/facade/flare-client-php/src/Stacktrace/Codesnippet.php',
@@ -4883,6 +4885,7 @@ class ComposerStaticInit4786fff748d09858d44ff89f746f1cab
         'Psy\\ConsoleColorFactory' => __DIR__ . '/..' . '/psy/psysh/src/ConsoleColorFactory.php',
         'Psy\\Context' => __DIR__ . '/..' . '/psy/psysh/src/Context.php',
         'Psy\\ContextAware' => __DIR__ . '/..' . '/psy/psysh/src/ContextAware.php',
+        'Psy\\EnvInterface' => __DIR__ . '/..' . '/psy/psysh/src/EnvInterface.php',
         'Psy\\Exception\\BreakException' => __DIR__ . '/..' . '/psy/psysh/src/Exception/BreakException.php',
         'Psy\\Exception\\DeprecatedException' => __DIR__ . '/..' . '/psy/psysh/src/Exception/DeprecatedException.php',
         'Psy\\Exception\\ErrorException' => __DIR__ . '/..' . '/psy/psysh/src/Exception/ErrorException.php',
@@ -4928,6 +4931,7 @@ class ComposerStaticInit4786fff748d09858d44ff89f746f1cab
         'Psy\\Shell' => __DIR__ . '/..' . '/psy/psysh/src/Shell.php',
         'Psy\\Sudo' => __DIR__ . '/..' . '/psy/psysh/src/Sudo.php',
         'Psy\\Sudo\\SudoVisitor' => __DIR__ . '/..' . '/psy/psysh/src/Sudo/SudoVisitor.php',
+        'Psy\\SuperglobalsEnv' => __DIR__ . '/..' . '/psy/psysh/src/SuperglobalsEnv.php',
         'Psy\\TabCompletion\\AutoCompleter' => __DIR__ . '/..' . '/psy/psysh/src/TabCompletion/AutoCompleter.php',
         'Psy\\TabCompletion\\Matcher\\AbstractContextAwareMatcher' => __DIR__ . '/..' . '/psy/psysh/src/TabCompletion/Matcher/AbstractContextAwareMatcher.php',
         'Psy\\TabCompletion\\Matcher\\AbstractDefaultParametersMatcher' => __DIR__ . '/..' . '/psy/psysh/src/TabCompletion/Matcher/AbstractDefaultParametersMatcher.php',
@@ -6055,7 +6059,6 @@ class ComposerStaticInit4786fff748d09858d44ff89f746f1cab
         'Whoops\\Util\\Misc' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/Misc.php',
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
-        'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',
@@ -6167,10 +6170,10 @@ class ComposerStaticInit4786fff748d09858d44ff89f746f1cab
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4786fff748d09858d44ff89f746f1cab::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4786fff748d09858d44ff89f746f1cab::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit4786fff748d09858d44ff89f746f1cab::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit4786fff748d09858d44ff89f746f1cab::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc09cc0d47d775bc345b0e5fc30eefc1d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc09cc0d47d775bc345b0e5fc30eefc1d::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitc09cc0d47d775bc345b0e5fc30eefc1d::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitc09cc0d47d775bc345b0e5fc30eefc1d::$classMap;
 
         }, null, ClassLoader::class);
     }
