@@ -421,7 +421,7 @@ class AccountantController extends Controller
 
     public function allEfPayments()
     {
-        $payments = Payment::all();
+        $payments = Payment::with('user')->get();
         return view('accountant.payments.all_ef_payments', [
             'payments' => $payments
         ]);
