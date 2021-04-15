@@ -7,23 +7,23 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserRegistered extends Mailable implements ShouldQueue
+class Newsletter extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $name, $email, $password, $accountType;
+    public $username, $category, $services;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name, $email, $password, $accountType)
+    public function __construct($username, $category, $services)
+    // public function __construct()
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->password = $password;
-        $this->accountType = $accountType;
+        $this->username = $username;
+        $this->category = $category;
+        $this->services = $services;
     }
 
     /**
@@ -33,6 +33,6 @@ class UserRegistered extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('emails.user-registered')->subject('Account Created!');
+        return $this->markdown('emails.newsletters.newsletter')->subject('Your monthly newsletter!');
     }
 }

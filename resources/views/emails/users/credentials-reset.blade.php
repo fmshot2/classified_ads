@@ -1,11 +1,11 @@
 @component('mail::message')
-# Your registration was successful!
-## <strong>These are your details for backup</strong>
+# Account re-activation!
+## <strong>Dear {{ $name }}, here are your new login credentials to efcontact.</strong>
 
-<p><strong>Full Name: </strong> {{ $name ? $name : 'Name not provided!' }}</p>
 <p><strong>Email: </strong> {{ $email ? $email : 'Name not provided!' }}</p>
 <p><strong>Password: </strong> {{ $password ? $password : 'Name not provided!' }}</p>
-<p><strong>Account Type: </strong> {{ $accountType == 'seller' ? 'Service Provider' : 'Service Seeker' }}</p>
+
+<p><strong>NOTE:</strong> Make sure to reset your password as soon as you log in, thanks.</p>
 
 @component('mail::button', ['url' => route('login')])
 Login Now

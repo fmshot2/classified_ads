@@ -12,6 +12,8 @@ use App\SubCategory;
 use App\General_Info;
 use App\Image as ModelImage;
 use App\Like;
+use App\Mail\CredentialsReset;
+use App\Mail\Newsletter;
 use App\Mail\UsersFeedback;
 use App\Message;
 use App\PageContent;
@@ -32,9 +34,25 @@ use Image;
 use App\Payment;
 
 
-
 class OperationalController extends Controller
 {
+
+    public function credentialsReset(){
+        $name = "Abdul";
+        $email = 'adeoluibidapo@gmail.com';
+        $password = '123456';
+        
+
+        try {
+            Mail::to('adeoluibidapo@gmail.com')->send(new CredentialsReset($name, $email, $password));
+        } catch (\Exception $e) {
+            $failedtosendmail = 'Failed to Mail!';
+        }
+
+        return redirect()->back();
+    }
+
+
     public function agentDashboard(Request $request)
     {
 
@@ -1092,4 +1110,36 @@ class OperationalController extends Controller
             'alert-type' => 'error'
         ]);
     }
+
+
+    // public function Newsletter()
+    // {
+    //     $category = Category::inRandomOrder()->first();
+    //     $services = Service::inRandomOrder()->limit(5)->get();
+    //     $username = 'James Connor';
+
+    //     try{
+    //         Mail::to('adeolewfb@gmail.com')->send(new Newsletter($username, $category, $services));
+    //     }
+    //     catch(\Exception $e){
+    //         $failedtosendmail = 'Failed to Mail!.';
+    //     }
+
+    //     return $services;
+    // }
+
+    // public function CredentialsReset($user_id)
+    // {
+    //     $user = User::find($user_id);
+    //     $user_name = $user->name;
+    //     $name = explode(' ', trim($user_name))[0];
+    //     $password = 'jaDewooo';
+
+    //     try{
+    //         Mail::to('adeolewfb@gmail.com')->send(new CredentialsReset($name, $user->email, $password));
+    //     }
+    //     catch(\Exception $e){
+    //         $failedtosendmail = 'Failed to Mail!.';
+    //     }
+    // }
 }

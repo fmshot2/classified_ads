@@ -304,12 +304,14 @@ return $this->index();
         $category_id = $one_category->category->id;
         $sub_categories = SubCategory::where("category_id",$category_id)->orderBy('name', 'asc')->get();
         $search_form_categories = Category::orderBy('name')->get();
+        $categories = Category::all();
 
         return view('services_subcategory', [
-            'category_services'     => $category_services,
-            'one_category'          => $one_category,
+            'category_services'      => $category_services,
+            'one_category'           => $one_category,
             'sub_categories'         => $sub_categories,
-            'search_form_categories' => $search_form_categories
+            'search_form_categories' => $search_form_categories,
+            'categories'             => $categories
         ]);
     }
 

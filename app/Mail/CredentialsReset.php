@@ -7,24 +7,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ContactUsAdmin extends Mailable implements ShouldQueue
+class CredentialsReset extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
-
-    public $name, $email, $subject, $message, $phone;
+    public $name, $email, $password;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name, $email, $subject, $message, $phone)
+    public function __construct($name = 'Phillip Jader', $email = 'email@ase.com', $password = 'fher4uiueh4849')
     {
-        $this->name = $name;
+        $this->name = explode(' ', trim($name))[0];
         $this->email = $email;
-        $this->subject = $subject;
-        $this->message = $message;
-        $this->phone = $phone;
+        $this->password = $password;
     }
 
     /**
@@ -34,6 +31,6 @@ class ContactUsAdmin extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('emails.contactusadmin')->subject($this->subject);
+        return $this->markdown('emails.users.credentials-reset')->subject('Your new login credentials to efcontact!');
     }
 }

@@ -782,14 +782,14 @@ class AuthController extends Controller
 
     public function buyer()
     {
-        $buyers = User::where('role', 'buyer')->orderBy('id', 'asc')->paginate(8);
+        $buyers = User::where('role', 'buyer')->orderBy('id', 'asc')->get();
         // Category::orderBy('id', 'asc')->paginate(35);
         return view('admin.user.buyer', compact('buyers'));
     }
 
     public function seller()
     {
-        $seller = User::where('role', 'seller')->paginate(20);
+        $seller = User::where('role', 'seller')->orderBy('id', 'desc')->get();
         $approval_status = null;
         return view('admin.user.seller', compact('seller', 'approval_status'));
     }

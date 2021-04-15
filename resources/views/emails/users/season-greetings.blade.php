@@ -1,21 +1,12 @@
 @component('mail::message')
-# Your service was created successfully!
-
-<p><strong>Service Name: </strong> {{ $name ? $name : 'Name not provided!' }}</p>
-<p><strong>Service Category: </strong> {{ $category ? $category : 'Category not provided!' }}</p>
-<p><strong>Phone: </strong> {{ $phone ? $phone : 'Phone not provided!' }}</p>
-<p><strong>State: </strong> {{ $state ? $state : 'State not provided!' }}</p>
-
-@component('mail::button', ['url' => route('serviceDetail', ['slug' => $slug])])
-View Service
-@endcomponent
+## Dear {{ $name }},
+<p>{!! $message !!}</p>
 
 @component('mail::panel')
-Promote your service by sharing it on different platforms. Social media, forums etc.
+Thank you for using EFContact.
 @endcomponent
 
 Thanks,<br>
-<em>Wishing you all the best</em><br>
 <strong>{{ config('app.name') }}</strong>
 <div class="table" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; padding-bottom: 15px;font-size: 13px; margin-top: -15px">
     <a style="text-decoration: none; color: #ca8309" href="telto:{{ $general_info->hot_line ? $general_info->hot_line : '' }}">📞 {{ $general_info->hot_line ? $general_info->hot_line : '' }}</a> <br>

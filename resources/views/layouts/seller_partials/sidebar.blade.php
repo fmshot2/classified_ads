@@ -29,7 +29,7 @@
 
         <li class="treeview" style="{{ url()->current() == route('seller.service.all') ? 'background-color: #CA8309; color: #fff !important' : '' }}">
             <a href="#" style="{{ url()->current() == route('seller.service.all') ? 'color: #fff !important' : '' }}">
-                <i class="fa fa-home"></i>
+                <i class="fa fa-briefcase"></i>
                 <span> My Services </span>
                 <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -42,7 +42,7 @@
         </li>
         <li class="{{ url()->current() == route('seller.sub.create') ? 'active' : '' }}" style="">
           <a href=" {{route('seller.sub.create') }}">
-            <i class="fa fa-dashboard"></i> <span>My Subscriptions </span>
+            <i class="fa fa-money"></i> <span>My Subscriptions </span>
             <span class="pull-right-container">
             </span>
           </a>
@@ -50,7 +50,7 @@
 
         <li class="{{ url()->current() == route('seller.message.all') ? 'active' : '' }}">
           <a href=" {{route ('seller.message.all') }}">
-            <i class="fa fa-briefcase"></i> <span> My Messages </span>
+            <i class="fa fa-envelope"></i> <span> My Messages </span>
             @if ($unread_message_count > 0)
                 <span class="pull-right-container">
                     <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small>

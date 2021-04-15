@@ -329,7 +329,7 @@
                             </div>
                             <div class="col-lg-6 col-md-4 col-sm-12 col-xs-12">
                                 <div class="form-group">
-                                    <input type="text" name="keyword" id="jxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g Barber, Plumber...)">
+                                    <input type="text" name="keyword" id="jxservice" class="form-control searchInput" placeholder="What are you looking for? (e.g Barber, Plumber...)">
                                     <div id="service_list" class="ajaxSearchList"></div>
                                 </div>
                             </div>
@@ -364,7 +364,7 @@
                             </div>
                             <div class="col-lg-6 col-md-4 col-sm-12 col-xs-12">
                                 <div class="form-group">
-                                    <input type="text" name="keyword" id="mobilejxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g Barber, Plumber...)">
+                                    <input type="text" name="keyword" id="mobilejxservice" class="form-control searchInput" placeholder="What are you looking for? (e.g Barber, Plumber...)">
                                     <div id="mobile_service_list" class="ajaxSearchList"></div>
                                 </div>
                             </div>
@@ -791,8 +791,8 @@
 
 <script>
     $(document).ready(function(){
-        $('#jxservices').keyup(function(){
-            var query = $('#jxservices').val();
+        $('#jxservice').keyup(function(){
+            var query = $('#jxservice').val();
             if(query != '')
             {
                 var _token = $('input[name="_token"]').val();
@@ -816,8 +816,8 @@
             $('#service_list').fadeOut();
         });
 
-        $('#mobilejxservices').keyup(function(){
-            var query = $('#mobilejxservices').val();
+        $('#mobilejxservice').keyup(function(){
+            var query = $('#mobilejxservice').val();
             if(query != '')
             {
                 var _token = $('input[name="_token"]').val();

@@ -13,11 +13,15 @@ use CyrildeWit\EloquentViewable\Contracts\Viewable;
 use tizis\laraComments\Contracts\ICommentable;
 use tizis\laraComments\Traits\Commentable;
 use App\ProviderSubscription;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 
 class Service extends Model implements Viewable, ICommentable
 {
     use InteractsWithViews, Commentable;
+
+    use SoftDeletes;
 
     protected $removeViewsOnDelete = true;
     protected $guarded = [];
