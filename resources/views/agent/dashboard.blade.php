@@ -170,7 +170,7 @@
 
         <div class="box" >
          <div class="box-header">
-          <h3 class="box-title"> Referals </h3>
+          <h3 class="box-title">Your Referrals </h3>
           <h5 class="text-success downline_text" style="display: none;"> These are the bonuses you've gained from this particular referer </h5>
       </div>
 
@@ -235,55 +235,30 @@
                         <table class="display table table-bordered data_table_main">
                             <thead>
                                 <tr>
-                                 <!-- <th> S/N </th> -->
-<!--                        <th> Referee Name </th>
--->
-<th> Referer Name </th>
-<!-- <th> Agent Code </th> -->
-<th> Level 1 Bonus </th>
-<th> Level 2 Bonus </th>
-<th> Level 3 Bonus </th>
-<th> Level 4 Bonus </th>
-<th> Total Bonus From This Referer </th>
-<!-- <th> Action </th> -->
+                                    <th> Referer Name </th>
+                                    <th> Level 1 Bonus </th>
+                                    <th> Level 2 Bonus </th>
+                                    <th> Level 3 Bonus </th>
+                                    <th> Level 4 Bonus </th>
+                                    <th> Total Bonus From This Referer </th>
+                                </tr>
+                            </thead>
 
-
-
-                                        <!-- <th> Status </th>
-                                            <th> Action </th> -->
-                                        </tr>
-                                    </thead>g
-
-                                    <tbody>
-
-
-
-                                        <tr role="row" class="odd">
-                                           <!-- <td><a href=""> </a></td> -->
-                                           <td id="name">  </td>
-                                           <td id="level1">  </td>
-                                           <td id="level2">  </td>
-                                           <td id="level3">  </td>
-                                           <td id="level4">  </td>
-                                           <td id="total">  </td>
-
-                                           <!-- <td class="center">
-                                            <a onclick="" class="btn btn-warning "><i class="fa fa-eye"></i></a>
-                                            <a href=" {{ route('home') }} " class="btn btn-warning "><i class="fa fa-eye"></i>View Downline</a>
-                                            <a href="{{ route('home') }} " class="btn btn-warning "><i class="fa fa-reply"></i></a>
-                                        </td> -->
-                                    </tr>
-
-
-                                </tbody>
-
-
-                            </table>
-                        </div>
-                         <div>
-                            <button class="btn btn-warning downline_text w-10" style="display: none;" onclick="goBack()">Go Back</button>
-
-                </div>
+                            <tbody>
+                                <tr role="row" class="odd">
+                                    <td id="name">  </td>
+                                    <td id="level1">  </td>
+                                    <td id="level2">  </td>
+                                    <td id="level3">  </td>
+                                    <td id="level4">  </td>
+                                    <td id="total">  </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <button class="btn btn-warning downline_text w-10" style="display: none;" onclick="goBack()">Go Back</button>
+                    </div>
                     </div>
                     <!-- /.box-body -->
 
