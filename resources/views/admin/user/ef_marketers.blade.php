@@ -40,10 +40,10 @@ All E.F Maketers |
 									<th> Date </th>
 									<th> Activate/Deactivate</th>
 								</tr>
-								</thead>	
-<tbody>
+							</thead>	
+							<tbody>
 									@foreach($efmarketers as $key => $efmarketer)
-<tr>
+								<tr>
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 									<td> {{ $efmarketer->name }} </td>
 									<td><span class="text-muted"> </i> {{ $efmarketer->email }} </span> </td>
@@ -57,33 +57,31 @@ All E.F Maketers |
 										@endif 
 									</td>
 									 <td class="center">
-                                            <a href="{{route('efMarketerDownline', $efmarketer->slug)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
+                                            <a href="#" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
                                     </td>
 			
 
-							</tr>
+								</tr>
 
-							@endforeach
-						</tbody>
+								@endforeach
+							</tbody>
 
-					</table>
+						</table>
 
 
+					</div>
+					<!-- /.box-body -->
 				</div>
-				<!-- /.box-body -->
-			</div>
 
 
-			<!-- /.content -->
-		</div>	
+				<!-- /.content -->
+			</div>	
+
+		</div>
 
 
-
-	</div>
-
+	</section>
 </div>
-</section>
-
 
 
 

@@ -227,6 +227,9 @@ function showPosition(position) {
 
 @include('frontend_section/category')
 
+@include('frontend_section/feature')
+
+
 <div id="servClosesToYouArea" class="blog content-area bg-grea-3 hm-feat-ser-mid-sec">
     <div class="service-detail-container">
             <!-- Main title -->
@@ -237,7 +240,6 @@ function showPosition(position) {
     </div>
 </div>
 
-@include('frontend_section/feature')
 
 {{-- @include('frontend_section/recent') --}}
 
