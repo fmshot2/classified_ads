@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-All EF Contact Payments  | 
+All Registration Payments   | 
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@ All EF Contact Payments  |
 	<section class="content-header">
             
            <h1>
-           All EF Contact Payments
-            <br><small>View and manage all EF contact payments</small>
+           All Payments Made For Registration
+            <br><small>View and manage all payments made for registration</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="{{ route('accountant.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">All EF Contact Payments.</li>
+            <li class="active">Payments for registration.</li>
           </ol>
         </section>
 	<div class="container">
@@ -34,7 +34,7 @@ All EF Contact Payments  |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> All EF Contact Payments.</h3>
+						<h3 class="box-title"> Payments For registration.</h3>
 					</div>
 
 					<!-- /.box-header -->
@@ -43,23 +43,21 @@ All EF Contact Payments  |
 							<thead>
 								<tr>
 									<th> # </th>
-									<th>Name</th>
-									<th> Payment Type </th>
-									<th>  Amount </th>
-									<th>  Transaction Reference </th>
-									<th>  Date of Payment </th>
+									<th> Name  </th>
+									<th> Amount Paid </th>
+									<th> Reference Number </th>
+									<th>Date of Payment</th>
 								</tr>	
 							</thead>
 							<tbody>
-								@forelse($payments as $key => $payment)
+								@forelse($registrations as $key => $payment)
 								<tr>
 									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
-									<td><span> </i> {{ $payment->user->name }}</span> </td>
-									<td><span class="text-muted"> </i> {{ $payment->payment_type }}</span> </td>
+									<td><span class="text-muted"> </i> {{ $payment->user->name }}</span> </td>
 									<td> ₦{{ number_format($payment->amount) }} </td>
 									<td> {{ $payment->tranx_ref }} </td>
 									<td> {{ date('d-m-Y', strtotime($payment->created_at)) }} </td>
-									
+
 								</tr>
 
 								@empty

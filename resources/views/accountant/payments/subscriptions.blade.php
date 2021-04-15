@@ -43,7 +43,7 @@ All Subscription Payments  |
 							<thead>
 								<tr>
 									<th> # </th>
-									{{-- <th> Name  </th> --}}
+									<th> Name  </th>
 									<th> Amount Paid </th>
 									<th> Subscription End Date </th>
 									<th> Subscription Type </th>
@@ -55,7 +55,7 @@ All Subscription Payments  |
 								@forelse($subscriptions as $key => $payment)
 								<tr>
 									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
-									{{-- <td><span class="text-muted"> </i> {{ $payment->users->name }}</span> </td> --}}
+									<td><span class="text-muted"> </i> {{ $payment->user->name }}</span> </td>
 									<td> ₦{{ number_format($payment->last_amount_paid) }} </td>
 									<td> {{ $payment->subscription_end_date }} </td>
 									<td> {{ $payment->sub_type }} </span></td>

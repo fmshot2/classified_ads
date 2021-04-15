@@ -43,7 +43,7 @@ All Payments For Featured Services  |
 							<thead>
 								<tr>
 									<th> # </th>
-									{{-- <th> Name  </th> --}}
+									<th> Name  </th>
 									<th> Amount Paid </th>
 									<th> Reference Number </th>
 									<th>Date of Payment</th>
@@ -53,7 +53,7 @@ All Payments For Featured Services  |
 								@forelse($featured as $key => $payment)
 								<tr>
 									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
-									{{-- <td><span class="text-muted"> </i> {{ $payment->users->name }}</span> </td> --}}
+									<td><span class="text-muted"> </i> {{ $payment->user->name }}</span> </td>
 									<td> ₦{{ number_format($payment->amount) }} </td>
 									<td> {{ $payment->tranx_ref }} </td>
 									<td> {{ date('d-m-Y', strtotime($payment->created_at)) }} </td>

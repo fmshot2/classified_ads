@@ -152,7 +152,7 @@ class AccountantController extends Controller
 
     public function badgeRequests()
     {
-        $all_badges = Badge::all();
+        $all_badges = Payment::where('payment_type', 'badge_payment');
         return view('accountant.badges.badges', [
             'all_badges' => $all_badges
         ]);
@@ -413,7 +413,7 @@ class AccountantController extends Controller
 
     public function subscriptions()
     {
-        $subscriptions = ProviderSubscription::all();
+        $subscriptions = Payment::where('payment_type', '=', 'subscription')->get();
         return view('accountant.payments.subscriptions', [
             'subscriptions' => $subscriptions
         ]);
@@ -434,6 +434,14 @@ class AccountantController extends Controller
             'featured' => $featured
         ]);
         
+    }
+
+    public function registrationPayments()
+    {
+        $registrations = Payment::where('payment_type', '=', 'registration')->get();
+        return view('accountant.payments.registrations', [
+            'registrations' => $registrations
+        ]);
     }
 }
 
