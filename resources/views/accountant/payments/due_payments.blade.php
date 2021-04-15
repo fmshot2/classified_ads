@@ -54,7 +54,7 @@ All Due Payments |
 									<th>Account Number</th>
 									<th> Total Remaining Balance </th>
 									<th> Payment Status </th>
-									<th> Action </th>									
+									{{-- <th> Action </th>									 --}}
 								</tr>	
 							</thead>
 							<tbody>
@@ -75,7 +75,7 @@ All Due Payments |
 										<td> <span class="text text-success">Paid</span></td>
 									@endif
 									{{-- <td> <span class="text text-danger">Paid</span></td> --}}
-									<td><button class="btn btn-success" onclick="makepayment1()">Pay</button> </td>
+									{{-- <td><button class="btn btn-success" onclick="makepayment1()">Pay</button> </td> --}}
 								</tr>
 
 								@empty
