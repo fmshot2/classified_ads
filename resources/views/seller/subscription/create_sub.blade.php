@@ -59,6 +59,8 @@
         			<!-- <p id="sub_end">Your Subscription ends:<span><h1>{{  Carbon\Carbon::parse($current_subscription_end_date)->format('d-m-Y')  }}</h1></span></p> -->
                     <p id="sub_end">Your Subscription ends:<span><h4>{{  Carbon\Carbon::parse($current_subscription_end_date)->toDayDateTimeString()  }}</h4></span></p>                    
                     <!-- <p>Your Subscription ends:<span><h1 id="sub_end2"></h1></span></p> -->
+                @else
+                <p id="sub_end"></p>
                 @endif
         </section>
 
@@ -66,7 +68,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="box box-primary">
-                        <div class="box-header bg-warning text-center">
+                        <div class="box-header text-center" style="background-color: #cc8a19;">
                            <!--  <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i> -->
@@ -81,7 +83,7 @@
                             </ol>
                         </div>
 
-                        <input hidden id="sub_type" type="hidden" name="badge_type" value="1">
+                        <input hidden id="sub_types" type="hidden" name="badge_type" value="1">
                         <input hidden id="amount" type="hidden" name="amount" value="1">
                         <input hidden type="hidden" class="form-control" name="email-addres3" id="email-address3"
                             value="{{ Auth::User()->email }}">
@@ -95,7 +97,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="box box-primary">
-                        <div class="box-header bg-warning text-center">
+                        <div class="box-header text-center" style="background-color: #cc8a19;">
                             <!-- <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i> -->
                         </div>
@@ -116,7 +118,7 @@
 
                   <div class="col-md-3">
                     <div class="box box-primary">
-                        <div class="box-header bg-warning text-center">
+                        <div class="box-header text-center" style="background-color: #cc8a19;">
                             <!-- <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i> -->
                         </div>
@@ -137,7 +139,7 @@
 
                 <div class="col-md-3">
                     <div class="box box-primary">
-                        <div class="box-header bg-warning text-center">
+                        <div class="box-header text-center" style="background-color: #cc8a19;">
                             <!-- <i class="fa fa-star"></i> -->
                         </div>
                         <div class="box-body box-profile text-center">
