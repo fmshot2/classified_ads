@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="box box-primary">
-                        <div class="box-header bg-success text-center">
+                        <div class="box-header bg-warning text-center">
                             <!-- <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i> -->
                         </div>
@@ -116,7 +116,7 @@
 
                   <div class="col-md-3">
                     <div class="box box-primary">
-                        <div class="box-header bg-primary text-center">
+                        <div class="box-header bg-warning text-center">
                             <!-- <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i> -->
                         </div>
@@ -137,7 +137,7 @@
 
                 <div class="col-md-3">
                     <div class="box box-primary">
-                        <div class="box-header bg-info text-center">
+                        <div class="box-header bg-warning text-center">
                             <!-- <i class="fa fa-star"></i> -->
                         </div>
                         <div class="box-body box-profile text-center">
