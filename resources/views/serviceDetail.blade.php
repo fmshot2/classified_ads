@@ -255,6 +255,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link active show" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="one" aria-selected="false">Description</a>
                                 </li>
+                                @if ($serviceDetail->video_link)
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="video-tab" data-toggle="tab" href="#four" role="tab" aria-controls="six" aria-selected="true">Service Video</a>
+                                    </li>
+                                @endif
                                 <li class="nav-item">
                                     <a class="nav-link" id="seven-tab" data-toggle="tab" href="#seven" role="tab" aria-controls="six" aria-selected="true">Contact Details</a>
                                 </li>
@@ -297,11 +302,9 @@
                                 </div>
                                 <div class="tab-pane fade " id="four" role="tabpanel" aria-labelledby="four-tab">
                                     <div class="inside-properties mb-50">
-                                        <h3 class="heading-2">
-                                            Service Video
-                                        </h3>
-                                        <iframe src="https://www.youtube.com/embed/5e0LxrLSzok" allowfullscreen=""></iframe>
-                                        <iframe width="560" height="315" src="{{$serviceDetail->video_link}}" frameborder="0" allowfullscreen></iframe>
+                                        {{-- <iframe src="https://www.youtube.com/embed/5e0LxrLSzok" allowfullscreen=""></iframe>
+                                        <iframe width="560" height="315" src="{{$serviceDetail->video_link}}" frameborder="0" allowfullscreen></iframe> --}}
+                                        <iframe width="500" height="600" src="{{$serviceDetail->video_link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" style="width: 100%; height: 500px !important" allowfullscreen></iframe>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="six" role="tabpanel" aria-labelledby="six-tab">

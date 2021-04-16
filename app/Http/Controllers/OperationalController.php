@@ -41,7 +41,7 @@ class OperationalController extends Controller
         $name = "Abdul";
         $email = 'adeoluibidapo@gmail.com';
         $password = '123456';
-        
+
 
         try {
             Mail::to('adeoluibidapo@gmail.com')->send(new CredentialsReset($name, $email, $password));
@@ -822,25 +822,25 @@ class OperationalController extends Controller
     {
 
         $this->validate($request, [
-            'name'              => 'string|required',
-            'phone'                 => 'string|numeric',
+            'name'                  => 'string|required',
+            'phone'                 => 'numeric',
             'job_type'              => 'string|required',
             'job_title'             => 'string|required',
-            'job_experience'        => 'string|required',
+            'job_experience'        => 'required',
             'still_studying'        => 'string',
             'gender'                => 'string|required',
-            'age'                   => 'string|numeric',
+            'age'                   => 'numeric',
             'marital_status'        => 'string',
             'employment_status'     => 'string|required',
-            'highest_qualification' => 'string|required',
-            'expected_salary'       => 'string|required',
+            'highest_qualification' => 'required',
+            'expected_salary'       => 'required',
             'user_state'            => 'string|required',
             'user_lga'              => 'string|required',
-            'address'               => 'string',
-            'work_experience'       => 'string',
-            'education'             => 'string|required',
-            'certifications'        => 'string',
-            'skills'                => 'string|required',
+            'address'               => 'nullable',
+            'work_experience'       => 'nullable',
+            'education'             => 'required',
+            'certifications'        => 'nullable',
+            'skills'                => 'required',
             'user_image'            => 'image|required'
         ]);
 
