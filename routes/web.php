@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Mail;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
 Route::get('/tester', function ()
 {
     // Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
@@ -473,7 +473,6 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');
     Route::get('/activate_agent/{id}', 'AdminController@activate_agent')->name('admin.activate.agent');
     Route::get('dashboard/ef-marketers', 'AdminController@all_ef_marketers')->name('admin.all_ef_marketers');
-    Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
 
 
 
@@ -639,7 +638,7 @@ Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //S
 
     Route::get('dashboard/service-providers', 'AuthController@seller')->name('superadmin.seller');
     Route::get('dashboard/all-agents', 'AuthController@allagents')->name('superadmin.allagents');
-    Route::get('dashboard/ef-marketers', 'AuthController@all_ef_marketers')->name('superadmin.all_ef_marketers');
+    Route::get('dashboard/ef-marketers', 'AdminController@all_ef_marketers')->name('superadmin.all_ef_marketers');
 
     Route::get('dashboard/service-seekers', 'AuthController@buyer')->name('superadmin.buyer');
     Route::get('/activate_user/{id}', 'Admin@activate_user')->name('superadmin.activate');

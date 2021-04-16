@@ -70,7 +70,6 @@ All Buyer |
 
 
 					</table>
-    {{ $buyers->links() }}
 
 
 				</div>
