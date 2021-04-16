@@ -342,7 +342,7 @@
             </ul>
         </li>
         <li class="treeview"
-          style="{{ url()->current() == route('admin.send_sms') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.send_email') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+          style="{{ url()->current() == route('admin.send_sms') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.send_email') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.abandoned.payment') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
           <a href="#">
             <i class="fa fa-sitemap"></i>
             <span> Data Entry </span>
@@ -353,6 +353,7 @@
           <ul class="treeview-menu">
             <li><a href=" {{ route('admin.send_sms') }} "><i class="fa fa-circle-o"></i> Send SMS </a></li>
             <li><a href="{{ route('admin.send_email') }}"><i class="fa fa-circle-o"></i> Send Email</a></li>
+            <li><a href="{{ route('admin.abandoned.payment') }}"><i class="fa fa-circle-o"></i> Abandoned Payment</a></li>
           </ul>
         </li>
         <li class="{{ url()->current() == route('system.config') ? 'active' : '' }}">

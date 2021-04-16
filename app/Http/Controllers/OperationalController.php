@@ -1111,6 +1111,29 @@ class OperationalController extends Controller
         ]);
     }
 
+    public function AbandonedPaymentView()
+    {
+        return view('admin.data_entry.abandoned_payment');
+    }
+
+
+    public function AbandonedPayment(Request $request)
+    {
+        $emails = $request->emails;
+        $users_email = explode(',', $emails);
+
+        foreach($users_email as $name=>$email)
+        {
+            $email = trim($email);
+            try{
+                Mail::to($email)->send(new Newsletter($name, $email, $message));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+        }
+    }
+
 
     // public function Newsletter()
     // {
