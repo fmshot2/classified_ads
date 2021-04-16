@@ -12,6 +12,7 @@ use App\SubCategory;
 use App\General_Info;
 use App\Image as ModelImage;
 use App\Like;
+use App\Mail\AbandonedPayment;
 use App\Mail\CredentialsReset;
 use App\Mail\Newsletter;
 use App\Mail\UsersFeedback;
@@ -1126,12 +1127,17 @@ class OperationalController extends Controller
         {
             $email = trim($email);
             try{
-                Mail::to($email)->send(new Newsletter($name, $email, $message));
+                Mail::to($email)->send(new AbandonedPayment($request->subject, $request->message));
             }
             catch(\Exception $e){
                 $failedtosendmail = 'Failed to Mail!.';
             }
         }
+
+        return redirect()->back()->with([
+            'message' => 'Mail Sent Successfully!',
+            'alert-type' => 'success'
+        ]);
     }
 
 

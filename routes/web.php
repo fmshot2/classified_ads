@@ -571,7 +571,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
    Route::get('admin/send-sms', 'AdminController@sendSms')->name('admin.send_sms');
    Route::post('admin/send-sms', 'AdminController@submit_sms')->name('admin.submit.sms');
 
-   Route::get('admin/abandoned-payment', 'OperationalController@AbandonedPayment')->name('admin.abandoned.payment');
+   Route::get('admin/abandoned-payment', 'OperationalController@AbandonedPaymentView')->name('admin.abandoned.payment');
    Route::post('admin/abandoned-payment', 'OperationalController@AbandonedPayment')->name('admin.abandoned.payment.send');
 
     Route::get('/admin/add-data-entry', 'AdminController@add_data')->name('admin.add.data');

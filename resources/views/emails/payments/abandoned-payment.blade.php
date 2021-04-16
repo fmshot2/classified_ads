@@ -1,6 +1,6 @@
 @component('mail::message')
-## Dear Juilana Tomp,
-<p>Hello</p>
+{{-- ## Dear {{ $name }}, --}}
+<p>{!! $message !!}</p>
 
 @component('mail::panel')
 Thank you for using EFContact.
