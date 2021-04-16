@@ -37,6 +37,8 @@ Route::get('email', function () {
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 // Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 Route::get('ajaxSearchResult/{slug}', 'OperationalController@ajaxSearchResult');
+Route::get('credentialsReset', 'OperationalController@credentialsReset')->name('credentialsReset');
+
 // Route::get('getMobileSubCategory/{slug}', 'OperationalController@getMobileSubCategory');
 
 //Agent Middleware starts here
@@ -118,6 +120,12 @@ Route::middleware(['accountant'])->group(function() {
 
     Route::post('/accountant/generate-payment', 'AccountantController@generatePayment')->name('accountant.generate.payment');
     Route::post('/accountant/generate-seller-payment', 'AccountantController@generateSellerPayment')->name('accountant.generate.seller.payment');
+
+    Route::get('/accountant/subscriptions', 'AccountantController@subscriptions')->name('accountant.subscriptions');
+    Route::get('/accountant/featured-payments', 'AccountantController@featured')->name('accountant.featured');
+    Route::get('/accountant/registration-payments', 'AccountantController@registrationPayments')->name('accountant.registration');
+    Route::get('/accountant/all-ef-payments', 'AccountantController@allEfPayments')->name('accountant.ef.payments');
+
 });
 //Accountant Middleware ends here
 

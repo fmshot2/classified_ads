@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Http;
 
 
 use App\State;
+use App\Bank;
+
 use App\Local_government;
 use App\Mail\SendMailable;
 use Config;
@@ -42,6 +44,7 @@ class Register extends Component
     public $accountno;
     public $states = [];
     public $cities = [];
+    public $banks = [];
 
 
     public $tab = 1;
@@ -50,6 +53,9 @@ class Register extends Component
     public function mount()
     {
         $this->states = State::all();
+
+        $this->banks = Bank::all();
+        dd($this->banks);
     }
 
     // public function hydrateStateId($value)

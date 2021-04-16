@@ -8,6 +8,7 @@ use App\Payment;
 use App\Badge;
 use App\AdvertPayment;
 use App\PaymentRequest;
+use App\ProviderSubscription;
 use App\Agent;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -151,7 +152,7 @@ class AccountantController extends Controller
 
     public function badgeRequests()
     {
-        $all_badges = Badge::all();
+        $all_badges = Payment::where('payment_type', 'badge_payment')->get();
         return view('accountant.badges.badges', [
             'all_badges' => $all_badges
         ]);
@@ -331,6 +332,9 @@ class AccountantController extends Controller
             $payment_request = new PaymentRequest;
             $payment_request->user_id = $agent->id;
             $payment_request->user_type = 'agent';
+            $payment_request->account_name = $agent->accountname;
+            $payment_request->account_number = $agent->accountno;
+            $payment_request->bank_name = $agent->bankname;
             $payment_request->amount_requested = $agent->refererAmount;
             $payment_request->is_paid = 0;
 
@@ -364,6 +368,9 @@ class AccountantController extends Controller
             $payment_request = new PaymentRequest;
             $payment_request->user_id = $seller->id;
             $payment_request->user_type = 'seller';
+            $payment_request->account_number = $seller->account_number;
+            $payment_request->account_name = $seller->account_name;
+            $payment_request->bank_name = $seller->bank_name;
             $payment_request->amount_requested = $seller->refererAmount;
             $payment_request->is_paid = 0;
 
@@ -404,9 +411,38 @@ class AccountantController extends Controller
         ]); 
     }
 
-    public function printHistory()
+    public function subscriptions()
     {
+        $subscriptions = Payment::where('payment_type', '=', 'subscription')->get();
+        return view('accountant.payments.subscriptions', [
+            'subscriptions' => $subscriptions
+        ]);
+    }
 
+    public function allEfPayments()
+    {
+        $payments = Payment::with('user')->get();
+        return view('accountant.payments.all_ef_payments', [
+            'payments' => $payments
+        ]);
+    }
+
+    public function featured()
+    {
+        $featured = Payment::where('payment_type','=', 'featured')->get();
+        return view('accountant.payments.featured', [
+            'featured' => $featured
+        ]);
+        
+    }
+
+    public function registrationPayments()
+    {
+        $registrations = Payment::where('payment_type', '=', 'registration')->get();
+        return view('accountant.payments.registrations', [
+            'registrations' => $registrations
+        ]);
     }
 }
+
 

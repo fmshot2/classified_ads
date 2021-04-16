@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-Successful Badge Payment  | 
+All Payments For Featured Services  | 
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@ Successful Badge Payment  |
 	<section class="content-header">
             
            <h1>
-           All Successful Badge Payments
-            <br><small>View and manage all successful badge payments</small>
+           All Payments For Featured Services
+            <br><small>View and manage all payments for featured services</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="{{ route('accountant.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Successful badge payments</li>
+            <li class="active">Payments for featured services.</li>
           </ol>
         </section>
 	<div class="container">
@@ -34,7 +34,7 @@ Successful Badge Payment  |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Successful Badge Payment</h3>
+						<h3 class="box-title"> Payments For Featured Services.</h3>
 					</div>
 
 					<!-- /.box-header -->
@@ -43,28 +43,21 @@ Successful Badge Payment  |
 							<thead>
 								<tr>
 									<th> # </th>
-									<th> Name</th>
+									<th> Name  </th>
 									<th> Amount Paid </th>
 									<th> Reference Number </th>
-									<th> Date of Payment </th>
-
-
-									{{-- <th> Action </th>									 --}}
+									<th>Date of Payment</th>
 								</tr>	
 							</thead>
 							<tbody>
-								@forelse($all_badges as $key => $payment)
+								@forelse($featured as $key => $payment)
 								<tr>
 									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
 									<td><span class="text-muted"> </i> {{ $payment->user->name }}</span> </td>
 									<td> ₦{{ number_format($payment->amount) }} </td>
 									<td> {{ $payment->tranx_ref }} </td>
-									{{-- <td> {{ $payment->badge_type }} </span></td> --}}
-									<td> <span class="text text-success">{{ date('d-m-Y', strtotime($payment->created_at)) }}</span> </span></td>
-									{{-- <td class="center">
-						                <a type="button" class="btn btn-default btn-outline btn-sm" href=""><i class="fa fa-pencil"></i></a>
+									<td> {{ date('d-m-Y', strtotime($payment->created_at)) }} </td>
 
-						            </td> --}}
 								</tr>
 
 								@empty

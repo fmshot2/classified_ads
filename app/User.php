@@ -53,6 +53,10 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         return $this->hasMany('\App\Service'); //Product Model Name
     }
 
+    public function payments(){
+        return $this->hasMany('\App\Payment'); //Product Model Name
+    }
+
     public function seeking_works(){
         return $this->hasMany('\App\SeekingWork'); //Product Model Name
     }

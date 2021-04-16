@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-Successful Badge Payment  | 
+All EF Contact Payments  | 
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@ Successful Badge Payment  |
 	<section class="content-header">
             
            <h1>
-           All Successful Badge Payments
-            <br><small>View and manage all successful badge payments</small>
+           All EF Contact Payments
+            <br><small>View and manage all EF contact payments</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="{{ route('accountant.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Successful badge payments</li>
+            <li class="active">All EF Contact Payments.</li>
           </ol>
         </section>
 	<div class="container">
@@ -34,7 +34,7 @@ Successful Badge Payment  |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Successful Badge Payment</h3>
+						<h3 class="box-title"> All EF Contact Payments.</h3>
 					</div>
 
 					<!-- /.box-header -->
@@ -43,28 +43,25 @@ Successful Badge Payment  |
 							<thead>
 								<tr>
 									<th> # </th>
-									<th> Name</th>
-									<th> Amount Paid </th>
-									<th> Reference Number </th>
-									<th> Date of Payment </th>
-
-
-									{{-- <th> Action </th>									 --}}
+									<th>Name</th>
+									<th>Email</th>
+									<th> Payment Type </th>
+									<th>  Amount </th>
+									<th>  Transaction Reference </th>
+									<th>  Date of Payment </th>
 								</tr>	
 							</thead>
 							<tbody>
-								@forelse($all_badges as $key => $payment)
+								@forelse($payments as $key => $payment)
 								<tr>
 									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
-									<td><span class="text-muted"> </i> {{ $payment->user->name }}</span> </td>
+									<td><span> </i> {{ $payment->user->name }}</span> </td>
+									<td><span> </i> {{ $payment->user->email }}</span> </td>									
+									<td><span class="text-muted"> </i> {{ $payment->payment_type }}</span> </td>
 									<td> ₦{{ number_format($payment->amount) }} </td>
 									<td> {{ $payment->tranx_ref }} </td>
-									{{-- <td> {{ $payment->badge_type }} </span></td> --}}
-									<td> <span class="text text-success">{{ date('d-m-Y', strtotime($payment->created_at)) }}</span> </span></td>
-									{{-- <td class="center">
-						                <a type="button" class="btn btn-default btn-outline btn-sm" href=""><i class="fa fa-pencil"></i></a>
-
-						            </td> --}}
+									<td> {{ date('d-m-Y', strtotime($payment->created_at)) }} </td>
+									
 								</tr>
 
 								@empty

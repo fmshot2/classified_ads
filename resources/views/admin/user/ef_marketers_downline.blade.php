@@ -24,7 +24,7 @@ All E.F Maketers |
 
 				<div class="box" >
 					<div class="box-header">
-						<h2 class="box-title"> Total Downlines =  {{$efmarketers_downlines->count()}}</h2>
+						<h2 class="box-title"> Total Downlines =  {{$efmarketers_downlines->count()}}</span></h2>
 					</div>
 
 					<!-- /.box-header -->

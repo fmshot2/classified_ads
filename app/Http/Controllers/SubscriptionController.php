@@ -89,6 +89,7 @@ class SubscriptionController extends Controller
 
 	public function createSubpay(Request $request)
 	{
+		// return response()->json(['success'=>'Ajax request submitted successfully']);
 		$added_days = 0;
 		$mytime = Carbon::now();
 
