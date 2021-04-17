@@ -7,21 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class AbandonedPayment extends Mailable implements ShouldQueue
+class UsersWelcomeEmail extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $subject, $message;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($subject, $message)
+    public function __construct()
     {
-        $this->subject = $subject;
-        $this->message = $message;
+        //
     }
 
     /**
@@ -31,6 +28,6 @@ class AbandonedPayment extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('emails.payments.abandoned-payment')->subject($this->subject);
+        return $this->markdown('emails.users.welcome-email')->subject('Provide a Service and Get a Service!');
     }
 }

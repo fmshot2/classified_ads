@@ -33,7 +33,7 @@ Route::get('/tester', function ()
     return 'done';
 });
 Route::get('email', function () {
-    return new App\Mail\AbandonedPayment();
+    return new App\Mail\UsersWelcomeEmail();
 });
 // Route::get('newsletter/', 'OperationalController@Newsletter');
 
