@@ -2,14 +2,16 @@
 {{-- ## Dear {{ $name }},
 <p>{!! $message !!}</p> --}}
 
-## Dear {{ $provider_name }},
+## Hello {{ $provider_name }},
 <p>{{ $title }}</p>
 
 @if ($type != 'seeker')
 @component('mail::button', ['url' => route('seller.message.view', ['slug' => $messageSlug])])
 View Message
 @endcomponent
+<p style="text-align: center">Click on the button to view this message.</p>
 @endif
+
 
 @component('mail::panel')
 Thank you for using EFContact.

@@ -51,7 +51,7 @@ All Buyer |
 									<td><span class="text-muted"> </i> {{ $buyer->email }} </span> </td>
 									<td><span class="text-muted"> </i> {{ $buyer->phone }} </span> </td>
 									<td> {{ $buyer->role }} </td>
-									<td> {{ $buyer->created_at->diffForHumans() }} </span></td>
+									<td> {{ $buyer->created_at->format('d/m/Y') }} </span></td>
 									<td>@if($buyer->status == 1)<span id="active_text" class="">Activated</span>@elseif($buyer->status == 0)<span id="active_text" class="">Deactivated</span>@endif </td>
 
 									<td>

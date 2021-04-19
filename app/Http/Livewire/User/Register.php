@@ -27,6 +27,7 @@ class Register extends Component
     public $referParam;
     public $name;
     public $email;
+    public $phone;
     public $password;
     public $password_confirmation;
     public $role;
@@ -56,6 +57,7 @@ class Register extends Component
             'referParam'            => ['nullable', 'string', 'max:255'],
             'name'                  => ['required', 'string', 'max:255'],
             'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone'                 => ['required', 'numeric'],
             'password'              => ['required', 'string', 'min:6'],
             'role'                  => ['required', Rule::in(['seller', 'buyer'])],
             'agent_code'            => ['nullable', 'exists:agents,agent_code'],
@@ -78,7 +80,7 @@ class Register extends Component
 
             // live variable
             // 'key'    => config('variable.paystack_pk_live'),
-            'key'    => env('paystack_pk'),      
+            'key'    => env('paystack_pk'),
             'amount' => $this->plan * 100,
             'email'  => $this->email,
             'name'   => $this->name,
@@ -202,6 +204,7 @@ class Register extends Component
         $user           = new User;
         $user->name     = $this->name;
         $user->email    = $this->email;
+        $user->phone    = $this->phone;
         $user->password = Hash::make($this->password);
         $user->role     = $this->role;
         //save id of referer if user was reffererd
@@ -248,7 +251,7 @@ class Register extends Component
                 $sub_type = 'monthly';
             }elseif ($amount == 60000) {
                 $added_days = 186;
-                $sub_type = '3 months';   
+                $sub_type = '3 months';
             } elseif ($amount == 120000) {
                 $added_days = 186;
                 $sub_type = 'bi-annual';
@@ -294,7 +297,7 @@ class Register extends Component
                         return  Redirect::to(Session::get('url.intended'));
                         } else {
                         return redirect()->route('admin.dashboard');
-                        }                    
+                        }
                     }
 
 
@@ -320,7 +323,7 @@ class Register extends Component
                         return  Redirect::to(Session::get('url.intended'));
                         } else {
                         return redirect()->route('admin.dashboard');
-                        }                    
+                        }
                     }
                     $referer2->refererAmount = $referer2->refererAmount + 200;
 
@@ -342,7 +345,7 @@ class Register extends Component
                 if ($referer) {
                     //level 2 referer id
                     $person_that_refered2 = $referer->idOfReferer;
-                    //level 2 referer 
+                    //level 2 referer
                     if ($person_that_refered2) {
                         $referer2 = User::where('id', $person_that_refered2)->first();
                         if ($referer2) {
@@ -354,7 +357,7 @@ class Register extends Component
                                     return  Redirect::to(Session::get('url.intended'));
                                 } else {
                                     return redirect()->route('admin.dashboard');
-                                }                    
+                                }
                             }
 
                             $referer2->refererAmount = $referer2->refererAmount + 150;
@@ -381,7 +384,7 @@ class Register extends Component
                                     return  Redirect::to(Session::get('url.intended'));
                                 } else {
                                     return redirect()->route('admin.dashboard');
-                                }                    
+                                }
                             }
 
                             $referer2->refererAmount = $referer2->refererAmount + 150;
@@ -394,7 +397,7 @@ class Register extends Component
                     }
                 }
             }
-            //end level 2 payment      
+            //end level 2 payment
 
 
             //start level 3
@@ -421,7 +424,7 @@ class Register extends Component
                                     return redirect()->route('seller.dashboard');
                                 } else if (Auth::user()->role == 'buyer') {
                                     return  Redirect::to(Session::get('url.intended'));
-                                } 
+                                }
                             }
 
                                     // add amount to level 3 referer amount
@@ -459,7 +462,7 @@ class Register extends Component
                             return redirect()->route('seller.dashboard');
                         } else if (Auth::user()->role == 'buyer') {
                             return  Redirect::to(Session::get('url.intended'));
-                        } 
+                        }
                     }
 
                                     // add amount to level 3 referer amount
@@ -508,7 +511,7 @@ if ($person_that_refered) {
                                     return redirect()->route('seller.dashboard');
                                 } else if (Auth::user()->role == 'buyer') {
                                     return  Redirect::to(Session::get('url.intended'));
-                                } 
+                                }
                             }
 
                                             // add amount to level 4 referer amount
@@ -556,7 +559,7 @@ if ($person_that_refered) {
                                     return redirect()->route('seller.dashboard');
                                 } else if (Auth::user()->role == 'buyer') {
                                     return  Redirect::to(Session::get('url.intended'));
-                                } 
+                                }
                             }
 
                                             // add amount to level 4 referer amount
