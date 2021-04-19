@@ -1,5 +1,3 @@
-
-
 @extends('layouts.admin')
 
 @section('title', 'Abandoned Payment | ')

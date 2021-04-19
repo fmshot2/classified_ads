@@ -23,6 +23,7 @@ use App\Local_government;
 use App\Slider;
 use App\State;
 use App\Image;
+use App\Mail\NewMessage;
 use App\Traits\ReusableCode;
 
 //use Illuminate\Support\Str;
@@ -1312,6 +1313,8 @@ public function show($id)
         $message->service_user_id = $data['service_user_id'];
         $message->description = $data['description'];
 
+        $the_provider = User::find($request->service_user_id);
+
         //$serviceDetailId = $message->service_id;
         //$service = Service::find($serviceDetailId);
         //$service_slug = $service->slug;
@@ -1320,9 +1323,13 @@ public function show($id)
         //$message->slug = $slug;
         if ($message->save()) {
             $buyer_name = $message->buyer_name;
-            $name = 'Your message has been delivered successfully!';
+            $provider_name = explode(' ', trim($the_provider->name))[0];
+            $provider_email = $the_provider->email;
+            $messageSlug = $message->slug;
+            $title = 'Your message has been delivered successfully!';
             try{
-                Mail::to($message->buyer_email)->send(new SendMailable($name));
+                Mail::to($message->buyer_email)->send(new NewMessage($messageSlug, $buyer_name, 'You message has been delivered!', 'seeker'));
+                Mail::to($provider_email)->send(new NewMessage($messageSlug, $provider_name, 'You have a new message!', 'provider'));
             }
             catch(\Exception $e){
                 $failedtosendmail = 'Failed to Mail!.';

@@ -40,7 +40,7 @@ position: relative; margin: 21px 0;">
 </div>
 
 Thanks,<br>
-<em>Wishing you all the best</em><br>
+<em style="font-size:13px">Wishing you all the best!</em><br>
 <strong>{{ config('app.name') }}</strong>
 <div class="table" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; padding-bottom: 15px;font-size: 13px; margin-top: -15px">
     <a style="text-decoration: none; color: #ca8309" href="telto:{{ $general_info->hot_line ? $general_info->hot_line : '' }}">📞 {{ $general_info->hot_line ? $general_info->hot_line : '' }}</a> <br>
