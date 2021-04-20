@@ -36,7 +36,7 @@ Route::get('/tester', function ()
     return 'done';
 });
 Route::get('email', function () {
-    return new App\Mail\NewMessage();
+    return new App\Mail\AskFeedback();
 });
 // Route::get('newsletter/', 'OperationalController@Newsletter');
 
