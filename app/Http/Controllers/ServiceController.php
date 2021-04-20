@@ -278,6 +278,8 @@ public function serviceDetail($slug)
     $user_id = $serviceDetail->user_id;
     $userMessages = Message::where('service_id', $serviceDetail_id)->orderBy('created_at','desc')->take(7)->get();
 
+    $allServiceComments = $serviceDetail->comments->sortByDesc('created_at');
+
     $the_user = User::find($user_id);
     $the_user_name = $the_user->name;
     $the_provider_f_name = explode(' ', trim($the_user_name))[0];
@@ -303,7 +305,7 @@ public function serviceDetail($slug)
         $user111 = null;
     }
 
-    return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages', 'images_4_service', 'the_provider_f_name', 'likecheck']));
+    return view('serviceDetail', compact(['serviceDetail', 'ww2', 'serviceDetail_id', 'approvedServices', 'user111', 'similarProducts', 'service_likes', 'all_states', 'userser3', 'featuredServices', 'featuredServices2', 'userMessages', 'images_4_service', 'the_provider_f_name', 'likecheck', 'allServiceComments']));
     }
 
 

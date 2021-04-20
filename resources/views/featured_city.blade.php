@@ -178,7 +178,7 @@
                                         <div class="modal-content">
                                             <div class="modal-body">
                                                 @if ($state->tourisms->count() != 0)
-                                                    <div id='launchTourist{{ $key }}' class='carousel slide' data-ride='carousel'>
+                                                    <div id='launchTourist{{ $key }}' class='carousel slide' data-interval="false">
                                                         <ol class='carousel-indicators'>
                                                             @foreach($state->tourisms as $tourism)
                                                                 <li data-target="#launchTourist{{ $key }}" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>

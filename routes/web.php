@@ -24,6 +24,9 @@ use Illuminate\Support\Facades\Mail;
 */
 
 
+Route::post('/comment/store', 'CommentsController@store')->name('comment.add');
+Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
+
 Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
 
 Route::get('/tester', function ()
