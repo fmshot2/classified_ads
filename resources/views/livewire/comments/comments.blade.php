@@ -28,7 +28,7 @@
             text-transform: uppercase;
         }
         .user-comments .media-heading small{
-            font-size: 12px;
+            font-size: 11px;
         }
         .user-comments .media-heading small i{
             font-style: normal !important;

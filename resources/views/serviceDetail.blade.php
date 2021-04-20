@@ -83,13 +83,18 @@
         font-family: 'Poppins-Regular';
     }
     .user-comments .media-heading{
-        font-size: 18px;
+        font-size: 16px;
         font-family: 'Poppins-Regular';
         text-transform: uppercase;
+        color: #ca8309;
     }
     .user-comments .media-heading small{
         font-size: 14px;
         text-transform: initial;
+        color: rgb(83, 83, 83);
+    }
+    .user-comments .media img{
+        border-radius: 10px;
     }
     .comment-form h5{
         font-size: 17px;
@@ -426,9 +431,9 @@
                             @endif
                         @endauth
 
-                        @guest
+                        {{-- @guest
                         <p>Please login to see your previous conversation with this service provider</p>
-                        @endguest
+                        @endguest --}}
                         @auth
                             <div class="container mb-5 mt-0">
                                 <h5>
