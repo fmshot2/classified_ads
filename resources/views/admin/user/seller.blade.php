@@ -58,7 +58,7 @@ All Seller |
                                                 <span id="active_text2">Deactivated</span>
                                                 @endif
                                             </td>
-                                            <td> {{ $sellers->created_at->diffForHumans() }} </span></td>
+                                            <td> {{ $sellers->created_at->format('d/m/Y') }} </span></td>
 
                                             <td>
                                                 <button id="" class="activate-submit btn-success" onclick="activateUser({{$sellers->id}})" type="button" class="btn btn-success">

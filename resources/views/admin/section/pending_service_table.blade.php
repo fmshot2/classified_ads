@@ -16,7 +16,7 @@
 
 
   @include('layouts.backend_partials.status')
-	
+
 
 	<div class="box">
 
@@ -59,7 +59,7 @@
 						<td> {{ $pending_services->is_featured == 1 ? 'Yes' : 'No' }} </td>
 						<td><span class="text-muted"> {{ $pending_services->streetAddress }} </span> </td>
 						<td><span class="text-muted"> {{ $pending_services->status == 1 ? 'Approved' : 'Pending' }} </span> </td>
-						<td><span class="text-muted"> {{ $pending_services->created_at->diffForHumans() }} </span></td>
+						<td><span class="text-muted"> {{ $pending_services->created_at->format('d/m/Y') }} </span></td>
 
 
 						@if (url()->current() == route('admin.service.pending') )
@@ -106,7 +106,7 @@
 
 <div class="box-footer clearfix">
 
-	{{ $pending_service->links() }} 
+	{{ $pending_service->links() }}
 
 </div>
 

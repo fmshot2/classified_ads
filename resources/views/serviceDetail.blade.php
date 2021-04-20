@@ -603,7 +603,7 @@
                                 <div class="s-border"></div>
                                 <div class="m-border"></div>
                                 <ul class="list-unstyled list-cat">
-                                    <li><span style="color: red">*</span> Check the Service Provider profile to ensure they offer the serivices you need/required.</li>
+                                    <li><span style="color: red">*</span> Check the Service Provider profile to ensure they offer the services you need/required.</li>
                                     <li><span style="color: red">*</span> Contact Service Providers only when certain you need their services.</li>
                                     <li><span style="color: red">*</span> Ensure you check authenticity of all products at all times.</li>
                                     <li><span style="color: red">*</span> Confirm identity of person/persons or organisation you are transacting with.</li>
