@@ -147,7 +147,7 @@ class ServiceController extends Controller
                 'unread_notifications' => $unread_notification,
                 'your_service_likes_count' => $servicesLikeCounter,
                 'your_referral_bonus' => $accruedAmount
-            ]);
+            ], 200);
 
         }else{
             $linkcheck = null;
@@ -163,7 +163,7 @@ class ServiceController extends Controller
                 'all_notifications' => $all_notification_count,
                 'unread_notifications' => $unread_notification,
                 'your_service_likes_count' => $servicesLikeCounter
-            ]);
+            ], 200);
         }
 
     }
@@ -257,7 +257,7 @@ class ServiceController extends Controller
         if ($user_hasUploadedService == 1) {
             return response()->json([
                 'message' => 'Service created successfully!'
-            ]);
+            ], 200);
 
         }
         $present_user->hasUploadedService = 1;
@@ -271,7 +271,7 @@ class ServiceController extends Controller
 
             return response()->json([
                 'message' => 'Referrer Bonus Added successfully!'
-            ]);
+            ], 200);
         }
 
         return (new ServiceResource($service))
@@ -318,16 +318,9 @@ class ServiceController extends Controller
 
         $allfavourites = array_reverse($this->thefavourites);
 
-        if ($allfavourites) {
-            return response()->json([
-                $allfavourites,
-            ], 200);
-        }
-        else{
-            return response()->json([
-                'message' => 'No Favourite!'
-            ]);
-        }
+        return response()->json([
+            $allfavourites,
+        ], 200);
     }
     public function clientfeedbacks()
     {
@@ -350,17 +343,11 @@ class ServiceController extends Controller
         }
         $allcomments = collect(array_reverse($this->thecomments));
 
-        if (!$allcomments->isEmpty()) {
-            return response()->json([
-                'user_feedbacks' => $allcomments,
-                'all_services' => $all_services
-            ]);
-        }
-        else{
-            return response()->json([
-                'message' => 'No Feedback Yet!'
-            ]);
-        }
+
+        return response()->json([
+            'user_feedbacks' => $allcomments,
+            'all_services' => $all_services
+        ], 200);
     }
 
     /**
@@ -373,11 +360,6 @@ class ServiceController extends Controller
     {
         $service = Service::find($id);
 
-        if (!$service) {
-            return response()->json([
-                'error' => 'Service not found!',
-            ]);
-        }
         return (new ServiceResource($service))
             ->response()
             ->setStatusCode(200);
@@ -490,12 +472,6 @@ class ServiceController extends Controller
                 'message' => 'CV Created successfully!'
             ], 200);
         }
-        else{
-            return response()->json([
-                $sWork,
-                'error' => 'Something went wrong!'
-            ]);
-        }
     }
     /**
      * Remove the specified resource from storage.
@@ -513,8 +489,6 @@ class ServiceController extends Controller
                  'message' => 'This CV was Deleted Successfully!',
              ], 200);
          }
-
-         return response()->json(['message' => 'Something went wrong!'], 400);
      }
 
 
@@ -522,16 +496,9 @@ class ServiceController extends Controller
     {
         $service = SeekingWork::where('slug', $slug)->firstOrFail();
 
-        if (!$service->isEmpty()) {
-            return response()->json([
-                $service
-            ], 200);
-        }
-        else{
-            return response()->json([
-                'message' => 'Something is not right!'
-            ], 404);
-        }
+        return response()->json([
+            $service
+        ], 200);
     }
 
     public function imagesSeekingWorkStore(Request $request, $service_id)
@@ -578,7 +545,7 @@ class ServiceController extends Controller
 
         return response()->json([
             'message' => 'Image(s) deleted successfully!'
-        ]);
+        ], 200);
     }
 
     public function seekingWorkDetails($slug)
@@ -638,8 +605,6 @@ class ServiceController extends Controller
                 'message' => 'This Service was Deleted Successfully!',
             ], 200);
         }
-
-        return response()->json(['message' => 'Something went wrong!'], 400);
     }
 
 
@@ -653,7 +618,7 @@ class ServiceController extends Controller
         if ($request->category == null && $request->city == null && $request->keyword == null) {
             return response()->json([
                 'message' => 'Unfortunately, we did not find anything that matches these criteria.',
-            ], 404);
+            ]);
         }
 
 
@@ -860,7 +825,7 @@ class ServiceController extends Controller
             else{
                 return response()->json([
                     'message' => 'Unfortunately, we did not find anything that matches these criteria.',
-                ], 404);
+                ]);
             }
         }
 
@@ -884,7 +849,7 @@ class ServiceController extends Controller
      */
     public function sub_categories()
     {
-        return response()->json(SubCategory::all());
+        return response()->json(SubCategory::all(), 200);
     }
 
     /**
@@ -896,11 +861,6 @@ class ServiceController extends Controller
     {
         $category = Category::find($id);
 
-        if (!$category) {
-            return response()->json([
-                'error' => 'Service not found!',
-            ]);
-        }
         return (new CategoryResource($category))
             ->response()
             ->setStatusCode(200);
@@ -914,17 +874,10 @@ class ServiceController extends Controller
         $category_services = Service::where('category_id', $category_id)->orderBy('badge_type', 'asc')->where('status', 1)->paginate(100);
 
 
-        if (!$category_services->isEmpty()) {
-            return response()->json([
-                'category' => $the_category->name,
-                'services' => (new ServiceResourceCollection($category_services))
-                ], 200);
-        }
-        else{
-            return response()->json([
-                'message' => 'No service in this category!',
-                ], 404);
-        }
+        return response()->json([
+            'category' => $the_category->name,
+            'services' => (new ServiceResourceCollection($category_services))
+            ], 200);
     }
 
     public function findNearestServices(Request $request)
@@ -945,18 +898,11 @@ class ServiceController extends Controller
             ->where('status', 1)
             ->inRandomOrder()->limit(15)->get();
 
-        if (!$services->isEmpty()) {
-            return response()->json([
-                'services' => $services,
-                'latitude' => $latitude,
-                'longitude' => $longitude
-                ], 200);
-        }
-        else{
-            return response()->json([
-                'message' => 'No service close to you!',
-                ], 404);
-        }
+        return response()->json([
+            'services' => $services,
+            'latitude' => $latitude,
+            'longitude' => $longitude
+            ], 200);
 
     }
 
