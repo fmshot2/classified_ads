@@ -9,6 +9,7 @@ use App\Http\Resources\AdvertisementResource;
 use App\Http\Resources\AdvertisementResourceCollection;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\SeekingWorkResource;
+use App\Http\Resources\SeekingWorkResourceCollection;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\ServiceResourceCollection;
 use App\Service;
@@ -871,13 +872,24 @@ class ServiceController extends Controller
         $slug = $request->slug;
         $the_category = Category::where('slug', $slug)->first();
         $category_id = $the_category->id;
-        $category_services = Service::where('category_id', $category_id)->orderBy('badge_type', 'asc')->where('status', 1)->paginate(100);
 
+        if ($category_id == 1) {
+            $category_services = SeekingWork::where('category_id', $category_id)->where('status', 1)->orderBy('badge_type', 'asc')->paginate(100);
 
-        return response()->json([
-            'category' => $the_category->name,
-            'services' => (new ServiceResourceCollection($category_services))
-            ], 200);
+            return response()->json([
+                'category' => $the_category->name,
+                'job_applicants' => (new SeekingWorkResourceCollection($category_services))
+                ], 200);
+        }
+        else{
+            $category_services = Service::where('category_id', $category_id)->where('status', 1)->orderBy('badge_type', 'asc')->paginate(100);
+
+            return response()->json([
+                'category' => $the_category->name,
+                'services' => (new ServiceResourceCollection($category_services))
+                ], 200);
+        }
+
     }
 
     public function findNearestServices(Request $request)
