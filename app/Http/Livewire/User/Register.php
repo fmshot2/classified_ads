@@ -85,8 +85,9 @@ class Register extends Component
         ];
 
         if ($this->role === 'buyer') {
-            $this->save_user(0);
+            $this->save_buyer();
         }
+        
         $this->dispatchBrowserEvent('pay_with_paystack', ['data' => $data]);
     }
 
@@ -597,5 +598,55 @@ if (Auth::user()->role == 'seller') {
 public function render()
 {
     return view($this->current_view);
+}
+
+
+
+
+
+
+public function save_buyer(){
+     //save user
+        $user           = new User;
+        $user->name     = $this->name;
+        $user->email    = $this->email;
+        $user->password = Hash::make($this->password);
+        $user->role     = $this->role;
+        //save id of referer if user was reffererd
+        $user->idOfReferer = $this->refererId;
+        //save id of agent if user was brought by agent
+        $user->idOfAgent = $this->agent_Id;
+        $user->refererLink = $slug3;
+        //send mail
+
+        if ($user->save()) {
+
+
+            $name         = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+            $name         = $user->name;
+            $email        = $user->email;
+            $origPassword = $this->password;
+            $userRole     = $user->role;
+
+            try {
+                Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+                Auth::attempt(['email' => $this->email, 'password' => $this->password]);
+            } catch (\Exception $e) {
+                $failedtosendmail = 'Failed to Mail!';
+            }
+        }
+
+        if (Auth::check()) {
+            $present_user = Auth::user();
+            // if referrer link is available, save it to referer table
+            $link              = new Refererlink();
+            $link->user_id     = $present_user->id;
+            $link->refererlink = $present_user->refererLink;
+            $link->save();
+
+            if (Auth::user()->role == 'buyer') {
+                return  Redirect::to(session(url()->previous()));
+            }
+}
 }
 }
