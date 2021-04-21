@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\State;
 use Illuminate\Http\Request;
 use App\Tourism;
 use Illuminate\Support\Str;
@@ -24,7 +25,7 @@ class TourismController extends Controller
 
 		$data = array(
             'name'   => $request->name,
-            'states'   => $request->state,
+            'state_id'   => $request->state_id,
             'region'   => $request->region,
             'description'    => $request->description,
             'thumb' => $request->thumb,
@@ -39,9 +40,9 @@ class TourismController extends Controller
 
         $validator = \Validator::make($data, [
             'name'   => 'required|string',
-            'states'   => 'required|string',
+            'state_id'   => 'required|numeric',
             'region'   => 'required|string',
-            'description'    => 'required|string',
+            'description'    => 'required',
 
         ]);
 
@@ -52,23 +53,28 @@ class TourismController extends Controller
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
 
+        $state = State::find($request->state_id);
+
         $city = new Tourism;
         $city->name = $request->name;
-        $city->states = $request->state;
+        $city->state_id = $state->id;
+        $city->states = $state->name;
         $city->region = $request->region;
         $city->description = $request->description;
         $city->thumb = $image_name;
         $city->slug = Str::slug($request->name, '-');
 
-        $city->save();
         if($city->save())
         {
-            $success_notification = array(
+            return redirect()->back()->with([
                 'message' => 'City successfully added!',
                 'alert-type' => 'success'
-            );
+            ]);
         }
-        return redirect()->back()->with($success_notification);
+        return redirect()->back()->with([
+            'message' => 'Something went wrong!',
+            'alert-type' => 'error'
+        ]);
 	}
 
     public function city($slug)

@@ -68,6 +68,15 @@ Route::group([
 
         //Feedbacks
         Route::get('my-client-feedbacks/', [ServiceController::class, 'clientfeedbacks']);
+
+        //Messages
+        Route::get('my-messages/', [ServiceController::class, 'myMessages']);
+        Route::delete('/message/{id}', [ServiceController::class, 'deleteMessage']);
+        Route::get('/message', [ServiceController::class, 'viewMessage']);
+        Route::get('/message/read-messages', [ServiceController::class, 'readMessages']);
+        Route::get('/message/unread-messages', [ServiceController::class, 'unReadMessages']);
+        Route::get('/message/reply', [ServiceController::class, 'replyMessage']);
+        Route::post('/message/replies', [ServiceController::class, 'messageReply']);
     });
 });
 
@@ -78,9 +87,11 @@ Route::prefix('v1')->group(function ()
     Route::get('services', [ServiceController::class, 'index']);
     Route::get('services/{id}', [ServiceController::class, 'show']);
     Route::get('search/', [ServiceController::class, 'search']);
+    Route::get('featured/{id}', [ServiceController::class, 'featuredServices']);
+    Route::post('subscription', [GeneralController::class, 'createSubApi']);
 
     // SERVICES CLOSE TO YOU
-    Route::get('services-close-to-me', [ServiceController::class, 'findNearestServices']);
+    Route::get('services-close-to-me', [ServiceController::class, 'serviceCloseToYou']);
 
     // SEEKING WORK (CV)
     Route::get('job-applicants/all', [ServiceController::class, 'seekingWorkLists']);

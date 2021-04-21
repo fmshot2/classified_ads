@@ -36,6 +36,6 @@ class AdvertRequestsForm extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('emails.advertrequestsform')->subject('A user requested for an advert placement!');
+        return $this->from('support@efcontact.com')->markdown('emails.advertrequestsform')->subject('A user requested for an advert placement!');
     }
 }

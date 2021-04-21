@@ -9,7 +9,7 @@
 <h4 style="font-size: 18px; margin-bottom: -30px;padding-left:20px;color:#CA8309;text-transform:uppercase">{{ $category->name }}</h4>
 <div class="table" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative;"></div>
     <table style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%; margin: 30px auto; width: 100%;">
-    <tbody style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; border-top: 0"><tr>@foreach ($services as $service) @if ($loop->index <= 3) 
+    <tbody style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; border-top: 0"><tr>@foreach ($services as $service) @if ($loop->index <= 3)
         <td style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; color: #74787e; font-size: 15px; line-height: 18px; margin: 0; padding: 15px; width: 50%; display:inline-block">
             <div><div style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; max-width: 100%; width: 100%; background-image: url('{{asset('uploads/services/1606898222.jpeg')}}');display: block;height: 200px;width: auto;background-size: cover !important;background-position: center !important;"></div>
             <div>
@@ -25,8 +25,9 @@
 Thanks for your patronage, hope to see you soon. 😀👍
 @endcomponent
 
+
 Thanks,<br>
-<em>Wishing you all the best</em><br>
+<em style="font-size:13px">Wishing you all the best!</em><br>
 <strong>{{ config('app.name') }}</strong>
 <div class="table" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; padding-bottom: 15px;font-size: 13px; margin-top: -15px">
     <a style="text-decoration: none; color: #ca8309" href="telto:{{ $general_info->hot_line ? $general_info->hot_line : '' }}">📞 {{ $general_info->hot_line ? $general_info->hot_line : '' }}</a> <br>
@@ -35,8 +36,10 @@ Thanks,<br>
 </div>
 
 <div class="table" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; padding-bottom: 15px; text-align: center; font-size: 13px">
-Please do not reply to this email. Click here to <a style="text-decoration: none; color: #ca8309" href="mailto:{{ $general_info->hot_line ? $general_info->support_email : '' }}">unsubscribe.</a>
+    Please do not reply to this email. Click here to <a style="text-decoration: none; color: #ca8309" href="mailto:{{ $general_info->hot_line ? $general_info->support_email : '' }}">unsubscribe.</a>
+Please do not reply to this email.
 
-<p style="font-size:12px; line-height:1.5; text-align:justify"><small><strong style="font-size:10px;">DISCLAIMER:</strong> This email and any information transmitted with it are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error please notify the system manager. This message contains confidential information and is intended only for the individual named. If you are not the named addressee you should not disseminate, distribute or copy this e-mail. Please notify the sender immediately by e-mail if you have received this e-mail by mistake and delete this e-mail from your system. If you are not the intended recipient you are notified that disclosing, copying, distributing or taking any action in reliance on the contents of this information is strictly prohibited. If you are the intended please note that you are not to share or disclose the content of this mail.</small></p>
+<p style="font-size:13px; line-height:1.5; text-align:justify"><small><strong style="font-size:11px;">DISCLAIMER:</strong> This email and any information transmitted with it are confidential and intended solely for the use of the individual or entity to whom they are addressed. If you have received this email in error please notify the system manager. This message contains confidential information and is intended only for the individual named. If you are not the named addressee you should not disseminate, distribute or copy this e-mail. Please notify the sender immediately by e-mail if you have received this e-mail by mistake and delete this e-mail from your system. If you are not the intended recipient you are notified that disclosing, copying, distributing or taking any action in reliance on the contents of this information is strictly prohibited. If you are the intended please note that you are not to share or disclose the content of this mail.</small></p>
+</div>
 </div>
 @endcomponent

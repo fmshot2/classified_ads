@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('title')
-All Seller | 
+All Seller |
 @endsection
 
 @section('content')
@@ -24,53 +24,52 @@ All Seller |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Seller Table</h3>
+						<h3 class="box-title"> Service Providers Table</h3>
 					</div>
 
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table class="display table table-bordered data_table_main">
-							<thead>
-								<tr>
-									<th> # </th>
-									<th> Name </th>
-									<th> Email </th>
-									<th> role </th>
-									<th> Applied for Approval?</th>
-									<th> Date </th>
-									<th> Activate/Deactivate</th>
-								</tr>	
+						<div class="table-responsive">
+                            <table class="display table table-bordered data_table_main">
+                                <thead>
+                                    <tr>
+                                        <th> # </th>
+                                        <th> Name </th>
+                                        <th> Email </th>
+                                        <th> Phone </th>
+                                        <th> role </th>
+                                        <th> Applied for Approval?</th>
+                                        <th> Date </th>
+                                        <th> Activate/Deactivate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($seller as $key => $sellers)
+                                        <tr>
+                                            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                                            <td> {{ $sellers->name }} </td>
+                                            <td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
+                                            <td><span class="text-muted"> </i> {{ $sellers->phone }} </span> </td>
+                                            <td> {{ $sellers->role }} </td>
+                                            <td>
+                                                @if($sellers->status == 1)
+                                                <span><p id="active_text">Activated</p></span>
+                                                @elseif($sellers->status == 0)
+                                                <span id="active_text2">Deactivated</span>
+                                                @endif
+                                            </td>
+                                            <td> {{ $sellers->created_at->format('d/m/Y') }} </span></td>
 
-									@foreach($seller as $key => $sellers)
-<tr>
-									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-									<td> {{ $sellers->name }} </td>
-									<td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
-									<td> {{ $sellers->role }} </td>
-									<td> {{ $sellers->created_at->diffForHumans() }} </span></td>
-									<td>
-										@if($sellers->status == 1)
-										<span><p id="active_text">Activated</p></span>
-										@elseif($sellers->status == 0)
-										<span id="active_text2">Deactivated</span>
-										@endif 
-									</td>
-					
-									<td>
-										<button id="" class="activate-submit btn-success" onclick="activateUser({{$sellers->id}})" type="button" class="btn btn-success">
-											@if($sellers->status == 0)<span id="activate1">Activate User</span>@elseif($sellers->status == 1)<span id="activate2">Deactivate</span>
-										@endif</button> 
-									</td>
-
-							</tr>
-
-							@endforeach
-
-
-						</tbody>
-
-
-					</table>
+                                            <td>
+                                                <button id="" class="activate-submit btn-success" onclick="activateUser({{$sellers->id}})" type="button" class="btn btn-success">
+                                                    @if($sellers->status == 0)<span id="activate1">Activate User</span>@elseif($sellers->status == 1)<span id="activate2">Deactivate</span>
+                                                @endif</button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
 
 
 				</div>
@@ -79,7 +78,7 @@ All Seller |
 
 
 			<!-- /.content -->
-		</div>	
+		</div>
 
 
 

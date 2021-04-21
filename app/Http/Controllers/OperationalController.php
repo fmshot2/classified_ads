@@ -14,6 +14,7 @@ use App\Image as ModelImage;
 use App\Like;
 use App\Mail\CredentialsReset;
 use App\Mail\Newsletter;
+use App\Mail\PaymentProcessAbandoned;
 use App\Mail\UsersFeedback;
 use App\Message;
 use App\PageContent;
@@ -34,6 +35,7 @@ use Image;
 use App\Payment;
 
 
+
 class OperationalController extends Controller
 {
 
@@ -41,7 +43,7 @@ class OperationalController extends Controller
         $name = "Abdul";
         $email = 'adeoluibidapo@gmail.com';
         $password = '123456';
-        
+
 
         try {
             Mail::to('adeoluibidapo@gmail.com')->send(new CredentialsReset($name, $email, $password));
@@ -822,25 +824,25 @@ class OperationalController extends Controller
     {
 
         $this->validate($request, [
-            'name'              => 'string|required',
-            'phone'                 => 'string|numeric',
+            'name'                  => 'string|required',
+            'phone'                 => 'numeric',
             'job_type'              => 'string|required',
             'job_title'             => 'string|required',
-            'job_experience'        => 'string|required',
+            'job_experience'        => 'required',
             'still_studying'        => 'string',
             'gender'                => 'string|required',
-            'age'                   => 'string|numeric',
+            'age'                   => 'numeric',
             'marital_status'        => 'string',
             'employment_status'     => 'string|required',
-            'highest_qualification' => 'string|required',
-            'expected_salary'       => 'string|required',
+            'highest_qualification' => 'required',
+            'expected_salary'       => 'required',
             'user_state'            => 'string|required',
             'user_lga'              => 'string|required',
-            'address'               => 'string',
-            'work_experience'       => 'string',
-            'education'             => 'string|required',
-            'certifications'        => 'string',
-            'skills'                => 'string|required',
+            'address'               => 'nullable',
+            'work_experience'       => 'nullable',
+            'education'             => 'required',
+            'certifications'        => 'nullable',
+            'skills'                => 'required',
             'user_image'            => 'image|required'
         ]);
 
@@ -1108,6 +1110,34 @@ class OperationalController extends Controller
         return response()->json([
             'message' => 'Message couldn\'t marked as read!',
             'alert-type' => 'error'
+        ]);
+    }
+
+    public function AbandonedPaymentView()
+    {
+        return view('admin.data_entry.abandoned_payment');
+    }
+
+
+    public function AbandonedPayment(Request $request)
+    {
+        $emails = $request->emails;
+        $users_email = explode(',', $emails);
+
+        foreach($users_email as $name=>$email)
+        {
+            $email = trim($email);
+            try{
+                Mail::to($email)->send(new PaymentProcessAbandoned($request->subject, $request->message));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+        }
+
+        return redirect()->back()->with([
+            'message' => 'Mail Sent Successfully!',
+            'alert-type' => 'success'
         ]);
     }
 

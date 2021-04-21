@@ -23,6 +23,12 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
+
+Route::post('/comment/store', 'CommentsController@store')->name('comment.add');
+Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
+
+Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
+
 Route::get('/tester', function ()
 {
     // Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
@@ -30,15 +36,13 @@ Route::get('/tester', function ()
     return 'done';
 });
 Route::get('email', function () {
-    return new App\Mail\SeasonGreetings();
+    return new App\Mail\ServiceApproved();
 });
 // Route::get('newsletter/', 'OperationalController@Newsletter');
 
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 // Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 Route::get('ajaxSearchResult/{slug}', 'OperationalController@ajaxSearchResult');
-Route::get('credentialsReset', 'OperationalController@credentialsReset')->name('credentialsReset');
-
 // Route::get('getMobileSubCategory/{slug}', 'OperationalController@getMobileSubCategory');
 
 //Agent Middleware starts here
@@ -123,7 +127,8 @@ Route::middleware(['accountant'])->group(function() {
 
     Route::get('/accountant/subscriptions', 'AccountantController@subscriptions')->name('accountant.subscriptions');
     Route::get('/accountant/featured-payments', 'AccountantController@featured')->name('accountant.featured');
-    Route::get('/accountant/all-payments', 'AccountantController@all')->name('accountant.all.payments');
+    Route::get('/accountant/registration-payments', 'AccountantController@registrationPayments')->name('accountant.registration');
+    Route::get('/accountant/all-ef-payments', 'AccountantController@allEfPayments')->name('accountant.ef.payments');
 
 });
 //Accountant Middleware ends here
@@ -472,7 +477,6 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');
     Route::get('/activate_agent/{id}', 'AdminController@activate_agent')->name('admin.activate.agent');
     Route::get('dashboard/ef-marketers', 'AdminController@all_ef_marketers')->name('admin.all_ef_marketers');
-    Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
 
 
 
@@ -568,6 +572,9 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
    Route::get('admin/send-sms', 'AdminController@sendSms')->name('admin.send_sms');
    Route::post('admin/send-sms', 'AdminController@submit_sms')->name('admin.submit.sms');
 
+   Route::get('admin/abandoned-payment', 'OperationalController@AbandonedPaymentView')->name('admin.abandoned.payment');
+   Route::post('admin/abandoned-payment', 'OperationalController@AbandonedPayment')->name('admin.abandoned.payment.send');
+
     Route::get('/admin/add-data-entry', 'AdminController@add_data')->name('admin.add.data');
     Route::post('/admin/submit-data', 'AdminController@submit_data')->name('admin.submit.data');
     Route::get('/admin/all-data-entry-officers', 'AdminController@allData')->name('admin.all.data');
@@ -638,7 +645,7 @@ Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //S
 
     Route::get('dashboard/service-providers', 'AuthController@seller')->name('superadmin.seller');
     Route::get('dashboard/all-agents', 'AuthController@allagents')->name('superadmin.allagents');
-    Route::get('dashboard/ef-marketers', 'AuthController@all_ef_marketers')->name('superadmin.all_ef_marketers');
+    Route::get('dashboard/ef-marketers', 'AdminController@all_ef_marketers')->name('superadmin.all_ef_marketers');
 
     Route::get('dashboard/service-seekers', 'AuthController@buyer')->name('superadmin.buyer');
     Route::get('/activate_user/{id}', 'Admin@activate_user')->name('superadmin.activate');

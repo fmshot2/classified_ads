@@ -56,7 +56,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ route('agent.view.request.blade') }}"><i class="fa fa-circle-o"></i> Make Withdrawal</a></li>
+            <!-- <li><a href="{{ route('agent.view.request.blade') }}"><i class="fa fa-circle-o"></i> Make Withdrawal</a></li> -->
             <li><a href=" {{ route ('agent.payment.history') }}"><i class="fa fa-circle-o"></i> Payment History </a></li>
 
           </ul>

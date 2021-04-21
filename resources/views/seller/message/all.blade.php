@@ -34,7 +34,7 @@
                                         <th> SL </th>
                                         <th> Name </th>
                                         <th> Email </th>
-                                        <th> Subject </th>
+                                        <th> Message </th>
                                         <th> Status </th>
                                         <th> Date </th>
                                         <th> Action </th>
@@ -49,7 +49,7 @@
 
                                             <td> {{ $all_messages->buyer_name }} </td>
                                             <td> {{ $all_messages->buyer_email }} </td>
-                                            <td> {{ $all_messages->subject }} </td>
+                                            <td> {{ Str::limit($all_messages->description, 25) }} </td>
                                             <td id="rdStatus{{ $all_messages->slug }}"> {!! $all_messages->status == 1 ? '<strong class="text-success text-center">Read</strong>' : '<strong class="text-danger text-center">Unread</strong>' !!} </td>
                                             <td> {{ $all_messages->created_at->diffForHumans() }} </td>
 

@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('title')
-All E.F Maketers | 
+All E.F Maketers |
 @endsection
 
 @section('content')
@@ -24,7 +24,7 @@ All E.F Maketers |
 
 				<div class="box" >
 					<div class="box-header">
-						<h2 class="box-title"> Total Downlines =  {{$efmarketers_downlines->count()}}</h2>
+						<h2 class="box-title"> Total Downlines =  {{$efmarketers_downlines->count()}}</span></h2>
 					</div>
 
 					<!-- /.box-header -->
@@ -39,7 +39,7 @@ All E.F Maketers |
 									<th> Applied for Approval?</th>
 									<th> Date </th>
 									<!-- <th> Activate/Deactivate</th> -->
-								</tr>	
+								</tr>
   </thead>
 
                                 <tbody>
@@ -48,16 +48,20 @@ All E.F Maketers |
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 									<td> {{ $downline->name }} </td>
 									<td><span class="text-muted"> </i> {{ $downline->email }} </span> </td>
-									<td> {{ $downline->role }} </td>
-									<td> {{ $downline->created_at->diffForHumans() }} </span></td>
+									@if ($downline->role == 'seller')
+                                        <td> Service Provider </td>
+                                    @elseif($downline->role == 'buyer')
+                                        <td> Service Seeker </td>
+                                    @endif
+									<td> {{ $downline->created_at->format('d/m/Y') }} </span></td>
 									<td>
 										@if($downline->status == 1)
 										<span><p id="active_text">Activated</p></span>
 										@elseif($downline->status == 0)
 										<span id="active_text2">Deactivated</span>
-										@endif 
+										@endif
 									</td>
-				
+
 							</tr>
 
 							@endforeach
@@ -74,7 +78,7 @@ All E.F Maketers |
 
 
 			<!-- /.content -->
-		</div>	
+		</div>
 
 
 

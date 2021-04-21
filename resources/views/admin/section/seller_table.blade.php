@@ -4,14 +4,13 @@
 
 	<div class="box">
 
-		<div class="box-header with-border">
+		<div class="box-header">
 			<h3 class="box-title"> Providers Table <a href="{{route('admin.seller') }}" class="text-success" style="font-weight: bold; font-size: 14px"> See all Providers </a></h3>
 		</div>
 
 		<!-- /.box-header -->
 		<div class="box-body">
-			<div class="table-responsive">
-                <table class="table table-hover">
+                <table class="display table table-bordered data_table_main">
                     <thead>
                         <tr>
                             <th> # </th>
@@ -28,7 +27,7 @@
                                 <td> {{ Str::limit($sellers->name,15) }} </td>
                                 <td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
                                 <td> {{ $sellers->services->count() }} </td>
-                                <td> {{ $sellers->created_at->diffForHumans() }} </span></td>
+                                <td> {{ $sellers->created_at->format('d/m/Y') }} </span></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -36,12 +35,3 @@
             </div>
 		</div>
 		<!-- /.box-body -->
-
-@if (url()->current() == route('admin.seller') )
-<div class="box-footer clearfix">
-  {{ $seller->links() }}
-</div>
-@endif
-
-
-</div>

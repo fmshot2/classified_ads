@@ -137,9 +137,9 @@
                         <a href="{{ $check_general_info == 0 ? $general_info->instagram : '' }}" class="google-bg">
                             <i class="fa fa-instagram"></i>
                         </a>
-                        {{-- <a href="#" class="linkedin-bg">
+                        <a href="#" class="linkedin-bg">
                             <i class="fa fa-linkedin"></i>
-                        </a> --}}
+                        </a>
                     </div>
                 </div> --}}
             </div>

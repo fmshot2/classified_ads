@@ -53,7 +53,7 @@
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                             <td> {{ $agent->name }} </td>
                                             <td><span class="text-muted"> </i> {{ $agent->email }} </span> </td>
-                                            <td> {{ $agent->created_at->diffForHumans() }} </span></td>
+                                            <td> {{ $agent->created_at->format('d/m/Y') }} </span></td>
                                             <td>
                                                 @if($agent->status == 1)
                                                     <span><p id="active_text">Activated</p></span>

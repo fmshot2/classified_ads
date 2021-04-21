@@ -43,6 +43,16 @@
                 font-size: 30px !important;
                 padding: 0 10px;
             }
+            .page-title{
+                font-size: 18px;
+            }
+            .infoLinkNote{
+                display: block;
+                margin-top: 5px;
+            }
+            .page-description{
+                font-size: 15px !important
+            }
         }
 
     </style>
@@ -57,8 +67,10 @@
         		data-target="#theinfoModal">How it works?</a>)</small></h3>
                 @if($current_subscription_end_date)
         			<!-- <p id="sub_end">Your Subscription ends:<span><h1>{{  Carbon\Carbon::parse($current_subscription_end_date)->format('d-m-Y')  }}</h1></span></p> -->
-                    <p id="sub_end">Your Subscription ends:<span><h4>{{  Carbon\Carbon::parse($current_subscription_end_date)->toDayDateTimeString()  }}</h4></span></p>                    
+                    <p id="sub_end">Your Subscription ends: <strong>{{  Carbon\Carbon::parse($current_subscription_end_date)->toDayDateTimeString()  }}</strong><span></span></p>
                     <!-- <p>Your Subscription ends:<span><h1 id="sub_end2"></h1></span></p> -->
+                @else
+                <p id="sub_end"></p>
                 @endif
         </section>
 
@@ -66,7 +78,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="box box-primary">
-                        <div class="box-header bg-warning text-center">
+                        <div class="box-header text-center" style="background-color: #cc8a19;">
                            <!--  <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i> -->
@@ -74,14 +86,14 @@
                         <div class="box-body box-profile text-center">
                             <h4>Annually</h4>
                             <ol class="text-left">
-                                <li>Your service(s) will be available on efcontact for a period of 1 year.</li>                            	
+                                <li>Your service(s) will be available on efcontact for a period of 1 year.</li>
                                 <!-- <li>Upload as much as (8) images of your services.</li> -->
                                 <!-- <li>Appear on the top when inquirers search for services related to yours</li> -->
                                 <li>Cost: &#8358;2,400</li>
                             </ol>
                         </div>
 
-                        <input hidden id="sub_type" type="hidden" name="badge_type" value="1">
+                        <input hidden id="sub_types" type="hidden" name="badge_type" value="1">
                         <input hidden id="amount" type="hidden" name="amount" value="1">
                         <input hidden type="hidden" class="form-control" name="email-addres3" id="email-address3"
                             value="{{ Auth::User()->email }}">
@@ -95,7 +107,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="box box-primary">
-                        <div class="box-header bg-success text-center">
+                        <div class="box-header text-center" style="background-color: #cc8a19;">
                             <!-- <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i> -->
                         </div>
@@ -116,7 +128,7 @@
 
                   <div class="col-md-3">
                     <div class="box box-primary">
-                        <div class="box-header bg-primary text-center">
+                        <div class="box-header text-center" style="background-color: #cc8a19;">
                             <!-- <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i> -->
                         </div>
@@ -137,7 +149,7 @@
 
                 <div class="col-md-3">
                     <div class="box box-primary">
-                        <div class="box-header bg-info text-center">
+                        <div class="box-header text-center" style="background-color: #cc8a19;">
                             <!-- <i class="fa fa-star"></i> -->
                         </div>
                         <div class="box-body box-profile text-center">
@@ -208,7 +220,7 @@
 
         <div>
             <div class="modal fade" id="theinfoModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="background-color: #cc8a19; color: #fff">
                             <h4 class="modal-title">Subscription Info</h5>
@@ -217,19 +229,12 @@
                 </button> --}}
                         </div>
                         <div class="modal-body">
-                          <!--   A badge is a verification tag that is given to service providers on E.F Contact. Service
-                            providers with E.F badges have the following advantages:
-                            <ol>
-                                <li>Appear to customers/clients before other service providers</li>
-                                <li>Potential customers/clients tend to go for service providers with the badge.</li>
-                                <li>Service providers with a badge appear on all search pages and appear first.</li>
-                                <li>Service providers with badges are given bonus subsequently.</li>
-                            </ol> -->
-
+                            <p>Subscription is an active plan for every EF Contact service providers, during registration a user can select a plan and the plan becomes active on successful registration and it becomes inactive when the plan expires.</p>
+                            <p>You will find all our available plans on this page, feel free to subscribe or renew your subscription.</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn pd-x-20" data-dismiss="modal"
-                                style="background-color: #cc8a19; color: #fff">Cancel</button>
+                                style="background-color: #cc8a19; color: #fff">Close</button>
                         </div>
                     </div>
                 </div>
@@ -295,7 +300,7 @@
                             var ref_no1 =  response.reference;
                             var sub_type = $("#sub_type").val();
                             console.log(email, amount, ref_no1, sub_type)
-                            
+
                             $.ajax({
                               method: "POST",
                               url: base_Url + '/provider/service/create_sub',
