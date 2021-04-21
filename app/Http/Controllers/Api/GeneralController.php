@@ -86,7 +86,14 @@ class GeneralController extends Controller
 
 
       public function createSubApi(Request $request)
-    {
+    {   
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
 
           $validator = Validator::make($request->all(), [
             'amount' => 'required',
@@ -109,25 +116,28 @@ class GeneralController extends Controller
         // ]);
         $sub_check = ProviderSubscription::where(['user_id' => Auth::id()])->first();
         if ($sub_check) {
- //  $user_check->badgetype = $data['badge_type'];
-        //  $user_check->save();
+ 
         if ($request->amount == '200') {
             $added_days = 31;
             $sub_type = 'monthly';
+        }elseif ($request->amount == '600') {
+            $added_days = 93;
+            $sub_type = '3-months';
         }elseif ($request->amount == '1200') {
             $added_days = 186;
-            $sub_type = '3-months';            
+            $sub_type = 'bi-annual';          
         }elseif($request->amount == '2400') {
             $added_days = 372;
-             $sub_type = 'bi-annual';                       
+            $sub_type = 'annual';                       
         }else{
         return response()->json(['res_message' => 'no amount was provided', 'res_code' => 404], 200);
         }
+        $initial_end_date = $sub_check->subscription_end_date;
         $sub_check->user_id = Auth::id();
         $sub_check->sub_type = $sub_type;
         $sub_check->user_type = 'provider';
         $sub_check->last_amount_paid = $request->amount;
-        $sub_check->subscription_end_date = Carbon::now()->addDays($added_days);
+        $sub_check->subscription_end_date = Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s');
         $sub_check->last_subscription_starts = $current_date_time;
         $sub_check->save();
 
@@ -136,7 +146,6 @@ class GeneralController extends Controller
         return response()->json(['res_message' => 'user not found', 'res_code' => 404], 200);
 
         }
-
        
     }
 }
