@@ -67,7 +67,7 @@ class ServiceController extends Controller
     public function seekingWorkLists()
     {
         // return ServiceResource::collection(Service::paginate(5));
-        return (new SeekingWorkResource(SeekingWork::where('status', 1)->get()))
+        return (new SeekingWorkResourceCollection(SeekingWork::where('status', 1)->get()))
             ->response()
             ->setStatusCode(200);
     }
@@ -359,7 +359,7 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        $service = Service::find($id);
+        $service = Service::findOrFail($id);
 
         return (new ServiceResource($service))
             ->response()
@@ -376,7 +376,7 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $service = Service::find($id);
+        $service = Service::findOrFail($id);
         $service->name = $request->name;
         $service->description = $request->description;
         $service->city = $request->city;
@@ -535,7 +535,7 @@ class ServiceController extends Controller
 
     public function imagesDelete($seekingworkid, $id)
     {
-        $image = ModelImage::where('imageable_id', $seekingworkid)->where('id', $id)->first();
+        $image = ModelImage::where('imageable_id', $seekingworkid)->where('id', $id)->firstOrFail();
         $filename = $image->image_path;
         $image->delete();
 
@@ -598,7 +598,7 @@ class ServiceController extends Controller
      */
     public function deleteService($id)
     {
-        $service = Service::find($id);
+        $service = Service::findOrFail($id);
 
         if ($service->delete()) {
             return response()->json([
@@ -860,7 +860,7 @@ class ServiceController extends Controller
      */
     public function showcategory($id)
     {
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
 
         return (new CategoryResource($category))
             ->response()
@@ -870,7 +870,7 @@ class ServiceController extends Controller
     public function servicesByCategory(Request $request)
     {
         $slug = $request->slug;
-        $the_category = Category::where('slug', $slug)->first();
+        $the_category = Category::where('slug', $slug)->firstOrFail();
         $category_id = $the_category->id;
 
         if ($category_id == 1) {
