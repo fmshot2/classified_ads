@@ -48,7 +48,7 @@ Route::group([
     Route::get('check-if-email-exist', [AuthController::class, 'checkEmailIfExist']);
 
     Route::prefix('user')->group(function () {
-        //DASHBOARD
+        // DASHBOARD
         Route::get('dashboard', [ServiceController::class, 'dashboard']);
 
         // SERVICES
@@ -63,13 +63,13 @@ Route::group([
         Route::get('seekingwork/images/delete/{seekingworkid}/{id}', [ServiceController::class, 'imagesDelete']);
         Route::delete('seeking-work/delete/{id}', [ServiceController::class, 'deleteSeekingWork']);
 
-        //Favourites
+        // Favourites
         Route::get('my-favourites/', [ServiceController::class, 'myFavourites']);
 
-        //Feedbacks
+        // Feedbacks
         Route::get('my-client-feedbacks/', [ServiceController::class, 'clientfeedbacks']);
 
-        //Messages
+        // Messages
         Route::get('my-messages/', [ServiceController::class, 'myMessages']);
         Route::delete('/message/{id}', [ServiceController::class, 'deleteMessage']);
         Route::get('/message', [ServiceController::class, 'viewMessage']);
@@ -77,6 +77,20 @@ Route::group([
         Route::get('/message/unread-messages', [ServiceController::class, 'unReadMessages']);
         Route::get('/message/reply', [ServiceController::class, 'replyMessage']);
         Route::post('/message/replies', [ServiceController::class, 'messageReply']);
+
+        // Notifications
+        Route::get('/notification/all', [ServiceController::class, 'allNotifications']);
+        Route::get('/notification', [ServiceController::class, 'viewNotification']);
+        Route::get('/notification/mark-all-as-read', [ServiceController::class, 'notificationMarkAsAllRead']);
+        Route::get('/notification/mark-as-read', [ServiceController::class, 'notificationMarkAsRead']);
+        Route::post('/notification/delete', [ServiceController::class, 'notificationDelete']);
+
+        // Apply For Badge
+        Route::get( '/request-for-badge/{id}', [ServiceController::class, 'requestForBadge']);
+        Route::post('/paid-for-badge', [ServiceController::class, 'paidForBadge']);
+
+        // Payment History
+        Route::get( '/payment-history', [ServiceController::class, 'paymentHistory']);
     });
 });
 

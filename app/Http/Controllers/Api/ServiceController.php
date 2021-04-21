@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Advertisement;
+use App\Badge;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AdvertisementResource;
@@ -29,8 +30,12 @@ use App\Like;
 use App\Local_government;
 use App\Message;
 use App\Notification;
+use App\Payment;
+use App\PaymentRequest;
 use App\Refererlink;
-
+use Carbon\Carbon;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
@@ -485,6 +490,187 @@ class ServiceController extends Controller
             ], 200);
         }
 
+    }
+
+    public function allNotifications()
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $all_notifications = $user->notifications;
+
+        return response()->json([
+            'all_notifications' => $all_notifications
+        ], 200);
+    }
+
+    public function viewNotification(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $notification = DatabaseNotification::where('id', $request->notification_id)->firstOrFail();
+        $notification->read_at = Carbon::now()->toDateString();
+        $notification->save();
+
+        return response()->json([
+            'notification' => $notification
+        ], 200);
+    }
+
+    public function notificationMarkAsAllRead()
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+        $user->unreadNotifications->markAsRead();
+
+        return response()->json([
+            'All Notifications Marked as Read!'
+        ], 200);
+    }
+
+    public function notificationMarkAsRead(Request $request)
+    {
+        $notification = DatabaseNotification::where('id', $request->notification_id)->firstOrFail();
+        $notification->read_at = Carbon::now()->toDateString();
+
+        if ($notification->save()) {
+            return response()->json([
+                'Notification Marked As Read!'
+            ]);
+        }
+    }
+
+    public function notificationDelete(Request $request)
+    {
+        $notification = DatabaseNotification::where('id', $request->notification_id)->firstOrFail();
+
+        if ($notification->delete()) {
+            return response()->json([
+                'Notification Deleted!'
+            ]);
+        }
+
+        return response()->json([
+            'error' => 'Notification Couldn\'t Deleted!'
+        ]);
+    }
+
+    public function requestForBadge(Request $request, $id)
+    {
+        if ($id == 1) {
+            $badge = [
+                'badge_type' => 'Super',
+                'badge_cost' => 1500000
+            ];
+        }
+        elseif ($id == 2) {
+            $badge = [
+                'badge_type' => 'Moderate',
+                'badge_cost' => 1000000
+            ];
+        }
+        elseif ($id == 3) {
+            $badge = [
+                'badge_type' => 'Basic',
+                'badge_cost' => 500000
+            ];
+        }
+
+        return $badge;
+    }
+
+    public function paidForBadge(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $user->badgetype = $request->get('badge_type');
+
+        $badge = new Badge();
+        $badge->user_id = $user->id;
+
+        if ($request->get('badge_type') == 1) {
+            $badge->badge_type = 'Super User';
+        }
+        elseif ($request->get('badge_type') == 2) {
+            $badge->badge_type = 'Moderate User';
+        }
+        elseif ($request->get('badge_type') == 3) {
+            $badge->badge_type = 'Basic User';
+        }
+
+        $badge->amount = $request->get('amount');
+        $badge->ref_no = $request->get('trans_reference');
+        $badge->seller_name = $user->name;
+        $badge->save();
+
+
+        if ($request->get('badge_type') == 1) {
+            $badge_name = 'Super User';
+        }
+        elseif ($request->get('badge_type') == 2) {
+            $badge_name = 'Moderate User';
+        }
+        elseif ($request->get('badge_type') == 3) {
+            $badge_name = 'Basic User';
+        }
+
+        if ($user->save()) {
+            $reg_payments = new Payment();
+            $reg_payments->user_id = Auth::id();
+            $reg_payments->payment_type = 'badge_payment';
+            $reg_payments->amount = $request->get('amount');
+            $reg_payments->tranx_ref = $request->get('trans_reference');
+            $reg_payments->save();
+
+            return response()->json([
+                'badge_type' => $badge_name
+            ], 200);
+        }
+        else {
+            return 'Something went wrong!';
+        }
+    }
+
+    public function paymentHistory()
+    {
+        $user = auth()->user();
+        $user_id = $user->id;
+        $payment_history = PaymentRequest::where('user_id', $user_id)->get();
+
+        $total_balance = DB::table('payment_requests')->where('user_id', $user_id)->sum('amount_requested') + $user->refererAmount;
+        $total_requested = DB::table('payment_requests')->where(['user_id' => $user_id, 'is_paid' => 1])->sum('amount_requested');
+        $total_pending = DB::table('payment_requests')->where(['user_id' => $user_id, 'is_paid' => 0])->sum('amount_requested');
+        $balance = $user->refererAmount;
+
+        return response()->json([
+            'payment_history' => $payment_history,
+            'total_earnings' => $total_balance,
+            'total_withdrawn' => $total_requested,
+            'remaining_balance' => $balance,
+            'total_pending' => $total_pending
+        ], 200);
     }
 
     /**
