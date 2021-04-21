@@ -32,10 +32,12 @@ use App\Message;
 use App\Notification;
 use App\Payment;
 use App\PaymentRequest;
+use App\ProviderSubscription;
 use App\Refererlink;
 use Carbon\Carbon;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ServiceController extends Controller
 {
@@ -1247,10 +1249,9 @@ class ServiceController extends Controller
     }
 
 
-      public function featuredServices($id)
-      {
-
-         $service = Service::find($id);
+    public function featuredServices($id)
+    {
+        $service = Service::find($id);
          if (!$service) {
             return response()->json([
                 'data' => [],
@@ -1259,17 +1260,79 @@ class ServiceController extends Controller
             ], 404);
         }
 
-
         $service->is_featured = 1;
-// $service->save();
+        // $service->save();
         if ($service->save()) {
            return response()->json([
                 'data' => $service,
                 'res_message' => 'success',
                 'res_code' => 200,
-            ], 200);     
+            ], 200);
+        }
+    }
+
+
+
+    public function userSubscription(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
         }
 
+        $validator = Validator::make($request->all(), [
+            'amount' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([$validator->errors()], 422);
+        }
+
+        $added_days = 0;
+        $mytime = Carbon::now();
+
+        // Produces something like "2019-03-11 12:25:00"
+        $current_date_time = Carbon::now()->toDateTimeString();
+        //
+        $added_date_time = Carbon::now()->addDays(5)->toDateTimeString();
+        $data = $request->all();
+        // $this->validate($request, [
+        //     'amount' => 'required',
+        // ]);
+        $sub_check = ProviderSubscription::where(['user_id' => Auth::id()])->first();
+        if ($sub_check) {
+            if ($request->amount == '200') {
+                $added_days = 31;
+                $sub_type = 'monthly';
+            }elseif ($request->amount == '600') {
+                $added_days = 93;
+                $sub_type = '3-months';
+            }elseif ($request->amount == '1200') {
+                $added_days = 186;
+                $sub_type = 'bi-annual';
+            }elseif($request->amount == '2400') {
+                $added_days = 372;
+                $sub_type = 'annual';
+            }else{
+                return response()->json(['res_message' => 'no amount was provided', 'res_code' => 404], 200);
+            }
+
+            $initial_end_date = $sub_check->subscription_end_date;
+            $sub_check->user_id = Auth::id();
+            $sub_check->sub_type = $sub_type;
+            $sub_check->user_type = 'provider';
+            $sub_check->last_amount_paid = $request->amount;
+            $sub_check->subscription_end_date = Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s');
+            $sub_check->last_subscription_starts = $current_date_time;
+            $sub_check->save();
+
+            return response()->json(['res_message' => 'Success', 'res_code' => 200], 200);
+        }else{
+            return response()->json(['res_message' => 'user not found', 'res_code' => 404], 200);
+        }
     }
 
 
