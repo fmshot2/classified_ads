@@ -75,7 +75,7 @@
                                 <option value="">-- Select State --</option>
                                 @if(isset($states))
                                     @foreach($states as $state)
-                                        <option id="state" value="{{ trim($state->name) }}" {{ trim($service->state) == trim($state->name) ? 'selected' : '' }}> {{ $state->name }}  </option>
+                                        <option id="state" value="{{ $state->name }}" {{ trim($service->state) == trim($state->name) ? 'selected' : '' }}> {{ $state->name }}  </option>
                                     @endforeach
                                 @endif
                             </select>
@@ -86,7 +86,7 @@
                         <div class="form-group">
                             <label class="form-label">Local Government</label>
                             <select class="form-control" id="city" name="city">
-                                <option value="{{ $service->city }}" selected>{{ $service->city }}</option>
+                                <option value="{{ $service->city }}" selected disabled>{{ $service->city }}</option>
                             </select>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                             <label>Sub Category <small class="text-info">(You can select multiple sub category)</small></label>
                             <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple>
                                 @foreach($subcategory as $subcategories)
-                                    <option id="category_id" value="{{ $subcategories->id }}" {{ $service->category_id == $subcategories->category_id  ? 'selected' : '' }}> {{ $subcategories->name }} </option>
+                                    <option value="{{ $subcategories->id }}" {{ $service->category_id == $subcategories->category_id  ? 'selected' : '' }}> {{ $subcategories->name }} </option>
                                 @endforeach
                             </select>
                         </div>
@@ -510,17 +510,6 @@
         $('#categories').on('change',function(){
             var categoryID = $(this).val();
 
-            if (categoryID == 1 || categoryID == 2) {
-                document.getElementById("youtubeLink").style.display = 'none';
-                document.getElementById("negotiableChBox").style.display = 'none';
-                document.getElementById("servicePriceRange").innerText = 'Salary Range?';
-            }
-            else {
-                document.getElementById("youtubeLink").style.display = 'block';
-                document.getElementById("negotiableChBox").style.display = 'block';
-                document.getElementById("servicePriceRange").innerText = 'How much do you want to charge for this service?';
-            }
-
             if(categoryID){
                 $.ajax({
                     type:"GET",
@@ -548,13 +537,11 @@
 
     <script type="text/javascript">
         $('#state').on('change',function(){
-            console.log('ddd');
             var stateID = $(this).val();
             if(stateID){
                 $.ajax({
-                type:"GET",
-                    //url:"{{url('qqq')}}"+stateID,
-                    url: '../../api/get-city-list/'+stateID,
+                    type:"GET",
+                    url: '/api/get-city-list/'+stateID,
                     success:function(res){
                         if(res){
                         console.log(res);

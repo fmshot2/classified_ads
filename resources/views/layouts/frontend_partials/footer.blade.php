@@ -140,7 +140,7 @@
         </div>
         <div class="row">
             <div class="col-xl-12">
-                <p class="copy">© 2021 EFContact <a href="https://www.efnetworks.com">Powered by EF Network Ltd. </a><a href="{{route('terms-of-use')}}"> Terms</a> | <a href="{{route('privacy-policy')}}"> Privacy</a></p>
+                <p class="copy">© 2021 EFContact <a href="https://eftechnology.net">Powered by EF Network Ltd. </a><a href="{{route('terms-of-use')}}"> Terms</a> | <a href="{{route('privacy-policy')}}"> Privacy</a></p>
             </div>
         </div>
     </div>
@@ -231,7 +231,7 @@
                         {{-- <li><a href="{{route('allSellers')}}">Service Providers</a></li> --}}
                         <li><a href="{{route('allcities')}}">Tourist Sites in Nigeria</a></li>
                         <li><a href="{{route('government.officials')}}">National Assembly</a></li>
-                        <li><a href="{{route('benefits-of-efcontact')}}">Benefits of EFContact</a></li>
+                        {{-- <li><a href="{{route('benefits-of-efcontact')}}">Benefits of EFContact</a></li> --}}
                         <li><a href="{{route('referralprogram')}}">Referral Program</a></li>
                         <li><a href="{{route('advertisement')}}">Advertise With Us</a></li>
                         <li><a data-toggle="modal" data-target="#launchAgentModal" href="#">Become our Agent</a></li>

@@ -89,6 +89,7 @@ class SubscriptionController extends Controller
 
 	public function createSubpay(Request $request)
 	{
+		// return response()->json(['success'=>'Ajax request submitted successfully']);
 		$added_days = 0;
 		$mytime = Carbon::now();
 
@@ -161,7 +162,7 @@ class SubscriptionController extends Controller
             $reg_payments->save();
 		
 
-		return response()->json(['success'=>'Your Subscription was successfull', 'new_date'=>$sub_check->subscription_end_date], 200);
+		return response()->json(['success'=>'Your Subscription payment was successfull', 'new_date'=>$sub_check->subscription_end_date], 200);
 
 	}
 	

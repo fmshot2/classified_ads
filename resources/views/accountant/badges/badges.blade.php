@@ -43,11 +43,12 @@ Successful Badge Payment  |
 							<thead>
 								<tr>
 									<th> # </th>
-									<th> Name of Seller </th>
-									<th> Reference Number </th>
+									<th> Name</th>
 									<th> Amount Paid </th>
-									<th> Badge </th>
+									<th> Reference Number </th>
 									<th> Date of Payment </th>
+
+
 									{{-- <th> Action </th>									 --}}
 								</tr>	
 							</thead>
@@ -55,11 +56,11 @@ Successful Badge Payment  |
 								@forelse($all_badges as $key => $payment)
 								<tr>
 									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
-									<td><span class="text-muted"> </i> {{ $payment->seller_name }}</span> </td>
-									<td> {{ $payment->ref_no }} </td>
+									<td><span class="text-muted"> </i> {{ $payment->user->name }}</span> </td>
 									<td> ₦{{ number_format($payment->amount) }} </td>
-									<td> {{ $payment->badge_type }} </span></td>
-									<td> <span class="text text-success">{{ $payment->created_at }}</span> </span></td>
+									<td> {{ $payment->tranx_ref }} </td>
+									{{-- <td> {{ $payment->badge_type }} </span></td> --}}
+									<td> <span class="text text-success">{{ date('d-m-Y', strtotime($payment->created_at)) }}</span> </span></td>
 									{{-- <td class="center">
 						                <a type="button" class="btn btn-default btn-outline btn-sm" href=""><i class="fa fa-pencil"></i></a>
 

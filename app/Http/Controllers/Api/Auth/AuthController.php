@@ -61,6 +61,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:3,50',
             'email' => 'required|email|unique:users',
+            'role' => 'string',
             'password' => 'required|min:6',
             // 'password' => 'required|confirmed|min:6',
         ]);
@@ -77,7 +78,7 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'User created successfully!',
             'user' => $user
-        ]);
+        ], 200);
     }
 
     public function checkEmailIfExist(Request $request)
@@ -95,7 +96,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 0,
                 'error' => 'E-mail address is already taken!'
-                ], 404);
+                ]);
         }
     }
 
@@ -106,7 +107,7 @@ class AuthController extends Controller
      */
     public function profile()
     {
-        return response()->json($this->guard()->user());
+        return response()->json($this->guard()->user(), 200);
     }
 
     /**
@@ -118,7 +119,7 @@ class AuthController extends Controller
     {
         $this->guard()->logout();
 
-        return response()->json(['User logged out successfully!']);
+        return response()->json(['User logged out successfully!'], 200);
     }
 
     /**
@@ -143,7 +144,7 @@ class AuthController extends Controller
             'token' => $token,
             'token_type' => 'bearer',
             'token_validity' => $this->guard()->factory()->getTTL() * 60
-        ]);
+        ], 200);
     }
 
     /**

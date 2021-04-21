@@ -34,6 +34,6 @@ class ServiceCreated extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('emails.services.service-created')->subject('You created a service!');
+        return $this->from('noreply@efcontact.com')->markdown('emails.services.service-created')->subject('You created a service!');
     }
 }

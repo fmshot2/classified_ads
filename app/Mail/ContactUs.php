@@ -32,6 +32,6 @@ class ContactUs extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('emails.contactus')->subject($this->subject);
+        return $this->from('support@efcontact.com')->markdown('emails.contactus')->subject($this->subject);
     }
 }

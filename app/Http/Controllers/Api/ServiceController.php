@@ -9,6 +9,7 @@ use App\Http\Resources\AdvertisementResource;
 use App\Http\Resources\AdvertisementResourceCollection;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\SeekingWorkResource;
+use App\Http\Resources\SeekingWorkResourceCollection;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\ServiceResourceCollection;
 use App\Service;
@@ -53,7 +54,7 @@ class ServiceController extends Controller
     public function index()
     {
         // return ServiceResource::collection(Service::paginate(5));
-        return (new ServiceResourceCollection(Service::where('status', 1)->get()))
+        return (new ServiceResourceCollection(Service::where('status', 1)->paginate(9)))
             ->response()
             ->setStatusCode(200);
     }
@@ -66,7 +67,7 @@ class ServiceController extends Controller
     public function seekingWorkLists()
     {
         // return ServiceResource::collection(Service::paginate(5));
-        return (new SeekingWorkResource(SeekingWork::where('status', 1)->get()))
+        return (new SeekingWorkResourceCollection(SeekingWork::where('status', 1)->paginate(9)))
             ->response()
             ->setStatusCode(200);
     }
@@ -147,7 +148,7 @@ class ServiceController extends Controller
                 'unread_notifications' => $unread_notification,
                 'your_service_likes_count' => $servicesLikeCounter,
                 'your_referral_bonus' => $accruedAmount
-            ]);
+            ], 200);
 
         }else{
             $linkcheck = null;
@@ -163,7 +164,7 @@ class ServiceController extends Controller
                 'all_notifications' => $all_notification_count,
                 'unread_notifications' => $unread_notification,
                 'your_service_likes_count' => $servicesLikeCounter
-            ]);
+            ], 200);
         }
 
     }
@@ -257,7 +258,7 @@ class ServiceController extends Controller
         if ($user_hasUploadedService == 1) {
             return response()->json([
                 'message' => 'Service created successfully!'
-            ]);
+            ], 200);
 
         }
         $present_user->hasUploadedService = 1;
@@ -271,7 +272,7 @@ class ServiceController extends Controller
 
             return response()->json([
                 'message' => 'Referrer Bonus Added successfully!'
-            ]);
+            ], 200);
         }
 
         return (new ServiceResource($service))
@@ -294,7 +295,7 @@ class ServiceController extends Controller
             ]);
         }
         // return ServiceResource::collection(Service::paginate(5));
-        return (new ServiceResourceCollection($user->services))
+        return (new ServiceResourceCollection(Service::where('user_id', $user->id)->paginate(9)))
             ->response()
             ->setStatusCode(200);
     }
@@ -318,16 +319,9 @@ class ServiceController extends Controller
 
         $allfavourites = array_reverse($this->thefavourites);
 
-        if ($allfavourites) {
-            return response()->json([
-                $allfavourites,
-            ], 200);
-        }
-        else{
-            return response()->json([
-                'message' => 'No Favourite!'
-            ]);
-        }
+        return response()->json([
+            $allfavourites,
+        ], 200);
     }
     public function clientfeedbacks()
     {
@@ -350,17 +344,147 @@ class ServiceController extends Controller
         }
         $allcomments = collect(array_reverse($this->thecomments));
 
-        if (!$allcomments->isEmpty()) {
+
+        return response()->json([
+            'user_feedbacks' => $allcomments,
+            'all_services' => $all_services
+        ], 200);
+    }
+
+    public function myMessages()
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
             return response()->json([
-                'user_feedbacks' => $allcomments,
-                'all_services' => $all_services
+                'error' => $e->getMessage(),
             ]);
         }
-        else{
+
+        $all_message = Message::where('service_user_id', Auth::id())->orderBy('id', 'desc')->paginate(50);
+
+        return response()->json([
+            $all_message,
+        ], 200);
+
+
+    }
+
+    public function deleteMessage($id)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
             return response()->json([
-                'message' => 'No Feedback Yet!'
+                'error' => $e->getMessage(),
             ]);
         }
+
+        $message = Message::findOrFail($id);
+
+        if ($message->delete()) {
+            return response()->json([
+                'Message Deleted!'
+            ], 200);
+        }
+    }
+
+    public function viewMessage(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $message = Message::where('slug', $request->slug)->firstOrFail();
+        $message->status = 1;
+        $message->save();
+
+        return response()->json([
+            'message' => $message
+        ], 200);
+    }
+
+    public function unReadMessages(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $all_messages = Message::where('service_user_id', $user->id)->Where('status', 0)->orderBy('id', 'desc')->paginate(9);
+
+        return response()->json([
+            'unread_messages' => $all_messages
+        ], 200);
+    }
+
+    public function readMessages(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $all_messages = Message::where('service_user_id', $user->id)->Where('status', 1)->orderBy('id', 'desc')->paginate(9);
+
+        return response()->json([
+            'read_messages' => $all_messages
+        ], 200);
+    }
+
+    public function replyMessage(Request $request)
+    {
+        $message = Message::where('slug', $request->slug)->firstOrFail();
+
+        return response()->json([
+            'message' => $message
+        ], 200);
+    }
+
+    public function messageReply(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $validatedData = $request->validate([
+            'description' => 'required|max:255',
+        ]);
+
+        $slug = Str::random(6);
+
+        $message = New Message();
+        $message->subject = $request->subject;
+        $message->description = $request->description;
+        $message->service_id = $request->service_id;
+        $message->service_user_id = $request->service_user_id;
+        $message->buyer_name = $user->name;
+        $message->buyer_email = $user->email;
+        $message->buyer_id = $request->buyer_id;
+        $message->reply = 'yes';
+        $message->phone = $request->phone;
+        $message->slug = $slug;
+
+        if ($message->save()) {
+            return response()->json([
+                'message' => $message
+            ], 200);
+        }
+
     }
 
     /**
@@ -371,13 +495,8 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        $service = Service::find($id);
+        $service = Service::findOrFail($id);
 
-        if (!$service) {
-            return response()->json([
-                'error' => 'Service not found!',
-            ]);
-        }
         return (new ServiceResource($service))
             ->response()
             ->setStatusCode(200);
@@ -393,7 +512,7 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $service = Service::find($id);
+        $service = Service::findOrFail($id);
         $service->name = $request->name;
         $service->description = $request->description;
         $service->city = $request->city;
@@ -490,12 +609,6 @@ class ServiceController extends Controller
                 'message' => 'CV Created successfully!'
             ], 200);
         }
-        else{
-            return response()->json([
-                $sWork,
-                'error' => 'Something went wrong!'
-            ]);
-        }
     }
     /**
      * Remove the specified resource from storage.
@@ -513,8 +626,6 @@ class ServiceController extends Controller
                  'message' => 'This CV was Deleted Successfully!',
              ], 200);
          }
-
-         return response()->json(['message' => 'Something went wrong!'], 400);
      }
 
 
@@ -522,16 +633,9 @@ class ServiceController extends Controller
     {
         $service = SeekingWork::where('slug', $slug)->firstOrFail();
 
-        if (!$service->isEmpty()) {
-            return response()->json([
-                $service
-            ], 200);
-        }
-        else{
-            return response()->json([
-                'message' => 'Something is not right!'
-            ], 404);
-        }
+        return response()->json([
+            $service
+        ], 200);
     }
 
     public function imagesSeekingWorkStore(Request $request, $service_id)
@@ -567,7 +671,7 @@ class ServiceController extends Controller
 
     public function imagesDelete($seekingworkid, $id)
     {
-        $image = ModelImage::where('imageable_id', $seekingworkid)->where('id', $id)->first();
+        $image = ModelImage::where('imageable_id', $seekingworkid)->where('id', $id)->firstOrFail();
         $filename = $image->image_path;
         $image->delete();
 
@@ -578,7 +682,7 @@ class ServiceController extends Controller
 
         return response()->json([
             'message' => 'Image(s) deleted successfully!'
-        ]);
+        ], 200);
     }
 
     public function seekingWorkDetails($slug)
@@ -630,7 +734,7 @@ class ServiceController extends Controller
      */
     public function deleteService($id)
     {
-        $service = Service::find($id);
+        $service = Service::findOrFail($id);
 
         if ($service->delete()) {
             return response()->json([
@@ -638,8 +742,6 @@ class ServiceController extends Controller
                 'message' => 'This Service was Deleted Successfully!',
             ], 200);
         }
-
-        return response()->json(['message' => 'Something went wrong!'], 400);
     }
 
 
@@ -653,7 +755,7 @@ class ServiceController extends Controller
         if ($request->category == null && $request->city == null && $request->keyword == null) {
             return response()->json([
                 'message' => 'Unfortunately, we did not find anything that matches these criteria.',
-            ], 404);
+            ]);
         }
 
 
@@ -860,7 +962,7 @@ class ServiceController extends Controller
             else{
                 return response()->json([
                     'message' => 'Unfortunately, we did not find anything that matches these criteria.',
-                ], 404);
+                ]);
             }
         }
 
@@ -884,7 +986,7 @@ class ServiceController extends Controller
      */
     public function sub_categories()
     {
-        return response()->json(SubCategory::all());
+        return response()->json(SubCategory::paginate(9), 200);
     }
 
     /**
@@ -894,13 +996,8 @@ class ServiceController extends Controller
      */
     public function showcategory($id)
     {
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
 
-        if (!$category) {
-            return response()->json([
-                'error' => 'Service not found!',
-            ]);
-        }
         return (new CategoryResource($category))
             ->response()
             ->setStatusCode(200);
@@ -909,25 +1006,29 @@ class ServiceController extends Controller
     public function servicesByCategory(Request $request)
     {
         $slug = $request->slug;
-        $the_category = Category::where('slug', $slug)->first();
+        $the_category = Category::where('slug', $slug)->firstOrFail();
         $category_id = $the_category->id;
-        $category_services = Service::where('category_id', $category_id)->orderBy('badge_type', 'asc')->where('status', 1)->paginate(100);
 
+        if ($category_id == 1) {
+            $category_services = SeekingWork::where('category_id', $category_id)->where('status', 1)->orderBy('badge_type', 'asc')->paginate(9);
 
-        if (!$category_services->isEmpty()) {
+            return response()->json([
+                'category' => $the_category->name,
+                'job_applicants' => (new SeekingWorkResourceCollection($category_services))
+                ], 200);
+        }
+        else{
+            $category_services = Service::where('category_id', $category_id)->where('status', 1)->orderBy('badge_type', 'asc')->paginate(9);
+
             return response()->json([
                 'category' => $the_category->name,
                 'services' => (new ServiceResourceCollection($category_services))
                 ], 200);
         }
-        else{
-            return response()->json([
-                'message' => 'No service in this category!',
-                ], 404);
-        }
+
     }
 
-    public function findNearestServices(Request $request)
+    public function serviceCloseToYou(Request $request)
     {
         $latitude = $request->latitude;
         $longitude = $request->longitude;
@@ -945,18 +1046,11 @@ class ServiceController extends Controller
             ->where('status', 1)
             ->inRandomOrder()->limit(15)->get();
 
-        if (!$services->isEmpty()) {
-            return response()->json([
-                'services' => $services,
-                'latitude' => $latitude,
-                'longitude' => $longitude
-                ], 200);
-        }
-        else{
-            return response()->json([
-                'message' => 'No service close to you!',
-                ], 404);
-        }
+        return response()->json([
+            'services' => $services,
+            'latitude' => $latitude,
+            'longitude' => $longitude
+            ], 200);
 
     }
 

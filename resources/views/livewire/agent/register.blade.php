@@ -125,7 +125,7 @@
 <div class="">
     <div class="row">
         <div class="col-md-6">
-            <div class="col-md-12">
+        <!--     <div class="col-md-12">
                 <h5>Your Bank Details</h5>
                 <div class="form-group">
                  <label class="form-label">Bank Name</label><small class="text-danger">*</small>
@@ -136,7 +136,26 @@
                  </span>
                  @endif
              </div>
+         </div> -->
+
+           <div class="col-md-12">
+                <div class="form-group">
+                    <label class="form-label">Bank Name</label><small class="text-danger">*</small>
+                    <select class="form-control" id="bank" wire:model='bankname'>
+                        <option value="">- Select Bank-</option>
+                        @foreach($banks as $bank)
+                        <option value="{{$bank->name}}"> {{ $bank->name }}  </option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('bankname'))
+                    <span class="helper-text" data-error="wrong" data-success="right">
+                     <strong class="text-danger">{{ $errors->first('bankname') }}</strong>
+                 </span>
+                 @endif
+             </div>
          </div>
+
+
          <div class="col-md-12">
             <div class="form-group">
               <label class="form-label">Bank Account Name</label><small class="text-danger">*</small>

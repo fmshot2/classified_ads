@@ -79,7 +79,7 @@
         </a>
       </li>
 
-      <li class="treeview " style="{{ url()->current() == route('superadmin.buyer') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.seller') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.add-accountant') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.all.admins') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.all_accountants') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.add.admin') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.all.cmos') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.add.cmo') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.allagents') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+      <li class="treeview " style="{{ url()->current() == route('superadmin.buyer') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.seller') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.add-accountant') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.all.admins') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.all_accountants') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.add.admin') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.all.cmos') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.add.cmo') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.allagents') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('superadmin.all_ef_marketers') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
         <a href="#">
           <i class="fa fa-users"></i>
           <span> Users </span>
@@ -256,7 +256,7 @@
       </li>
 
       <li class="treeview"
-        style="{{ url()->current() == route('admin.buyer') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.seller') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('all_accountants') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('add-accountant') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.all.cmos') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.add.cmo') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.allagents') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        style="{{ url()->current() == route('admin.buyer') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.seller') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('all_accountants') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('add-accountant') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.all.cmos') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.add.cmo') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.allagents') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.all_ef_marketers') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
         <a href="#">
           <i class="fa fa-users"></i>
           <span> Users </span>
@@ -342,7 +342,7 @@
             </ul>
         </li>
         <li class="treeview"
-          style="{{ url()->current() == route('admin.send_sms') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.send_email') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+          style="{{ url()->current() == route('admin.send_sms') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.send_email') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.abandoned.payment') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
           <a href="#">
             <i class="fa fa-sitemap"></i>
             <span> Data Entry </span>
@@ -353,6 +353,7 @@
           <ul class="treeview-menu">
             <li><a href=" {{ route('admin.send_sms') }} "><i class="fa fa-circle-o"></i> Send SMS </a></li>
             <li><a href="{{ route('admin.send_email') }}"><i class="fa fa-circle-o"></i> Send Email</a></li>
+            <li><a href="{{ route('admin.abandoned.payment') }}"><i class="fa fa-circle-o"></i> Abandoned Payment</a></li>
           </ul>
         </li>
         <li class="{{ url()->current() == route('system.config') ? 'active' : '' }}">
