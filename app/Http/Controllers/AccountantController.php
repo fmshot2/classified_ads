@@ -53,6 +53,22 @@ class AccountantController extends Controller
 
 	}
 
+    public function sellerActivity()
+    {
+        $payments = User::where('role', '=', 'seller')->get();
+        return view('accountant.activity.seller', [
+            'payments' =>$payments
+        ]);
+    }
+
+    public function agentActivity()
+    {
+        $payments = Agent::all();
+        return view('accountant.activity.agent', [
+            'payments' =>$payments
+        ]);
+    }
+
 
     public function add_accountant()
     {
