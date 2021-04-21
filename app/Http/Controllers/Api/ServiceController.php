@@ -913,4 +913,30 @@ class ServiceController extends Controller
     }
 
 
+      public function featuredServices($id)
+      {
+
+         $service = Service::find($id);
+         if (!$service) {
+            return response()->json([
+                'data' => [],
+                'res_message' => 'fail',
+                'res_code' => 404,
+            ], 404);
+        }
+
+
+        $service->is_featured = 1;
+// $service->save();
+        if ($service->save()) {
+           return response()->json([
+                'data' => $service,
+                'res_message' => 'success',
+                'res_code' => 200,
+            ], 200);     
+        }
+
+    }
+
+
 }

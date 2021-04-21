@@ -78,6 +78,8 @@ Route::prefix('v1')->group(function ()
     Route::get('services', [ServiceController::class, 'index']);
     Route::get('services/{id}', [ServiceController::class, 'show']);
     Route::get('search/', [ServiceController::class, 'search']);
+    Route::get('featured/{id}', [ServiceController::class, 'featuredServices']);
+    Route::post('subscription', [GeneralController::class, 'createSubApi']);
 
     // SERVICES CLOSE TO YOU
     Route::get('services-close-to-me', [ServiceController::class, 'findNearestServices']);
