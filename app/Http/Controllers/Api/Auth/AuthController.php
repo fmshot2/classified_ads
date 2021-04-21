@@ -75,10 +75,22 @@ class AuthController extends Controller
             ['password' => bcrypt($request->password)]
         ));
 
-        return response()->json([
-            'message' => 'User created successfully!',
-            'user' => $user
-        ], 200);
+         $token_validity = (24 * 60);
+
+        $this->guard()->factory()->setTTL($token_validity);
+
+        if (!$token = $this->guard()->attempt($validator->validated())) {
+            return response()->json([
+                'error' => 'Unauthorized!'
+            ], 401);
+        }
+
+        return $this->respondWithToken($token);
+
+        // return response()->json([
+        //     'message' => 'User created successfully!',
+        //     'user' => $user
+        // ], 200);
     }
 
     public function checkEmailIfExist(Request $request)

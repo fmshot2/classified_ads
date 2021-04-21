@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Facades\Validator;
+
 use App\Advertisement;
 use App\Category;
 use App\Http\Controllers\Controller;
@@ -23,6 +25,9 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Mail\ServiceCreated;
 use App\SubCategory;
+use Carbon\Carbon;
+use App\ProviderSubscription;
+
 
 
 class GeneralController extends Controller
@@ -77,5 +82,61 @@ class GeneralController extends Controller
     protected function guard()
     {
         return Auth::guard();
+    }
+
+
+      public function createSubApi(Request $request)
+    {
+
+          $validator = Validator::make($request->all(), [
+            'amount' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([$validator->errors()], 422);
+        }
+
+        $added_days = 0;
+        $mytime = Carbon::now();
+
+        // Produces something like "2019-03-11 12:25:00"
+        $current_date_time = Carbon::now()->toDateTimeString();
+        //
+        $added_date_time = Carbon::now()->addDays(5)->toDateTimeString();
+        $data = $request->all();
+        // $this->validate($request, [
+        //     'amount' => 'required',
+        // ]);
+        $sub_check = ProviderSubscription::where(['user_id' => Auth::id()])->first();
+        if ($sub_check) {
+ //  $user_check->badgetype = $data['badge_type'];
+        //  $user_check->save();
+        if ($request->amount == '200') {
+            $added_days = 31;
+            $sub_type = 'monthly';
+        }elseif ($request->amount == '1200') {
+            $added_days = 186;
+            $sub_type = '3-months';            
+        }elseif($request->amount == '2400') {
+            $added_days = 372;
+             $sub_type = 'bi-annual';                       
+        }else{
+        return response()->json(['res_message' => 'no amount was provided', 'res_code' => 404], 200);
+        }
+        $sub_check->user_id = Auth::id();
+        $sub_check->sub_type = $sub_type;
+        $sub_check->user_type = 'provider';
+        $sub_check->last_amount_paid = $request->amount;
+        $sub_check->subscription_end_date = Carbon::now()->addDays($added_days);
+        $sub_check->last_subscription_starts = $current_date_time;
+        $sub_check->save();
+
+        return response()->json(['res_message' => 'Success', 'res_code' => 200], 200);        
+    }else{
+        return response()->json(['res_message' => 'user not found', 'res_code' => 404], 200);
+
+        }
+
+       
     }
 }
