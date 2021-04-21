@@ -26,6 +26,7 @@ use App\Mail\SendEmail;
 use App\SendMail;
 use Illuminate\Support\Facades\Mail;
 use App\Helpers\SmsHelper;
+use App\Mail\SeasonGreetings;
 use App\Mail\ServiceApproved;
 use App\SeekingWork;
 use Illuminate\Support\Str;
@@ -333,9 +334,10 @@ class AdminController extends Controller
     // $message->create($data);
     foreach($email_addresses as $name=>$email)
     {
-      // Mail::to($email)->send(new SendEmail($request->message, $request->subject));
+        // Mail::to($email)->send(new SendEmail($request->message, $request->subject));
+        //   Mail::to($email)->queue(new SendEmail($request->message, $request->subject, $name));
 
-      Mail::to($email)->queue(new SendEmail($request->message, $request->subject, $name));
+        Mail::to($email)->queue(new SeasonGreetings($request->message, $request->subject, $name));
     }
 
 
@@ -593,6 +595,14 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
     session()->flash('status', 'Task was successful!');
     return back();
   }
+  public function seekingWorkDestroy($id)
+  {
+    $seekingwork = SeekingWork::findOrFail($id);
+    //Storage::disk('public')->delete($service->image);
+    $seekingwork->delete();
+    session()->flash('status', 'Applicant deleted successfully!');
+    return redirect()->back();
+  }
 
     /**
      * Update the specified resource in storage.
@@ -610,8 +620,9 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
      if($service->save()){
         if ($service->status == 1) {
             $status = 'Approved';
+            $reason = '';
            try{
-               Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
+               Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
            }
            catch(\Exception $e){
                $failedtosendmail = 'Failed to Mail!.';
@@ -619,15 +630,16 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
         }
         else {
            $status = 'Disapproved';
+           $reason = $request->get('reason');
            try{
-               Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
+               Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
            }
            catch(\Exception $e){
                $failedtosendmail = 'Failed to Mail!.';
            }
         }
         $request->session()->flash('status', 'Service was '.$status);
-        return back();
+        return $status;
      }
      $request->session()->flash('error', 'Something went wrong');
      return back();
@@ -1062,4 +1074,19 @@ public function save_faq(Request $request)
         }
     }
 
+      public function all_ef_marketers ()
+    {
+        $efmarketers = User::where('is_ef_marketer', '1')->get();
+        // Category::orderBy('id', 'asc')->paginate(35);
+        return view('admin.user.ef_marketers', compact('efmarketers'));
+    }
+
+
+    public function ef_marketers_downline($slug)
+    {
+        $efmarketer =  User::where('slug', $slug)->first();
+        $efmarketers_downlines = User::where('idOfReferer', $efmarketer->id)->get();
+        // Category::orderBy('id', 'asc')->paginate(35);
+        return view('admin.user.ef_marketers_downline', compact('efmarketers_downlines'));
+    }
 }

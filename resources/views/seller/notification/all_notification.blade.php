@@ -54,8 +54,26 @@
                                                 @if ($notification->read_at == null)
                                                     <a id="markAsRead{{ $notification->id }}" onclick="markNotificationRead('{{ $notification->id }}')" href="#" class="btn btn-success markAsRead"> <i class="fa fa-check"></i> </a>
                                                 @endif
+                                                <a data-toggle="modal" data-target="#thisNotification{{ $notification->id }}" href="#" class="btn btn-info"> <i class="fa fa-eye"></i> </a>
                                                 <a onclick="deleteNotification('{{ $notification->id }}')" href="#" class="btn btn-danger"> <i class="fa fa-trash"></i> </a>
                                             </td>
+
+                                            <div id="thisNotification{{ $notification->id }}" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" style="background-color: #cc8a19; color: #fff">
+                                                            <h4 class="modal-title">Your Notification</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>{{ $notification->data[0]['message'] }}</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn" style="background-color: #cc8a19; color: #fff" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </tr>
                                     @endforeach
                                 </tbody>

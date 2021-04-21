@@ -17,112 +17,6 @@
 
     * {box-sizing:border-box}
 
-    /* Slideshow container */
-    .slideshow-container {
-        max-width: 1000px;
-        position: relative;
-        margin: auto;
-    }
-    .slideshow-container .activeslide {
-        display: block !important;
-    }
-
-    /* Hide the images by default */
-    .mySlides {
-        display: none;
-    }
-
-    /* Next & previous buttons */
-    .prev, .next {
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        width: auto;
-        margin-top: -22px;
-        padding: 16px;
-        color: white;
-        font-weight: bold;
-        font-size: 18px;
-        transition: 0.6s ease;
-        border-radius: 0 3px 3px 0;
-        user-select: none;
-    }
-
-    /* Position the "next button" to the right */
-    .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-    }
-
-    /* On hover, add a black background color with a little bit see-through */
-    .prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
-    }
-
-    /* Caption text */
-    .text {
-    color: #f2f2f2;
-    font-size: 15px;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 8px;
-    width: 100%;
-    text-align: center;
-    }
-
-    /* Number text (1/3 etc) */
-    .numbertext {
-    color: #f2f2f2;
-    font-size: 12px;
-    padding: 8px 12px;
-    position: absolute;
-    top: 0;
-    }
-
-    /* The dots/bullets/indicators */
-    .dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-    }
-
-    .slideshow-container .active, .dot:hover {
-    background-color: #717171;
-    }
-
-    /* Fading animation */
-    .tsfade {
-    -webkit-animation-name: tsfade;
-    -webkit-animation-duration: 1.5s;
-    animation-name: tsfade;
-    animation-duration: 1.5s;
-    }
-    .mySlides .siteImage{
-        width:100%; height: 400px
-    }
-    #launchTouristModal .modal-title{
-        color: #fff;
-        text-transform: uppercase;
-    }
-    .mySlidesContent{
-        margin-top: 20px
-    }
-
-    @-webkit-keyframes tsfade {
-        from {opacity: .4}
-        to {opacity: 1}
-    }
-
-    @keyframes tsfade {
-        from {opacity: .4}
-        to {opacity: 1}
-    }
-
     .alert {
         text-transform: uppercase;
         font-size: 17px;
@@ -136,6 +30,74 @@
         color: #ca8309;
     }
 
+    .modal-header{
+        background-color: #ca8309;
+        text-transform: uppercase;
+    }
+    .modal-title{
+        color: #fff;
+    }
+    .carousel-item img{
+        width: 100%;
+    }
+    .carousel-control-next, .carousel-control-prev {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 1;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        width: 15%;
+        color: #fff;
+        text-align: center;
+        opacity: .5;
+        transition: opacity .15s ease;
+    }
+    .carousel-control-prev {
+        left: 0;
+    }
+    .img-size{
+        height: 450px;
+        width: 700px;
+        background-size: cover;
+        overflow: hidden;
+    }
+    .modal-body {
+        padding: 0;
+    }
+
+    .carousel-control-prev-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23009be1' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+        width: 30px;
+        height: 48px;
+    }
+    .carousel-control-next-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23009be1' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+        width: 30px;
+        height: 48px;
+    }
+    .touristSlideContent{
+        padding: 20px;
+    }
+    .touristSlideContent p{
+        padding: 0 !important;
+        margin: 0 !important;
+        font-size: 16px;
+    }
+    .touristSlideContent strong{
+        text-transform: uppercase;
+    }
+    .stateNotice{
+        text-align: center; font-weight: 600; text-transform: uppercase; padding: 25px
+    }
+    .carousel-control-prev-icon, .carousel-control-next-icon{
+        margin-top: -90px
+    }
+
     @media (max-width: 768px){
         .touristImage{
             height: 80px !important;
@@ -146,15 +108,34 @@
         .detail .title{
             font-size: 12px !important;
         }
-        .mySlides .siteImage{
-            height: 200px
-        }
-        #launchTouristModal .modal-title{
+        .touristModal .modal-title{
+            color: #fff;
             font-size: 16px
         }
-        .mySlidesContent{
-            font-size: 15px
+        .carousel-item .img-size{
+            height: auto;
+            background-size: cover;
+            overflow: hidden;
         }
+        .carousel-control-prev-icon, .carousel-control-next-icon{
+            margin-top: -120px
+        }
+        .stateNotice{
+            padding: 15px
+        }
+
+        .carousel-control-prev-icon {
+            width: 20px;
+            height: 38px;
+        }
+        .carousel-control-next-icon {
+            width: 20px;
+            height: 38px;
+        }
+        .touristSlideContent p{
+            font-size: 14px;
+        }
+
     }
 </style>
 
@@ -176,17 +157,68 @@
             <div class="container-fluid">
                 <div class="row filter-portfolio" style="width: 100%; margin-right: 0;margin-left: 0;">
                     @if ($states)
-                        @foreach($states as $state)
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-sm-12 filtr-item" onclick="loadTouristSites('{{$state->name}}')">
-                                <div class="property-box">
+                        @foreach($states as $key => $state)
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-sm-12 filtr-item">
+                                <div data-toggle="modal" data-target="#launchModal{{ $key }}" class="property-box">
                                     <div class="property-thumbnail">
-                                        <a href="#" onclick="loadTouristSites({{$state->name}})" class="property-img">
+                                        <a href="#" class="property-img">
                                             <img class="d-block w-100 touristImage" src="{{ asset('statesthumbnails/'.$state->image) }}" alt="{{ $state->name }}">
                                         </a>
                                     </div>
                                     <div class="detail">
                                         <div class="location">
                                             <h6><i class="fa fa-map"></i> {{ $state->name }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="modal fade" id="launchModal{{ $key }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                @if ($state->tourisms->count() != 0)
+                                                    <div id='launchTourist{{ $key }}' class='carousel slide' data-interval="false">
+                                                        <ol class='carousel-indicators'>
+                                                            @foreach($state->tourisms as $tourism)
+                                                                <li data-target="#launchTourist{{ $key }}" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+                                                            @endforeach
+                                                        </ol>
+                                                        <div class='carousel-inner'>
+                                                            @foreach($state->tourisms as $tourism)
+                                                                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                                                    <img class="img-size" src="{{ asset('cities_images/'. $tourism->thumb) }}" alt="{{ $tourism->name }}">
+
+                                                                    <div class="touristSlideContent">
+                                                                        <p><strong>State:</strong> {{ $tourism->states }}</p>
+                                                                        <p><strong>Name:</strong> {{ $tourism->name }}</p>
+                                                                        <p><strong>Region: </strong> {{ $tourism->region }} region of Nigeria</p>
+                                                                        <p><strong>Description:</strong> {!! $tourism->description !!}</p>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+
+                                                        @if ($state->tourisms->count() > 1)
+                                                            <a class="carousel-control-prev" href="#launchTourist{{ $key }}" role="button" data-slide="prev">
+                                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                <span class="sr-only">Previous</span>
+                                                            </a>
+                                                            <a class="carousel-control-next" href="#launchTourist{{ $key }}" role="button "data-slide="next">
+                                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                <span class='sr-only'>Next</span>
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                @endif
+
+                                                <div class="stateNotice">
+                                                    Waiting for state to upload content.
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal" style="background-color: #cc8a19; color: #fff">Close</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -205,123 +237,5 @@
 
             </div>
         </div>
-
-        <div id="launchTouristModal" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color: #cc8a19; color: #fff">
-                        <h5 class="modal-title">All Tourist Sites In this State</h5>
-                        <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Slideshow container -->
-                        <div class="slideshow-container" id="touristSlides">
-
-                            <!-- Full-width images with number and caption text -->
-                            {{-- @if ($tourist_attractions)
-                                @foreach($tourist_attractions as $key => $tourist_attraction)
-                                    <div class="mySlides tsfade">
-                                        <div class="numbertext">{{ $key + 1 }}/ {{ $loop->count }}</div>
-                                        <img src="{{ asset('cities_images/'.$tourist_attraction->thumb) }}" style="width:100%; height: 400px">
-                                        <div class="text">{{ $tourist_attraction->name }}</div>
-                                        <div>{{ $tourist_attraction->description }}</div>
-                                    </div>
-                                @endforeach
-                            @endif --}}
-                            <!-- Next and previous buttons -->
-                            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-                        </div>
-                        <br>
-
-                        <!-- The dots/circles -->
-                        <div style="text-align:center">
-                            {{-- @if ($tourist_attractions)
-                                @foreach($tourist_attractions as $key => $tourist_attraction)
-                                    <span class="dot" onclick="currentSlide({{ $key + 1 }})"></span>
-                                @endforeach
-                            @endif --}}
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn" data-dismiss="modal" style="background-color: #cc8a19; color: #fff">Close</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-
-        <script>
-            function loadTouristSites(state){
-                event.preventDefault();
-                jQuery.noConflict();
-                $('.mySlides').remove()
-
-                $.ajax({
-                    url: '/get-tourist-sites/' + state,
-                    method: 'get',
-                    success: function(results){
-                        console.log(results)
-                        if (!$.trim(results)){
-                            toastr.info('No tourist site here!')
-                        }
-                        else{
-                            results.forEach((data, key) => {
-                                current = (key == 0 ? ' activeslide' : '')
-                                $('#touristSlides').append(`
-                                    <div class="mySlides tsfade`+ current +`">
-                                        <div class="numbertext">`+ (key+1) + `/` + results.length + `</div>
-                                        <img src="cities_images/`+ data.thumb + `" class="siteImage">
-                                        <div class="mySlidesContent">
-                                            <div><strong>Site Name:</strong> `+ data.name +`</div>
-                                            <div><strong>Description:</strong> `+ data.description +`</div>
-                                            <div><strong>Region: </strong>`+ data.region +` region of Nigeria</div>
-                                        </div>
-                                    </div>
-                                `)
-                            })
-                            $('#launchTouristModal').modal('show');
-                        }
-                    },
-                    error:function(){
-                        toastr.error('Something went wrong!')
-                    }
-                });
-            }
-
-            var slideIndex = 1;
-            showSlides(slideIndex);
-
-            // Next/previous controls
-            function plusSlides(n) {
-                showSlides(slideIndex += n);
-            }
-
-            // Thumbnail image controls
-            function currentSlide(n) {
-                showSlides(slideIndex = n);
-            }
-
-            function showSlides(n) {
-                var i;
-                var slides = document.getElementsByClassName("mySlides");
-                var dots = document.getElementsByClassName("dot");
-                if (n > slides.length) {slideIndex = 1}
-                if (n < 1) {slideIndex = slides.length}
-                for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
-                    $('.mySlides').removeClass('activeslide')
-                }
-                for (i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active", "");
-                }
-                slides[slideIndex-1].style.display = "block";
-                dots[slideIndex-1].className += " active";
-            }
-        </script>
-
     </section>
 @endsection

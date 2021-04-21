@@ -12,6 +12,9 @@ use App\SubCategory;
 use App\General_Info;
 use App\Image as ModelImage;
 use App\Like;
+use App\Mail\CredentialsReset;
+use App\Mail\Newsletter;
+use App\Mail\PaymentProcessAbandoned;
 use App\Mail\UsersFeedback;
 use App\Message;
 use App\PageContent;
@@ -29,10 +32,29 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Image;
+use App\Payment;
+
 
 
 class OperationalController extends Controller
 {
+
+    public function credentialsReset(){
+        $name = "Abdul";
+        $email = 'adeoluibidapo@gmail.com';
+        $password = '123456';
+
+
+        try {
+            Mail::to('adeoluibidapo@gmail.com')->send(new CredentialsReset($name, $email, $password));
+        } catch (\Exception $e) {
+            $failedtosendmail = 'Failed to Mail!';
+        }
+
+        return redirect()->back();
+    }
+
+
     public function agentDashboard(Request $request)
     {
 
@@ -380,7 +402,7 @@ class OperationalController extends Controller
                 $this->thecomments[] = $thecomments;
             }
         }
-        $allcomments = $this->thecomments;
+        $allcomments = array_reverse($this->thecomments);
 
         return view ('seller.feedbacks.all', compact('all_services', 'allcomments') );
     }
@@ -395,7 +417,7 @@ class OperationalController extends Controller
             $this->thefavourites[] = Service::where('id', $all_service->service_id )->firstOrFail();
         }
 
-        $allfavourites = $this->thefavourites;
+        $allfavourites = array_reverse($this->thefavourites);
 
         return view('seller.myfavourites', [
             'allfavourites' => $allfavourites
@@ -462,7 +484,7 @@ class OperationalController extends Controller
         $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
         $categories = Category::orderBy('name', 'asc')->get();
 
-        if ($request->category == null && $request->city == null && $request->keyword == null) {
+        if ($request->category == null && $request->city == null && $request->keyword == null && $request->state == null) {
             return back()->with([
                 'message' => 'No result found for your search!',
                 'alert-type' => 'error'
@@ -479,32 +501,34 @@ class OperationalController extends Controller
             $subcategoryname = $subcategory->name;
 
 
-            if ($request->city != null && $request->keyword != null) {
+            if ($request->keyword != null && $request->city != null) {
                 $services = Service::query()
-                    ->where('name', 'LIKE', "%{$request->keyword}%")
-                    ->where('city', '=', "%{$request->city}%")
-                    ->where('state', '=', "%{$request->state}%")
+                    ->where('name', 'LIKE', "$request->keyword")
+                    ->where('city', '=', "$request->city")
+                    ->where('state', '=', "$request->state")
                     ->where('status', 1)
                     ->with('sub_categories')
                     ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
-                        $query->where('id', $subcategoryId);
+                        $query->where('sub_categorable_id', $subcategoryId);
                     })
                     ->with('category')
-                    ->orWhereHas('category', function($query) use ($categoryId)  {
+                    ->whereHas('category', function($query) use ($categoryId)  {
                         $query->where('id', $categoryId);
                     })
                     ->get();
 
                 $seekingworks = SeekingWork::query()
-                    ->where('job_title', 'LIKE', "%{$request->keyword}%")
+                    ->where('job_title', 'LIKE', "$request->keyword")
                     ->where('status', 1)
+                    ->where('user_lga', '=', "$request->city")
+                    ->where('user_state', '=', "$request->state")
                     ->whereHas('category', function($query) use ($categoryId)  {
                         $query->where('id', $categoryId);
                     })
                     ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
                     ->get();
 
-                if (!$services->isEmpty()) {
+                if (!$services->isEmpty() || !$seekingworks->isEmpty()) {
                     return view('dapSearchResult', [
                         "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
                         "services" => $services,
@@ -524,11 +548,11 @@ class OperationalController extends Controller
             elseif ($request->keyword != null && $request->state != null) {
                 $services = Service::query()
                             ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('state', '=', "%{$request->state}%")
+                            ->where('state', '=', "$request->state")
                             ->where('status', 1)
                             ->with('sub_categories')
                             ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
-                                $query->where('id', $subcategoryId);
+                                $query->where('sub_categorable_id', $subcategoryId);
                             })
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
@@ -542,19 +566,18 @@ class OperationalController extends Controller
                     "categories" => $categories,
                 ]);
             }
-            elseif ($request->state == null && $request->city == null && $request->keyword != null) {
+            elseif ($request->keyword == null) {
                 $services = Service::query()
-                    ->where('name', 'LIKE', "%{$request->keyword}%")
-                    ->where('state', '=', "%{$request->state}%")
-                    ->where('status', 1)
-                    ->with('sub_categories')
-                    ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
-                        $query->where('sub_categorable_id', $subcategoryId);
-                    })
-                    ->with('category')
-                    ->whereHas('category', function($query) use ($categoryId)  {
-                        $query->where('id', $categoryId);
-                    })->get();
+                            ->where('state', '=', "$request->state")
+                            ->where('status', 1)
+                            ->with('sub_categories')
+                            ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
+                                $query->where('sub_categorable_id', $subcategoryId);
+                            })
+                            ->with('category')
+                            ->whereHas('category', function($query) use ($categoryId)  {
+                                $query->where('id', $categoryId);
+                            })->get();
 
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$subcategoryname.'</strong>',
@@ -575,8 +598,8 @@ class OperationalController extends Controller
             if ($request->city != null && $request->keyword != null) {
                 $services = Service::query()
                     ->where('name', 'LIKE', "%{$request->keyword}%")
-                    ->where('city', '=', "%{$request->city}%")
-                    ->where('state', '=', "%{$request->state}%")
+                    ->where('city', '=', "$request->city")
+                    ->where('state', '=', "$request->state")
                     ->where('status', 1)
                     ->with('category')
                     ->whereHas('category', function($query) use ($categoryId)  {
@@ -616,7 +639,7 @@ class OperationalController extends Controller
             elseif ($request->keyword != null && $request->state != null) {
                 $services = Service::query()
                             ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('state', '=', "%{$request->state}%")
+                            ->where('state', '=', "$request->state")
                             ->where('status', 1)
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
@@ -632,7 +655,7 @@ class OperationalController extends Controller
             }
             elseif ($request->state != null) {
                 $services = Service::query()
-                            ->where('state', '=', "%{$request->state}%")
+                            ->where('state', '=', "$request->state")
                             ->where('status', 1)
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
@@ -720,6 +743,35 @@ class OperationalController extends Controller
                     ]);
                 }
             }
+            else{
+                $services = Service::query()
+                ->where('state', $request->state)
+                ->where('status', 1)
+                ->get();
+
+                $seekingworks = SeekingWork::query()
+                    ->where('user_state', '=', $request->state)
+                    ->where('status', 1)
+                    ->get();
+
+                if (!$services->isEmpty() && !$services->isEmpty()) {
+                    return view('dapSearchResult', [
+                        "featuredServices" => $featuredServices,
+                        "services" => $services,
+                        "seekingworks" => $seekingworks,
+                        "categories" => $categories,
+                    ]);
+                }
+                else {
+                    return view('dapSearchResult', [
+                        "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                        "featuredServices" => $featuredServices,
+                        "categories" => $categories,
+                    ]);
+                }
+
+
+            }
         }
 
 
@@ -772,25 +824,25 @@ class OperationalController extends Controller
     {
 
         $this->validate($request, [
-            'name'              => 'string|required',
-            'phone'                 => 'string|numeric',
+            'name'                  => 'string|required',
+            'phone'                 => 'numeric',
             'job_type'              => 'string|required',
             'job_title'             => 'string|required',
-            'job_experience'        => 'string|required',
+            'job_experience'        => 'required',
             'still_studying'        => 'string',
             'gender'                => 'string|required',
-            'age'                   => 'string|numeric',
+            'age'                   => 'numeric',
             'marital_status'        => 'string',
             'employment_status'     => 'string|required',
-            'highest_qualification' => 'string|required',
-            'expected_salary'       => 'string|required',
+            'highest_qualification' => 'required',
+            'expected_salary'       => 'required',
             'user_state'            => 'string|required',
             'user_lga'              => 'string|required',
-            'address'               => 'string',
-            'work_experience'       => 'string',
-            'education'             => 'string|required',
-            'certifications'        => 'string',
-            'skills'                => 'string|required',
+            'address'               => 'nullable',
+            'work_experience'       => 'nullable',
+            'education'             => 'required',
+            'certifications'        => 'nullable',
+            'skills'                => 'required',
             'user_image'            => 'image|required'
         ]);
 
@@ -901,18 +953,27 @@ class OperationalController extends Controller
     {
         $image = ModelImage::where('imageable_id', $seekingworkid)->where('id', $id)->first();
         $filename = $image->image_path;
-        $image->delete();
 
-        $path = public_path('uploads/seekingworks/').$filename;
-        if (file_exists($path)) {
-            unlink($path);
+        $seekingwork = SeekingWork::find($seekingworkid);
+
+        if ($seekingwork->images->count() != 1) {
+            $image->delete();
+
+            $path = public_path('uploads/seekingworks/').$filename;
+
+            if (file_exists($path)) {
+                unlink($path);
+            }
+            return redirect()->back()->with([
+                'message' => 'Image deleted successfully!',
+                'alert-type' => 'success'
+            ]);
         }
 
-        $success_notification = array(
-            'message' => 'Image deleted successfully!',
+        return redirect()->back()->with([
+            'message' => 'You cannot delete the last image!',
             'alert-type' => 'error'
-        );
-        return redirect()->back()->with($success_notification);
+        ]);
     }
 
     public function seekingWorkDetails($slug)
@@ -1020,6 +1081,13 @@ class OperationalController extends Controller
         }
 
         if ($user->save()) {
+            $reg_payments = new Payment();
+            $reg_payments->user_id = Auth::id();
+            $reg_payments->payment_type = 'badge_payment';
+            $reg_payments->amount = $request->get('amount');
+            $reg_payments->tranx_ref = $request->get('trans_reference');
+            $reg_payments->save();
+
             return collect($badge_name);
         }
         else {
@@ -1044,4 +1112,64 @@ class OperationalController extends Controller
             'alert-type' => 'error'
         ]);
     }
+
+    public function AbandonedPaymentView()
+    {
+        return view('admin.data_entry.abandoned_payment');
+    }
+
+
+    public function AbandonedPayment(Request $request)
+    {
+        $emails = $request->emails;
+        $users_email = explode(',', $emails);
+
+        foreach($users_email as $name=>$email)
+        {
+            $email = trim($email);
+            try{
+                Mail::to($email)->send(new PaymentProcessAbandoned($request->subject, $request->message));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+        }
+
+        return redirect()->back()->with([
+            'message' => 'Mail Sent Successfully!',
+            'alert-type' => 'success'
+        ]);
+    }
+
+
+    // public function Newsletter()
+    // {
+    //     $category = Category::inRandomOrder()->first();
+    //     $services = Service::inRandomOrder()->limit(5)->get();
+    //     $username = 'James Connor';
+
+    //     try{
+    //         Mail::to('adeolewfb@gmail.com')->send(new Newsletter($username, $category, $services));
+    //     }
+    //     catch(\Exception $e){
+    //         $failedtosendmail = 'Failed to Mail!.';
+    //     }
+
+    //     return $services;
+    // }
+
+    // public function CredentialsReset($user_id)
+    // {
+    //     $user = User::find($user_id);
+    //     $user_name = $user->name;
+    //     $name = explode(' ', trim($user_name))[0];
+    //     $password = 'jaDewooo';
+
+    //     try{
+    //         Mail::to('adeolewfb@gmail.com')->send(new CredentialsReset($name, $user->email, $password));
+    //     }
+    //     catch(\Exception $e){
+    //         $failedtosendmail = 'Failed to Mail!.';
+    //     }
+    // }
 }

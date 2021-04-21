@@ -26,7 +26,15 @@
 
               <td class="center">
                 <button type="button" class="btn btn-default btn-outline btn-sm" onclick="editSubCategory({{ $subcategory->id }})"><i class="fa fa-pencil"></i></button>
+                @if(Auth::user()->role == 'superadmin')
+                <a href="{{ route('superadmin.subcategory.delete',$subcategory->id) }} " class="btn btn-danger "><i class="fa fa-trash"></i></a>
+                @elseif(Auth::user()->role == 'admin')
                 <a href="{{ route('admin.subcategory.delete',$subcategory->id) }} " class="btn btn-danger "><i class="fa fa-trash"></i></a>
+
+                @elseif(Auth::user()->role == 'cmo')
+                <a href="{{ route('cmo.subcategory.delete',$subcategory->id) }} " class="btn btn-danger "><i class="fa fa-trash"></i></a>
+                @else
+                @endif
               </td>
 
             </tr>

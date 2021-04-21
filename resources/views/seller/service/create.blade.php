@@ -162,12 +162,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12" id="negotiableChBox">
+                                        {{-- <div class="col-md-12" id="negotiableChBox">
                                             <div class="form-check">
                                                 <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable">
                                                 <label class="form-check-label" for="negotiable"> Is this service negotiable?</label>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -523,7 +523,7 @@
             $.ajax({
             type:"GET",
                 //url:"{{url('qqq')}}"+stateID,
-                url: '../../api/get-city-list/'+stateID,
+                url: '/api/get-city-list/'+stateID,
                 success:function(res){
                     if(res){
                     console.log(res);
@@ -551,7 +551,7 @@
             $.ajax({
             type:"GET",
                 //url:"{{url('qqq')}}"+stateID,
-                url: '../../api/get-city-list/'+stateID,
+                url: '/api/get-city-list/'+stateID,
                 success:function(res){
                     if(res){
                     console.log(res);
@@ -755,7 +755,15 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script type="text/javascript">
         $('.summernote').summernote({
-            height: 120
+            height: 120,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ]
         });
     </script>
 

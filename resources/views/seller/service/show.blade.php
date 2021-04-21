@@ -124,7 +124,9 @@
                             <div style="display: inline-flex; flex-wrap: wrap">
                                 <div>
                                     <img src="{{ asset('uploads/services/'.$image->image_path) }}" alt="" style="display: block;width:100px;">
-                                    <a href="{{ route('service.image.delete', ['id' => $image->id]) }}" style="display:block">Delete</a>
+                                    @if ($service->images->count() != 1)
+                                        <a href="{{ route('service.image.delete', ['id' => $image->id, 'service_id' => $service->id]) }}" style="display:block">Delete</a>
+                                    @endif
                                 </div>
                             </div>
                         @empty
@@ -190,7 +192,7 @@
                             <a href="{{ route('service_detail_4_provider', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
                         </center>
                     @else
-                        <p style="font-size: 16px; text-align:center; margin: 20px 0"><a href="{{ route('seller.service.badges') }}" style="color: #cc8a19;" >Upgrade</a> your account with a badge to upload images</p>
+                        <p style="font-size: 16px; text-align:center; margin: 20px 0"><a href="{{ route('seller.service.badges') }}" style="color: #cc8a19;" >Upgrade</a> your account with a badge to upload more images.</p>
                     @endif
 
                 </div>
@@ -207,6 +209,7 @@
                 base_Url = "{{ url('/') }}"
 
                 var _token = $("input[name='_token']").val();
+                var paystack_pk = "{{env('paystack_pk')}}";                
 
                 // var email1 = $("#email-address3").val();
                 var amount = $("#featured_amount").val();
@@ -217,7 +220,7 @@
                     // return;
 
                     var handler = PaystackPop.setup({
-                        key: 'pk_live_8921deda409e1196f265fd3a7dcc4eff81d52cdb',
+                        key: paystack_pk,
                         email: document.getElementById("user_email").value,
                         amount: 200000,
                         ref: '' + Math.floor((Math.random() * 1000000000) + 1),

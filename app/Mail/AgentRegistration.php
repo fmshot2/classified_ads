@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class AgentRegistration extends Mailable
+class AgentRegistration extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -34,6 +34,6 @@ class AgentRegistration extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.agents.register')->subject('EFContact Agent Registration!');
+        return $this->from('noreply@efcontact.com')->markdown('emails.agents.register')->subject('EFContact Agent Registration!');
     }
 }

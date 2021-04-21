@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ContactUs extends Mailable
+class ContactUs extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -32,6 +32,6 @@ class ContactUs extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.contactus')->subject($this->subject);
+        return $this->from('support@efcontact.com')->markdown('emails.contactus')->subject($this->subject);
     }
 }

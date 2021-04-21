@@ -313,6 +313,7 @@
     }​
     button{}
 </style>
+
 <div id="" class="search-section search-area-2 bg-grea hm-search-form-comp">
 
     <div class="">
@@ -328,7 +329,7 @@
                             </div>
                             <div class="col-lg-6 col-md-4 col-sm-12 col-xs-12">
                                 <div class="form-group">
-                                    <input type="text" name="keyword" id="jxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g Barber, Plumber...)">
+                                    <input type="text" name="keyword" id="jxservice" class="form-control searchInput" placeholder="What are you looking for? (e.g Barber, Plumber...)">
                                     <div id="service_list" class="ajaxSearchList"></div>
                                 </div>
                             </div>
@@ -363,7 +364,7 @@
                             </div>
                             <div class="col-lg-6 col-md-4 col-sm-12 col-xs-12">
                                 <div class="form-group">
-                                    <input type="text" name="keyword" id="mobilejxservices" class="form-control searchInput" placeholder="What are you looking for? (e.g Barber, Plumber...)">
+                                    <input type="text" name="keyword" id="mobilejxservice" class="form-control searchInput" placeholder="What are you looking for? (e.g Barber, Plumber...)">
                                     <div id="mobile_service_list" class="ajaxSearchList"></div>
                                 </div>
                             </div>
@@ -528,7 +529,7 @@
                                                     <ul>
                                                         @if(isset($allgeneralstate->local_governments))
                                                             @foreach($allgeneralstate->local_governments as $local_government)
-                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}', '{{ $allgeneralstate->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ trim($local_government->name) }}', '{{ trim($allgeneralstate->name) }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ trim($local_government->name) }}', '{{ trim($allgeneralstate->name) }}')" href="#">{{ trim($local_government->name) }}</a></li>
                                                             @endforeach
                                                         @endif
                                                     </ul>
@@ -548,7 +549,7 @@
                                                     <ul>
                                                         @if(isset($allgeneralstate->local_governments))
                                                             @foreach($allgeneralstate->local_governments as $local_government)
-                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ trim($local_government->name) }}', '{{ trim($allgeneralstate->name) }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ trim($local_government->name) }}', '{{ trim($allgeneralstate->name) }}')" href="#">{{ trim($local_government->name) }}</a></li>
                                                             @endforeach
                                                         @endif
                                                     </ul>
@@ -568,7 +569,7 @@
                                                     <ul>
                                                         @if(isset($allgeneralstate->local_governments))
                                                             @foreach($allgeneralstate->local_governments as $local_government)
-                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ $local_government->name }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ $local_government->name }}')" href="#">{{ $local_government->name }}</a></li>
+                                                                <li data-dismiss="modal" onclick="addLGAToForm('{{ trim($local_government->name) }}', '{{ trim($allgeneralstate->name) }}')" style="@if (!$loop->last)border-bottom: 1px solid rgb(105 105 105 / 11%);@endif"><a onclick="addLGAToForm('{{ trim($local_government->name) }}', '{{ trim($allgeneralstate->name) }}')" href="#">{{ trim($local_government->name) }}</a></li>
                                                             @endforeach
                                                         @endif
                                                     </ul>
@@ -790,8 +791,8 @@
 
 <script>
     $(document).ready(function(){
-        $('#jxservices').keyup(function(){
-            var query = $('#jxservices').val();
+        $('#jxservice').keyup(function(){
+            var query = $('#jxservice').val();
             if(query != '')
             {
                 var _token = $('input[name="_token"]').val();
@@ -815,8 +816,8 @@
             $('#service_list').fadeOut();
         });
 
-        $('#mobilejxservices').keyup(function(){
-            var query = $('#mobilejxservices').val();
+        $('#mobilejxservice').keyup(function(){
+            var query = $('#mobilejxservice').val();
             if(query != '')
             {
                 var _token = $('input[name="_token"]').val();

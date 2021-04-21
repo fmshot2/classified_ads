@@ -1,5 +1,12 @@
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0N9KEJ9ZZ9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-<head>
+  gtag('config', 'G-0N9KEJ9ZZ9');
+</script>
 
  <title> @yield('title') EFContact </title>
 
@@ -52,7 +59,7 @@
 <link href="{{ asset('css/bootstrap-dropdownhover.min.css') }}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
 
-{{-- 
+{{--
 <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
   type="text/javascript" charset="utf-8"></script>
   <script src="https://js.api.here.com/v3/3.1/mapsjs-core-legacy.js"
@@ -221,5 +228,27 @@
             }
         </script>
     @endif
+
+
+
+
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '476944133484426');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=476944133484426&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Facebook Pixel Code -->
+
 
 </head>

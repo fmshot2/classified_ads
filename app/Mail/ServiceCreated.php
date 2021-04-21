@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ServiceCreated extends Mailable
+class ServiceCreated extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -34,6 +34,6 @@ class ServiceCreated extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.services.service-created')->subject('You created a service!');
+        return $this->from('noreply@efcontact.com')->markdown('emails.services.service-created')->subject('You created a service!');
     }
 }

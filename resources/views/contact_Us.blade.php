@@ -40,12 +40,15 @@
                     <h1 class="mb-10">Contact us</h1>
                 </div> --}}
                 <div class="contact-info">
-                    <div class="row">
-                        <div class="col-md-4 col-sm-6 mrg-btn-50">
-                            <i class="flaticon-location"></i>
-                            <p>Office Address</p>
-                            <strong>{{ $general_info->address ? $general_info->address : '' }} </strong>
-                        </div>
+                        <div class="row">
+                        @if ($general_info->address)
+                            <div class="col-md-4 col-sm-6 mrg-btn-50">
+                                <i class="flaticon-location"></i>
+                                <p>Office Address</p>
+                                <strong>{{ $general_info->address ? $general_info->address : '' }} </strong>
+                            </div>
+                        @endif
+
                         <div class="col-md-4 col-sm-6 mrg-btn-50 phone-area">
                             <i class="flaticon-technology-1"></i>
                             <p>Phone Number</p>
@@ -64,11 +67,11 @@
                         <div class="col-md-4 col-sm-6 mrg-btn-50">
                             <i class="flaticon-envelope"></i>
                             <p>Email Address</p>
-                            <strong><a href="mailto:{{ $general_info->contact_email ? $general_info->contact_email : '' }} ">
-                                {{ $general_info->contact_email ? $general_info->contact_email : '' }}
+                            <strong><a href="mailto:{{ $general_info->contact_email ? $general_info->contact_email : ''}}">
+                                {{ $general_info->contact_email ? $general_info->contact_email : ''}}
                             </a></strong> <br>
-                            <strong><a href="mailto:{{ $general_info->support_email ? $general_info->support_email : '' }} ">
-                                {{ $general_info->support_email ? $general_info->support_email : '' }}
+                            <strong><a href="mailto:{{ $general_info->support_email ? $general_info->support_email : ''}}">
+                                {{ $general_info->support_email ? $general_info->support_email : ''}}
                             </a></strong>
                         </div>
                         {{-- <div class="col-md-3 col-sm-6 mrg-btn-50">

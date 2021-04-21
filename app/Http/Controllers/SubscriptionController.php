@@ -27,6 +27,7 @@ use App\Image;
 use App\ProviderSubscription;
 use App\Traits\ReusableCode;
 use Carbon\Carbon;
+use App\Payment;
 
 
 class SubscriptionController extends Controller
@@ -63,13 +64,20 @@ class SubscriptionController extends Controller
 				'sub_cost' => 20000
 			];
 		}
-		elseif ($id == 2) {
+			elseif ($id == 2) {
+			$sub = [
+				'sub_type' => '3-months',
+				'sub_cost' => 60000
+			];
+		}
+		elseif ($id == 3) {
 			$sub = [
 				'sub_type' => 'bi-annual',
 				'sub_cost' => 120000
 			];
 		}
-		elseif ($id == 3) {
+	
+		elseif ($id == 4) {
 			$sub = [
 				'sub_type' => 'yearly',
 				'sub_cost' => 240000
@@ -81,6 +89,7 @@ class SubscriptionController extends Controller
 
 	public function createSubpay(Request $request)
 	{
+		// return response()->json(['success'=>'Ajax request submitted successfully']);
 		$added_days = 0;
 		$mytime = Carbon::now();
 
@@ -109,18 +118,23 @@ class SubscriptionController extends Controller
 					// 	$user_check->badgetype = $data['badge_type'];
 		// 	$user_check->save();
 				// return response()->json(['success3'=>$data['amount']]);
+       // return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$data]);
 
-		if ($data['amount'] == '20000') {
+		if ($data['amount'] == '200') {
 			$added_days = 31;
 			$sub_type = 'monthly';
 		}
-		if ($data['amount'] == '120000') {
+		if ($data['amount'] == '600') {
+			$added_days = 93;
+			$sub_type = '3-months';
+		}
+		if ($data['amount'] == '1200') {
 			$added_days = 186;
              $sub_type = 'bi-annual';			
 		}
-		if ($data['amount'] == '240000') {
+		if ($data['amount'] == '2400') {
 			$added_days = 372;
-            $sub_type = null;			
+            $sub_type = 'annual';			
 		}
 
 		$sub_check = ProviderSubscription::where(['user_id'=>Auth::id()])->first();
@@ -136,9 +150,19 @@ class SubscriptionController extends Controller
 		$sub_check->last_subscription_starts = $current_date_time;
 		$sub_check->save();
 		$sub_check->subscription_end_date = Carbon::parse($sub_check->subscription_end_date)->toDayDateTimeString();
+
+
+
+            $reg_payments = new Payment();
+            $reg_payments->user_id = Auth::id();
+            $reg_payments->payment_type = 'subscription';
+            $reg_payments->amount = $data['amount'];
+            $reg_payments->tranx_ref =  $data['ref_no'];
+
+            $reg_payments->save();
 		
 
-		return response()->json(['success'=>'Your Subscription was successfull', 'new_date'=>$sub_check->subscription_end_date], 200);
+		return response()->json(['success'=>'Your Subscription payment was successfull', 'new_date'=>$sub_check->subscription_end_date], 200);
 
 	}
 	

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UsersFeedback extends Mailable
+class UsersFeedback extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -30,6 +30,6 @@ class UsersFeedback extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.users_feedback')->subject('Feedback on EFContact');
+        return $this->from('noreply@efcontact.com')->markdown('emails.users_feedback')->subject('Feedback on EFContact');
     }
 }

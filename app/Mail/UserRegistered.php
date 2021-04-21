@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserRegistered extends Mailable
+class UserRegistered extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -33,6 +33,6 @@ class UserRegistered extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.user-registered')->subject('Account Created!');
+        return $this->from('noreply@efcontact.com')->markdown('emails.user-registered')->subject('Account Created!');
     }
 }

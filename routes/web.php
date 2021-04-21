@@ -23,6 +23,12 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
+
+Route::post('/comment/store', 'CommentsController@store')->name('comment.add');
+Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
+
+Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
+
 Route::get('/tester', function ()
 {
     // Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
@@ -32,6 +38,7 @@ Route::get('/tester', function ()
 Route::get('email', function () {
     return new App\Mail\ServiceApproved();
 });
+// Route::get('newsletter/', 'OperationalController@Newsletter');
 
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 // Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
@@ -66,8 +73,6 @@ Route::middleware(['auth:agent'])->group(function () {
     Route::get('/agent/referer/downline/{id}', 'AgentController@myDownlines')->name('agent.downline');
 
     Route::get('/agent/profile/', 'AgentController@viewProfile')->name('agent.profile');
-    Route::get('/agent/notification/all', 'AgentController@allNotifications')->name('agent.notification.all');
-    Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
     Route::get('/agent/make-request-for-payment', 'AgentController@viewBlade')->name('agent.view.request.blade');
     Route::post('/agent/submit-withdrawal-request', 'AgentController@agentRequest')->name('agent.make.request');
     Route::get('/agent/payment-history', 'AgentController@paymentHistory')->name('agent.payment.history');
@@ -76,7 +81,11 @@ Route::middleware(['auth:agent'])->group(function () {
     Route::post('/agent/update/{id}', 'AgentController@updatePassword')->name('agentprofile.update.password');
 
 
-
+    Route::get('/agent/notification/all', 'AgentController@allNotifications')->name('agent.notification.all');
+    Route::get('/agent/notification/{slug}', 'AgentController@viewNotification')->name('agent.notification.view');
+    Route::get('/agent/notifications/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('agent.notification.markallasread');
+    Route::post('/agent/notification/markasread', 'NotificationController@notificationMarkAsRead')->name('agent.notification.markasread');
+    Route::post('/agent/notification/delete', 'NotificationController@notificationDelete')->name('agent.notification.delete');
 });
 //Agent Middleware ends here
 
@@ -115,6 +124,12 @@ Route::middleware(['accountant'])->group(function() {
 
     Route::post('/accountant/generate-payment', 'AccountantController@generatePayment')->name('accountant.generate.payment');
     Route::post('/accountant/generate-seller-payment', 'AccountantController@generateSellerPayment')->name('accountant.generate.seller.payment');
+
+    Route::get('/accountant/subscriptions', 'AccountantController@subscriptions')->name('accountant.subscriptions');
+    Route::get('/accountant/featured-payments', 'AccountantController@featured')->name('accountant.featured');
+    Route::get('/accountant/registration-payments', 'AccountantController@registrationPayments')->name('accountant.registration');
+    Route::get('/accountant/all-ef-payments', 'AccountantController@allEfPayments')->name('accountant.ef.payments');
+
 });
 //Accountant Middleware ends here
 
@@ -199,9 +214,6 @@ Route::get('/buyer/dashboard', 'BuyerController@index')->name('buyer.dashboard')
 Route::get('/buyer/profile', 'BuyerController@showProfile')->name('buyer.profile');
 Route::get('/buyer/messages', 'BuyerController@showMessages')->name('buyer.messages');
 Route::get('services/{slug}','CategoryController@show')->name('services');
-Route::get('subcat_services/{slug}','CategoryController@show_subcat_items')->name('show_subcat_items');
-// Route::get('/subcat_services/{slug}', [CategoryController::class, 'showSubcatService'])->name('seller.service.show.service');
-
 
 Route::get('/services/sub/{slug}','CategoryController@subcategory')->name('services.subcategory');
 Route::get('/categoryDetail/{id}', 'CategoryController@categoryDetail')->name('categoryDetail');
@@ -320,7 +332,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/seekingwork/{slug}', [OperationalController::class, 'showCV'])->name('seller.show.cv');
         Route::post('/service/images/store/{id}', [ServiceImageController::class, 'imagesStore'])->name('service.images.store');
         Route::post('/seekingwork/images/store/{id}', [OperationalController::class, 'imagesSeekingWorkStore'])->name('seekingwork.images.store');
-        Route::get('/service/images/delete/{id}', [ServiceImageController::class, 'imagesDelete'])->name('service.image.delete');
+        Route::get('/service/images/delete/{id}/{service_id}', [ServiceImageController::class, 'imagesDelete'])->name('service.image.delete');
         Route::get('/seekingwork/images/delete/{seekingworkid}/{id}', [OperationalController::class, 'imagesDelete'])->name('seekingwork.image.delete');
         Route::get('/service/post_advert', 'SellerController@post_advert')->name('seller.post_advert');
 
@@ -367,7 +379,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         // Route::get('payment-history', 'SellerController@PaymentHistory')->name('seller.payment.history');
 
 
-        Route::get('badge_paid_for/', 'OperationalController@paidForBadge')->name('provider.paid.for.badge');
+        Route::post('badge_paid_for/', 'OperationalController@paidForBadge')->name('provider.paid.for.badge');
 
     });
 
@@ -390,18 +402,18 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
 
 Route::middleware(['auth'])->group(function () { //Auth Middleware protection start here
 
-    Route::get('/buyer/dashboard', 'DashboardController@buyer')->name('buyer.dashboard');
-    Route::get('/buyer/dashboard/service/all', 'BuyerController@allService')->name('buyer.service.all');
-    Route::get('/buyer/message/unread', 'BuyerController@unreadMessage')->name('buyer.message.unread');
-    Route::get('/buyer/message/read', 'BuyerController@readMessage')->name('buyer.message.read');
-    Route::get('/buyer/message/all', 'BuyerController@allMessage')->name('buyer.message.all');
-    Route::get('/buyer/notification/all', 'BuyerController@allNotification')->name('buyer.notification.all');
-    Route::get('/buyer/profile/', 'BuyerController@viewProfile')->name('buyer.profile');
+    Route::get('/seeker/dashboard', 'DashboardController@buyer')->name('buyer.dashboard');
+    Route::get('/seeker/dashboard/service/all', 'BuyerController@allService')->name('buyer.service.all');
+    Route::get('/seeker/message/unread', 'BuyerController@unreadMessage')->name('buyer.message.unread');
+    Route::get('/seeker/message/read', 'BuyerController@readMessage')->name('buyer.message.read');
+    Route::get('/seeker/message/all', 'BuyerController@allMessage')->name('buyer.message.all');
+    Route::get('/seeker/notification/all', 'BuyerController@allNotification')->name('buyer.notification.all');
+    Route::get('/seeker/profile/', 'BuyerController@viewProfile')->name('buyer.profile');
 
-    Route::get('/buyer/message/{slug}', 'BuyerController@viewMessage')->name('buyer.message.view');
-    Route::get('/buyer/message/reply/{slug}', 'BuyerController@replyMessage')->name('buyer.message.reply');
-    Route::post('/buyer/message/reply/', 'BuyerController@storeReplyMessage')->name('buyer.message.reply.store');
-    Route::get('/buyer/message/read/status/{slug}', 'OperationalController@readStatusMessage')->name('buyer.message.read.status');
+    Route::get('/seeker/message/{slug}', 'BuyerController@viewMessage')->name('buyer.message.view');
+    Route::get('/seeker/message/reply/{slug}', 'BuyerController@replyMessage')->name('buyer.message.reply');
+    Route::post('/seeker/message/reply/', 'BuyerController@storeReplyMessage')->name('buyer.message.reply.store');
+    Route::get('/seeker/message/read/status/{slug}', 'OperationalController@readStatusMessage')->name('buyer.message.read.status');
 
     Route::post('/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
 
@@ -409,6 +421,12 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
         Route::post('/profile/update/{id}', 'AuthController@update_Password_4_Agent')->name('profile.updateAgent.password');
 
     Route::post('/profile/update/account/{id}', 'AuthController@updateAccount')->name('profile.update.account');
+
+
+    Route::get('seeker/notification/all', 'BuyerController@allNotification')->name('seeker.notification.all');
+    Route::get('seeker/notifications/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('seeker.notification.markallasread');
+    Route::post('seeker/notification/markasread', 'NotificationController@notificationMarkAsRead')->name('seeker.notification.markasread');
+    Route::post('seeker/notification/delete', 'NotificationController@notificationDelete')->name('seeker.notification.delete');
 
 
 
@@ -441,6 +459,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/dashboard/service/status/{id}', 'AdminController@updateServiceStatus')->name('admin.service.status');
     Route::get('/admin/dashboard/seekingwork/status/{id}', 'AdminController@updateSeekingworkStatus')->name('admin.seekingwork.status');
     Route::get('/admin/dashboard/service/destroy/{id}', 'AdminController@destroy')->name('admin.service.destroy');
+    Route::get('/admin/dashboard/seekingwork/destroy/{id}', 'AdminController@seekingWorkDestroy')->name('admin.seekingwork.destroy');
     Route::get('admin/dashboard/service/view/{slug}', 'AdminController@viewService')->name('admin.view');
 
 
@@ -457,6 +476,9 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/dashboard/service-seekers', 'AuthController@buyer')->name('admin.buyer');
     Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');
     Route::get('/activate_agent/{id}', 'AdminController@activate_agent')->name('admin.activate.agent');
+    Route::get('dashboard/ef-marketers', 'AdminController@all_ef_marketers')->name('admin.all_ef_marketers');
+
+
 
     Route::get('/admin/profile/', 'AdminController@viewProfile')->name('admin.profile');
 
@@ -470,7 +492,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
     Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
 
-    Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('system.config.store');
+    Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('admin.system.config.store');
 
     Route::get('/admin/pages/faq', 'AdminController@FAQs')->name('admin.pages.faq');
     Route::get('/admin/badge/requests', 'AdminController@allBadges')->name('badge.request');
@@ -545,7 +567,13 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::post('/admin/save_event/', 'AdminController@save_event')->name('admin.save_event');
 
     Route::get('admin/send-email', 'AdminController@send_email')->name('admin.send_email');
-   Route::get('admin/send-sms', 'AdminController@send_sms')->name('admin.send_sms');
+    Route::post('admin/send-email', 'AdminController@submitEmail')->name('admin.submit.email');
+
+   Route::get('admin/send-sms', 'AdminController@sendSms')->name('admin.send_sms');
+   Route::post('admin/send-sms', 'AdminController@submit_sms')->name('admin.submit.sms');
+
+   Route::get('admin/abandoned-payment', 'OperationalController@AbandonedPaymentView')->name('admin.abandoned.payment');
+   Route::post('admin/abandoned-payment', 'OperationalController@AbandonedPayment')->name('admin.abandoned.payment.send');
 
     Route::get('/admin/add-data-entry', 'AdminController@add_data')->name('admin.add.data');
     Route::post('/admin/submit-data', 'AdminController@submit_data')->name('admin.submit.data');
@@ -617,6 +645,8 @@ Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //S
 
     Route::get('dashboard/service-providers', 'AuthController@seller')->name('superadmin.seller');
     Route::get('dashboard/all-agents', 'AuthController@allagents')->name('superadmin.allagents');
+    Route::get('dashboard/ef-marketers', 'AdminController@all_ef_marketers')->name('superadmin.all_ef_marketers');
+
     Route::get('dashboard/service-seekers', 'AuthController@buyer')->name('superadmin.buyer');
     Route::get('/activate_user/{id}', 'Admin@activate_user')->name('superadmin.activate');
     Route::get('/activate_agent/{id}', 'Admin@activate_agent')->name('superadmin.activate.agent');
@@ -660,6 +690,13 @@ Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //S
     Route::put('update-city/{slug}', 'TourismController@update_city')->name('superadmin.update.city');
     Route::put('add_city_images/{slug}', 'TourismController@add_city_images')->name('superadmin.add_city_images');
     Route::get('delete-city/{slug}', 'TourismController@deleteCity')->name('superadmin.delete.city');
+
+
+    //Officials
+    Route::get('government-officials', 'GovernmentOfficialController@officials')->name('superadmin.government.officials');
+    Route::post('official/create', 'GovernmentOfficialController@create_official')->name('superadmin.government.create');
+    Route::put('official/update/{id}', 'GovernmentOfficialController@update_official')->name('superadmin.government.update');
+    Route::get('official/delete/{id}', 'GovernmentOfficialController@delete_official')->name('superadmin.delete.official');
 
     //add accountant
     Route::get('add-accountant', 'AccountantController@add_accountant')->name('superadmin.add-accountant');
@@ -724,12 +761,10 @@ Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //S
     Route::get('send-email', 'AdminController@send_email')->name('superadmin.send_email');
     Route::get('create-sms', 'AdminController@sendSms')->name('superadmin.send_sms');
 
-   Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
-   Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
+   Route::post('send-sms', 'AdminController@submit_sms')->name('super.submit.sms');
 
 
-   Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
-   Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
+   Route::post('send-email', 'AdminController@submitEmail')->name('super.submit.email');
     //accountant routes
     Route::get('all-accountants', 'AdminController@allAccountants')->name('superadmin.all_accountants');
 
@@ -765,7 +800,8 @@ Route::prefix('cmo')->middleware(['cmo'])->group(function () { //CMO Middleware 
 
      Route::get('events', 'AdminController@events')
     ->name('cmo.events');
-    Route::post('system/{id}', 'AdminController@storeSystemConfig')->name('system.config.store');
+    Route::post('save_event/', 'AdminController@save_event')->name('cmo.save_event');
+    Route::post('system/{id}', 'AdminController@storeSystemConfig')->name('cmo.system.config.store');
 
     Route::get('pages/faq', 'AdminController@FAQs')->name('cmo.pages.faq');
     // Route::get('/admin/badge/requests', 'AdminController@allBadges')->name('badge.request');
@@ -795,7 +831,11 @@ Route::prefix('cmo')->middleware(['cmo'])->group(function () { //CMO Middleware 
     Route::put('add_city_images/{slug}', 'TourismController@add_city_images')->name('cmo.add_city_images');
     Route::get('delete-city/{slug}', 'TourismController@deleteCity')->name('cmo.delete.city');
 
-
+    //Officials
+    Route::get('government-officials', 'GovernmentOfficialController@officials')->name('cmo.government.officials');
+    Route::post('official/create', 'GovernmentOfficialController@create_official')->name('cmo.government.create');
+    Route::put('official/update/{id}', 'GovernmentOfficialController@update_official')->name('cmo.government.update');
+    Route::get('official/delete/{id}', 'GovernmentOfficialController@delete_official')->name('cmo.delete.official');
 
     // PAGES CONTENTS TABLE
     Route::get('pages-contents', 'PageContentController@pagescontents')->name('cmo.pagescontents');

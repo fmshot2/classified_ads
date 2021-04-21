@@ -20,7 +20,7 @@
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Client Feedbacks </h3>
+						{{-- <h3 class="box-title"> Client Feedbacks </h3> --}}
 						<h6 class="box-subtitle"> Sorting is from the most recent. </h6>
 					</div>
 

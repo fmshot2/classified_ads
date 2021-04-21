@@ -95,6 +95,9 @@ Login
                             <button type="submit" class="btn-md btn-warning float-left">Login</button>
                             <a href="{{ route('password.request') }}" class="forgot-password">Forgot Password</a>
                         </div>
+                        <div>
+                            <small>Not yet an agent? <span><a class="text-danger" data-toggle="modal" data-target="#launchAgentModal" href="#"> Click here </a> to become an agent</span></small>
+                        </div>
                     </form>
                 </div>
             </div>

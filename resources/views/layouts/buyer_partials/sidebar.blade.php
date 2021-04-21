@@ -33,9 +33,11 @@
       <li class="{{ url()->current() == route('buyer.message.all') ? 'active' : '' }}">
         <a href=" {{route ('buyer.message.all') }}">
           <i class="fa fa-briefcase"></i> <span> My Messages </span>
-          <span class="pull-right-container">
-            <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small>
-          </span>
+            @if ($unread_message_count > 0)
+                <span class="pull-right-container">
+                    <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small>
+                </span>
+            @endif
         </a>
       </li>
 
@@ -73,12 +75,14 @@
       </li> --}}
 
 
-      <li class="{{ url()->current() == route('buyer.notification.all') ? 'active' : '' }}">
-        <a href=" {{route ('buyer.notification.all') }}">
-          <i class="fa fa-bell"></i> <span> General Notices </span>
-          <span class="pull-right-container">
-            <small class="label pull-right bg-primary"> {{ $unread_notification_count }}  </small>
-          </span>
+      <li class="{{ url()->current() == route('seeker.notification.all') ? 'active' : '' }}">
+        <a href=" {{route ('seeker.notification.all') }}">
+            <i class="fa fa-bell"></i> <span> General Notices </span>
+            @if (Auth::user()->unreadNotifications->count() > 0)
+                <span class="pull-right-container">
+                <small class="label pull-right bg-primary"> {{ Auth::user()->unreadNotifications->count() }}  </small>
+                </span>
+            @endif
         </a>
       </li>
       {{-- <li class="treeview" style=" {{ url()->current() == route('admin.service.active') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('admin.service.all') ? 'background-color: #f8d053' : '' }}">

@@ -11,12 +11,6 @@
         color: #fff !important;
         background-color: #CA8309 !important;
     }
-    .comment-content {
-        margin: 0 0 20px 50px;
-    }
-    .comments {
-        padding: 0 20px;
-    }
     p{
         font-size: 16px;
     }
@@ -77,6 +71,48 @@
     .nav-link:hover #liketab{
         color: #fff !important;
     }
+    .lgtbxDiv{
+        display: block;
+        height: 200px;
+        width: auto;
+        background-size: cover !important;
+        background-position: center !important;
+    }
+    .user-comments .media-body{
+        margin-left: 10px !important;
+        font-family: 'Poppins-Regular';
+    }
+    .user-comments .media-heading{
+        font-size: 16px;
+        font-family: 'Poppins-Regular';
+        text-transform: uppercase;
+        color: #ca8309;
+    }
+    .user-comments .media-heading small{
+        font-size: 14px;
+        text-transform: initial;
+        color: rgb(83, 83, 83);
+    }
+    .user-comments .media img{
+        border-radius: 10px;
+    }
+    .comment-form h5{
+        font-size: 17px;
+        text-transform: uppercase;
+    }
+
+    @media (max-width: 768px){
+        .lgtbxDiv{
+            height: 100px;
+        }
+        .tabbing-box.col-sm-12{
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .tabbing-box .nav-tabs li {
+            margin-bottom: 5px;
+        }
+    }
 
 </style>
 
@@ -132,8 +168,8 @@
                                     <div class="col-md-12">
                                         <h3 class="service-name">{{$serviceDetail->name}}</h3>
                                         <p><span><i class="fa fa-map-marker"></i> Location:</span> <span style="color: #ca8309" class="tt-capitalize" id="userAddress">{{$serviceDetail->state}}</span></p>
-                                        <p><span><i class="fa fa-user"></i> Service Provider: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->user->provider_subscriptions}}</span></p>
-                                        <p><span><i class="fa fa-archive"></i> Service Category: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->category->provider_subscription}}</span></p>
+                                        <p><span><i class="fa fa-user"></i> Service Provider: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->user->name}}</span></p>
+                                        <p><span><i class="fa fa-archive"></i> Service Category: </span><span style="color: #ca8309" class="tt-capitalize"> {{$serviceDetail->category->name}}</span></p>
                                         <p><span><i class="fa fa-clock-o"></i> Posted on: </span><span style="color: #ca8309"> {{ $serviceDetail->created_at->diffForHumans() }}</span></p>
                                         <p><span><i class="fa fa-eye"></i> Views: </span><span style="color: #ca8309"> {{ $serviceDetail->views->count() }}</span></p>
                                     </div>
@@ -154,16 +190,12 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
-                                                        </a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services')}}/{{$image->image_path}}');"></a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 4; $i++)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
-                                                        </a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services/noserviceimage.png')}}');"></a>
                                                     </li>
                                                 @endfor
                                             </ul>
@@ -175,16 +207,12 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
-                                                        </a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services')}}/{{$image->image_path}}');"></a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 3; $i++)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
-                                                        </a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services/noserviceimage.png')}}');"></a>
                                                     </li>
                                                 @endfor
                                             </ul>
@@ -196,16 +224,12 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
-                                                        </a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services')}}/{{$image->image_path}}');"></a>
                                                     </li>
                                                 @endforeach
                                                 @for ($i = 1; $i < 2; $i++)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                            <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
-                                                        </a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services/noserviceimage.png')}}');"></a>
                                                     </li>
                                                 @endfor
                                             </ul>
@@ -217,9 +241,7 @@
                                             <ul class="glide__slides">
                                                 @foreach($images_4_service as $key => $image)
                                                     <li class="glide__slide">
-                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}">
-                                                            <img src="{{asset('uploads/services')}}/{{$image->image_path}}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
-                                                        </a>
+                                                        <a data-lightbox="roadtrip" href="{{asset('uploads/services')}}/{{$image->image_path}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services')}}/{{$image->image_path}}');"></a>
                                                     </li>
                                                 @endforeach
                                             </ul>
@@ -232,9 +254,7 @@
                                         <ul class="glide__slides">
                                             @for ($i = 1; $i <= 4; $i++)
                                                 <li class="glide__slide">
-                                                    <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}">
-                                                        <img src="{{ asset('uploads/services/noserviceimage.png') }}" class="img-fluid glide-img" alt="{{$serviceDetail->name}}">
-                                                    </a>
+                                                    <a data-lightbox="roadtrip" href="{{asset('uploads/services/noserviceimage.png')}}" class="lgtbxDiv" style="background-image: url('{{asset('uploads/services/noserviceimage.png')}}');"></a>
                                                 </li>
                                             @endfor
                                         </ul>
@@ -251,6 +271,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link active show" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="one" aria-selected="false">Description</a>
                                 </li>
+                                @if ($serviceDetail->video_link)
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="video-tab" data-toggle="tab" href="#four" role="tab" aria-controls="six" aria-selected="true">Service Video</a>
+                                    </li>
+                                @endif
                                 <li class="nav-item">
                                     <a class="nav-link" id="seven-tab" data-toggle="tab" href="#seven" role="tab" aria-controls="six" aria-selected="true">Contact Details</a>
                                 </li>
@@ -293,11 +318,9 @@
                                 </div>
                                 <div class="tab-pane fade " id="four" role="tabpanel" aria-labelledby="four-tab">
                                     <div class="inside-properties mb-50">
-                                        <h3 class="heading-2">
-                                            Service Video
-                                        </h3>
-                                        <iframe src="https://www.youtube.com/embed/5e0LxrLSzok" allowfullscreen=""></iframe>
-                                        <iframe width="560" height="315" src="{{$serviceDetail->video_link}}" frameborder="0" allowfullscreen></iframe>
+                                        {{-- <iframe src="https://www.youtube.com/embed/5e0LxrLSzok" allowfullscreen=""></iframe>
+                                        <iframe width="560" height="315" src="{{$serviceDetail->video_link}}" frameborder="0" allowfullscreen></iframe> --}}
+                                        <iframe width="500" height="600" src="{{$serviceDetail->video_link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" style="width: 100%; height: 500px !important" allowfullscreen></iframe>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="six" role="tabpanel" aria-labelledby="six-tab">
@@ -368,9 +391,10 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade " id="comment" role="tabpanel" aria-labelledby="five-tab">
-                                    <div class="properties-description mb-50">
-                                        {{-- {{ $serviceDetail->comments }} --}}
-                                        <x-comments :model="$serviceDetail"/>
+                                    <div class="properties-description user-comments mb-50">
+                                        <!-- Clients Feedback -->
+                                        @livewire('comments.comments-view',
+                                        ['comments' => $allServiceComments, 'service_id' => $serviceDetail->id, 'provider_name' => $the_provider_f_name], key($serviceDetail->id))
                                     </div>
                                 </div>
                             </div>
@@ -407,42 +431,24 @@
                             @endif
                         @endauth
 
-                        @guest
+                        {{-- @guest
                         <p>Please login to see your previous conversation with this service provider</p>
-                        @endguest
-
-
-                                {{--
-                                            @if (session('liked'))<span class="text-danger">{{ session('liked') }}
-                                </span> @else<span class="text-warning">like!
-                                </span> @endif --}}
-
-                            @auth
-                                <div class="container mb-5 mt-0">
-                                    <h5>
-
-                                        {{-- </a>  @else HAPPY WITH THE SERVICE RENDERED? GIVE THIS PROVIDER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!</span> @endif
-                                        </a> --}}
-
-                                        @auth
-                                            <div id="likeBtn" class="{{ !$likecheck ? 'likeBtnShow' : '' }}">
-                                                Do you like this service? Give it a <a onclick="likeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-up text-primary" style="font-size: 19px;"></i><span class="text-primary"> Like!</span></a>
-                                                {{-- <span id="loader" class="loader"></span> --}}
-                                            </div>
-                                            <div id="dislikeBtn" class="{{ $likecheck ? 'disLikeBtnShow' : '' }}">
-                                                You have liked this service already. <a onclick="disLikeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger"> Dislike!</span></a>
-                                                {{-- <span id="loader" class="loader"></span> --}}
-                                            </div>
-                                        @endauth
-                                    </h5>
-                                </div>
-                                    {{--              @if (session('success2'))
-                                        <div id="likeNotice" class="alert alert-success alert-dismissible fade show" role="alert">
-                                            {{ session('success2') }}
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        </button>
+                        @endguest --}}
+                        @auth
+                            <div class="container mb-5 mt-0">
+                                <h5>
+                                    @auth
+                                        <div id="likeBtn" class="{{ !$likecheck ? 'likeBtnShow' : '' }}">
+                                            Do you like this service? Give it a <a onclick="likeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-up text-primary" style="font-size: 19px;"></i><span class="text-primary"> Like!</span></a>
+                                            {{-- <span id="loader" class="loader"></span> --}}
                                         </div>
-                                        @endif --}}
+                                        <div id="dislikeBtn" class="{{ $likecheck ? 'disLikeBtnShow' : '' }}">
+                                            You have liked this service already. <a onclick="disLikeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger"> Dislike!</span></a>
+                                            {{-- <span id="loader" class="loader"></span> --}}
+                                        </div>
+                                    @endauth
+                                </h5>
+                            </div>
                         @endauth
 
                     </div>
@@ -602,7 +608,7 @@
                                 <div class="s-border"></div>
                                 <div class="m-border"></div>
                                 <ul class="list-unstyled list-cat">
-                                    <li><span style="color: red">*</span> Check the Service Provider profile to ensure they offer the serivices you need/required.</li>
+                                    <li><span style="color: red">*</span> Check the Service Provider profile to ensure they offer the services you need/required.</li>
                                     <li><span style="color: red">*</span> Contact Service Providers only when certain you need their services.</li>
                                     <li><span style="color: red">*</span> Ensure you check authenticity of all products at all times.</li>
                                     <li><span style="color: red">*</span> Confirm identity of person/persons or organisation you are transacting with.</li>

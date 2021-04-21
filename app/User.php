@@ -8,11 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-use tizis\laraComments\Traits\Commenter;
 
 class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 {
-    use Notifiable, Commenter;
+    use Notifiable;
 
 
  // public function __construct()
@@ -51,6 +50,10 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 
     public function services(){
         return $this->hasMany('\App\Service'); //Product Model Name
+    }
+
+    public function payments(){
+        return $this->hasMany('\App\Payment'); //Product Model Name
     }
 
     public function seeking_works(){
@@ -106,5 +109,5 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
       public function referal()
     {
         return $this->belongsTo('App\Referal');
-    }    
+    }
 }

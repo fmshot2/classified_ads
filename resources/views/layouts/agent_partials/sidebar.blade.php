@@ -29,7 +29,7 @@
 
         <li class="{{ url()->current() == route('agent.referal.all') ? 'active' : '' }}">
           <a href=" {{route ('agent.referal.all') }}">
-            <i class="fa fa-briefcase"></i> <span> All My Referrals </span>
+            <i class="fa fa-group"></i> <span> All My Referrals </span>
             <!-- <span class="pull-right-container">
               <small class="label pull-right bg-danger">   </small>
             </span> -->
@@ -47,16 +47,16 @@
           </a>
         </li>
 
-        <li class="treeview {{ url()->current() == route('agent.view.request.blade') ? 'active' : '' }} {{ url()->current() == route('admin.service.pending') ? 'active' : '' }} {{ url()->current() == route('agent.payment.history') ? 'active' : '' }}">
+        <li class="treeview" style="{{ url()->current() == route('agent.view.request.blade') ? 'background-color: #cc8a19;' : '' }} {{ url()->current() == route('admin.service.pending') ? 'background-color: #cc8a19;' : '' }} {{ url()->current() == route('agent.payment.history') ? 'background-color: #cc8a19;' : '' }}">
           <a href="#">
-            <i class="fa fa-briefcase"></i>
+            <i class="fa fa-money"></i>
             <span> Payments </span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ route('agent.view.request.blade') }}"><i class="fa fa-circle-o"></i> Make Withdrawal</a></li>
+            <!-- <li><a href="{{ route('agent.view.request.blade') }}"><i class="fa fa-circle-o"></i> Make Withdrawal</a></li> -->
             <li><a href=" {{ route ('agent.payment.history') }}"><i class="fa fa-circle-o"></i> Payment History </a></li>
 
           </ul>
