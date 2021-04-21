@@ -11,12 +11,6 @@
         color: #fff !important;
         background-color: #CA8309 !important;
     }
-    .comment-content {
-        margin: 0 0 20px 50px;
-    }
-    .comments {
-        padding: 0 20px;
-    }
     p{
         font-size: 16px;
     }
@@ -83,6 +77,28 @@
         width: auto;
         background-size: cover !important;
         background-position: center !important;
+    }
+    .user-comments .media-body{
+        margin-left: 10px !important;
+        font-family: 'Poppins-Regular';
+    }
+    .user-comments .media-heading{
+        font-size: 16px;
+        font-family: 'Poppins-Regular';
+        text-transform: uppercase;
+        color: #ca8309;
+    }
+    .user-comments .media-heading small{
+        font-size: 14px;
+        text-transform: initial;
+        color: rgb(83, 83, 83);
+    }
+    .user-comments .media img{
+        border-radius: 10px;
+    }
+    .comment-form h5{
+        font-size: 17px;
+        text-transform: uppercase;
     }
 
     @media (max-width: 768px){
@@ -375,9 +391,10 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade " id="comment" role="tabpanel" aria-labelledby="five-tab">
-                                    <div class="properties-description mb-50">
-                                        {{-- {{ $serviceDetail->comments }} --}}
-                                        <x-comments :model="$serviceDetail"/>
+                                    <div class="properties-description user-comments mb-50">
+                                        <!-- Clients Feedback -->
+                                        @livewire('comments.comments-view',
+                                        ['comments' => $allServiceComments, 'service_id' => $serviceDetail->id, 'provider_name' => $the_provider_f_name], key($serviceDetail->id))
                                     </div>
                                 </div>
                             </div>
@@ -414,42 +431,24 @@
                             @endif
                         @endauth
 
-                        @guest
+                        {{-- @guest
                         <p>Please login to see your previous conversation with this service provider</p>
-                        @endguest
-
-
-                                {{--
-                                            @if (session('liked'))<span class="text-danger">{{ session('liked') }}
-                                </span> @else<span class="text-warning">like!
-                                </span> @endif --}}
-
-                            @auth
-                                <div class="container mb-5 mt-0">
-                                    <h5>
-
-                                        {{-- </a>  @else HAPPY WITH THE SERVICE RENDERED? GIVE THIS PROVIDER A  <a href="{{route('admin2.like', $serviceDetail->id)}}"> <i class="fa fa-thumbs-up text-warning" style="font-size: 19px;"></i><span class="text-warning">like!</span> @endif
-                                        </a> --}}
-
-                                        @auth
-                                            <div id="likeBtn" class="{{ !$likecheck ? 'likeBtnShow' : '' }}">
-                                                Do you like this service? Give it a <a onclick="likeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-up text-primary" style="font-size: 19px;"></i><span class="text-primary"> Like!</span></a>
-                                                {{-- <span id="loader" class="loader"></span> --}}
-                                            </div>
-                                            <div id="dislikeBtn" class="{{ $likecheck ? 'disLikeBtnShow' : '' }}">
-                                                You have liked this service already. <a onclick="disLikeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger"> Dislike!</span></a>
-                                                {{-- <span id="loader" class="loader"></span> --}}
-                                            </div>
-                                        @endauth
-                                    </h5>
-                                </div>
-                                    {{--              @if (session('success2'))
-                                        <div id="likeNotice" class="alert alert-success alert-dismissible fade show" role="alert">
-                                            {{ session('success2') }}
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        </button>
+                        @endguest --}}
+                        @auth
+                            <div class="container mb-5 mt-0">
+                                <h5>
+                                    @auth
+                                        <div id="likeBtn" class="{{ !$likecheck ? 'likeBtnShow' : '' }}">
+                                            Do you like this service? Give it a <a onclick="likeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-up text-primary" style="font-size: 19px;"></i><span class="text-primary"> Like!</span></a>
+                                            {{-- <span id="loader" class="loader"></span> --}}
                                         </div>
-                                        @endif --}}
+                                        <div id="dislikeBtn" class="{{ $likecheck ? 'disLikeBtnShow' : '' }}">
+                                            You have liked this service already. <a onclick="disLikeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger"> Dislike!</span></a>
+                                            {{-- <span id="loader" class="loader"></span> --}}
+                                        </div>
+                                    @endauth
+                                </h5>
+                            </div>
                         @endauth
 
                     </div>
@@ -609,7 +608,7 @@
                                 <div class="s-border"></div>
                                 <div class="m-border"></div>
                                 <ul class="list-unstyled list-cat">
-                                    <li><span style="color: red">*</span> Check the Service Provider profile to ensure they offer the serivices you need/required.</li>
+                                    <li><span style="color: red">*</span> Check the Service Provider profile to ensure they offer the services you need/required.</li>
                                     <li><span style="color: red">*</span> Contact Service Providers only when certain you need their services.</li>
                                     <li><span style="color: red">*</span> Ensure you check authenticity of all products at all times.</li>
                                     <li><span style="color: red">*</span> Confirm identity of person/persons or organisation you are transacting with.</li>

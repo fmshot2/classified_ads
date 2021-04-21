@@ -3,7 +3,7 @@
 @extends('layouts.admin')
 
 @section('title')
-All Buyer | 
+All Buyer |
 @endsection
 
 @section('content')
@@ -25,7 +25,7 @@ All Buyer |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Buyer Table</h3>
+						<h3 class="box-title"> Service Seekers Table</h3>
 					</div>
 
 					<!-- /.box-header -->
@@ -36,11 +36,12 @@ All Buyer |
 									<th> # </th>
 									<th> Name </th>
 									<th> Email </th>
+									<th> Phone </th>
 									<th> Role </th>
 									<th> Date </th>
 									<th> Status</th>
-									<th> Activate/Deactivate</th>									
-								</tr>	
+									<th> Activate/Deactivate</th>
+								</tr>
 </thead>
 								<tbody>
 								@foreach($buyers as $key => $buyer)
@@ -48,17 +49,18 @@ All Buyer |
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 									<td> {{ $buyer->name }} </td>
 									<td><span class="text-muted"> </i> {{ $buyer->email }} </span> </td>
+									<td><span class="text-muted"> </i> {{ $buyer->phone }} </span> </td>
 									<td> {{ $buyer->role }} </td>
-									<td> {{ $buyer->created_at->diffForHumans() }} </span></td>
+									<td> {{ $buyer->created_at->format('d/m/Y') }} </span></td>
 									<td>@if($buyer->status == 1)<span id="active_text" class="">Activated</span>@elseif($buyer->status == 0)<span id="active_text" class="">Deactivated</span>@endif </td>
-					
+
 									<td>
 										<button id="" class="activate-submit btn-success" onclick="activateUser({{$buyer->id}})" type="button" class="btn btn-success">
 											@if($buyer->status == 0)<span id="activate">Activate User</span>@elseif($buyer->status == 1)<span id="activate">Deactivate</span>
 										@endif</button>
 									</td>
-										
-										
+
+
 									{{-- {{ $general_info->register_section_1_title ? $general_info->register_section_1_title : '' }} --}}
 
 							</tr>
@@ -78,7 +80,7 @@ All Buyer |
 
 
 			<!-- /.content -->
-		</div>	
+		</div>
 
 
 
@@ -90,7 +92,7 @@ All Buyer |
 
 
 
-{{-- 
+{{--
 <script type="text/javascript">
 	$(document).ready( function () {
 	    $('#data_table1').DataTable({

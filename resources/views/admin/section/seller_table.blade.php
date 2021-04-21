@@ -27,7 +27,7 @@
                                 <td> {{ Str::limit($sellers->name,15) }} </td>
                                 <td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
                                 <td> {{ $sellers->services->count() }} </td>
-                                <td> {{ $sellers->created_at->diffForHumans() }} </span></td>
+                                <td> {{ $sellers->created_at->format('d/m/Y') }} </span></td>
                             </tr>
                         @endforeach
                     </tbody>

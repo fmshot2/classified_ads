@@ -620,8 +620,9 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
      if($service->save()){
         if ($service->status == 1) {
             $status = 'Approved';
+            $reason = '';
            try{
-               Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
+               Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
            }
            catch(\Exception $e){
                $failedtosendmail = 'Failed to Mail!.';
@@ -629,15 +630,16 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
         }
         else {
            $status = 'Disapproved';
+           $reason = $request->get('reason');
            try{
-               Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
+               Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
            }
            catch(\Exception $e){
                $failedtosendmail = 'Failed to Mail!.';
            }
         }
         $request->session()->flash('status', 'Service was '.$status);
-        return back();
+        return $status;
      }
      $request->session()->flash('error', 'Something went wrong');
      return back();

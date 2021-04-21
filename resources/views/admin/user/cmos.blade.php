@@ -3,7 +3,7 @@
 @extends('layouts.admin')
 
 @section('title')
-All CMOs | 
+All CMOs |
 @endsection
 
 @section('content')
@@ -38,8 +38,8 @@ All CMOs |
 									<th> Email </th>
 									<th> Date </th>
 									<th> Status</th>
-									<th> Activate/Deactivate</th>									
-								</tr>	
+									<th> Activate/Deactivate</th>
+								</tr>
 </thead>
 								<tbody>
 								@foreach($cmos as $key => $cmo)
@@ -47,16 +47,16 @@ All CMOs |
 									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
 									<td> {{ $cmo->name }} </td>
 									<td><span class="text-muted"> </i> {{ $cmo->email }} </span> </td>
-									<td> {{ $cmo->created_at->diffForHumans() }} </span></td>
+									<td> {{ $cmo->created_at->format('d/m/Y') }} </span></td>
 									<td>@if($cmo->status == 1)<span id="active_text" class="">Activated</span>@elseif($cmo->status == 0)<span id="active_text" class="">Deactivated</span>@endif </td>
-					
+
 									<td>
 										<button id="" class="activate-submit btn-success" onclick="activateUser({{$cmo->id}})" type="button" class="btn btn-success">
 											@if($cmo->status == 0)<span id="activate">Activate User</span>@elseif($cmo->status == 1)<span id="activate">Deactivate</span>
 										@endif</button>
 									</td>
-										
-										
+
+
 									{{-- {{ $general_info->register_section_1_title ? $general_info->register_section_1_title : '' }} --}}
 
 							</tr>
@@ -77,7 +77,7 @@ All CMOs |
 
 
 			<!-- /.content -->
-		</div>	
+		</div>
 
 
 
@@ -89,7 +89,7 @@ All CMOs |
 
 
 
-{{-- 
+{{--
 <script type="text/javascript">
 	$(document).ready( function () {
 	    $('#data_table1').DataTable({

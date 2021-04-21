@@ -21,6 +21,15 @@
         @endif
     </div>
 
+    <div class="form-group form-box">
+        <input type="text" placeholder="Phone Number" class="input-text"  wire:model='phone'>
+        @if ($errors->has('phone'))
+            <span class="helper-text" data-error="wrong" data-success="right">
+                <strong class="text-danger">{{ $errors->first('phone') }}</strong>
+            </span>
+        @endif
+    </div>
+
     <div class="form-group">
         <div class="input-group mb-3">
             <input type="password" name="password" id="passwordField" class="form-control" placeholder="Password (min: 6 chars)" aria-label="Password" aria-describedby="Password" wire:model='password'>
@@ -92,7 +101,7 @@
             @enderror
         </div>
     </div>
-@endif    
+@endif
     <div>
         <label>
             <input type="checkbox" name="terms" class="filled-in" wire:model='terms'/>

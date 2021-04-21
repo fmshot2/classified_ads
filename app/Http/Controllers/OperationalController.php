@@ -14,6 +14,7 @@ use App\Image as ModelImage;
 use App\Like;
 use App\Mail\CredentialsReset;
 use App\Mail\Newsletter;
+use App\Mail\PaymentProcessAbandoned;
 use App\Mail\UsersFeedback;
 use App\Message;
 use App\PageContent;
@@ -1108,6 +1109,34 @@ class OperationalController extends Controller
         return response()->json([
             'message' => 'Message couldn\'t marked as read!',
             'alert-type' => 'error'
+        ]);
+    }
+
+    public function AbandonedPaymentView()
+    {
+        return view('admin.data_entry.abandoned_payment');
+    }
+
+
+    public function AbandonedPayment(Request $request)
+    {
+        $emails = $request->emails;
+        $users_email = explode(',', $emails);
+
+        foreach($users_email as $name=>$email)
+        {
+            $email = trim($email);
+            try{
+                Mail::to($email)->send(new PaymentProcessAbandoned($request->subject, $request->message));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+        }
+
+        return redirect()->back()->with([
+            'message' => 'Mail Sent Successfully!',
+            'alert-type' => 'success'
         ]);
     }
 

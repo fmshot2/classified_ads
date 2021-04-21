@@ -6,12 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 
-use tizis\laraComments\Contracts\ICommentable;
-use tizis\laraComments\Traits\Commentable;
-
-class SeekingWork extends Model implements Viewable, ICommentable
+class SeekingWork extends Model implements Viewable
 {
-    use InteractsWithViews, Commentable;
+    use InteractsWithViews;
 
     protected $removeViewsOnDelete = true;
 

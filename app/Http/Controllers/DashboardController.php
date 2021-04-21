@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Agent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Category;
@@ -206,6 +207,9 @@ public function admin()
     $all_categories_count = Category::all()->count();
     $all_sellers_count = User::where('role', 'seller')->count();
     $all_buyers_count = User::where('role', 'buyer')->count();
+    $all_users = User::all()->count();
+    $all_agents = Agent::all()->count();
+    $all_users_count = $all_users + $all_agents;
     $active_service_count = Service::where('status', 1)->count();
     $pending_service_count = Service::where('status', 0)->count();
 
@@ -217,7 +221,7 @@ public function admin()
     $pending_service = Service::where('status', 0)->orderBy('created_at','desc')->take(5);
     $feedbacks = UserFeedback::all();
 
-    return view ('admin.dashboard', compact('all_service_count', 'all_categories_count', 'all_sellers_count', 'all_buyers_count', 'active_service_count', 'pending_service_count', 'category', 'active_service', 'seller', 'buyer', 'all_service', 'feedbacks'));
+    return view ('admin.dashboard', compact('all_service_count', 'all_categories_count', 'all_sellers_count', 'all_buyers_count', 'active_service_count', 'pending_service_count', 'category', 'active_service', 'seller', 'buyer', 'all_service', 'feedbacks', 'all_users_count'));
 }
 
 

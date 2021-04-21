@@ -140,7 +140,7 @@
         </div>
         <div class="row">
             <div class="col-xl-12">
-                <p class="copy">© 2021 EFContact <a href="https://www.efnetworks.com">Powered by EF Network Ltd. </a><a href="{{route('terms-of-use')}}"> Terms</a> | <a href="{{route('privacy-policy')}}"> Privacy</a></p>
+                <p class="copy">© 2021 EFContact <a href="https://eftechnology.net">Powered by EF Network Ltd. </a><a href="{{route('terms-of-use')}}"> Terms</a> | <a href="{{route('privacy-policy')}}"> Privacy</a></p>
             </div>
         </div>
     </div>

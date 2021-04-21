@@ -10,16 +10,14 @@ use Illuminate\Database\Eloquent\Model;
 use CyrildeWit\EloquentViewable\InteractsWithViews;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
 
-use tizis\laraComments\Contracts\ICommentable;
-use tizis\laraComments\Traits\Commentable;
 use App\ProviderSubscription;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 
-class Service extends Model implements Viewable, ICommentable
+class Service extends Model implements Viewable
 {
-    use InteractsWithViews, Commentable;
+    use InteractsWithViews;
 
     use SoftDeletes;
 
@@ -206,5 +204,11 @@ public function scopeSearchCategory($query, $category)
     public function scopePopular($query)
     {
         return $query->where('created_at', '=', null);
+    }
+
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
     }
 }
