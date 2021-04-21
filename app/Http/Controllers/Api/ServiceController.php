@@ -54,7 +54,7 @@ class ServiceController extends Controller
     public function index()
     {
         // return ServiceResource::collection(Service::paginate(5));
-        return (new ServiceResourceCollection(Service::where('status', 1)->get()))
+        return (new ServiceResourceCollection(Service::where('status', 1)->paginate(9)))
             ->response()
             ->setStatusCode(200);
     }
@@ -67,7 +67,7 @@ class ServiceController extends Controller
     public function seekingWorkLists()
     {
         // return ServiceResource::collection(Service::paginate(5));
-        return (new SeekingWorkResourceCollection(SeekingWork::where('status', 1)->get()))
+        return (new SeekingWorkResourceCollection(SeekingWork::where('status', 1)->paginate(9)))
             ->response()
             ->setStatusCode(200);
     }
@@ -295,7 +295,7 @@ class ServiceController extends Controller
             ]);
         }
         // return ServiceResource::collection(Service::paginate(5));
-        return (new ServiceResourceCollection($user->services))
+        return (new ServiceResourceCollection(Service::where('user_id', $user->id)->paginate(9)))
             ->response()
             ->setStatusCode(200);
     }
@@ -349,6 +349,142 @@ class ServiceController extends Controller
             'user_feedbacks' => $allcomments,
             'all_services' => $all_services
         ], 200);
+    }
+
+    public function myMessages()
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $all_message = Message::where('service_user_id', Auth::id())->orderBy('id', 'desc')->paginate(50);
+
+        return response()->json([
+            $all_message,
+        ], 200);
+
+
+    }
+
+    public function deleteMessage($id)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $message = Message::findOrFail($id);
+
+        if ($message->delete()) {
+            return response()->json([
+                'Message Deleted!'
+            ], 200);
+        }
+    }
+
+    public function viewMessage(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $message = Message::where('slug', $request->slug)->firstOrFail();
+        $message->status = 1;
+        $message->save();
+
+        return response()->json([
+            'message' => $message
+        ], 200);
+    }
+
+    public function unReadMessages(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $all_messages = Message::where('service_user_id', $user->id)->Where('status', 0)->orderBy('id', 'desc')->paginate(9);
+
+        return response()->json([
+            'unread_messages' => $all_messages
+        ], 200);
+    }
+
+    public function readMessages(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $all_messages = Message::where('service_user_id', $user->id)->Where('status', 1)->orderBy('id', 'desc')->paginate(9);
+
+        return response()->json([
+            'read_messages' => $all_messages
+        ], 200);
+    }
+
+    public function replyMessage(Request $request)
+    {
+        $message = Message::where('slug', $request->slug)->firstOrFail();
+
+        return response()->json([
+            'message' => $message
+        ], 200);
+    }
+
+    public function messageReply(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $validatedData = $request->validate([
+            'description' => 'required|max:255',
+        ]);
+
+        $slug = Str::random(6);
+
+        $message = New Message();
+        $message->subject = $request->subject;
+        $message->description = $request->description;
+        $message->service_id = $request->service_id;
+        $message->service_user_id = $request->service_user_id;
+        $message->buyer_name = $user->name;
+        $message->buyer_email = $user->email;
+        $message->buyer_id = $request->buyer_id;
+        $message->reply = 'yes';
+        $message->phone = $request->phone;
+        $message->slug = $slug;
+
+        if ($message->save()) {
+            return response()->json([
+                'message' => $message
+            ], 200);
+        }
+
     }
 
     /**
@@ -850,7 +986,7 @@ class ServiceController extends Controller
      */
     public function sub_categories()
     {
-        return response()->json(SubCategory::all(), 200);
+        return response()->json(SubCategory::paginate(9), 200);
     }
 
     /**
@@ -874,7 +1010,7 @@ class ServiceController extends Controller
         $category_id = $the_category->id;
 
         if ($category_id == 1) {
-            $category_services = SeekingWork::where('category_id', $category_id)->where('status', 1)->orderBy('badge_type', 'asc')->paginate(100);
+            $category_services = SeekingWork::where('category_id', $category_id)->where('status', 1)->orderBy('badge_type', 'asc')->paginate(9);
 
             return response()->json([
                 'category' => $the_category->name,
@@ -882,7 +1018,7 @@ class ServiceController extends Controller
                 ], 200);
         }
         else{
-            $category_services = Service::where('category_id', $category_id)->where('status', 1)->orderBy('badge_type', 'asc')->paginate(100);
+            $category_services = Service::where('category_id', $category_id)->where('status', 1)->orderBy('badge_type', 'asc')->paginate(9);
 
             return response()->json([
                 'category' => $the_category->name,
@@ -892,7 +1028,7 @@ class ServiceController extends Controller
 
     }
 
-    public function findNearestServices(Request $request)
+    public function serviceCloseToYou(Request $request)
     {
         $latitude = $request->latitude;
         $longitude = $request->longitude;
