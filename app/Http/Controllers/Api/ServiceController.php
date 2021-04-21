@@ -1317,7 +1317,7 @@ class ServiceController extends Controller
                 $added_days = 372;
                 $sub_type = 'annual';
             }else{
-                return response()->json(['res_message' => 'no amount was provided', 'res_code' => 404], 200);
+                return response()->json(['res_message' => 'invalid amount provided', 'res_code' => 404], 200);
             }
 
             $initial_end_date = $sub_check->subscription_end_date;
