@@ -94,7 +94,9 @@
             <div class="col-lg-6 col-md-8 col-sm-7">
                 <div class="list-inline">
                     <a href="tel: {{ $general_info->hot_line ? $general_info->hot_line : '' }} ">
-                        Need Support? <i class="fa fa-phone"></i> {{ $general_info->hot_line ? $general_info->hot_line : '' }}
+                        Need Support? <i class="fa fa-phone"></i> {{ substr($general_info->hot_line,0,4).'-'.substr($general_info->hot_line,4,3).'-'.substr($general_info->hot_line,7,5) }}
+
+                        {{-- Need Support? <i class="fa fa-phone"></i> {{ $general_info->hot_line ? $general_info->hot_line : '' }} --}}
                     </a>
                     <a href="https://wa.me/{{ $general_info->hot_line_3 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
                         |&emsp;<i class="fa fa-whatsapp animate__animated animate__heartBeat animate__infinite" style="color:#5af8ac; font-size: 16px"></i> WhatsApp
