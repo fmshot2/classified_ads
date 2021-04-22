@@ -615,12 +615,12 @@ public function save_buyer(){
         $user->email    = $this->email;
         $user->password = Hash::make($this->password);
         $user->role     = $this->role;
-        // //save id of referer if user was reffererd
-        // $user->idOfReferer = $this->refererId;
-        // //save id of agent if user was brought by agent
-        // $user->idOfAgent = $this->agent_Id;
+        //save id of referer if user was reffererd
+        $user->idOfReferer = $this->refererId;
+        //save id of agent if user was brought by agent
+        $user->idOfAgent = $this->agent_Id;
         // $user->refererLink = $slug3;
-        // //send mail
+        //send mail
 
         if ($user->save()) {
 
