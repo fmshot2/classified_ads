@@ -619,7 +619,7 @@ public function save_buyer(){
         $user->idOfReferer = $this->refererId;
         //save id of agent if user was brought by agent
         $user->idOfAgent = $this->agent_Id;
-        $user->refererLink = $slug3;
+        // $user->refererLink = $slug3;
         //send mail
 
         if ($user->save()) {
