@@ -89,7 +89,7 @@ class Register extends Component
         if ($this->role === 'buyer') {
             $this->save_buyer();
         }
-        
+
         $this->dispatchBrowserEvent('pay_with_paystack', ['data' => $data]);
     }
 

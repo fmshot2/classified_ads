@@ -42,6 +42,7 @@ Route::group([
     // ACCOUNT MANAGEMENT
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
+    Route::post('save-user', [AuthController::class, 'saveUser']);
     Route::get('profile', [AuthController::class, 'profile']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
@@ -95,6 +96,11 @@ Route::group([
 
         // Payment History
         Route::get( '/payment-history', [ServiceController::class, 'paymentHistory']);
+
+
+        // Comments
+        Route::post( '/store-comment', [ServiceController::class, 'storeComment']);
+        Route::post( '/reply-comment', [ServiceController::class, 'storeCommentReply']);
     });
 });
 
