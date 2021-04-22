@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Advertisement;
 use App\Badge;
 use App\Category;
+use App\Comment;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AdvertisementResource;
 use App\Http\Resources\AdvertisementResourceCollection;
@@ -51,6 +52,12 @@ class ServiceController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['index', 'show', 'seekingWorkLists', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories', 'findNearestServices', 'servicesByCategory']]);
         $this->user = $this->guard()->user();
+    }
+
+
+    protected function guard()
+    {
+        return Auth::guard();
     }
 
     /**
@@ -241,6 +248,7 @@ class ServiceController extends Controller
 
         $service->sub_categories()->attach($request->sub_category);
 
+        $service_owner = $user;
         $service_owner->name = $user->name;
         $service_owner->email = $user->email;
 
@@ -1238,14 +1246,8 @@ class ServiceController extends Controller
             'services' => $services,
             'latitude' => $latitude,
             'longitude' => $longitude
-            ], 200);
+        ], 200);
 
-    }
-
-
-    protected function guard()
-    {
-        return Auth::guard();
     }
 
 
@@ -1333,6 +1335,49 @@ class ServiceController extends Controller
         }else{
             return response()->json(['res_message' => 'user not found', 'res_code' => 404], 200);
         }
+    }
+
+
+    public function storeComment(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+        $comment = new Comment();
+        $comment->comment = $request->get('comment');
+        $comment->user()->associate($user);
+        $service = Service::find($request->service_id);
+        $service->comments()->save($comment);
+
+        return response()->json([
+            'comment' => $comment,
+        ], 200);
+    }
+
+    public function storeCommentReply(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $reply = new Comment();
+        $reply->comment = $request->get('comment');
+        $reply->user()->associate($user);
+        $reply->parent_id = $request->get('comment_id');
+        $service = Service::find($request->get('service_id'));
+        $service->comments()->save($reply);
+
+        return response()->json([
+            'reply' => $reply,
+        ], 200);
     }
 
 

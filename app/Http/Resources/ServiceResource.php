@@ -32,7 +32,8 @@ class ServiceResource extends JsonResource
             'slug'        => $this->slug,
             'provider'    => $this->user,
             'category'    => new CategoryResource($this->category),
-            'images'      => ImageResource::collection($this->images)
+            'images'      => ImageResource::collection($this->images),
+            'comments'      => $this->comments,
         ];
 
     }
