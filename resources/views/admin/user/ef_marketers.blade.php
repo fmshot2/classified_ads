@@ -36,9 +36,9 @@ All E.F Maketers |
 									<th> Name </th>
 									<th> Email </th>
 									<th> role </th>
-									<th> Applied for Approval?</th>
-									<th> Date </th>
-									<th> Activate/Deactivate</th>
+									<th> reg date</th>
+									<th> status </th>
+									<th> Downline </th>
 								</tr>
 							</thead>
 							<tbody>
