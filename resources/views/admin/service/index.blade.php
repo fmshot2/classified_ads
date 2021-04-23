@@ -200,7 +200,7 @@
                     $("#approveBtn"+id).removeClass('hideApprovingBtn')
                     $("#approveBtn"+id).addClass('showApprovingBtn')
                 }
-                toastr.error("Service Approved!");
+                toastr.success("Service Approved!");
             }
         });
     }
