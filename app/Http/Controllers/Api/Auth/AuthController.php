@@ -488,7 +488,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 0,
                 'error' => 'E-mail address is already taken!'
-                ]);
+            ], 400);
         }
     }
 
