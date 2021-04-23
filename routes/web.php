@@ -348,7 +348,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::post('/notification/delete', 'NotificationController@notificationDelete')->name('seller.notification.delete');
 
         Route::get('/profile/', 'SellerController@viewProfile')->name('seller.profile');
-        // Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
+        Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('providerprofile.update.password');
 
 
 
