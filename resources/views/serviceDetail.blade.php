@@ -385,7 +385,7 @@
                                                 <strong><i class="fa fa-envelope-open"></i> E-mail Address:</strong> <a href="mailto:{{$serviceDetail->user->email}}"> {{$serviceDetail->user->email}}</a>
                                             </p>
                                             <p class="animate__animated animate__bounce">
-                                                <strong><i class="fa fa-map-marker"></i> State and City:</strong> {{$serviceDetail->city}}, &nbsp; {{$serviceDetail->state}}
+                                                <strong><i class="fa fa-map-marker"></i> State and City:</strong> {{$serviceDetail->city}}, {{$serviceDetail->state}}
                                             </p>
                                             @if ($serviceDetail->address)
                                             <p class="animate__animated animate__bounce">

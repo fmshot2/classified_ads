@@ -115,6 +115,9 @@ Route::prefix('v1')->group(function ()
     // SERVICES CLOSE TO YOU
     Route::get('services-close-to-me', [ServiceController::class, 'serviceCloseToYou']);
 
+    // FEATURED SERVICES
+    Route::get('featured-services', [ServiceController::class, 'allFeaturedServices']);
+
     // SEEKING WORK (CV)
     Route::get('job-applicants/all', [ServiceController::class, 'seekingWorkLists']);
     Route::get('job-applicant/details/{slug}', [ServiceController::class, 'seekingWorkDetails']);
