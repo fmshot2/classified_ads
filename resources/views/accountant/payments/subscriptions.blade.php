@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-All Subscription Payments  | 
+All Re - Subscriptions   | 
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@ All Subscription Payments  |
 	<section class="content-header">
             
            <h1>
-           All Successful Subscription Payments
+           All Successful All Re - Subscriptions
             <br><small>View and manage all successful subscription payments</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="{{ route('accountant.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Successful subscription payments</li>
+            <li class="active">Successful Re - Subscriptions</li>
           </ol>
         </section>
 	<div class="container">
@@ -34,7 +34,7 @@ All Subscription Payments  |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Successful Subscription Payments</h3>
+						<h3 class="box-title"> Successful Re - Subscriptions</h3>
 					</div>
 
 					<!-- /.box-header -->
