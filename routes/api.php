@@ -42,7 +42,7 @@ Route::group([
     // ACCOUNT MANAGEMENT
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
-    Route::post('save-user', [AuthController::class, 'saveUser']);
+    Route::post('save-user/{amount}/{tranxRef}', [AuthController::class, 'saveUser']);
     Route::get('profile', [AuthController::class, 'profile']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
