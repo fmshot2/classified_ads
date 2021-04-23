@@ -113,9 +113,9 @@
           <ul class="treeview-menu">
             <li><a href=" {{ route('accountant.ad.requests') }} " ><i class="fa fa-circle-o"></i> Advert Payments </a></li>
             <li><a href=" {{ route('accountant.badges') }}" ><i class="fa fa-circle-o"></i> Badge Payments </a></li>
-            <li><a href=" {{ route('accountant.subscriptions') }}"><i class="fa fa-circle-o"></i> Subscriptions</a></li>
+            <li><a href=" {{ route('accountant.subscriptions') }}"><i class="fa fa-circle-o"></i> Re - Subscriptions</a></li>
             <li><a href=" {{ route('accountant.featured') }}"><i class="fa fa-circle-o"></i> Featured Service Payments</a></li>
-            <li><a href=" {{ route('accountant.registration') }}"><i class="fa fa-circle-o"></i>Payments for Registration</a></li>
+            <li><a href=" {{ route('accountant.registration') }}"><i class="fa fa-circle-o"></i>Subscriptions</a></li>
             <li><a href=" {{ route('accountant.ef.payments') }}"><i class="fa fa-circle-o"></i> All Payments</a></li>
           </ul>
         </li>

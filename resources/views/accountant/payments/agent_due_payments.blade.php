@@ -52,9 +52,7 @@ All Agents Due Payments |
 									<th>Bank</th>
 									<th>Account Number</th>
 									
-									<th> Total Remaining Balance </th>
-									{{-- <th> Payment Status </th> --}}
-									{{-- <th> Action </th>									 --}}
+									<th> Total Remaining Balance </th>									
 								</tr>	
 							</thead>
 							<tbody>
@@ -68,16 +66,9 @@ All Agents Due Payments |
 									<td> {{ $unpaid_payment->bankname }} </td>
 									<td> {{ $unpaid_payment->accountno }} </td>
 									
-									{{-- <td>₦<span class="text-muted">{{ number_format($unpaid_payment->amount_requested) }} </span> </td> --}}
+									
 									<td> ₦{{ number_format($unpaid_payment->refererAmount) }} </td>
-									{{-- @if($unpaid_payment->is_paid == 0)
-
-										<td> <span class="text text-danger">Pending</span></td>
-									@else
-										<td> <span class="text text-success">Paid</span></td>
-									@endif --}}
-									{{-- <td> <span class="text text-danger">Paid</span></td> --}}
-									{{-- <td><button class="btn btn-success" onclick="generatePayment()">Generate</button> </td> --}}
+									
 								</tr>
 
 								@empty
@@ -89,7 +80,7 @@ All Agents Due Payments |
 
 
 					</table>
-    {{-- {{ $buyers->links() }} --}}
+    
 
 
 				</div>
@@ -110,22 +101,6 @@ All Agents Due Payments |
 
 
 
-{{-- 
-<script type="text/javascript">
-	$(document).ready( function () {
-	    $('#data_table1').DataTable({
-			dom: 'Bfrtip',
-			buttons: [
-				'copy', 'csv', 'excel', 'pdf', 'print'
-			],
-		  "language": {
-    "paginate": {
-      "previous": "Previous page"
-    }
-  }
-		});
-	});
-</script> --}}
 <script type="text/javascript">
     function makePayment2()
     {

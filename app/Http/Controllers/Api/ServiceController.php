@@ -50,7 +50,7 @@ class ServiceController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'seekingWorkLists', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories', 'findNearestServices', 'servicesByCategory']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'seekingWorkLists', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories', 'findNearestServices', 'servicesByCategory', 'allFeaturedServices']]);
         $this->user = $this->guard()->user();
     }
 
@@ -1377,6 +1377,15 @@ class ServiceController extends Controller
 
         return response()->json([
             'reply' => $reply,
+        ], 200);
+    }
+
+    public function allFeaturedServices()
+    {
+        $featured_services = Service::where('is_featured', 1)->paginate(9);
+
+        return response()->json([
+            'featured_services' => new ServiceResourceCollection($featured_services),
         ], 200);
     }
 
