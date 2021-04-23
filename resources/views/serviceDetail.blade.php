@@ -373,11 +373,11 @@
                                 <div class="tab-pane fade " id="seven" role="tabpanel" aria-labelledby="seven-tab">
                                     <div class="properties-description mb-50">
                                         @guest
-                                            <p class="animate__animated animate__bounce">Please login to see this service provider's phone number!</p>
+                                            <p class="animate__animated animate__bounce">Please login to see this service provider's contact details!</p>
                                         @endguest
                                         @auth
                                             <p class="animate__animated animate__bounce">
-                                                <strong><i class="fa fa-phone"></i> Phone Number:</strong> <a class="btn btn-success" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px;">
+                                                <strong><i class="fa fa-phone"></i> Phone Number:</strong> <a href="tel:{{$serviceDetail->phone}}">
                                                      {{$serviceDetail->phone}}
                                                 </a>
                                             </p>
@@ -385,8 +385,13 @@
                                                 <strong><i class="fa fa-envelope-open"></i> E-mail Address:</strong> <a href="mailto:{{$serviceDetail->user->email}}"> {{$serviceDetail->user->email}}</a>
                                             </p>
                                             <p class="animate__animated animate__bounce">
-                                                <strong><i class="fa fa-map-marker"></i> Address:</strong> {{$serviceDetail->streetAddress}} | {{$serviceDetail->city}} | &nbsp; {{$serviceDetail->state}}
+                                                <strong><i class="fa fa-map-marker"></i> State and City:</strong> {{$serviceDetail->city}}, {{$serviceDetail->state}}
                                             </p>
+                                            @if ($serviceDetail->address)
+                                            <p class="animate__animated animate__bounce">
+                                                <strong><i class="fa fa-map"></i> Full Address:</strong> {{ $serviceDetail->address ? $serviceDetail->address : '' }}
+                                            </p>
+                                            @endif
                                         @endauth
                                     </div>
                                 </div>

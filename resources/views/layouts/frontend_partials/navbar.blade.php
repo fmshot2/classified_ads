@@ -206,9 +206,11 @@
                     <a data-toggle="modal" data-target="#launchAgentModal" href="#"  class="nav-link">Become our Agent</a>
                 </li>
 
+                @guest
                 <li class="nav-item rainbow">
                     <a href="{{ route('register') }}"  class="nav-link">Promo Registration</a>
                 </li>
+                @endguest
 
 
                 {{-- <li class="nav-item">
