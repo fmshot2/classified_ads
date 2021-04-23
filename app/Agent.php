@@ -32,6 +32,16 @@ class Agent extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+
+/**
+     * Get all of the user's payments.
+     */
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, 'paymentable');
+    }
+
+
     /**
      * Get all of the post's comments.
      */
