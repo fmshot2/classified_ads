@@ -145,10 +145,6 @@ Advert Payments  |
 							                    <!-- /.box-footer -->
 							            </form>
 								      </div>
-								      {{-- <div class="modal-footer">
-								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								        <button type="button" class="btn btn-primary">Save changes</button>
-								      </div> --}}
 								    </div>
 								  </div>
 								</div>
@@ -161,7 +157,6 @@ Advert Payments  |
 
 
 					</table>
-    {{-- {{ $buyers->links() }} --}}
 
 
 				</div>
@@ -244,10 +239,6 @@ Advert Payments  |
                     <!-- /.box-footer -->
             </form>
 	      </div>
-	      {{-- <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
-	      </div> --}}
 	    </div>
 	  </div>
 	</div>
@@ -256,24 +247,6 @@ Advert Payments  |
 </section>
 </div>
 
-
-
-{{-- 
-<script type="text/javascript">
-	$(document).ready( function () {
-	    $('#data_table1').DataTable({
-			dom: 'Bfrtip',
-			buttons: [
-				'copy', 'csv', 'excel', 'pdf', 'print'
-			],
-		  "language": {
-    "paginate": {
-      "previous": "Previous page"
-    }
-  }
-		});
-	});
-</script> --}}
 
 <script>
         function activateUser22(id) {

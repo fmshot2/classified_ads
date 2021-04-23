@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-All Registration Payments   | 
+All Subscriptions   | 
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@ All Registration Payments   |
 	<section class="content-header">
             
            <h1>
-           All Payments Made For Registration
+           All Subscriptions
             <br><small>View and manage all payments made for registration</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="{{ route('accountant.dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Payments for registration.</li>
+            <li class="active">Subscriptions.</li>
           </ol>
         </section>
 	<div class="container">
@@ -34,7 +34,7 @@ All Registration Payments   |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Payments For registration.</h3>
+						<h3 class="box-title"> Subscriptions.</h3>
 					</div>
 
 					<!-- /.box-header -->
