@@ -148,13 +148,13 @@
                                                                 <div class="row">
                                                                     @csrf
                                                                     <input type="hidden" name="service_id" value=" {{ $all_messages->service_id }} ">
-                                                                    <input type="hidden" name="buyer_id" value=" {{ $all_messages->buyer_id }}">
+                                                                    <input type="hidden" name="buyer_id" value=" {{ Auth::user()->id }}">
                                                                     <input type="hidden" name="service_user_id" value=" {{ $all_messages->service_user_id }}">
 
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <label for="">Sender Email:</label>
-                                                                            <input class="form-control" name="buyer_email" type="email" value=" {{ Auth::user()->email }} " disabled="">
+                                                                            <input class="form-control" name="buyer_email" type="email" value=" {{ $all_messages->buyer_email }} " disabled="">
                                                                         </div>
                                                                     </div>
 
