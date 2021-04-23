@@ -52,7 +52,7 @@ All Agents Due Payments |
 									<th>Bank</th>
 									<th>Account Number</th>
 									
-									<th> Total Remaining Balance </th>									 --}}
+									<th> Total Remaining Balance </th>									
 								</tr>	
 							</thead>
 							<tbody>
