@@ -20,6 +20,16 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
  //    }
 
 
+
+   /**
+     * Get all of the user's payments.
+     */
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, 'paymentable');
+    }
+
+
     /**
      * The attributes that are mass assignable.
      *
