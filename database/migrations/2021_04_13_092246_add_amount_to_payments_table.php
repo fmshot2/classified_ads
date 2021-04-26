@@ -14,7 +14,7 @@ class AddAmountToPaymentsTable extends Migration
     public function up()
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->string('amount')->nullable();
+            $table->integer('amount')->nullable()->default(0);
         });
     }
 

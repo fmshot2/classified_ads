@@ -21,13 +21,23 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 
 
 
-   // /**
-   //   * Get all of the user's payments.
-   //   */
-   //  public function payments()
-   //  {
-   //      return $this->morphMany(Payment::class, 'paymentable');
-   //  }
+   /**
+     * Get all of the user's payments.
+     */
+    public function mypayments()
+    {
+        return $this->morphMany(Payment::class, 'paymentable');
+    }
+
+
+    /**
+     * Get all of the user's subscriptions.
+     */
+    public function subscriptions()
+    {
+        return $this->morphMany(Subscription::class, 'subscriptionable');
+    }
+
 
 
     /**

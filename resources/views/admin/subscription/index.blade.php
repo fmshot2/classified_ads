@@ -44,21 +44,21 @@ All Seller |
 									@foreach($all_subscriptions as $key => $all_subscription)
 
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-									<td> {{ $all_subscription->user->name }} </td>
-									<td><span class="text-muted"> </i> {{ $all_subscription->user->email }} </span> </td>
-									<td> {{ $all_subscription->user->role }} </td>
-									<td> {{ $all_subscription->user->created_at->diffForHumans() }} </span></td>
+									<td> {{ $all_subscription->subscriptionable->name }} </td>
+									<td><span class="text-muted"> </i> {{ $all_subscription->subscriptionable->email }} </span> </td>
+									<td> {{ $all_subscription->subscriptionable->role }} </td>
+									<td> {{ $all_subscription->subscriptionable->created_at->diffForHumans() }} </span></td>
 									<td>
-										@if($all_subscription->user->status == 1)
+										@if($all_subscription->subscriptionable->status == 1)
 										<span><p id="active_text">Activated</p></span>
-										@elseif($all_subscription->user->status == 0)
+										@elseif($all_subscription->subscriptionable->status == 0)
 										<span id="active_text2">Deactivated</span>
 										@endif 
 									</td>
 					
 									<td>
-										<button id="" class="activate-submit btn-success" onclick="activateUser({{$all_subscription->user->id}})" type="button" class="btn btn-success">
-											@if($all_subscription->user->status == 0)<span id="activate1">Activate User</span>@elseif($all_subscription->user->status == 1)<span id="activate2">Deactivate</span>
+										<button id="" class="activate-submit btn-success" onclick="activateUser({{$all_subscription->subscriptionable->id}})" type="button" class="btn btn-success">
+											@if($all_subscription->subscriptionable->status == 0)<span id="activate1">Activate User</span>@elseif($all_subscription->subscriptionable->status == 1)<span id="activate2">Deactivate</span>
 										@endif</button> 
 									</td>
 

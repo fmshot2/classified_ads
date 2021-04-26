@@ -158,6 +158,7 @@ class AccountantController extends Controller
 
     public function badgeRequests()
     {
+
         $all_badges = Payment::where('payment_type', 'badge_payment')->get();
         return view('accountant.badges.badges', [
             'all_badges' => $all_badges
@@ -410,7 +411,7 @@ class AccountantController extends Controller
 
     public function allEfPayments()
     {
-        $payments = Payment::with('user')->get();
+        $payments = Payment::all();
         return view('accountant.payments.all_ef_payments', [
             'payments' => $payments
         ]);

@@ -30,10 +30,10 @@ class CreateServicesTable extends Migration
             $table->string('video_link')->nullable();
             $table->string('min_price')->nullable();
             $table->string('max_price')->nullable();
-            $table->boolean('is_featured')->nullable()->default(false);
-            $table->boolean('is_approved')->nullable()->default(false);
+            $table->boolean('is_featured')->nullable()->default(0);
+            $table->boolean('is_approved')->nullable()->default(0);
             $table->string('slug')->unique()->nullable();
-            $table->boolean('status')->default(false);
+            $table->boolean('status')->default(0);
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('category_id')->nullable();
             $table->timestamps();
