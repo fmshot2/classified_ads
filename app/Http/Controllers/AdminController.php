@@ -41,7 +41,7 @@ class AdminController extends Controller
 
     public function usersfeedback()
     {
-        $feedbacks = UserFeedback::all();
+        $feedbacks = UserFeedback::orderBy('created_at','desc')->get();
 
         return view('admin.feedbacks', [
             'feedbacks' => $feedbacks
