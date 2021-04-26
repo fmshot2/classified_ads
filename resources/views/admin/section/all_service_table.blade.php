@@ -15,7 +15,8 @@
 							<th> # </th>
 							<th> Image </th>
 							<th> Name </th>
-							<th> is_featured </th>
+							<th> Phone </th>
+							<th> Featured </th>
 							<th> Status </th>
 							<th> Date </th>
 							<th> Action </th>
@@ -31,6 +32,7 @@
                                     </a>
                                 </td>
                                 <td> {{ Str::limit($all_services->name, 15) }} </td>
+                                <td> {{ $all_services->phone }} </td>
                                 <td> {{ $all_services->is_featured == 1 ? 'Yes' : 'No' }} </td>
                                 <td> {{ $all_services->status == 1 ? 'Active' : 'Pending' }} </td>
                                 <td> {{ $all_services->created_at->format('d/m/Y') }} </span></td>
