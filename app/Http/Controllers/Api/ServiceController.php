@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Advertisement;
+use App\Badge;
 use App\Category;
+use App\Comment;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AdvertisementResource;
 use App\Http\Resources\AdvertisementResourceCollection;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\SeekingWorkResource;
+use App\Http\Resources\SeekingWorkResourceCollection;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\ServiceResourceCollection;
 use App\Service;
@@ -28,8 +31,14 @@ use App\Like;
 use App\Local_government;
 use App\Message;
 use App\Notification;
+use App\Payment;
+use App\PaymentRequest;
+use App\ProviderSubscription;
 use App\Refererlink;
-
+use Carbon\Carbon;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ServiceController extends Controller
 {
@@ -41,8 +50,14 @@ class ServiceController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'seekingWorkLists', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories', 'findNearestServices', 'servicesByCategory']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'seekingWorkLists', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories', 'findNearestServices', 'servicesByCategory', 'allFeaturedServices']]);
         $this->user = $this->guard()->user();
+    }
+
+
+    protected function guard()
+    {
+        return Auth::guard();
     }
 
     /**
@@ -53,7 +68,7 @@ class ServiceController extends Controller
     public function index()
     {
         // return ServiceResource::collection(Service::paginate(5));
-        return (new ServiceResourceCollection(Service::where('status', 1)->get()))
+        return (new ServiceResourceCollection(Service::where('status', 1)->paginate(9)))
             ->response()
             ->setStatusCode(200);
     }
@@ -66,7 +81,7 @@ class ServiceController extends Controller
     public function seekingWorkLists()
     {
         // return ServiceResource::collection(Service::paginate(5));
-        return (new SeekingWorkResource(SeekingWork::where('status', 1)->get()))
+        return (new SeekingWorkResourceCollection(SeekingWork::where('status', 1)->paginate(9)))
             ->response()
             ->setStatusCode(200);
     }
@@ -233,6 +248,7 @@ class ServiceController extends Controller
 
         $service->sub_categories()->attach($request->sub_category);
 
+        $service_owner = $user;
         $service_owner->name = $user->name;
         $service_owner->email = $user->email;
 
@@ -294,7 +310,7 @@ class ServiceController extends Controller
             ]);
         }
         // return ServiceResource::collection(Service::paginate(5));
-        return (new ServiceResourceCollection($user->services))
+        return (new ServiceResourceCollection(Service::where('user_id', $user->id)->paginate(9)))
             ->response()
             ->setStatusCode(200);
     }
@@ -350,6 +366,323 @@ class ServiceController extends Controller
         ], 200);
     }
 
+    public function myMessages()
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $all_message = Message::where('service_user_id', Auth::id())->orderBy('id', 'desc')->paginate(50);
+
+        return response()->json([
+            $all_message,
+        ], 200);
+
+
+    }
+
+    public function deleteMessage($id)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $message = Message::findOrFail($id);
+
+        if ($message->delete()) {
+            return response()->json([
+                'Message Deleted!'
+            ], 200);
+        }
+    }
+
+    public function viewMessage(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $message = Message::where('slug', $request->slug)->firstOrFail();
+        $message->status = 1;
+        $message->save();
+
+        return response()->json([
+            'message' => $message
+        ], 200);
+    }
+
+    public function unReadMessages(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $all_messages = Message::where('service_user_id', $user->id)->Where('status', 0)->orderBy('id', 'desc')->paginate(9);
+
+        return response()->json([
+            'unread_messages' => $all_messages
+        ], 200);
+    }
+
+    public function readMessages(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $all_messages = Message::where('service_user_id', $user->id)->Where('status', 1)->orderBy('id', 'desc')->paginate(9);
+
+        return response()->json([
+            'read_messages' => $all_messages
+        ], 200);
+    }
+
+    public function replyMessage(Request $request)
+    {
+        $message = Message::where('slug', $request->slug)->firstOrFail();
+
+        return response()->json([
+            'message' => $message
+        ], 200);
+    }
+
+    public function messageReply(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $validatedData = $request->validate([
+            'description' => 'required|max:255',
+        ]);
+
+        $slug = Str::random(6);
+
+        $message = New Message();
+        $message->subject = $request->subject;
+        $message->description = $request->description;
+        $message->service_id = $request->service_id;
+        $message->service_user_id = $request->service_user_id;
+        $message->buyer_name = $user->name;
+        $message->buyer_email = $user->email;
+        $message->buyer_id = $request->buyer_id;
+        $message->reply = 'yes';
+        $message->phone = $request->phone;
+        $message->slug = $slug;
+
+        if ($message->save()) {
+            return response()->json([
+                'message' => $message
+            ], 200);
+        }
+
+    }
+
+    public function allNotifications()
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $all_notifications = $user->notifications;
+
+        return response()->json([
+            'all_notifications' => $all_notifications
+        ], 200);
+    }
+
+    public function viewNotification(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $notification = DatabaseNotification::where('id', $request->notification_id)->firstOrFail();
+        $notification->read_at = Carbon::now()->toDateString();
+        $notification->save();
+
+        return response()->json([
+            'notification' => $notification
+        ], 200);
+    }
+
+    public function notificationMarkAsAllRead()
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+        $user->unreadNotifications->markAsRead();
+
+        return response()->json([
+            'All Notifications Marked as Read!'
+        ], 200);
+    }
+
+    public function notificationMarkAsRead(Request $request)
+    {
+        $notification = DatabaseNotification::where('id', $request->notification_id)->firstOrFail();
+        $notification->read_at = Carbon::now()->toDateString();
+
+        if ($notification->save()) {
+            return response()->json([
+                'Notification Marked As Read!'
+            ]);
+        }
+    }
+
+    public function notificationDelete(Request $request)
+    {
+        $notification = DatabaseNotification::where('id', $request->notification_id)->firstOrFail();
+
+        if ($notification->delete()) {
+            return response()->json([
+                'Notification Deleted!'
+            ]);
+        }
+
+        return response()->json([
+            'error' => 'Notification Couldn\'t Deleted!'
+        ]);
+    }
+
+    public function requestForBadge(Request $request, $id)
+    {
+        if ($id == 1) {
+            $badge = [
+                'badge_type' => 'Super',
+                'badge_cost' => 1500000
+            ];
+        }
+        elseif ($id == 2) {
+            $badge = [
+                'badge_type' => 'Moderate',
+                'badge_cost' => 1000000
+            ];
+        }
+        elseif ($id == 3) {
+            $badge = [
+                'badge_type' => 'Basic',
+                'badge_cost' => 500000
+            ];
+        }
+
+        return $badge;
+    }
+
+    public function paidForBadge(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $user->badgetype = $request->get('badge_type');
+
+        $badge = new Badge();
+        $badge->user_id = $user->id;
+
+        if ($request->get('badge_type') == 1) {
+            $badge->badge_type = 'Super User';
+        }
+        elseif ($request->get('badge_type') == 2) {
+            $badge->badge_type = 'Moderate User';
+        }
+        elseif ($request->get('badge_type') == 3) {
+            $badge->badge_type = 'Basic User';
+        }
+
+        $badge->amount = $request->get('amount');
+        $badge->ref_no = $request->get('trans_reference');
+        $badge->seller_name = $user->name;
+        $badge->save();
+
+
+        if ($request->get('badge_type') == 1) {
+            $badge_name = 'Super User';
+        }
+        elseif ($request->get('badge_type') == 2) {
+            $badge_name = 'Moderate User';
+        }
+        elseif ($request->get('badge_type') == 3) {
+            $badge_name = 'Basic User';
+        }
+
+        if ($user->save()) {
+            $reg_payments = new Payment();
+            $reg_payments->user_id = Auth::id();
+            $reg_payments->payment_type = 'badge_payment';
+            $reg_payments->amount = $request->get('amount');
+            $reg_payments->tranx_ref = $request->get('trans_reference');
+            $reg_payments->save();
+
+            return response()->json([
+                'badge_type' => $badge_name
+            ], 200);
+        }
+        else {
+            return 'Something went wrong!';
+        }
+    }
+
+    public function paymentHistory()
+    {
+        $user = auth()->user();
+        $user_id = $user->id;
+        $payment_history = PaymentRequest::where('user_id', $user_id)->get();
+
+        $total_balance = DB::table('payment_requests')->where('user_id', $user_id)->sum('amount_requested') + $user->refererAmount;
+        $total_requested = DB::table('payment_requests')->where(['user_id' => $user_id, 'is_paid' => 1])->sum('amount_requested');
+        $total_pending = DB::table('payment_requests')->where(['user_id' => $user_id, 'is_paid' => 0])->sum('amount_requested');
+        $balance = $user->refererAmount;
+
+        return response()->json([
+            'payment_history' => $payment_history,
+            'total_earnings' => $total_balance,
+            'total_withdrawn' => $total_requested,
+            'remaining_balance' => $balance,
+            'total_pending' => $total_pending
+        ], 200);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -358,7 +691,7 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        $service = Service::find($id);
+        $service = Service::findOrFail($id);
 
         return (new ServiceResource($service))
             ->response()
@@ -375,7 +708,7 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $service = Service::find($id);
+        $service = Service::findOrFail($id);
         $service->name = $request->name;
         $service->description = $request->description;
         $service->city = $request->city;
@@ -534,7 +867,7 @@ class ServiceController extends Controller
 
     public function imagesDelete($seekingworkid, $id)
     {
-        $image = ModelImage::where('imageable_id', $seekingworkid)->where('id', $id)->first();
+        $image = ModelImage::where('imageable_id', $seekingworkid)->where('id', $id)->firstOrFail();
         $filename = $image->image_path;
         $image->delete();
 
@@ -597,7 +930,7 @@ class ServiceController extends Controller
      */
     public function deleteService($id)
     {
-        $service = Service::find($id);
+        $service = Service::findOrFail($id);
 
         if ($service->delete()) {
             return response()->json([
@@ -849,7 +1182,7 @@ class ServiceController extends Controller
      */
     public function sub_categories()
     {
-        return response()->json(SubCategory::all(), 200);
+        return response()->json(SubCategory::paginate(9), 200);
     }
 
     /**
@@ -859,7 +1192,7 @@ class ServiceController extends Controller
      */
     public function showcategory($id)
     {
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
 
         return (new CategoryResource($category))
             ->response()
@@ -869,18 +1202,29 @@ class ServiceController extends Controller
     public function servicesByCategory(Request $request)
     {
         $slug = $request->slug;
-        $the_category = Category::where('slug', $slug)->first();
+        $the_category = Category::where('slug', $slug)->firstOrFail();
         $category_id = $the_category->id;
-        $category_services = Service::where('category_id', $category_id)->orderBy('badge_type', 'asc')->where('status', 1)->paginate(100);
 
+        if ($category_id == 1) {
+            $category_services = SeekingWork::where('category_id', $category_id)->where('status', 1)->orderBy('badge_type', 'asc')->paginate(9);
 
-        return response()->json([
-            'category' => $the_category->name,
-            'services' => (new ServiceResourceCollection($category_services))
-            ], 200);
+            return response()->json([
+                'category' => $the_category->name,
+                'job_applicants' => (new SeekingWorkResourceCollection($category_services))
+                ], 200);
+        }
+        else{
+            $category_services = Service::where('category_id', $category_id)->where('status', 1)->orderBy('badge_type', 'asc')->paginate(9);
+
+            return response()->json([
+                'category' => $the_category->name,
+                'services' => (new ServiceResourceCollection($category_services))
+                ], 200);
+        }
+
     }
 
-    public function findNearestServices(Request $request)
+    public function serviceCloseToYou(Request $request)
     {
         $latitude = $request->latitude;
         $longitude = $request->longitude;
@@ -902,14 +1246,147 @@ class ServiceController extends Controller
             'services' => $services,
             'latitude' => $latitude,
             'longitude' => $longitude
-            ], 200);
+        ], 200);
 
     }
 
 
-    protected function guard()
+    public function featuredServices($id)
     {
-        return Auth::guard();
+        $service = Service::find($id);
+         if (!$service) {
+            return response()->json([
+                'data' => [],
+                'res_message' => 'fail',
+                'res_code' => 404,
+            ], 404);
+        }
+
+        $service->is_featured = 1;
+        // $service->save();
+        if ($service->save()) {
+           return response()->json([
+                'data' => $service,
+                'res_message' => 'success',
+                'res_code' => 200,
+            ], 200);
+        }
+    }
+
+
+
+    public function userSubscription(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'amount' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([$validator->errors()], 422);
+        }
+
+        $added_days = 0;
+        $mytime = Carbon::now();
+
+        // Produces something like "2019-03-11 12:25:00"
+        $current_date_time = Carbon::now()->toDateTimeString();
+        //
+        $added_date_time = Carbon::now()->addDays(5)->toDateTimeString();
+        $data = $request->all();
+        // $this->validate($request, [
+        //     'amount' => 'required',
+        // ]);
+        $sub_check = ProviderSubscription::where(['user_id' => Auth::id()])->first();
+        if ($sub_check) {
+            if ($request->amount == '200') {
+                $added_days = 31;
+                $sub_type = 'monthly';
+            }elseif ($request->amount == '600') {
+                $added_days = 93;
+                $sub_type = '3-months';
+            }elseif ($request->amount == '1200') {
+                $added_days = 186;
+                $sub_type = 'bi-annual';
+            }elseif($request->amount == '2400') {
+                $added_days = 372;
+                $sub_type = 'annual';
+            }else{
+                return response()->json(['res_message' => 'invalid amount provided', 'res_code' => 404], 200);
+            }
+
+            $initial_end_date = $sub_check->subscription_end_date;
+            $sub_check->user_id = Auth::id();
+            $sub_check->sub_type = $sub_type;
+            $sub_check->user_type = 'provider';
+            $sub_check->last_amount_paid = $request->amount;
+            $sub_check->subscription_end_date = Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s');
+            $sub_check->last_subscription_starts = $current_date_time;
+            $sub_check->save();
+
+            return response()->json(['res_message' => 'Success', 'res_code' => 200], 200);
+        }else{
+            return response()->json(['res_message' => 'user not found', 'res_code' => 404], 200);
+        }
+    }
+
+
+    public function storeComment(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+        $comment = new Comment();
+        $comment->comment = $request->get('comment');
+        $comment->user()->associate($user);
+        $service = Service::find($request->service_id);
+        $service->comments()->save($comment);
+
+        return response()->json([
+            'comment' => $comment,
+        ], 200);
+    }
+
+    public function storeCommentReply(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $reply = new Comment();
+        $reply->comment = $request->get('comment');
+        $reply->user()->associate($user);
+        $reply->parent_id = $request->get('comment_id');
+        $service = Service::find($request->get('service_id'));
+        $service->comments()->save($reply);
+
+        return response()->json([
+            'reply' => $reply,
+        ], 200);
+    }
+
+    public function allFeaturedServices()
+    {
+        $featured_services = Service::where('is_featured', 1)->paginate(9);
+
+        return response()->json([
+            'featured_services' => new ServiceResourceCollection($featured_services),
+        ], 200);
     }
 
 

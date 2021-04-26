@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('title')
-All E.F Maketers | 
+All E.F Maketers |
 @endsection
 
 @section('content')
@@ -36,30 +36,34 @@ All E.F Maketers |
 									<th> Name </th>
 									<th> Email </th>
 									<th> role </th>
-									<th> Applied for Approval?</th>
-									<th> Date </th>
-									<th> Activate/Deactivate</th>
+									<th> reg date</th>
+									<th> status </th>
+									<th> Downline </th>
 								</tr>
-							</thead>	
+							</thead>
 							<tbody>
 									@foreach($efmarketers as $key => $efmarketer)
 								<tr>
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 									<td> {{ $efmarketer->name }} </td>
 									<td><span class="text-muted"> </i> {{ $efmarketer->email }} </span> </td>
-									<td> {{ $efmarketer->role }} </td>
-									<td> {{ $efmarketer->created_at->diffForHumans() }} </span></td>
+									@if ($efmarketer->role == 'seller')
+                                        <td> Service Provider </td>
+                                    @elseif($efmarketer->role == 'buyer')
+                                        <td> Service Seeker </td>
+                                    @endif
+									<td> {{ $efmarketer->created_at->format('d/m/Y') }} </span></td>
 									<td>
 										@if($efmarketer->status == 1)
 										<span><p id="active_text">Activated</p></span>
 										@elseif($efmarketer->status == 0)
 										<span id="active_text2">Deactivated</span>
-										@endif 
+										@endif
 									</td>
 									 <td class="center">
                                             <a href="{{route('efMarketerDownline', $efmarketer->slug)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
                                     </td>
-			
+
 
 								</tr>
 
@@ -75,7 +79,7 @@ All E.F Maketers |
 
 
 				<!-- /.content -->
-			</div>	
+			</div>
 
 		</div>
 

@@ -27,6 +27,7 @@ class Register extends Component
     public $referParam;
     public $name;
     public $email;
+    public $phone;
     public $password;
     public $password_confirmation;
     public $role;
@@ -56,6 +57,7 @@ class Register extends Component
             'referParam'            => ['nullable', 'string', 'max:255'],
             'name'                  => ['required', 'string', 'max:255'],
             'email'                 => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone'                 => ['required', 'numeric'],
             'password'              => ['required', 'string', 'min:6'],
             'role'                  => ['required', Rule::in(['seller', 'buyer'])],
             'agent_code'            => ['nullable', 'exists:agents,agent_code'],
@@ -78,21 +80,22 @@ class Register extends Component
 
             // live variable
             // 'key'    => config('variable.paystack_pk_live'),
-            'key'    => env('paystack_pk'),      
+            'key'    => 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
             'amount' => $this->plan * 100,
             'email'  => $this->email,
             'name'   => $this->name,
         ];
 
         if ($this->role === 'buyer') {
-            $this->save_user(0);
+            $this->save_buyer();
         }
+
         $this->dispatchBrowserEvent('pay_with_paystack', ['data' => $data]);
     }
 
     public function verifyPaystackAmount($paystack_response)
     {
-        $paystack_sk    = env('paystack_sk');
+        $paystack_sk    = 'sk_test_11395d522a279cf6fb0f8c6cf0fd7f41b2c15200';
 
         $response = Http::withHeaders([
             'content-type' => 'application/json',
@@ -100,7 +103,7 @@ class Register extends Component
         // ->withToken('sk_live_567bac30399617933d4403048429bcfbd565cba1')
         // ->withToken('sk_test_11395d522a279cf6fb0f8c6cf0fd7f41b2c15200')
 
-        ->withToken($paystack_sk)
+        ->withToken('sk_test_11395d522a279cf6fb0f8c6cf0fd7f41b2c15200')
         ->get("https://api.paystack.co/transaction/verify/" . $paystack_response['trxref']);
 
         $json_resp = $response->json();
@@ -117,57 +120,6 @@ class Register extends Component
             session()->flash('message', 'there was an error with your payment, please contact admin.');
         }
     }
-
-
-    public function createSubpay(Request $request)
-    {
-        $added_days = 0;
-        $mytime = Carbon::now();
-
-        // Produces something like "2019-03-11 12:25:00"
-        $current_date_time = Carbon::now()->toDateTimeString();
-        //
-        $added_date_time = Carbon::now()->addDays(5)->toDateTimeString();
-
-
-
-
-        $data = $request->all();
-
-
-
-        $this->validate($request, [
-            'amount' => 'required',
-            'email' => 'required',
-        ]);
-        $sub_check = ProviderSubscription::where(['user_id' => Auth::id()])->first();
-        //  $user_check->badgetype = $data['badge_type'];
-        //  $user_check->save();
-        if ($data['amount'] == '200') {
-            $added_days = 31;
-        }
-        if ($data['amount'] == '1200') {
-            $added_days = 186;
-        }
-        if ($data['amount'] == '2400') {
-            $added_days = 372;
-        }
-
-        $sub_check = new ProviderSubscription();
-        $sub_check->user_id = Auth::id();
-        $sub_check->sub_type = $data['sub_type'];
-        $sub_check->user_type = 'provider';
-        $sub_check->last_amount_paid = $data['amount'];
-        $sub_check->subscription_end_date = Carbon::now()->addDays($added_days);
-        $sub_check->last_subscription_starts = $current_date_time;
-        $sub_check->save();
-
-        return response()->json(['success' => $sub_check, 'success3' => $current_date_time], 200);
-    }
-
-
-
-
 
     public function save_user($amount, $tranxRef)
     {
@@ -202,6 +154,7 @@ class Register extends Component
         $user           = new User;
         $user->name     = $this->name;
         $user->email    = $this->email;
+        $user->phone    = $this->phone;
         $user->password = Hash::make($this->password);
         $user->role     = $this->role;
         //save id of referer if user was reffererd
@@ -248,7 +201,7 @@ class Register extends Component
                 $sub_type = 'monthly';
             }elseif ($amount == 60000) {
                 $added_days = 186;
-                $sub_type = '3 months';   
+                $sub_type = '3 months';
             } elseif ($amount == 120000) {
                 $added_days = 186;
                 $sub_type = 'bi-annual';
@@ -273,11 +226,13 @@ class Register extends Component
 
 
             $reg_payments = new Payment();
-            $reg_payments->user_id = Auth::id();
-            $reg_payments->payment_type = 'registration';
-            $reg_payments->amount = $this->plan;
-            $reg_payments->tranx_ref = $tranxRef;
-            $reg_payments->save();
+            // $reg_payments->user_id = Auth::id();
+            // $reg_payments->payment_type = 'registration';
+            // $reg_payments->amount = $this->plan;
+            // $reg_payments->tranx_ref = $tranxRef;
+            // $reg_payments->save();
+
+            Auth::user()->mypayments()->create(['payment_type' => 'registration', 'amount' => $this->plan, 'tranx_ref' => $tranxRef ]);
 
 
             //level 1 start
@@ -294,7 +249,7 @@ class Register extends Component
                         return  Redirect::to(Session::get('url.intended'));
                         } else {
                         return redirect()->route('admin.dashboard');
-                        }                    
+                        }
                     }
 
 
@@ -320,7 +275,7 @@ class Register extends Component
                         return  Redirect::to(Session::get('url.intended'));
                         } else {
                         return redirect()->route('admin.dashboard');
-                        }                    
+                        }
                     }
                     $referer2->refererAmount = $referer2->refererAmount + 200;
 
@@ -342,7 +297,7 @@ class Register extends Component
                 if ($referer) {
                     //level 2 referer id
                     $person_that_refered2 = $referer->idOfReferer;
-                    //level 2 referer 
+                    //level 2 referer
                     if ($person_that_refered2) {
                         $referer2 = User::where('id', $person_that_refered2)->first();
                         if ($referer2) {
@@ -354,7 +309,7 @@ class Register extends Component
                                     return  Redirect::to(Session::get('url.intended'));
                                 } else {
                                     return redirect()->route('admin.dashboard');
-                                }                    
+                                }
                             }
 
                             $referer2->refererAmount = $referer2->refererAmount + 150;
@@ -381,7 +336,7 @@ class Register extends Component
                                     return  Redirect::to(Session::get('url.intended'));
                                 } else {
                                     return redirect()->route('admin.dashboard');
-                                }                    
+                                }
                             }
 
                             $referer2->refererAmount = $referer2->refererAmount + 150;
@@ -394,7 +349,7 @@ class Register extends Component
                     }
                 }
             }
-            //end level 2 payment      
+            //end level 2 payment
 
 
             //start level 3
@@ -421,7 +376,7 @@ class Register extends Component
                                     return redirect()->route('seller.dashboard');
                                 } else if (Auth::user()->role == 'buyer') {
                                     return  Redirect::to(Session::get('url.intended'));
-                                } 
+                                }
                             }
 
                                     // add amount to level 3 referer amount
@@ -459,7 +414,7 @@ class Register extends Component
                             return redirect()->route('seller.dashboard');
                         } else if (Auth::user()->role == 'buyer') {
                             return  Redirect::to(Session::get('url.intended'));
-                        } 
+                        }
                     }
 
                                     // add amount to level 3 referer amount
@@ -508,7 +463,7 @@ if ($person_that_refered) {
                                     return redirect()->route('seller.dashboard');
                                 } else if (Auth::user()->role == 'buyer') {
                                     return  Redirect::to(Session::get('url.intended'));
-                                } 
+                                }
                             }
 
                                             // add amount to level 4 referer amount
@@ -556,7 +511,7 @@ if ($person_that_refered) {
                                     return redirect()->route('seller.dashboard');
                                 } else if (Auth::user()->role == 'buyer') {
                                     return  Redirect::to(Session::get('url.intended'));
-                                } 
+                                }
                             }
 
                                             // add amount to level 4 referer amount
@@ -597,5 +552,55 @@ if (Auth::user()->role == 'seller') {
 public function render()
 {
     return view($this->current_view);
+}
+
+
+
+
+
+
+public function save_buyer(){
+     //save user
+        $user           = new User;
+        $user->name     = $this->name;
+        $user->email    = $this->email;
+        $user->password = Hash::make($this->password);
+        $user->role     = $this->role;
+        //save id of referer if user was reffererd
+        $user->idOfReferer = $this->refererId;
+        //save id of agent if user was brought by agent
+        $user->idOfAgent = $this->agent_Id;
+        // $user->refererLink = $slug3;
+        //send mail
+
+        if ($user->save()) {
+
+
+            $name         = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+            $name         = $user->name;
+            $email        = $user->email;
+            $origPassword = $this->password;
+            $userRole     = $user->role;
+
+            try {
+                Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+                Auth::attempt(['email' => $this->email, 'password' => $this->password]);
+            } catch (\Exception $e) {
+                $failedtosendmail = 'Failed to Mail!';
+            }
+        }
+
+        if (Auth::check()) {
+            $present_user = Auth::user();
+            // if referrer link is available, save it to referer table
+            $link              = new Refererlink();
+            $link->user_id     = $present_user->id;
+            $link->refererlink = $present_user->refererLink;
+            $link->save();
+
+            if (Auth::user()->role == 'buyer') {
+                return  Redirect::to(session(url()->previous()));
+            }
+}
 }
 }

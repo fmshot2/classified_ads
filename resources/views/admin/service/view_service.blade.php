@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-All Service | 
+All Service |
 @endsection
 
 @section('content')
@@ -59,7 +59,7 @@ All Service |
 
                 <div class="body">
                     <h5><strong>Description: </strong></h5>
-                    {{ $service->description  }}
+                    {!! $service->description  !!}
                 </div>
 
             </div>
@@ -91,7 +91,7 @@ All Service |
                 </div>
                             </div>
 
-            
+
                         <div class="box box-default">
                 <div class="box-header with-border">
                   <h3 class="box-title">Service Video</h3>
@@ -100,9 +100,9 @@ All Service |
                     <iframe width="560" height="315" src=" {{ $service->video_link }} " frameborder="0" allowfullscreen=""></iframe>
                 </div>
             </div>
-            
-            
-            
+
+
+
 
         {{--              <!-- Chat box -->
           <div class="box">

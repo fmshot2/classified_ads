@@ -22,7 +22,13 @@ use Illuminate\Support\Facades\Mail;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+Route::post('/comment/store', 'CommentsController@store')->name('comment.add');
+Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
+
 Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
+
 Route::get('/tester', function ()
 {
     // Mail::to('paulwhiteblogs@gmail.com')->send(new TestMail());
@@ -30,15 +36,13 @@ Route::get('/tester', function ()
     return 'done';
 });
 Route::get('email', function () {
-    return new App\Mail\SeasonGreetings();
+    return new App\Mail\ServiceApproved();
 });
 // Route::get('newsletter/', 'OperationalController@Newsletter');
 
 //Route::get('referRegister/{slug}',  'AuthController@showRegisterforRefer')->name('referRegister');
 // Route::get('referRegister/{slug}', 'AdminController@refer')->name('referRegister');
 Route::get('ajaxSearchResult/{slug}', 'OperationalController@ajaxSearchResult');
-Route::get('credentialsReset', 'OperationalController@credentialsReset')->name('credentialsReset');
-
 // Route::get('getMobileSubCategory/{slug}', 'OperationalController@getMobileSubCategory');
 
 //Agent Middleware starts here
@@ -344,7 +348,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::post('/notification/delete', 'NotificationController@notificationDelete')->name('seller.notification.delete');
 
         Route::get('/profile/', 'SellerController@viewProfile')->name('seller.profile');
-        // Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
+        Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('providerprofile.update.password');
 
 
 
@@ -570,6 +574,9 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
    Route::get('admin/send-sms', 'AdminController@sendSms')->name('admin.send_sms');
    Route::post('admin/send-sms', 'AdminController@submit_sms')->name('admin.submit.sms');
+
+   Route::get('admin/abandoned-payment', 'OperationalController@AbandonedPaymentView')->name('admin.abandoned.payment');
+   Route::post('admin/abandoned-payment', 'OperationalController@AbandonedPayment')->name('admin.abandoned.payment.send');
 
     Route::get('/admin/add-data-entry', 'AdminController@add_data')->name('admin.add.data');
     Route::post('/admin/submit-data', 'AdminController@submit_data')->name('admin.submit.data');

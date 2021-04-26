@@ -14,6 +14,7 @@ use App\Image as ModelImage;
 use App\Like;
 use App\Mail\CredentialsReset;
 use App\Mail\Newsletter;
+use App\Mail\PaymentProcessAbandoned;
 use App\Mail\UsersFeedback;
 use App\Message;
 use App\PageContent;
@@ -32,6 +33,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Image;
 use App\Payment;
+
 
 
 class OperationalController extends Controller
@@ -667,6 +669,29 @@ class OperationalController extends Controller
                     "categories" => $categories,
                 ]);
             }
+            else {
+                $services = Service::query()
+                            ->where('status', 1)
+                            ->with('category')
+                            ->whereHas('category', function($query) use ($categoryId)  {
+                                $query->where('id', $categoryId);
+                            })->get();
+
+                if (!$services->isEmpty()) {
+                    return view('dapSearchResult', [
+                        "message" => 'Your search result in <strong>'.$categoryname.'</strong>',
+                        "services" => $services,
+                        "featuredServices" => $featuredServices,
+                        "categories" => $categories,
+                    ]);
+                }
+                else{
+                    return view('dapSearchResult', [
+                        "message" => 'No result found for your search in <strong>'.$categoryname.'</strong>',
+                        "categories" => $categories,
+                    ]);
+                }
+            }
 
         }
 
@@ -887,7 +912,7 @@ class OperationalController extends Controller
             $sWork->skills                = $request->skills;
             $sWork->category_id           = $request->category_id;
             $sWork->is_featured           = $request->is_featured;
-            $sWork->picture               = $file_name;
+            $sWork->thumbnail             = $file_name;
 
         if ($sWork->save()) {
             $sWork->images()->create(['image_path' => $file_name]);
@@ -1108,6 +1133,34 @@ class OperationalController extends Controller
         return response()->json([
             'message' => 'Message couldn\'t marked as read!',
             'alert-type' => 'error'
+        ]);
+    }
+
+    public function AbandonedPaymentView()
+    {
+        return view('admin.data_entry.abandoned_payment');
+    }
+
+
+    public function AbandonedPayment(Request $request)
+    {
+        $emails = $request->emails;
+        $users_email = explode(',', $emails);
+
+        foreach($users_email as $name=>$email)
+        {
+            $email = trim($email);
+            try{
+                Mail::to($email)->send(new PaymentProcessAbandoned($request->subject, $request->message));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+        }
+
+        return redirect()->back()->with([
+            'message' => 'Mail Sent Successfully!',
+            'alert-type' => 'success'
         ]);
     }
 

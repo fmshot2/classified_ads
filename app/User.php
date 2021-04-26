@@ -8,17 +8,36 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-use tizis\laraComments\Traits\Commenter;
 
 class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 {
-    use Notifiable, Commenter;
+    use Notifiable;
 
 
  // public function __construct()
  //    {
  //        $this->user = auth()->user();
  //    }
+
+
+
+   /**
+     * Get all of the user's payments.
+     */
+    public function mypayments()
+    {
+        return $this->morphMany(Payment::class, 'paymentable');
+    }
+
+
+    /**
+     * Get all of the user's subscriptions.
+     */
+    public function subscriptions()
+    {
+        return $this->morphMany(Subscription::class, 'subscriptionable');
+    }
+
 
 
     /**

@@ -3,7 +3,7 @@
 @extends('layouts.admin')
 
 @section('title')
-All Accountants | 
+All Accountants |
 @endsection
 
 @section('content')
@@ -38,8 +38,8 @@ All Accountants |
 									<th> Email </th>
 									<th> Date </th>
 									<th> Status</th>
-									<th> Activate/Deactivate</th>									
-								</tr>	
+									<th> Activate/Deactivate</th>
+								</tr>
 </thead>
 								<tbody>
 								@foreach($accountants as $key => $accountant)
@@ -47,16 +47,16 @@ All Accountants |
 									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
 									<td> {{ $accountant->name }} </td>
 									<td><span class="text-muted"> </i> {{ $accountant->email }} </span> </td>
-									<td> {{ $accountant->created_at->diffForHumans() }} </span></td>
+									<td> {{ $accountant->created_at->format('d/m/Y') }} </span></td>
 									<td>@if($accountant->status == 1)<span id="active_text" class="">Activated</span>@elseif($accountant->status == 0)<span id="active_text" class="">Deactivated</span>@endif </td>
-					
+
 									<td>
 										<button id="" class="activate-submit btn-success" onclick="activateUser({{$accountant->id}})" type="button" class="btn btn-success">
 											@if($accountant->status == 0)<span id="activate">Activate User</span>@elseif($accountant->status == 1)<span id="activate">Deactivate</span>
 										@endif</button>
 									</td>
-										
-										
+
+
 									{{-- {{ $general_info->register_section_1_title ? $general_info->register_section_1_title : '' }} --}}
 
 							</tr>
@@ -77,7 +77,7 @@ All Accountants |
 
 
 			<!-- /.content -->
-		</div>	
+		</div>
 
 
 
@@ -89,7 +89,7 @@ All Accountants |
 
 
 
-{{-- 
+{{--
 <script type="text/javascript">
 	$(document).ready( function () {
 	    $('#data_table1').DataTable({

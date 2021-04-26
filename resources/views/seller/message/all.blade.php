@@ -34,7 +34,7 @@
                                         <th> SL </th>
                                         <th> Name </th>
                                         <th> Email </th>
-                                        <th> Subject </th>
+                                        <th> Message </th>
                                         <th> Status </th>
                                         <th> Date </th>
                                         <th> Action </th>
@@ -49,7 +49,7 @@
 
                                             <td> {{ $all_messages->buyer_name }} </td>
                                             <td> {{ $all_messages->buyer_email }} </td>
-                                            <td> {{ $all_messages->subject }} </td>
+                                            <td> {{ Str::limit($all_messages->description, 25) }} </td>
                                             <td id="rdStatus{{ $all_messages->slug }}"> {!! $all_messages->status == 1 ? '<strong class="text-success text-center">Read</strong>' : '<strong class="text-danger text-center">Unread</strong>' !!} </td>
                                             <td> {{ $all_messages->created_at->diffForHumans() }} </td>
 
@@ -148,13 +148,13 @@
                                                                 <div class="row">
                                                                     @csrf
                                                                     <input type="hidden" name="service_id" value=" {{ $all_messages->service_id }} ">
-                                                                    <input type="hidden" name="buyer_id" value=" {{ $all_messages->buyer_id }}">
+                                                                    <input type="hidden" name="buyer_id" value=" {{ Auth::user()->id }}">
                                                                     <input type="hidden" name="service_user_id" value=" {{ $all_messages->service_user_id }}">
 
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <label for="">Sender Email:</label>
-                                                                            <input class="form-control" name="buyer_email" type="email" value=" {{ Auth::user()->email }} " disabled="">
+                                                                            <input class="form-control" name="buyer_email" type="email" value=" {{ $all_messages->buyer_email }} " disabled="">
                                                                         </div>
                                                                     </div>
 

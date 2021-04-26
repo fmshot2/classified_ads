@@ -28,8 +28,10 @@
             <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-briefcase text-white" aria-hidden="true"></i>  </span>
 
             <div class="info-box-content">
-              <span class="info-box-text"> All Service{{ $all_service_count > 1 ? 's' : '' }} </span>
-              <span class="info-box-number"> {{ $all_service_count }} </span>
+                <a href="{{ route('admin.service.all') }}">
+                    <span class="info-box-text"> All Service{{ $all_service_count > 1 ? 's' : '' }} </span>
+                    <span class="info-box-number"> {{ $all_service_count }} </span>
+                </a>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -49,13 +51,30 @@
           <!-- /.info-box -->
         </div>
         <!-- /.col -->
+
+       <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon push-bottom bg-warning">  <i class="fa fa-eye text-white" aria-hidden="true"></i>  </span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text"> All User{{ $all_users_count > 1 ? 's' : '' }} </span>
+                    <span class="info-box-number"> {{ $all_users_count }} </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-group text-white" aria-hidden="true"></i> </span>
 
             <div class="info-box-content">
-              <span class="info-box-text"> All Provider{{ $all_sellers_count > 1 ? 's' : '' }} </span>
-              <span class="info-box-number"> {{ $all_sellers_count }} </span>
+                <a href="{{ route('admin.seller') }}">
+                    <span class="info-box-text"> All Provider{{ $all_sellers_count > 1 ? 's' : '' }} </span>
+                    <span class="info-box-number"> {{ $all_sellers_count }} </span>
+                </a>
            </div>
            <!-- /.info-box-content -->
          </div>
@@ -67,8 +86,10 @@
           <span class="info-box-icon push-bottom bg-warning">  <i class="fa fa-eye text-white" aria-hidden="true"></i>  </span>
 
           <div class="info-box-content">
-            <span class="info-box-text"> All Seeker{{ $all_buyers_count > 1 ? 's' : '' }} </span>
-            <span class="info-box-number"> {{ $all_buyers_count }} </span>
+            <a href="{{ route('admin.buyer') }}">
+                <span class="info-box-text"> All Seeker{{ $all_buyers_count > 1 ? 's' : '' }} </span>
+                <span class="info-box-number"> {{ $all_buyers_count }} </span>
+            </a>
          </div>
          <!-- /.info-box-content -->
        </div>
@@ -95,8 +116,10 @@
         <span class="info-box-icon push-bottom bg-warning">  <i class="fa fa-ban text-white" aria-hidden="true"></i> </span>
 
         <div class="info-box-content">
-          <span class="info-box-text"> Pending Service{{ $pending_service_count > 1 ? 's' : '' }} </span>
-          <span class="info-box-number"> {{ $pending_service_count }} </span>
+          <a href="{{ route('admin.service.all') }}">
+            <span class="info-box-text"> Pending Service{{ $pending_service_count > 1 ? 's' : '' }} </span>
+            <span class="info-box-number"> {{ $pending_service_count }} </span>
+          </a>
         </div>
         <!-- /.info-box-content -->
       </div>

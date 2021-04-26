@@ -57,7 +57,7 @@
                                             <td> {{ $all_service->name }} </td>
                                             <td> {{ $all_service->state }} </td>
                                             <td> {{ $all_service->featured == 1 ? 'Yes' : 'No' }} </td>
-                                            <td> {{ $all_service->created_at->diffForHumans() }} </td>
+                                            <td> {{ $all_service->created_at->format('d/m/Y') }} </td>
                                             <td><span><i class="fa fa-comments"> </i> {{ $all_service->comments->count() }}</span> </td>
                                             {{-- <td> {{$all_service->badge_type ? $all_service->badge_type : 'No Badges'}}</td> --}}
                                             <td> {{$all_service->likes->count()}}</td>

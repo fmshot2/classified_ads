@@ -14,4 +14,13 @@ class Subscription extends Model
         'name', 'email', 'password',
     ];*/
 
+
+
+/**
+     * Get the parent paymentable model.
+     */
+    public function subscriptionable()
+    {
+        return $this->morphTo();
+    }
 }

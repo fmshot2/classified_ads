@@ -45,7 +45,7 @@
                                         <tr id="notification{{ $notification->id }}">
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                             <td>{{ Str::limit( $notification->data[0]['message'], 100) }}</td>
-                                            <td>{{ $notification->created_at->diffForHumans() }}</td>
+                                            <td>{{ $notification->created_at->format('d/m/Y') }}</td>
                                             <td>
                                                 @if ($notification->read_at == null)
                                                     <a id="markAsRead{{ $notification->id }}" onclick="markNotificationRead('{{ $notification->id }}')" href="#" class="btn btn-success markAsRead"> <i class="fa fa-check"></i> </a>

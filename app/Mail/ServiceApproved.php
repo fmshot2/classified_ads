@@ -11,21 +11,22 @@ class ServiceApproved extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $name, $description, $thumbnail, $slug, $status;
+    public $name, $description, $thumbnail, $slug, $status, $reason;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    // public function __construct($name = 'Ethipoia', $description = 'efbwe hebfjewhfbj efbfbew hfefjhfwbbewjhfbef hbf  efbh eb  f bffbjfb jefbje', $thumbnail = 'serrt.jpg', $slug = 'ethiopia', $status = 'Approved')
-    public function __construct($name, $description, $thumbnail, $slug, $status)
+    // public function __construct($name = 'Ethipoia', $description = 'efbwe hebfjewhfbj efbfbew hfefjhfwbbewjhfbef hbf  efbh eb  f bffbjfb jefbje', $thumbnail = 'serrt.jpg', $slug = 'ethiopia', $status = 'Disapproved', $reason = 'You are liar!')
+    public function __construct($name, $description, $thumbnail, $slug, $status, $reason)
     {
         $this->name = $name;
         $this->description = $description;
         $this->thumbnail = $thumbnail;
         $this->slug = $slug;
         $this->status = $status;
+        $this->reason = $reason;
     }
 
     /**

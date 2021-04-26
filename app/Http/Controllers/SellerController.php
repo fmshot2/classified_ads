@@ -330,7 +330,7 @@ public function readMessage()
 
 public function allMessage()
 {
-    $all_message = Message::where('service_user_id', Auth::id() )->orderBy('id', 'desc')->paginate(10);
+    $all_message = Message::where('buyer_id', Auth::id())->orwhere('service_user_id', Auth::id())->orderBy('created_at', 'desc')->get();
     return view ('seller.message.all', compact('all_message') );
 }
 
@@ -424,10 +424,15 @@ public function storeReplyMessage(Request $request)
     $message->slug = $slug;
     $message->save();
     $success_notification = array(
-        'message' => 'Reply saved!',
+        'message' => 'Reply sent!',
         'alert-type' => 'success'
     );
-    return $this->allMessage()->with($success_notification);
+    if (Auth::user()->role == 'seller') {
+        return redirect()->route('seller.message.all')->with($success_notification);
+    }
+    if (Auth::user()->role == 'buyer') {
+        return redirect()->route('buyer.message.all')->with($success_notification);
+    }
 }
 
 public function viewNotification($slug)

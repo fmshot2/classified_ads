@@ -34,7 +34,9 @@
                             <strong style="color: rgba(190, 190, 190, 0), 0.027), 0.027); opacity: 0"><i class="fa fa-envelope-open"></i> Email:</strong> <a href="mailto: {{ $general_info->contact_email ? $general_info->contact_email : ''}}"> {{ $general_info->contact_email ? $general_info->contact_email : ''}} </a>
                         </li>
                         <li>
-                            <strong style="color: rgb(190, 190, 190)"><i class="fa fa-phone"></i> Phone:</strong> <a href="tel:  {{ $general_info->hot_line ? $general_info->hot_line : '' }}">  {{ $general_info->hot_line ? $general_info->hot_line : '' }} </a>
+                            <strong style="color: rgb(190, 190, 190)"><i class="fa fa-phone"></i> Phone:</strong> <a href="tel:  {{ $general_info->hot_line ? $general_info->hot_line : '' }}">  {{ substr($general_info->hot_line,0,4).'-'.substr($general_info->hot_line,4,3).'-'.substr($general_info->hot_line,7,5) }} </a>
+
+                            {{-- <strong style="color: rgb(190, 190, 190)"><i class="fa fa-phone"></i> Phone:</strong> <a href="tel:  {{ $general_info->hot_line ? $general_info->hot_line : '' }}">  {{ $general_info->hot_line ? $general_info->hot_line : '' }} </a> --}}
                         </li>
                         {{-- <li>
                             Phone 2: <a href="tel: {{ $check_general_info == 0 ? $general_info->hot_line_2 : ''}}"> {{ $check_general_info == 0 ? $general_info->hot_line_2 : ''}} </a>
@@ -140,7 +142,7 @@
         </div>
         <div class="row">
             <div class="col-xl-12">
-                <p class="copy">© 2021 EFContact <a href="https://www.efnetworks.com">Powered by EF Network Ltd. </a><a href="{{route('terms-of-use')}}"> Terms</a> | <a href="{{route('privacy-policy')}}"> Privacy</a></p>
+                <p class="copy">© 2021 EFContact <a href="https://eftechnology.net">Powered by EF Network Ltd. </a><a href="{{route('terms-of-use')}}"> Terms</a> | <a href="{{route('privacy-policy')}}"> Privacy</a></p>
             </div>
         </div>
     </div>

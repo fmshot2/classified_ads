@@ -10,28 +10,30 @@
 
 		<!-- /.box-header -->
 		<div class="box-body">
-                <table class="display table table-bordered data_table_main">
-                    <thead>
-                        <tr>
-                            <th> # </th>
-                            <th> Name </th>
-                            <th> Email </th>
-                            <th> Services </th>
-                            <th> Date </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($seller as $key => $sellers)
+                <div class="table-responsive">
+                    <table class="display table table-bordered data_table_main">
+                        <thead>
                             <tr>
-                                <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                                <td> {{ Str::limit($sellers->name,15) }} </td>
-                                <td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
-                                <td> {{ $sellers->services->count() }} </td>
-                                <td> {{ $sellers->created_at->diffForHumans() }} </span></td>
+                                <th> # </th>
+                                <th> Name </th>
+                                <th> Email </th>
+                                <th> Services </th>
+                                <th> Date </th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach($seller as $key => $sellers)
+                                <tr>
+                                    <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                                    <td> {{ Str::limit($sellers->name,15) }} </td>
+                                    <td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
+                                    <td> {{ $sellers->services->count() }} </td>
+                                    <td> {{ $sellers->created_at->format('d/m/Y') }} </span></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
 		</div>
 		<!-- /.box-body -->
