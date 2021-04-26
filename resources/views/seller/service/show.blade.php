@@ -136,7 +136,7 @@
 
                     @if (Auth::User()->badgetype == 1 && $service->images->count() < 10)
                         <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 10 - $service->images->count() }} image{{ 10 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
-                        <p> {{ 8 - $service->images->count() }} remaining.</p>
+                        <p> {{ 10 - $service->images->count() }} remaining.</p>
                         <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
                             @csrf
                             <div class="dz-default dz-message">
