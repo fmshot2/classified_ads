@@ -912,7 +912,7 @@ class OperationalController extends Controller
             $sWork->skills                = $request->skills;
             $sWork->category_id           = $request->category_id;
             $sWork->is_featured           = $request->is_featured;
-            $sWork->thumbnail             = $file_name;
+            $sWork->picture             = $file_name;
 
         if ($sWork->save()) {
             $sWork->images()->create(['image_path' => $file_name]);
