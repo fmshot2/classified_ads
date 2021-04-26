@@ -166,7 +166,7 @@
                         <br>
                         <center>
                             <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
-                            <a href="{{ route('job.applicant.detail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View CV</a>
+                            <a href="{{ route('job.applicant.preview.detail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View CV</a>
                         </center>
                     @elseif (Auth::User()->badgetype == 2 && $service->images->count() < 6)
                         <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 6 - $service->images->count() }} image{{ 6 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
@@ -180,7 +180,7 @@
                         <br>
                         <center>
                             <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
-                            <a href="{{ route('job.applicant.detail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View CV</a>
+                            <a href="{{ route('job.applicant.preview.detail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View CV</a>
                         </center>
                     @elseif (Auth::User()->badgetype == 3 && $service->images->count() < 4)
                         <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 4 - $service->images->count() }} image{{ 4 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
@@ -194,7 +194,7 @@
                         <br>
                         <center>
                             <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
-                            <a href="{{ route('job.applicant.detail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View CV</a>
+                            <a href="{{ route('job.applicant.preview.detail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View CV</a>
                         </center>
                     @elseif (Auth::User()->badgetype == 0 && $service->images->count() < 2)
                         <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 2 - $service->images->count() }} image{{ 2 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>

@@ -1019,6 +1019,8 @@ class OperationalController extends Controller
         $user_id = $seekingWorkDetail->user_id;
         $userMessages = Message::where('service_id', $seekingWorkDetail_id)->orderBy('created_at','desc')->take(7)->get();
 
+        $allServiceComments = $seekingWorkDetail->comments->sortByDesc('created_at');
+
         $the_user = User::find($user_id);
         $the_user_name = $the_user->name;
         $the_provider_f_name = explode(' ', trim($the_user_name))[0];
@@ -1026,14 +1028,13 @@ class OperationalController extends Controller
         $expiresAt = now()->addHours(24);
         views($seekingWorkDetail)->cooldown($expiresAt)->record();
 
-        return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck']));
+        return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck', 'allServiceComments']));
     }
 
     public function seekingWorkPreviewDetails($slug)
     {
 
         $seekingWorkDetail = SeekingWork::where('slug', $slug)->first();
-
         $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
         $approvedServices = Service::where('status', 1)->with('user')->get();
         $categories = Category::paginate(8);
@@ -1049,6 +1050,8 @@ class OperationalController extends Controller
         $user_id = $seekingWorkDetail->user_id;
         $userMessages = Message::where('service_id', $seekingWorkDetail_id)->orderBy('created_at','desc')->take(7)->get();
 
+        $allServiceComments = $seekingWorkDetail->comments->sortByDesc('created_at');
+
         $the_user = User::find($user_id);
         $the_user_name = $the_user->name;
         $the_provider_f_name = explode(' ', trim($the_user_name))[0];
@@ -1056,7 +1059,7 @@ class OperationalController extends Controller
         $expiresAt = now()->addHours(24);
         views($seekingWorkDetail)->cooldown($expiresAt)->record();
 
-        return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck']));
+        return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck', 'allServiceComments']));
     }
 
 

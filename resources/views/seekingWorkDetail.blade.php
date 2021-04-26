@@ -9,12 +9,6 @@
         color: #fff !important;
         background-color: #CA8309 !important;
     }
-    .comment-content {
-        margin: 0 0 20px 50px;
-    }
-    .comments {
-        padding: 0 20px;
-    }
     p{
         font-size: 16px;
     }
@@ -367,8 +361,9 @@
 
                                 <div class="tab-pane fade " id="comment" role="tabpanel" aria-labelledby="five-tab">
                                     <div class="properties-description mb-50">
-                                        {{-- {{ $seekingWorkDetail->comments }} --}}
-                                        <x-comments :model="$seekingWorkDetail"/>
+                                        <!-- Clients Feedback -->
+                                        @livewire('comments.comments-view',
+                                        ['comments' => $allServiceComments, 'service_id' => $seekingWorkDetail->id, 'provider_name' => $the_provider_f_name], key($seekingWorkDetail->id))
                                     </div>
                                 </div>
                             </div>
