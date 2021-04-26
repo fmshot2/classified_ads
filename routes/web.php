@@ -311,7 +311,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
     {
         Route::get('/dashboard/make_withdrawal_request/{refer_id}', 'DashboardController@make_withdrawal_request')->name('seller.make_withdrawal_request');
         Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('service_detail_4_provider');
-        Route::get('/job-applicant/details/{slug}', 'OperationalController@seekingWorkPreviewDetails')->name('job.applicant.preview.detail');
+        Route::get('/job-applicant/preview/details/{slug}', 'OperationalController@seekingWorkPreviewDetails')->name('job.applicant.preview.detail');
 
 
         Route::get('/dashboard', 'DashboardController@seller')->name('seller.dashboard');

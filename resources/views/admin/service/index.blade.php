@@ -38,6 +38,7 @@
                                         <th> SL </th>
                                         <th> Image </th>
                                         <th> Title </th>
+                                        <th> Phone </th>
                                         <th> State </th>
                                         <th> Status </th>
                                         <th> Featured </th>
@@ -55,7 +56,8 @@
                                                     <img src="{{asset('uploads/services')}}/{{$all_services->service_image}}" alt="{{ $all_services->name }}" width="60" class="img-responsive img-rounded">
                                                 </a>
                                             </td>
-                                            <td> {{ $all_services->name }} </td>
+                                            <td> {{ Str::limit($all_services->name, 25) }} </td>
+                                            <td> {{ $all_services->phone }} </td>
                                             <td> {{ $all_services->state }} </td>
 
                                             <td>

@@ -134,8 +134,8 @@
                         @endforelse
                     </div>
 
-                    @if (Auth::User()->badgetype == 1 && $service->images->count() < 8)
-                        <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 8 - $service->images->count() }} image{{ 8 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
+                    @if (Auth::User()->badgetype == 1 && $service->images->count() < 10)
+                        <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 10 - $service->images->count() }} image{{ 10 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
                         <p> {{ 8 - $service->images->count() }} remaining.</p>
                         <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
                             @csrf
@@ -149,7 +149,21 @@
                             <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
                             <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
                         </center>
-                    @elseif (Auth::User()->badgetype == 2 && $service->images->count() < 6)
+                    @elseif (Auth::User()->badgetype == 2 && $service->images->count() < 8)
+                        <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 8 - $service->images->count() }} image{{ 8 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
+                        <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
+                            @csrf
+                            <div class="dz-default dz-message">
+                                Click here to add your images <br>
+                                <small style="color: rgb(182, 66, 66) !important">When you are done click the upload button down below!</small>
+                            </div>
+                        </form>
+                        <br>
+                        <center>
+                            <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
+                            <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
+                        </center>
+                    @elseif (Auth::User()->badgetype == 3 && $service->images->count() < 6)
                         <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 6 - $service->images->count() }} image{{ 6 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
                         <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
                             @csrf
@@ -163,22 +177,8 @@
                             <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
                             <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
                         </center>
-                    @elseif (Auth::User()->badgetype == 3 && $service->images->count() < 4)
+                    @elseif (Auth::User()->badgetype == 0 && $service->images->count() < 4)
                         <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 4 - $service->images->count() }} image{{ 4 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
-                        <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
-                            @csrf
-                            <div class="dz-default dz-message">
-                                Click here to add your images <br>
-                                <small style="color: rgb(182, 66, 66) !important">When you are done click the upload button down below!</small>
-                            </div>
-                        </form>
-                        <br>
-                        <center>
-                            <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
-                            <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
-                        </center>
-                    @elseif (Auth::User()->badgetype == 0 && $service->images->count() < 2)
-                        <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 2 - $service->images->count() }} image{{ 2 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
                         <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
                             @csrf
                             <div class="dz-default dz-message">
@@ -209,7 +209,7 @@
                 base_Url = "{{ url('/') }}"
 
                 var _token = $("input[name='_token']").val();
-                var paystack_pk = "{{env('paystack_pk')}}";                
+                var paystack_pk = "{{env('paystack_pk')}}";
 
                 // var email1 = $("#email-address3").val();
                 var amount = $("#featured_amount").val();
@@ -271,14 +271,14 @@
 
 
 @section('extra-scripts')
-    @if (Auth::User()->badgetype == 1 && $service->images->count() != 8)
-    <input hidden id="badge_type_1" type="number" value="{{  8 - $service->images->count() }}">
-    <input hidden id="user_1_image_remaining" type="number" value="{{ (8 - $service->images->count()) > 1 ? 's' : '' }}">
+    @if (Auth::User()->badgetype == 1 && $service->images->count() != 10)
+    <input hidden id="badge_type_1" type="number" value="{{  10 - $service->images->count() }}">
+    <input hidden id="user_1_image_remaining" type="number" value="{{ (10 - $service->images->count()) > 1 ? 's' : '' }}">
     <script type="text/javascript">
         Dropzone.options.dropzone = {
             maxFiles: document.getElementById('badge_type_1').value,
             maxFilesize: 10,
-            parallelUploads: 7,
+            parallelUploads: 9,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
             autoProcessQueue: false,
@@ -321,14 +321,14 @@
         };
     </script>
 
-    @elseif (Auth::User()->badgetype == 2 && $service->images->count() != 6)
-    <input hidden id="badge_type_2" type="number" value="{{ 6 - $service->images->count() }}">
-    <input hidden id="user_2_image_remaining" type="number" value="{{ (6 - $service->images->count()) > 1 ? 's' : '' }}">
+    @elseif (Auth::User()->badgetype == 2 && $service->images->count() != 8)
+    <input hidden id="badge_type_2" type="number" value="{{ 8 - $service->images->count() }}">
+    <input hidden id="user_2_image_remaining" type="number" value="{{ (8 - $service->images->count()) > 1 ? 's' : '' }}">
     <script type="text/javascript">
         Dropzone.options.dropzone = {
             maxFiles: document.getElementById('badge_type_2').value,
             maxFilesize: 10,
-            parallelUploads: 5,
+            parallelUploads: 7,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
             autoProcessQueue: false,
@@ -370,14 +370,14 @@
             }
         };
     </script>
-    @elseif (Auth::User()->badgetype == 3 && $service->images->count() != 4)
-    <input hidden id="badge_type_3" type="number" value="{{  4 - $service->images->count() }}">
-    <input hidden id="user_3_image_remaining" type="text" value="{{ (4 - $service->images->count()) > 1 ? 's' : '' }}">
+    @elseif (Auth::User()->badgetype == 3 && $service->images->count() != 6)
+    <input hidden id="badge_type_3" type="number" value="{{  6 - $service->images->count() }}">
+    <input hidden id="user_3_image_remaining" type="text" value="{{ (6 - $service->images->count()) > 1 ? 's' : '' }}">
     <script type="text/javascript">
         Dropzone.options.dropzone = {
             maxFiles: document.getElementById('badge_type_3').value,
             maxFilesize: 10,
-            parallelUploads: 3,
+            parallelUploads: 5,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
             autoProcessQueue: false,
@@ -419,14 +419,14 @@
             }
         };
     </script>
-    @elseif (Auth::User()->badgetype == 0 && $service->images->count() != 2)
-    <input hidden id="badge_type_4" type="number" value="{{  2 - $service->images->count() }}">
-    <input hidden id="user_4_image_remaining" type="number" value="{{ (2 - $service->images->count()) > 1 ? 's' : '' }}">
+    @elseif (Auth::User()->badgetype == 0 && $service->images->count() != 4)
+    <input hidden id="badge_type_4" type="number" value="{{  4 - $service->images->count() }}">
+    <input hidden id="user_4_image_remaining" type="number" value="{{ (4 - $service->images->count()) > 1 ? 's' : '' }}">
     <script type="text/javascript">
         Dropzone.options.dropzone = {
             maxFiles: document.getElementById('badge_type_4').value,
             maxFilesize: 10,
-            parallelUploads: 1,
+            parallelUploads: 3,
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
             autoProcessQueue: false,

@@ -41,7 +41,7 @@ class AdminController extends Controller
 
     public function usersfeedback()
     {
-        $feedbacks = UserFeedback::all();
+        $feedbacks = UserFeedback::orderBy('created_at','desc')->get();
 
         return view('admin.feedbacks', [
             'feedbacks' => $feedbacks
@@ -668,27 +668,30 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
         if($service->save()){
             if ($service->status == 1) {
                 $status = 'Approved';
-            try{
-                Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
-            }
-            catch(\Exception $e){
-                $failedtosendmail = 'Failed to Mail!.';
-            }
+                $reason = '';
+               try{
+                   Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
+               }
+               catch(\Exception $e){
+                   $failedtosendmail = 'Failed to Mail!.';
+               }
             }
             else {
-            $status = 'Disapproved';
-            try{
-                Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
-            }
-            catch(\Exception $e){
-                $failedtosendmail = 'Failed to Mail!.';
-            }
+               $status = 'Disapproved';
+               $reason = $request->get('reason');
+               try{
+                   Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
+               }
+               catch(\Exception $e){
+                   $failedtosendmail = 'Failed to Mail!.';
+               }
             }
             $request->session()->flash('status', 'CV was '.$status);
-            return back();
+            return $status;
         }
         $request->session()->flash('error', 'Something went wrong');
         return back();
+
 
    }
 
