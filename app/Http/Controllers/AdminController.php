@@ -1095,4 +1095,12 @@ public function save_faq(Request $request)
         // Category::orderBy('id', 'asc')->paginate(35);
         return view('admin.user.ef_marketers_downline', compact('efmarketers_downlines'));
     }
+
+    public function all_marketer_earnings()
+    {
+      $efmarketers = User::where('is_ef_marketer', '1')->get();
+      return view('admin.earnings.marketers', [
+        'efmarketers' => $efmarketers
+      ]);
+    }
 }

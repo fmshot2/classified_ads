@@ -439,7 +439,7 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
 
 Route::middleware(['admin'])->group(function () { //Admin Middleware protection start here
     Route::get('/admin/dashboard/approve_withdrawal_request/{id}', 'DashboardController@approve_withdrawal_request')->name('admin.approve_withdrawal_request');
-
+    Route::get('/admin/dashboard/all-marketers-earnings', 'AdminController@all_marketer_earnings')->name('admin.all.earnings');
     Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
     Route::get('/admin/dashboard/category/show', 'CategoryController@index')->name('admin.category.show');
     Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
@@ -610,7 +610,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
 Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //SuperAdmin Middleware protection start here
     Route::get('dashboard/approve_withdrawal_request/{id}', 'DashboardController@approve_withdrawal_request')->name('admin.approve_withdrawal_request');
-
+    Route::get('/all-marketers-earnings', 'AdminController@all_marketer-earnings')->name('superadmin.all.earnings');
     Route::get('dashboard', 'DashboardController@admin')->name('superadmin.dashboard');
     Route::get('dashboard/category/show', 'CategoryController@index')->name('superadmin.category.show');
     Route::post('dashboard/category/show', 'CategoryController@store')->name('superadmin.category.store');
