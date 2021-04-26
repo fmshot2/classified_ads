@@ -3,7 +3,7 @@
 @extends('layouts.admin')
 
 @section('title')
-All Buyer |
+All Service Seekers |
 @endsection
 
 @section('content')
