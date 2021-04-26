@@ -55,8 +55,8 @@ All EF Contact Payments  |
 								@forelse($payments as $key => $payment)
 								<tr>
 									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
-									<td><span> </i> {{ $payment->user->name }}</span> </td>
-									<td><span> </i> {{ $payment->user->email }}</span> </td>									
+									<td><span> </i> {{ $payment->paymentable->name }}</span> </td>
+									<td><span> </i> {{ $payment->paymentable->email }}</span> </td>									
 									<td><span class="text-muted"> </i> {{ $payment->payment_type }}</span> </td>
 									<td> ₦{{ number_format($payment->amount) }} </td>
 									<td> {{ $payment->tranx_ref }} </td>

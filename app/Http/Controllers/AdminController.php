@@ -464,9 +464,15 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
     return view ('admin.service.pending', compact('pending_service') );
   }
 
-    public function allSubscription()
+  //   public function allSubscription()
+  // {
+  //   $all_subscriptions = ProviderSubscription::all();
+  //   return view ('admin.subscription.index', compact('all_subscriptions') );
+  // }
+
+   public function allSubscription()
   {
-    $all_subscriptions = ProviderSubscription::all();
+    $all_subscriptions = Subscription::all();
     return view ('admin.subscription.index', compact('all_subscriptions') );
   }
 

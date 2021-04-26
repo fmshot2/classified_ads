@@ -916,7 +916,7 @@ class AuthController extends Controller
 
     public function updatePassword(Request $request, $id)
     {
-dd($request->old_password);
+// dd($request->old_password);
         $user = User::find($id);
         $validatedData = $request->validate([
             'new_password' => ['required', 'string', 'min:6', 'confirmed'],
