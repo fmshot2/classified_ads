@@ -1,9 +1,8 @@
 
-
 @extends('layouts.admin')
 
 @section('title')
-All Accountants |
+All E.F Maketers Earnings|
 @endsection
 
 @section('content')
@@ -25,86 +24,61 @@ All Accountants |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Accountants Table</h3>
+						<h3 class="box-title"> All E.F Marketers Earnings</h3>
 					</div>
 
 					<!-- /.box-header -->
-					<div class="box-body table-responsive">
+					<div class="box-body">
 						<table class="display table table-bordered data_table_main">
 							<thead>
 								<tr>
 									<th> # </th>
 									<th> Name </th>
 									<th> Email </th>
-									<th> Date </th>
-									<th> Status</th>
-									<th> Activate/Deactivate</th>
+                                    <th> Earnings </th>
+									<th> Date Registered</th>
+									<th> status </th>
 								</tr>
-</thead>
-								<tbody>
-								@foreach($accountants as $key => $accountant)
+							</thead>
+							<tbody>
+									@foreach($efmarketers as $key => $efmarketer)
 								<tr>
-									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
-									<td> {{ $accountant->name }} </td>
-									<td><span class="text-muted"> </i> {{ $accountant->email }} </span> </td>
-									<td> {{ $accountant->created_at->format('d/m/Y') }} </span></td>
-									<td>@if($accountant->status == 1)<span id="active_text" class="">Activated</span>@elseif($accountant->status == 0)<span id="active_text" class="">Deactivated</span>@endif </td>
-
+									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+									<td> {{ $efmarketer->name }} </td>
+									<td><span class="text-muted"> {{ $efmarketer->email }} </span> </td>
+                                    <td><span class="text-muted"> ₦{{ number_format($efmarketer->refererAmount) ?? '0' }} </span> </td>
+									
+									<td> {{ $efmarketer->created_at->format('d/m/Y') }} </span></td>
 									<td>
-										<button id="" class="activate-submit btn-success" onclick="activateUser({{$accountant->id}})" type="button" class="btn btn-success">
-											@if($accountant->status == 0)<span id="activate">Activate User</span>@elseif($accountant->status == 1)<span id="activate">Deactivate</span>
-										@endif</button>
+										@if($efmarketer->status == 1)
+										<span><p id="active_text">Activated</p></span>
+										@elseif($efmarketer->status == 0)
+										<span id="active_text2">Deactivated</span>
+										@endif
 									</td>
+								</tr>
+
+								@endforeach
+							</tbody>
+
+						</table>
 
 
-									{{-- {{ $general_info->register_section_1_title ? $general_info->register_section_1_title : '' }} --}}
-
-							</tr>
-
-							@endforeach
-
-
-						</tbody>
-
-
-					</table>
-    {{-- {{ $accountants->links() }} --}}
-
-
+					</div>
+					<!-- /.box-body -->
 				</div>
-				<!-- /.box-body -->
+
+
+				<!-- /.content -->
 			</div>
 
-
-			<!-- /.content -->
 		</div>
 
 
-
-	</div>
-
-</div>
-</section>
+	</section>
 </div>
 
 
-
-{{--
-<script type="text/javascript">
-	$(document).ready( function () {
-	    $('#data_table1').DataTable({
-			dom: 'Bfrtip',
-			buttons: [
-				'copy', 'csv', 'excel', 'pdf', 'print'
-			],
-		  "language": {
-    "paginate": {
-      "previous": "Previous page"
-    }
-  }
-		});
-	});
-</script> --}}
 
 <script>
         function activateUser22(id) {
@@ -154,19 +128,22 @@ $.ajax({
             success: function(results){
             	// alert(results);
             	console.log(results);
-            	if (results.success === true)  {
+            	if (results.success == true)  {
 swal("Done!", results.message, "success");
-document.getElementById("activate").innerHTML = results.message;
-document.getElementById("active_text").innerHTML = results.status_message;
+document.getElementById("activate1").innerHTML = results.message;
+document.getElementById("activate2").innerHTML = results.status_message;
 if (results.message === 'Activate') {
 	document.getElementById("active_text").style.color='#dc3545';
 
 } else {
-		document.getElementById("active_text").style.color='blue';
+		document.getElementById("active_text2").style.color='blue';
 
 }
 
+
 window.location.assign(window.location.href);
+
+
 } else {
 swal("Error!", results.message, "error");
 }

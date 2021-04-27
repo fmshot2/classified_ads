@@ -54,6 +54,13 @@
         </ul>
       </li>
 
+      <li class="" style="{{ url()->current() == route('superadmin.all.earnings') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href=" {{route ('superadmin.all.earnings') }}">
+          <i class="fa fa-comments-o"></i> <span> All Marketers Earnings </span>
+        </a>
+      </li>
+
+
       <li class="" style="{{ url()->current() == route('superadmin.users.feedback') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
         <a href=" {{route ('superadmin.users.feedback') }}">
           <i class="fa fa-comments-o"></i> <span> User Feedbacks </span>
@@ -223,6 +230,11 @@
         </ul>
       </li>
 
+      <li class="" style="{{ url()->current() == route('admin.all.earnings') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href=" {{route ('admin.all.earnings') }}">
+          <i class="fa fa-credit-card"></i> <span> All Marketers Earnings </span>
+        </a>
+      </li>
 
       <li class="treeview" style="{{ url()->current() == route('admin.subscription.all') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
         <a href="#">

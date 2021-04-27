@@ -57,7 +57,7 @@ All Agents Activity |
 									<td>{{ ++$key }}</td>
 									<td style="display: none;" id="userID">{{ $payment->id }}</td>
 									<td> {{ $payment->name ?? '' }} </td>
-									<td> ₦{{ number_format($payment->refererAmount ?? '0') }} </td>
+									<td> ₦{{ number_format(floatval($payment->refererAmount) ?? '0') }} </td>
 									<td> {{ $payment->accountname ?? 'NA' }} </span></td>
 									<td> {{ $payment->bankname ?? 'NA' }} </span></td>
 									<td> <span>{{ $payment->accountno ?? 'NA' }}</span> </span></td>

@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 
 @section('title')
-All Seller |
+All Service Providers |
 @endsection
 
 @section('content')
