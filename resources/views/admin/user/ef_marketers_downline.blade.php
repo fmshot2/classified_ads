@@ -20,7 +20,8 @@ All E.F Maketers |
 		<div class="row">
 			<div class="col-xs-12">
 
-
+				<a href="{{ route('admin.all_ef_marketers') }}" class="btn btn-warning">Go Back</a>
+				<p></p>
 
 				<div class="box" >
 					<div class="box-header">
