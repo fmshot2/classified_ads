@@ -80,7 +80,7 @@ class Register extends Component
 
             // live variable
             // 'key'    => config('variable.paystack_pk_live'),
-            'key'    => env('paystack_pk'),
+            'key'    => 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
             'amount' => $this->plan * 100,
             'email'  => $this->email,
             'name'   => $this->name,
@@ -95,7 +95,7 @@ class Register extends Component
 
     public function verifyPaystackAmount($paystack_response)
     {
-        $paystack_sk    = env('paystack_sk');
+        $paystack_sk    = 'sk_test_11395d522a279cf6fb0f8c6cf0fd7f41b2c15200';
 
         $response = Http::withHeaders([
             'content-type' => 'application/json',
@@ -215,17 +215,24 @@ class Register extends Component
 
             $current_date_time = Carbon::now()->toDateTimeString();
 
-            $sub_check = new ProviderSubscription();
-            $sub_check->user_id = Auth::id();
-            $sub_check->sub_type = $sub_type;
-            $sub_check->user_type = 'provider';
-            $sub_check->last_amount_paid = $this->plan;
-            $sub_check->subscription_end_date = Carbon::now()->addDays($added_days);
-            $sub_check->last_subscription_starts = $current_date_time;
-            $sub_check->save();
+            // $sub_check = new ProviderSubscription();
+            // $sub_check->user_id = Auth::id();
+            // $sub_check->sub_type = $sub_type;
+            // $sub_check->user_type = 'provider';
+            // $sub_check->last_amount_paid = $this->plan;
+            // $sub_check->subscription_end_date = Carbon::now()->addDays($added_days);
+            // $sub_check->last_subscription_starts = $current_date_time;
+            // $sub_check->save();
 
 
-            $reg_payments = new Payment();
+        Auth::user()->subscriptions()->create(['sub_type' => $sub_type, 
+         'last_amount_paid' => $this->plan, 
+         'subscription_end_date' => Carbon::now()->addDays($added_days),
+         // 'last_subscription_starts' => $current_date_time,
+         'trans_ref' => $tranxRef,
+         'email' => Auth::user()->email ]);
+
+            // $reg_payments = new Payment();
             // $reg_payments->user_id = Auth::id();
             // $reg_payments->payment_type = 'registration';
             // $reg_payments->amount = $this->plan;

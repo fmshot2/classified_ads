@@ -39,6 +39,7 @@ All Service Providers |
                                         <th> Phone </th>
                                         <th> role </th>
                                         <th> Applied for Approval?</th>
+                                        <th> Amount Earned</th>                                        
                                         <th> Date </th>
                                         <th> Activate/Deactivate</th>
                                     </tr>
@@ -58,6 +59,7 @@ All Service Providers |
                                                 <span id="active_text2">Deactivated</span>
                                                 @endif
                                             </td>
+                                            <td> {{ $sellers->refererAmount ? $sellers->refererAmount : 0 }} </span></td>                                            
                                             <td> {{ $sellers->created_at->format('d/m/Y') }} </span></td>
 
                                             <td>
