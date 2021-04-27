@@ -43,6 +43,8 @@
 									<th> Email </th>
 									<th> Applied for Approval?</th>
 									<th> Status </th>
+                                    <th> Amount Earned </th>
+                                    <th> Total Downline </th>
 									<th> Activate/Deactivate</th>
                                     <th> Downlines</th>
 								</tr>
@@ -62,7 +64,8 @@
                                                     <span id="active_text2">Deactivated</span>
                                                 @endif
                                             </td>
-
+                                            <td>{{ $agent->refererAmount ? $agent->refererAmount : 0 }} </td>
+                                            <td>{{ $agent->referals->count() ? $agent->referals->count() : 0 }} </td>
                                             <td>
                                                 <button id="actionBtn" class="activate-submit btn {{ $agent->status == 1 ? 'deactivateClass' : 'activateClass' }}" onclick="activateAgent({{$agent->id}})">
                                                     @if($agent->status == 0)<span id="activate1">Activate User</span>@elseif($agent->status == 1)<span id="activate2">Deactivate</span>
