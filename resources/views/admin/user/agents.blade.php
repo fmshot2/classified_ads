@@ -44,6 +44,7 @@
 									<th> Applied for Approval?</th>
 									<th> Status </th>
 									<th> Activate/Deactivate</th>
+                                    <th> Downlines</th>
 								</tr>
                             </thead>
                             <tbody>
@@ -69,6 +70,12 @@
                                                 </button>
 
                                             </td>
+                                            <td class="center">
+                                            <a href="{{route('agent_downline', $agent->id)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
+                                            </td>   
+                                            <td class="center">
+                                            <a href="{{route('agents_downline_24hrs', $agent->id)}}" class="btn btn-warning "><i class="fa fa-eye"></i>Last 24 Hrs</a>
+                                            </td>                                          
 							            </tr>
 
                                     @endforeach

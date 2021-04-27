@@ -67,6 +67,9 @@ All Service Providers |
                                                     @if($sellers->status == 0)<span id="activate1">Activate User</span>@elseif($sellers->status == 1)<span id="activate2">Deactivate</span>
                                                 @endif</button>
                                             </td>
+                                            <td class="center">
+                                            <a href="{{route('provider_downline', $sellers->slug)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
+                                            </td>                                            
                                         </tr>
                                     @endforeach
                                 </tbody>
