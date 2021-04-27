@@ -73,7 +73,7 @@
                             <h4>Super</h4>
                             <ol class="text-left">
                                 <li>Your service(s) will be featured on all efcontact pages.</li>
-                                <li>Upload as much as (8) images of your services.</li>
+                                <li>Upload as much as (10) images of your services.</li>
                                 <li>Appear on the top when inquirers search for services related to yours</li>
                                 <li>Cost: &#8358;{{ $badge_data['badge_one_cost'] }}</li>
                             </ol>
@@ -136,7 +136,7 @@
                             <h4>Moderate</h4>
                             <ol class="text-left">
                                 <li>Your service(s) will be featured on all efcontact pages.</li>
-                                <li>Upload as much as (6) images of your services.</li>
+                                <li>Upload as much as (8) images of your services.</li>
                                 <li>Appear after <b>Super</b> when inquirers search for services related to yours</li>
                                 <li>Cost: &#8358;{{ $badge_data['badge_two_cost'] }}</li>
                             </ol>
@@ -192,7 +192,7 @@
                             <h4>Basic</h4>
                             <ol class="text-left">
                                 <li>Your service(s) will be featured on most of efcontact pages..</li>
-                                <li>Upload as much as (4) images of your services.</li>
+                                <li>Upload as much as (6) images of your services.</li>
                                 <li>Appear after <b>Moderate</b> when inquirers search for services related to yours</li>
                                 <li>Cost: &#8358;{{ $badge_data['badge_three_cost'] }}</li>
                             </ol>

@@ -154,12 +154,16 @@ class SubscriptionController extends Controller
 
 
             $reg_payments = new Payment();
-            $reg_payments->user_id = Auth::id();
-            $reg_payments->payment_type = 'subscription';
-            $reg_payments->amount = $data['amount'];
-            $reg_payments->tranx_ref =  $data['ref_no'];
+            // $reg_payments->user_id = Auth::id();
+            // $reg_payments->payment_type = 'subscription';
+            // $reg_payments->amount = $data['amount'];
+            // $reg_payments->tranx_ref =  $data['ref_no'];
 
-            $reg_payments->save();
+            // $reg_payments->save();
+
+         
+
+            Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no'] ]);
 		
 
 		return response()->json(['success'=>'Your Subscription payment was successfull', 'new_date'=>$sub_check->subscription_end_date], 200);
