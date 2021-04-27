@@ -26,8 +26,15 @@ use Illuminate\Support\Facades\Mail;
 
 Route::post('/comment/store', 'CommentsController@store')->name('comment.add');
 Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
+Route::get('/addSlug', 'AuthController@addSlug')->name('addSlug');
 
 Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
+Route::get('dashboard/provider_downline/{slug}', 'AdminController@provider_downline')->name('provider_downline');
+Route::get('dashboard/agent_downline/{id}', 'AdminController@agent_downline')->name('agent_downline');
+Route::get('dashboard/agents_downline_24hrs/{id}', 'AdminController@agents_downline_24hrs')->name('agents_downline_24hrs');
+
+
+
 
 Route::get('/tester', function ()
 {

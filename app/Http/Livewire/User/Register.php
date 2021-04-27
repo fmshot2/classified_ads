@@ -126,6 +126,9 @@ class Register extends Component
         // $request->session()->forget('url.intended');
         // dd((Session::get('url.intended')));
         $slug3 = Str::random(8);
+        $random = Str::random(3);
+        $userSlug = Str::of($this->name)->slug('-').''.$random;
+        // $userSlug = Str::of($request->name)->slug('-').''.$random;
 
         // Get id of owner of $link_from_url if available
         if ($this->referParam) {
@@ -157,6 +160,7 @@ class Register extends Component
         $user->phone    = $this->phone;
         $user->password = Hash::make($this->password);
         $user->role     = $this->role;
+        $user->slug     = $userSlug;
         //save id of referer if user was reffererd
         $user->idOfReferer = $this->refererId;
         //save id of agent if user was brought by agent
