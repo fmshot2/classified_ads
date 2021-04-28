@@ -80,7 +80,8 @@ class Register extends Component
 
             // live variable
             // 'key'    => config('variable.paystack_pk_live'),
-            'key'    => 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
+            // 'key'    => 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
+            'key'    => env('paystack_pk'),            
             'amount' => $this->plan * 100,
             'email'  => $this->email,
             'name'   => $this->name,
@@ -95,7 +96,9 @@ class Register extends Component
 
     public function verifyPaystackAmount($paystack_response)
     {
-        $paystack_sk    = 'sk_test_11395d522a279cf6fb0f8c6cf0fd7f41b2c15200';
+        // $paystack_sk    = 'sk_test_11395d522a279cf6fb0f8c6cf0fd7f41b2c15200';
+        $paystack_sk    = env('paystack_sk');
+        
 
         $response = Http::withHeaders([
             'content-type' => 'application/json',
