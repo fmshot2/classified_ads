@@ -631,7 +631,7 @@
         $('#categories').on('change',function(){
             var categoryID = $(this).val();
 
-            if (categoryID == 1 || categoryID == 2) {
+            if (categoryID == 1) {
                 document.getElementById('seekingworkForm').style.display = 'block'
                 document.getElementById('serviceForm').style.display = 'none'
             }
@@ -690,17 +690,11 @@
         $('#sw_categories').on('change',function(){
             var categoryID = $(this).val();
 
-            if (categoryID == 1 || categoryID == 2) {
-                document.getElementById("youtubeLink").style.display = 'none';
-                document.getElementById("negotiableChBox").style.display = 'none';
-                document.getElementById("servicePriceRange").innerText = 'Salary Range?';
+            if (categoryID == 1) {
                 document.getElementById('seekingworkForm').style.display = 'block'
                 document.getElementById('serviceForm').style.display = 'none'
             }
             else {
-                document.getElementById("youtubeLink").style.display = 'block';
-                document.getElementById("negotiableChBox").style.display = 'block';
-                document.getElementById("servicePriceRange").innerText = 'How much do you want to charge for this service?';
                 document.getElementById('seekingworkForm').style.display = 'none'
                 document.getElementById('serviceForm').style.display = 'block'
             }
