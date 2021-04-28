@@ -688,7 +688,7 @@
                                             <div class="form-group">
                                                 <label for="name">Service Name</label><small class="text-danger">*</small>
                                                 <small class="form-text text-muted">Enter the name of the service you want to offer. <input readonly type="text" name="countdown" size="1" value="50" style="border: 0; padding: 0;margin-right: -20px; display: inline; width:auto; font-size: inherit"> chars left</small>
-                                                <input type="text" class="form-control required" name="name" value="{{ old('name') }}" onkeydown="limitText(this.form.name,this.form.countdown,50);" onkeyup='limitText(this.form.name,this.form.countdown,50);' placeholder="e.g. Adamu Boutique..." required>
+                                                <input type="text" class="form-control required" name="name" value="{{ old('name') }}" onkeydown="limitText(this.form.name,this.form.countdown,50);" onkeyup='limitText(this.form.name,this.form.countdown,50);' placeholder="e.g. Bag, Plumber, Phone, etc..." required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">

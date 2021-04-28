@@ -1,9 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title')
-All Service Providers |
-@endsection
+@section('title', 'All Service Providers | ')
 
 @section('content')
 
@@ -124,56 +122,45 @@ All Service Providers |
 
 
     <script type="text/javascript">
-function activateUser(id) {
-swal({
-title: "Change this user's status?",
-text: "Please be sure and then confirm!",
-type: "warning",
-showCancelButton: !0,
-confirmButtonText: "Yes, change it!",
-cancelButtonText: "No, dont bother!",
-cancelButtonColor: '#dc3545',
-reverseButtons: !0
-}).then(function (e) {
-if (e.value === true) {
-
-$.ajax({
-            url: '/activate_user/' + id,
-            method: 'get',
-            success: function(results){
-            	// alert(results);
-            	console.log(results);
-            	if (results.success == true)  {
-swal("Done!", results.message, "success");
-document.getElementById("activate1").innerHTML = results.message;
-document.getElementById("activate2").innerHTML = results.status_message;
-if (results.message === 'Activate') {
-	document.getElementById("active_text").style.color='#dc3545';
-
-} else {
-		document.getElementById("active_text2").style.color='blue';
-
-}
-
-
-window.location.assign(window.location.href);
-
-
-} else {
-swal("Error!", results.message, "error");
-}
-
-            }
-        });
-
-} else {
-e.dismiss;
-}
-}, function (dismiss) {
-return false;
-})
-}
-</script>
+        function activateUser(id) {
+            swal({
+                title: "Change this user's status?",
+                text: "Please be sure and then confirm!",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Yes, change it!",
+                cancelButtonText: "No, dont bother!",
+                cancelButtonColor: '#dc3545',
+                reverseButtons: !0
+            }).then(function (e) {
+                if (e.value === true) {
+                    $.ajax({
+                        url: '/activate_user/' + id,
+                        method: 'get',
+                        success: function(results){
+                            if (results.success == true)  {
+                                swal("Done!", results.message, "success");
+                                document.getElementById("activate1").innerHTML = results.message;
+                                document.getElementById("activate2").innerHTML = results.status_message;
+                                if (results.message === 'Activate') {
+                                    document.getElementById("active_text").style.color='#dc3545';
+                                } else {
+                                    document.getElementById("active_text2").style.color='blue';
+                                }
+                                window.location.assign(window.location.href);
+                            } else {
+                                swal("Error!", results.message, "error");
+                            }
+                        }
+                    });
+                } else {
+                    e.dismiss;
+                }
+            }, function (dismiss) {
+                return false;
+            })
+        }
+    </script>
 
 @endsection
 
