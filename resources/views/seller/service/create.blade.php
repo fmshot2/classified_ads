@@ -342,21 +342,21 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Work Experience</label>
                                                 <textarea id='workexperience' name="work_experience" class="form-control summernote" placeholder="Tell us about your work experience.">{{ old('work_experience') }}</textarea>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Education</label><small class="text-danger">*</small>
                                                 <textarea id='education' name="education" class="form-control summernote" placeholder="Tell us about your educational background.">{{ old('education') }}</textarea>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Certifications</label>
                                                 <textarea id='certifications' name="certifications" class="form-control summernote" placeholder="Tell us about your certifications.">{{ old('certifications') }}</textarea>
@@ -364,7 +364,7 @@
                                         </div>
 
 
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Skills</label><small class="text-danger">*</small>
                                                 <textarea id='skills' name="skills" class="form-control summernote" placeholder="Tell us about your skills.">{{ old('skills') }}</textarea>
