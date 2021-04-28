@@ -99,8 +99,8 @@ class ServiceController extends Controller
         $service_count = Service::where('user_id', $user->id)->count();
         $message_count = Message::where('service_user_id', Auth::id())->count();
         $all_service = Service::where('user_id', $user->id)->take(5)->get();
-        $unread_notification = Notification::where('status', 0)->orderBy('id', 'desc')->take(5)->get();
-        $all_notification_count = Notification::count();
+        $unread_notification = $user->unreadNotifications;
+        $all_notification_count = $user->notifications->count();
 
         $all_service_active = Service::where('user_id', $user->id);
         $active_service =  $all_service_active->Where('status', 1);
