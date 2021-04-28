@@ -787,6 +787,20 @@ class AuthController extends Controller
         return view('admin.user.buyer', compact('buyers'));
     }
 
+     public function addSlug()
+        {
+        $buyers = User::where('slug', null)->get();
+        foreach ($buyers as $buyer) {
+        $random = Str::random(3);
+        $slug = Str::of($buyer->name)->slug('-').''.$random;
+        $buyer->slug = $slug;
+        $buyer->save();
+        }
+        
+        // Category::orderBy('id', 'asc')->paginate(35);
+        return redirect()->route('home');
+    }
+
     public function seller()
     {
         $seller = User::where('role', 'seller')->orderBy('id', 'desc')->get();
@@ -916,7 +930,7 @@ class AuthController extends Controller
 
     public function updatePassword(Request $request, $id)
     {
-dd($request->old_password);
+// dd($request->old_password);
         $user = User::find($id);
         $validatedData = $request->validate([
             'new_password' => ['required', 'string', 'min:6', 'confirmed'],

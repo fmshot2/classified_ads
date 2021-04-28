@@ -152,7 +152,7 @@ $.ajax({
             url: '/activate_user/' + id,
             method: 'get',
             success: function(results){
-            	alert(results);
+            	// alert(results);
             	console.log(results);
             	if (results.success === true)  {
 swal("Done!", results.message, "success");

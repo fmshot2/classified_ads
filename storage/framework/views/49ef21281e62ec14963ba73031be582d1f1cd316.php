@@ -34,7 +34,9 @@
                             <strong style="color: rgba(190, 190, 190, 0), 0.027), 0.027); opacity: 0"><i class="fa fa-envelope-open"></i> Email:</strong> <a href="mailto: <?php echo e($general_info->contact_email ? $general_info->contact_email : ''); ?>"> <?php echo e($general_info->contact_email ? $general_info->contact_email : ''); ?> </a>
                         </li>
                         <li>
-                            <strong style="color: rgb(190, 190, 190)"><i class="fa fa-phone"></i> Phone:</strong> <a href="tel:  <?php echo e($general_info->hot_line ? $general_info->hot_line : ''); ?>">  <?php echo e($general_info->hot_line ? $general_info->hot_line : ''); ?> </a>
+                            <strong style="color: rgb(190, 190, 190)"><i class="fa fa-phone"></i> Phone:</strong> <a href="tel:  <?php echo e($general_info->hot_line ? $general_info->hot_line : ''); ?>">  <?php echo e(substr($general_info->hot_line,0,4).'-'.substr($general_info->hot_line,4,3).'-'.substr($general_info->hot_line,7,5)); ?> </a>
+
+                            
                         </li>
                         
                         <li>
@@ -138,7 +140,7 @@
         </div>
         <div class="row">
             <div class="col-xl-12">
-                <p class="copy">© 2021 EFContact <a href="https://www.efnetworks.com">Powered by EF Network Ltd. </a><a href="<?php echo e(route('terms-of-use')); ?>"> Terms</a> | <a href="<?php echo e(route('privacy-policy')); ?>"> Privacy</a></p>
+                <p class="copy">© 2021 EFContact <a href="https://eftechnology.net">Powered by EF Network Ltd. </a><a href="<?php echo e(route('terms-of-use')); ?>"> Terms</a> | <a href="<?php echo e(route('privacy-policy')); ?>"> Privacy</a></p>
             </div>
         </div>
     </div>
@@ -226,7 +228,7 @@
                         
                         <li><a href="<?php echo e(route('allcities')); ?>">Tourist Sites in Nigeria</a></li>
                         <li><a href="<?php echo e(route('government.officials')); ?>">National Assembly</a></li>
-                        <li><a href="<?php echo e(route('benefits-of-efcontact')); ?>">Benefits of EFContact</a></li>
+                        
                         <li><a href="<?php echo e(route('referralprogram')); ?>">Referral Program</a></li>
                         <li><a href="<?php echo e(route('advertisement')); ?>">Advertise With Us</a></li>
                         <li><a data-toggle="modal" data-target="#launchAgentModal" href="#">Become our Agent</a></li>

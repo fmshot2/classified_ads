@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'All Sellers | ')
+@section('title', 'All Service Providers | ')
 
 @section('content')
 
@@ -37,6 +37,7 @@
                                         <th> Phone </th>
                                         <th> role </th>
                                         <th> Applied for Approval?</th>
+                                        <th> Amount Earned</th>                                        
                                         <th> Date </th>
                                         <th> Activate/Deactivate</th>
                                     </tr>
@@ -56,6 +57,7 @@
                                                 <span id="active_text2">Deactivated</span>
                                                 @endif
                                             </td>
+                                            <td> {{ $sellers->refererAmount ? $sellers->refererAmount : 0 }} </span></td>                                            
                                             <td> {{ $sellers->created_at->format('d/m/Y') }} </span></td>
 
                                             <td>
@@ -63,6 +65,9 @@
                                                     @if($sellers->status == 0)<span id="activate1">Activate User</span>@elseif($sellers->status == 1)<span id="activate2">Deactivate</span>
                                                 @endif</button>
                                             </td>
+                                            <td class="center">
+                                            <a href="{{route('provider_downline', $sellers->slug)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
+                                            </td>                                            
                                         </tr>
                                     @endforeach
                                 </tbody>

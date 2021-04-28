@@ -266,6 +266,8 @@
 
                 base_Url = "{{ url('/') }}";
                 var paystack_pk = "{{env('paystack_pk')}}";
+                // var paystack_pk = "pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43";
+               
 
                 var _token = $("input[name='_token']").val();
 
@@ -297,9 +299,9 @@
 
                             var email = document.getElementById("email-address3").value;
                             var amount = $("#sub_cost").val();
-                            var ref_no1 =  response.reference;
+                            var ref_no =  response.reference;
                             var sub_type = $("#sub_type").val();
-                            console.log(email, amount, ref_no1, sub_type)
+                            console.log(email, amount, ref_no, sub_type)
 
                             $.ajax({
                               method: "POST",
@@ -309,7 +311,7 @@
                                 _token: _token,
                                 email: email,
                                 amount: amount,
-                                ref_no: ref_no1,
+                                ref_no: ref_no,
                                 sub_type: sub_type
                               },
                               success: function (data) {
