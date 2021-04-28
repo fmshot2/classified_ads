@@ -39,11 +39,11 @@
                     @foreach($unread_message as $key => $unread_messages)
                     <tr>
                         <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                        <td> {{ $unread_messages->buyer_name }} </td>
-                        <td> {{ $unread_messages->buyer_email }} </td>
-                        <td> {{ Str::limit($unread_messages->description, 30) }} </td>
+                        <td> {{ $unread_messages->sender_name }} </td>
+                        <td> {{ $unread_messages->sender_email }} </td>
+                        <td> {{ Str::limit($unread_messages->message, 30) }} </td>
                         <td> {{ $unread_messages->status == 1 ? ' Read' : 'Unread' }} </td>
-                        <td> {{ $unread_messages->created_at->diffForHumans() }} </td>
+                        <td> {{ $unread_messages->created_at->format('d/m/Y') }} </td>
                         {{-- <td class="center">
                             <a href=" {{ route('seller.message.view',$unread_messages->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
                         </td> --}}

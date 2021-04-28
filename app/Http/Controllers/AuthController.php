@@ -829,8 +829,8 @@ class AuthController extends Controller
 
         // Image set up
         if ($request->hasFile('file')) {
-            $image_name = time() . '.' . $request->file->extension();
-            $request->file->move(public_path('images'), $image_name);
+            $image_name = Str::of($request->name)->slug('-').'-'.time().'.' . $request->file->extension();
+            $request->file->move(public_path('uploads/users'), $image_name);
             $user->image = $image_name;
         }
 

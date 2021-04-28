@@ -6,7 +6,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="image">
-          <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" class="img-circle" alt="User Image">
+            <img src="{{ Auth::user()->image == null ? '/uploads/users/user-icon.png' : '/uploads/users/'.''.Auth::user()->image  }}" class="img-circle" alt="User Image">
         </div>
         <div class="info">
           <p> {{ Auth::user()->name }} </p>
@@ -26,7 +26,7 @@
             </span>
           </a>
         </li>
-        {{-- 
+        {{--
         <li class="" style="{{ url()->current() == route('accountant.all.due.payments') ? 'background-color: #f8d053' : '' }}">
           <a href=" {{route ('accountant.all.due.payments') }}">
             <i class="fa fa-credit-card-alt"></i> <span> Due Payments </span>
@@ -129,7 +129,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href=" {{ route('accountant.ad.requests') }} "><i class="fa fa-circle-o"></i> All Advert Payments </a></li>
-            
+
           </ul>
         </li> --}}
         {{-- <li class="treeview" style=" {{ url()->current() == route('accountant.badges') ? 'background-color: #f8d053' : '' }}">
