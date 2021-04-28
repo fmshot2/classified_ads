@@ -120,4 +120,9 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         return $this->belongsTo('App\Referal');
     }
+
+    public function messages()
+    {
+        return $this->morphMany(Message::class, 'messageable')->whereNull('parent_id');
+    }
 }

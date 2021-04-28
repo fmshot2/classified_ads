@@ -39,7 +39,6 @@
                                         <th> SL </th>
                                         <th> Name </th>
                                         <th> Email </th>
-                                        <th> Subject </th>
                                         <th> Status </th>
                                         <th> Date </th>
                                         <th> Action </th>
@@ -52,14 +51,13 @@
                                         <tr role="row" class="odd">
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
 
-                                            <td> {{ $all_messages->buyer_name }} </td>
-                                            <td> {{ $all_messages->buyer_email }} </td>
-                                            <td> {{ $all_messages->subject }} </td>
+                                            <td> {{ $all_messages->sender_name }} </td>
+                                            <td> {{ $all_messages->sender_email }} </td>
                                             <td id="rdStatus{{ $all_messages->slug }}"> {!! $all_messages->status == 1 ? '<strong class="text-success text-center">Read</strong>' : '<strong class="text-danger text-center">Unread</strong>' !!} </td>
-                                            <td> {{ $all_messages->created_at->diffForHumans() }} </td>
+                                            <td> {{ $all_messages->created_at->format('d/m/Y') }} </td>
 
                                             <td class="center">
-                                                @if (Auth::user()->email != $all_messages->buyer_email)
+                                                @if (Auth::user()->email != $all_messages->sender_email)
                                                     <a data-toggle="modal" data-target="#viewMessageModal{{ $all_messages->id }}" onclick="readStatus('{{ $all_messages->slug }}')" href="#" class="btn btn-warning "><i class="fa fa-eye"></i></a>
                                                     <a data-toggle="modal" data-target="#replyMessageModal{{ $all_messages->id }}" href="#" class="btn btn-info "><i class="fa fa-reply"></i></a>
                                                 @else
@@ -78,7 +76,7 @@
                                                 <!-- Modal content-->
                                                 <div class="modal-content">
                                                     <div class="modal-header" style="background-color: #cc8a19; color: #fff">
-                                                        <h4 class="modal-title">{{ $all_messages->subject }}</h4>
+                                                        <h4 class="modal-title">Viewing Message</h4>
                                                     </div>
 
                                                     <div class="modal-body">
@@ -88,38 +86,26 @@
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label for="">Sender Name:</label>
-                                                                        <input class="form-control" disabled value="{{ $all_messages->buyer_name }}">
+                                                                        <input class="form-control" disabled value="{{ $all_messages->sender_name }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label for="">Sender Email:</label>
-                                                                        <input class="form-control" disabled value="{{ $all_messages->buyer_email }}">
+                                                                        <input class="form-control" disabled value="{{ $all_messages->sender_email }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <div class="form-group">
                                                                         <label for="">Sender Phone No.:</label>
-                                                                        <input class="form-control" disabled value="{{ $all_messages->phone }}">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="">Message Subject:</label>
-                                                                        <input class="form-control" disabled value="{{ $all_messages->buyer_name }}">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="">Time:</label>
-                                                                        <input class="form-control" disabled value="{{ $all_messages->created_at->diffForHumans() }}">
+                                                                        <input class="form-control" disabled value="{{ $all_messages->sender_phone }}">
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="">Message:</label>
-                                                                        <textarea disabled class="form-control">{{ $all_messages->description }}</textarea>
+                                                                        <textarea disabled class="form-control">{{ $all_messages->message }}</textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -141,6 +127,7 @@
                                             </div>
                                         </div>
 
+
                                         <div id="replyMessageModal{{ $all_messages->id }}" class="modal fade" role="dialog">
                                             <div class="modal-dialog modal-lg">
                                                 <!-- Modal content-->
@@ -150,39 +137,34 @@
                                                     </div>
 
                                                     <div class="modal-body">
-                                                        <form action="{{ route('buyer.message.reply.store') }}" method="POST" enctype="multipart/form-data">@csrf
+                                                        <form action="{{ route('client.message.reply') }}" method="POST" enctype="multipart/form-data">@csrf
                                                             <div class="modal-body">
                                                                 <div class="row">
                                                                     @csrf
                                                                     <input type="hidden" name="service_id" value=" {{ $all_messages->service_id }} ">
-                                                                    <input type="hidden" name="buyer_id" value=" {{ $all_messages->buyer_id }}">
-                                                                    <input type="hidden" name="service_user_id" value=" {{ $all_messages->service_user_id }}">
+                                                                    <input type="hidden" name="receiver_id" value=" {{ $all_messages->user_id }}">
+                                                                    <input type="hidden" name="message_id" value=" {{ $all_messages->id }}">
+                                                                    <input type="hidden" name="sender_name" id="sender_name" value="{{ Auth::user()->name }}">
+                                                                    <input type="hidden" name="sender_email" id="sender_email" value="{{ Auth::user()->email }}">
 
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <label for="">Sender Email:</label>
-                                                                            <input class="form-control" name="buyer_email" type="email" value=" {{ Auth::user()->email }} " disabled="">
+                                                                            <input class="form-control" name="sender_email" type="email" value=" {{ Auth::user()->email }} " disabled="">
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <label for="">Phone Number:</label>
-                                                                            <input class="form-control" name="phone"  type="number" placeholder=" Enter phone here " >
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label for="">Message Subject:</label>
-                                                                            <input class="form-control" name="subject"  type="text" placeholder=" Enter subject here " >
+                                                                            <input class="form-control" name="sender_phone"  type="number" placeholder=" Enter phone here " >
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="col-md-12">
                                                                         <div>
                                                                             <label for="">The Message:</label>
-                                                                            <textarea class="textarea" placeholder="Message" name="description" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                                                            <textarea class="textarea" placeholder="Message" name="message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                                                                         </div>
                                                                     </div>
 

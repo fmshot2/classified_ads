@@ -78,6 +78,7 @@ Route::group([
         Route::get('/message/unread-messages', [ServiceController::class, 'unReadMessages']);
         Route::get('/message/reply', [ServiceController::class, 'replyMessage']);
         Route::post('/message/replies', [ServiceController::class, 'messageReply']);
+        Route::post('/message/markasread', [ServiceController::class, 'messageReadStatus']);
 
         // Notifications
         Route::get('/notification/all', [ServiceController::class, 'allNotifications']);

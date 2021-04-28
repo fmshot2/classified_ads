@@ -1123,20 +1123,27 @@ class OperationalController extends Controller
 
 
 
-    public function readStatusMessage($slug)
+    public function readStatusMessage($slug, Request $request)
     {
+        $user = Auth::user();
         $message = Message::where('slug', $slug)->first();
-        $message->status = 1;
-        if ($message->save()) {
+
+        if ($user->id != $message->user_id) {
+            $message->status = 1;
+            if ($message->save()) {
+                return response()->json([
+                    'message' => 'Message marked as read!',
+                    'alert-type' => 'success'
+                ]);
+            }
             return response()->json([
-                'message' => 'Message marked as read!',
-                'alert-type' => 'success'
+                'message' => 'Message couldn\'t marked as read!',
+                'alert-type' => 'error'
             ]);
         }
-        return response()->json([
-            'message' => 'Message couldn\'t marked as read!',
-            'alert-type' => 'error'
-        ]);
+        else{
+            return 'sender';
+        }
     }
 
     public function AbandonedPaymentView()
@@ -1166,7 +1173,6 @@ class OperationalController extends Controller
             'alert-type' => 'success'
         ]);
     }
-
 
     // public function Newsletter()
     // {

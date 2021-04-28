@@ -76,7 +76,7 @@
                                             <td> {{ $all_services->featured == 1 ? 'Yes' : 'No' }} </td>
                                             <td> {{ $all_services->created_at->format('d/m/Y') }} </td>
                                             <td class="center">
-                                                <a href="{{ route('job.applicant.detail', $all_services->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
+                                                <a href="{{ route('job.applicant.preview.detail', $all_services->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
                                                 <button onclick="deleteSeekingWork({{ $all_services->id }})" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                             </td>
                                         </tr>

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Message;
 use Illuminate\Http\Request;
-use\App\Message;
-use\App\Category;
+use App\Category;
 use Illuminate\Support\Facades\Auth;
 use App\Service;
 use App\Notification;
@@ -38,8 +38,7 @@ class BuyerController extends Controller
 
  public function allMessage()
  {
-  $reply_message = Message::where('reply', 'yes' );
-  $all_message = $reply_message->Where('buyer_id', Auth::id() )->orderBy('id', 'desc')->paginate(10);
+  $all_message = Message::where('user_id', Auth::id())->orWhere('receiver_id', Auth::id())->orderBy('created_at', 'desc')->get();
   return view ('buyer.message.all', compact('all_message') );
 }
 
