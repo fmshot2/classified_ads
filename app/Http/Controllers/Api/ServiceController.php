@@ -1243,7 +1243,7 @@ class ServiceController extends Controller
             ->inRandomOrder()->limit(15)->get();
 
         return response()->json([
-            'services' => $services,
+            'services' => (new ServiceResourceCollection($services)),
             'latitude' => $latitude,
             'longitude' => $longitude
         ], 200);

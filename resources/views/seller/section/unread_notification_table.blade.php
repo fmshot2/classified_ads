@@ -21,7 +21,7 @@
                         <tr id="notification{{ $unread_notification->id }}">
                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                             <td> {{ Str::limit( $unread_notification->data[0]['message'], 100) }} </td>
-                            <td> {{ $unread_notification->created_at->diffForHumans() }} </td>
+                            <td> {{ $unread_notification->created_at->format('d/m/Y') }} </td>
 
                             <td>
                                 @if ($unread_notification->read_at == null)
