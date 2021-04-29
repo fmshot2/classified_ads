@@ -31,6 +31,7 @@ Route::post('/message/reply/store', 'MessageController@reply')->name('client.mes
 
 Route::post('/comment/store', 'CommentsController@store')->name('comment.add');
 Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
+//add slug to old users who have no slug
 Route::get('/addSlug', 'AuthController@addSlug')->name('addSlug');
 
 Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
