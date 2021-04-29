@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AdvertisementResource;
 use App\Http\Resources\AdvertisementResourceCollection;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ClientsFeedback;
+use App\Http\Resources\ClientsFeedbackCollection;
 use App\Http\Resources\SeekingWorkResource;
 use App\Http\Resources\SeekingWorkResourceCollection;
 use App\Http\Resources\ServiceResource;
@@ -384,8 +386,7 @@ class ServiceController extends Controller
 
 
         return response()->json([
-            'user_feedbacks' => $allcomments,
-            'all_services' => $all_services
+            'client_feedbacks' => new ClientsFeedbackCollection($allcomments)
         ], 200);
     }
 
