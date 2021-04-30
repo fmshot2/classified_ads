@@ -25,13 +25,9 @@
                 <p style="font-size: 12px;margin-top: -18px">{{ $service->state }}, {{ $service->city }}</p>
                 <p style="font-size: 16px;margin-top: -10px;font-weight:600;">&#8358; {{ $service->min_price }}</p>
             </div>
-            <a href="{{ route('serviceDetail', ['slug' => 'job-applicant']) }}" class="button button-primary" target="_blank" rel="noopener" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; -webkit-text-size-adjust: none; border-radius: 4px; color: #fff; display: inline-block; overflow: hidden; text-decoration: none; background-color: #ca8309; border-bottom: 8px solid #ca8309; border-left: 18px solid #ca8309; border-right: 18px solid #ca8309; border-top: 8px solid #ca8309;margin-top: -5px;">View Service</a></div></td> @endif @endforeach</tr>
+            <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="button button-primary" target="_blank" rel="noopener" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; -webkit-text-size-adjust: none; border-radius: 4px; color: #fff; display: inline-block; overflow: hidden; text-decoration: none; background-color: #ca8309; border-bottom: 8px solid #ca8309; border-left: 18px solid #ca8309; border-right: 18px solid #ca8309; border-top: 8px solid #ca8309;margin-top: -5px;">View Service</a></div></td> @endif @endforeach</tr>
     </tbody></table>
 </div>
-
-@component('mail::panel')
-Thanks for your patronage, hope to see you soon. 😀👍
-@endcomponent
 
 
 Thanks,<br>
