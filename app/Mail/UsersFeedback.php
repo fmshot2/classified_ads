@@ -30,6 +30,6 @@ class UsersFeedback extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->from('noreply@efcontact.com')->markdown('emails.users_feedback')->subject('Feedback on EFContact');
+        return $this->from('noreply@efcontact.com', 'EFContact')->markdown('emails.users_feedback')->subject('Feedback on EFContact');
     }
 }

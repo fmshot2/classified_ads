@@ -33,6 +33,6 @@ class NewMessage extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->from('noreply@efcontact.com')->markdown('emails.users.new-message')->subject($this->title);
+        return $this->from('noreply@efcontact.com', 'EFContact')->markdown('emails.users.new-message')->subject($this->title);
     }
 }

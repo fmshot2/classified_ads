@@ -33,6 +33,6 @@ class Newsletter extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->from('noreply@efcontact.com')->markdown('emails.newsletters.newsletter')->subject('Most Popular Products and Services!');
+        return $this->from('noreply@efcontact.com', 'EFContact')->markdown('emails.newsletters.newsletter')->subject('Most Popular Products and Services!');
     }
 }

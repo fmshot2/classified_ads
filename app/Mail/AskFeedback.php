@@ -28,6 +28,6 @@ class AskFeedback extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@efcontact.com')->markdown('emails.users.ask-feedback')->subject('Get clients feedback!');
+        return $this->from('noreply@efcontact.com', 'EFContact')->markdown('emails.users.ask-feedback')->subject('Get clients feedback!');
     }
 }

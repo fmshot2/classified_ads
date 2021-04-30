@@ -35,6 +35,6 @@ class SendEmail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->from('support@efcontact.com')->subject($this->subject)->view('emails.bulk-email');
+        return $this->from('support@efcontact.com', 'EFContact')->subject($this->subject)->view('emails.bulk-email');
     }
 }
