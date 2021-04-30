@@ -1182,7 +1182,7 @@ class OperationalController extends Controller
             foreach($users as $user)
             {
                 $category = Category::inRandomOrder()->first();
-                $services = Service::inRandomOrder()->limit(6)->get();
+                $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
 
                 try{
                     Mail::to($user->email)->send(new Newsletter($user->name, $category, $services));
