@@ -1,5 +1,13 @@
 @component('mail::message')
 
+<style>
+    @media (max-width: 768px){
+        .ser-row td{
+            width: 100% !important;
+        }
+    }
+</style>
+
 <h1 style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; color: #3d4852; font-size: 23px; font-weight: bold; margin-top: 0; text-align: center; text-transform: uppercase;color:#CA8309;">Provide a Service, Get a Service!</h1>
 
 <h3 style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; color: #3d4852; font-size: 19px; font-weight: bold; margin-top: 0; text-align: center;">Hello, {{ $username }}!</h3>
@@ -9,9 +17,9 @@
 <h4 style="font-size: 18px; margin-bottom: -30px;padding-left:20px;color:#CA8309;text-transform:uppercase">{{ $category->name }}</h4>
 <div class="table" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative;"></div>
     <table style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%; margin: 30px auto; width: 100%;">
-    <tbody style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; border-top: 0"><tr>@foreach ($services as $service) @if ($loop->index <= 3)
+    <tbody style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; border-top: 0"><tr class="ser-row">@foreach ($services as $service) @if ($loop->index <= 5)
         <td style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; color: #74787e; font-size: 15px; line-height: 18px; margin: 0; padding: 15px; width: 50%; display:inline-block">
-            <div><div style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; max-width: 100%; width: 100%; background-image: url('{{asset('uploads/services/1606898222.jpeg')}}');display: block;height: 200px;width: auto;background-size: cover !important;background-position: center !important;"></div>
+            <div><div style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; max-width: 100%; width: 100%; background-image: url('{{asset('uploads/services/'.$service->thumbnail)}}');display: block;height: 200px;width: auto;background-size: cover !important;background-position: center !important;"></div>
             <div>
                 <h4>{{ Str::limit($service->name, 30) }}</h4>
                 <p style="font-size: 12px;margin-top: -18px">{{ $service->state }}, {{ $service->city }}</p>

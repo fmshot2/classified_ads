@@ -1174,21 +1174,36 @@ class OperationalController extends Controller
         ]);
     }
 
-    // public function Newsletter()
-    // {
-    //     $category = Category::inRandomOrder()->first();
-    //     $services = Service::inRandomOrder()->limit(5)->get();
-    //     $username = 'James Connor';
+    public function Newsletter()
+    {
+        // $category = Category::inRandomOrder()->first();
+        // $services = Service::inRandomOrder()->limit(6)->get();
 
-    //     try{
-    //         Mail::to('adeolewfb@gmail.com')->send(new Newsletter($username, $category, $services));
-    //     }
-    //     catch(\Exception $e){
-    //         $failedtosendmail = 'Failed to Mail!.';
-    //     }
+        $users = User::Where('role', 'buyer')->get();
 
-    //     return $services;
-    // }
+        foreach($users as $user)
+        {
+            $category = Category::inRandomOrder()->first();
+            $services = Service::inRandomOrder()->limit(6)->get();
+
+            try{
+                Mail::to($user->email)->send(new Newsletter($user->name, $category, $services));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+        }
+
+
+        // try{
+        //     Mail::to('adeolewfb@gmail.com')->send(new Newsletter($username, $category, $services));
+        // }
+        // catch(\Exception $e){
+        //     $failedtosendmail = 'Failed to Mail!.';
+        // }
+
+        return $services;
+    }
 
     // public function CredentialsReset($user_id)
     // {
