@@ -14,7 +14,7 @@
 
 <h5 style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; color: #3d4852; font-size: 15px; font-weight: bold; margin-top: -10px; text-align: center;">We have found some awesome services for you!</h5>
 
-<h4 style="font-size: 18px; margin-bottom: -30px;padding-left:20px;color:#CA8309;text-transform:uppercase">{{ $category->name }}</h4>
+{{-- <h4 style="font-size: 18px; margin-bottom: -30px;padding-left:20px;color:#CA8309;text-transform:uppercase">{{ $category->name }}</h4> --}}
 <div class="table" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative;"></div>
     <table style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%; margin: 30px auto; width: 100%;">
     <tbody style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative; border-top: 0"><tr class="ser-row">@foreach ($services as $service) @if ($loop->index <= 5)
