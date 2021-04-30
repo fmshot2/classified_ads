@@ -86,7 +86,7 @@
                         <div class="form-group">
                             <label class="form-label">Local Government</label>
                             <select class="form-control" id="city" name="city">
-                                <option value="{{ $service->city }}" selected disabled>{{ $service->city }}</option>
+                                <option value="{{ $service->city }}" selected>{{ $service->city }}</option>
                             </select>
                         </div>
                     </div>

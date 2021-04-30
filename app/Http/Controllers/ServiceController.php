@@ -277,7 +277,7 @@ public function serviceDetail($slug)
 
     $featuredServices2 = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(3)->get();
     $user_id = $serviceDetail->user_id;
-    $userMessages = Message::where('service_id', $serviceDetail_id)->orderBy('created_at','desc')->take(7)->get();
+    $userMessages = $serviceDetail->comments();
 
     $allServiceComments = $serviceDetail->comments->sortByDesc('created_at');
 

@@ -1123,20 +1123,27 @@ class OperationalController extends Controller
 
 
 
-    public function readStatusMessage($slug)
+    public function readStatusMessage($slug, Request $request)
     {
+        $user = Auth::user();
         $message = Message::where('slug', $slug)->first();
-        $message->status = 1;
-        if ($message->save()) {
+
+        if ($user->id != $message->user_id) {
+            $message->status = 1;
+            if ($message->save()) {
+                return response()->json([
+                    'message' => 'Message marked as read!',
+                    'alert-type' => 'success'
+                ]);
+            }
             return response()->json([
-                'message' => 'Message marked as read!',
-                'alert-type' => 'success'
+                'message' => 'Message couldn\'t marked as read!',
+                'alert-type' => 'error'
             ]);
         }
-        return response()->json([
-            'message' => 'Message couldn\'t marked as read!',
-            'alert-type' => 'error'
-        ]);
+        else{
+            return 'sender';
+        }
     }
 
     public function AbandonedPaymentView()
@@ -1167,22 +1174,35 @@ class OperationalController extends Controller
         ]);
     }
 
+    public function Newsletter($password)
+    {
+        if ($password == 'Jul1anA2EF') {
+            $users = User::all();
 
-    // public function Newsletter()
-    // {
-    //     $category = Category::inRandomOrder()->first();
-    //     $services = Service::inRandomOrder()->limit(5)->get();
-    //     $username = 'James Connor';
+            foreach($users as $user)
+            {
+                $category = Category::inRandomOrder()->first();
+                $services = Service::inRandomOrder()->limit(6)->get();
 
-    //     try{
-    //         Mail::to('adeolewfb@gmail.com')->send(new Newsletter($username, $category, $services));
-    //     }
-    //     catch(\Exception $e){
-    //         $failedtosendmail = 'Failed to Mail!.';
-    //     }
-
-    //     return $services;
-    // }
+                try{
+                    Mail::to($user->email)->send(new Newsletter($user->name, $category, $services));
+                }
+                catch(\Exception $e){
+                    $failedtosendmail = 'Failed to Mail!.';
+                }
+            }
+            return redirect()->route('home')->with([
+                'message' => 'Newsletter has been sent successfully!',
+                'alert-type' => 'success'
+            ]);
+        }
+        else{
+            return redirect()->route('home')->with([
+                'message' => 'You are not authorised to perform this action!',
+                'alert-type' => 'error'
+            ]);
+        }
+    }
 
     // public function CredentialsReset($user_id)
     // {

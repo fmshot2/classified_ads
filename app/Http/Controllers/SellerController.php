@@ -330,8 +330,11 @@ public function readMessage()
 
 public function allMessage()
 {
-    $all_message = Message::where('buyer_id', Auth::id())->orwhere('service_user_id', Auth::id())->orderBy('created_at', 'desc')->get();
-    return view ('seller.message.all', compact('all_message') );
+    // $all_message = Message::where('buyer_id', Auth::id())->orwhere('service_user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+    // return view ('seller.message.all', compact('all_message') );
+
+    $all_user_messages = Message::where('user_id', Auth::id())->orWhere('receiver_id', Auth::id())->orderBy('created_at', 'desc')->get();
+    return view ('seller.message.all', compact('all_user_messages') );
 }
 
 

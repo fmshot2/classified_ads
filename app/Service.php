@@ -154,9 +154,6 @@ public function scopeSearchCategory($query, $category)
     public function likes(){
         return $this->hasMany('\App\Like'); //Product Model Name
     }
-    public function messages(){
-        return $this->hasMany('\App\Message'); //Product Model Name
-    }
 
     public function getImageAttribute($value)
     {
@@ -210,5 +207,16 @@ public function scopeSearchCategory($query, $category)
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
+    }
+
+
+    // public function messages(){
+    //     return $this->hasMany('\App\Message'); //Product Model Name
+    // }
+
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'service_id');
     }
 }

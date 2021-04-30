@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTransRefToSubscriptionsTable extends Migration
+class AddServiceIdToCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddTransRefToSubscriptionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('subscriptions', function (Blueprint $table) {
-        $table->string('trans_ref')->nullable();
+        Schema::table('comments', function (Blueprint $table) {
+            $table->integer('service_id')->after('user_id')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddTransRefToSubscriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('subscriptions', function (Blueprint $table) {
-            $table->dropColumn('trans_ref');
+        Schema::table('comments', function (Blueprint $table) {
+            $table->dropColumn('service_id');
         });
     }
 }

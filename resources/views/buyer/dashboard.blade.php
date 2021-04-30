@@ -33,15 +33,8 @@
             <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-commenting text-white" aria-hidden="true"></i>  </span>
 
             <div class="info-box-content">
-              <span class="info-box-text"> Messages </span>
+              <span class="info-box-text"> Message{{ $all_message_count > 1 ? 's' : '' }} </span>
               <span class="info-box-number"> {{ $all_message_count }} </span>
-
-              <div class="progress">
-                <div class="progress-bar progress-bar-blue" style="width: {{ $all_message_count }} %"></div>
-              </div>
-              <span class="progress-description">
-                <!-- Extra content can go here -->
-              </span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -49,68 +42,44 @@
         </div>
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-commenting text-white" aria-hidden="true"></i> </span>
+            <div class="info-box">
+                <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-bell text-white" aria-hidden="true"></i>  </span>
 
-            <div class="info-box-content">
-              <span class="info-box-text"> Unread Messages </span>
-              <span class="info-box-number"> {{ $unread_message_count }} </span>
-
-              <div class="progress">
-                <div class="progress-bar progress-bar-success" style="width: {{ $unread_message_count }} %"></div>
-              </div>
-              <span class="progress-description">
-                <!-- Extra content can go here -->
-              </span>
+                <div class="info-box-content">
+                    <span class="info-box-text"> Unread Message{{ $unread_message_count > 1 ? 's' : '' }}  </span>
+                    <span class="info-box-number"> {{ $unread_message_count }} </span>
+                </div>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-bell text-white" aria-hidden="true"></i>  </span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text"> Notification{{ $all_notification_count > 1 ? 's' : '' }} </span>
+                    <span class="info-box-number"> {{ $all_notification_count }} </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-bell text-white" aria-hidden="true"></i>  </span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text"> Unread Notification{{ $unread_notification->count() > 1 ? 's' : '' }} </span>
+                    <span class="info-box-number"> {{ $unread_notification->count() }} </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
         </div>
         <!-- /.col -->
-        <div class="col-md-3 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-commenting text-white" aria-hidden="true"></i> </span>
-
-            <div class="info-box-content">
-              <span class="info-box-text"> Read Messages </span>
-              <span class="info-box-number"> {{ $read_message_count }} </span>
-
-              <div class="progress">
-                <div class="progress-bar progress-bar-primary" style="width: {{ $read_message_count }} %"></div>
-              </div>
-              <span class="progress-description">
-               <!-- 85% Increase in 28 Days -->
-             </span>
-           </div>
-           <!-- /.info-box-content -->
-         </div>
-         <!-- /.info-box -->
-       </div>
-       <!-- /.col -->
-       <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="info-box">
-          <span class="info-box-icon push-bottom bg-warning"> <i class="fa fa-bell text-white" aria-hidden="true"></i>  </span>
-
-          <div class="info-box-content">
-            <span class="info-box-text"> General Notices </span>
-            <span class="info-box-number"> {{ $all_notification_count }} </span>
-
-            <div class="progress">
-              <div class="progress-bar progress-bar-danger" style="width: {{ $all_notification_count }} %"></div>
-            </div>
-            <span class="progress-description">
-             <!-- 50% Increase in 28 Days -->
-           </span>
-         </div>
-         <!-- /.info-box-content -->
-       </div>
-       <!-- /.info-box -->
-     </div>
-     <!-- /.col -->
-
-
-  </div>
+    </div>
 
 
   <div class="row">

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Message;
 use App\Notification;
 use App\Service;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -23,6 +24,12 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
+
+
+Route::get('/newsletter/send/{password}', 'OperationalController@Newsletter')->name('newsletter.send');
+
+Route::post('/message/store', 'MessageController@store')->name('client.message.send');
+Route::post('/message/reply/store', 'MessageController@reply')->name('client.message.reply');
 
 Route::post('/comment/store', 'CommentsController@store')->name('comment.add');
 Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
@@ -472,6 +479,11 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/dashboard/service/destroy/{id}', 'AdminController@destroy')->name('admin.service.destroy');
     Route::get('/admin/dashboard/seekingwork/destroy/{id}', 'AdminController@seekingWorkDestroy')->name('admin.seekingwork.destroy');
     Route::get('admin/dashboard/service/view/{slug}', 'AdminController@viewService')->name('admin.view');
+
+    Route::get('/job-applicant/preview/details/{slug}', 'OperationalController@seekingWorkPreviewDetails')->name('job.applicant.preview.detail');
+
+
+    Route::get('admin/dashboard/service/update/{slug}', 'SellerController@viewServiceUpdate')->name('admin.service.update.view');
 
 
         Route::get('/admin/dashboard/subscription/all', 'AdminController@allSubscription')->name('admin.subscription.all');
@@ -944,11 +956,11 @@ View::composer(['layouts.frontend_partials.navbar', 'layouts.frontend_partials.f
 });
 
 View::composer(['layouts.seller_partials.navbar', 'layouts.seller_partials.sidebar', 'layouts.backend_partials.navbar', 'layouts.backend_partials.sidebar'], function ($view) {
-    $all_message = Message::where('service_user_id', Auth::id() );
-    $unread_message =  $all_message->Where('status', 0);
+    $all_message = Message::where('receiver_id', Auth::user()->id)->orwhere('user_id', Auth::user()->id);
+    $unread_message =  Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id)->where('status', 0);
     $check_unread_message_table = collect($unread_message)->isEmpty();
-    $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
-    $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
+    $unread_message_count = Message::where('receiver_id', Auth::user()->id)->where('status', 0)->count();
+    $unread_message = Message::where('receiver_id', Auth::user()->id)->where('status', 0)->take(5)->get();
 
     $unread_notification_count = Notification::where('status', 0)->count();
     $unread_notification = Notification::where('status', 0);
@@ -959,13 +971,11 @@ View::composer(['layouts.seller_partials.navbar', 'layouts.seller_partials.sideb
 
 
 View::composer(['layouts.buyer_partials.navbar', 'layouts.buyer_partials.sidebar'], function ($view) {
-    $reply_message = Message::where('reply', 'yes' );
-
-    $all_message = $reply_message->Where('buyer_id', Auth::id() );
-    $unread_message =  $all_message->Where('status', 0);
+    $all_message = Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id);
+    $unread_message =  Message::where('receiver_id', Auth::user()->id)->orwhere('user_id', Auth::user()->id)->where('status', 0);
     $check_unread_message_table = collect($unread_message)->isEmpty();
-    $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
-    $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
+    $unread_message_count = Message::where('receiver_id', Auth::user()->id)->where('status', 0)->count();
+    $unread_message = Message::where('receiver_id', Auth::user()->id)->where('status', 0)->take(5)->get();
 
     $unread_notification_count = Notification::where('status', 0)->count();
     $unread_notification = Notification::where('status', 0);

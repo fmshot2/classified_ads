@@ -769,7 +769,7 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
   {
     $service = Service::where('slug', $slug)->first();
     $category = Category::where('id', $service->category_id )->first();
-    return view ('seller.service.view_service', compact('service', 'category') );
+    return view ('admin.service.view_service', compact('service', 'category') );
   }
 
   public function allNotification()

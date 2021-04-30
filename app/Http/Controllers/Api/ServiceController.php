@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AdvertisementResource;
 use App\Http\Resources\AdvertisementResourceCollection;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ClientsFeedback;
+use App\Http\Resources\ClientsFeedbackCollection;
 use App\Http\Resources\SeekingWorkResource;
 use App\Http\Resources\SeekingWorkResourceCollection;
 use App\Http\Resources\ServiceResource;
@@ -97,10 +99,10 @@ class ServiceController extends Controller
         }
 
         $service_count = Service::where('user_id', $user->id)->count();
-        $message_count = Message::where('service_user_id', Auth::id())->count();
+        $message_count = Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id)->count();
         $all_service = Service::where('user_id', $user->id)->take(5)->get();
-        $unread_notification = Notification::where('status', 0)->orderBy('id', 'desc')->take(5)->get();
-        $all_notification_count = Notification::count();
+        $unread_notification = $user->unreadNotifications;
+        $all_notification_count = $user->notifications->count();
 
         $all_service_active = Service::where('user_id', $user->id);
         $active_service =  $all_service_active->Where('status', 1);
@@ -114,17 +116,9 @@ class ServiceController extends Controller
         $pending_service_count = $check_pending_service_table == true ? 0 : $pending_service->count();
         $pending_service = $check_pending_service_table == true ? 0 : $pending_service->take(5)->get();
 
-        $all_message = Message::where('service_user_id', $user->id);
-        $unread_message =  $all_message->Where('status', 0);
-        $check_unread_message_table = collect($unread_message)->isEmpty();
-        $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
-        $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
-
-        $message = Message::where('service_user_id', $user->id);
-        $read_message =  $message->Where('status', 1);
-        $check_read_message_table = collect($read_message)->isEmpty();
-        $read_message_count = $check_read_message_table == true ? 0 : $read_message->count();
-        $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();
+        $all_message = Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id)->get();
+        $unread_message_count = Message::where('receiver_id', Auth::user()->id)->where('status', 0)->count();
+        $unread_message = Message::where('receiver_id', Auth::user()->id)->where('status', 0)->get();
 
 
         $all_service2 = Service::where('user_id', $user->id)->get();
@@ -153,11 +147,10 @@ class ServiceController extends Controller
                 'all_services' => $service_count,
                 'pending_services' => $pending_service_count,
                 'active_services' => $active_service_count,
+                'all_messages' => $all_message,
                 'messages_count' => $message_count,
                 'unread_messages' => $unread_message,
                 'unread_essages_count' => $unread_message_count,
-                'read_messages' => $read_message,
-                'read_messages_count' => $read_message_count,
                 'all_notifications' => $all_notification_count,
                 'unread_notifications' => $unread_notification,
                 'your_service_likes_count' => $servicesLikeCounter,
@@ -170,11 +163,10 @@ class ServiceController extends Controller
                 'all_services' => $service_count,
                 'pending_services' => $pending_service_count,
                 'active_services' => $active_service_count,
+                'all_messages' => $all_message,
                 'messages_count' => $message_count,
                 'unread_messages' => $unread_message,
                 'unread_essages_count' => $unread_message_count,
-                'read_messages' => $read_message,
-                'read_messages_count' => $read_message_count,
                 'all_notifications' => $all_notification_count,
                 'unread_notifications' => $unread_notification,
                 'your_service_likes_count' => $servicesLikeCounter
@@ -182,6 +174,39 @@ class ServiceController extends Controller
         }
 
     }
+    public function messageReadStatus(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $message = Message::where('slug', $request->slug)->first();
+
+        if ($user->id != $message->user_id) {
+            $message->status = 1;
+            if ($message->save()) {
+                return response()->json([
+                    'message' => 'Message marked as read!',
+                    'status' => 1
+                ], 200);
+            }
+            return response()->json([
+                'message' => 'Message couldn\'t marked as read!',
+                'status' => 0
+            ]);
+        }
+        else{
+            return response()->json([
+                'message' => 'You are the message sender!',
+                'status' => 0
+            ]);
+        }
+    }
+
 
     public function createService(Request $request)
     {
@@ -361,8 +386,7 @@ class ServiceController extends Controller
 
 
         return response()->json([
-            'user_feedbacks' => $allcomments,
-            'all_services' => $all_services
+            'client_feedbacks' => new ClientsFeedbackCollection($allcomments)
         ], 200);
     }
 
@@ -376,7 +400,7 @@ class ServiceController extends Controller
             ]);
         }
 
-        $all_message = Message::where('service_user_id', Auth::id())->orderBy('id', 'desc')->paginate(50);
+        $all_message = Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id)->get();
 
         return response()->json([
             $all_message,

@@ -122,6 +122,8 @@
                     <a class="text-warning" href="{{ route('seller.dashboard') }}"><i class="fa fa-user"></i> My Account</a>
                     @elseif(Auth::user()->role == 'buyer')
                     <a class="text-warning" href="{{ route('buyer.dashboard') }}"><i class="fa fa-user"></i> My Account</a>
+                    @elseif(Auth::user()->role == 'admin')
+                    <a class="text-warning" href="{{ route('admin.dashboard') }}"><i class="fa fa-user"></i> My Account</a>
                     @endif
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();" style="font-weight: 600; padding: 10px;"><i class="fa fa-power-off"></i> Logout</a>
@@ -159,6 +161,8 @@
                     <a href="{{ route('seller.dashboard') }}"> Dashboard</a>
                     @elseif(Auth::user()->role == 'buyer')
                     <a href="{{ route('buyer.dashboard') }}"> My Account</a>
+                    @elseif(Auth::user()->role == 'admin')
+                    <a href="{{ route('admin.dashboard') }}"> My Account</a>
                     @endif
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();" style="font-weight: 600; color: rgb(253, 75, 75); border: 1px solid  rgb(255, 91, 91); padding: 10px;"><i class="fa fa-power-off"></i></a>
@@ -257,6 +261,11 @@
                         @if(Auth::user()->role == 'buyer')
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="{{ route('buyer.dashboard') }}">My Account</a>
+                        </li>
+                        @endif
+                        @if(Auth::user()->role == 'admin')
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="{{ route('admin.dashboard') }}">My Account</a>
                         </li>
                         @endif
                         @if(Auth::guard('agent')->check())
