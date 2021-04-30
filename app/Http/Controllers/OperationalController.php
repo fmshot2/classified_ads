@@ -1174,24 +1174,34 @@ class OperationalController extends Controller
         ]);
     }
 
-    public function Newsletter()
+    public function Newsletter($password)
     {
-        $users = User::all();
+        if ($password == 'Jul1anA2EF') {
+            $users = User::all();
 
-        foreach($users as $user)
-        {
-            $category = Category::inRandomOrder()->first();
-            $services = Service::inRandomOrder()->limit(6)->get();
+            foreach($users as $user)
+            {
+                $category = Category::inRandomOrder()->first();
+                $services = Service::inRandomOrder()->limit(6)->get();
 
-            try{
-                Mail::to($user->email)->send(new Newsletter($user->name, $category, $services));
+                try{
+                    Mail::to($user->email)->send(new Newsletter($user->name, $category, $services));
+                }
+                catch(\Exception $e){
+                    $failedtosendmail = 'Failed to Mail!.';
+                }
             }
-            catch(\Exception $e){
-                $failedtosendmail = 'Failed to Mail!.';
-            }
+            return redirect()->route('home')->with([
+                'message' => 'Newsletter has been sent successfully!',
+                'alert-type' => 'success'
+            ]);
         }
-
-        return 'Newsletter has been sent successfully!';
+        else{
+            return redirect()->route('home')->with([
+                'message' => 'You are not authorised to perform this action!',
+                'alert-type' => 'error'
+            ]);
+        }
     }
 
     // public function CredentialsReset($user_id)
