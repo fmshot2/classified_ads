@@ -128,7 +128,7 @@
               <a href="{{ route('seller.message.view',$unread_messages->slug) }}">
 
                 <div class="mail-contnet">
-                  <span style="font-weight: bold;"> {{ Str::limit($unread_messages->description, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_messages->created_at->diffForHumans() }} </small> </span>
+                  <span style="font-weight: bold;"> {{ Str::limit($unread_messages->message, 23)  }} <small class="text-danger"><i class="fa fa-clock-o text-danger"></i> {{ $unread_messages->created_at->diffForHumans() }} </small> </span>
               </div>
             </a>
           </li>

@@ -27,7 +27,7 @@
                         <td> {{ $active_services->name }} </td>
                         <td><span class="text-muted"><i class="fa fa-clock-o"></i> {{ $active_services->experience }} </span> </td>
                         <td> {{ $active_services->is_featured == 1 ? 'Yes' : 'No' }} </td>
-                        <td> {{ $active_services->created_at->diffForHumans() }} </td>
+                        <td> {{ $active_services->created_at->format('d/m/Y') }} </td>
                     </tr>
 
                     @endforeach

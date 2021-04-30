@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserIdToPaymentsTable extends Migration
+class AddPaymentableTypeToPaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddUserIdToPaymentsTable extends Migration
     public function up()
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->string('user_id')->nullable();
+            $table->string('paymentable_type')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddUserIdToPaymentsTable extends Migration
     public function down()
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->dropColumn('user_id');
+            $table->dropColumn('paymentable_type');
         });
     }
 }

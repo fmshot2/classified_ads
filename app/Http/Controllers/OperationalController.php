@@ -669,6 +669,29 @@ class OperationalController extends Controller
                     "categories" => $categories,
                 ]);
             }
+            else {
+                $services = Service::query()
+                            ->where('status', 1)
+                            ->with('category')
+                            ->whereHas('category', function($query) use ($categoryId)  {
+                                $query->where('id', $categoryId);
+                            })->get();
+
+                if (!$services->isEmpty()) {
+                    return view('dapSearchResult', [
+                        "message" => 'Your search result in <strong>'.$categoryname.'</strong>',
+                        "services" => $services,
+                        "featuredServices" => $featuredServices,
+                        "categories" => $categories,
+                    ]);
+                }
+                else{
+                    return view('dapSearchResult', [
+                        "message" => 'No result found for your search in <strong>'.$categoryname.'</strong>',
+                        "categories" => $categories,
+                    ]);
+                }
+            }
 
         }
 
@@ -889,7 +912,7 @@ class OperationalController extends Controller
             $sWork->skills                = $request->skills;
             $sWork->category_id           = $request->category_id;
             $sWork->is_featured           = $request->is_featured;
-            $sWork->picture               = $file_name;
+            $sWork->picture             = $file_name;
 
         if ($sWork->save()) {
             $sWork->images()->create(['image_path' => $file_name]);
@@ -996,6 +1019,8 @@ class OperationalController extends Controller
         $user_id = $seekingWorkDetail->user_id;
         $userMessages = Message::where('service_id', $seekingWorkDetail_id)->orderBy('created_at','desc')->take(7)->get();
 
+        $allServiceComments = $seekingWorkDetail->comments->sortByDesc('created_at');
+
         $the_user = User::find($user_id);
         $the_user_name = $the_user->name;
         $the_provider_f_name = explode(' ', trim($the_user_name))[0];
@@ -1003,14 +1028,13 @@ class OperationalController extends Controller
         $expiresAt = now()->addHours(24);
         views($seekingWorkDetail)->cooldown($expiresAt)->record();
 
-        return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck']));
+        return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck', 'allServiceComments']));
     }
 
     public function seekingWorkPreviewDetails($slug)
     {
 
         $seekingWorkDetail = SeekingWork::where('slug', $slug)->first();
-
         $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
         $approvedServices = Service::where('status', 1)->with('user')->get();
         $categories = Category::paginate(8);
@@ -1026,6 +1050,8 @@ class OperationalController extends Controller
         $user_id = $seekingWorkDetail->user_id;
         $userMessages = Message::where('service_id', $seekingWorkDetail_id)->orderBy('created_at','desc')->take(7)->get();
 
+        $allServiceComments = $seekingWorkDetail->comments->sortByDesc('created_at');
+
         $the_user = User::find($user_id);
         $the_user_name = $the_user->name;
         $the_provider_f_name = explode(' ', trim($the_user_name))[0];
@@ -1033,7 +1059,7 @@ class OperationalController extends Controller
         $expiresAt = now()->addHours(24);
         views($seekingWorkDetail)->cooldown($expiresAt)->record();
 
-        return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck']));
+        return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck', 'allServiceComments']));
     }
 
 
@@ -1097,20 +1123,27 @@ class OperationalController extends Controller
 
 
 
-    public function readStatusMessage($slug)
+    public function readStatusMessage($slug, Request $request)
     {
+        $user = Auth::user();
         $message = Message::where('slug', $slug)->first();
-        $message->status = 1;
-        if ($message->save()) {
+
+        if ($user->id != $message->user_id) {
+            $message->status = 1;
+            if ($message->save()) {
+                return response()->json([
+                    'message' => 'Message marked as read!',
+                    'alert-type' => 'success'
+                ]);
+            }
             return response()->json([
-                'message' => 'Message marked as read!',
-                'alert-type' => 'success'
+                'message' => 'Message couldn\'t marked as read!',
+                'alert-type' => 'error'
             ]);
         }
-        return response()->json([
-            'message' => 'Message couldn\'t marked as read!',
-            'alert-type' => 'error'
-        ]);
+        else{
+            return 'sender';
+        }
     }
 
     public function AbandonedPaymentView()
@@ -1141,22 +1174,35 @@ class OperationalController extends Controller
         ]);
     }
 
+    public function Newsletter($password)
+    {
+        if ($password == 'Jul1anA2EF') {
+            $users = User::all();
 
-    // public function Newsletter()
-    // {
-    //     $category = Category::inRandomOrder()->first();
-    //     $services = Service::inRandomOrder()->limit(5)->get();
-    //     $username = 'James Connor';
+            foreach($users as $user)
+            {
+                $category = Category::inRandomOrder()->first();
+                $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
 
-    //     try{
-    //         Mail::to('adeolewfb@gmail.com')->send(new Newsletter($username, $category, $services));
-    //     }
-    //     catch(\Exception $e){
-    //         $failedtosendmail = 'Failed to Mail!.';
-    //     }
-
-    //     return $services;
-    // }
+                try{
+                    Mail::to($user->email)->send(new Newsletter($user->name, $category, $services));
+                }
+                catch(\Exception $e){
+                    $failedtosendmail = 'Failed to Mail!.';
+                }
+            }
+            return redirect()->route('home')->with([
+                'message' => 'Newsletter has been sent successfully!',
+                'alert-type' => 'success'
+            ]);
+        }
+        else{
+            return redirect()->route('home')->with([
+                'message' => 'You are not authorised to perform this action!',
+                'alert-type' => 'error'
+            ]);
+        }
+    }
 
     // public function CredentialsReset($user_id)
     // {

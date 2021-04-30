@@ -373,11 +373,11 @@
                                 <div class="tab-pane fade " id="seven" role="tabpanel" aria-labelledby="seven-tab">
                                     <div class="properties-description mb-50">
                                         @guest
-                                            <p class="animate__animated animate__bounce">Please login to see this service provider's phone number!</p>
+                                            <p class="animate__animated animate__bounce">Please login to see this service provider's contact details!</p>
                                         @endguest
                                         @auth
                                             <p class="animate__animated animate__bounce">
-                                                <strong><i class="fa fa-phone"></i> Phone Number:</strong> <a class="btn btn-success" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px;">
+                                                <strong><i class="fa fa-phone"></i> Phone Number:</strong> <a href="tel:{{$serviceDetail->phone}}">
                                                      {{$serviceDetail->phone}}
                                                 </a>
                                             </p>
@@ -385,8 +385,13 @@
                                                 <strong><i class="fa fa-envelope-open"></i> E-mail Address:</strong> <a href="mailto:{{$serviceDetail->user->email}}"> {{$serviceDetail->user->email}}</a>
                                             </p>
                                             <p class="animate__animated animate__bounce">
-                                                <strong><i class="fa fa-map-marker"></i> Address:</strong> {{$serviceDetail->streetAddress}} | {{$serviceDetail->city}} | &nbsp; {{$serviceDetail->state}}
+                                                <strong><i class="fa fa-map-marker"></i> State and City:</strong> {{$serviceDetail->city}}, {{$serviceDetail->state}}
                                             </p>
+                                            @if ($serviceDetail->address)
+                                            <p class="animate__animated animate__bounce">
+                                                <strong><i class="fa fa-map"></i> Full Address:</strong> {{ $serviceDetail->address ? $serviceDetail->address : '' }}
+                                            </p>
+                                            @endif
                                         @endauth
                                     </div>
                                 </div>
@@ -521,34 +526,19 @@
                                 </form>
                                 <form id="myform" action="POST">
                                     <input type="hidden" name="_method" value="POST">
-                                    {{ csrf_field() }}
-                                    <input  type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
+                                    @csrf
+                                    {{-- <input  type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
                                     <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">
-                                    <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="text-dark form-control">
+                                    <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="text-dark form-control"> --}}
 
-                                    {{-- <div class="form-group">
-                                        <label class="form-label">Full Name</label>
-                                        <input type="text" id="buyer_name" name="buyer_name" class="text-dark form-control" placeholder=" Your Name">
-                                        @if ($errors->has('buyer_name'))
-                                            <span>
-                                            <strong class="text-danger">{{ $errors->first('buyer_name') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" id="buyer_email" name="buyer_email" class="text-dark form-control" placeholder="Your Email">
-                                        @if ($errors->has('buyer_email'))
-                                            <span>
-                                                <strong class="text-danger">{{ $errors->first('buyer_email') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div> --}}
+                                    <input type="hidden" name="sender_name" id="sender_name" value="{{ Auth::user()->name }}">
+                                    <input type="hidden" name="receiver_id" id="receiver_id" value="{{ $serviceDetail->user->id }}">
+                                    <input type="hidden" name="sender_email" id="sender_email" value="{{ Auth::user()->email }}">
+                                    <input type="hidden" name="service_id" id="service_id" value="{{ $serviceDetail->id }}">
 
                                     <div class="form-group">
                                         <label class="form-label">Phone</label>
-                                        <input type="text" id="phone" name="phone" class="text-dark form-control" placeholder="Your Phone Number">
+                                        <input type="text" id="sender_phone" name="sender_phone" class="text-dark form-control" placeholder="Your Phone Number">
                                         @if ($errors->has('phone'))
                                             <span>
                                                 <strong class="text-danger">{{ $errors->first('phone') }}</strong>
@@ -556,21 +546,11 @@
                                         @endif
                                     </div>
 
-                                    {{-- <div class="form-group">
-                                        <label class="form-label">Subject</label>
-                                        <input type="text" id="subject" name="subject" class="form-control text-dark" placeholder="Subject">
-                                        @if ($errors->has('subject'))
-                                            <span>
-                                                <strong class="text-danger">{{ $errors->first('subject') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div> --}}
-
                                     <div class="form-group message">
-                                        <textarea class="text-dark form-control" id="description" name="description" placeholder="Write message to {{ $serviceDetail->user->name }}"></textarea>
-                                        @if ($errors->has('description'))
+                                        <textarea class="text-dark form-control" id="message" name="message" placeholder="Write message to {{ $serviceDetail->user->name }}"></textarea>
+                                        @if ($errors->has('message'))
                                             <span>
-                                                <strong class="text-danger">{{ $errors->first('description') }}</strong>
+                                                <strong class="text-danger">{{ $errors->first('message') }}</strong>
                                             </span>
                                         @endif
                                     </div>
@@ -869,19 +849,17 @@
             $("#btn-submit2").css({"opacity": "0.5", "cursor":"default"});
 
             var _token = $("input[name='_token']").val();
-            var buyer_id = $("#buyer_id").val();
-            var buyer_name = $("#buyer_name").val();
+            var sender_name = $("#sender_name").val();
+            var receiver_id = $("#receiver_id").val();
+            var sender_email = $("#sender_email").val();
+            var sender_phone = $("#sender_phone").val();
             var service_id = $("#service_id").val();
-            var subject = $("#subject").val();
-            var service_user_id = $("#service_user_id").val();
-            var phone = $("#phone").val();
-            var buyer_email = $("#buyer_email").val();
-            var description = $("#description").val();
+            var message = $("#message").val();
 
             $.ajax({
-                url: baseUrl + '/buyer/createcomment2',
+                url: '{{ route('client.message.send') }}',
                 method:'POST',
-                data: {_token:_token, buyer_id:buyer_id, service_id:service_id, service_user_id:service_user_id, description:description, subject:subject, buyer_name, buyer_email, phone },
+                data: {_token:_token, sender_name:sender_name, service_id:service_id, sender_email:sender_email, message:message, sender_phone:sender_phone, receiver_id:receiver_id },
                 success: function(data) {
                     $("#phone").val('')
                     $("#description").val('')

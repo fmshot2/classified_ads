@@ -3,7 +3,7 @@
         <div class="display-comment">
             <div class="media">
                 <div class="media-left">
-                    <img src="{{ asset('avatar.jpg') }}" class="media-object" style="width:45px">
+                    <img src="{{ $comment->user->image ? asset('uploads/users/'.$comment->user->image) : asset('nouserimage.png') }}" class="media-object" style="width:45px">
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">{{ $comment->user->name }}

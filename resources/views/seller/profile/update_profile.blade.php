@@ -24,7 +24,7 @@
 				<div class="box box-warning">
 					<div class="box-body box-profile">
 
-						<img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" alt="User profile picture">
+						<img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/uploads/users/'.''.Auth::user()->image  }}" alt="User profile picture">
 
 						<h3 class="profile-username text-center"> {{ Auth::user()->name }} </h3>
 
@@ -123,7 +123,7 @@
 						<!-- /.tab-pane -->
 
 						<div class="tab-pane" id="password">
-							<form class="form-horizontal form-element" method="POST"  enctype="multipart/form-data">
+							<form class="form-horizontal form-element" method="POST" action="{{route('providerprofile.update.password', Auth::id() )}}"  enctype="multipart/form-data">
 								{{ csrf_field() }}
 
 								<div class="form-group">
@@ -137,7 +137,7 @@
 									<label for="inputEmail" class="col-sm-2 control-label">New Password</label>
 
 									<div class="col-sm-10">
-										<input class="form-control" name="password" type="password" required="">
+										<input class="form-control" name="new_password" type="password" required="">
 									</div>
 								</div>
 								<div class="form-group">

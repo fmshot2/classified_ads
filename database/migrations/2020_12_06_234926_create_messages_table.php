@@ -15,17 +15,20 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('service_id')->nullable();
-            $table->unsignedInteger('service_user_id');
-            $table->string('buyer_name')->nullable();
-            $table->string('buyer_email')->nullable();
-            $table->string('subject')->nullable();
-            $table->string('phone')->nullable();
-            $table->boolean('status')->default(0)->nullable();
-            $table->unsignedInteger('buyer_id')->nullable();
-            $table->text('description');
-            $table->string('reply')->default('no');
+            $table->integer('user_id')->unsigned();
+            $table->integer('parent_id')->unsigned()->nullable();
+            $table->text('message');
+            $table->integer('messageable_id')->unsigned();
+            $table->string('messageable_type');
+            $table->integer('receiver_id')->nullable();
+            $table->string('sender_name')->nullable();
+            $table->string('sender_email')->nullable();
+            $table->string('sender_phone')->nullable();
+            $table->timestamp('read_at')->nullable();
             $table->string('slug')->nullable();
+            $table->integer('service_user_id')->nullable();
+            $table->integer('service_id')->nullable();
+            $table->integer('status')->default(0)->nullable();
             $table->timestamps();
         });
     }

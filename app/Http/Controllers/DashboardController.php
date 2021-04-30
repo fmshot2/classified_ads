@@ -23,11 +23,13 @@ class DashboardController extends Controller
 
   public function seller()
   {
+    $user = Auth::user();
     $service_count = Service::where('user_id', Auth::id() )->count();
-    $message_count = Message::where('service_user_id', Auth::id())->count();
+    $message_count = Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id)->count();
     $all_service = Service::where('user_id', Auth::id() )->take(5)->get();
-    $unread_notification = Notification::where('status', 0)->orderBy('id', 'desc')->take(5)->get();
-    $all_notification_count = Notification::count();
+
+    $unread_notification = $user->unreadNotifications;
+    $all_notification_count = $user->unreadNotifications->count();
 
     $all_service_active = Service::where('user_id', Auth::id() );
     $active_service =  $all_service_active->Where('status', 1);
@@ -41,17 +43,23 @@ class DashboardController extends Controller
     $pending_service_count = $check_pending_service_table == true ? 0 : $pending_service->count();
     $pending_service = $check_pending_service_table == true ? 0 : $pending_service->take(5)->get();
 
-    $all_message = Message::where('service_user_id', Auth::id() );
-    $unread_message =  $all_message->Where('status', 0);
-    $check_unread_message_table = collect($unread_message)->isEmpty();
-    $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
-    $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
 
-    $message = Message::where('service_user_id', Auth::id() );
-    $read_message =  $message->Where('status', 1);
-    $check_read_message_table = collect($read_message)->isEmpty();
-    $read_message_count = $check_read_message_table == true ? 0 : $read_message->count();
-    $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();
+
+    $message_count = Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id)->count();
+    $unread_message_count = Message::where('receiver_id', Auth::user()->id)->where('status', 0)->count();
+    $unread_message = Message::where('receiver_id', Auth::user()->id)->where('status', 0)->get();
+
+    // $all_message = Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id);
+    // $unread_message =  Message::Where('status', 0)->where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id);
+    // $check_unread_message_table = collect($unread_message)->isEmpty();
+    // $unread_message_count = Message::where('status', 0)->where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id)->count();
+    // $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
+
+    // $message = Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id);
+    // $read_message =  $message->Where('status', 1);
+    // $check_read_message_table = collect($read_message)->isEmpty();
+    // $read_message_count = $check_read_message_table == true ? 0 : $read_message->count();
+    // $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();
 
 
     $all_service2 = Service::where('user_id', Auth::id())->get();
@@ -79,7 +87,7 @@ class DashboardController extends Controller
     $linkcheck = $linkcheck2;
 
         return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count',
-         'message_count', 'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service',
+         'message_count', 'unread_message', 'unread_message_count', 'all_service',
           'active_service', 'unread_notification', 'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount', 'pending_service', 'categories', 'subcategories', 'states', 'servicesLikeCounter'));
 
     }else{
@@ -88,7 +96,7 @@ class DashboardController extends Controller
 
 
      return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count',
-        'unread_message', 'unread_message_count', 'read_message', 'read_message_count', 'all_service', 'active_service', 'unread_notification',
+        'unread_message', 'unread_message_count', 'all_service', 'active_service', 'unread_notification',
         'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount',
         'pending_service', 'categories', 'subcategories', 'states', 'servicesLikeCounter'));
     }
@@ -175,28 +183,33 @@ $accruedAmount = Auth::user()->refererAmount;
 
 public function buyer()
 {
+    $user = Auth::user();
+    $reply_message = Message::where('parent_id', NULL)->where('receiver_id', Auth::user()->id)->get();
+    $all_message_count = $reply_message->Where('receiver_id', Auth::id() )->count();
 
-    $reply_message = Message::where('reply', 'yes' );
-    $all_message_count = $reply_message->Where('buyer_id', Auth::id() )->count();
+    $all_message_count = Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id)->count();
+    $unread_message_count = Message::where('receiver_id', Auth::user()->id)->where('status', 0)->count();
+    $unread_message = Message::where('receiver_id', Auth::user()->id)->where('status', 0)->get();
 
-    $reply_message_unread = Message::where('reply', 'yes' );
-    $unread_message =   $reply_message_unread->Where('status', 0);
-    $check_unread_message_table = collect($unread_message)->isEmpty();
-    $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
-    $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(10)->get();
+    // $reply_message_unread = Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id)->get();
+    // $unread_message = $reply_message_unread->where('status', 0);
+    // $check_unread_message_table = collect($unread_message)->isEmpty();
+    // $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
+    // $unread_message = Message::where('status', 0)->where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id)->get();
 
-    $reply_message_read = Message::where('reply', 'yes' );
-    $read_message =  $reply_message_read->Where('status', 1);
-    $check_read_message_table = collect($read_message)->isEmpty();
-    $read_message_count = $check_read_message_table == true ? 0 : $read_message->count();
-    $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();
+    // $reply_message_read = Message::where('parent_id', NULL)->where('receiver_id', Auth::user()->id)->get();
+    // $read_message =  $reply_message_read->Where('status', 1);
+    // $check_read_message_table = collect($read_message)->isEmpty();
+    // $read_message_count = $check_read_message_table == true ? 0 : $read_message->count();
+    // $read_message = $check_read_message_table == true ? 0 : $read_message->orderBy('id', 'desc')->take(5)->get();
 
-    $unread_notification = Notification::where('status', 0)->orderBy('id', 'desc')->take(10)->get();
-    $all_notification_count = Notification::count();
+
+    $unread_notification = $user->unreadNotifications;
+    $all_notification_count = $user->notifications->count();
 
     $all_service = Service::take(6)->get();
 
-    return view('buyer.dashboard', compact('unread_message', 'unread_notification', 'all_message_count', 'unread_message_count', 'read_message', 'read_message_count', 'all_notification_count', 'all_service' ));
+    return view('buyer.dashboard', compact('unread_message', 'unread_notification', 'all_message_count', 'unread_message_count', 'all_notification_count', 'all_service' ));
 }
 
 

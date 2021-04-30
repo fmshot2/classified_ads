@@ -53,6 +53,22 @@ class AccountantController extends Controller
 
 	}
 
+    public function sellerActivity()
+    {
+        $payments = User::where('role', '=', 'seller')->get();
+        return view('accountant.activity.seller', [
+            'payments' =>$payments
+        ]);
+    }
+
+    public function agentActivity()
+    {
+        $payments = Agent::all();
+        return view('accountant.activity.agent', [
+            'payments' =>$payments
+        ]);
+    }
+
 
     public function add_accountant()
     {
@@ -99,19 +115,9 @@ class AccountantController extends Controller
     	]);
     }
 
-    // public function successfulPayments()
-    // {
-    // 	$all_payments = Payment::all();
-    // 	return view('accountant.payments.paid_payments', [
-    // 		'all_payments' => $all_payments
-    // 	]);	
-    // }
-
     public function pendingPayments()
     {
-    	// $pending_payments = DB::table('payment_requests')->where(['user_type' => 'agent', 'is_paid' => 0])->get();
         $pending_payments = PaymentRequest::where(['user_type' => 'agent', 'is_paid' => 0])->get();
-        // dd($pending_payments);
     	return view('accountant.payments.unpaid_payments', [
     		'pending_payments' => $pending_payments
     	]);
@@ -152,6 +158,7 @@ class AccountantController extends Controller
 
     public function badgeRequests()
     {
+
         $all_badges = Payment::where('payment_type', 'badge_payment')->get();
         return view('accountant.badges.badges', [
             'all_badges' => $all_badges
@@ -288,21 +295,7 @@ class AccountantController extends Controller
         $status_message = "pending";
 
         $payment = Agent::where('id' , $id)->first();
-        // if ($payment->is_paid == 1) {
-
-        //     $total = $payment->refererAmount;
-        //     $payment->refererAmount = 0;
-        //     $payment->total_paid += $total;
-        //     $payment->is_paid = 0;
-        //     $payment->update();
-
-        //     return response()->json([
-        //         'success' => $success,
-        //         'message' => $message,
-        //         'status_message' => $status_message,
-        //     ]);
-       
-        // }
+        
         if ($payment->is_paid == 0) {
               $message = "Payment successful";
               $status_message = "Paid";
@@ -325,7 +318,7 @@ class AccountantController extends Controller
 
     public function generatePayment()
     {
-        // $agents = DB::table('agents')->where('refererAmount', '>=', 1000)->get();
+       
         $agents = Agent::where('refererAmount', '>=', 1000)->get();
         foreach ($agents as $agent) {
 
@@ -402,9 +395,6 @@ class AccountantController extends Controller
 
         $user = PaymentRequest::where('user_id', $id)->first();
 
-        // $user = $history->user_id;
-        // dd($user->user_id);
-
         return view('accountant.payment_details', [
             'history' => $history,
             'user' => $user
@@ -421,7 +411,7 @@ class AccountantController extends Controller
 
     public function allEfPayments()
     {
-        $payments = Payment::with('user')->get();
+        $payments = Payment::all();
         return view('accountant.payments.all_ef_payments', [
             'payments' => $payments
         ]);

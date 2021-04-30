@@ -33,15 +33,16 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Carbon;
 use Geocoder;
+use Carbon\Carbon;
+
 
 class AdminController extends Controller
 {
 
     public function usersfeedback()
     {
-        $feedbacks = UserFeedback::all();
+        $feedbacks = UserFeedback::orderBy('created_at','desc')->get();
 
         return view('admin.feedbacks', [
             'feedbacks' => $feedbacks
@@ -464,9 +465,15 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
     return view ('admin.service.pending', compact('pending_service') );
   }
 
-    public function allSubscription()
+  //   public function allSubscription()
+  // {
+  //   $all_subscriptions = ProviderSubscription::all();
+  //   return view ('admin.subscription.index', compact('all_subscriptions') );
+  // }
+
+   public function allSubscription()
   {
-    $all_subscriptions = ProviderSubscription::all();
+    $all_subscriptions = Subscription::all();
     return view ('admin.subscription.index', compact('all_subscriptions') );
   }
 
@@ -662,27 +669,30 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
         if($service->save()){
             if ($service->status == 1) {
                 $status = 'Approved';
-            try{
-                Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
-            }
-            catch(\Exception $e){
-                $failedtosendmail = 'Failed to Mail!.';
-            }
+                $reason = '';
+               try{
+                   Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
+               }
+               catch(\Exception $e){
+                   $failedtosendmail = 'Failed to Mail!.';
+               }
             }
             else {
-            $status = 'Disapproved';
-            try{
-                Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status));
-            }
-            catch(\Exception $e){
-                $failedtosendmail = 'Failed to Mail!.';
-            }
+               $status = 'Disapproved';
+               $reason = $request->get('reason');
+               try{
+                   Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
+               }
+               catch(\Exception $e){
+                   $failedtosendmail = 'Failed to Mail!.';
+               }
             }
             $request->session()->flash('status', 'CV was '.$status);
-            return back();
+            return $status;
         }
         $request->session()->flash('error', 'Something went wrong');
         return back();
+
 
    }
 
@@ -759,7 +769,7 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
   {
     $service = Service::where('slug', $slug)->first();
     $category = Category::where('id', $service->category_id )->first();
-    return view ('seller.service.view_service', compact('service', 'category') );
+    return view ('admin.service.view_service', compact('service', 'category') );
   }
 
   public function allNotification()
@@ -1088,5 +1098,42 @@ public function save_faq(Request $request)
         $efmarketers_downlines = User::where('idOfReferer', $efmarketer->id)->get();
         // Category::orderBy('id', 'asc')->paginate(35);
         return view('admin.user.ef_marketers_downline', compact('efmarketers_downlines'));
+    }
+
+       public function provider_downline($slug)
+    {
+        $user =  User::where('slug', $slug)->first();
+        $user_downlines = User::where('idOfReferer', $user->id)->get();
+        // Category::orderBy('id', 'asc')->paginate(35);
+        return view('admin.user.users_downline', compact('user_downlines'));
+    }
+
+       public function agent_downline($id)
+    {
+        $user =  Agent::where('id', $id)->first();
+        $agent_downlines = User::where('idOfAgent', $user->id)->get();
+        // Category::orderBy('id', 'asc')->paginate(35);
+        return view('admin.user.agents_downline', compact('agent_downlines'));
+    }
+
+        public function agents_downline_24hrs($id)
+    {
+        $user =  Agent::where('id', $id)->first();
+        // $agent_downlines = User::where('idOfAgent', $user->id)->where('created_at', '>', Carbon::now()->subMinutes(1440))->get();
+        $agent_downlines = User::where('idOfAgent', $user->id)->where('created_at', '=', Carbon::yesterday())->get();
+        // Category::orderBy('id', 'asc')->paginate(35);
+        return view('admin.user.agents_downline_24hrs', compact('agent_downlines'));
+    }
+
+    // $getItemsOneDay = Deposit::where('steam_user_id',0)->where('status', Deposit::STATUS_ACTIVE)
+    // ->where('created_at', '>', Carbon::now()->subMinutes(1440))->get();
+
+
+    public function all_marketer_earnings()
+    {
+      $efmarketers = User::where('is_ef_marketer', '1')->get();
+      return view('admin.earnings.marketers', [
+        'efmarketers' => $efmarketers
+      ]);
     }
 }

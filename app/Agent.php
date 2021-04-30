@@ -32,6 +32,25 @@ class Agent extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+
+/**
+     * Get all of the user's payments.
+     */
+    public function mypayments()
+    {
+        return $this->morphMany(Payment::class, 'paymentable');
+    }
+
+
+
+ /**
+     * Get all of the user's subscriptions.
+     */
+    public function subscriptions()
+    {
+        return $this->morphMany(Subscription::class, 'subscriptionable');
+    }
+
     /**
      * Get all of the post's comments.
      */
@@ -39,4 +58,5 @@ class Agent extends Authenticatable implements MustVerifyEmail
     {
         return $this->morphMany(Referal::class, 'referalable');
     }
+
 }

@@ -54,10 +54,14 @@
                             <p>Phone Number</p>
                             <strong>
                                 <a href="tel: { $check_general_info == 0 ? $general_info->hot_line : '' }} ">
-                                    {{ $general_info->hot_line ? '+234 '.$general_info->hot_line : '' }}
+                                    {{-- {{ $general_info->hot_line ? '+234 '.$general_info->hot_line : '' }} --}}
+                                    {{ '+234 '.substr($general_info->hot_line,0,4).'-'.substr($general_info->hot_line,4,3).'-'.substr($general_info->hot_line,7,5) }}
                                 </a>
                                 <a href="tel: { $check_general_info == 0 ? $general_info->hot_line2 : '' }} ">
-                                    {{ $general_info->hot_line2 ? '+234 '.$general_info->hot_line2 : '' }}
+                                    {{-- {{ $general_info->hot_line2 ? '+234 '.$general_info->hot_line2 : '' }} --}}
+                                    @if ($general_info->hot_line2)
+                                    {{ '+234 '.substr($general_info->hot_line2,0,4).'-'.substr($general_info->hot_line2,4,3).'-'.substr($general_info->hot_line2,7,5) }}
+                                    @endif
                                 </a>
                                 <a href="https://wa.me/{{ $check_general_info == 0 ? $general_info->hot_line_3 : '' }}/?text=Good%20day.%20I%20am%20interested%20in%20promoting%20my%20business%20and%20services." target="_blank">
                                     <i class="fa fa-whatsapp" style="font-size: 15px"></i> WhatsApp

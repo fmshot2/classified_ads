@@ -31,7 +31,7 @@
                             <td> {{ $pending_services->name }} </td>
                             <td><span class="text-muted"><i class="fa fa-clock-o"></i> {{ $pending_services->experience }} </span> </td>
                             <td> {{ $pending_services->is_featured == 1 ? 'Yes' : 'No' }} </td>
-                            <td><span class="text-muted"> {{ $pending_services->created_at->diffForHumans() }} </span></td>
+                            <td><span class="text-muted"> {{ $pending_services->created_at->format('d/m/Y') }} </span></td>
                         </tr>
                         @endforeach
                     @else

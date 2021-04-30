@@ -6,7 +6,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="image">
-          <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" class="img-circle" alt="User Image">
+            <img src="{{ Auth::user()->image == null ? '/uploads/users/user-icon.png' : '/uploads/users/'.''.Auth::user()->image  }}" class="img-circle" alt="User Image">
         </div>
         <div class="info">
           <p> {{ Auth::user()->name }} </p>
@@ -26,7 +26,7 @@
             </span>
           </a>
         </li>
-        {{-- 
+        {{--
         <li class="" style="{{ url()->current() == route('accountant.all.due.payments') ? 'background-color: #f8d053' : '' }}">
           <a href=" {{route ('accountant.all.due.payments') }}">
             <i class="fa fa-credit-card-alt"></i> <span> Due Payments </span>
@@ -34,6 +34,19 @@
             </span>
           </a>
         </li> --}}
+        <li class="treeview" style=" {{ url()->current() == route('accountant.seller.activity') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('accountant.agent.activity') ? 'background-color: #f8d053' : '' }}">
+          <a href="#">
+            <i class="fa fa-clock-o"></i>
+            <span> Activity </span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href=" {{ route('accountant.seller.activity') }} "><i class="fa fa-circle-o"></i> Service Providers Activity </a></li>
+            <li><a href=" {{ route('accountant.agent.activity') }} "><i class="fa fa-circle-o"></i> Agents Activity </a></li>
+          </ul>
+        </li>
         <li class="treeview" style=" {{ url()->current() == route('accountant.all.due.payments') ? 'background-color: #f8d053' : '' }} {{ url()->current() == route('accountant.settled.payments') ? 'background-color: #f8d053' : '' }}">
           <a href="#">
             <i class="fa fa-calendar-check-o"></i>
@@ -100,9 +113,9 @@
           <ul class="treeview-menu">
             <li><a href=" {{ route('accountant.ad.requests') }} " ><i class="fa fa-circle-o"></i> Advert Payments </a></li>
             <li><a href=" {{ route('accountant.badges') }}" ><i class="fa fa-circle-o"></i> Badge Payments </a></li>
-            <li><a href=" {{ route('accountant.subscriptions') }}"><i class="fa fa-circle-o"></i> Subscriptions</a></li>
+            <li><a href=" {{ route('accountant.subscriptions') }}"><i class="fa fa-circle-o"></i> Re - Subscriptions</a></li>
             <li><a href=" {{ route('accountant.featured') }}"><i class="fa fa-circle-o"></i> Featured Service Payments</a></li>
-            <li><a href=" {{ route('accountant.registration') }}"><i class="fa fa-circle-o"></i>Payments for Registration</a></li>
+            <li><a href=" {{ route('accountant.registration') }}"><i class="fa fa-circle-o"></i>Subscriptions</a></li>
             <li><a href=" {{ route('accountant.ef.payments') }}"><i class="fa fa-circle-o"></i> All Payments</a></li>
           </ul>
         </li>
@@ -116,7 +129,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href=" {{ route('accountant.ad.requests') }} "><i class="fa fa-circle-o"></i> All Advert Payments </a></li>
-            
+
           </ul>
         </li> --}}
         {{-- <li class="treeview" style=" {{ url()->current() == route('accountant.badges') ? 'background-color: #f8d053' : '' }}">

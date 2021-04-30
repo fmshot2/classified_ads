@@ -787,6 +787,20 @@ class AuthController extends Controller
         return view('admin.user.buyer', compact('buyers'));
     }
 
+     public function addSlug()
+        {
+        $buyers = User::where('slug', null)->get();
+        foreach ($buyers as $buyer) {
+        $random = Str::random(3);
+        $slug = Str::of($buyer->name)->slug('-').''.$random;
+        $buyer->slug = $slug;
+        $buyer->save();
+        }
+        
+        // Category::orderBy('id', 'asc')->paginate(35);
+        return redirect()->route('home');
+    }
+
     public function seller()
     {
         $seller = User::where('role', 'seller')->orderBy('id', 'desc')->get();
@@ -815,8 +829,8 @@ class AuthController extends Controller
 
         // Image set up
         if ($request->hasFile('file')) {
-            $image_name = time() . '.' . $request->file->extension();
-            $request->file->move(public_path('images'), $image_name);
+            $image_name = Str::of($request->name)->slug('-').'-'.time().'.' . $request->file->extension();
+            $request->file->move(public_path('uploads/users'), $image_name);
             $user->image = $image_name;
         }
 
@@ -916,10 +930,10 @@ class AuthController extends Controller
 
     public function updatePassword(Request $request, $id)
     {
-
+// dd($request->old_password);
         $user = User::find($id);
         $validatedData = $request->validate([
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'new_password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
 
         $hashedPassword = Auth::user()->password;

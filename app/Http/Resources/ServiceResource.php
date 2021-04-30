@@ -27,12 +27,18 @@ class ServiceResource extends JsonResource
             'badge_type'  => $this->badge_type,
             'likes'       => $this->likes,
             'video_link'  => $this->video_link,
+            'is_featured' => $this->is_featured,
+            'longitude'   => $this->longitude,
+            'latitude'    => $this->latitude,
             'created_at'  => $this->created_at,
             'updated_at'  => $this->updated_at,
             'slug'        => $this->slug,
+            'status'      => $this->status,
+            'is_approved' => $this->is_approved,
             'provider'    => $this->user,
             'category'    => new CategoryResource($this->category),
-            'images'      => ImageResource::collection($this->images)
+            'images'      => ImageResource::collection($this->images),
+            'comments'    => $this->comments,
         ];
 
     }

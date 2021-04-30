@@ -71,7 +71,7 @@
                                             <div class="form-group">
                                                 <label class="form-label">Service Name </label><small class="text-danger">*</small>
                                                 <input readonly type="text" name="countdown" size="1" value="50" style="border: 0; padding: 0;margin-right: -25px"> chars left
-                                                <input id='name' type="text" required name="name" value="{{ old('name') }}" class="form-control" placeholder="Enter the name of the service you want to offer (e.g. Hair Stylist)" onkeydown="limitText(this.form.name,this.form.countdown,50);" onkeyup='limitText(this.form.name,this.form.countdown,50);'>
+                                                <input id='name' type="text" required name="name" value="{{ old('name') }}" class="form-control" placeholder="Enter the name of the service you want to offer (e.g. Bag, Plumber, Phone, etc.)" onkeydown="limitText(this.form.name,this.form.countdown,50);" onkeyup='limitText(this.form.name,this.form.countdown,50);'>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -342,21 +342,21 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Work Experience</label>
                                                 <textarea id='workexperience' name="work_experience" class="form-control summernote" placeholder="Tell us about your work experience.">{{ old('work_experience') }}</textarea>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Education</label><small class="text-danger">*</small>
                                                 <textarea id='education' name="education" class="form-control summernote" placeholder="Tell us about your educational background.">{{ old('education') }}</textarea>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Certifications</label>
                                                 <textarea id='certifications' name="certifications" class="form-control summernote" placeholder="Tell us about your certifications.">{{ old('certifications') }}</textarea>
@@ -364,7 +364,7 @@
                                         </div>
 
 
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Skills</label><small class="text-danger">*</small>
                                                 <textarea id='skills' name="skills" class="form-control summernote" placeholder="Tell us about your skills.">{{ old('skills') }}</textarea>
@@ -631,7 +631,7 @@
         $('#categories').on('change',function(){
             var categoryID = $(this).val();
 
-            if (categoryID == 1 || categoryID == 2) {
+            if (categoryID == 1) {
                 document.getElementById('seekingworkForm').style.display = 'block'
                 document.getElementById('serviceForm').style.display = 'none'
             }
@@ -690,17 +690,11 @@
         $('#sw_categories').on('change',function(){
             var categoryID = $(this).val();
 
-            if (categoryID == 1 || categoryID == 2) {
-                document.getElementById("youtubeLink").style.display = 'none';
-                document.getElementById("negotiableChBox").style.display = 'none';
-                document.getElementById("servicePriceRange").innerText = 'Salary Range?';
+            if (categoryID == 1) {
                 document.getElementById('seekingworkForm').style.display = 'block'
                 document.getElementById('serviceForm').style.display = 'none'
             }
             else {
-                document.getElementById("youtubeLink").style.display = 'block';
-                document.getElementById("negotiableChBox").style.display = 'block';
-                document.getElementById("servicePriceRange").innerText = 'How much do you want to charge for this service?';
                 document.getElementById('seekingworkForm').style.display = 'none'
                 document.getElementById('serviceForm').style.display = 'block'
             }

@@ -2,9 +2,7 @@
 
 @extends('layouts.admin')
 
-@section('title')
-All Buyer |
-@endsection
+@section('title','All Seekers | ')
 
 @section('content')
 
@@ -42,8 +40,8 @@ All Buyer |
 									<th> Status</th>
 									<th> Activate/Deactivate</th>
 								</tr>
-</thead>
-								<tbody>
+                            </thead>
+							<tbody>
 								@foreach($buyers as $key => $buyer)
 								<tr>
 									<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
@@ -59,12 +57,7 @@ All Buyer |
 											@if($buyer->status == 0)<span id="activate">Activate User</span>@elseif($buyer->status == 1)<span id="activate">Deactivate</span>
 										@endif</button>
 									</td>
-
-
-									{{-- {{ $general_info->register_section_1_title ? $general_info->register_section_1_title : '' }} --}}
-
-							</tr>
-
+							    </tr>
 							@endforeach
 
 
@@ -138,53 +131,48 @@ All Buyer |
 
 
     <script type="text/javascript">
-function activateUser(id) {
-swal({
-title: "Change this user's status?",
-text: "Please be sure and then confirm!",
-type: "warning",
-showCancelButton: !0,
-confirmButtonText: "Yes, change it!",
-cancelButtonText: "No, dont bother!",
-cancelButtonColor: '#dc3545',
-reverseButtons: !0
-}).then(function (e) {
-if (e.value === true) {
+        function activateUser(id) {
+            swal({
+                title: "Change this user's status?",
+                text: "Please be sure and then confirm!",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Yes, change it!",
+                cancelButtonText: "No, dont bother!",
+                cancelButtonColor: '#dc3545',
+                reverseButtons: !0
+            }).then(function (e) {
+                if (e.value === true) {
 
-$.ajax({
-            url: '/activate_user/' + id,
-            method: 'get',
-            success: function(results){
-            	alert(results);
-            	console.log(results);
-            	if (results.success === true)  {
-swal("Done!", results.message, "success");
-document.getElementById("activate").innerHTML = results.message;
-document.getElementById("active_text").innerHTML = results.status_message;
-if (results.message === 'Activate') {
-	document.getElementById("active_text").style.color='#dc3545';
+                    $.ajax({
+                        url: '/activate_user/' + id,
+                        method: 'get',
+                        success: function(results){
+                            console.log(results);
+                            if (results.success === true)  {
+                                swal("Done!", results.message, "success");
+                                document.getElementById("activate").innerHTML = results.message;
+                                document.getElementById("active_text").innerHTML = results.status_message;
+                                if (results.message === 'Activate') {
+                                    document.getElementById("active_text").style.color='#dc3545';
 
-} else {
-		document.getElementById("active_text").style.color='blue';
-
-}
-
-window.location.assign(window.location.href);
-} else {
-swal("Error!", results.message, "error");
-}
-
-            }
-        });
-
-} else {
-e.dismiss;
-}
-}, function (dismiss) {
-return false;
-})
-}
-</script>
+                                } else {
+                                    document.getElementById("active_text").style.color='blue';
+                                }
+                                window.location.assign(window.location.href);
+                            } else {
+                            swal("Error!", results.message, "error");
+                            }
+                        }
+                    });
+                } else {
+                    e.dismiss;
+                }
+            }, function (dismiss) {
+                return false;
+            })
+        }
+    </script>
 
 @endsection
 

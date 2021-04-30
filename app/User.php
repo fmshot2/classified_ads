@@ -20,6 +20,26 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
  //    }
 
 
+
+   /**
+     * Get all of the user's payments.
+     */
+    public function mypayments()
+    {
+        return $this->morphMany(Payment::class, 'paymentable');
+    }
+
+
+    /**
+     * Get all of the user's subscriptions.
+     */
+    public function subscriptions()
+    {
+        return $this->morphMany(Subscription::class, 'subscriptionable');
+    }
+
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -109,5 +129,10 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
       public function referal()
     {
         return $this->belongsTo('App\Referal');
+    }
+
+    public function messages()
+    {
+        return $this->morphMany(Message::class, 'messageable')->whereNull('parent_id');
     }
 }

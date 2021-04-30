@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Message;
 use App\Notification;
 use App\Service;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -24,10 +25,24 @@ use Illuminate\Support\Facades\Mail;
 */
 
 
+
+Route::get('/newsletter/send/{password}', 'OperationalController@Newsletter')->name('newsletter.send');
+
+Route::post('/message/store', 'MessageController@store')->name('client.message.send');
+Route::post('/message/reply/store', 'MessageController@reply')->name('client.message.reply');
+
 Route::post('/comment/store', 'CommentsController@store')->name('comment.add');
 Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
+//add slug to old users who have no slug
+Route::get('/addSlug', 'AuthController@addSlug')->name('addSlug');
 
 Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
+Route::get('dashboard/provider_downline/{slug}', 'AdminController@provider_downline')->name('provider_downline');
+Route::get('dashboard/agent_downline/{id}', 'AdminController@agent_downline')->name('agent_downline');
+Route::get('dashboard/agents_downline_24hrs/{id}', 'AdminController@agents_downline_24hrs')->name('agents_downline_24hrs');
+
+
+
 
 Route::get('/tester', function ()
 {
@@ -129,6 +144,9 @@ Route::middleware(['accountant'])->group(function() {
     Route::get('/accountant/featured-payments', 'AccountantController@featured')->name('accountant.featured');
     Route::get('/accountant/registration-payments', 'AccountantController@registrationPayments')->name('accountant.registration');
     Route::get('/accountant/all-ef-payments', 'AccountantController@allEfPayments')->name('accountant.ef.payments');
+
+    Route::get('/accountant/agents-activity', 'AccountantController@agentActivity')->name('accountant.agent.activity');
+    Route::get('/accountant/service-providers-activity', 'AccountantController@sellerActivity')->name('accountant.seller.activity');
 
 });
 //Accountant Middleware ends here
@@ -308,7 +326,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
     {
         Route::get('/dashboard/make_withdrawal_request/{refer_id}', 'DashboardController@make_withdrawal_request')->name('seller.make_withdrawal_request');
         Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('service_detail_4_provider');
-        Route::get('/job-applicant/details/{slug}', 'OperationalController@seekingWorkPreviewDetails')->name('job.applicant.preview.detail');
+        Route::get('/job-applicant/preview/details/{slug}', 'OperationalController@seekingWorkPreviewDetails')->name('job.applicant.preview.detail');
 
 
         Route::get('/dashboard', 'DashboardController@seller')->name('seller.dashboard');
@@ -345,7 +363,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::post('/notification/delete', 'NotificationController@notificationDelete')->name('seller.notification.delete');
 
         Route::get('/profile/', 'SellerController@viewProfile')->name('seller.profile');
-        // Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
+        Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('providerprofile.update.password');
 
 
 
@@ -436,7 +454,7 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
 
 Route::middleware(['admin'])->group(function () { //Admin Middleware protection start here
     Route::get('/admin/dashboard/approve_withdrawal_request/{id}', 'DashboardController@approve_withdrawal_request')->name('admin.approve_withdrawal_request');
-
+    Route::get('/admin/dashboard/all-marketers-earnings', 'AdminController@all_marketer_earnings')->name('admin.all.earnings');
     Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
     Route::get('/admin/dashboard/category/show', 'CategoryController@index')->name('admin.category.show');
     Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
@@ -461,6 +479,11 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/dashboard/service/destroy/{id}', 'AdminController@destroy')->name('admin.service.destroy');
     Route::get('/admin/dashboard/seekingwork/destroy/{id}', 'AdminController@seekingWorkDestroy')->name('admin.seekingwork.destroy');
     Route::get('admin/dashboard/service/view/{slug}', 'AdminController@viewService')->name('admin.view');
+
+    Route::get('/job-applicant/preview/details/{slug}', 'OperationalController@seekingWorkPreviewDetails')->name('job.applicant.preview.detail');
+
+
+    Route::get('admin/dashboard/service/update/{slug}', 'SellerController@viewServiceUpdate')->name('admin.service.update.view');
 
 
         Route::get('/admin/dashboard/subscription/all', 'AdminController@allSubscription')->name('admin.subscription.all');
@@ -607,7 +630,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
 Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //SuperAdmin Middleware protection start here
     Route::get('dashboard/approve_withdrawal_request/{id}', 'DashboardController@approve_withdrawal_request')->name('admin.approve_withdrawal_request');
-
+    Route::get('/all-marketers-earnings', 'AdminController@all_marketer-earnings')->name('superadmin.all.earnings');
     Route::get('dashboard', 'DashboardController@admin')->name('superadmin.dashboard');
     Route::get('dashboard/category/show', 'CategoryController@index')->name('superadmin.category.show');
     Route::post('dashboard/category/show', 'CategoryController@store')->name('superadmin.category.store');
@@ -933,11 +956,11 @@ View::composer(['layouts.frontend_partials.navbar', 'layouts.frontend_partials.f
 });
 
 View::composer(['layouts.seller_partials.navbar', 'layouts.seller_partials.sidebar', 'layouts.backend_partials.navbar', 'layouts.backend_partials.sidebar'], function ($view) {
-    $all_message = Message::where('service_user_id', Auth::id() );
-    $unread_message =  $all_message->Where('status', 0);
+    $all_message = Message::where('receiver_id', Auth::user()->id)->orwhere('user_id', Auth::user()->id);
+    $unread_message =  Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id)->where('status', 0);
     $check_unread_message_table = collect($unread_message)->isEmpty();
-    $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
-    $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
+    $unread_message_count = Message::where('receiver_id', Auth::user()->id)->where('status', 0)->count();
+    $unread_message = Message::where('receiver_id', Auth::user()->id)->where('status', 0)->take(5)->get();
 
     $unread_notification_count = Notification::where('status', 0)->count();
     $unread_notification = Notification::where('status', 0);
@@ -948,13 +971,11 @@ View::composer(['layouts.seller_partials.navbar', 'layouts.seller_partials.sideb
 
 
 View::composer(['layouts.buyer_partials.navbar', 'layouts.buyer_partials.sidebar'], function ($view) {
-    $reply_message = Message::where('reply', 'yes' );
-
-    $all_message = $reply_message->Where('buyer_id', Auth::id() );
-    $unread_message =  $all_message->Where('status', 0);
+    $all_message = Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id);
+    $unread_message =  Message::where('receiver_id', Auth::user()->id)->orwhere('user_id', Auth::user()->id)->where('status', 0);
     $check_unread_message_table = collect($unread_message)->isEmpty();
-    $unread_message_count = $check_unread_message_table == true ? 0 : $unread_message->count();
-    $unread_message = $check_unread_message_table == true ? 0 : $unread_message->orderBy('id', 'desc')->take(5)->get();
+    $unread_message_count = Message::where('receiver_id', Auth::user()->id)->where('status', 0)->count();
+    $unread_message = Message::where('receiver_id', Auth::user()->id)->where('status', 0)->take(5)->get();
 
     $unread_notification_count = Notification::where('status', 0)->count();
     $unread_notification = Notification::where('status', 0);

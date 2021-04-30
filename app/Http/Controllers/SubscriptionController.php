@@ -34,8 +34,10 @@ class SubscriptionController extends Controller
 {
 
 	public function createSub()
-	{
-		if ($current_subscription = ProviderSubscription::where('user_id', Auth::id())->first()) {
+	{		
+
+		// if ($current_subscription = ProviderSubscription::where('user_id', Auth::id())->first()) {
+		if ($current_subscription = Auth::user()->subscriptions->first()) {
 		$current_subscription_end_date = $current_subscription->subscription_end_date;
 		}else{
 		$current_subscription_end_date = null;
@@ -95,12 +97,10 @@ class SubscriptionController extends Controller
 
 	 // Produces something like "2019-03-11 12:25:00"
 		$current_date_time = Carbon::now()->toDateTimeString();
-		// $current_date_time = Carbon::now()->addWeeks(2)->toDateTimeString();
 // 
 		$added_date_time = Carbon::now()->addDays(5)->toDateTimeString();
 
 
-	// return response()->json(['success3'=>$current_date_time]);
 
 
 		$data = $request->all();
@@ -137,29 +137,48 @@ class SubscriptionController extends Controller
             $sub_type = 'annual';			
 		}
 
-		$sub_check = ProviderSubscription::where(['user_id'=>Auth::id()])->first();
+		// $sub_check = ProviderSubscription::where(['user_id'=>Auth::id()])->first();
+		$sub_check = Auth::user()->subscriptions->first();
 
 		$initial_end_date = $sub_check->subscription_end_date;
 
-		$sub_check->user_id = Auth::id();
+		// $sub_check->user_id = Auth::id();
 		$sub_check->sub_type = $sub_type;
-		$sub_check->user_type = 'provider';
+		// $sub_check->user_type = 'provider';
 		$sub_check->last_amount_paid = $data['amount'];
 		$sub_check->subscription_end_date = Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s');
 		// return response()->json(['success3'=>$sub_check->subscription_end_date]);
-		$sub_check->last_subscription_starts = $current_date_time;
+		// $sub_check->last_subscription_starts = $current_date_time;
+		$sub_check->trans_ref = $data['ref_no'];
+		$sub_check->email = Auth::user()->email;
 		$sub_check->save();
+// subscription_end_date
+		// $mysubscriptions = Auth::user()->subscriptions;
+		// Auth::user()->subscriptions()->create(['sub_type' => $sub_type, 
+		// 	'last_amount_paid' => $data['amount'], 
+		// 	'subscription_end_date' => Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s'),
+		// 	'last_subscription_starts' => $current_date_time,
+		// 	'trans_ref' => $data['ref_no'],
+		// 	'email' => Auth::user()->email ]);
+
+
 		$sub_check->subscription_end_date = Carbon::parse($sub_check->subscription_end_date)->toDayDateTimeString();
 
 
 
-            $reg_payments = new Payment();
-            $reg_payments->user_id = Auth::id();
-            $reg_payments->payment_type = 'subscription';
-            $reg_payments->amount = $data['amount'];
-            $reg_payments->tranx_ref =  $data['ref_no'];
 
-            $reg_payments->save();
+
+            $reg_payments = new Payment();
+            // $reg_payments->user_id = Auth::id();
+            // $reg_payments->payment_type = 'subscription';
+            // $reg_payments->amount = $data['amount'];
+            // $reg_payments->tranx_ref =  $data['ref_no'];
+
+            // $reg_payments->save();
+
+         
+
+            Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no'] ]);
 		
 
 		return response()->json(['success'=>'Your Subscription payment was successfull', 'new_date'=>$sub_check->subscription_end_date], 200);

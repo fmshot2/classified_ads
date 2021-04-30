@@ -6,7 +6,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="image">
-        <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" class="img-circle" alt="User Image">
+        <img src="{{ Auth::user()->image == null ? '/uploads/users/user-icon.png' : '/uploads/users/'.''.Auth::user()->image  }}" class="img-circle" alt="User Image">
       </div>
       <div class="info">
         <p> {{ Auth::user()->name }} </p>
@@ -53,6 +53,13 @@
 
         </ul>
       </li>
+
+      <li class="" style="{{ url()->current() == route('superadmin.all.earnings') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href=" {{route ('superadmin.all.earnings') }}">
+          <i class="fa fa-comments-o"></i> <span> All Marketers Earnings </span>
+        </a>
+      </li>
+
 
       <li class="" style="{{ url()->current() == route('superadmin.users.feedback') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
         <a href=" {{route ('superadmin.users.feedback') }}">
@@ -223,6 +230,11 @@
         </ul>
       </li>
 
+      <li class="" style="{{ url()->current() == route('admin.all.earnings') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href=" {{route ('admin.all.earnings') }}">
+          <i class="fa fa-credit-card"></i> <span> All Marketers Earnings </span>
+        </a>
+      </li>
 
       <li class="treeview" style="{{ url()->current() == route('admin.subscription.all') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
         <a href="#">

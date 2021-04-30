@@ -34,4 +34,9 @@ class SeekingWork extends Model implements Viewable
     public function likes(){
         return $this->hasMany('\App\Like', 'seekingwork_id');
     }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
+    }
 }

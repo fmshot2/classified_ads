@@ -203,7 +203,7 @@
                                                                 <div class="col-md-12">
                                                                     <small class="text-danger">Please, If You Are Not Contacted In Ten Days after Your Request
                                                                         , Kindly Contact Us Again At, <a href="mailto:agent@efcontact.com">agent@efcontact.com</a>
-                                                                        or call <a href="tel:08091114444">08091114444</a>
+                                                                        or call <a href="tel:{{ $general_info->hot_line ? $general_info->hot_line : '' }}">{{ substr($general_info->hot_line,0,4).'-'.substr($general_info->hot_line,4,3).'-'.substr($general_info->hot_line,7,5) }}</a>
                                                                         When you send this contact, kindly indicate the day of your first request or the reference code sent to you
                                                                         . Be aware that the position
                                                                         is limited per state so rush your application

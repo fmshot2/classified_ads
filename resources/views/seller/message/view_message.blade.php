@@ -12,45 +12,31 @@
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="box box-info dash-1">
+                <div class="box box-info">
                     <div class="box-header">
-                    <i class="fa fa-envelope"></i>
-
-                    <h3 class="box-title">NEW MESSAGE </h3>
-                    {{-- <!-- tools box -->
-                    <div class="pull-right box-tools">
-                        <button type="button" class="btn btn-danger btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
-                        <i class="fa fa-times"></i></button>
-                    </div>
-                    <!-- /. tools --> --}}
+                        <i class="fa fa-envelope"></i>
+                        <h3 class="box-title">NEW MESSAGE </h3>
                     </div>
                     <div class="box-body">
-                    <form action="#" method="post">
-                        <div class="form-group">
-                            <input type="email" class="form-control"  value="{{$message->buyer_name }}" disabled="">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" value="{{$message->buyer_email}}" disabled="" >
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" class="form-control" value="{{$message->subject}}" disabled="" >
-                        </div>
                         <div>
-                            <textarea class="textarea" disabled="" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"> {{ $message->description }} </textarea>
+                            <div class="form-group">
+                                <input type="email" class="form-control"  value="{{ $message->sender_email }}" disabled="">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" value="{{$message->sender_name}}" disabled="" >
+                            </div>
+                            <div>
+                                <textarea class="textarea" disabled="" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"> {{ $message->message }} </textarea>
+                            </div>
                         </div>
-                    </form>
                     </div>
-                    <div class="box-footer clearfix">
-                        @if (Auth::user()->email != $message->buyer_email)
+                    <div class="box-footer">
+                        @if (Auth::user()->email != $message->sender_email)
                             <a data-toggle="modal" data-target="#replyMessageModal{{ $message->id }}" href="#" class="btn btn-info "><i class="fa fa-reply"></i> Reply</a>
                         @endif
                     </div>
                 </div>
             </div>
-            </div>
-
-
         </div>
 
         <div id="replyMessageModal{{ $message->id }}" class="modal fade" role="dialog">
@@ -62,39 +48,33 @@
                     </div>
 
                     <div class="modal-body">
-                        <form action="{{ route('seller.message.reply.store') }}" method="POST" enctype="multipart/form-data">@csrf
+                        <form action="{{ route('client.message.reply') }}" method="POST" enctype="multipart/form-data">@csrf
                             <div class="modal-body">
                                 <div class="row">
                                     @csrf
                                     <input type="hidden" name="service_id" value=" {{ $message->service_id }} ">
-                                    <input type="hidden" name="buyer_id" value=" {{ $message->buyer_id }}">
-                                    <input type="hidden" name="service_user_id" value=" {{ $message->service_user_id }}">
-
+                                    <input type="hidden" name="receiver_id" value=" {{ $message->user_id }}">
+                                    <input type="hidden" name="message_id" value=" {{ $message->id }}">
+                                    <input type="hidden" name="sender_name" id="sender_name" value="{{ Auth::user()->name }}">
+                                    <input type="hidden" name="sender_email" id="sender_email" value="{{ Auth::user()->email }}">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Sender Email:</label>
-                                            <input class="form-control" name="buyer_email" type="email" value=" {{ Auth::user()->email }} " disabled="">
+                                            <input class="form-control" name="sender_email" type="email" value=" {{ Auth::user()->email }} " disabled="">
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Phone Number:</label>
-                                            <input class="form-control" name="phone"  type="number" placeholder=" Enter phone here " >
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="">Message Subject:</label>
-                                            <input class="form-control" name="subject"  type="text" placeholder=" Enter subject here " >
+                                            <input class="form-control" name="sender_phone"  type="number" placeholder=" Enter phone here " >
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div>
                                             <label for="">The Message:</label>
-                                            <textarea class="textarea" placeholder="Message" name="description" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                            <textarea class="textarea" placeholder="Message" name="message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                                         </div>
                                     </div>
 
@@ -122,5 +102,5 @@
 
     </section>
 
-
+</div>
 @endsection

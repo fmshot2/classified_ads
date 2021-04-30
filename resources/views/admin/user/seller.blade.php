@@ -1,9 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title')
-All Seller |
-@endsection
+@section('title', 'All Service Providers | ')
 
 @section('content')
 
@@ -39,6 +37,7 @@ All Seller |
                                         <th> Phone </th>
                                         <th> role </th>
                                         <th> Applied for Approval?</th>
+                                        <th> Amount Earned</th>                                        
                                         <th> Date </th>
                                         <th> Activate/Deactivate</th>
                                     </tr>
@@ -58,6 +57,7 @@ All Seller |
                                                 <span id="active_text2">Deactivated</span>
                                                 @endif
                                             </td>
+                                            <td> {{ $sellers->refererAmount ? $sellers->refererAmount : 0 }} </span></td>                                            
                                             <td> {{ $sellers->created_at->format('d/m/Y') }} </span></td>
 
                                             <td>
@@ -65,6 +65,9 @@ All Seller |
                                                     @if($sellers->status == 0)<span id="activate1">Activate User</span>@elseif($sellers->status == 1)<span id="activate2">Deactivate</span>
                                                 @endif</button>
                                             </td>
+                                            <td class="center">
+                                            <a href="{{route('provider_downline', $sellers->slug)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
+                                            </td>                                            
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -119,56 +122,45 @@ All Seller |
 
 
     <script type="text/javascript">
-function activateUser(id) {
-swal({
-title: "Change this user's status?",
-text: "Please be sure and then confirm!",
-type: "warning",
-showCancelButton: !0,
-confirmButtonText: "Yes, change it!",
-cancelButtonText: "No, dont bother!",
-cancelButtonColor: '#dc3545',
-reverseButtons: !0
-}).then(function (e) {
-if (e.value === true) {
-
-$.ajax({
-            url: '/activate_user/' + id,
-            method: 'get',
-            success: function(results){
-            	// alert(results);
-            	console.log(results);
-            	if (results.success == true)  {
-swal("Done!", results.message, "success");
-document.getElementById("activate1").innerHTML = results.message;
-document.getElementById("activate2").innerHTML = results.status_message;
-if (results.message === 'Activate') {
-	document.getElementById("active_text").style.color='#dc3545';
-
-} else {
-		document.getElementById("active_text2").style.color='blue';
-
-}
-
-
-window.location.assign(window.location.href);
-
-
-} else {
-swal("Error!", results.message, "error");
-}
-
-            }
-        });
-
-} else {
-e.dismiss;
-}
-}, function (dismiss) {
-return false;
-})
-}
-</script>
+        function activateUser(id) {
+            swal({
+                title: "Change this user's status?",
+                text: "Please be sure and then confirm!",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Yes, change it!",
+                cancelButtonText: "No, dont bother!",
+                cancelButtonColor: '#dc3545',
+                reverseButtons: !0
+            }).then(function (e) {
+                if (e.value === true) {
+                    $.ajax({
+                        url: '/activate_user/' + id,
+                        method: 'get',
+                        success: function(results){
+                            if (results.success == true)  {
+                                swal("Done!", results.message, "success");
+                                document.getElementById("activate1").innerHTML = results.message;
+                                document.getElementById("activate2").innerHTML = results.status_message;
+                                if (results.message === 'Activate') {
+                                    document.getElementById("active_text").style.color='#dc3545';
+                                } else {
+                                    document.getElementById("active_text2").style.color='blue';
+                                }
+                                window.location.assign(window.location.href);
+                            } else {
+                                swal("Error!", results.message, "error");
+                            }
+                        }
+                    });
+                } else {
+                    e.dismiss;
+                }
+            }, function (dismiss) {
+                return false;
+            })
+        }
+    </script>
 
 @endsection
 

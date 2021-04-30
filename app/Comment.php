@@ -17,4 +17,9 @@ class Comment extends Model
     {
         return $this->hasMany(Comment::class, 'parent_id');
     }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
 }
