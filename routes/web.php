@@ -33,6 +33,7 @@ Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downlin
 Route::get('dashboard/provider_downline/{slug}', 'AdminController@provider_downline')->name('provider_downline');
 Route::get('dashboard/agent_downline/{id}', 'AdminController@agent_downline')->name('agent_downline');
 Route::get('dashboard/agents_downline_24hrs/{id}', 'AdminController@agents_downline_24hrs')->name('agents_downline_24hrs');
+// all_agents_downline_yesterday
 
 
 
@@ -484,6 +485,8 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
     Route::get('/admin/dashboard/service-providers', 'AuthController@seller')->name('admin.seller');
     Route::get('/admin/dashboard/all-agents', 'AuthController@allagents')->name('admin.allagents');
+        Route::get('/admin/dashboard/all-agents-yesterday', 'AdminController@allagents_sales_yesterday')->name('admin.agents_yesterday');
+
     Route::get('/admin/dashboard/service-seekers', 'AuthController@buyer')->name('admin.buyer');
     Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');
     Route::get('/activate_agent/{id}', 'AdminController@activate_agent')->name('admin.activate.agent');

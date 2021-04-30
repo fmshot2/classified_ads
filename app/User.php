@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Carbon\Carbon;
+
 
 
 class User extends Authenticatable implements MustVerifyEmail, JWTSubject
@@ -117,6 +119,26 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         return $this->hasMany('\App\ProviderSubscription'); //ProviderSubscription Model Name
     }
 
+    public function getTotalRefersAttribute()
+    {
+        $ref = $this->referals()->whereDate('created_at', Carbon::yesterday())->get();
+
+        // $images = $this->images->first();
+
+        if ($ref) {
+            return $ref;
+        }
+        else {
+            return null;
+        }
+    }
+
+
+ // public function getTotalLikesAttribute()
+ //    {
+ //       return $this->likes->count();
+ //    }
+
 
     /**
      * Get all of the post's comments.
@@ -126,7 +148,13 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         return $this->morphMany(Referal::class, 'referalable');
     }
 
+
       public function referal()
+    {
+        return $this->belongsTo('App\Referal');
+    }
+
+    public function users()
     {
         return $this->belongsTo('App\Referal');
     }

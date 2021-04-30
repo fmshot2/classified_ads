@@ -30,7 +30,7 @@
 				<div class="box" >
 					<div class="box-header">
 						<h3 class="box-title"> Agents Table</h3>
-                        <p>List of all the agents on this platform</p>
+                        <p>List of all yesterday's registrations by EFContact agents</p>
 					</div>
 
 					<!-- /.box-header -->
@@ -39,7 +39,9 @@
 							<thead>
 								<tr>
 									<th> # </th>
-									<th> Name </th>
+                                    <!-- <th> Agent name </th> -->
+
+									<th> Referer Name </th>
 									<th> Email </th>
 									<th> Applied for Approval?</th>
 									<th> Status </th>
@@ -55,7 +57,6 @@
 									@foreach($agents as $key => $agent)
                                         <tr>
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                                            <td> {{ $agent->name }} </td>
                                             <td><span class="text-muted"> </i> {{ $agent->email }} </span> </td>
                                             <td> {{ $agent->created_at->format('d/m/Y') }} </span></td>
                                             <td>
