@@ -1176,10 +1176,7 @@ class OperationalController extends Controller
 
     public function Newsletter()
     {
-        // $category = Category::inRandomOrder()->first();
-        // $services = Service::inRandomOrder()->limit(6)->get();
-
-        $users = User::Where('role', 'buyer')->get();
+        $users = User::all();
 
         foreach($users as $user)
         {
@@ -1194,15 +1191,7 @@ class OperationalController extends Controller
             }
         }
 
-
-        // try{
-        //     Mail::to('adeolewfb@gmail.com')->send(new Newsletter($username, $category, $services));
-        // }
-        // catch(\Exception $e){
-        //     $failedtosendmail = 'Failed to Mail!.';
-        // }
-
-        return $services;
+        return 'Newsletter has been sent successfully!';
     }
 
     // public function CredentialsReset($user_id)
