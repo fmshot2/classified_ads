@@ -1178,19 +1178,30 @@ class OperationalController extends Controller
     {
         if ($password == 'Jul1anA2EF') {
             $users = User::all();
+            $category = Category::inRandomOrder()->first();
+            $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
 
-            foreach($users as $user)
-            {
-                $category = Category::inRandomOrder()->first();
-                $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
-
-                try{
-                    Mail::to($user->email)->send(new Newsletter($user->name, $category, $services));
-                }
-                catch(\Exception $e){
-                    $failedtosendmail = 'Failed to Mail!.';
-                }
+            try{
+                Mail::to('paul@eftechnology.net')->send(new Newsletter('Paul Jones', $category, $services));
+                Mail::to('eben@eftechnology.net')->send(new Newsletter('Eben', $category, $services));
+                Mail::to('adeoluibidapo@gmail.com')->send(new Newsletter('Eben', $category, $services));
             }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+
+            // foreach($users as $user)
+            // {
+            //     $category = Category::inRandomOrder()->first();
+            //     $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
+
+            //     try{
+            //         Mail::to($user->email)->send(new Newsletter($user->name, $category, $services));
+            //     }
+            //     catch(\Exception $e){
+            //         $failedtosendmail = 'Failed to Mail!.';
+            //     }
+            // }
             return redirect()->route('home')->with([
                 'message' => 'Newsletter has been sent successfully!',
                 'alert-type' => 'success'
