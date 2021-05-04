@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'All Agents | ')
+@section('title', 'Agents' Yesterday Results | ')
 
 @section('content')
 
@@ -30,7 +30,7 @@
 				<div class="box" >
 					<div class="box-header">
 						<h3 class="box-title"> Agents Table</h3>
-                        <p>List of all the agents on this platform</p>
+                        <p>List of all yesteday's registrations for each agent on this platform</p>
 					</div>
 
 					<!-- /.box-header -->
@@ -57,7 +57,7 @@
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                             <td> {{ $agent->name }} </td>
                                             <td><span class="text-muted"> </i> {{ $agent->email }} </span> </td>
-                                            <td> {{ $agent->created_at->format('d/m/Y') }} </span></td>
+                                            <td> {{ $agent->referals->count() }} </span></td>
                                             <td>
                                                 @if($agent->status == 1)
                                                     <span><p id="active_text">Activated</p></span>

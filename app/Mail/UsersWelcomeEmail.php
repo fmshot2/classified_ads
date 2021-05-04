@@ -28,6 +28,6 @@ class UsersWelcomeEmail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.users.welcome-email')->subject('Provide a Service and Get a Service!');
+        return $this->markdown('emails.users.welcome-email', 'EFContact')->subject('Provide a Service and Get a Service!');
     }
 }

@@ -96,7 +96,6 @@ class Service extends Model implements Viewable
     }
 
 
-
 /**
      * Scope a query to only include given state.
      *

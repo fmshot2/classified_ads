@@ -31,6 +31,6 @@ class CredentialsReset extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('emails.users.credentials-reset')->subject('Your new login credentials to efcontact!');
+        return $this->from('noreply@efcontact.com', 'EFContact')->markdown('emails.users.credentials-reset')->subject('Your new login credentials to efcontact!');
     }
 }

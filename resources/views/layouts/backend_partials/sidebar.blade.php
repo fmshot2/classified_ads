@@ -284,7 +284,42 @@
           <li><a href=" {{ route('admin.all.cmos') }} "><i class="fa fa-circle-o"></i> CMOs </a></li>
           <li><a href="{{ route('admin.add.cmo') }}"><i class="fa fa-circle-o"></i> Add CMO </a></li>
           <li><a href="{{ route('admin.allagents') }}"><i class="fa fa-circle-o"></i> Agents </a></li>
+          <li><a href="{{ route('admin.agents_yesterday') }}"><i class="fa fa-circle-o"></i> Yesterday Agent Sales </a></li>          
           <li><a href="{{ route('admin.all_ef_marketers') }}"><i class="fa fa-circle-o"></i> EF Marketers </a></li>
+        </ul>
+      </li>
+
+
+
+      <li class="treeview"
+        style="{{ url()->current() == route('admin.agents_yesterday') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.agents_last_week') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.agents_last_month') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href="#">
+          <i class="fa fa-users"></i>
+          <span> Agent Reports </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href=" {{ route('admin.agents_yesterday') }} "><i class="fa fa-circle-o"></i> Yesterday </a></li>
+          <li><a href=" {{ route('admin.agents_last_week') }} "><i class="fa fa-circle-o"></i> One Week  </a></li>
+          <li><a href=" {{ route('admin.agents_last_month') }} "><i class="fa fa-circle-o"></i> One Month </a></li>
+        </ul>
+      </li>
+
+       <li class="treeview"
+        style="{{ url()->current() == route('admin.users_yesterday') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.users_last_week') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.users_last_month') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href="#">
+          <i class="fa fa-users"></i>
+          <span> Users Reports </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href=" {{ route('admin.users_yesterday') }} "><i class="fa fa-circle-o"></i> Yesterday </a></li>
+          <li><a href=" {{ route('admin.users_last_week') }} "><i class="fa fa-circle-o"></i> One Week  </a></li>
+          <li><a href=" {{ route('admin.users_last_month') }} "><i class="fa fa-circle-o"></i> One Month </a></li>
         </ul>
       </li>
 
