@@ -718,6 +718,11 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
     return view ('admin.profile.update_profile');
   }
 
+  public function updatePassword(Request $request, $id)
+  {
+    dd($request->all());
+  }
+
   public function systemConfig()
   {
     $general_info = General_Info::first();
