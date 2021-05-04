@@ -124,6 +124,39 @@ Update Profile |
 
 
 							<div class="tab-pane" id="password">
+							@if(Auth::user()->role == 'superadmin')
+							<form class="form-horizontal form-element" method="POST" action="{{route('superadmin.update.password', Auth::id() )}}" enctype="multipart/form-data">
+								{{ csrf_field() }}
+
+								<div class="form-group">
+									<label for="inputName" class="col-sm-2 control-label">Current Password</label>
+
+									<div class="col-sm-10">
+										<input class="form-control" name="old_password" type="password" placeholder="*********" required="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputEmail" class="col-sm-2 control-label">New Password</label>
+
+									<div class="col-sm-10">
+										<input class="form-control" name="new_password" type="password" required="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputPhone" class="col-sm-2 control-label">Confirm New Password</label>
+
+									<div class="col-sm-10">
+										<input class="form-control" name="password_confirmation" type="password" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-warning">Update <i class="fa fa-refresh"></i></button>
+									</div>
+								</div>
+							</form>
+							@elseif(Auth::user()->role == 'admin')
 							<form class="form-horizontal form-element" method="POST" action="{{route('admin.update.password', Auth::id() )}}" enctype="multipart/form-data">
 								{{ csrf_field() }}
 
@@ -155,6 +188,71 @@ Update Profile |
 									</div>
 								</div>
 							</form>
+							{{-- @elseif(Auth::user()->role == 'cmo')
+							<form class="form-horizontal form-element" method="POST" action="{{route('admin.update.password', Auth::id() )}}" enctype="multipart/form-data">
+								{{ csrf_field() }}
+
+								<div class="form-group">
+									<label for="inputName" class="col-sm-2 control-label">Current Password</label>
+
+									<div class="col-sm-10">
+										<input class="form-control" name="old_password" type="password" placeholder="*********" required="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputEmail" class="col-sm-2 control-label">New Password</label>
+
+									<div class="col-sm-10">
+										<input class="form-control" name="new_password" type="password" required="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputPhone" class="col-sm-2 control-label">Confirm New Password</label>
+
+									<div class="col-sm-10">
+										<input class="form-control" name="password_confirmation" type="password" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-warning">Update <i class="fa fa-refresh"></i></button>
+									</div>
+								</div>
+							</form>
+							@elseif(Auth::user()->role == 'data')
+							<form class="form-horizontal form-element" method="POST" action="{{route('admin.update.password', Auth::id() )}}" enctype="multipart/form-data">
+								{{ csrf_field() }}
+
+								<div class="form-group">
+									<label for="inputName" class="col-sm-2 control-label">Current Password</label>
+
+									<div class="col-sm-10">
+										<input class="form-control" name="old_password" type="password" placeholder="*********" required="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputEmail" class="col-sm-2 control-label">New Password</label>
+
+									<div class="col-sm-10">
+										<input class="form-control" name="new_password" type="password" required="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputPhone" class="col-sm-2 control-label">Confirm New Password</label>
+
+									<div class="col-sm-10">
+										<input class="form-control" name="password_confirmation" type="password" required="">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-warning">Update <i class="fa fa-refresh"></i></button>
+									</div>
+								</div>
+							</form> --}}
+							@endif
 						</div>
 						<!-- /.tab-pane -->
 					</div>
