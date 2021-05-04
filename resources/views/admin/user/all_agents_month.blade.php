@@ -68,7 +68,7 @@
                                                 @endif
                                             </td>
                                             <td>{{ $agent->refererAmount ? $agent->refererAmount : 0 }} </td>
-                                            <td>{{ $agent->total_refers_count ? $agent->total_refers_count : 0 }} </td>
+                                            <td>{{ $agent->total_month_count ? $agent->total_month_count : 0 }} </td>
                                             <td>
                                                 <button id="actionBtn" class="activate-submit btn {{ $agent->status == 1 ? 'deactivateClass' : 'activateClass' }}" onclick="activateAgent({{$agent->id}})">
                                                     @if($agent->status == 0)<span id="activate1">Activate User</span>@elseif($agent->status == 1)<span id="activate2">Deactivate</span>

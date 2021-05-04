@@ -28,6 +28,7 @@ Route::post('/comment/store', 'CommentsController@store')->name('comment.add');
 Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
 //add slug to old users who have no slug
 Route::get('/addSlug', 'AuthController@addSlug')->name('addSlug');
+Route::get('/save_agent_id', 'AdminController@save_agent_id')->name('save_agent_id');
 
 Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
 Route::get('dashboard/provider_downline/{slug}', 'AdminController@provider_downline')->name('provider_downline');
@@ -485,7 +486,17 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
     Route::get('/admin/dashboard/service-providers', 'AuthController@seller')->name('admin.seller');
     Route::get('/admin/dashboard/all-agents', 'AuthController@allagents')->name('admin.allagents');
-        Route::get('/admin/dashboard/all-agents-yesterday', 'AdminController@allagents_sales_yesterday')->name('admin.agents_yesterday');
+    Route::get('/admin/dashboard/all-agents-yesterday', 'AdminController@allagents_sales_yesterday')->name('admin.agents_yesterday');
+    Route::get('/admin/dashboard/agents_last_week', 'AdminController@agents_last_week')->name('admin.agents_last_week');
+    Route::get('/admin/dashboard/agents_last_month', 'AdminController@agents_last_month')->name('admin.agents_last_month');
+
+
+    Route::get('/admin/dashboard/users_yesterday', 'AdminController@allusers_sales_yesterday')->name('admin.users_yesterday');
+    Route::get('/admin/dashboard/users_last_week', 'AdminController@users_last_week')->name('admin.users_last_week');
+    Route::get('/admin/dashboard/users_last_month', 'AdminController@users_last_month')->name('admin.users_last_month');
+
+
+
 
     Route::get('/admin/dashboard/service-seekers', 'AuthController@buyer')->name('admin.buyer');
     Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');

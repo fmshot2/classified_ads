@@ -119,9 +119,48 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         return $this->hasMany('\App\ProviderSubscription'); //ProviderSubscription Model Name
     }
 
-    public function getTotalRefersAttribute()
+  public function getTotalRefersAttribute()
     {
         $ref = $this->referals()->whereDate('created_at', Carbon::yesterday())->get();
+
+        // $images = $this->images->first();
+
+        if ($ref) {
+            return $ref;
+        }
+        else {
+            return null;
+        }
+    }
+
+public function getTotalWeekAttribute()
+    {
+
+        $AgoDate=Carbon::now()->subWeek()->format('Y-m-d');  // returns 2016-02-03
+        $NowDate=Carbon::now()->format('Y-m-d');  // returns 2016-02-10
+        // $query->whereBetween('created_on', array($AgoDate,$NowDate));
+
+        $ref = $this->referals()->whereBetween('created_at', array($AgoDate,$NowDate))->get();
+
+        // $images = $this->images->first();
+
+        if ($ref) {
+            return $ref;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public function getTotalMonthAttribute()
+    {
+        $date = Carbon::today()->subDays(30);
+         // $users = User::where('created_at','>=',$date)->get();
+
+        // $AgoDate=Carbon::now()->subWeek()->format('Y-m-d');  
+        // $NowDate=Carbon::now()->format('Y-m-d');
+
+        $ref = $this->referals()->where('created_at', '>=', $date)->get();
 
         // $images = $this->images->first();
 
@@ -152,6 +191,11 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
       public function referal()
     {
         return $this->belongsTo('App\Referal');
+    }
+
+      public function agents()
+    {
+        return $this->belongsTo(Agent::class, 'agent_id');
     }
 
     public function users()

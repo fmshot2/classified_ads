@@ -1134,7 +1134,9 @@ public function save_faq(Request $request)
       public function allagents_sales_yesterday()
     {
         $agents = Agent::all();
-        $agents = User::all()->take(10);
+        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
+        // dd($agents);
 
         // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
         // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
@@ -1147,10 +1149,10 @@ public function save_faq(Request $request)
         foreach ($agents as $key => $serv) {
       // this is assigning a new field called total_likes to allservices
       //note, the total_likes is coming from a function in the model
-      $agents[$key]->total_refers = $serv->total_refers;
+      // $agents[$key]->total_refers = $serv->total_refers;
       $agents[$key]->total_refers_count = $serv->total_refers->count();
     }
-    dd($agents);
+    // dd($agents);
          // Auth::user()->subscriptions->first()
         // $agents = Auth::user()->referals->all();
         // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
@@ -1161,6 +1163,194 @@ public function save_faq(Request $request)
         // dd($my_u);
         $approval_status = null;
         return view('admin.user.all_agents_yesterday', compact('agents', 'approval_status'));
+    }
+
+   public function agents_last_week()
+    {
+        $agents = Agent::all();
+        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
+        // dd($agents);
+
+        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
+        $users = Referal::where('referalable_type', 'App\Agent')->get();
+        // dd($users);
+        // foreach ($users as $user) {
+        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+
+        foreach ($agents as $key => $serv) {
+      // this is assigning a new field called total_likes to allservices
+      //note, the total_likes is coming from a function in the model
+      // $agents[$key]->total_refers = $serv->total_refers;
+      $agents[$key]->total_week_count = $serv->total_week->count();
+    }
+    // dd($agents);
+         // Auth::user()->subscriptions->first()
+        // $agents = Auth::user()->referals->all();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
+        // foreach ($users as $user) {
+        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
+        // dd($my_u);
+        $approval_status = null;
+        return view('admin.user.all_agents_week', compact('agents', 'approval_status'));
+    }
+
+
+       public function agents_last_month()
+    {
+        $agents = Agent::all();
+        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
+        // dd($agents);
+
+        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
+        $users = Referal::where('referalable_type', 'App\Agent')->get();
+        // dd($users);
+        // foreach ($users as $user) {
+        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+
+        foreach ($agents as $key => $serv) {
+      // this is assigning a new field called total_likes to allservices
+      //note, the total_likes is coming from a function in the model
+      // $agents[$key]->total_refers = $serv->total_refers;
+      $agents[$key]->total_month_count = $serv->total_month->count();
+    }
+    // dd($agents);
+         // Auth::user()->subscriptions->first()
+        // $agents = Auth::user()->referals->all();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
+        // foreach ($users as $user) {
+        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
+        // dd($my_u);
+        $approval_status = null;
+        return view('admin.user.all_agents_month', compact('agents', 'approval_status'));
+    }
+
+
+
+       public function allusers_sales_yesterday()
+    {
+        $agents = User::all();
+        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
+        // dd($agents);
+
+        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
+        $users = Referal::where('referalable_type', 'App\Agent')->get();
+        // dd($users);
+        // foreach ($users as $user) {
+        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+
+        foreach ($agents as $key => $serv) {
+      // this is assigning a new field called total_likes to allservices
+      //note, the total_likes is coming from a function in the model
+      // $agents[$key]->total_refers = $serv->total_refers;
+      $agents[$key]->total_refers_count = $serv->total_refers->count();
+    }
+    // dd($agents);
+         // Auth::user()->subscriptions->first()
+        // $agents = Auth::user()->referals->all();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
+        // foreach ($users as $user) {
+        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
+        // dd($my_u);
+        $approval_status = null;
+        return view('admin.user.all_users_yesterday', compact('agents', 'approval_status'));
+    }
+
+     public function users_last_week()
+    {
+        $agents = User::all();
+        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
+        // dd($agents);
+
+        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
+        $users = Referal::where('referalable_type', 'App\Agent')->get();
+        // dd($users);
+        // foreach ($users as $user) {
+        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+
+        foreach ($agents as $key => $serv) {
+      // this is assigning a new field called total_likes to allservices
+      //note, the total_likes is coming from a function in the model
+      // $agents[$key]->total_refers = $serv->total_refers;
+      $agents[$key]->total_week_count = $serv->total_week->count();
+    }
+    // dd($agents);
+         // Auth::user()->subscriptions->first()
+        // $agents = Auth::user()->referals->all();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
+        // foreach ($users as $user) {
+        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
+        // dd($my_u);
+        $approval_status = null;
+        return view('admin.user.all_users_week', compact('agents', 'approval_status'));
+    }
+
+
+       public function users_last_month()
+    {
+        $agents = User::all();
+        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
+        // dd($agents);
+
+        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
+        $users = Referal::where('referalable_type', 'App\Agent')->get();
+        // dd($users);
+        // foreach ($users as $user) {
+        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+
+        foreach ($agents as $key => $serv) {
+      // this is assigning a new field called total_likes to allservices
+      //note, the total_likes is coming from a function in the model
+      // $agents[$key]->total_refers = $serv->total_refers;
+      $agents[$key]->total_month_count = $serv->total_month->count();
+    }
+    // dd($agents);
+         // Auth::user()->subscriptions->first()
+        // $agents = Auth::user()->referals->all();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
+        // foreach ($users as $user) {
+        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
+        // dd($my_u);
+        $approval_status = null;
+        return view('admin.user.all_users_month', compact('agents', 'approval_status'));
+    }
+
+
+
+    public function save_agent_id(){
+      $users = User::whereNotNull('idOfAgent')->get();
+      foreach ($users as $user) {
+         $user->agent_id = $user->idOfAgent;
+        $user->save();
+      }
+
+     
+            return redirect('/admin/dashboard/all-agents-yesterday');
+      // return redirect()->back();
     }
 
       public function all_agents_downline_yesterday()
@@ -1185,4 +1375,15 @@ public function save_faq(Request $request)
         'efmarketers' => $efmarketers
       ]);
     }
+
+
+    //  public function all_agent_earnings()
+    // {
+    //   $agents = User::where('referalable_type', 'App\Agent')->whereDate('created_at', Carbon::yesterday())->get();
+    //   // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
+    //   // $users = Referal::where('referalable_type', 'App\Agent')->whereDate('created_at', Carbon::yesterday())->get();
+    //   return view('admin.earnings.marketers', [
+    //     'efmarketers' => $efmarketers
+    //   ]);
+    // }
 }
