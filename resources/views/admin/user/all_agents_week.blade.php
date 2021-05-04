@@ -30,7 +30,7 @@
 				<div class="box" >
 					<div class="box-header">
 						<h3 class="box-title"> Agents Table</h3>
-                        <p>List of all the agents on this platform</p>
+                        <p>List of all yesterday's registrations by EFContact agents</p>
 					</div>
 
 					<!-- /.box-header -->
@@ -39,12 +39,14 @@
 							<thead>
 								<tr>
 									<th> # </th>
-									<th> Name </th>
+                                    <!-- <th> Agent name </th> -->
+
+									<th> Referer Name </th>
 									<th> Email </th>
 									<th> Applied for Approval?</th>
 									<th> Status </th>
                                     <th> Amount Earned </th>
-                                    <th> Total Downline </th>
+                                    <th> Total Downline aaa</th>
 									<th> Activate/Deactivate</th>
                                     <th> Downlines</th>
 
@@ -55,7 +57,7 @@
 									@foreach($agents as $key => $agent)
                                         <tr>
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                                            <td> {{ $agent->name }} </td>
+                                            <td><span class="text-muted"> </i> {{ $agent->name }} </span> </td>
                                             <td><span class="text-muted"> </i> {{ $agent->email }} </span> </td>
                                             <td> {{ $agent->created_at->format('d/m/Y') }} </span></td>
                                             <td>
@@ -66,7 +68,7 @@
                                                 @endif
                                             </td>
                                             <td>{{ $agent->refererAmount ? $agent->refererAmount : 0 }} </td>
-                                            <td>{{ $agent->referals->count() ? $agent->referals->count() : 0 }} </td>
+                                            <td>{{ $agent->total_week_count ? $agent->total_week_count : 0 }} </td>
                                             <td>
                                                 <button id="actionBtn" class="activate-submit btn {{ $agent->status == 1 ? 'deactivateClass' : 'activateClass' }}" onclick="activateAgent({{$agent->id}})">
                                                     @if($agent->status == 0)<span id="activate1">Activate User</span>@elseif($agent->status == 1)<span id="activate2">Deactivate</span>

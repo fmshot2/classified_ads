@@ -25,7 +25,6 @@ All Agents Downline |
 
 				<div class="box" >
 					<div class="box-header">
-						<h2 class="box-title"> Total Downlines =  {{$agent_downlines->count()}}</span></h2>
 					</div>
 
 					<!-- /.box-header -->
