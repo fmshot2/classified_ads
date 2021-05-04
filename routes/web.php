@@ -513,7 +513,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::post('/notification/delete', 'NotificationController@notificationDelete')->name('admin.notification.delete');
 
     Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
-    Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
+    Route::post('admin/profile/update/{id}', 'AuthController@updatePassword')->name('admin.update.password');
 
     Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('admin.system.config.store');
 

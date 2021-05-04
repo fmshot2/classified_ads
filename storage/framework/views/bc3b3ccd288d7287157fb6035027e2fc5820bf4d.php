@@ -124,6 +124,8 @@
                     <a class="text-warning" href="<?php echo e(route('seller.dashboard')); ?>"><i class="fa fa-user"></i> My Account</a>
                     <?php elseif(Auth::user()->role == 'buyer'): ?>
                     <a class="text-warning" href="<?php echo e(route('buyer.dashboard')); ?>"><i class="fa fa-user"></i> My Account</a>
+                    <?php elseif(Auth::user()->role == 'admin'): ?>
+                    <a class="text-warning" href="<?php echo e(route('admin.dashboard')); ?>"><i class="fa fa-user"></i> My Account</a>
                     <?php endif; ?>
                     <a href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();" style="font-weight: 600; padding: 10px;"><i class="fa fa-power-off"></i> Logout</a>
@@ -161,6 +163,8 @@
                     <a href="<?php echo e(route('seller.dashboard')); ?>"> Dashboard</a>
                     <?php elseif(Auth::user()->role == 'buyer'): ?>
                     <a href="<?php echo e(route('buyer.dashboard')); ?>"> My Account</a>
+                    <?php elseif(Auth::user()->role == 'admin'): ?>
+                    <a href="<?php echo e(route('admin.dashboard')); ?>"> My Account</a>
                     <?php endif; ?>
                     <a href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();" style="font-weight: 600; color: rgb(253, 75, 75); border: 1px solid  rgb(255, 91, 91); padding: 10px;"><i class="fa fa-power-off"></i></a>
@@ -252,6 +256,11 @@
                         <?php if(Auth::user()->role == 'buyer'): ?>
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="<?php echo e(route('buyer.dashboard')); ?>">My Account</a>
+                        </li>
+                        <?php endif; ?>
+                        <?php if(Auth::user()->role == 'admin'): ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="<?php echo e(route('admin.dashboard')); ?>">My Account</a>
                         </li>
                         <?php endif; ?>
                         <?php if(Auth::guard('agent')->check()): ?>
