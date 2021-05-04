@@ -86,6 +86,11 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         return $this->hasMany('\App\Badge'); //Product Model Name
     }
 
+    public function complain()
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
