@@ -50,7 +50,7 @@
           <li><a href=" {{ route('superadmin.service.all') }} "><i class="fa fa-circle-o"></i> All Seeking Works</a></li>
           <li><a href=" {{ route ('superadmin.category.show') }} "><i class="fa fa-circle-o"></i> Categories </a></li>
           <li><a href=" {{ route ('superadmin.subcategory.show') }} "><i class="fa fa-circle-o"></i> Sub-categories </a></li>
-
+          <li><a href=" {{ route ('superadmin.featured.services') }} "><i class="fa fa-circle-o"></i> Featured Services </a></li>
         </ul>
       </li>
 
