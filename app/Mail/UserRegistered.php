@@ -33,6 +33,6 @@ class UserRegistered extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->from('noreply@efcontact.com')->markdown('emails.user-registered')->subject('Account Created!');
+        return $this->from('noreply@efcontact.com', 'EFContact')->markdown('emails.user-registered')->subject('Account Created!');
     }
 }

@@ -32,6 +32,6 @@ class SeasonGreetings extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->from('noreply@efcontact.com')->markdown('emails.users.season-greetings')->subject($this->subject);
+        return $this->from('noreply@efcontact.com', 'EFContact')->markdown('emails.users.season-greetings')->subject($this->subject);
     }
 }
