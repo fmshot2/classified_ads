@@ -162,7 +162,6 @@
                             } else {
                                 swal("Error!", results.message, "error");
                             }
-
                         }
                     });
 

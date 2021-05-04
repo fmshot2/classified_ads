@@ -17,7 +17,7 @@ class AddAgentIdToUsersTable extends Migration
             $table->integer('agent_id')->nullable();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *
