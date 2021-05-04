@@ -38,7 +38,7 @@ class SendMailable extends Mailable implements ShouldQueue
      public function build()
     {
 //        return $this->view('view.name');
-    return $this->from('info@efcontacts.com')->subject('No Reply')
+    return $this->from('info@efcontacts.com', 'EFContact')->subject('No Reply')
         ->view('emails.name');
 
     }

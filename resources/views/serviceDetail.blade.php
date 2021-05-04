@@ -527,13 +527,10 @@
                                 <form id="myform" action="POST">
                                     <input type="hidden" name="_method" value="POST">
                                     @csrf
-                                    {{-- <input  type="hidden" id="service_id" name="service_id" value="{{$serviceDetail->id}}" class="form-control" placeholder="Name">
-                                    <input type="hidden" id="service_user_id" name="service_user_id" value="{{$serviceDetail->user_id}}" class="form-control" placeholder="Name">
-                                    <input type="hidden" id="buyer_id" value="{{Auth::id()}}" name="buyer_id" class="text-dark form-control"> --}}
 
-                                    <input type="hidden" name="sender_name" id="sender_name" value="{{ Auth::user()->name }}">
+                                    <input type="hidden" name="sender_name" id="sender_name" value="{{ Auth::user()->name ?? '' }}">
                                     <input type="hidden" name="receiver_id" id="receiver_id" value="{{ $serviceDetail->user->id }}">
-                                    <input type="hidden" name="sender_email" id="sender_email" value="{{ Auth::user()->email }}">
+                                    <input type="hidden" name="sender_email" id="sender_email" value="{{ Auth::user()->email ?? '' }}">
                                     <input type="hidden" name="service_id" id="service_id" value="{{ $serviceDetail->id }}">
 
                                     <div class="form-group">

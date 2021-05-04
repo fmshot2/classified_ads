@@ -28,6 +28,6 @@ class Discount extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@efcontact.com')->markdown('emails.services.discount')->subject('Get 50% Discount!');
+        return $this->from('noreply@efcontact.com', 'EFContact')->markdown('emails.services.discount')->subject('Get 50% Discount!');
     }
 }

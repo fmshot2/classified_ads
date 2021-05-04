@@ -31,6 +31,6 @@ class PaymentProcessAbandoned extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@efcontact.com')->markdown('emails.payments.payment-process-abandoned')->subject($this->subject);
+        return $this->from('noreply@efcontact.com', 'EFContact')->markdown('emails.payments.payment-process-abandoned')->subject($this->subject);
     }
 }
