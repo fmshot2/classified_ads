@@ -663,7 +663,10 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: #cc8a19; color: #fff">
-                        <h4 class="modal-title">Post A Service</h4>
+                        <h4 style="display: inline-block;" class="modal-title">Post A Service</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: #fff">
+                            <i class="fa fa-close"></i>
+                        </button>
                     </div>
                     <form id="serviceForm" action="{{ route('service.save') }}" method="post" enctype="multipart/form-data" style="display: block">
                         @csrf

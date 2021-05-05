@@ -84,7 +84,7 @@ Update Profile |
 									<label for="inputPhone" class="col-sm-2 control-label">Phone</label>
 
 									<div class="col-sm-10">
-										<input type="number" class="form-control" name="phone" value=" {{ Auth::user()->phone }}">
+										<input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" class="form-control"  minlength="11" maxlength="11" name="phone" value="{{ Auth::user()->phone }}">
 									</div>
 								</div>
 
