@@ -25,6 +25,8 @@ use App\Mail\ServiceCreated;
 use App\SubCategory;
 use App\PaymentRequest;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 
 class SellerController extends Controller
 {
@@ -32,7 +34,16 @@ class SellerController extends Controller
 
     public function createService()
     {
-        $category = Category::orderBy('name', 'asc')->get();
+        $success_notification = array(
+        'message' => 'Please renew your subscription to view this page!',
+        'alert-type' => 'error'
+     );
+$user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
+
+if (Carbon::now() < Carbon::parse($user_sub_date)) {
+        return redirect()->route('seller.sub.create')->with($success_notification);
+}
+         $category = Category::orderBy('name', 'asc')->get();
         $subcategory = SubCategory::orderBy('name', 'asc')->get();
         $states = State::all();
         return view ('seller.service.create', compact('category', 'states', 'subcategory') );
@@ -114,6 +125,10 @@ foreach($request->file('files') as $image)
         $service->address = $data['address'];
         $service->max_price = $data['category_id'];
         $service->video_link = $data['video_link'];
+        // $service->subscription_end_date = Auth::user()->subscription_end_date;
+         $service->subscription_end_date =  Auth::user()->subscriptions->first()->subscription_end_date;
+
+
 
        if (isset($request->is_featured)) {
             $service->is_featured = $data['is_featured'];
@@ -329,9 +344,16 @@ public function readMessage()
 }
 
 public function allMessage()
-{
+{ 
     // $all_message = Message::where('buyer_id', Auth::id())->orwhere('service_user_id', Auth::id())->orderBy('created_at', 'desc')->get();
     // return view ('seller.message.all', compact('all_message') );
+    $success_notification = array(
+        'message' => 'Please renew your subscription to view this page!',
+        'alert-type' => 'error'
+    );
+    if (Auth::user()->subscriptions->first()) {
+        return redirect()->route('seller.sub.create')->with($success_notification);
+ }
 
     $all_user_messages = Message::where('user_id', Auth::id())->orWhere('receiver_id', Auth::id())->orderBy('created_at', 'desc')->get();
     return view ('seller.message.all', compact('all_user_messages') );
@@ -362,6 +384,14 @@ public function replyMessage($slug)
 
 public function allNotification()
 {
+    $success_notification = array(
+        'message' => 'Please renew your subscription to view this page!',
+        'alert-type' => 'error'
+    );
+    if (Auth::user()->subscriptions->first()) {
+        return redirect()->route('seller.sub.create')->with($success_notification);
+ }
+
     $all_notification = Notification::paginate(8);
     return view ('seller.notification.all_notification', compact('all_notification') );
 }

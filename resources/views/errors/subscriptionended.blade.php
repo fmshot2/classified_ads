@@ -119,7 +119,7 @@
                 <div class="notfound-404"></div>
                 <h1>404</h1>
                 <h2>Oops! Page Not Found!</h2>
-                <p>Sorry but the page you are looking for does not exist, or is temporarily unavailable</p>
+                <p>Your Subscription for EFContact has ended. Please renew your subbscription  <a class="btn btn-success" href="{{ route('home') }}"><i class="fa fa-arrow-left" style="color: #fff"></i> <span style="font-size: 15px !important;color:#fff">here</span></a></p>
                 <div class="mr-3 navbar-top-post-btn">
                     <a class="btn btn-success" href="{{ route('home') }}"><i class="fa fa-arrow-left" style="color: #fff"></i> <span style="font-size: 15px !important;color:#fff">Go Back</span></a>
                 </div>

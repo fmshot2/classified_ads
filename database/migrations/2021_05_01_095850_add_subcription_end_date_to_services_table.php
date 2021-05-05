@@ -14,7 +14,7 @@ class AddSubcriptionEndDateToServicesTable extends Migration
     public function up()
     {
         Schema::table('services', function (Blueprint $table) {
-            //
+        $table->string('subscription_end_date')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddSubcriptionEndDateToServicesTable extends Migration
     public function down()
     {
         Schema::table('services', function (Blueprint $table) {
-            //
+        $table->dropColumn('subscription_end_date');
         });
     }
 }
