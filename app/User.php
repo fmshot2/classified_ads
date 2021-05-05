@@ -206,4 +206,5 @@ public function getTotalWeekAttribute()
     {
         return $this->belongsTo('App\Referal');
     }
+    
 }

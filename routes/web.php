@@ -36,6 +36,8 @@ Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
 //add slug to old users who have no slug
 Route::get('/addSlug', 'AuthController@addSlug')->name('addSlug');
 Route::get('/save_agent_id', 'AdminController@save_agent_id')->name('save_agent_id');
+Route::get('/set_sub', 'ServiceController@set_sub')->name('set_sub');
+
 
 Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
 Route::get('dashboard/provider_downline/{slug}', 'AdminController@provider_downline')->name('provider_downline');
