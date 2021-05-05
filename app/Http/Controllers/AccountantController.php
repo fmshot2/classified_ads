@@ -429,6 +429,7 @@ class AccountantController extends Controller
     public function registrationPayments()
     {
         $registrations = Payment::where('payment_type', '=', 'registration')->get();
+        // dd($registrations->paymentable->get());
         return view('accountant.payments.registrations', [
             'registrations' => $registrations
         ]);

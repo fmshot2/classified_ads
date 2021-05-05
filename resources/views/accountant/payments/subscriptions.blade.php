@@ -45,9 +45,8 @@ All Re - Subscriptions   |
 									<th> # </th>
 									<th> Name  </th>
 									<th> Amount Paid </th>
-									<th> Subscription End Date </th>
-									<th> Subscription Type </th>
-									<th> Date of Payment </th>
+									<th> Reference Number </th>
+									<th>Date of Payment</th>
 									{{-- <th> Action </th>									 --}}
 								</tr>	
 							</thead>
@@ -55,10 +54,9 @@ All Re - Subscriptions   |
 								@forelse($subscriptions as $key => $payment)
 								<tr>
 									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
-									<td><span class="text-muted"> </i> {{ $payment->user->name }}</span> </td>
-									<td> ₦{{ number_format($payment->last_amount_paid) }} </td>
-									<td> {{ $payment->subscription_end_date }} </td>
-									<td> {{ $payment->sub_type }} </span></td>
+									<td><span class="text-muted"> </i> {{ $payment->paymentable->name }}</span> </td>
+									<td> ₦{{ number_format($payment->amount) }} </td>
+									<td> {{ $payment->tranx_ref }} </td>
 									<td> {{ date('d-m-Y', strtotime($payment->created_at)) }} </td>
 									
 									{{-- <td class="center">
