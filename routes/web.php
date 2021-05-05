@@ -463,6 +463,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/category/{id}', 'CategoryController@destroy')->name('admin.category.delete');
     Route::get('/admin/dashboard/single/category/{id}', 'CategoryController@categoryShow')->name('admin.single.category.show');
     Route::put('/admin/dashboard/single/category/{id}', 'CategoryController@categoryUpdate')->name('admin.single.category.update');
+    Route::get('admin/all-featured-services', 'AdminController@featuredServices')->name('admin.featured.services');
 
     Route::get('admin/user-complaints', 'AdminController@userComplaints')->name('admin.user.complaints');
     Route::get('/admin/dashboard/subcategory/show', 'CategoryController@subcategoryIndex')->name('admin.subcategory.show');
