@@ -219,6 +219,7 @@ public function saveReferLink($refererlink){
    public function storeServiceUpdate(Request $request, $id)
    {
 
+    // dd($request->all());
         $service = Service::findOrFail($id);
 
         $this->validate($request,[
