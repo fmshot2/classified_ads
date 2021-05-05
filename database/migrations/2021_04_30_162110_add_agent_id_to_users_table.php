@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSubcriptionEndDateToServicesTable extends Migration
+class AddAgentIdToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class AddSubcriptionEndDateToServicesTable extends Migration
      */
     public function up()
     {
-        Schema::table('services', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('agent_id')->nullable();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *
@@ -25,8 +25,8 @@ class AddSubcriptionEndDateToServicesTable extends Migration
      */
     public function down()
     {
-        Schema::table('services', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('agent_id');
         });
     }
 }

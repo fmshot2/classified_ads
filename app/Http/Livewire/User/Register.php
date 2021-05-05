@@ -207,7 +207,7 @@ class Register extends Component
                 $added_days = 31;
                 $sub_type = 'monthly';
             }elseif ($amount == 60000) {
-                $added_days = 186;
+                $added_days = 93;
                 $sub_type = '3 months';
             } elseif ($amount == 120000) {
                 $added_days = 186;

@@ -96,7 +96,6 @@ class Service extends Model implements Viewable
     }
 
 
-
 /**
      * Scope a query to only include given state.
      *
@@ -219,4 +218,35 @@ public function scopeSearchCategory($query, $category)
     {
         return $this->hasMany(Message::class, 'service_id');
     }
+
+    //  /**
+    //  * The "booted" method of the model.
+    //  *
+    //  * @return void
+    //  */
+    // protected static function booted()
+    // {
+    //     static::addGlobalScope('ancient', function (Builder $builder) {
+    //         $builder->where('created_at', '<', now());
+    //     });
+    // }
+
+     /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+ //    protected static function booted()
+ //    {
+ //        static::addGlobalScope('ancient', function (Builder $builder) {
+ // //            $object2 = ProviderSubscription::find($userss);
+ // //            // dd($object2);
+ // //            $obj3 = $object2->subscription_end_date;
+ // //            dd($obj3);
+ //            // $builder->where('created_at', '>', now());
+ //            $builder->where('status', 1);
+
+ //        });
+ //    }
+
 }

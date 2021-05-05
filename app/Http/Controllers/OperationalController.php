@@ -61,7 +61,7 @@ class OperationalController extends Controller
         $agent_code_check = Refererlink::where(['user_id'=>Auth::id()])->firstOrFail();
 
         $service_count = Refererlink::where('user_id', Auth::id() )->count();
-            return view ('agent.dashboard', compact('service_count', 'agent_code_check'));
+        return view ('agent.dashboard', compact('service_count', 'agent_code_check'));
     }
 
     public function sliderCreate(Request $request)
@@ -393,428 +393,348 @@ class OperationalController extends Controller
 
     public function clientfeedbacks()
     {
-        $all_services = Service::where('user_id', Auth::id() )->get();
+      $success_notification = array(
+        'message' => 'Please renew your subscription to view this page!',
+        'alert-type' => 'error'
+    );
+      $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
 
-        $this->thecomments = [];
-
-        foreach ($all_services as $key => $all_service) {
-            foreach ($all_service->comments as $key => $thecomments) {
-                $this->thecomments[] = $thecomments;
-            }
-        }
-        $allcomments = array_reverse($this->thecomments);
-
-        return view ('seller.feedbacks.all', compact('all_services', 'allcomments') );
+      if (Carbon::now() < Carbon::parse($user_sub_date)) {
+        return redirect()->route('seller.sub.create')->with($success_notification);
     }
 
-    public function myFavourites(Request $request)
-    {
-        $user = $request->user();
-        $likecheck = Like::where(['user_id'=>$user->id])->get();
-        $this->thefavourites = [];
+    $all_services = Service::where('user_id', Auth::id() )->get();
 
-        foreach ($likecheck as $key => $all_service) {
-            $this->thefavourites[] = Service::where('id', $all_service->service_id )->firstOrFail();
+    $this->thecomments = [];
+
+    foreach ($all_services as $key => $all_service) {
+        foreach ($all_service->comments as $key => $thecomments) {
+            $this->thecomments[] = $thecomments;
         }
+    }
+    $allcomments = array_reverse($this->thecomments);
 
-        $allfavourites = array_reverse($this->thefavourites);
+    return view ('seller.feedbacks.all', compact('all_services', 'allcomments') );
+}
 
-        return view('seller.myfavourites', [
-            'allfavourites' => $allfavourites
+public function myFavourites(Request $request)
+{
+ $success_notification = array(
+    'message' => 'Please renew your subscription to view this page!',
+    'alert-type' => 'error'
+);
+ $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
+
+ if (Carbon::now() < Carbon::parse($user_sub_date)) {
+    return redirect()->route('seller.sub.create')->with($success_notification);
+}
+
+$user = $request->user();
+$likecheck = Like::where(['user_id'=>$user->id])->get();
+$this->thefavourites = [];
+
+foreach ($likecheck as $key => $all_service) {
+    $this->thefavourites[] = Service::where('id', $all_service->service_id )->firstOrFail();
+}
+
+$allfavourites = array_reverse($this->thefavourites);
+
+return view('seller.myfavourites', [
+    'allfavourites' => $allfavourites
+]);
+}
+
+public function getTouristSites($state)
+{
+    $tourist = Tourism::where('states', $state)->get();
+
+    return $tourist;
+}
+
+public function downloadAdBrochure()
+{
+    $filePath = public_path("efcontact-ad-brochure.pdf");
+    $headers = ['Content-Type: application/pdf'];
+    $fileName = 'efcontact-ad-brochure.pdf';
+
+    return response()->download($filePath, $fileName, $headers);
+}
+
+public function ajaxSearchResult(Request $request)
+{
+    if($request->ajax()) {
+
+        $services = Service::query()
+        ->where('name', 'LIKE', "%{$request->service}%")
+        ->where('status', 1)
+        ->orWhere('description', 'LIKE', "%{$request->service}%");
+
+        $seekingworks = SeekingWork::query()
+        ->where('job_title', 'LIKE', "%{$request->service}%")
+        ->where('status', 1)
+        ->orWhere('fullname', 'LIKE', "%{$request->service}%");
+
+
+        $data = $services->get ()->concat ($seekingworks->get ());
+
+
+        $output = '';
+        if (count($data)>0) {
+            $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
+            foreach ($data as $row){
+                if ($row->name) {
+                    $output .= '<li class="list-group-item"><a style="display:block" href="'. route('serviceDetail',  $row->slug) .'">'. $row->name .' in <span class="ajaxSearchCategoryList">'.$row->category->name.'</span></li>';
+                }
+                else{
+                    $output .= '<li class="list-group-item"><a style="display:block" href="'. route('job.applicant.detail',  $row->slug) .'">'. $row->job_title .' in <span class="ajaxSearchCategoryList">'.$row->category->name.' & CVs</span></li>';
+                }
+            }
+            $output .= '</ul>';
+        }
+        else {
+            $output .= '<li class="list-group-item">'.'No results'.'</li>';
+        }
+        return $output;
+    }
+}
+
+public function dapSearch(Request $request)
+{
+    $keyword = $request->keyword ? $request->keyword : 'Nothing!';
+    $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
+    $categories = Category::orderBy('name', 'asc')->get();
+
+    if ($request->category == null && $request->city == null && $request->keyword == null && $request->state == null) {
+        return back()->with([
+            'message' => 'No result found for your search!',
+            'alert-type' => 'error'
         ]);
     }
 
-    public function getTouristSites($state)
-    {
-        $tourist = Tourism::where('states', $state)->get();
 
-        return $tourist;
-    }
+    if ($request->subcategory != null) {
+        $category = Category::where('slug', $request->category)->firstOrFail();
+        $subcategory = SubCategory::where('slug', $request->subcategory)->firstOrFail();
+        $categoryId = $category->id;
+        $categoryname = $category->name;
+        $subcategoryId = $subcategory->id;
+        $subcategoryname = $subcategory->name;
 
-    public function downloadAdBrochure()
-    {
-        $filePath = public_path("efcontact-ad-brochure.pdf");
-    	$headers = ['Content-Type: application/pdf'];
-    	$fileName = 'efcontact-ad-brochure.pdf';
 
-    	return response()->download($filePath, $fileName, $headers);
-    }
-
-    public function ajaxSearchResult(Request $request)
-    {
-        if($request->ajax()) {
-
+        if ($request->keyword != null && $request->city != null) {
             $services = Service::query()
-                ->where('name', 'LIKE', "%{$request->service}%")
-                ->where('status', 1)
-                ->orWhere('description', 'LIKE', "%{$request->service}%");
+            ->where('name', 'LIKE', "$request->keyword")
+            ->where('city', '=', "$request->city")
+            ->where('state', '=', "$request->state")
+            ->where('status', 1)
+            ->with('sub_categories')
+            ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
+                $query->where('sub_categorable_id', $subcategoryId);
+            })
+            ->with('category')
+            ->whereHas('category', function($query) use ($categoryId)  {
+                $query->where('id', $categoryId);
+            })
+            ->get();
 
             $seekingworks = SeekingWork::query()
-                ->where('job_title', 'LIKE', "%{$request->service}%")
-                ->where('status', 1)
-                ->orWhere('fullname', 'LIKE', "%{$request->service}%");
+            ->where('job_title', 'LIKE', "$request->keyword")
+            ->where('status', 1)
+            ->where('user_lga', '=', "$request->city")
+            ->where('user_state', '=', "$request->state")
+            ->whereHas('category', function($query) use ($categoryId)  {
+                $query->where('id', $categoryId);
+            })
+            ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
+            ->get();
 
-
-            $data = $services->get ()->concat ($seekingworks->get ());
-
-
-            $output = '';
-            if (count($data)>0) {
-                $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
-                foreach ($data as $row){
-                    if ($row->name) {
-                        $output .= '<li class="list-group-item"><a style="display:block" href="'. route('serviceDetail',  $row->slug) .'">'. $row->name .' in <span class="ajaxSearchCategoryList">'.$row->category->name.'</span></li>';
-                    }
-                    else{
-                        $output .= '<li class="list-group-item"><a style="display:block" href="'. route('job.applicant.detail',  $row->slug) .'">'. $row->job_title .' in <span class="ajaxSearchCategoryList">'.$row->category->name.' & CVs</span></li>';
-                    }
-                }
-                $output .= '</ul>';
-            }
-            else {
-                $output .= '<li class="list-group-item">'.'No results'.'</li>';
-            }
-            return $output;
-        }
-    }
-
-    public function dapSearch(Request $request)
-    {
-        $keyword = $request->keyword ? $request->keyword : 'Nothing!';
-        $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
-        $categories = Category::orderBy('name', 'asc')->get();
-
-        if ($request->category == null && $request->city == null && $request->keyword == null && $request->state == null) {
-            return back()->with([
-                'message' => 'No result found for your search!',
-                'alert-type' => 'error'
-            ]);
-        }
-
-
-        if ($request->subcategory != null) {
-            $category = Category::where('slug', $request->category)->firstOrFail();
-            $subcategory = SubCategory::where('slug', $request->subcategory)->firstOrFail();
-            $categoryId = $category->id;
-            $categoryname = $category->name;
-            $subcategoryId = $subcategory->id;
-            $subcategoryname = $subcategory->name;
-
-
-            if ($request->keyword != null && $request->city != null) {
-                $services = Service::query()
-                    ->where('name', 'LIKE', "$request->keyword")
-                    ->where('city', '=', "$request->city")
-                    ->where('state', '=', "$request->state")
-                    ->where('status', 1)
-                    ->with('sub_categories')
-                    ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
-                        $query->where('sub_categorable_id', $subcategoryId);
-                    })
-                    ->with('category')
-                    ->whereHas('category', function($query) use ($categoryId)  {
-                        $query->where('id', $categoryId);
-                    })
-                    ->get();
-
-                $seekingworks = SeekingWork::query()
-                    ->where('job_title', 'LIKE', "$request->keyword")
-                    ->where('status', 1)
-                    ->where('user_lga', '=', "$request->city")
-                    ->where('user_state', '=', "$request->state")
-                    ->whereHas('category', function($query) use ($categoryId)  {
-                        $query->where('id', $categoryId);
-                    })
-                    ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
-                    ->get();
-
-                if (!$services->isEmpty() || !$seekingworks->isEmpty()) {
-                    return view('dapSearchResult', [
-                        "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                        "services" => $services,
-                        "seekingworks" => $seekingworks,
-                        "featuredServices" => $featuredServices,
-                        "categories" => $categories,
-                    ]);
-                }
-                else{
-                    return view('dapSearchResult', [
-                        "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
-                        "featuredServices" => $featuredServices,
-                        "categories" => $categories,
-                    ]);
-                }
-            }
-            elseif ($request->keyword != null && $request->state != null) {
-                $services = Service::query()
-                            ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('state', '=', "$request->state")
-                            ->where('status', 1)
-                            ->with('sub_categories')
-                            ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
-                                $query->where('sub_categorable_id', $subcategoryId);
-                            })
-                            ->with('category')
-                            ->whereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
-                            })->get();
-
+            if (!$services->isEmpty() || !$seekingworks->isEmpty()) {
                 return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$subcategoryname.'</strong>',
+                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
                     "services" => $services,
+                    "seekingworks" => $seekingworks,
                     "featuredServices" => $featuredServices,
                     "categories" => $categories,
                 ]);
             }
-            elseif ($request->keyword == null) {
-                $services = Service::query()
-                            ->where('state', '=', "$request->state")
-                            ->where('status', 1)
-                            ->with('sub_categories')
-                            ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
-                                $query->where('sub_categorable_id', $subcategoryId);
-                            })
-                            ->with('category')
-                            ->whereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
-                            })->get();
-
-                return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$subcategoryname.'</strong>',
-                    "services" => $services,
-                    "featuredServices" => $featuredServices,
-                    "categories" => $categories,
-                ]);
-            }
-
-        }
-
-
-        if ($request->category != null) {
-            $category = Category::where('slug', $request->category)->firstOrFail();
-            $categoryId = $category->id;
-            $categoryname = $category->name;
-
-            if ($request->city != null && $request->keyword != null) {
-                $services = Service::query()
-                    ->where('name', 'LIKE', "%{$request->keyword}%")
-                    ->where('city', '=', "$request->city")
-                    ->where('state', '=', "$request->state")
-                    ->where('status', 1)
-                    ->with('category')
-                    ->whereHas('category', function($query) use ($categoryId)  {
-                        $query->where('id', $categoryId);
-                    });
-
-                $seekingworks = SeekingWork::query()
-                    ->where('job_title', 'LIKE', "%{$request->keyword}%")
-                    ->where('status', 1)
-                    ->whereHas('category', function($query) use ($categoryId)  {
-                        $query->where('id', $categoryId);
-                    })
-                    ->orWhere('fullname', 'LIKE', "%{$request->keyword}%");
-
-                if (!$services->isEmpty() || !$seekingworks->isEmpty() ) {
-                    return view('dapSearchResult', [
-                        "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                        "services" => $services,
-                        "seekingworks" => $seekingworks,
-                        "featuredServices" => $featuredServices,
-                        "categories" => $categories,
-                    ]);
-                }
-                else{
-                    return view('dapSearchResult', [
-                        "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
-                        "featuredServices" => $featuredServices,
-                        "categories" => $categories,
-                    ]);
-                }
+            else{
                 return view('dapSearchResult', [
                     "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
                     "featuredServices" => $featuredServices,
                     "categories" => $categories,
                 ]);
             }
-            elseif ($request->keyword != null && $request->state != null) {
-                $services = Service::query()
-                            ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('state', '=', "$request->state")
-                            ->where('status', 1)
-                            ->with('category')
-                            ->whereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
-                            })->get();
-
-                return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services,
-                    "featuredServices" => $featuredServices,
-                    "categories" => $categories,
-                ]);
-            }
-            elseif ($request->state != null) {
-                $services = Service::query()
-                            ->where('state', '=', "$request->state")
-                            ->where('status', 1)
-                            ->with('category')
-                            ->whereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
-                            })->get();
-
-                return view('dapSearchResult', [
-                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
-                    "services" => $services,
-                    "featuredServices" => $featuredServices,
-                    "categories" => $categories,
-                ]);
-            }
-            else {
-                $services = Service::query()
-                            ->where('status', 1)
-                            ->with('category')
-                            ->whereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
-                            })->get();
-
-                if (!$services->isEmpty()) {
-                    return view('dapSearchResult', [
-                        "message" => 'Your search result in <strong>'.$categoryname.'</strong>',
-                        "services" => $services,
-                        "featuredServices" => $featuredServices,
-                        "categories" => $categories,
-                    ]);
-                }
-                else{
-                    return view('dapSearchResult', [
-                        "message" => 'No result found for your search in <strong>'.$categoryname.'</strong>',
-                        "categories" => $categories,
-                    ]);
-                }
-            }
-
         }
-
-
-
-        if($request->city != null){
-            if ($request->keyword != null) {
-                $services = Service::query()
-                    ->where('name', 'LIKE', "%{$request->keyword}%")
-                    ->where('city', '=', "%{$request->city}%")
-                    ->where('state', '=', "%{$request->state}%")
-                    ->where('status', 1)
-                    ->get();
-
-                $seekingworks = SeekingWork::query()
-                    ->where('job_title', 'LIKE', "%{$request->keyword}%")
-                    ->where('status', 1)
-                    ->where('user_lga', '=', "%{$request->city}%")
-                    ->where('user_state', '=', "%{$request->state}%")
-                    ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
-                    ->get();
-
-                if (!$services->isEmpty() || !$seekingworks->isEmpty() ) {
-                    return view('dapSearchResult', [
-                        "message" => 'Your search result for <strong>'.$keyword. '</strong>',
-                        "services" => $services,
-                        "seekingworks" => $seekingworks,
-                        "featuredServices" => $featuredServices,
-                        "categories" => $categories,
-                    ]);
-                }
-                else{
-                    return view('dapSearchResult', [
-                        "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
-                        "featuredServices" => $featuredServices,
-                        "categories" => $categories,
-                    ]);
-                }
-            }
-        }
-
-
-        if($request->state != null){
-            if ($request->keyword != null) {
-                $services = Service::query()
-                    ->where('name', 'LIKE', "%{$request->keyword}%")
-                    ->where('state', $request->state)
-                    ->where('status', 1)
-                    ->get();
-
-                $seekingworks = SeekingWork::query()
-                    ->where('job_title', 'LIKE', "%{$request->keyword}%")
-                    ->where('status', 1)
-                    ->where('user_state', '=', $request->state)
-                    ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
-                    ->get();
-
-                if (!$services->isEmpty()) {
-                    return view('dapSearchResult', [
-                        "message" => 'Your search result for <strong>'.$keyword. '</strong>',
-                        "services" => $services,
-                        "seekingworks" => $seekingworks,
-                        "featuredServices" => $featuredServices,
-                        "categories" => $categories,
-                    ]);
-                }
-                else{
-                    return view('dapSearchResult', [
-                        "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
-                        "featuredServices" => $featuredServices,
-                        "categories" => $categories,
-                    ]);
-                }
-            }
-            else{
-                $services = Service::query()
-                ->where('state', $request->state)
-                ->where('status', 1)
-                ->get();
-
-                $seekingworks = SeekingWork::query()
-                    ->where('user_state', '=', $request->state)
-                    ->where('status', 1)
-                    ->get();
-
-                if (!$services->isEmpty() && !$services->isEmpty()) {
-                    return view('dapSearchResult', [
-                        "featuredServices" => $featuredServices,
-                        "services" => $services,
-                        "seekingworks" => $seekingworks,
-                        "categories" => $categories,
-                    ]);
-                }
-                else {
-                    return view('dapSearchResult', [
-                        "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
-                        "featuredServices" => $featuredServices,
-                        "categories" => $categories,
-                    ]);
-                }
-
-
-            }
-        }
-
-
-        if($request->keyword != null){
+        elseif ($request->keyword != null && $request->state != null) {
             $services = Service::query()
-                ->where('name', 'LIKE', "%{$request->keyword}%")
-                ->where('status', 1)
-                ->orWhere('city', '=', "$request->city")
-                ->orWhere('state', '=', "$request->state")
-                ->get();
+            ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->where('state', '=', "$request->state")
+            ->where('status', 1)
+            ->with('sub_categories')
+            ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
+                $query->where('sub_categorable_id', $subcategoryId);
+            })
+            ->with('category')
+            ->whereHas('category', function($query) use ($categoryId)  {
+                $query->where('id', $categoryId);
+            })->get();
+
+            return view('dapSearchResult', [
+                "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$subcategoryname.'</strong>',
+                "services" => $services,
+                "featuredServices" => $featuredServices,
+                "categories" => $categories,
+            ]);
+        }
+        elseif ($request->keyword == null) {
+            $services = Service::query()
+            ->where('state', '=', "$request->state")
+            ->where('status', 1)
+            ->with('sub_categories')
+            ->whereHas('sub_categories', function($query) use ($subcategoryId)  {
+                $query->where('sub_categorable_id', $subcategoryId);
+            })
+            ->with('category')
+            ->whereHas('category', function($query) use ($categoryId)  {
+                $query->where('id', $categoryId);
+            })->get();
+
+            return view('dapSearchResult', [
+                "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$subcategoryname.'</strong>',
+                "services" => $services,
+                "featuredServices" => $featuredServices,
+                "categories" => $categories,
+            ]);
+        }
+
+    }
+
+
+    if ($request->category != null) {
+        $category = Category::where('slug', $request->category)->firstOrFail();
+        $categoryId = $category->id;
+        $categoryname = $category->name;
+
+        if ($request->city != null && $request->keyword != null) {
+            $services = Service::query()
+            ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->where('city', '=', "$request->city")
+            ->where('state', '=', "$request->state")
+            ->where('status', 1)
+            ->with('category')
+            ->whereHas('category', function($query) use ($categoryId)  {
+                $query->where('id', $categoryId);
+            });
 
             $seekingworks = SeekingWork::query()
-                ->where('job_title', 'LIKE', "%{$request->keyword}%")
-                ->where('status', 1)
-                ->orWhere('user_lga', '=', "$request->city")
-                ->orWhere('user_state', '=', "$request->state")
-                ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
-                ->get();
+            ->where('job_title', 'LIKE', "%{$request->keyword}%")
+            ->where('status', 1)
+            ->whereHas('category', function($query) use ($categoryId)  {
+                $query->where('id', $categoryId);
+            })
+            ->orWhere('fullname', 'LIKE', "%{$request->keyword}%");
 
-            if (!$services->isEmpty() || !$seekingworks->isEmpty()) {
+            if (!$services->isEmpty() || !$seekingworks->isEmpty() ) {
+                return view('dapSearchResult', [
+                    "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
+                    "services" => $services,
+                    "seekingworks" => $seekingworks,
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
+                ]);
+            }
+            else{
+                return view('dapSearchResult', [
+                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
+                ]);
+            }
+            return view('dapSearchResult', [
+                "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                "featuredServices" => $featuredServices,
+                "categories" => $categories,
+            ]);
+        }
+        elseif ($request->keyword != null && $request->state != null) {
+            $services = Service::query()
+            ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->where('state', '=', "$request->state")
+            ->where('status', 1)
+            ->with('category')
+            ->whereHas('category', function($query) use ($categoryId)  {
+                $query->where('id', $categoryId);
+            })->get();
+
+            return view('dapSearchResult', [
+                "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
+                "services" => $services,
+                "featuredServices" => $featuredServices,
+                "categories" => $categories,
+            ]);
+        }
+        elseif ($request->state != null) {
+            $services = Service::query()
+            ->where('state', '=', "$request->state")
+            ->where('status', 1)
+            ->with('category')
+            ->whereHas('category', function($query) use ($categoryId)  {
+                $query->where('id', $categoryId);
+            })->get();
+
+            return view('dapSearchResult', [
+                "message" => 'Your search result for <strong>'.$keyword. '</strong> in <strong>'.$categoryname.'</strong>',
+                "services" => $services,
+                "featuredServices" => $featuredServices,
+                "categories" => $categories,
+            ]);
+        }
+        else {
+            $services = Service::query()
+            ->where('status', 1)
+            ->with('category')
+            ->whereHas('category', function($query) use ($categoryId)  {
+                $query->where('id', $categoryId);
+            })->get();
+
+            if (!$services->isEmpty()) {
+                return view('dapSearchResult', [
+                    "message" => 'Your search result in <strong>'.$categoryname.'</strong>',
+                    "services" => $services,
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
+                ]);
+            }
+            else{
+                return view('dapSearchResult', [
+                    "message" => 'No result found for your search in <strong>'.$categoryname.'</strong>',
+                    "categories" => $categories,
+                ]);
+            }
+        }
+
+    }
+
+
+
+    if($request->city != null){
+        if ($request->keyword != null) {
+            $services = Service::query()
+            ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->where('city', '=', "%{$request->city}%")
+            ->where('state', '=', "%{$request->state}%")
+            ->where('status', 1)
+            ->get();
+
+            $seekingworks = SeekingWork::query()
+            ->where('job_title', 'LIKE', "%{$request->keyword}%")
+            ->where('status', 1)
+            ->where('user_lga', '=', "%{$request->city}%")
+            ->where('user_state', '=', "%{$request->state}%")
+            ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
+            ->get();
+
+            if (!$services->isEmpty() || !$seekingworks->isEmpty() ) {
                 return view('dapSearchResult', [
                     "message" => 'Your search result for <strong>'.$keyword. '</strong>',
                     "services" => $services,
@@ -825,242 +745,342 @@ class OperationalController extends Controller
             }
             else{
                 return view('dapSearchResult', [
-                    "message" => 'No result found for your search <strong>'.$keyword. '</strong>',
+                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
+                ]);
+            }
+        }
+    }
+
+
+    if($request->state != null){
+        if ($request->keyword != null) {
+            $services = Service::query()
+            ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->where('state', $request->state)
+            ->where('status', 1)
+            ->get();
+
+            $seekingworks = SeekingWork::query()
+            ->where('job_title', 'LIKE', "%{$request->keyword}%")
+            ->where('status', 1)
+            ->where('user_state', '=', $request->state)
+            ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
+            ->get();
+
+            if (!$services->isEmpty()) {
+                return view('dapSearchResult', [
+                    "message" => 'Your search result for <strong>'.$keyword. '</strong>',
+                    "services" => $services,
+                    "seekingworks" => $seekingworks,
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
+                ]);
+            }
+            else{
+                return view('dapSearchResult', [
+                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
+                    "featuredServices" => $featuredServices,
+                    "categories" => $categories,
+                ]);
+            }
+        }
+        else{
+            $services = Service::query()
+            ->where('state', $request->state)
+            ->where('status', 1)
+            ->get();
+
+            $seekingworks = SeekingWork::query()
+            ->where('user_state', '=', $request->state)
+            ->where('status', 1)
+            ->get();
+
+            if (!$services->isEmpty() && !$services->isEmpty()) {
+                return view('dapSearchResult', [
+                    "featuredServices" => $featuredServices,
+                    "services" => $services,
+                    "seekingworks" => $seekingworks,
+                    "categories" => $categories,
+                ]);
+            }
+            else {
+                return view('dapSearchResult', [
+                    "noserviceinstate" => 'Unfortunately, we did not find anything that matches these criteria.',
                     "featuredServices" => $featuredServices,
                     "categories" => $categories,
                 ]);
             }
 
+
         }
-
-
-        return view('dapSearchResult', [
-            "message" => 'No result found for your search <strong>'.$keyword. '</strong>',
-            "featuredServices" => $featuredServices,
-            "categories" => $categories,
-        ]);
     }
 
 
+    if($request->keyword != null){
+        $services = Service::query()
+        ->where('name', 'LIKE', "%{$request->keyword}%")
+        ->where('status', 1)
+        ->orWhere('city', '=', "$request->city")
+        ->orWhere('state', '=', "$request->state")
+        ->get();
 
-    public function seekingWorkCreate(Request $request)
-    {
+        $seekingworks = SeekingWork::query()
+        ->where('job_title', 'LIKE', "%{$request->keyword}%")
+        ->where('status', 1)
+        ->orWhere('user_lga', '=', "$request->city")
+        ->orWhere('user_state', '=', "$request->state")
+        ->orWhere('fullname', 'LIKE', "%{$request->keyword}%")
+        ->get();
 
-        $this->validate($request, [
-            'name'                  => 'string|required',
-            'phone'                 => 'numeric',
-            'job_type'              => 'string|required',
-            'job_title'             => 'string|required',
-            'job_experience'        => 'required',
-            'still_studying'        => 'string',
-            'gender'                => 'string|required',
-            'age'                   => 'numeric',
-            'marital_status'        => 'string',
-            'employment_status'     => 'string|required',
-            'highest_qualification' => 'required',
-            'expected_salary'       => 'required',
-            'user_state'            => 'string|required',
-            'user_lga'              => 'string|required',
-            'address'               => 'nullable',
-            'work_experience'       => 'nullable',
-            'education'             => 'required',
-            'certifications'        => 'nullable',
-            'skills'                => 'required',
-            'user_image'            => 'image|required'
-        ]);
-
-
-        if ($request->hasFile('user_image')) {
-            $image = $request->file('user_image');
-            $fileInfo = $image->getClientOriginalName();
-            $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
-            $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
-            $file_name= $filename.'-'.time().'.'.$extension;
-
-            //Fullsize
-            $image->move(public_path('uploads/seekingworks/'),$file_name);
-
-            $image_resize = Image::make(public_path('uploads/seekingworks/').$file_name);
-            $image_resize->resize(null, 400, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            $image_resize->save(public_path('uploads/seekingworks/' .$file_name), 60);
-        }
-
-            $sWork = new SeekingWork();
-
-            $sWork->user_id               = Auth::user()->id;
-            $sWork->fullname              = $request->name;
-            $sWork->phone                 = $request->phone;
-            $sWork->job_type              = $request->job_type;
-            $sWork->job_title             = $request->job_title;
-            $sWork->slug                  = Str::of($request->job_title)->slug('-').'-'.time();
-            $sWork->job_experience        = $request->job_experience;
-            $sWork->still_studying        = $request->still_studying;
-            $sWork->gender                = $request->gender;
-            $sWork->age                   = $request->age;
-            $sWork->marital_status        = $request->marital_status;
-            $sWork->employment_status     = $request->employment_status;
-            $sWork->highest_qualification = $request->highest_qualification;
-            $sWork->expected_salary       = $request->expected_salary;
-            $sWork->user_state            = $request->user_state;
-            $sWork->user_lga              = $request->user_lga;
-            $sWork->address               = $request->address;
-            $sWork->work_experience       = $request->work_experience;
-            $sWork->education             = $request->education;
-            $sWork->certifications        = $request->certifications;
-            $sWork->skills                = $request->skills;
-            $sWork->category_id           = $request->category_id;
-            $sWork->is_featured           = $request->is_featured;
-            $sWork->picture             = $file_name;
-
-        if ($sWork->save()) {
-            $sWork->images()->create(['image_path' => $file_name]);
-            $sWork->thumbnail = $sWork->images()->first()->image_path;
-            $sWork->save();
-
-            return redirect()->route('seller.show.cv', ['slug' => $sWork->slug])->with([
-                'message' => 'CV succesfully created!',
-                'alert-type' => 'success'
+        if (!$services->isEmpty() || !$seekingworks->isEmpty()) {
+            return view('dapSearchResult', [
+                "message" => 'Your search result for <strong>'.$keyword. '</strong>',
+                "services" => $services,
+                "seekingworks" => $seekingworks,
+                "featuredServices" => $featuredServices,
+                "categories" => $categories,
             ]);
         }
         else{
-            return redirect()->back()->with([
-                'message' => 'CV couldn\'t updated!',
-                'alert-type' => 'error'
+            return view('dapSearchResult', [
+                "message" => 'No result found for your search <strong>'.$keyword. '</strong>',
+                "featuredServices" => $featuredServices,
+                "categories" => $categories,
             ]);
         }
+
     }
 
-    public function showCV($slug)
-    {
-        $service = SeekingWork::where('slug', $slug)->firstOrFail();
 
-        return view('seller.service.showcv', [
-            'service' => $service
-        ]);
-    }
+    return view('dapSearchResult', [
+        "message" => 'No result found for your search <strong>'.$keyword. '</strong>',
+        "featuredServices" => $featuredServices,
+        "categories" => $categories,
+    ]);
+}
 
-    public function imagesSeekingWorkStore(Request $request, $service_id)
-    {
-        $image       = $request->file('file');
+
+
+public function seekingWorkCreate(Request $request)
+{
+
+    $this->validate($request, [
+        'name'                  => 'string|required',
+        'phone'                 => 'numeric',
+        'job_type'              => 'string|required',
+        'job_title'             => 'string|required',
+        'job_experience'        => 'required',
+        'still_studying'        => 'string',
+        'gender'                => 'string|required',
+        'age'                   => 'numeric',
+        'marital_status'        => 'string',
+        'employment_status'     => 'string|required',
+        'highest_qualification' => 'required',
+        'expected_salary'       => 'required',
+        'user_state'            => 'string|required',
+        'user_lga'              => 'string|required',
+        'address'               => 'nullable',
+        'work_experience'       => 'nullable',
+        'education'             => 'required',
+        'certifications'        => 'nullable',
+        'skills'                => 'required',
+        'user_image'            => 'image|required'
+    ]);
+
+
+    if ($request->hasFile('user_image')) {
+        $image = $request->file('user_image');
         $fileInfo = $image->getClientOriginalName();
         $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
         $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
         $file_name= $filename.'-'.time().'.'.$extension;
 
-        //Fullsize
+            //Fullsize
         $image->move(public_path('uploads/seekingworks/'),$file_name);
 
         $image_resize = Image::make(public_path('uploads/seekingworks/').$file_name);
         $image_resize->resize(null, 400, function ($constraint) {
             $constraint->aspectRatio();
         });
-        $image_resize->save(public_path('uploads/seekingworks/' .$file_name));
-
-        // Saving it with this service
-        $service = SeekingWork::find($service_id);
-        $service->images()->create(['image_path' => $file_name]);
-        $service->thumbnail = $service->images()->first()->image_path;
-        $service->save();
-
-        $success_notification = array(
-            'message' => 'Image(s) uploaded successfully!',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($success_notification);
-
+        $image_resize->save(public_path('uploads/seekingworks/' .$file_name), 60);
     }
 
-    public function imagesDelete($seekingworkid, $id)
-    {
-        $image = ModelImage::where('imageable_id', $seekingworkid)->where('id', $id)->first();
-        $filename = $image->image_path;
+    $sWork = new SeekingWork();
 
-        $seekingwork = SeekingWork::find($seekingworkid);
+    $sWork->user_id               = Auth::user()->id;
+    $sWork->fullname              = $request->name;
+    $sWork->phone                 = $request->phone;
+    $sWork->job_type              = $request->job_type;
+    $sWork->job_title             = $request->job_title;
+    $sWork->slug                  = Str::of($request->job_title)->slug('-').'-'.time();
+    $sWork->job_experience        = $request->job_experience;
+    $sWork->still_studying        = $request->still_studying;
+    $sWork->gender                = $request->gender;
+    $sWork->age                   = $request->age;
+    $sWork->marital_status        = $request->marital_status;
+    $sWork->employment_status     = $request->employment_status;
+    $sWork->highest_qualification = $request->highest_qualification;
+    $sWork->expected_salary       = $request->expected_salary;
+    $sWork->user_state            = $request->user_state;
+    $sWork->user_lga              = $request->user_lga;
+    $sWork->address               = $request->address;
+    $sWork->work_experience       = $request->work_experience;
+    $sWork->education             = $request->education;
+    $sWork->certifications        = $request->certifications;
+    $sWork->skills                = $request->skills;
+    $sWork->category_id           = $request->category_id;
+    $sWork->is_featured           = $request->is_featured;
+    $sWork->picture             = $file_name;
 
-        if ($seekingwork->images->count() != 1) {
-            $image->delete();
+    if ($sWork->save()) {
+        $sWork->images()->create(['image_path' => $file_name]);
+        $sWork->thumbnail = $sWork->images()->first()->image_path;
+        $sWork->save();
 
-            $path = public_path('uploads/seekingworks/').$filename;
-
-            if (file_exists($path)) {
-                unlink($path);
-            }
-            return redirect()->back()->with([
-                'message' => 'Image deleted successfully!',
-                'alert-type' => 'success'
-            ]);
-        }
-
+        return redirect()->route('seller.show.cv', ['slug' => $sWork->slug])->with([
+            'message' => 'CV succesfully created!',
+            'alert-type' => 'success'
+        ]);
+    }
+    else{
         return redirect()->back()->with([
-            'message' => 'You cannot delete the last image!',
+            'message' => 'CV couldn\'t updated!',
             'alert-type' => 'error'
         ]);
     }
+}
 
-    public function seekingWorkDetails($slug)
-    {
+public function showCV($slug)
+{
+    $service = SeekingWork::where('slug', $slug)->firstOrFail();
 
-        $seekingWorkDetail = SeekingWork::where('slug', $slug)->where('status', 1)->firstorFail();
+    return view('seller.service.showcv', [
+        'service' => $service
+    ]);
+}
 
-        $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
-        $approvedServices = Service::where('status', 1)->with('user')->get();
-        $categories = Category::paginate(8);
-        $seekingWorkDetail_id = $seekingWorkDetail->id;
-        $seekingWorkDetail_likes = Like::where('service_id', $seekingWorkDetail_id)->count();
-        $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$seekingWorkDetail_id])->first();
-        $service_category_id = $seekingWorkDetail->category_id;
-        $seekingWorkDetail_state = $seekingWorkDetail->state;
-        $images_4_service = $seekingWorkDetail->images;
-        // $images_4_service = Image::where('imageable_id', $seekingWorkDetail_id)->get();
-        $similarProducts = Service::where([['category_id', $service_category_id], ['state', $seekingWorkDetail_state] ])->inRandomOrder()->limit(8)->get();
+public function imagesSeekingWorkStore(Request $request, $service_id)
+{
+    $image       = $request->file('file');
+    $fileInfo = $image->getClientOriginalName();
+    $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
+    $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
+    $file_name= $filename.'-'.time().'.'.$extension;
 
-        $user_id = $seekingWorkDetail->user_id;
-        $userMessages = Message::where('service_id', $seekingWorkDetail_id)->orderBy('created_at','desc')->take(7)->get();
+        //Fullsize
+    $image->move(public_path('uploads/seekingworks/'),$file_name);
 
-        $allServiceComments = $seekingWorkDetail->comments->sortByDesc('created_at');
+    $image_resize = Image::make(public_path('uploads/seekingworks/').$file_name);
+    $image_resize->resize(null, 400, function ($constraint) {
+        $constraint->aspectRatio();
+    });
+    $image_resize->save(public_path('uploads/seekingworks/' .$file_name));
 
-        $the_user = User::find($user_id);
-        $the_user_name = $the_user->name;
-        $the_provider_f_name = explode(' ', trim($the_user_name))[0];
+        // Saving it with this service
+    $service = SeekingWork::find($service_id);
+    $service->images()->create(['image_path' => $file_name]);
+    $service->thumbnail = $service->images()->first()->image_path;
+    $service->save();
 
-        $expiresAt = now()->addHours(24);
-        views($seekingWorkDetail)->cooldown($expiresAt)->record();
+    $success_notification = array(
+        'message' => 'Image(s) uploaded successfully!',
+        'alert-type' => 'success'
+    );
+    return redirect()->back()->with($success_notification);
 
-        return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck', 'allServiceComments']));
+}
+
+public function imagesDelete($seekingworkid, $id)
+{
+    $image = ModelImage::where('imageable_id', $seekingworkid)->where('id', $id)->first();
+    $filename = $image->image_path;
+
+    $seekingwork = SeekingWork::find($seekingworkid);
+
+    if ($seekingwork->images->count() != 1) {
+        $image->delete();
+
+        $path = public_path('uploads/seekingworks/').$filename;
+
+        if (file_exists($path)) {
+            unlink($path);
+        }
+        return redirect()->back()->with([
+            'message' => 'Image deleted successfully!',
+            'alert-type' => 'success'
+        ]);
     }
 
-    public function seekingWorkPreviewDetails($slug)
-    {
+    return redirect()->back()->with([
+        'message' => 'You cannot delete the last image!',
+        'alert-type' => 'error'
+    ]);
+}
 
-        $seekingWorkDetail = SeekingWork::where('slug', $slug)->first();
-        $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
-        $approvedServices = Service::where('status', 1)->with('user')->get();
-        $categories = Category::paginate(8);
-        $seekingWorkDetail_id = $seekingWorkDetail->id;
-        $seekingWorkDetail_likes = Like::where('service_id', $seekingWorkDetail_id)->count();
-        $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$seekingWorkDetail_id])->first();
-        $service_category_id = $seekingWorkDetail->category_id;
-        $seekingWorkDetail_state = $seekingWorkDetail->state;
-        $images_4_service = $seekingWorkDetail->images;
+public function seekingWorkDetails($slug)
+{
+
+    $seekingWorkDetail = SeekingWork::where('slug', $slug)->where('status', 1)->firstorFail();
+
+    $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+    $approvedServices = Service::where('status', 1)->with('user')->get();
+    $categories = Category::paginate(8);
+    $seekingWorkDetail_id = $seekingWorkDetail->id;
+    $seekingWorkDetail_likes = Like::where('service_id', $seekingWorkDetail_id)->count();
+    $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$seekingWorkDetail_id])->first();
+    $service_category_id = $seekingWorkDetail->category_id;
+    $seekingWorkDetail_state = $seekingWorkDetail->state;
+    $images_4_service = $seekingWorkDetail->images;
         // $images_4_service = Image::where('imageable_id', $seekingWorkDetail_id)->get();
-        $similarProducts = Service::where([['category_id', $service_category_id], ['state', $seekingWorkDetail_state] ])->inRandomOrder()->limit(8)->get();
+    $similarProducts = Service::where([['category_id', $service_category_id], ['state', $seekingWorkDetail_state] ])->inRandomOrder()->limit(8)->get();
 
-        $user_id = $seekingWorkDetail->user_id;
-        $userMessages = Message::where('service_id', $seekingWorkDetail_id)->orderBy('created_at','desc')->take(7)->get();
+    $user_id = $seekingWorkDetail->user_id;
+    $userMessages = Message::where('service_id', $seekingWorkDetail_id)->orderBy('created_at','desc')->take(7)->get();
 
-        $allServiceComments = $seekingWorkDetail->comments->sortByDesc('created_at');
+    $allServiceComments = $seekingWorkDetail->comments->sortByDesc('created_at');
 
-        $the_user = User::find($user_id);
-        $the_user_name = $the_user->name;
-        $the_provider_f_name = explode(' ', trim($the_user_name))[0];
+    $the_user = User::find($user_id);
+    $the_user_name = $the_user->name;
+    $the_provider_f_name = explode(' ', trim($the_user_name))[0];
 
-        $expiresAt = now()->addHours(24);
-        views($seekingWorkDetail)->cooldown($expiresAt)->record();
+    $expiresAt = now()->addHours(24);
+    views($seekingWorkDetail)->cooldown($expiresAt)->record();
 
-        return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck', 'allServiceComments']));
-    }
+    return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck', 'allServiceComments']));
+}
+
+public function seekingWorkPreviewDetails($slug)
+{
+
+    $seekingWorkDetail = SeekingWork::where('slug', $slug)->first();
+    $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+    $approvedServices = Service::where('status', 1)->with('user')->get();
+    $categories = Category::paginate(8);
+    $seekingWorkDetail_id = $seekingWorkDetail->id;
+    $seekingWorkDetail_likes = Like::where('service_id', $seekingWorkDetail_id)->count();
+    $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$seekingWorkDetail_id])->first();
+    $service_category_id = $seekingWorkDetail->category_id;
+    $seekingWorkDetail_state = $seekingWorkDetail->state;
+    $images_4_service = $seekingWorkDetail->images;
+        // $images_4_service = Image::where('imageable_id', $seekingWorkDetail_id)->get();
+    $similarProducts = Service::where([['category_id', $service_category_id], ['state', $seekingWorkDetail_state] ])->inRandomOrder()->limit(8)->get();
+
+    $user_id = $seekingWorkDetail->user_id;
+    $userMessages = Message::where('service_id', $seekingWorkDetail_id)->orderBy('created_at','desc')->take(7)->get();
+
+    $allServiceComments = $seekingWorkDetail->comments->sortByDesc('created_at');
+
+    $the_user = User::find($user_id);
+    $the_user_name = $the_user->name;
+    $the_provider_f_name = explode(' ', trim($the_user_name))[0];
+
+    $expiresAt = now()->addHours(24);
+    views($seekingWorkDetail)->cooldown($expiresAt)->record();
+
+    return view('seekingWorkDetail', compact(['seekingWorkDetail', 'images_4_service', 'seekingWorkDetail_id', 'approvedServices',  'similarProducts', 'seekingWorkDetail_likes', 'featuredServices', 'userMessages', 'the_provider_f_name', 'likecheck', 'allServiceComments']));
+}
 
 
     // public function getMobileSubCategory($slug)
@@ -1071,124 +1091,124 @@ class OperationalController extends Controller
     // }
 
 
-    public function paidForBadge(Request $request)
-    {
-        $user = $request->user();
+public function paidForBadge(Request $request)
+{
+    $user = $request->user();
 
-        $user->badgetype = $request->get('badge_type');
+    $user->badgetype = $request->get('badge_type');
 
-        $badge = new Badge();
-        $badge->user_id = $user->id;
+    $badge = new Badge();
+    $badge->user_id = $user->id;
 
-        if ($request->get('badge_type') == 1) {
-            $badge->badge_type = 'Super User';
-        }
-        elseif ($request->get('badge_type') == 2) {
-            $badge->badge_type = 'Moderate User';
-        }
-        elseif ($request->get('badge_type') == 3) {
-            $badge->badge_type = 'Basic User';
-        }
-
-        $badge->amount = $request->get('amount');
-        $badge->ref_no = $request->get('trans_reference');
-        $badge->seller_name = $user->name;
-        $badge->save();
-
-
-        if ($request->get('badge_type') == 1) {
-            $badge_name = 'Super User';
-        }
-        elseif ($request->get('badge_type') == 2) {
-            $badge_name = 'Moderate User';
-        }
-        elseif ($request->get('badge_type') == 3) {
-            $badge_name = 'Basic User';
-        }
-
-        if ($user->save()) {
-            $reg_payments = new Payment();
-            $reg_payments->user_id = Auth::id();
-            $reg_payments->payment_type = 'badge_payment';
-            $reg_payments->amount = $request->get('amount');
-            $reg_payments->tranx_ref = $request->get('trans_reference');
-            $reg_payments->save();
-
-            return collect($badge_name);
-        }
-        else {
-            return 'Something went wrong!';
-        }
+    if ($request->get('badge_type') == 1) {
+        $badge->badge_type = 'Super User';
+    }
+    elseif ($request->get('badge_type') == 2) {
+        $badge->badge_type = 'Moderate User';
+    }
+    elseif ($request->get('badge_type') == 3) {
+        $badge->badge_type = 'Basic User';
     }
 
+    $badge->amount = $request->get('amount');
+    $badge->ref_no = $request->get('trans_reference');
+    $badge->seller_name = $user->name;
+    $badge->save();
 
 
-    public function readStatusMessage($slug, Request $request)
-    {
-        $user = Auth::user();
-        $message = Message::where('slug', $slug)->first();
+    if ($request->get('badge_type') == 1) {
+        $badge_name = 'Super User';
+    }
+    elseif ($request->get('badge_type') == 2) {
+        $badge_name = 'Moderate User';
+    }
+    elseif ($request->get('badge_type') == 3) {
+        $badge_name = 'Basic User';
+    }
 
-        if ($user->id != $message->user_id) {
-            $message->status = 1;
-            if ($message->save()) {
-                return response()->json([
-                    'message' => 'Message marked as read!',
-                    'alert-type' => 'success'
-                ]);
-            }
+    if ($user->save()) {
+        $reg_payments = new Payment();
+        $reg_payments->user_id = Auth::id();
+        $reg_payments->payment_type = 'badge_payment';
+        $reg_payments->amount = $request->get('amount');
+        $reg_payments->tranx_ref = $request->get('trans_reference');
+        $reg_payments->save();
+
+        return collect($badge_name);
+    }
+    else {
+        return 'Something went wrong!';
+    }
+}
+
+
+
+public function readStatusMessage($slug, Request $request)
+{
+    $user = Auth::user();
+    $message = Message::where('slug', $slug)->first();
+
+    if ($user->id != $message->user_id) {
+        $message->status = 1;
+        if ($message->save()) {
             return response()->json([
-                'message' => 'Message couldn\'t marked as read!',
-                'alert-type' => 'error'
+                'message' => 'Message marked as read!',
+                'alert-type' => 'success'
             ]);
         }
-        else{
-            return 'sender';
-        }
-    }
-
-    public function AbandonedPaymentView()
-    {
-        return view('admin.data_entry.abandoned_payment');
-    }
-
-
-    public function AbandonedPayment(Request $request)
-    {
-        $emails = $request->emails;
-        $users_email = explode(',', $emails);
-
-        foreach($users_email as $name=>$email)
-        {
-            $email = trim($email);
-            try{
-                Mail::to($email)->send(new PaymentProcessAbandoned($request->subject, $request->message));
-            }
-            catch(\Exception $e){
-                $failedtosendmail = 'Failed to Mail!.';
-            }
-        }
-
-        return redirect()->back()->with([
-            'message' => 'Mail Sent Successfully!',
-            'alert-type' => 'success'
+        return response()->json([
+            'message' => 'Message couldn\'t marked as read!',
+            'alert-type' => 'error'
         ]);
     }
+    else{
+        return 'sender';
+    }
+}
 
-    public function Newsletter($password)
+public function AbandonedPaymentView()
+{
+    return view('admin.data_entry.abandoned_payment');
+}
+
+
+public function AbandonedPayment(Request $request)
+{
+    $emails = $request->emails;
+    $users_email = explode(',', $emails);
+
+    foreach($users_email as $name=>$email)
     {
-        if ($password == 'Jul1anA2EF') {
-            $users = User::all();
-            $category = Category::inRandomOrder()->first();
-            $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
+        $email = trim($email);
+        try{
+            Mail::to($email)->send(new PaymentProcessAbandoned($request->subject, $request->message));
+        }
+        catch(\Exception $e){
+            $failedtosendmail = 'Failed to Mail!.';
+        }
+    }
 
-            try{
-                Mail::to('paul@eftechnology.net')->send(new Newsletter('Paul Jones', $category, $services));
-                Mail::to('eben@eftechnology.net')->send(new Newsletter('Eben', $category, $services));
-                Mail::to('adeoluibidapo@gmail.com')->send(new Newsletter('Eben', $category, $services));
-            }
-            catch(\Exception $e){
-                $failedtosendmail = 'Failed to Mail!.';
-            }
+    return redirect()->back()->with([
+        'message' => 'Mail Sent Successfully!',
+        'alert-type' => 'success'
+    ]);
+}
+
+public function Newsletter($password)
+{
+    if ($password == 'Jul1anA2EF') {
+        $users = User::all();
+        $category = Category::inRandomOrder()->first();
+        $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
+
+        try{
+            Mail::to('paul@eftechnology.net')->send(new Newsletter('Paul Jones', $category, $services));
+            Mail::to('eben@eftechnology.net')->send(new Newsletter('Eben', $category, $services));
+            Mail::to('adeoluibidapo@gmail.com')->send(new Newsletter('Eben', $category, $services));
+        }
+        catch(\Exception $e){
+            $failedtosendmail = 'Failed to Mail!.';
+        }
 
             // foreach($users as $user)
             // {
@@ -1202,18 +1222,18 @@ class OperationalController extends Controller
             //         $failedtosendmail = 'Failed to Mail!.';
             //     }
             // }
-            return redirect()->route('home')->with([
-                'message' => 'Newsletter has been sent successfully!',
-                'alert-type' => 'success'
-            ]);
-        }
-        else{
-            return redirect()->route('home')->with([
-                'message' => 'You are not authorised to perform this action!',
-                'alert-type' => 'error'
-            ]);
-        }
+        return redirect()->route('home')->with([
+            'message' => 'Newsletter has been sent successfully!',
+            'alert-type' => 'success'
+        ]);
     }
+    else{
+        return redirect()->route('home')->with([
+            'message' => 'You are not authorised to perform this action!',
+            'alert-type' => 'error'
+        ]);
+    }
+}
 
     // public function CredentialsReset($user_id)
     // {

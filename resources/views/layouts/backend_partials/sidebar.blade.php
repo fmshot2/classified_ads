@@ -77,7 +77,16 @@
           @endif
         </a>
       </li>
-
+      <li class="{{ url()->current() == route('superadmin.user.complaints') ? 'active' : '' }}">
+        <a href=" {{route ('superadmin.user.complaints') }}">
+          <i class="fa fa-bell"></i> <span> User Complaints </span>
+          {{-- @if (Auth::user()->unreadNotifications->count() > 0)
+            <span class="pull-right-container">
+                <small class="label pull-right bg-primary"> {{ Auth::user()->unreadNotifications->count() }}  </small>
+            </span>
+          @endif --}}
+        </a>
+      </li>
       <li class="" style="{{ url()->current() == route('superadmin.profile') ? 'background-color: #cc8a19' : '' }}">
         <a href=" {{ route ('superadmin.profile') }} ">
           <i class="fa fa-user"></i> <span> Profile Config </span>
@@ -267,6 +276,17 @@
         </a>
       </li>
 
+      <li class="{{ url()->current() == route('admin.user.complaints') ? 'active' : '' }}">
+        <a href=" {{route ('admin.user.complaints') }}">
+          <i class="fa fa-bell"></i> <span> User Complaints </span>
+          {{-- @if (Auth::user()->unreadNotifications->count() > 0)
+            <span class="pull-right-container">
+                <small class="label pull-right bg-primary"> {{ Auth::user()->unreadNotifications->count() }}  </small>
+            </span>
+          @endif --}}
+        </a>
+      </li>
+
       <li class="treeview"
         style="{{ url()->current() == route('admin.buyer') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.seller') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('all_accountants') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('add-accountant') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.all.cmos') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.add.cmo') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.allagents') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.all_ef_marketers') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
         <a href="#">
@@ -284,7 +304,42 @@
           <li><a href=" {{ route('admin.all.cmos') }} "><i class="fa fa-circle-o"></i> CMOs </a></li>
           <li><a href="{{ route('admin.add.cmo') }}"><i class="fa fa-circle-o"></i> Add CMO </a></li>
           <li><a href="{{ route('admin.allagents') }}"><i class="fa fa-circle-o"></i> Agents </a></li>
+          <li><a href="{{ route('admin.agents_yesterday') }}"><i class="fa fa-circle-o"></i> Yesterday Agent Sales </a></li>          
           <li><a href="{{ route('admin.all_ef_marketers') }}"><i class="fa fa-circle-o"></i> EF Marketers </a></li>
+        </ul>
+      </li>
+
+
+
+      <li class="treeview"
+        style="{{ url()->current() == route('admin.agents_yesterday') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.agents_last_week') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.agents_last_month') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href="#">
+          <i class="fa fa-users"></i>
+          <span> Agent Reports </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href=" {{ route('admin.agents_yesterday') }} "><i class="fa fa-circle-o"></i> Yesterday </a></li>
+          <li><a href=" {{ route('admin.agents_last_week') }} "><i class="fa fa-circle-o"></i> One Week  </a></li>
+          <li><a href=" {{ route('admin.agents_last_month') }} "><i class="fa fa-circle-o"></i> One Month </a></li>
+        </ul>
+      </li>
+
+       <li class="treeview"
+        style="{{ url()->current() == route('admin.users_yesterday') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.users_last_week') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.users_last_month') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href="#">
+          <i class="fa fa-users"></i>
+          <span> Users Reports </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href=" {{ route('admin.users_yesterday') }} "><i class="fa fa-circle-o"></i> Yesterday </a></li>
+          <li><a href=" {{ route('admin.users_last_week') }} "><i class="fa fa-circle-o"></i> One Week  </a></li>
+          <li><a href=" {{ route('admin.users_last_month') }} "><i class="fa fa-circle-o"></i> One Month </a></li>
         </ul>
       </li>
 

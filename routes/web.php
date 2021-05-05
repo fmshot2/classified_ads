@@ -37,11 +37,15 @@ Route::post('/comment/store', 'CommentsController@store')->name('comment.add');
 Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
 //add slug to old users who have no slug
 Route::get('/addSlug', 'AuthController@addSlug')->name('addSlug');
+Route::get('/save_agent_id', 'AdminController@save_agent_id')->name('save_agent_id');
+Route::get('/set_sub', 'ServiceController@set_sub')->name('set_sub');
+
 
 Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');
 Route::get('dashboard/provider_downline/{slug}', 'AdminController@provider_downline')->name('provider_downline');
 Route::get('dashboard/agent_downline/{id}', 'AdminController@agent_downline')->name('agent_downline');
 Route::get('dashboard/agents_downline_24hrs/{id}', 'AdminController@agents_downline_24hrs')->name('agents_downline_24hrs');
+// all_agents_downline_yesterday
 
 
 
@@ -464,7 +468,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/dashboard/single/category/{id}', 'CategoryController@categoryShow')->name('admin.single.category.show');
     Route::put('/admin/dashboard/single/category/{id}', 'CategoryController@categoryUpdate')->name('admin.single.category.update');
 
-
+    Route::get('admin/user-complaints', 'AdminController@userComplaints')->name('admin.user.complaints');
     Route::get('/admin/dashboard/subcategory/show', 'CategoryController@subcategoryIndex')->name('admin.subcategory.show');
     Route::get('/admin/subcategory/{id}', 'CategoryController@subCatDestroy')->name('admin.subcategory.delete');
     Route::post('admin/dashboard/subcategory/create', 'CategoryController@createSubCategory')->name('admin.subcategory.store');
@@ -498,6 +502,18 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
     Route::get('/admin/dashboard/service-providers', 'AuthController@seller')->name('admin.seller');
     Route::get('/admin/dashboard/all-agents', 'AuthController@allagents')->name('admin.allagents');
+    Route::get('/admin/dashboard/all-agents-yesterday', 'AdminController@allagents_sales_yesterday')->name('admin.agents_yesterday');
+    Route::get('/admin/dashboard/agents_last_week', 'AdminController@agents_last_week')->name('admin.agents_last_week');
+    Route::get('/admin/dashboard/agents_last_month', 'AdminController@agents_last_month')->name('admin.agents_last_month');
+
+
+    Route::get('/admin/dashboard/users_yesterday', 'AdminController@allusers_sales_yesterday')->name('admin.users_yesterday');
+    Route::get('/admin/dashboard/users_last_week', 'AdminController@users_last_week')->name('admin.users_last_week');
+    Route::get('/admin/dashboard/users_last_month', 'AdminController@users_last_month')->name('admin.users_last_month');
+
+
+
+
     Route::get('/admin/dashboard/service-seekers', 'AuthController@buyer')->name('admin.buyer');
     Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');
     Route::get('/activate_agent/{id}', 'AdminController@activate_agent')->name('admin.activate.agent');
@@ -515,7 +531,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::post('/notification/delete', 'NotificationController@notificationDelete')->name('admin.notification.delete');
 
     Route::get('/admin/system/config', 'AdminController@systemConfig')->name('system.config');
-    Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
+    Route::post('admin/profile/update/{id}', 'AuthController@updatePassword')->name('admin.update.password');
 
     Route::post('/admin/system/{id}', 'AdminController@storeSystemConfig')->name('admin.system.config.store');
 
@@ -639,8 +655,8 @@ Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //S
     Route::get('category/{id}', 'CategoryController@destroy')->name('superadmin.category.delete');
     Route::get('dashboard/single/category/{id}', 'CategoryController@categoryShow')->name('superadmin.single.category.show');
     Route::put('dashboard/single/category/{id}', 'CategoryController@categoryUpdate')->name('superadmin.single.category.update');
-    Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
-
+    Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('superadmin.update.password');
+    Route::get('user-complaints', 'AdminController@userComplaints')->name('superadmin.user.complaints');
     // Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
     // Route::get('/admin/dashboard/category/show', 'CategoryController@index')->name('admin.category.show');
     // Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');

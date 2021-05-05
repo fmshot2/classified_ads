@@ -5,10 +5,15 @@
           <h2><a href="<?php echo e(route('register')); ?>">Register Your Service Today!</a></h2>
           <span>Take advantage of our platform to showcase your skills, products and services to customers and clients.</span>
         </div>
+        <?php if(auth()->guard()->check()): ?>
+        <div class="col-lg-4 footer-cta-btn text-center">
+            <a class="btn btn-success" href="<?php echo e(route('seller.dashboard')); ?>"><i class="fa fa-user-plus"></i> Post A Service</a>
+        </div>
+        <?php else: ?>
         <div class="col-lg-4 footer-cta-btn text-center">
             <a class="btn btn-success" href="<?php echo e(route('register')); ?>"><i class="fa fa-user-plus"></i> Register Now!</a>
         </div>
-
+        <?php endif; ?>
       </div>
     </div>
 </div>

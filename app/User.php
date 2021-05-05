@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Carbon\Carbon;
+
 
 
 class User extends Authenticatable implements MustVerifyEmail, JWTSubject
@@ -84,6 +86,11 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         return $this->hasMany('\App\Badge'); //Product Model Name
     }
 
+    public function complain()
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
@@ -117,6 +124,65 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         return $this->hasMany('\App\ProviderSubscription'); //ProviderSubscription Model Name
     }
 
+  public function getTotalRefersAttribute()
+    {
+        $ref = $this->referals()->whereDate('created_at', Carbon::yesterday())->get();
+
+        // $images = $this->images->first();
+
+        if ($ref) {
+            return $ref;
+        }
+        else {
+            return null;
+        }
+    }
+
+public function getTotalWeekAttribute()
+    {
+
+        $AgoDate=Carbon::now()->subWeek()->format('Y-m-d');  // returns 2016-02-03
+        $NowDate=Carbon::now()->format('Y-m-d');  // returns 2016-02-10
+        // $query->whereBetween('created_on', array($AgoDate,$NowDate));
+
+        $ref = $this->referals()->whereBetween('created_at', array($AgoDate,$NowDate))->get();
+
+        // $images = $this->images->first();
+
+        if ($ref) {
+            return $ref;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public function getTotalMonthAttribute()
+    {
+        $date = Carbon::today()->subDays(30);
+         // $users = User::where('created_at','>=',$date)->get();
+
+        // $AgoDate=Carbon::now()->subWeek()->format('Y-m-d');  
+        // $NowDate=Carbon::now()->format('Y-m-d');
+
+        $ref = $this->referals()->where('created_at', '>=', $date)->get();
+
+        // $images = $this->images->first();
+
+        if ($ref) {
+            return $ref;
+        }
+        else {
+            return null;
+        }
+    }
+
+
+ // public function getTotalLikesAttribute()
+ //    {
+ //       return $this->likes->count();
+ //    }
+
 
     /**
      * Get all of the post's comments.
@@ -125,6 +191,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         return $this->morphMany(Referal::class, 'referalable');
     }
+
 
       public function referal()
     {
@@ -135,4 +202,14 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         return $this->morphMany(Message::class, 'messageable')->whereNull('parent_id');
     }
+      public function agents()
+    {
+        return $this->belongsTo(Agent::class, 'agent_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo('App\Referal');
+    }
+    
 }
