@@ -10,4 +10,9 @@ class Complaint extends Model
     protected $fillable = [
         'message',
     ];
+
+    public function provider()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -15,6 +15,7 @@ use App\Badge;
 use App\Termsofuse;
 use App\Privacypolicy;
 use App\Faq;
+use App\Complaint;
 use App\Slider;
 use App\Advertrequest;
 use App\Agent;
@@ -70,6 +71,16 @@ class AdminController extends Controller
         $feedback->update();
         session()->flash('status', 'Task was successful!');
         return redirect()->back();
+    }
+
+    public function userComplaints()
+    {
+      $complaints = Complaint::all();
+      
+      return view('admin.complaints.complaints', [
+        'complaints' => $complaints
+      ]);
+      
     }
 
     public function geo(){
@@ -716,6 +727,11 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
   public function viewProfile()
   {
     return view ('admin.profile.update_profile');
+  }
+
+  public function updatePassword(Request $request, $id)
+  {
+    dd($request->all());
   }
 
   public function systemConfig()

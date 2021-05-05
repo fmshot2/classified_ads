@@ -77,7 +77,16 @@
           @endif
         </a>
       </li>
-
+      <li class="{{ url()->current() == route('superadmin.user.complaints') ? 'active' : '' }}">
+        <a href=" {{route ('superadmin.user.complaints') }}">
+          <i class="fa fa-bell"></i> <span> User Complaints </span>
+          {{-- @if (Auth::user()->unreadNotifications->count() > 0)
+            <span class="pull-right-container">
+                <small class="label pull-right bg-primary"> {{ Auth::user()->unreadNotifications->count() }}  </small>
+            </span>
+          @endif --}}
+        </a>
+      </li>
       <li class="" style="{{ url()->current() == route('superadmin.profile') ? 'background-color: #cc8a19' : '' }}">
         <a href=" {{ route ('superadmin.profile') }} ">
           <i class="fa fa-user"></i> <span> Profile Config </span>
@@ -264,6 +273,17 @@
                 <small class="label pull-right bg-primary"> {{ Auth::user()->unreadNotifications->count() }}  </small>
             </span>
           @endif
+        </a>
+      </li>
+
+      <li class="{{ url()->current() == route('admin.user.complaints') ? 'active' : '' }}">
+        <a href=" {{route ('admin.user.complaints') }}">
+          <i class="fa fa-bell"></i> <span> User Complaints </span>
+          {{-- @if (Auth::user()->unreadNotifications->count() > 0)
+            <span class="pull-right-container">
+                <small class="label pull-right bg-primary"> {{ Auth::user()->unreadNotifications->count() }}  </small>
+            </span>
+          @endif --}}
         </a>
       </li>
 
