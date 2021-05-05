@@ -489,13 +489,15 @@ class BadgeController extends Controller
         $service_check->save();
 
 
-            $reg_payments = new Payment();
-            $reg_payments->user_id = Auth::id();
-            $reg_payments->payment_type = 'featured';
-            $reg_payments->amount = $data['amount'];
-            $reg_payments->tranx_ref =  $data['ref_no'];
+            // $reg_payments = new Payment();
+            // $reg_payments->user_id = Auth::id();
+            // $reg_payments->payment_type = 'featured';
+            // $reg_payments->amount = $data['amount'];
+            // $reg_payments->tranx_ref =  $data['ref_no'];
 
-            $reg_payments->save();
+            // $reg_payments->save();
+
+            Auth::user()->mypayments()->create(['payment_type' => 'featured', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no'] ]);
 
         return response()->json(['success'=>'Your Service is now featured!'], 200);
       }

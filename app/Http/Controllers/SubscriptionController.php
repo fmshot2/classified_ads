@@ -152,6 +152,14 @@ class SubscriptionController extends Controller
 		$sub_check->trans_ref = $data['ref_no'];
 		$sub_check->email = Auth::user()->email;
 		$sub_check->save();
+
+		$userServices = Service::where('user_id', Auth::id())->get();
+		if ($userServices) {
+			foreach ($userServices as $userService) {
+				$userService->subscription_end_date = $sub_check->subscription_end_date;
+			}
+			$userService->save();
+		}
 // subscription_end_date
 		// $mysubscriptions = Auth::user()->subscriptions;
 		// Auth::user()->subscriptions()->create(['sub_type' => $sub_type, 
