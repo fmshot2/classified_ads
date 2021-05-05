@@ -84,7 +84,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="">Phone</label><small class="text-danger">*</small>
-                                                <input id="phone" required type="number"  class="form-control" value="{{ old('phone') }}" placeholder="Enter your phone number (e.g. 09023456789)" name="phone" value=" {{ Auth::user()->phone }}">
+                                                <input id="phone" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="text" class="form-control" value="{{ Auth::user()->phone }}" placeholder="Enter your phone number (e.g. 090XXXXXXXXXXX)" name="phone" minlength="11" maxlength="11" required>
                                             </div>
                                         </div>
 
@@ -223,7 +223,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="">Phone</label><small class="text-danger">*</small>
-                                                <input id="phone" type="text" class="form-control" value="{{ Auth::user()->phone }}" placeholder="Enter your phone number (e.g. 09023456789)" name="phone" required>
+                                                <input id="phone" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="text" class="form-control" value="{{ Auth::user()->phone }}" placeholder="Enter your phone number (e.g. 090XXXXXXXXXXX)" name="phone" minlength="11" maxlength="11" required>
                                             </div>
                                         </div>
 
