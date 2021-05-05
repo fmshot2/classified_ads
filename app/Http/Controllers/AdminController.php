@@ -83,6 +83,14 @@ class AdminController extends Controller
       
     }
 
+    public function featuredServices()
+    {
+      $services = Service::where('is_featured', '=', 1)->get();
+      return view('admin.service.featured', [
+        'services' => $services
+      ]);
+    }
+
     public function geo(){
 
      $myGeo =  Geocoder::getCoordinatesForAddress('Infinite Loop 1, Cupertino');
