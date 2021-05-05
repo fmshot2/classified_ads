@@ -44,6 +44,9 @@ Route::group([
     Route::post('register', [AuthController::class, 'register']);
     Route::post('save-user/{amount}/{tranxRef}', [AuthController::class, 'saveUser']);
     Route::get('profile', [AuthController::class, 'profile']);
+    Route::post('update-profile', [AuthController::class, 'updateProfile']);
+    Route::post('update-password', [AuthController::class, 'updatePassword']);
+    Route::post('update-bank-account', [AuthController::class, 'updateBankAccount']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('check-if-email-exist', [AuthController::class, 'checkEmailIfExist']);

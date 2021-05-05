@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Mail;
 
 
 Route::get('/newsletter/send/{password}', 'OperationalController@Newsletter')->name('newsletter.send');
+Route::view('/agentregistered', 'errors.agentregistered');
+Route::view('/subscriptionended', 'errors.subscriptionended');
 
 Route::post('/message/store', 'MessageController@store')->name('client.message.send');
 Route::post('/message/reply/store', 'MessageController@reply')->name('client.message.reply');

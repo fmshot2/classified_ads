@@ -663,7 +663,10 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: #cc8a19; color: #fff">
-                        <h4 class="modal-title">Post A Service</h4>
+                        <h4 style="display: inline-block;" class="modal-title">Post A Service</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: #fff">
+                            <i class="fa fa-close"></i>
+                        </button>
                     </div>
                     <form id="serviceForm" action="{{ route('service.save') }}" method="post" enctype="multipart/form-data" style="display: block">
                         @csrf
@@ -766,7 +769,7 @@
                                                     <div class="form-group">
                                                         <label for="">Phone</label><small class="text-danger">*</small>
                                                         <small class="form-text text-muted">Enter your phone number.</small>
-                                                        <input id="phone" required type="number"  class="form-control required" value="{{ old('phone') }}" placeholder="e.g. 09023456789" name="phone" value=" {{ Auth::user()->phone }}">
+                                                        <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="phone" required type="number" class="form-control required" value="{{ old('phone') }}" placeholder="e.g. 09023456789" minlength="11" maxlength="11" name="phone" value=" {{ Auth::user()->phone }}">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
@@ -1015,7 +1018,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="">Phone</label><small class="text-danger">*</small>
-                                                    <input id="phone" type="text" class="form-control" value="{{ Auth::user()->phone }}" placeholder="Your phone number (e.g. 09023456789)" name="phone" required>
+                                                    <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="phone" type="number" class="form-control" value="{{ Auth::user()->phone }}" placeholder="Your phone number (e.g. 09023456789)" name="phone"  minlength="11" maxlength="11" required>
                                                 </div>
                                             </div>
 
