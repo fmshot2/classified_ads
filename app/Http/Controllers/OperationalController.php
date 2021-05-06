@@ -1167,34 +1167,19 @@ class OperationalController extends Controller
     {
         if ($password == 'Jul1anA2EF') {
             $users = User::all();
-            $category = Category::inRandomOrder()->first();
-            $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
 
-            Mail::to('paul@eftechnology.net')->send(new Newsletter('Paul Jones', $category, $services));
-            Mail::to('eben@eftechnology.net')->send(new Newsletter('Eben', $category, $services));
-            Mail::to('adeoluibidapo@gmail.com')->send(new Newsletter('Eben', $category, $services));
+            foreach($users as $user)
+            {
+                $category = Category::inRandomOrder()->first();
+                $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
 
-            // try{
-            //     Mail::to('paul@eftechnology.net')->send(new Newsletter('Paul Jones', $category, $services));
-            //     Mail::to('eben@eftechnology.net')->send(new Newsletter('Eben', $category, $services));
-            //     Mail::to('adeoluibidapo@gmail.com')->send(new Newsletter('Eben', $category, $services));
-            // }
-            // catch(\Exception $e){
-            //     $failedtosendmail = 'Failed to Mail!.';
-            // }
-
-            // foreach($users as $user)
-            // {
-            //     $category = Category::inRandomOrder()->first();
-            //     $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
-
-            //     try{
-            //         Mail::to($user->email)->send(new Newsletter($user->name, $category, $services));
-            //     }
-            //     catch(\Exception $e){
-            //         $failedtosendmail = 'Failed to Mail!.';
-            //     }
-            // }
+                try{
+                    Mail::to($user->email)->send(new Newsletter($user->name, $category, $services));
+                }
+                catch(\Exception $e){
+                    $failedtosendmail = 'Failed to Mail!.';
+                }
+            }
             return redirect()->route('home')->with([
                 'message' => 'Newsletter has been sent successfully!',
                 'alert-type' => 'success'
@@ -1212,9 +1197,22 @@ class OperationalController extends Controller
     public function earnExtraMoney(Request $request)
     {
         $users = User::all();
-        Mail::to('paul@eftechnology.net')->send(new EarnMoney('Paul Jones'));
-        Mail::to('adeoluibidapo@gmail.com')->send(new EarnMoney('Paul Jones'));
-        Mail::to('eben@eftechnology.net')->send(new EarnMoney('Eben'));
+
+        foreach($users as $user)
+        {
+            try{
+                Mail::to($user->email)->send(new EarnMoney($user->name));
+            }
+            catch(\Exception $e){
+                $failedtosendmail = 'Failed to Mail!.';
+            }
+        }
+
+        return redirect()->route('home')->with([
+            'message' => 'E-mail has been sent successfully!',
+            'alert-type' => 'success'
+        ]);
+
     }
 
     // public function CredentialsReset($user_id)

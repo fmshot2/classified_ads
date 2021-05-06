@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-All Agents Settled Payments | 
+All Agents Settled Payments |
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@ All Agents Settled Payments |
 
 <div class="content-wrapper" style="min-height: 518px;">
 	<section class="content-header">
-            
+
            <h1>
            All Agents Settled Payments
             <br><small>View all agents settled payments.</small>
@@ -53,50 +53,44 @@ All Agents Settled Payments |
 									<th>Bank</th>
 									<th>Account Number</th>
 									{{-- <th> Payment Status </th>
-									<th> Action </th> --}}									
-								</tr>	
+									<th> Action </th> --}}
+								</tr>
 							</thead>
 							<tbody>
 								@forelse($settled as $key => $settled_payment)
-								<tr>
-									<td>{{ ++$key }}</td>
-									<td style="display: none;" id="userID">{{ $settled_payment->id }}</td>
-									<td> {{ $settled_payment->name }} </td>
-									<td> {{ $settled_payment->agent_code }} </td>
-									<td> {{ $unpaid_payment->accountname }} </td>
-									<td> {{ $unpaid_payment->bankname }} </td>
-									<td> {{ $unpaid_payment->accountno }} </td>
-									{{-- <td>₦<span class="text-muted">{{ number_format($settled_payment->amount_requested) }} </span> </td> --}}
-									<td> ₦{{ number_format($settled_payment->total_paid) }} </td>
-									{{-- @if($settled_payment->is_paid == 0)
+                                    <tr>
+                                        <td>{{ ++$key }}</td>
+                                        <td style="display: none;" id="userID">{{ $settled_payment->id }}</td>
+                                        <td> {{ $settled_payment->name }} </td>
+                                        <td> {{ $settled_payment->agent_code }} </td>
+                                        <td> {{ $unpaid_payment->accountname }} </td>
+                                        <td> {{ $unpaid_payment->bankname }} </td>
+                                        <td> {{ $unpaid_payment->accountno }} </td>
+                                        {{-- <td>₦<span class="text-muted">{{ number_format($settled_payment->amount_requested) }} </span> </td> --}}
+                                        <td> ₦{{ number_format($settled_payment->total_paid) }} </td>
+                                        {{-- @if($settled_payment->is_paid == 0)
 
-										<td> <span class="text text-danger">Pending</span></td>
-									@else
-										<td> <span class="text text-success">Paid</span></td>
-									@endif --}}
-									{{-- <td> <span class="text text-danger">Paid</span></td> --}}
-									{{-- <td><button class="btn btn-success" onclick="makepayment1()">Pay</button> </td> --}}
-								</tr>
+                                            <td> <span class="text text-danger">Pending</span></td>
+                                        @else
+                                            <td> <span class="text text-success">Paid</span></td>
+                                        @endif --}}
+                                        {{-- <td> <span class="text text-danger">Paid</span></td> --}}
+                                        {{-- <td><button class="btn btn-success" onclick="makepayment1()">Pay</button> </td> --}}
+                                    </tr>
 
 								@empty
 
 								@endforelse
-
-
 							</tbody>
-
-
-					</table>
-    {{-- {{ $buyers->links() }} --}}
-
-
-				</div>
-				<!-- /.box-body -->
+                        </table>
+                        {{-- {{ $buyers->links() }} --}}
+                    </div>
+                    <!-- /.box-body -->
 			</div>
 
 
 			<!-- /.content -->
-		</div>	
+		</div>
 
 
 
@@ -108,7 +102,7 @@ All Agents Settled Payments |
 
 
 
-{{-- 
+{{--
 <script type="text/javascript">
 	$(document).ready( function () {
 	    $('#data_table1').DataTable({
@@ -142,15 +136,15 @@ All Agents Settled Payments |
 	            	location.reload()
 	            }
 
-	        }); 
+	        });
 
        } else {
         	toastr.error("{{ Session::get('message') }}")
        		location.reload()
        }
-        
+
     }
-    
+
 </script>
 <script>
         function activateUser22(id) {

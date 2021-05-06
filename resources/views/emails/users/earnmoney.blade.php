@@ -15,10 +15,10 @@
 <div class="table" style="box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; position: relative;">
     <p>1. As a <strong>service provider</strong> on EFContact using your <a href="{{ route('referralprogram') }}">referral link</a>.</p>
     <p style="margin-top: -20px">2. As an <strong>agent</strong> on EFContact using your <a href="{{ route('referralprogram') }}">agent code</a>.</p>
-    <p>You can share your referral link or agent code with your friends and families or business partners and get a commission when they register as a service provider.</p>
+    <p>You can share your referral link or agent code with your friends and families or business partners and get a commission when they register as a service provider on EFContact.</p>
 </div>
 
-@component('mail::button', ['url' => route('login')])
+@component('mail::button', ['url' => route('home')])
 Visit Website
 @endcomponent
 

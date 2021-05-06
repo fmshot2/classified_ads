@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'Agents' Yesterday Results | ')
+@section('title', 'Agents Yesterday Results | ')
 
 @section('content')
 
@@ -24,9 +24,6 @@
 
 		<div class="row">
 			<div class="col-xs-12">
-
-
-
 				<div class="box" >
 					<div class="box-header">
 						<h3 class="box-title"> Agents Table</h3>
@@ -35,24 +32,24 @@
 
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table class="display table table-bordered data_table_main">
-							<thead>
-								<tr>
-									<th> # </th>
-									<th> Name </th>
-									<th> Email </th>
-									<th> Applied for Approval?</th>
-									<th> Status </th>
-                                    <th> Amount Earned </th>
-                                    <th> Total Downline </th>
-									<th> Activate/Deactivate</th>
-                                    <th> Downlines</th>
+						<div class="table-responsive">
+                            <table class="display table table-bordered data_table_main">
+                                <thead>
+                                    <tr>
+                                        <th> # </th>
+                                        <th> Name </th>
+                                        <th> Email </th>
+                                        <th> Applied for Approval?</th>
+                                        <th> Status </th>
+                                        <th> Amount Earned </th>
+                                        <th> Total Downline </th>
+                                        <th> Activate/Deactivate</th>
+                                        <th> Downlines</th>
 
-								</tr>
-                            </thead>
-                            <tbody>
-
-									@foreach($agents as $key => $agent)
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($agents as $key => $agent)
                                         <tr>
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                             <td> {{ $agent->name }} </td>
@@ -72,19 +69,19 @@
                                                     @if($agent->status == 0)<span id="activate1">Activate User</span>@elseif($agent->status == 1)<span id="activate2">Deactivate</span>
                                                     @endif
                                                 </button>
-
                                             </td>
                                             <td class="center">
-                                            <a href="{{route('agent_downline', $agent->id)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
-                                            </td>   
+                                                <a href="{{route('agent_downline', $agent->id)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
+                                            </td>
                                             <td class="center">
-                                            <a href="{{route('agents_downline_24hrs', $agent->id)}}" class="btn btn-warning "><i class="fa fa-eye"></i>Yesterday's Reg</a>
-                                            </td>                                          
-							            </tr>
+                                                <a href="{{route('agents_downline_24hrs', $agent->id)}}" class="btn btn-warning "><i class="fa fa-eye"></i>Yesterday's Reg</a>
+                                            </td>
+                                        </tr>
 
                                     @endforeach
-						    </tbody>
-					    </table>
+                                </tbody>
+                            </table>
+                        </div>
 				    </div>
 				<!-- /.box-body -->
 			</div>

@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 class EarnMoney extends Mailable
 {
     use Queueable, SerializesModels;
-    public $username = 'Pail';
+    public $username;
 
     /**
      * Create a new message instance.
