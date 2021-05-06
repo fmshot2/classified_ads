@@ -68,6 +68,10 @@
                         </li>
 
                         <li class=" ">
+                            <a href="https://blog.efcontact.com" class="grey-text text-lighten-3">Our Blog</a>
+                        </li>
+
+                        <li class=" ">
                             <a href="{{route('contact')}}" class="grey-text text-lighten-3">Contact Us</a>
                         </li>
 
