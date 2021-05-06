@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Mail;
 
 
 
+Route::get('/earn', 'OperationalController@earnExtraMoney');
 Route::get('/newsletter/send/{password}', 'OperationalController@Newsletter')->name('newsletter.send');
 Route::view('/agentregistered', 'errors.agentregistered');
 Route::view('/subscriptionended', 'errors.subscriptionended');
@@ -57,7 +58,7 @@ Route::get('/tester', function ()
     return 'done';
 });
 Route::get('email', function () {
-    return new App\Mail\ServiceApproved();
+    return new App\Mail\EarnMoney('Paul');
 });
 // Route::get('newsletter/', 'OperationalController@Newsletter');
 
@@ -279,6 +280,10 @@ Route::get('/home', 'AuthController@loginformail')->name('loginformail');
 App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail
 */
 Route::post('/createUser2', 'OldCodeController@createUser2')->name('createUser2');
+Route::get('/csrf_token', function ()
+{
+    echo csrf_token();
+});
 
 Route::get('/register', 'AuthController@showRegister')->name('register');
 Route::get('/groupreg', 'AuthController@showGroupRegister')->name('register');
