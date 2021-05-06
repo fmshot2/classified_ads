@@ -467,6 +467,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/category/{id}', 'CategoryController@destroy')->name('admin.category.delete');
     Route::get('/admin/dashboard/single/category/{id}', 'CategoryController@categoryShow')->name('admin.single.category.show');
     Route::put('/admin/dashboard/single/category/{id}', 'CategoryController@categoryUpdate')->name('admin.single.category.update');
+    Route::get('admin/all-featured-services', 'AdminController@featuredServices')->name('admin.featured.services');
 
     Route::get('admin/user-complaints', 'AdminController@userComplaints')->name('admin.user.complaints');
     Route::get('/admin/dashboard/subcategory/show', 'CategoryController@subcategoryIndex')->name('admin.subcategory.show');
@@ -657,6 +658,7 @@ Route::prefix('superadmin')->middleware(['superadmin'])->group(function () { //S
     Route::put('dashboard/single/category/{id}', 'CategoryController@categoryUpdate')->name('superadmin.single.category.update');
     Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('superadmin.update.password');
     Route::get('user-complaints', 'AdminController@userComplaints')->name('superadmin.user.complaints');
+    Route::get('all-featured-services', 'AdminController@featuredServices')->name('superadmin.featured.services');
     // Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
     // Route::get('/admin/dashboard/category/show', 'CategoryController@index')->name('admin.category.show');
     // Route::post('admin/dashboard/category/show', 'CategoryController@store')->name('admin.category.store');
