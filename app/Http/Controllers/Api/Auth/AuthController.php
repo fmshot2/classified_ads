@@ -64,7 +64,7 @@ class AuthController extends Controller
 
 
 
- public function register2(Request $request)
+    public function register2(Request $request)
     {
          return response()->json([
             'message' => 'User created successfully!',
@@ -535,6 +535,117 @@ class AuthController extends Controller
     public function profile()
     {
         return response()->json($this->guard()->user(), 200);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            // 'state' => ['string'],
+            'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        // Image set up
+        if ($request->hasFile('file')) {
+            $image_name = Str::of($request->name)->slug('-').'-'.time().'.' . $request->file->extension();
+            $request->file->move(public_path('uploads/users'), $image_name);
+            $user->image = $image_name;
+        }
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        // $user->state = $request->state;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->about = $request->about;
+
+        if ($user->save()) {
+            return response()->json([
+                'message' => 'Profile Updated Successfully!',
+                'user'    => $this->guard()->user()
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'message' => 'Profile could not be updated! Try again!',
+                'user'    => $this->guard()->user()
+            ], 400);
+        }
+    }
+
+    public function updatePassword(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+        $password = $user->password;
+        $validatedData = $request->validate([
+            'new_password' => ['required', 'string', 'min:6'],
+        ]);
+
+        $hashedPassword = Auth::user()->password;
+        if (Hash::check($request->old_password, $password)) {
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+
+            return response()->json([
+                'message' => 'Password Updated Successfully!',
+                'user' => $this->guard()->user()
+            ], 200);
+
+        } else {
+            return response()->json([
+                'message' => 'Password could not be updated!! Try again',
+                'reason' => 'Old Password might be wrong!',
+                'user' => $this->guard()->user()
+            ], 400);
+        }
+
+    }
+
+    public function updateBankAccount(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $validatedData = $request->validate([
+            'bank_name' => ['required', 'string'],
+            'account_name' => ['required', 'string'],
+            'account_number' => ['required', 'numeric'],
+        ]);
+
+        $user->bank_name = $request->bank_name;
+        $user->account_name = $request->account_name;
+        $user->account_number = $request->account_number;
+
+        if ($user->save()) {
+            return response()->json([
+                'message' => 'Account details successfully updated!',
+                'user'    => $this->guard()->user()
+            ], 200);
+        }
+
+        return response()->json([
+            'message' => 'Account details could not be updated!! Try again!',
+            'user'    => $this->guard()->user()
+        ], 400);
     }
 
     /**

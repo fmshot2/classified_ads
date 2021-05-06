@@ -117,11 +117,11 @@
         <div id="notfound">
             <div class="notfound">
                 <div class="notfound-404"></div>
-                <h1>2020</h1>
-                <h2>Oops! Subscription has ended!</h2>
-                <p>Sorry but your subscription to EFContact ends on 20/04/1993. To continue using our platform please renew your subscription.</p>
+                {{-- <h1>404</h1> --}}
+                <h2>Awesome! Agent Registration Started!</h2>
+                <p style="font-size: 18px">Please check your email inbox to complete your registration process.</p>
                 <div class="mr-3 navbar-top-post-btn">
-                    <a class="btn btn-success" href="{{ url()->previous() }}"><i class="fa fa-arrow-left" style="color: #fff"></i> <span style="font-size: 15px !important;color:#fff">Go Back</span></a>
+                    <a class="btn btn-success" href="{{ route('home') }}"><i class="fa fa-arrow-left" style="color: #fff"></i> <span style="font-size: 15px !important;color:#fff">Go Home</span></a>
                 </div>
             </div>
         </div>

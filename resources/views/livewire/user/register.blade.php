@@ -3,7 +3,7 @@
     {{-- {{ csrf_field() }} --}}
 
     <div class="form-group form-box">
-        <input type="text" class="input-text" name="name"  autofocus placeholder="Full Name" wire:model='name'>
+        <input type="text" id="name" class="input-text" name="name"  autofocus placeholder="Full Name" wire:model='name'>
 
         @error('name')
         <span class="helper-text text-danger" data-error="wrong" data-success="right">
@@ -13,7 +13,7 @@
     </div>
 
     <div class="form-group form-box">
-        <input type="text" placeholder="Email Address" class="input-text"  wire:model='email'>
+        <input type="text" id="email" placeholder="Email Address" class="input-text"  wire:model='email'>
         @if ($errors->has('email'))
         <span class="helper-text" data-error="wrong" data-success="right">
             <strong class="text-danger">{{ $errors->first('email') }}</strong>
@@ -22,7 +22,7 @@
     </div>
 
     <div class="form-group form-box">
-        <input type="text" placeholder="Phone Number" class="input-text"  wire:model='phone'>
+        <input type="number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="phone" placeholder="Phone Number, e.g 080XXXXXXXX" class="input-text" minlength="11" maxlength="11"  wire:model='phone'>
         @if ($errors->has('phone'))
             <span class="helper-text" data-error="wrong" data-success="right">
                 <strong class="text-danger">{{ $errors->first('phone') }}</strong>
@@ -32,7 +32,7 @@
 
     <div class="form-group">
         <div class="input-group mb-3">
-            <input type="password" name="password" id="passwordField" class="form-control" placeholder="Password (min: 6 chars)" aria-label="Password" aria-describedby="Password" wire:model='password'>
+            <input type="password" id="password" name="password" id="passwordField" class="form-control" placeholder="Password (min: 6 chars)" aria-label="Password" aria-describedby="Password" wire:model='password'>
             <div class="input-group-append" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()">
             <span class="input-group-text" id="basic-addon1"><i class="fa fa-eye"></i></span>
             </div>

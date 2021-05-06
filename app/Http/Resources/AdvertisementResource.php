@@ -15,6 +15,7 @@ class AdvertisementResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'brand_name' => $this->brand_name,
             'website_link' => $this->website_link,
             'banner_img' => route('home') . '/uploads/sponsored/'.$this->banner_img,

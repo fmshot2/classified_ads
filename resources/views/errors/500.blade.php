@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Page Not Found | ')
+@section('title', 'Server Error | ')
 
 @section('content')
 
@@ -117,11 +117,11 @@
         <div id="notfound">
             <div class="notfound">
                 <div class="notfound-404"></div>
-                <h1>2020</h1>
-                <h2>Oops! Subscription has ended!</h2>
-                <p>Sorry but your subscription to EFContact ends on 20/04/1993. To continue using our platform please renew your subscription.</p>
+                <h1>500</h1>
+                <h2>Oops! Server Error!</h2>
+                <p>Sorry but the page you are looking for does not exist, or is temporarily unavailable</p>
                 <div class="mr-3 navbar-top-post-btn">
-                    <a class="btn btn-success" href="{{ url()->previous() }}"><i class="fa fa-arrow-left" style="color: #fff"></i> <span style="font-size: 15px !important;color:#fff">Go Back</span></a>
+                    <a class="btn btn-success" href="{{ url()->previous()  }}"><i class="fa fa-arrow-left" style="color: #fff"></i> <span style="font-size: 15px !important;color:#fff">Go Back</span></a>
                 </div>
             </div>
         </div>
