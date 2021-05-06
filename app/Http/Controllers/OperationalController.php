@@ -1170,8 +1170,8 @@ class OperationalController extends Controller
             $category = Category::inRandomOrder()->first();
             $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
 
-            // Mail::to('paul@eftechnology.net')->send(new Newsletter('Paul Jones', $category, $services));
-            // Mail::to('eben@eftechnology.net')->send(new Newsletter('Eben', $category, $services));
+            Mail::to('paul@eftechnology.net')->send(new Newsletter('Paul Jones', $category, $services));
+            Mail::to('eben@eftechnology.net')->send(new Newsletter('Eben', $category, $services));
             Mail::to('adeoluibidapo@gmail.com')->send(new Newsletter('Eben', $category, $services));
 
             // try{
@@ -1214,6 +1214,7 @@ class OperationalController extends Controller
         $users = User::all();
         Mail::to('paul@eftechnology.net')->send(new EarnMoney('Paul Jones'));
         Mail::to('adeoluibidapo@gmail.com')->send(new EarnMoney('Paul Jones'));
+        Mail::to('eben@eftechnology.net')->send(new EarnMoney('Eben'));
     }
 
     // public function CredentialsReset($user_id)
