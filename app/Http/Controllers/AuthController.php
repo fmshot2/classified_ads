@@ -655,9 +655,11 @@ class AuthController extends Controller
         //$param = $request->query('param');
         if ($param) {
             $referParam = $param;
+            $ww = session()->get('message')
         } else {
             $referParam = null;
         }
+        $request->session()->put('referParam', $referParam);
         $states = State::all();
 
         if (Auth::check()) {

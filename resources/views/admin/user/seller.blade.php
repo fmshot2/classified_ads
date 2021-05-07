@@ -36,10 +36,11 @@
                                         <th> Email </th>
                                         <th> Phone </th>
                                         <th> role </th>
-                                        <th> Applied for Approval?</th>
-                                        <th> Amount Earned</th>                                        
+                                        <th> Applied for Approval? </th>
+                                        <th> Amount Earned </th>                                        
                                         <th> Date </th>
-                                        <th> Activate/Deactivate</th>
+                                        <th> Activate/Deactivate </th>
+                                        <th> Downlines </th>
                                     </tr>
                                 </thead>
                                 <tbody>
