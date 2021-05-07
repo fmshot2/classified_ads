@@ -5,7 +5,7 @@
 <p><strong>Subject: </strong>{{ $subject ? $subject : 'No subject!' }}</p>
 <p><strong>Phone: </strong>{{ $phone ? $phone : 'No phone!' }}</p>
 <p><strong>Email: </strong>{{ $email ? $email : 'No email!' }}</p>
-<p><strong>Your message: </strong></p>
+<p><strong>The message: </strong></p>
 <p><p>{{ $message ? $message : 'No message!' }}</p>
 
 @endcomponent

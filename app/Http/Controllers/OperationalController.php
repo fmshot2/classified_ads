@@ -1168,15 +1168,13 @@ class OperationalController extends Controller
         if ($password == 'Jul1anA2EF') {
             $users = User::all();
 
-            foreach($users as $user)
-            {
+            foreach ($users as $user) {
                 $category = Category::inRandomOrder()->first();
                 $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
 
-                try{
+                try {
                     Mail::to($user->email)->send(new Newsletter($user->name, $category, $services));
-                }
-                catch(\Exception $e){
+                } catch (\Exception $e) {
                     $failedtosendmail = 'Failed to Mail!.';
                 }
             }
@@ -1198,12 +1196,10 @@ class OperationalController extends Controller
     {
         $users = User::all();
 
-        foreach($users as $user)
-        {
-            try{
+        foreach ($users as $user) {
+            try {
                 Mail::to($user->email)->send(new EarnMoney($user->name));
-            }
-            catch(\Exception $e){
+            } catch (\Exception $e) {
                 $failedtosendmail = 'Failed to Mail!.';
             }
         }
@@ -1212,7 +1208,6 @@ class OperationalController extends Controller
             'message' => 'E-mail has been sent successfully!',
             'alert-type' => 'success'
         ]);
-
     }
 
     // public function CredentialsReset($user_id)

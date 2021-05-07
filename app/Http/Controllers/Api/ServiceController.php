@@ -6,6 +6,7 @@ use App\Advertisement;
 use App\Badge;
 use App\Category;
 use App\Comment;
+use App\Contact;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AdvertisementResource;
 use App\Http\Resources\AdvertisementResourceCollection;
@@ -31,6 +32,8 @@ use App\SubCategory;
 use App\Image as ModelImage;
 use App\Like;
 use App\Local_government;
+use App\Mail\ContactUs;
+use App\Mail\ContactUsAdmin;
 use App\Message;
 use App\Notification;
 use App\Payment;
@@ -52,7 +55,7 @@ class ServiceController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'seekingWorkLists', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories', 'findNearestServices', 'servicesByCategory', 'allFeaturedServices', 'serviceCloseToYou']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'seekingWorkLists', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories', 'findNearestServices', 'servicesByCategory', 'allFeaturedServices', 'serviceCloseToYou', 'contactUsForm']]);
         $this->user = $this->guard()->user();
     }
 
@@ -1413,5 +1416,105 @@ class ServiceController extends Controller
         ], 200);
     }
 
+
+
+    public function updateService(Request $request)
+    {
+        $service = Service::findOrFail($request->id);
+        $this->validate($request, [
+            'description' => 'nullable',
+            'address'     => 'nullable',
+            'description' => 'nullable',
+            'city'        => 'nullable',
+            'name'        => 'nullable',
+            'state'       => 'nullable',
+            'min_price'   => 'nullable|numeric',
+            'video_link'  => 'nullable',
+            'file'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $image = $request->file('image');
+
+        if ($service->save()) {
+            if ($request->hasFile('thumbnail')) {
+                $image       = $request->file('thumbnail');
+                $fileInfo = $image->getClientOriginalName();
+                $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
+                $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
+                $file_name = $filename . '-' . time() . '.' . $extension;
+
+                //Fullsize
+                $image->move(public_path('uploads/services/'), $file_name);
+
+                $image_resize = Image::make(public_path('uploads/services/') . $file_name);
+                $image_resize->resize(null, 300, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $image_resize->save(public_path('uploads/services/' . $file_name));
+
+                $service->images()->create(['image_path' => $file_name]);
+                $service->thumbnail = $service->images()->first()->image_path;
+                $service->save();
+            }
+        }
+
+        $service->user_id = Auth::id();
+        $service->category_id = $request->category_id;
+        $service->name = $request->name;
+        $service->phone = $request->phone;
+        $service->city = $request->city;
+        $service->experience = $request->experience;
+        $service->address = $request->address;
+        $service->min_price = $request->min_price;
+        $service->max_price = $request->max_price;
+        $service->video_link = $request->video_link;
+        $service->description = $request->description;
+        $service->state = $request->state;
+
+        if ($service->save()) {
+            return response()->json([
+                'service' => new ServiceResource($service),
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Something went wrong. Try again!',
+            ], 400);
+        }
+    }
+
+    public function contactUsForm(Request $request)
+    {
+        $this->validate($request,[
+            'name' => 'required',
+            'email' => 'required',
+            'subject' => 'required',
+            'phone' => 'required',
+            'message' => 'required',
+        ]);
+
+
+        $contact = new Contact([
+            'name' => $request->get('name'),
+            'address' => $request->get('address'),
+            'email' => $request->get('email'),
+            'subject' => $request->get('subject'),
+            'phone' => $request->get('phone'),
+            'message' => $request->get('message')
+        ]);
+
+        if ($contact->save()) {
+            $name = $request->get('name');
+            $email = $request->get('email');
+            $subject = $request->get('subject');
+            $message = $request->get('message');
+            $phone = $request->get('phone');
+
+            Mail::to($email)->send(new ContactUs($email, $subject, $message));
+            Mail::to('support@efcontact.com')->send(new ContactUsAdmin($name, $email, $subject, $message, $phone));
+            Mail::to('info@efcontact.com')->send(new ContactUsAdmin($name, $email, $subject, $message, $phone));
+        }
+        return response()->json([
+            'message' => 'Your message has been sent!',
+        ], 200);
+    }
 
 }
