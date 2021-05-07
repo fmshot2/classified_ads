@@ -172,7 +172,7 @@ class Register extends Component
         //send mail
 
         if ($user->save()) {
-
+            $request->session()->forget('current_param');
 
             $name         = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
             $name         = $user->name;
