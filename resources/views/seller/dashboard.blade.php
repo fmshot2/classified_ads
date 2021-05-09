@@ -657,13 +657,35 @@
         </div>
     </div>
 
-    <div>
+
+            @if($current_subscription_end_date)                 
+               
+                    
+                      <div>
         <div id="postServiceModal" class="modal fade postServiceModal" role="dialog">
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header" style="background-color: #cc8a19; color: #fff">
-                        <h4 style="display: inline-block;" class="modal-title">Post A Service</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: #fff">
+                            <i class="fa fa-close"></i>
+                        </button>
+                        <h5 class="text-center" id="sub_end"><strong>Your Subscription has ended. Please renew your subcription to proceed</strong><span></span>
+                        </h5>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+                @else
+                      <div>
+        <div id="postServiceModal" class="modal fade postServiceModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #cc8a19; color: #fff">
+                        <h4 style="display: inline-block;" class="modal-title">Posts A Service</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: #fff">
                             <i class="fa fa-close"></i>
                         </button>
@@ -948,7 +970,7 @@
                                             <div class="form-group">
                                                 <label for="">Expected Salary</label><small class="text-danger">*</small>
                                                 <select class="form-control required" name="expected_salary" value="{{ old('expected_salary') }}" required>
-                                                    <option value="&#8358;50,000">Below	&#8358;50,000</option>
+                                                    <option value="&#8358;50,000">Below &#8358;50,000</option>
                                                     <option value="&#8358;50,000 - &#8358;75,000<">&#8358;50,000 - &#8358;75,000</option>
                                                     <option value="&#8358;75,000 - &#8358;100,000">&#8358;75,000 - &#8358;100,000</option>
                                                     <option value="&#8358;100,000 - 125,000">&#8358;100,000 - 125,000</option>
@@ -1082,6 +1104,8 @@
             </div>
         </div>
     </div>
+                @endif
+   
 </div>
 
 <div>

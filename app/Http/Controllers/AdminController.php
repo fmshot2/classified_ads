@@ -44,354 +44,354 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
 
-    public function usersfeedback()
-    {
-        $feedbacks = UserFeedback::orderBy('created_at','desc')->get();
+  public function usersfeedback()
+  {
+    $feedbacks = UserFeedback::orderBy('created_at','desc')->get();
 
-        return view('admin.feedbacks', [
-            'feedbacks' => $feedbacks
-        ]);
-    }
-    public function userfeedback($id)
-    {
-        $feedback = UserFeedback::findOrFail($id);
-        return $feedback;
-    }
-    public function feedbackDelete($id)
-    {
-        $feedback = UserFeedback::findOrFail($id);
-        $feedback->delete();
-        session()->flash('status', 'Task was successful!');
-        return redirect()->back();
-    }
-    public function treatfeedback($id)
-    {
-        $feedback = UserFeedback::findOrFail($id);
-        $feedback->treated = 1;
-        $feedback->update();
-        session()->flash('status', 'Task was successful!');
-        return redirect()->back();
-    }
+    return view('admin.feedbacks', [
+      'feedbacks' => $feedbacks
+    ]);
+  }
+  public function userfeedback($id)
+  {
+    $feedback = UserFeedback::findOrFail($id);
+    return $feedback;
+  }
+  public function feedbackDelete($id)
+  {
+    $feedback = UserFeedback::findOrFail($id);
+    $feedback->delete();
+    session()->flash('status', 'Task was successful!');
+    return redirect()->back();
+  }
+  public function treatfeedback($id)
+  {
+    $feedback = UserFeedback::findOrFail($id);
+    $feedback->treated = 1;
+    $feedback->update();
+    session()->flash('status', 'Task was successful!');
+    return redirect()->back();
+  }
 
-    public function userComplaints()
-    {
-      $complaints = Complaint::all();
-      
-      return view('admin.complaints.complaints', [
-        'complaints' => $complaints
-      ]);
-      
-    }
+  public function userComplaints()
+  {
+    $complaints = Complaint::all();
 
-    public function featuredServices()
-    {
-      $services = Service::where('is_featured', '=', 1)->get();
-      return view('admin.service.featured', [
-        'services' => $services
-      ]);
-    }
-
-    public function geo(){
-
-     $myGeo =  Geocoder::getCoordinatesForAddress('Infinite Loop 1, Cupertino');
-     return $myGeo;
+    return view('admin.complaints.complaints', [
+      'complaints' => $complaints
+    ]);
 
   }
 
-  public function allAdmins()
+  public function featuredServices()
   {
-    $admins = User::where('role', '=', 'admin')->get();
-
-    return view('admin.user.admins', [
-      'admins' => $admins
+    $services = Service::where('is_featured', '=', 1)->get();
+    return view('admin.service.featured', [
+      'services' => $services
     ]);
   }
 
-  public function allCmos()
-  {
-    $cmos = User::where('role', '=', 'cmo')->get();
+  public function geo(){
 
-    return view('admin.user.cmos', [
-      'cmos' => $cmos
-    ]);
+   $myGeo =  Geocoder::getCoordinatesForAddress('Infinite Loop 1, Cupertino');
+   return $myGeo;
+
+ }
+
+ public function allAdmins()
+ {
+  $admins = User::where('role', '=', 'admin')->get();
+
+  return view('admin.user.admins', [
+    'admins' => $admins
+  ]);
+}
+
+public function allCmos()
+{
+  $cmos = User::where('role', '=', 'cmo')->get();
+
+  return view('admin.user.cmos', [
+    'cmos' => $cmos
+  ]);
+}
+
+public function add_admin()
+{
+  return view('admin.user.add_admin');
+}
+
+public function add_cmo()
+{
+  return view('admin.user.add_cmo');
+}
+
+public function submit_cmo(Request $request)
+{
+  $data = array(
+    'name'   => $request->name,
+    'email'   => $request->email,
+    'password' => $request->password,
+  );
+
+  $validator = \Validator::make($data, [
+    'name' => 'required|string|max:255',
+    'email' => 'required|string|email|unique:users|max:255',
+    'password' => 'required|string|min:6',
+  ]);
+
+  if($validator->fails())
+  {
+    return redirect()->back()->withErrors($validator->errors())->withInput();
   }
 
-  public function add_admin()
+  $user = new User;
+
+  $user->name = $request->name;
+  $user->email = $request->email;
+  $user->password = Hash::make($data['password']);
+  $user->role = 'cmo';
+  $user->status = 1;
+
+  $user->save();
+
+  if($user->save())
   {
-    return view('admin.user.add_admin');
+    $success_notification = array(
+      'message' => 'CMO successfully added!',
+      'alert-type' => 'success'
+    );
   }
 
-  public function add_cmo()
+  return redirect()->back()->with($success_notification);
+}
+
+public function allData()
+{
+  $admins = User::where('role', '=', 'data')->get();
+
+  return view('admin.user.data', [
+    'admins' => $admins
+  ]);
+}
+
+public function add_data()
+{
+  return view('admin.user.add_data_officer');
+}
+
+public function submit_data(Request $request)
+{
+  $data = array(
+    'name'   => $request->name,
+    'email'   => $request->email,
+    'password' => $request->password,
+  );
+
+  $validator = \Validator::make($data, [
+    'name' => 'required|string|max:255',
+    'email' => 'required|string|email|unique:users|max:255',
+    'password' => 'required|string|min:6',
+  ]);
+
+  if($validator->fails())
   {
-    return view('admin.user.add_cmo');
+    return redirect()->back()->withErrors($validator->errors())->withInput();
   }
 
-  public function submit_cmo(Request $request)
+  $user = new User;
+
+  $user->name = $request->name;
+  $user->email = $request->email;
+  $user->password = Hash::make($data['password']);
+  $user->role = 'data';
+  $user->status = 1;
+
+  $user->save();
+
+  if($user->save())
   {
-    $data = array(
-            'name'   => $request->name,
-            'email'   => $request->email,
-            'password' => $request->password,
-        );
-
-      $validator = \Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users|max:255',
-            'password' => 'required|string|min:6',
-        ]);
-
-        if($validator->fails())
-        {
-            return redirect()->back()->withErrors($validator->errors())->withInput();
-        }
-
-        $user = new User;
-
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($data['password']);
-        $user->role = 'cmo';
-        $user->status = 1;
-
-        $user->save();
-
-        if($user->save())
-        {
-          $success_notification = array(
-                'message' => 'CMO successfully added!',
-                'alert-type' => 'success'
-            );
-        }
-
-        return redirect()->back()->with($success_notification);
+    $success_notification = array(
+      'message' => 'Data Entry Officer successfully added!',
+      'alert-type' => 'success'
+    );
   }
 
-  public function allData()
-  {
-    $admins = User::where('role', '=', 'data')->get();
+  return redirect()->back()->with($success_notification);
+}
 
-    return view('admin.user.data', [
-      'admins' => $admins
-    ]);
+public function submit_admin(Request $request)
+{
+  $data = array(
+    'name'   => $request->name,
+    'email'   => $request->email,
+    'password' => $request->password,
+  );
+
+  $validator = \Validator::make($data, [
+    'name' => 'required|string|max:255',
+    'email' => 'required|string|email|unique:users|max:255',
+    'password' => 'required|string|min:6',
+  ]);
+
+  if($validator->fails())
+  {
+    return redirect()->back()->withErrors($validator->errors())->withInput();
   }
 
-  public function add_data()
+  $user = new User;
+
+  $user->name = $request->name;
+  $user->email = $request->email;
+  $user->password = Hash::make($data['password']);
+  $user->role = 'admin';
+  $user->status = 1;
+
+  $user->save();
+
+  if($user->save())
   {
-    return view('admin.user.add_data_officer');
+    $success_notification = array(
+      'message' => 'Admin successfully added!',
+      'alert-type' => 'success'
+    );
   }
 
-  public function submit_data(Request $request)
-  {
-    $data = array(
-            'name'   => $request->name,
-            'email'   => $request->email,
-            'password' => $request->password,
-        );
+  return redirect()->back()->with($success_notification);
+}
 
-      $validator = \Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users|max:255',
-            'password' => 'required|string|min:6',
-        ]);
+public function send_email()
+{
+  $agents_phone = Agent::all();
+  $plucked = $agents_phone->pluck('email')->toArray();
 
-        if($validator->fails())
-        {
-            return redirect()->back()->withErrors($validator->errors())->withInput();
-        }
+  $sellers = DB::table('users')->where('role', '=', 'seller')->get();
+  $plucked_email = $sellers->pluck('email')->toArray();
 
-        $user = new User;
+  $buyers = DB::table('users')->where('role', '=', 'buyer')->get();
+  $plucked_emailplucked_email = $sellers->pluck('email')->toArray();
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($data['password']);
-        $user->role = 'data';
-        $user->status = 1;
+  $email_addresses = implode(',', array_merge($plucked, $plucked_email, $plucked_email));
 
-        $user->save();
+  return view('admin.data_entry.send_email', [
+    'email_addresses' => $email_addresses
+  ]);
+}
 
-        if($user->save())
-        {
-          $success_notification = array(
-                'message' => 'Data Entry Officer successfully added!',
-                'alert-type' => 'success'
-            );
-        }
+public function sendSms()
+{
+  $agents_phone = Agent::all();
+  $plucked = $agents_phone->pluck('phone')->toArray();
 
-        return redirect()->back()->with($success_notification);
-  }
+  $sellers = DB::table('users')->where('role', '=', 'seller')->get();
+  $plucked_phone = $sellers->pluck('phone')->toArray();
 
-  public function submit_admin(Request $request)
-  {
-    $data = array(
-            'name'   => $request->name,
-            'email'   => $request->email,
-            'password' => $request->password,
-        );
+  $buyers = DB::table('users')->where('role', '=', 'buyer')->get();
+  $plucked_buyer_phone = $sellers->pluck('phone')->toArray();
 
-      $validator = \Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users|max:255',
-            'password' => 'required|string|min:6',
-        ]);
+  $phone_numbers = implode(',', array_merge($plucked, $plucked_phone, $plucked_buyer_phone));
 
-        if($validator->fails())
-        {
-            return redirect()->back()->withErrors($validator->errors())->withInput();
-        }
+  return view('admin.data_entry.send_sms', [
+    'phone_numbers' => $phone_numbers,
+  ]);
+}
 
-        $user = new User;
+public function submit_sms(Request $request)
+{
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($data['password']);
-        $user->role = 'admin';
-        $user->status = 1;
-
-        $user->save();
-
-        if($user->save())
-        {
-          $success_notification = array(
-                'message' => 'Admin successfully added!',
-                'alert-type' => 'success'
-            );
-        }
-
-        return redirect()->back()->with($success_notification);
-  }
-
-  public function send_email()
-  {
-    $agents_phone = Agent::all();
-    $plucked = $agents_phone->pluck('email')->toArray();
-
-    $sellers = DB::table('users')->where('role', '=', 'seller')->get();
-    $plucked_email = $sellers->pluck('email')->toArray();
-
-    $buyers = DB::table('users')->where('role', '=', 'buyer')->get();
-    $plucked_emailplucked_email = $sellers->pluck('email')->toArray();
-
-    $email_addresses = implode(',', array_merge($plucked, $plucked_email, $plucked_email));
-
-    return view('admin.data_entry.send_email', [
-      'email_addresses' => $email_addresses
-    ]);
-  }
-
-  public function sendSms()
-  {
-    $agents_phone = Agent::all();
-    $plucked = $agents_phone->pluck('phone')->toArray();
-
-    $sellers = DB::table('users')->where('role', '=', 'seller')->get();
-    $plucked_phone = $sellers->pluck('phone')->toArray();
-
-    $buyers = DB::table('users')->where('role', '=', 'buyer')->get();
-    $plucked_buyer_phone = $sellers->pluck('phone')->toArray();
-
-    $phone_numbers = implode(',', array_merge($plucked, $plucked_phone, $plucked_buyer_phone));
-
-    return view('admin.data_entry.send_sms', [
-      'phone_numbers' => $phone_numbers,
-    ]);
-  }
-
-  public function submit_sms(Request $request)
-  {
-
-    $this->validate($request, [
-      'phone' => 'required',
-      'subject' => 'nullable',
-      'message' => 'required'
-    ]);
+  $this->validate($request, [
+    'phone' => 'required',
+    'subject' => 'nullable',
+    'message' => 'required'
+  ]);
 
     // dd($request->all());
-    $phone = $request->phone;
+  $phone = $request->phone;
     // dd($phone);
-    $message = $request->message;
-    $sender = 'EFContact';
+  $message = $request->message;
+  $sender = 'EFContact';
 
-    try {
-      SmsHelper::send_sms($message, $phone, $sender);
+  try {
+    SmsHelper::send_sms($message, $phone, $sender);
 
-        $sent_notification = array(
-          'message' => 'SMS sent successfully!',
-          'alert-type' => 'success'
-      );
-    }
-    catch(\Exception $e){
-
-    }
-
-    return redirect()->back()->with($sent_notification);
+    $sent_notification = array(
+      'message' => 'SMS sent successfully!',
+      'alert-type' => 'success'
+    );
+  }
+  catch(\Exception $e){
 
   }
 
-  public function submitEmail(Request $request)
-  {
+  return redirect()->back()->with($sent_notification);
 
-    $agents_phone = Agent::all();
-    $plucked = $agents_phone->pluck('email', 'name')->toArray();
+}
 
-    $sellers = DB::table('users')->where('role', '=', 'seller')->get();
-    $plucked_email = $sellers->pluck('email', 'name')->toArray();
+public function submitEmail(Request $request)
+{
 
-    $buyers = DB::table('users')->where('role', '=', 'buyer')->get();
-    $plucked_emailplucked_email = $sellers->pluck('email', 'name')->toArray();
+  $agents_phone = Agent::all();
+  $plucked = $agents_phone->pluck('email', 'name')->toArray();
+
+  $sellers = DB::table('users')->where('role', '=', 'seller')->get();
+  $plucked_email = $sellers->pluck('email', 'name')->toArray();
+
+  $buyers = DB::table('users')->where('role', '=', 'buyer')->get();
+  $plucked_emailplucked_email = $sellers->pluck('email', 'name')->toArray();
 
     // $email_addresses = ['veeqanto@gmail.com', 'anto@eftechnology.net'];
-        $email_addresses = array_merge($plucked, $plucked_email, $plucked_email);
+  $email_addresses = array_merge($plucked, $plucked_email, $plucked_email);
         // dd($email_addresses);
 
-    $data = array(
-      'subject' => $request->subject,
-      'message' => $request->message
-    );
+  $data = array(
+    'subject' => $request->subject,
+    'message' => $request->message
+  );
 
-    $this->validate($request, [
-      'subject' => 'required',
-      'message' => 'required'
-    ]);
+  $this->validate($request, [
+    'subject' => 'required',
+    'message' => 'required'
+  ]);
 
     // $message = new SendMail;
     // $message->create($data);
-    foreach($email_addresses as $name=>$email)
-    {
+  foreach($email_addresses as $name=>$email)
+  {
         // Mail::to($email)->send(new SendEmail($request->message, $request->subject));
         //   Mail::to($email)->queue(new SendEmail($request->message, $request->subject, $name));
 
-        Mail::to($email)->queue(new SeasonGreetings($request->message, $request->subject, $name));
-    }
-
-
-    $sent_notification = array(
-          'message' => 'Email sent successfully!',
-          'alert-type' => 'success'
-    );
-
-    return redirect()->back()->with($sent_notification);
-
+    Mail::to($email)->queue(new SeasonGreetings($request->message, $request->subject, $name));
   }
-  public function lat()
-  {
-
-$data = file_get_contents("https://www.geoip-db.com/json");
-$json = json_decode($data, true);
-$latitude = $json['latitude'];
-$longitude = $json['longitude'];
-      return response()->json(['success'=>'updated done', 'latitude'=>$latitude, 'longitude'=>$longitude]);
 
 
-if ($data = @file_get_contents("https://www.geoip-db.com/json"))
+  $sent_notification = array(
+    'message' => 'Email sent successfully!',
+    'alert-type' => 'success'
+  );
+
+  return redirect()->back()->with($sent_notification);
+
+}
+public function lat()
 {
-        $json = json_decode($data, true);
-        $latitude = $json['latitude'];
-        $longitude = $json['longitude'];
-} else {
-        $latitude = 0;
-        $longitude = 0;
+
+  $data = file_get_contents("https://www.geoip-db.com/json");
+  $json = json_decode($data, true);
+  $latitude = $json['latitude'];
+  $longitude = $json['longitude'];
+  return response()->json(['success'=>'updated done', 'latitude'=>$latitude, 'longitude'=>$longitude]);
+
+
+  if ($data = @file_get_contents("https://www.geoip-db.com/json"))
+  {
+    $json = json_decode($data, true);
+    $latitude = $json['latitude'];
+    $longitude = $json['longitude'];
+  } else {
+    $latitude = 0;
+    $longitude = 0;
 // }    return view ('admin.service.index', compact('all_service') );
-      return response()->json(['success'=>'updated done', 'latitude'=>$latitude, 'longitude'=>$longitude]);
+    return response()->json(['success'=>'updated done', 'latitude'=>$latitude, 'longitude'=>$longitude]);
   }
 }
 
@@ -431,12 +431,12 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
 
 
 
-    public function findNearestRestaurants(Request $request)
+public function findNearestRestaurants(Request $request)
 {
   // return $request->radius;
   $latitude = $request->latitude;
-    $longitude = $request->longitude;
-    $radius = 100;
+  $longitude = $request->longitude;
+  $radius = 100;
     // $keyword = $request->radius,
     // $categories = $request->categories,
     // $sub_category = $request->sub_category,
@@ -448,44 +448,44 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
 // Auth::user()->save();
    // return $latitude . $longitude;
     // $latitude =
-    $services = Service::selectRaw("id, name, address,
-                     ( 6371000 * acos( cos( radians(?) ) *
-                       cos( radians( latitude ) )
+  $services = Service::selectRaw("id, name, address,
+   ( 6371000 * acos( cos( radians(?) ) *
+   cos( radians( latitude ) )
                        * cos( radians( longitude ) - radians(?)
-                       ) + sin( radians(?) ) *
-                       sin( radians( latitude ) ) )
-                     ) AS distance", [$latitude, $longitude, $latitude])
-        ->having("distance", "<", $radius)
-        ->orderBy("distance",'asc')
-        ->offset(0)
-        ->limit(20)
-        ->get();
+   ) + sin( radians(?) ) *
+   sin( radians( latitude ) ) )
+ ) AS distance", [$latitude, $longitude, $latitude])
+  ->having("distance", "<", $radius)
+  ->orderBy("distance",'asc')
+  ->offset(0)
+  ->limit(20)
+  ->get();
 
-    return $services;
+  return $services;
 }
 
-  public function allService()
-  {
-    $all_service = Service::orderBy('created_at', 'desc')->get();
-    return view ('admin.service.index', compact('all_service') );
-  }
-  public function allSeekingwork()
-  {
-    $all_service = SeekingWork::orderBy('created_at', 'desc')->get();
-    return view ('admin.service.sw_table', compact('all_service') );
-  }
+public function allService()
+{
+  $all_service = Service::orderBy('created_at', 'desc')->get();
+  return view ('admin.service.index', compact('all_service') );
+}
+public function allSeekingwork()
+{
+  $all_service = SeekingWork::orderBy('created_at', 'desc')->get();
+  return view ('admin.service.sw_table', compact('all_service') );
+}
 
-  public function activeService()
-  {
-    $active_service = Service::where('status', 1)->paginate(20);
-    return view ('admin.service.active', compact('active_service') );
-  }
+public function activeService()
+{
+  $active_service = Service::where('status', 1)->paginate(20);
+  return view ('admin.service.active', compact('active_service') );
+}
 
-  public function pendingService()
-  {
-    $pending_service = Service::where('status', 0)->paginate(10);
-    return view ('admin.service.pending', compact('pending_service') );
-  }
+public function pendingService()
+{
+  $pending_service = Service::where('status', 0)->paginate(10);
+  return view ('admin.service.pending', compact('pending_service') );
+}
 
   //   public function allSubscription()
   // {
@@ -493,87 +493,87 @@ if ($data = @file_get_contents("https://www.geoip-db.com/json"))
   //   return view ('admin.subscription.index', compact('all_subscriptions') );
   // }
 
-   public function allSubscription()
-  {
-    $all_subscriptions = Subscription::all();
-    return view ('admin.subscription.index', compact('all_subscriptions') );
-  }
+public function allSubscription()
+{
+  $all_subscriptions = Subscription::all();
+  return view ('admin.subscription.index', compact('all_subscriptions') );
+}
 
-  public function pending_advert_requests()
-  {
-    $pending_advert_requests = Advertrequest::where('status', 0)->paginate(10);
-    return view ('admin.page_management.pending_advert_requests', compact('pending_advert_requests') );
-  }
+public function pending_advert_requests()
+{
+  $pending_advert_requests = Advertrequest::where('status', 0)->paginate(10);
+  return view ('admin.page_management.pending_advert_requests', compact('pending_advert_requests') );
+}
 
-  public function treated_advert_requests()
-  {
-    $treated_advert_requests = Advertrequest::where('status', 1)->paginate(10);
-    return view ('admin.page_management.treated_advert_requests', compact('treated_advert_requests') );
-  }
+public function treated_advert_requests()
+{
+  $treated_advert_requests = Advertrequest::where('status', 1)->paginate(10);
+  return view ('admin.page_management.treated_advert_requests', compact('treated_advert_requests') );
+}
 
-  public function all_adverts()
-  {
-    $advertisements = Advertrequest::all();
-return view ('admin.advert_management.sliders', compact('advertisements') );
-  }
+public function all_adverts()
+{
+  $advertisements = Advertrequest::all();
+  return view ('admin.advert_management.sliders', compact('advertisements') );
+}
 
-  public function active_adverts()
-  {
-    $active_adverts = Advertrequest::where('status', 2)->paginate(10);
-    return view ('admin.advert_management.active_adverts', compact('active_adverts') );
-  }
+public function active_adverts()
+{
+  $active_adverts = Advertrequest::where('status', 2)->paginate(10);
+  return view ('admin.advert_management.active_adverts', compact('active_adverts') );
+}
 
-  public function events()
-  {
+public function events()
+{
     //return view('events');
-    $all_events = Event::all();
+  $all_events = Event::all();
 
-    return view ('admin.page_management.events', compact('all_events'));
-  }
+  return view ('admin.page_management.events', compact('all_events'));
+}
 
 
-  public function all_events()
-  {
+public function all_events()
+{
     //return view('events');
-    $all_events = Event::all();
+  $all_events = Event::all();
 
-    return view ('all_events', compact('all_events'));
-  }
+  return view ('all_events', compact('all_events'));
+}
 
 
-  public function save_event(Request $request)
-  {
-    $id = $request->id;
-    $title = $request->title;
-    $image = $request->image;
-    $date = $request->event_date;
-    $time = $request->event_time;
+public function save_event(Request $request)
+{
+  $id = $request->id;
+  $title = $request->title;
+  $image = $request->image;
+  $date = $request->event_date;
+  $time = $request->event_time;
     //$venue = $request->venue;
-    $location = $request->location;
-    $description = $request->description;
+  $location = $request->location;
+  $description = $request->description;
 
 
-    $new_event = new Event();
-    $new_event->title = $title;
-    $new_event->image = $image;
-    $new_event->date = $date;
-    $new_event->time = $time;
-    $new_event->location = $location;
-    $new_event->description = $description;
+  $new_event = new Event();
+  $new_event->title = $title;
+  $new_event->image = $image;
+  $new_event->date = $date;
+  $new_event->time = $time;
+  $new_event->location = $location;
+  $new_event->description = $description;
 
 
-    if ( $request->hasFile('file') ) {
-      $image_name = time().'.'.$request->file->extension();
-      $request->file->move(public_path('images'),$image_name);
-      $new_event->image = $image_name;
-    }
-
-    $new_event->save();
-    dd('ddd');
-
-    return back()->with('success', 'Task was successful!');
-     //  return back()->with('success', 'Task was successful!');
+  if ( $request->hasFile('file') ) {
+    $image_name = time().'.'.$request->file->extension();
+    $request->file->move(public_path('images'),$image_name);
+    $new_event->image = $image_name;
   }
+
+  $new_event->save();
+  dd('ddd');
+
+  return back()->with('success', 'Task was successful!');
+     //  return back()->with('success', 'Task was successful!');
+}
 
 
  /*public function storeSystemConfig(Request $request, $id)
@@ -647,33 +647,33 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
      $service->status = $status;
 
      if($service->save()){
-        if ($service->status == 1) {
-            $status = 'Approved';
-            $reason = '';
-           try{
-               Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
-           }
-           catch(\Exception $e){
-               $failedtosendmail = 'Failed to Mail!.';
-           }
-        }
-        else {
-           $status = 'Disapproved';
-           $reason = $request->get('reason');
-           try{
-               Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
-           }
-           catch(\Exception $e){
-               $failedtosendmail = 'Failed to Mail!.';
-           }
-        }
-        $request->session()->flash('status', 'Service was '.$status);
-        return $status;
+      if ($service->status == 1) {
+        $status = 'Approved';
+        $reason = '';
+        try{
+         Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
+       }
+       catch(\Exception $e){
+         $failedtosendmail = 'Failed to Mail!.';
+       }
      }
-     $request->session()->flash('error', 'Something went wrong');
-     return back();
-
+     else {
+       $status = 'Disapproved';
+       $reason = $request->get('reason');
+       try{
+         Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
+       }
+       catch(\Exception $e){
+         $failedtosendmail = 'Failed to Mail!.';
+       }
+     }
+     $request->session()->flash('status', 'Service was '.$status);
+     return $status;
    }
+   $request->session()->flash('error', 'Something went wrong');
+   return back();
+
+ }
 
     /**
      * Update the specified resource in storage.
@@ -684,36 +684,36 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
      */
     public function updateSeekingworkStatus(Request $request, $id)
     {
-        $service = SeekingWork::find($id);
-        $status = $service->status == 0 ? 1 : 0;
-        $service->status = $status;
+      $service = SeekingWork::find($id);
+      $status = $service->status == 0 ? 1 : 0;
+      $service->status = $status;
 
-        if($service->save()){
-            if ($service->status == 1) {
-                $status = 'Approved';
-                $reason = '';
-               try{
-                   Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
-               }
-               catch(\Exception $e){
-                   $failedtosendmail = 'Failed to Mail!.';
-               }
-            }
-            else {
-               $status = 'Disapproved';
-               $reason = $request->get('reason');
-               try{
-                   Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
-               }
-               catch(\Exception $e){
-                   $failedtosendmail = 'Failed to Mail!.';
-               }
-            }
-            $request->session()->flash('status', 'CV was '.$status);
-            return $status;
-        }
-        $request->session()->flash('error', 'Something went wrong');
-        return back();
+      if($service->save()){
+        if ($service->status == 1) {
+          $status = 'Approved';
+          $reason = '';
+          try{
+           Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
+         }
+         catch(\Exception $e){
+           $failedtosendmail = 'Failed to Mail!.';
+         }
+       }
+       else {
+         $status = 'Disapproved';
+         $reason = $request->get('reason');
+         try{
+           Mail::to($service->user->email)->send(new ServiceApproved($service->name, $service->description, $service->thumbnail, $service->slug, $status, $reason));
+         }
+         catch(\Exception $e){
+           $failedtosendmail = 'Failed to Mail!.';
+         }
+       }
+       $request->session()->flash('status', 'CV was '.$status);
+       return $status;
+     }
+     $request->session()->flash('error', 'Something went wrong');
+     return back();
 
 
    }
@@ -782,10 +782,10 @@ return view ('admin.advert_management.sliders', compact('advertisements') );
 
 
     if ($general_info->save()) {
-        $success_notification = array(
-            'message' => 'Config saved successfully!',
-            'alert-type' => 'success'
-        );
+      $success_notification = array(
+        'message' => 'Config saved successfully!',
+        'alert-type' => 'success'
+      );
     }
 
     return redirect()->back()->with($success_notification);
@@ -855,7 +855,7 @@ public function save_privacyPolicy(Request $request)
   $privacy->save();
   $current_privacy_policy = Privacypolicy::first();
   if($current_privacy_policy){
-      $current_privacy_policy_details = $current_privacy_policy->details;
+    $current_privacy_policy_details = $current_privacy_policy->details;
   }
 
       //$request->session()->flash('status', 'Task was successful!');
@@ -866,11 +866,11 @@ public function save_privacyPolicy(Request $request)
 
 public function privacy()
 {
-    $privacy = Privacypolicy::orderBy('id', 'desc')
-    ->first();
+  $privacy = Privacypolicy::orderBy('id', 'desc')
+  ->first();
     // dd($privacy);
 
-    return view('frontend_section.privacy', compact('privacy'));
+  return view('frontend_section.privacy', compact('privacy'));
 }
 
 public function termsOfUse()
@@ -1016,56 +1016,56 @@ public function save_faq(Request $request)
 
       public function subscribe(Request $request)
       {
-            $this->validate($request,[
-                'email' => ['required'],
-            ]);
+        $this->validate($request,[
+          'email' => ['required'],
+        ]);
 
 
-            $subscription = new Subscription();
+        $subscription = new Subscription();
 
-            $subscription->email = $request->get('email');
-            $subscription->save();
+        $subscription->email = $request->get('email');
+        $subscription->save();
 
-            return back()->with([
-                'message'    => 'You are successfully subscribed to our mailing list!',
-                'alert-type' => 'success'
-            ]);
-     }
+        return back()->with([
+          'message'    => 'You are successfully subscribed to our mailing list!',
+          'alert-type' => 'success'
+        ]);
+      }
 
 
-     public function activate_user($id){
+      public function activate_user($id){
         //return $id;
        $success = true;
-        $message = "Activate";
-        $status_message = "Disabled";
+       $message = "Activate";
+       $status_message = "Disabled";
 
-      $user = User::where('id' , $id)->first();
-      if ($user->status == 1) {
+       $user = User::where('id' , $id)->first();
+       if ($user->status == 1) {
          //return $user->status;
         $user->status = 0;
         $user->save();
                       // return $user;
 
-  return response()->json([
-            'success' => $success,
-            'message' => $message,
-            'status_message' => $status_message,
+        return response()->json([
+          'success' => $success,
+          'message' => $message,
+          'status_message' => $status_message,
         ]);
         //        return $user->status;
       }
- if ($user->status == 0) {
+      if ($user->status == 0) {
          //return $user->status;
-          $message = "Deactivate User";
-          $status_message = "Enabled";
+        $message = "Deactivate User";
+        $status_message = "Enabled";
 
         $user->status = 1;
         $user->save();
                       // return $user;
 
-  return response()->json([
-            'success' => $success,
-            'message' => $message,
-            'status_message' => $status_message,
+        return response()->json([
+          'success' => $success,
+          'message' => $message,
+          'status_message' => $status_message,
 
         ]);
       }
@@ -1076,329 +1076,399 @@ public function save_faq(Request $request)
      //       // return redirect()->to('serviceDetail/'.$service_slug);
      //   return back()->with('liked', 'Unliked');
      // }
-   }
+    }
 
 
     public function activate_agent($id){
 
-        $success = true;
-        $message = "Activate";
-        $status_message = "Disabled";
+      $success = true;
+      $message = "Activate";
+      $status_message = "Disabled";
 
-        $user = Agent::where('id' , $id)->first();
-        if ($user->status == 1) {
-            $user->status = 0;
-            $user->update();
+      $user = Agent::where('id' , $id)->first();
+      if ($user->status == 1) {
+        $user->status = 0;
+        $user->update();
 
-            return response()->json([
-                'success' => $success,
-                'message' => $message,
-                'status_message' => $status_message,
-            ]);
-        }
-        if ($user->status == 0) {
-          $message = "Deactivate User";
-          $status_message = "Enabled";
+        return response()->json([
+          'success' => $success,
+          'message' => $message,
+          'status_message' => $status_message,
+        ]);
+      }
+      if ($user->status == 0) {
+        $message = "Deactivate User";
+        $status_message = "Enabled";
 
-            $user->status = 1;
-            $user->save();
+        $user->status = 1;
+        $user->save();
 
-            return response()->json([
-                'success' => $success,
-                'message' => $message,
-                'status_message' => $status_message,
-            ]);
-        }
+        return response()->json([
+          'success' => $success,
+          'message' => $message,
+          'status_message' => $status_message,
+        ]);
+      }
     }
 
-      public function all_ef_marketers ()
+    public function all_ef_marketers ()
     {
-        $efmarketers = User::where('is_ef_marketer', '1')->get();
+      $efmarketers = User::where('is_ef_marketer', '1')->get();
         // Category::orderBy('id', 'asc')->paginate(35);
-        return view('admin.user.ef_marketers', compact('efmarketers'));
+      return view('admin.user.ef_marketers', compact('efmarketers'));
     }
 
 
     public function ef_marketers_downline($slug)
     {
-        $efmarketer =  User::where('slug', $slug)->first();
-        $efmarketers_downlines = User::where('idOfReferer', $efmarketer->id)->get();
+      $efmarketer =  User::where('slug', $slug)->first();
+      $efmarketers_downlines = User::where('idOfReferer', $efmarketer->id)->get();
         // Category::orderBy('id', 'asc')->paginate(35);
-        return view('admin.user.ef_marketers_downline', compact('efmarketers_downlines'));
+      return view('admin.user.ef_marketers_downline', compact('efmarketers_downlines'));
     }
 
-       public function provider_downline($slug)
+    public function provider_downline($slug)
     {
-        $user =  User::where('slug', $slug)->first();
-        $user_downlines = User::where('idOfReferer', $user->id)->get();
+      $user =  User::where('slug', $slug)->first();
+      $user_downlines = User::where('idOfReferer', $user->id)->get();
         // Category::orderBy('id', 'asc')->paginate(35);
-        return view('admin.user.users_downline', compact('user_downlines'));
+      return view('admin.user.users_downline', compact('user_downlines'));
     }
 
-       public function agent_downline($id)
+    public function agent_downline($id)
     {
-        $user =  Agent::where('id', $id)->first();
-        $agent_downlines = User::where('idOfAgent', $user->id)->get();
+      $user =  Agent::where('id', $id)->first();
+      $agent_downlines = User::where('idOfAgent', $user->id)->get();
         // Category::orderBy('id', 'asc')->paginate(35);
-        return view('admin.user.agents_downline', compact('agent_downlines'));
+      return view('admin.user.agents_downline', compact('agent_downlines'));
     }
 
-        public function agents_downline_24hrs($id)
+    public function agents_downline_24hrs($id)
     {
-        $user =  Agent::where('id', $id)->first();
+      $user =  Agent::where('id', $id)->first();
         // $agent_downlines = User::where('idOfAgent', $user->id)->where('created_at', '>', Carbon::now()->subMinutes(1440))->get();
-        $agent_downlines = User::where('idOfAgent', $user->id)->whereDate('created_at', Carbon::yesterday())->get();
+      $agent_downlines = User::where('idOfAgent', $user->id)->whereDate('created_at', Carbon::yesterday())->get();
 
               // dd($agent_downlines);
           // $posts = Post::whereDate('created_at', Carbon::today())->get();
         // Category::orderBy('id', 'asc')->paginate(35);
-        return view('admin.user.agents_downline_24hrs', compact('agent_downlines'));
+      return view('admin.user.agents_downline_24hrs', compact('agent_downlines'));
     }
 
-      public function allagents_sales_yesterday()
+    public function allagents_sales_yesterday()
     {
-        $agents = Agent::all();
+      $agents = Agent::all();
         // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
         // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
         // dd($agents);
 
         // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
         // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
-        $users = Referal::where('referalable_type', 'App\Agent')->get();
+      $users = Referal::where('referalable_type', 'App\Agent')->get();
         // dd($users);
         // foreach ($users as $user) {
         //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
         // }
 
-        foreach ($agents as $key => $serv) {
+      foreach ($agents as $key => $serv) {
       // this is assigning a new field called total_likes to allservices
       //note, the total_likes is coming from a function in the model
       // $agents[$key]->total_refers = $serv->total_refers;
-      $agents[$key]->total_refers_count = $serv->total_refers->count();
-    }
-    // dd($agents);
-         // Auth::user()->subscriptions->first()
-        // $agents = Auth::user()->referals->all();
-        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
-        // foreach ($users as $user) {
-        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
-        // }
-        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
-        // dd($my_u);
-        $approval_status = null;
-        return view('admin.user.all_agents_yesterday', compact('agents', 'approval_status'));
-    }
-
-   public function agents_last_week()
-    {
-        $agents = Agent::all();
-        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
-        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
-        // dd($agents);
-
-        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
-        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
-        $users = Referal::where('referalable_type', 'App\Agent')->get();
-        // dd($users);
-        // foreach ($users as $user) {
-        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
-        // }
-
-        foreach ($agents as $key => $serv) {
-      // this is assigning a new field called total_likes to allservices
-      //note, the total_likes is coming from a function in the model
-      // $agents[$key]->total_refers = $serv->total_refers;
-      $agents[$key]->total_week_count = $serv->total_week->count();
-    }
-    // dd($agents);
-         // Auth::user()->subscriptions->first()
-        // $agents = Auth::user()->referals->all();
-        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
-        // foreach ($users as $user) {
-        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
-        // }
-        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
-        // dd($my_u);
-        $approval_status = null;
-        return view('admin.user.all_agents_week', compact('agents', 'approval_status'));
-    }
-
-
-       public function agents_last_month()
-    {
-        $agents = Agent::all();
-        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
-        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
-        // dd($agents);
-
-        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
-        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
-        $users = Referal::where('referalable_type', 'App\Agent')->get();
-        // dd($users);
-        // foreach ($users as $user) {
-        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
-        // }
-
-        foreach ($agents as $key => $serv) {
-      // this is assigning a new field called total_likes to allservices
-      //note, the total_likes is coming from a function in the model
-      // $agents[$key]->total_refers = $serv->total_refers;
-      $agents[$key]->total_month_count = $serv->total_month->count();
-    }
-    // dd($agents);
-         // Auth::user()->subscriptions->first()
-        // $agents = Auth::user()->referals->all();
-        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
-        // foreach ($users as $user) {
-        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
-        // }
-        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
-        // dd($my_u);
-        $approval_status = null;
-        return view('admin.user.all_agents_month', compact('agents', 'approval_status'));
-    }
-
-
-
-       public function allusers_sales_yesterday()
-    {
-        $agents = User::all();
-        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
-        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
-        // dd($agents);
-
-        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
-        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
-        $users = Referal::where('referalable_type', 'App\Agent')->get();
-        // dd($users);
-        // foreach ($users as $user) {
-        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
-        // }
-
-        foreach ($agents as $key => $serv) {
-      // this is assigning a new field called total_likes to allservices
-      //note, the total_likes is coming from a function in the model
-      // $agents[$key]->total_refers = $serv->total_refers;
-      $agents[$key]->total_refers_count = $serv->total_refers->count();
-    }
-    // dd($agents);
-         // Auth::user()->subscriptions->first()
-        // $agents = Auth::user()->referals->all();
-        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
-        // foreach ($users as $user) {
-        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
-        // }
-        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
-        // dd($my_u);
-        $approval_status = null;
-        return view('admin.user.all_users_yesterday', compact('agents', 'approval_status'));
-    }
-
-     public function users_last_week()
-    {
-        $agents = User::all();
-        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
-        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
-        // dd($agents);
-
-        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
-        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
-        $users = Referal::where('referalable_type', 'App\Agent')->get();
-        // dd($users);
-        // foreach ($users as $user) {
-        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
-        // }
-
-        foreach ($agents as $key => $serv) {
-      // this is assigning a new field called total_likes to allservices
-      //note, the total_likes is coming from a function in the model
-      // $agents[$key]->total_refers = $serv->total_refers;
-      $agents[$key]->total_week_count = $serv->total_week->count();
-    }
-    // dd($agents);
-         // Auth::user()->subscriptions->first()
-        // $agents = Auth::user()->referals->all();
-        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
-        // foreach ($users as $user) {
-        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
-        // }
-        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
-        // dd($my_u);
-        $approval_status = null;
-        return view('admin.user.all_users_week', compact('agents', 'approval_status'));
-    }
-
-
-       public function users_last_month()
-    {
-        $agents = User::all();
-        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
-        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
-        // dd($agents);
-
-        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
-        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
-        $users = Referal::where('referalable_type', 'App\Agent')->get();
-        // dd($users);
-        // foreach ($users as $user) {
-        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
-        // }
-
-        foreach ($agents as $key => $serv) {
-      // this is assigning a new field called total_likes to allservices
-      //note, the total_likes is coming from a function in the model
-      // $agents[$key]->total_refers = $serv->total_refers;
-      $agents[$key]->total_month_count = $serv->total_month->count();
-    }
-    // dd($agents);
-         // Auth::user()->subscriptions->first()
-        // $agents = Auth::user()->referals->all();
-        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
-        // foreach ($users as $user) {
-        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
-        // }
-        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
-        // dd($my_u);
-        $approval_status = null;
-        return view('admin.user.all_users_month', compact('agents', 'approval_status'));
-    }
-
-
-
-    public function save_agent_id(){
-      $users = User::whereNotNull('idOfAgent')->get();
-      foreach ($users as $user) {
-         $user->agent_id = $user->idOfAgent;
-        $user->save();
+        $agents[$key]->total_refers_count = $serv->total_refers->count();
       }
-
-     
-            return redirect('/admin/dashboard/all-agents-yesterday');
-      // return redirect()->back();
+    // dd($agents);
+         // Auth::user()->subscriptions->first()
+        // $agents = Auth::user()->referals->all();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
+        // foreach ($users as $user) {
+        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
+        // dd($my_u);
+      $approval_status = null;
+      return view('admin.user.all_agents_yesterday', compact('agents', 'approval_status'));
     }
 
-      public function all_agents_downline_yesterday()
+    public function agents_last_week()
     {
-        $agents =  Agent::all();
+      $agents = Agent::all();
+        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
+        // dd($agents);
+
+        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
+      $users = Referal::where('referalable_type', 'App\Agent')->get();
+        // dd($users);
+        // foreach ($users as $user) {
+        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+
+      foreach ($agents as $key => $serv) {
+      // this is assigning a new field called total_likes to allservices
+      //note, the total_likes is coming from a function in the model
+      // $agents[$key]->total_refers = $serv->total_refers;
+        $agents[$key]->total_week_count = $serv->total_week->count();
+      }
+    // dd($agents);
+         // Auth::user()->subscriptions->first()
+        // $agents = Auth::user()->referals->all();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
+        // foreach ($users as $user) {
+        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
+        // dd($my_u);
+      $approval_status = null;
+      return view('admin.user.all_agents_week', compact('agents', 'approval_status'));
+    }
+
+
+    public function agents_last_month()
+    {
+      $agents = Agent::all();
+        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
+        // dd($agents);
+
+        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
+      $users = Referal::where('referalable_type', 'App\Agent')->get();
+        // dd($users);
+        // foreach ($users as $user) {
+        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+
+      foreach ($agents as $key => $serv) {
+      // this is assigning a new field called total_likes to allservices
+      //note, the total_likes is coming from a function in the model
+      // $agents[$key]->total_refers = $serv->total_refers;
+        $agents[$key]->total_month_count = $serv->total_month->count();
+      }
+    // dd($agents);
+         // Auth::user()->subscriptions->first()
+        // $agents = Auth::user()->referals->all();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
+        // foreach ($users as $user) {
+        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
+        // dd($my_u);
+      $approval_status = null;
+      return view('admin.user.all_agents_month', compact('agents', 'approval_status'));
+    }
+
+
+
+    public function allusers_sales_yesterday()
+    {
+      $agents = User::all();
+        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
+        // dd($agents);
+
+        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
+      $users = Referal::where('referalable_type', 'App\Agent')->get();
+        // dd($users);
+        // foreach ($users as $user) {
+        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+
+      foreach ($agents as $key => $serv) {
+      // this is assigning a new field called total_likes to allservices
+      //note, the total_likes is coming from a function in the model
+      // $agents[$key]->total_refers = $serv->total_refers;
+        $agents[$key]->total_refers_count = $serv->total_refers->count();
+      }
+    // dd($agents);
+         // Auth::user()->subscriptions->first()
+        // $agents = Auth::user()->referals->all();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
+        // foreach ($users as $user) {
+        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
+        // dd($my_u);
+      $approval_status = null;
+      return view('admin.user.all_users_yesterday', compact('agents', 'approval_status'));
+    }
+
+    public function users_last_week()
+    {
+      $agents = User::all();
+        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
+        // dd($agents);
+
+        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
+      $users = Referal::where('referalable_type', 'App\Agent')->get();
+        // dd($users);
+        // foreach ($users as $user) {
+        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+
+      foreach ($agents as $key => $serv) {
+      // this is assigning a new field called total_likes to allservices
+      //note, the total_likes is coming from a function in the model
+      // $agents[$key]->total_refers = $serv->total_refers;
+        $agents[$key]->total_week_count = $serv->total_week->count();
+      }
+    // dd($agents);
+         // Auth::user()->subscriptions->first()
+        // $agents = Auth::user()->referals->all();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
+        // foreach ($users as $user) {
+        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
+        // dd($my_u);
+      $approval_status = null;
+      return view('admin.user.all_users_week', compact('agents', 'approval_status'));
+    }
+
+
+    public function users_last_month()
+    {
+      $agents = User::all();
+        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
+        // dd($agents);
+
+        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
+      $users = Referal::where('referalable_type', 'App\Agent')->get();
+        // dd($users);
+        // foreach ($users as $user) {
+        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+
+      foreach ($agents as $key => $serv) {
+      // this is assigning a new field called total_likes to allservices
+      //note, the total_likes is coming from a function in the model
+      // $agents[$key]->total_refers = $serv->total_refers;
+        $agents[$key]->total_month_count = $serv->total_month->count();
+      }
+    // dd($agents);
+         // Auth::user()->subscriptions->first()
+        // $agents = Auth::user()->referals->all();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->get();
+        // foreach ($users as $user) {
+        //   $agents = $users::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+        // $agents = $my_u->whereDate('created_at', Carbon::yesterday())->get();
+        // dd($my_u);
+      $approval_status = null;
+      return view('admin.user.all_users_month', compact('agents', 'approval_status'));
+    }
+
+
+    public function users_sub_almost_ended()
+    {
+      // $agents = User::where( 'created_at', '>', Carbon::now()->subDays(30));
+      $agents = User::all();
+      $names = array();
+      $names2 = array();
+      $second = Carbon::now()->subDays(6);
+      $first =  Carbon::now();
+      foreach ($agents as $user) {
+       if(Carbon::parse($user->subscriptions->first()->subscription_end_date)->between($first, $second)){
+        array_push($names, $user);
+
+        $eee= 1;
+      }else{
+        $eee=2;
+        array_push($names2, $user);
+      }
+      // if (($user->created_at - Carbon::now()->subDays(30)) >= 15) {
+      //   array_push($bbb, $user);
+      // }
+      // $service = Service::where('user_id', $user->id)->first();
+        //   dd($service);
+
+      // $user->phone = $service->phone;
+
+      // $user->save();
+      dd($names, $names2);
+
+    }
+
+
+    $second = Carbon::now()->subDays(16);
+    $first =  Carbon::now();
+
+    if(Carbon::parse($agents->subscriptions->first()->subscription_end_date)->between($first, $second)){
+      $eee= 1;
+    }else{
+      $eee=2;
+    }
+    dd($eee);
+      // if ($updated_at->between($first, $second)) {
+        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
+        // dd($agents);
+
+        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
+        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
+      // $users = Referal::where('referalable_type', 'App\Agent')->get();
+        // dd($users);
+        // foreach ($users as $user) {
+        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
+        // }
+
+
+        // $agents = User::where('phone', null)->get();
+    $bbb = [];
+    foreach ($agents as $user) {
+      if (($user->created_at - Carbon::now()->subDays(30)) >= 15) {
+        array_push($bbb, $user);
+      }
+      $service = Service::where('user_id', $user->id)->first();
+        //   dd($service);
+
+      $user->phone = $service->phone;
+
+      $user->save();
+        // $agents[$key]->total_month_count = $serv->total_month->count();
+    }
+    return redirect('admin.dashboard');
+  }
+
+
+
+  public function save_agent_id(){
+    $users = User::whereNotNull('idOfAgent')->get();
+    foreach ($users as $user) {
+     $user->agent_id = $user->idOfAgent;
+     $user->save();
+   }     
+   return redirect('/admin/dashboard/all-agents-yesterday');
+      // return redirect()->back();
+ }
+
+ public function all_agents_downline_yesterday()
+ {
+  $agents =  Agent::all();
         // $agent_downlines = User::where('idOfAgent', $user->id)->where('created_at', '>', Carbon::now()->subMinutes(1440))->get();
-        $agent_downlines = User::where('idOfAgent', $user->id)->whereDate('created_at', Carbon::yesterday())->get();
+  $agent_downlines = User::where('idOfAgent', $user->id)->whereDate('created_at', Carbon::yesterday())->get();
               // dd($agent_downlines);
           // $posts = Post::whereDate('created_at', Carbon::today())->get();
         // Category::orderBy('id', 'asc')->paginate(35);
-        return view('admin.user.agent_yesterday', compact('agents'));
-    }
+  return view('admin.user.agent_yesterday', compact('agents'));
+}
 
     // $getItemsOneDay = Deposit::where('steam_user_id',0)->where('status', Deposit::STATUS_ACTIVE)
     // ->where('created_at', '>', Carbon::now()->subMinutes(1440))->get();
 
 
-    public function all_marketer_earnings()
-    {
-      $efmarketers = User::where('is_ef_marketer', '1')->get();
-      return view('admin.earnings.marketers', [
-        'efmarketers' => $efmarketers
-      ]);
-    }
+public function all_marketer_earnings()
+{
+  $efmarketers = User::where('is_ef_marketer', '1')->get();
+  return view('admin.earnings.marketers', [
+    'efmarketers' => $efmarketers
+  ]);
+}
 
 
     //  public function all_agent_earnings()

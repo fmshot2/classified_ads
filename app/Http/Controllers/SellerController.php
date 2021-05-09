@@ -35,15 +35,16 @@ class SellerController extends Controller
     public function createService()
     {
         $success_notification = array(
-        'message' => 'Please renew your subscription to view this page!',
-        'alert-type' => 'error'
-     );
-$user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
+            'message' => 'Please renew your subscription to view this page!',
+            'alert-type' => 'error'
+        );
+        $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
 
-if (Carbon::now() < Carbon::parse($user_sub_date)) {
-        return redirect()->route('seller.sub.create')->with($success_notification);
-}
-         $category = Category::orderBy('name', 'asc')->get();
+        if (Carbon::now() > Carbon::parse($user_sub_date)) {
+        // return redirect()->route('seller.sub.create')->with($success_notification);
+            return redirect()->route('seller.sub.create');
+        }
+        $category = Category::orderBy('name', 'asc')->get();
         $subcategory = SubCategory::orderBy('name', 'asc')->get();
         $states = State::all();
         return view ('seller.service.create', compact('category', 'states', 'subcategory') );
@@ -67,10 +68,10 @@ if (Carbon::now() < Carbon::parse($user_sub_date)) {
             'video_link' => 'nullable',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
         ]);
-       $image = $request->file('image');
-       $random = Str::random(3);
-       $slug = Str::of($request->name)->slug('-').''.$random;
-       $service = new Service();
+        $image = $request->file('image');
+        $random = Str::random(3);
+        $slug = Str::of($request->name)->slug('-').''.$random;
+        $service = new Service();
 /*
    if ( $request->hasFile('files') ) {
                 $names = array();
@@ -108,117 +109,117 @@ foreach($request->file('files') as $image)
 
 
 
-        $state_details = State::where('name', $data['state'])->first();
+$state_details = State::where('name', $data['state'])->first();
 
 
-        $service->user_id = Auth::id();
-        $service->category_id = $data['category_id'];
-        $service->name = $data['name'];
-        $service->description = $data['description'];
+$service->user_id = Auth::id();
+$service->category_id = $data['category_id'];
+$service->name = $data['name'];
+$service->description = $data['description'];
         // $service->experience = $data['experience'];
-        $service->phone = $data['phone'];
-        $service->min_price = $data['min_price'];
-        $service->state = $data['state'];
-        $service->latitude = $state_details->latitude;
-        $service->longitude = $state_details->longitude;
-        $service->city = $data['city'];
-        $service->address = $data['address'];
-        $service->max_price = $data['category_id'];
-        $service->video_link = $data['video_link'];
+$service->phone = $data['phone'];
+$service->min_price = $data['min_price'];
+$service->state = $data['state'];
+$service->latitude = $state_details->latitude;
+$service->longitude = $state_details->longitude;
+$service->city = $data['city'];
+$service->address = $data['address'];
+$service->max_price = $data['category_id'];
+$service->video_link = $data['video_link'];
         // $service->subscription_end_date = Auth::user()->subscription_end_date;
-         $service->subscription_end_date =  Auth::user()->subscriptions->first()->subscription_end_date;
+$service->subscription_end_date =  Auth::user()->subscriptions->first()->subscription_end_date;
 
 
 
-       if (isset($request->is_featured)) {
-            $service->is_featured = $data['is_featured'];
-       }
+if (isset($request->is_featured)) {
+    $service->is_featured = $data['is_featured'];
+}
 
-        $service->slug = $slug;
+$service->slug = $slug;
         // $service->video_link = $request->video_link;$data['category_id'];
-        $service->save();
+$service->save();
 
-        if ($service->save()) {
-            if ($request->hasFile('thumbnail')) {
-                $image       = $request->file('thumbnail');
-                $fileInfo = $image->getClientOriginalName();
-                $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
-                $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
-                $file_name= $filename.'-'.time().'.'.$extension;
+if ($service->save()) {
+    if ($request->hasFile('thumbnail')) {
+        $image       = $request->file('thumbnail');
+        $fileInfo = $image->getClientOriginalName();
+        $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
+        $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
+        $file_name= $filename.'-'.time().'.'.$extension;
 
                 //Fullsize
-                $image->move(public_path('uploads/services/'),$file_name);
+        $image->move(public_path('uploads/services/'),$file_name);
 
-                $image_resize = Image::make(public_path('uploads/services/').$file_name);
-                $image_resize->resize(null, 300, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-                $image_resize->save(public_path('uploads/services/' .$file_name));
+        $image_resize = Image::make(public_path('uploads/services/').$file_name);
+        $image_resize->resize(null, 300, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $image_resize->save(public_path('uploads/services/' .$file_name));
 
-                $service->images()->create(['image_path' => $file_name]);
-                $service->thumbnail = $service->images()->first()->image_path;
-                $service->save();
-            }
-        }
-
-
-
-        $latest_service = Service::where('user_id', Auth::id())->latest()->first();
-        $latest_service_id = $latest_service->id;
-
-        $service->sub_categories()->attach($request->sub_category);
-
-        $service_owner = Auth::user();
-        $service_owner->name = Auth::user()->name;
-        $service_owner->email = Auth::user()->email;
+        $service->images()->create(['image_path' => $file_name]);
+        $service->thumbnail = $service->images()->first()->image_path;
+        $service->save();
+    }
+}
 
 
-        if ($service->save()) {
-            $name =  $service->name;
-            $category =  $service->category->name;
-            $phone =  $service->phone;
-            $state =  $service->state;
-            $slug =  $service->slug;
 
-            try{
-                Mail::to($service_owner->email)->send(new ServiceCreated($name, $category, $phone, $state, $slug));
-            }
-            catch(\Exception $e){
-                $failedtosendmail = 'Failed to Mail!.';
-            }
-        }
+$latest_service = Service::where('user_id', Auth::id())->latest()->first();
+$latest_service_id = $latest_service->id;
 
-       $present_user = Auth::user();
-        $user_hasUploadedService = $present_user->hasUploadedService;
-        if ($user_hasUploadedService == 1) {
-            return redirect()->route('seller.service.show.service', ['slug' => $latest_service->slug])->with([
-                'message' => 'Service created successfully!',
-                'alert-type' => 'success'
-            ]);
+$service->sub_categories()->attach($request->sub_category);
 
-        }
-        $present_user->hasUploadedService = 1;
-        $user_referer_id = $present_user->idOfReferer;
-        $present_user->save();
+$service_owner = Auth::user();
+$service_owner->name = Auth::user()->name;
+$service_owner->email = Auth::user()->email;
 
-        $referer = User::where('id', $user_referer_id)->first();
-        if ($referer) {
-        $referer->refererAmount = $referer->refererAmount + 50;
-        $referer->save();
 
-        $success_notification = array(
-            'message' => 'Task was successful!',
-            'alert-type' => 'success'
-        );
+if ($service->save()) {
+    $name =  $service->name;
+    $category =  $service->category->name;
+    $phone =  $service->phone;
+    $state =  $service->state;
+    $slug =  $service->slug;
+
+    try{
+        Mail::to($service_owner->email)->send(new ServiceCreated($name, $category, $phone, $state, $slug));
+    }
+    catch(\Exception $e){
+        $failedtosendmail = 'Failed to Mail!.';
+    }
+}
+
+$present_user = Auth::user();
+$user_hasUploadedService = $present_user->hasUploadedService;
+if ($user_hasUploadedService == 1) {
+    return redirect()->route('seller.service.show.service', ['slug' => $latest_service->slug])->with([
+        'message' => 'Service created successfully!',
+        'alert-type' => 'success'
+    ]);
+
+}
+$present_user->hasUploadedService = 1;
+$user_referer_id = $present_user->idOfReferer;
+$present_user->save();
+
+$referer = User::where('id', $user_referer_id)->first();
+if ($referer) {
+    $referer->refererAmount = $referer->refererAmount + 50;
+    $referer->save();
+
+    $success_notification = array(
+        'message' => 'Task was successful!',
+        'alert-type' => 'success'
+    );
        //$this->saveReferLink();
         // return redirect()->route('seller/service/' . $latest_service_id);
-        return redirect()->route('seller.service.show.service', ['slug' => $latest_service->slug])->with($success_notification);
+    return redirect()->route('seller.service.show.service', ['slug' => $latest_service->slug])->with($success_notification);
 
-        }
+}
 
-        return redirect()->route('seller.service.show.service', ['slug' => $latest_service->slug]);
+return redirect()->route('seller.service.show.service', ['slug' => $latest_service->slug]);
 
-   }
+}
 
 
 
@@ -226,30 +227,30 @@ foreach($request->file('files') as $image)
 public function saveReferLink($refererlink){
 
   $link = new Refererlink();
-           $link->user_id = Auth::id();
-           $link->refererlink = $refererlink;
-           $link->save();
+  $link->user_id = Auth::id();
+  $link->refererlink = $refererlink;
+  $link->save();
 }
 
-   public function storeServiceUpdate(Request $request, $id)
-   {
+public function storeServiceUpdate(Request $request, $id)
+{
 
     // dd($request->all());
-        $service = Service::findOrFail($id);
+    $service = Service::findOrFail($id);
 
-        $this->validate($request,[
-            'description' => 'nullable',
-            'address' => 'nullable',
-            'description' => 'nullable',
+    $this->validate($request,[
+        'description' => 'nullable',
+        'address' => 'nullable',
+        'description' => 'nullable',
             //'city' => 'required',
-            'name' => 'nullable',
-            'state' => 'nullable',
-            'min_price' => 'nullable|numeric',
-            'video_link' => 'nullable',
-            'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-        $image = $request->file('image');
-        $slug = Str::random(5);
+        'name' => 'nullable',
+        'state' => 'nullable',
+        'min_price' => 'nullable|numeric',
+        'video_link' => 'nullable',
+        'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+    $image = $request->file('image');
+    $slug = Str::random(5);
 
                 // Image set up
             // if ( $request->hasFile('files') ) {
@@ -299,123 +300,135 @@ public function saveReferLink($refererlink){
                 }
             }
 
-        $service->user_id = Auth::id();
-        $service->category_id = $request->category_id;
-        $service->name = $request->name;
-        $service->phone = $request->phone;
-        $service->city = $request->city;
-        $service->experience = $request->experience;
-        $service->address = $request->address;
-        $service->min_price = $request->min_price;
-        $service->max_price = $request->max_price;
-        $service->video_link = $request->video_link;
-        $service->description = $request->description;
-        $service->state = $request->state;
+            $service->user_id = Auth::id();
+            $service->category_id = $request->category_id;
+            $service->name = $request->name;
+            $service->phone = $request->phone;
+            $service->city = $request->city;
+            $service->experience = $request->experience;
+            $service->address = $request->address;
+            $service->min_price = $request->min_price;
+            $service->max_price = $request->max_price;
+            $service->video_link = $request->video_link;
+            $service->description = $request->description;
+            $service->state = $request->state;
 
-        if ($service->save()) {
-            return redirect()->back()->with([
-                'message' => 'Service Updated successfully!',
-                'alert-type' => 'success'
-            ]);
+            if ($service->save()) {
+                return redirect()->back()->with([
+                    'message' => 'Service Updated successfully!',
+                    'alert-type' => 'success'
+                ]);
+            }
+            else {
+                return redirect()->back()->with([
+                    'message' => 'Something went wrong. Try again!',
+                    'alert-type' => 'error'
+                ]);
+            }
+
+
+
         }
-        else {
-            return redirect()->back()->with([
-                'message' => 'Something went wrong. Try again!',
-                'alert-type' => 'error'
-            ]);
+
+
+        public function unreadMessage()
+        {
+           $all_message = Message::where('service_user_id', Auth::id() );
+           $unread_message =  $all_message->Where('status', 0)->orderBy('id', 'desc')->paginate(10);
+           return view ('seller.message.unread', compact('unread_message') );
+       }
+
+       public function readMessage()
+       {
+        $all_message = Message::where('service_user_id', Auth::id() );
+        $read_message =  $all_message->Where('status', 1)->orderBy('id', 'desc')->paginate(10);
+        return view ('seller.message.read', compact('read_message') );
+    }
+
+    public function allMessage()
+    { 
+    // $all_message = Message::where('buyer_id', Auth::id())->orwhere('service_user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+    // return view ('seller.message.all', compact('all_message') );
+
+        $success_notification = array(
+            'message' => 'Please renew your subscription to view this page!',
+            'alert-type' => 'error'
+        );
+        $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
+
+        if (Carbon::now() > Carbon::parse($user_sub_date)) {
+            // return redirect()->route('seller.sub.create')->with($success_notification);
+        return redirect()->route('seller.sub.create');            
         }
-
-
-
+        $all_user_messages = Message::where('user_id', Auth::id())->orWhere('receiver_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        return view ('seller.message.all', compact('all_user_messages') );
     }
 
 
-public function unreadMessage()
-{
- $all_message = Message::where('service_user_id', Auth::id() );
- $unread_message =  $all_message->Where('status', 0)->orderBy('id', 'desc')->paginate(10);
- return view ('seller.message.unread', compact('unread_message') );
-}
+    public function destroyMessage($id)
+    {
+        $message = Message::findOrFail($id);
+        $message->delete();
+        session()->flash('status', 'Task was successful!');
+        return back();
+    }
 
-public function readMessage()
-{
-    $all_message = Message::where('service_user_id', Auth::id() );
-    $read_message =  $all_message->Where('status', 1)->orderBy('id', 'desc')->paginate(10);
-    return view ('seller.message.read', compact('read_message') );
-}
+    public function viewMessage($slug)
+    {
+        $message = Message::where('slug', $slug)->first();
+        $message->status = 1;
+        $message->save();
+        return view ('seller.message.view_message', compact('message') );
+    }
 
-public function allMessage()
-{ 
-    // $all_message = Message::where('buyer_id', Auth::id())->orwhere('service_user_id', Auth::id())->orderBy('created_at', 'desc')->get();
-    // return view ('seller.message.all', compact('all_message') );
-    $success_notification = array(
+    public function replyMessage($slug)
+    {
+        $message = Message::where('slug', $slug)->first();
+        return view ('seller.message.reply_message', compact('message') );
+    }
+
+    public function allNotification()
+    {
+        $success_notification = array(
+            'message' => 'Please renew your subscription to view this page!',
+            'alert-type' => 'error'
+        );
+        if (Auth::user()->subscriptions->first()) {
+            return redirect()->route('seller.sub.create')->with($success_notification);
+        }
+
+        $all_notification = Notification::paginate(8);
+        return view ('seller.notification.all_notification', compact('all_notification') );
+    }
+
+    public function activeService()
+    {
+        $all_service = Service::where('user_id', Auth::id() );
+        $active_service =  $all_service->Where('status', 1)->paginate(5);
+        return view ('seller.service.active_service', compact('active_service') );
+    }
+
+    public function pendingService()
+    {
+        $all_service = Service::where('user_id', Auth::id() );
+        $pending_service =  $all_service->Where('status', 0)->paginate(5);
+        return view ('seller.service.pending_service', compact('pending_service') );
+    }
+
+    public function allService()
+    {
+      $success_notification = array(
         'message' => 'Please renew your subscription to view this page!',
         'alert-type' => 'error'
     );
-    if (Auth::user()->subscriptions->first()) {
-        return redirect()->route('seller.sub.create')->with($success_notification);
- }
+      $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
 
-    $all_user_messages = Message::where('user_id', Auth::id())->orWhere('receiver_id', Auth::id())->orderBy('created_at', 'desc')->get();
-    return view ('seller.message.all', compact('all_user_messages') );
-}
-
-
-public function destroyMessage($id)
-{
-    $message = Message::findOrFail($id);
-    $message->delete();
-    session()->flash('status', 'Task was successful!');
-    return back();
-}
-
-public function viewMessage($slug)
-{
-    $message = Message::where('slug', $slug)->first();
-    $message->status = 1;
-    $message->save();
-    return view ('seller.message.view_message', compact('message') );
-}
-
-public function replyMessage($slug)
-{
-    $message = Message::where('slug', $slug)->first();
-    return view ('seller.message.reply_message', compact('message') );
-}
-
-public function allNotification()
-{
-    $success_notification = array(
-        'message' => 'Please renew your subscription to view this page!',
-        'alert-type' => 'error'
-    );
-    if (Auth::user()->subscriptions->first()) {
-        return redirect()->route('seller.sub.create')->with($success_notification);
- }
-
-    $all_notification = Notification::paginate(8);
-    return view ('seller.notification.all_notification', compact('all_notification') );
-}
-
-public function activeService()
-{
-    $all_service = Service::where('user_id', Auth::id() );
-    $active_service =  $all_service->Where('status', 1)->paginate(5);
-    return view ('seller.service.active_service', compact('active_service') );
-}
-
-public function pendingService()
-{
-    $all_service = Service::where('user_id', Auth::id() );
-    $pending_service =  $all_service->Where('status', 0)->paginate(5);
-    return view ('seller.service.pending_service', compact('pending_service') );
-}
-
-public function allService()
-{
-
+      if (Carbon::now() > Carbon::parse($user_sub_date)) {
+        // return redirect()->route('seller.sub.create')->with($success_notification);
+        return redirect()->route('seller.sub.create');        
+    }
     $all_services = Service::where('user_id', Auth::id() )->orderBy('created_at', 'desc')->get();
-         return view ('seller.service.all_service', compact('all_services') );
+    return view ('seller.service.all_service', compact('all_services') );
 }
 
 public function viewServiceUpdate($slug)
@@ -504,40 +517,40 @@ public function badgeNotice()
     return view ('seller.section.badge_notification', compact('active_service_count', 'all_service') );
 }
 
-    public function getSellerPage()
-    {
-        $user = auth()->user();
-        return view('seller.withdrawal.make_withdrawal', [
-            'user' => $user
-        ]);
-    }
+public function getSellerPage()
+{
+    $user = auth()->user();
+    return view('seller.withdrawal.make_withdrawal', [
+        'user' => $user
+    ]);
+}
 
-    public function PaymentHistory()
-    {
-        $user = auth()->user();
-        $user_id = $user->id;
-        $payment_history = PaymentRequest::where('user_id', $user_id)->get();
+public function PaymentHistory()
+{
+    $user = auth()->user();
+    $user_id = $user->id;
+    $payment_history = PaymentRequest::where('user_id', $user_id)->get();
 
-        $total_balance = DB::table('payment_requests')->where('user_id', $user_id)->sum('amount_requested') + $user->refererAmount;
-        $total_requested = DB::table('payment_requests')->where(['user_id' => $user_id, 'is_paid' => 1])->sum('amount_requested');
-        $total_pending = DB::table('payment_requests')->where(['user_id' => $user_id, 'is_paid' => 0])->sum('amount_requested');
-        $balance = $user->refererAmount;
-        return view('seller.payment_history', [
-            'payment_history' => $payment_history,
-            'total_balance' => $total_balance,
-            'total_requested' => $total_requested,
-            'balance' => $balance,
-            'total_pending' => $total_pending
-        ]);
-    }
+    $total_balance = DB::table('payment_requests')->where('user_id', $user_id)->sum('amount_requested') + $user->refererAmount;
+    $total_requested = DB::table('payment_requests')->where(['user_id' => $user_id, 'is_paid' => 1])->sum('amount_requested');
+    $total_pending = DB::table('payment_requests')->where(['user_id' => $user_id, 'is_paid' => 0])->sum('amount_requested');
+    $balance = $user->refererAmount;
+    return view('seller.payment_history', [
+        'payment_history' => $payment_history,
+        'total_balance' => $total_balance,
+        'total_requested' => $total_requested,
+        'balance' => $balance,
+        'total_pending' => $total_pending
+    ]);
+}
 
 
-     public function myreferrals()
-    {
-        $myreferrals = Auth::user()->referals;
+public function myreferrals()
+{
+    $myreferrals = Auth::user()->referals;
 
         // $myreferrals = Agent::find(50)->referals;
-         return view('seller.myreferrals', compact('myreferrals'));
-    }
+    return view('seller.myreferrals', compact('myreferrals'));
+}
 
 }

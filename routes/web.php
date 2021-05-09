@@ -36,10 +36,14 @@ Route::post('/message/reply/store', 'MessageController@reply')->name('client.mes
 
 Route::post('/comment/store', 'CommentsController@store')->name('comment.add');
 Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
+//Special URLs
 //add slug to old users who have no slug
 Route::get('/addSlug', 'AuthController@addSlug')->name('addSlug');
 Route::get('/save_agent_id', 'AdminController@save_agent_id')->name('save_agent_id');
 Route::get('/set_sub', 'ServiceController@set_sub')->name('set_sub');
+Route::get('/users_sub_almost_ended', 'AdminController@users_sub_almost_ended')->name('users_sub_almost_ended');
+
+//End Special URLS
 
 
 Route::get('dashboard/ef-downline/{slug}', 'AdminController@ef_marketers_downline')->name('efMarketerDownline');

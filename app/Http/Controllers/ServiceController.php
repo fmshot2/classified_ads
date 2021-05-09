@@ -130,6 +130,9 @@ class ServiceController extends Controller
 
     public function index2(Request $request)
     {
+                $value = $request->session()->get('current_param');
+                dd($value);
+
         // $category_city = Service::all()->random(4);
         // dd($category_city);
         // $latitude = session()->get('latitude');
