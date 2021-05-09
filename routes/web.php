@@ -41,7 +41,7 @@ Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
 Route::get('/addSlug', 'AuthController@addSlug')->name('addSlug');
 Route::get('/save_agent_id', 'AdminController@save_agent_id')->name('save_agent_id');
 Route::get('/set_sub', 'ServiceController@set_sub')->name('set_sub');
-Route::get('/users_sub_almost_ended', 'AdminController@users_sub_almost_ended')->name('users_sub_almost_ended');
+Route::get('/users_sub_almost_ended', 'AdminController@ending_seller')->name('users_sub_almost_ended');
 
 //End Special URLS
 
@@ -511,6 +511,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
 
     Route::get('/admin/dashboard/service-providers', 'AuthController@seller')->name('admin.seller');
+    Route::get('/admin/dashboard/ending_seller', 'AdminController@ending_seller')->name('admin.ending_seller');
     Route::get('/admin/dashboard/all-agents', 'AuthController@allagents')->name('admin.allagents');
     Route::get('/admin/dashboard/all-agents-yesterday', 'AdminController@allagents_sales_yesterday')->name('admin.agents_yesterday');
     Route::get('/admin/dashboard/agents_last_week', 'AdminController@agents_last_week')->name('admin.agents_last_week');

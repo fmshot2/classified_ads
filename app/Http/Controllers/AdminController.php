@@ -1364,111 +1364,123 @@ public function save_faq(Request $request)
     }
 
 
-    public function users_sub_almost_ended()
+    public function users_sub_almost_ended2()
     {
       // $agents = User::where( 'created_at', '>', Carbon::now()->subDays(30));
       $agents = User::all();
+      // dd($agents->subscriptions->first()->subscription_end_date);
       $names = array();
       $names2 = array();
-      $second = Carbon::now()->subDays(6);
-      $first =  Carbon::now();
-      foreach ($agents as $user) {
-       if(Carbon::parse($user->subscriptions->first()->subscription_end_date)->between($first, $second)){
-        array_push($names, $user);
+      $second = Carbon::now()->subDays(18);
+      // dd($second);
 
+      $first =  Carbon::now();
+       foreach ($agents as $key => $user) {
+      // this is assigning a new field called total_likes to allservices
+      //note, the total_likes is coming from a function in the model
+      // $agents[$key]->total_refers = $serv->total_refers;
+        $agents[$key]->rtrt = $user->subscriptions->first();
+      foreach ($user->rtrt as $key => $user2) {
+        if(Carbon::parse($user2->subscription_end_date)->between($first, $second)){
         $eee= 1;
+        array_push($names, $user);
       }else{
         $eee=2;
-        array_push($names2, $user);
       }
-      // if (($user->created_at - Carbon::now()->subDays(30)) >= 15) {
-      //   array_push($bbb, $user);
-      // }
-      // $service = Service::where('user_id', $user->id)->first();
-        //   dd($service);
-
-      // $user->phone = $service->phone;
-
-      // $user->save();
-      dd($names, $names2);
-
     }
-
-
-    $second = Carbon::now()->subDays(16);
-    $first =  Carbon::now();
-
-    if(Carbon::parse($agents->subscriptions->first()->subscription_end_date)->between($first, $second)){
-      $eee= 1;
-    }else{
-      $eee=2;
-    }
-    dd($eee);
-      // if ($updated_at->between($first, $second)) {
-        // $agents = User::with('agents')->whereDate('created_at', Carbon::yesterday())->get();
-        // $agents = User::whereNotNull('idOfAgent')->whereDate('created_at', Carbon::yesterday())->with('agents')->get();
-        // dd($agents);
-
-        // $agents = Agent::whereDate('created_at', Carbon::yesterday())->get();
-        // $agents = $agents->referals->whereDate('created_at', Carbon::yesterday())->get();
-      // $users = Referal::where('referalable_type', 'App\Agent')->get();
-        // dd($users);
-        // foreach ($users as $user) {
-        //   $agents = User::where('idOfAgent', $user->referalable_id)->whereDate('created_at', Carbon::yesterday())->get();
-        // }
-
-
-        // $agents = User::where('phone', null)->get();
-    $bbb = [];
-    foreach ($agents as $user) {
-      if (($user->created_at - Carbon::now()->subDays(30)) >= 15) {
-        array_push($bbb, $user);
       }
-      $service = Service::where('user_id', $user->id)->first();
-        //   dd($service);
+      dd($eee);
 
-      $user->phone = $service->phone;
+              // dd($agents);
+        // array_push($names, $agents);
 
-      $user->save();
-        // $agents[$key]->total_month_count = $serv->total_month->count();
+      $second = Carbon::now()->subDays(16);
+      $first =  Carbon::now();
+      // dd($agents);
+      if(Carbon::parse($agents->subscriptions->subscription_end_date)->between($first, $second)){
+        $eee= 1;
+        array_push($names, $agents);
+      }else{
+        $eee=2;
+      }
+      dd($eee);
+      $bbb = [];
+      foreach ($agents as $user) {
+        if (($user->created_at - Carbon::now()->subDays(30)) >= 15) {
+          array_push($bbb, $user);
+        }
+        $service = Service::where('user_id', $user->id)->first();
+
+        $user->phone = $service->phone;
+
+        $user->save();
+      }
+      $agents2 = User::all();
+      $agents = User::where($agents2->subscriptions->first()->subscription_end_date, '<', Carbon::now()->subDays(6));
+      return redirect('admin.dashboard');
     }
-    return redirect('admin.dashboard');
-  }
+
+
+    public function ending_seller()
+    {        
+        $names = array();
+      $names22 = array();
+      $second = Carbon::now()->subDays(15);
+      $first =  Carbon::now();
+      $subb = Subscription::all();
+      foreach($subb as $user) {
+      if(Carbon::parse($user->subscription_end_date)->between($first, $second)){
+        $eee= 1;
+        array_push($names, $user);
+      }else{
+        $eee=2;
+      }
+    }
+  
+    foreach ($names as $myuser) {
+      $myuser2 = User::where('id', $myuser->subscriptionable_id)->get();
+      array_push($names22, $user);
+    }
+
+    $seller = collect($names22);
+        return view('admin.user.ending_seller', compact('seller'));
+    }
 
 
 
-  public function save_agent_id(){
-    $users = User::whereNotNull('idOfAgent')->get();
-    foreach ($users as $user) {
-     $user->agent_id = $user->idOfAgent;
-     $user->save();
-   }     
-   return redirect('/admin/dashboard/all-agents-yesterday');
+
+    public function save_agent_id(){
+      $users = User::whereNotNull('idOfAgent')->get();
+      foreach ($users as $user) {
+       $user->agent_id = $user->idOfAgent;
+       $user->save();
+     }     
+     return redirect('/admin/dashboard/all-agents-yesterday');
       // return redirect()->back();
- }
+   }
 
- public function all_agents_downline_yesterday()
- {
-  $agents =  Agent::all();
+   public function all_agents_downline_yesterday()
+   {
+    $agents =  Agent::all();
         // $agent_downlines = User::where('idOfAgent', $user->id)->where('created_at', '>', Carbon::now()->subMinutes(1440))->get();
-  $agent_downlines = User::where('idOfAgent', $user->id)->whereDate('created_at', Carbon::yesterday())->get();
+    $agent_downlines = User::where('idOfAgent', $user->id)->whereDate('created_at', Carbon::yesterday())->get();
               // dd($agent_downlines);
           // $posts = Post::whereDate('created_at', Carbon::today())->get();
         // Category::orderBy('id', 'asc')->paginate(35);
-  return view('admin.user.agent_yesterday', compact('agents'));
-}
+    return view('admin.user.agent_yesterday', compact('agents'));
+  }
 
     // $getItemsOneDay = Deposit::where('steam_user_id',0)->where('status', Deposit::STATUS_ACTIVE)
     // ->where('created_at', '>', Carbon::now()->subMinutes(1440))->get();
 
 
-public function all_marketer_earnings()
-{
-  $efmarketers = User::where('is_ef_marketer', '1')->get();
-  return view('admin.earnings.marketers', [
-    'efmarketers' => $efmarketers
-  ]);
-}
+  public function all_marketer_earnings()
+  {
+    $efmarketers = User::where('is_ef_marketer', '1')->get();
+    return view('admin.earnings.marketers', [
+      'efmarketers' => $efmarketers
+    ]);
+  }
 
 
     //  public function all_agent_earnings()
