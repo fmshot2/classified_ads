@@ -1423,26 +1423,24 @@ public function save_faq(Request $request)
 
     public function ending_seller()
     {        
-        $names = array();
+      $names = array();
       $names22 = array();
       $second = Carbon::now()->subDays(15);
       $first =  Carbon::now();
       $subb = Subscription::all();
       foreach($subb as $user) {
       if(Carbon::parse($user->subscription_end_date)->between($first, $second)){
-        $eee= 1;
         array_push($names, $user);
-      }else{
-        $eee=2;
       }
     }
   
     foreach ($names as $myuser) {
       $myuser2 = User::where('id', $myuser->subscriptionable_id)->get();
-      array_push($names22, $user);
+      array_push($names22, $myuser2);
     }
 
-    $seller = collect($names22);
+    $seller = $names22;
+    // dd($seller);
         return view('admin.user.ending_seller', compact('seller'));
     }
 
