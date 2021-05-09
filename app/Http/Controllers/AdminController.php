@@ -1394,7 +1394,7 @@ public function save_faq(Request $request)
               // dd($agents);
         // array_push($names, $agents);
 
-      $second = Carbon::now()->subDays(16);
+      $second = Carbon::now()->addDays(14);
       $first =  Carbon::now();
       // dd($agents);
       if(Carbon::parse($agents->subscriptions->subscription_end_date)->between($first, $second)){
@@ -1425,7 +1425,7 @@ public function save_faq(Request $request)
     {        
       $names = array();
       $names22 = array();
-      $second = Carbon::now()->subDays(15);
+      $second = Carbon::now()->addDays(15);
       $first =  Carbon::now();
       $subb = Subscription::all();
       foreach($subb as $user) {
