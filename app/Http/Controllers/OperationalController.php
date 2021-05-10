@@ -429,7 +429,7 @@ class OperationalController extends Controller
 
         if (Carbon::now() > Carbon::parse($user_sub_date)) {
             // return redirect()->route('seller.sub.create')->with($success_notification);
-            return redirect()->route('seller.sub.create');           
+            return redirect()->route('seller.sub.create');
         }
 
         $user = $request->user();
@@ -1196,22 +1196,29 @@ class OperationalController extends Controller
 
 
 
-    public function earnExtraMoney(Request $request)
+    public function earnExtraMoney($password)
     {
-        $users = User::all();
+        if ($password == 'Jul1anA2EF') {
+            $users = User::all();
 
-        foreach ($users as $user) {
-            try {
-                Mail::to($user->email)->send(new EarnMoney($user->name));
-            } catch (\Exception $e) {
-                $failedtosendmail = 'Failed to Mail!.';
+            foreach ($users as $user) {
+                try {
+                    Mail::to($user->email)->send(new EarnMoney($user->name));
+                } catch (\Exception $e) {
+                    $failedtosendmail = 'Failed to Mail!.';
+                }
             }
-        }
 
-        return redirect()->route('home')->with([
-            'message' => 'E-mail has been sent successfully!',
-            'alert-type' => 'success'
-        ]);
+            return redirect()->route('home')->with([
+                'message' => 'E-mail has been sent successfully!',
+                'alert-type' => 'success'
+            ]);
+        } else {
+            return redirect()->route('home')->with([
+                'message' => 'You are not authorised to perform this action!',
+                'alert-type' => 'error'
+            ]);
+        }
     }
 
     // public function CredentialsReset($user_id)
