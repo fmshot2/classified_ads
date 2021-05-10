@@ -32,7 +32,7 @@ class DashboardController extends Controller
 if ($user_sub_date) {
 
    if (Carbon::now() > Carbon::parse($user_sub_date)) {
-    $current_subscription_end_date = "Your Subscription period has ended. Please renew your subcription to proceed";
+    $current_subscription_end_date = "Your Subscription period has ended. Please renew your subcription to proceed to the page";
   }else{
     $current_subscription_end_date = null;
   }
