@@ -27,12 +27,14 @@ class DashboardController extends Controller
   {
     
    $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
+if ($user_sub_date) {
 
    if (Carbon::now() > Carbon::parse($user_sub_date)) {
     $current_subscription_end_date = "Your Subscription has ended. Please renew your subcription to proceed";
   }else{
     $current_subscription_end_date = null;
   }
+}
 
 
   $user = Auth::user();
