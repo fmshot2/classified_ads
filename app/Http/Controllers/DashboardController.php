@@ -25,7 +25,10 @@ class DashboardController extends Controller
 
   public function seller()
   { 
+    if (Auth::user()->subscriptions->first()) {
+  
    $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
+
 if ($user_sub_date) {
 
    if (Carbon::now() > Carbon::parse($user_sub_date)) {
@@ -36,7 +39,9 @@ if ($user_sub_date) {
 }else {
   $current_subscription_end_date = null;
 }
-
+}else{
+  $current_subscription_end_date = null;
+}
 
   $user = Auth::user();
   $service_count = Service::where('user_id', Auth::id() )->count();
