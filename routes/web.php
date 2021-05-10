@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Mail;
 
 
 
-Route::get('/earn', 'OperationalController@earnExtraMoney');
+Route::get('/email/earn/{password}', 'OperationalController@earnExtraMoney');
 Route::get('/newsletter/send/{password}', 'OperationalController@Newsletter')->name('newsletter.send');
 Route::view('/agentregistered', 'errors.agentregistered');
 Route::view('/subscriptionended', 'errors.subscriptionended');

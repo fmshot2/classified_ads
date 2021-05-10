@@ -2,7 +2,7 @@
 @extends('layouts.accountant')
 
 @section('title')
-All Agents Due Payments | 
+All Agents Due Payments |
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@ All Agents Due Payments |
 
 <div class="content-wrapper" style="min-height: 518px;">
 	<section class="content-header">
-            
+
            <h1>
            All Agents Due Payments
             <br><small>View and attend to all agents due payments.</small>
@@ -51,25 +51,25 @@ All Agents Due Payments |
 									<th>Account Name</th>
 									<th>Bank</th>
 									<th>Account Number</th>
-									
-									<th> Total Remaining Balance </th>									
-								</tr>	
+
+									<th> Total Remaining Balance </th>
+								</tr>
 							</thead>
 							<tbody>
 								@forelse($dues as $key => $unpaid_payment)
-								<tr>
-									<td>{{ ++$key }}</td>
-									<td style="display: none;" id="userID">{{ $unpaid_payment->id }}</td>
-									<td> {{ $unpaid_payment->name }} </td>
-									<td> {{ $unpaid_payment->agent_code }} </td>
-									<td> {{ $unpaid_payment->accountname }} </td>
-									<td> {{ $unpaid_payment->bankname }} </td>
-									<td> {{ $unpaid_payment->accountno }} </td>
-									
-									
-									<td> ₦{{ number_format($unpaid_payment->refererAmount) }} </td>
-									
-								</tr>
+                                    <tr>
+                                        <td>{{ ++$key }}</td>
+                                        <td style="display: none;" id="userID">{{ $unpaid_payment->id }}</td>
+                                        <td> {{ $unpaid_payment->name }} </td>
+                                        <td> {{ $unpaid_payment->agent_code }} </td>
+                                        <td> {{ $unpaid_payment->accountname }} </td>
+                                        <td> {{ $unpaid_payment->bankname }} </td>
+                                        <td> {{ $unpaid_payment->accountno }} </td>
+
+
+                                        <td> ₦{{ number_format($unpaid_payment->refererAmount) }} </td>
+
+                                    </tr>
 
 								@empty
 
@@ -77,19 +77,14 @@ All Agents Due Payments |
 
 
 							</tbody>
-
-
-					</table>
-    
-
-
-				</div>
-				<!-- /.box-body -->
-			</div>
+					    </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
 
 
 			<!-- /.content -->
-		</div>	
+		</div>
 
 
 
@@ -120,15 +115,15 @@ All Agents Due Payments |
 	            	location.reload()
 	            }
 
-	        }); 
+	        });
 
        } else {
         	toastr.error("{{ Session::get('message') }}")
        		location.reload()
        }
-        
+
     }
-    
+
 </script>
 <script type="text/javascript">
 	function generatePayment()
@@ -148,7 +143,7 @@ All Agents Due Payments |
 	            	location.reload()
 	            }
 
-	        }); 
+	        });
 
        } else {
         	toastr.error("{{ Session::get('message') }}")

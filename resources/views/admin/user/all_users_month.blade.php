@@ -69,8 +69,9 @@
                                         </tr>
 
                                     @endforeach
-						    </tbody>
-					    </table>
+                                </tbody>
+                            </table>
+                        </div>
 				    </div>
 				<!-- /.box-body -->
 			</div>

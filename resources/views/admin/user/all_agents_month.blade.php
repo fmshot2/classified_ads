@@ -66,12 +66,13 @@
                                                 @endif
                                             </td>
                                             <td>{{ $agent->refererAmount ? $agent->refererAmount : 0 }} </td>
-                                            <td>{{ $agent->total_month_count ? $agent->total_month_count : 0 }} </td>                                         
+                                            <td>{{ $agent->total_month_count ? $agent->total_month_count : 0 }} </td>
 							            </tr>
 
                                     @endforeach
-						    </tbody>
-					    </table>
+                                </tbody>
+                            </table>
+                        </div>
 				    </div>
 				<!-- /.box-body -->
 			</div>
