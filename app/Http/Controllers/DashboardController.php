@@ -34,6 +34,8 @@ if ($user_sub_date) {
   }else{
     $current_subscription_end_date = null;
   }
+}else {
+  $current_subscription_end_date = null;
 }
 
 
