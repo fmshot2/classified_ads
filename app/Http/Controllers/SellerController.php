@@ -40,8 +40,9 @@ class SellerController extends Controller
         );
         $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
 
-        if (Carbon::now() < Carbon::parse($user_sub_date)) {
-            return redirect()->route('seller.sub.create')->with($success_notification);
+        if (Carbon::now() > Carbon::parse($user_sub_date)) {
+            // return redirect()->route('seller.sub.create')->with($success_notification);
+            return redirect()->route('seller.sub.create');
         }
         $category = Category::orderBy('name', 'asc')->get();
         $subcategory = SubCategory::orderBy('name', 'asc')->get();
@@ -322,7 +323,6 @@ foreach($request->file('files') as $image)
         }
     }
 
-
     public function unreadMessage()
     {
         $all_message = Message::where('service_user_id', Auth::id());
@@ -341,14 +341,17 @@ foreach($request->file('files') as $image)
     {
         // $all_message = Message::where('buyer_id', Auth::id())->orwhere('service_user_id', Auth::id())->orderBy('created_at', 'desc')->get();
         // return view ('seller.message.all', compact('all_message') );
+
         $success_notification = array(
             'message' => 'Please renew your subscription to view this page!',
             'alert-type' => 'error'
         );
-        if (Auth::user()->subscriptions->first()) {
-            return redirect()->route('seller.sub.create')->with($success_notification);
-        }
+        $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
 
+        if (Carbon::now() > Carbon::parse($user_sub_date)) {
+            // return redirect()->route('seller.sub.create')->with($success_notification);
+            return redirect()->route('seller.sub.create');
+        }
         $all_user_messages = Message::where('user_id', Auth::id())->orWhere('receiver_id', Auth::id())->orderBy('created_at', 'desc')->get();
         return view('seller.message.all', compact('all_user_messages'));
     }
@@ -406,21 +409,18 @@ foreach($request->file('files') as $image)
 
     public function allService()
     {
+        $success_notification = array(
+            'message' => 'Please renew your subscription to view this page!',
+            'alert-type' => 'error'
+        );
+        $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
 
+        if (Carbon::now() > Carbon::parse($user_sub_date)) {
+            // return redirect()->route('seller.sub.create')->with($success_notification);
+            return redirect()->route('seller.sub.create');
+        }
         $all_services = Service::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
         return view('seller.service.all_service', compact('all_services'));
-    }
-
-    public function viewServiceUpdate($slug)
-    {
-        $category = Category::orderBy('name', 'asc')->get();
-        $serviceDetail = Service::where('slug', $slug)->first();
-        // $images_4_service = $serviceDetail->image;
-        $images_4_service = ModelImage::where('imageable_id', $serviceDetail->id)->get();
-        $service = Service::where('slug', $slug)->first();
-        $subcategory = SubCategory::orderBy('name', 'asc')->get();
-        $states = State::all();
-        return view('seller.service.update_service', compact('service', 'category', 'images_4_service', 'subcategory', 'states'));
     }
 
     public function viewService($slug)

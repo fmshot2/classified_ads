@@ -4,6 +4,30 @@
 
 @section('content')
 
+<script type="text/javascript">
+    $(window).on('load', function() {
+        $('#show_Subscription_end_Modal').modal('show');
+    });
+</script>
+
+       <div>
+        <div id="show_Subscription_end_Modal" class="modal fade postServiceModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #cc8a19; color: #fff">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: #fff">
+                            <i class="fa fa-close"></i>
+                        </button>
+                        <h5 class="text-center" id="sub_end"><strong>Your Subscription has ended. Please renew your subcription to proceed</strong><span></span>
+                        </h5>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
     <style>
         .box {
             padding: 0;
@@ -57,8 +81,14 @@
 
     </style>
 
+
     <div class="content-wrapper" style="min-height: 868px;">
         @include('layouts.backend_partials.status')
+
+
+
+
+          
 
         <section class="content-header">
             <p id="sub_message" class="page-description text-success" style="display: none;">Your Subscription was added successfully!!</p>
@@ -76,6 +106,14 @@
 
         <section class="content">
             <div class="row">
+                  @if($subscription_has_ended)                                 
+                      <div>
+                        <h4 class="text-center text-danger" id="sub_end"><strong>YOUR SUBSCRIPTION HAS ENDED. PLEASE RENEW YOUR SUBSCRIPTION TO PROCEED</strong><span></span>
+                        </h4>              
+                @else
+                     <h3 class="text-center text-warning" id="sub_end"><strong></strong><span></span>
+                        </h3>
+                @endif
                 <div class="col-md-3">
                     <div class="box box-primary">
                         <div class="box-header text-center" style="background-color: #cc8a19;">

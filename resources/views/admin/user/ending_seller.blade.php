@@ -22,7 +22,7 @@
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Service Providers Table</h3>
+						<h3 class="box-title"> Subscription About To End Table </h3>
 					</div>
 
 					<!-- /.box-header -->
@@ -35,42 +35,22 @@
                                         <th> Name </th>
                                         <th> Email </th>
                                         <th> Phone </th>
-                                        <th> role </th>
-                                        <th> Applied for Approval? </th>
-                                        <th> Amount Earned </th>                                        
                                         <th> Date </th>
-                                        <th> Activate/Deactivate </th>
-                                        <th> Downlines </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($seller as $key => $sellers)
+                                    @foreach($seller as $key => $sellerss)
+                                     @foreach($sellerss as $key => $sellers)
                                         <tr>
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                             <td> {{ $sellers->name }} </td>
                                             <td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
                                             <td><span class="text-muted"> </i> {{ $sellers->phone }} </span> </td>
-                                            <td> {{ $sellers->role }} </td>
-                                            <td>
-                                                @if($sellers->status == 1)
-                                                <span><p id="active_text">Activated</p></span>
-                                                @elseif($sellers->status == 0)
-                                                <span id="active_text2">Deactivated</span>
-                                                @endif
-                                            </td>
-                                            <td> {{ $sellers->refererAmount ? $sellers->refererAmount : 0 }} </span></td>                                            
-                                            <td> {{ $sellers->created_at->format('d/m/Y') }} </span></td>
-
-                                            <td>
-                                                <button id="" class="activate-submit btn-success" onclick="activateUser({{$sellers->id}})" type="button" class="btn btn-success">
-                                                    @if($sellers->status == 0)<span id="activate1">Activate User</span>@elseif($sellers->status == 1)<span id="activate2">Deactivate</span>
-                                                @endif</button>
-                                            </td>
-                                            <td class="center">
-                                            <a href="{{route('provider_downline', $sellers->slug)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
-                                            </td>                                            
+                                            <td> {{ $sellers->created_at->format('d/m/Y') }} </span></td>                                           
                                         </tr>
                                     @endforeach
+                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>

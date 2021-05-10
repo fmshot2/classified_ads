@@ -38,15 +38,21 @@ class SubscriptionController extends Controller
 
 		// if ($current_subscription = ProviderSubscription::where('user_id', Auth::id())->first()) {
 		if ($current_subscription = Auth::user()->subscriptions->first()) {
-		$current_subscription_end_date = $current_subscription->subscription_end_date;
+			$current_subscription_end_date = $current_subscription->subscription_end_date;
 		}else{
-		$current_subscription_end_date = null;
+			$current_subscription_end_date = null;
 		}
-		// $current_subscription_end_date2 = Carbon::createFromFormat('Y-m-d H:i:s', $current_subscription_end_date)->format('d-m-Y');
-		// $current_subscription_end_date3 = $current_subscription_end_date2->diffForHumans();
+ // $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
+
+		if (Carbon::now() > Carbon::parse($current_subscription_end_date)) {
+			$subscription_has_ended = "Your Subscription has ended. Please renew your subcription to proceed";
+		}else{
+			$subscription_has_ended = null;
+		}
+
 		
 		
-		return view ('seller.subscription.create_sub', compact('current_subscription_end_date') );
+		return view ('seller.subscription.create_sub', compact('current_subscription_end_date', 'subscription_has_ended') );
 	}
 
 	public function allSub()
@@ -66,7 +72,7 @@ class SubscriptionController extends Controller
 				'sub_cost' => 20000
 			];
 		}
-			elseif ($id == 2) {
+		elseif ($id == 2) {
 			$sub = [
 				'sub_type' => '3-months',
 				'sub_cost' => 60000
@@ -78,7 +84,7 @@ class SubscriptionController extends Controller
 				'sub_cost' => 120000
 			];
 		}
-	
+		
 		elseif ($id == 4) {
 			$sub = [
 				'sub_type' => 'yearly',
@@ -130,11 +136,11 @@ class SubscriptionController extends Controller
 		}
 		if ($data['amount'] == '1200') {
 			$added_days = 186;
-             $sub_type = 'bi-annual';			
+			$sub_type = 'bi-annual';			
 		}
 		if ($data['amount'] == '2400') {
 			$added_days = 372;
-            $sub_type = 'annual';			
+			$sub_type = 'annual';			
 		}
 
 		// $sub_check = ProviderSubscription::where(['user_id'=>Auth::id()])->first();
@@ -176,7 +182,7 @@ class SubscriptionController extends Controller
 
 
 
-            $reg_payments = new Payment();
+		$reg_payments = new Payment();
             // $reg_payments->user_id = Auth::id();
             // $reg_payments->payment_type = 'subscription';
             // $reg_payments->amount = $data['amount'];
@@ -184,9 +190,9 @@ class SubscriptionController extends Controller
 
             // $reg_payments->save();
 
-         
+		
 
-            Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no'] ]);
+		Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no'] ]);
 		
 
 		return response()->json(['success'=>'Your Subscription payment was successfull', 'new_date'=>$sub_check->subscription_end_date], 200);

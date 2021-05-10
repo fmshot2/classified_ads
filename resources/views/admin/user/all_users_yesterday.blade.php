@@ -35,25 +35,22 @@
 
 					<!-- /.box-header -->
 					<div class="box-body">
-						<div class="table-responsive">
-                            <table class="display table table-bordered data_table_main">
-                                <thead>
-                                    <tr>
-                                        <th> # </th>
-                                        <th> Name </th>
-                                        <th> Email </th>
-                                        <th> Applied for Approval?</th>
-                                        <th> Status </th>
-                                        <th> Amount Earned </th>
-                                        <th> Total Downline </th>
-                                        <th> Activate/Deactivate</th>
-                                        <th> Downlines</th>
-                                        <th> When</th>
+						<table class="display table table-bordered data_table_main">
+							<thead>
+								<tr>
+									<th> # </th>
+									<th> Name </th>
+									<th> Email </th>
+									<th> Applied for Approval?</th>
+									<th> Status </th>
+                                    <th> Amount Earned </th>
+                                    <th> Testerday's Total </th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($agents as $key => $agent)
+								</tr>
+                            </thead>
+                            <tbody>
+
+									@foreach($agents as $key => $agent)
                                         <tr>
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                             <td> {{ $agent->name }} </td>
@@ -68,20 +65,7 @@
                                             </td>
                                             <td>{{ $agent->refererAmount ? $agent->refererAmount : 0 }} </td>
                                             <td>{{ $agent->referals->count() ? $agent->referals->count() : 0 }} </td>
-                                            <td>
-                                                <button id="actionBtn" class="activate-submit btn {{ $agent->status == 1 ? 'deactivateClass' : 'activateClass' }}" onclick="activateAgent({{$agent->id}})">
-                                                    @if($agent->status == 0)<span id="activate1">Activate User</span>@elseif($agent->status == 1)<span id="activate2">Deactivate</span>
-                                                    @endif
-                                                </button>
-
-                                            </td>
-                                            <td class="center">
-                                            <a href="{{route('agent_downline', $agent->id)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
-                                            </td>
-                                            <td class="center">
-                                            <a href="{{route('agents_downline_24hrs', $agent->id)}}" class="btn btn-warning "><i class="fa fa-eye"></i>Yesterday's Reg</a>
-                                            </td>
-                                        </tr>
+							            </tr>
 
                                     @endforeach
                                 </tbody>
