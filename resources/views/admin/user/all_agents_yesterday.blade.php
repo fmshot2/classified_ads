@@ -35,24 +35,24 @@
 
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table class="display table table-bordered data_table_main">
-							<thead>
-								<tr>
-									<th> # </th>
-                                    <!-- <th> Agent name </th> -->
+						<div class="table-responsive">
+                            <table class="display table table-bordered data_table_main">
+                                <thead>
+                                    <tr>
+                                        <th> # </th>
+                                        <!-- <th> Agent name </th> -->
 
-									<th> Referer Name </th>
-									<th> Email </th>
-									<th> Applied for Approval?</th>
-									<th> Status </th>
-                                    <th> Amount Earned </th>
-                                    <th> Yesterday's Total </th>
+                                        <th> Referer Name </th>
+                                        <th> Email </th>
+                                        <th> Applied for Approval?</th>
+                                        <th> Status </th>
+                                        <th> Amount Earned </th>
+                                        <th> Yesterday's Total </th>
 
-								</tr>
-                            </thead>
-                            <tbody>
-
-									@foreach($agents as $key => $agent)
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($agents as $key => $agent)
                                         <tr>
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                             <td><span class="text-muted"> </i> {{ $agent->name }} </span> </td>
@@ -67,13 +67,14 @@
                                             </td>
                                             <td>{{ $agent->refererAmount ? $agent->refererAmount : 0 }} </td>
                                             <td>{{ $agent->total_refers_count ? $agent->total_refers_count : 0 }} </td>
-							            </tr>
+                                        </tr>
 
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-				    </div>
+                    </div>
+				</div>
 				<!-- /.box-body -->
 			</div>
 
