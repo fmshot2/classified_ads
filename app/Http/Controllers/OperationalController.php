@@ -486,7 +486,7 @@ class OperationalController extends Controller
                 $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
                 foreach ($data as $row) {
                     if ($row->name) {
-                        $output .= '<li class="list-group-item"><a style="display:block" href="' . route('serviceDetail',  $row->slug) . '">' . $row->name . ' in <span class="ajaxSearchCategoryList">' . $row->category->name . '</span></li>';
+                        $output .= '<li class="list-group-item"><a style="display:block" href="' . route('serviceDetail',  $row->slug) . '">' . $row->name . '</span></li>';
                     } else {
                         $output .= '<li class="list-group-item"><a style="display:block" href="' . route('job.applicant.detail',  $row->slug) . '">' . $row->job_title . ' in <span class="ajaxSearchCategoryList">' . $row->category->name . ' & CVs</span></li>';
                     }
