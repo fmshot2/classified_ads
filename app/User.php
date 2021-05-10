@@ -162,7 +162,7 @@ public function getTotalWeekAttribute()
         $date = Carbon::today()->subDays(30);
          // $users = User::where('created_at','>=',$date)->get();
 
-        // $AgoDate=Carbon::now()->subWeek()->format('Y-m-d');  
+        // $AgoDate=Carbon::now()->subWeek()->format('Y-m-d');
         // $NowDate=Carbon::now()->format('Y-m-d');
 
         $ref = $this->referals()->where('created_at', '>=', $date)->get();
@@ -211,5 +211,5 @@ public function getTotalWeekAttribute()
     {
         return $this->belongsTo('App\Referal');
     }
-    
+
 }
