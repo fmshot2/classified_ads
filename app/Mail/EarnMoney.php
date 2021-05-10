@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 class EarnMoney extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
-    public $username;
+    public $username = 'earn';
 
     /**
      * Create a new message instance.
