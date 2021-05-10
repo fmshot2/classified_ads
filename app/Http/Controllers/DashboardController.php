@@ -25,8 +25,9 @@ class DashboardController extends Controller
 
   public function seller()
   { 
-    if (Auth::user()->subscriptions->first()) {
-  
+    if (!Auth::user()->subscriptions->first()) {
+  $current_subscription_end_date = null;
+}else {
    $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
 
 if ($user_sub_date) {
@@ -39,8 +40,6 @@ if ($user_sub_date) {
 }else {
   $current_subscription_end_date = null;
 }
-}else{
-  $current_subscription_end_date = null;
 }
 
   $user = Auth::user();
