@@ -24,8 +24,8 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: #fff">
                             <i class="fa fa-close"></i>
                         </button>
-                        <h5 class="text-center" id="sub_end"><strong>Your Subscription has ended. Please renew your subcription to proceed</strong><span></span>
-                        </h5>
+                        <h4 class="text-center" id="sub_end"><strong>Your Subscription has ended. Please renew your subcription to proceed</strong><span></span>
+                        </h4>
                     </div>
                 
                 </div>
@@ -88,7 +88,11 @@
 
 
     <div class="content-wrapper" style="min-height: 868px;">
+
+        @if(!$current_subscription_end_date)
+
         @include('layouts.backend_partials.status')
+        @endif
 
 
 
