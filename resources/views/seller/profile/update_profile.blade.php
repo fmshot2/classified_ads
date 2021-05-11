@@ -115,7 +115,7 @@
 
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
-										<button type="submit" class="btn btn-warning">Update <i class="fa fa-refresh"></i></button>
+										<button type="submit" class="btn btn-warning">Update Your Profile <i class="fa fa-refresh"></i></button>
 									</div>
 								</div>
 							</form>
