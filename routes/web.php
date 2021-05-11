@@ -468,6 +468,8 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
 
 
 Route::middleware(['admin'])->group(function () { //Admin Middleware protection start here
+    Route::get('/admin/create_our_user', 'AdminController@create_our_user')->name('admin.create_our_user');        
+    Route::post('/admin/create_user', 'AdminController@save_user_from_admin')->name('admin.create.user');    
     Route::get('/admin/dashboard/approve_withdrawal_request/{id}', 'DashboardController@approve_withdrawal_request')->name('admin.approve_withdrawal_request');
     Route::get('/admin/dashboard/all-marketers-earnings', 'AdminController@all_marketer_earnings')->name('admin.all.earnings');
     Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');

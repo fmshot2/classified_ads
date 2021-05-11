@@ -233,12 +233,12 @@ class Register extends Component
             // $sub_check->save();
 
 
-        Auth::user()->subscriptions()->create(['sub_type' => $sub_type, 
-         'last_amount_paid' => $this->plan, 
-         'subscription_end_date' => Carbon::now()->addDays($added_days),
+            Auth::user()->subscriptions()->create(['sub_type' => $sub_type, 
+             'last_amount_paid' => $this->plan, 
+             'subscription_end_date' => Carbon::now()->addDays($added_days),
          // 'last_subscription_starts' => $current_date_time,
-         'trans_ref' => $tranxRef,
-         'email' => Auth::user()->email ]);
+             'trans_ref' => $tranxRef,
+             'email' => Auth::user()->email ]);
 
             // $reg_payments = new Payment();
             // $reg_payments->user_id = Auth::id();
@@ -259,11 +259,11 @@ class Register extends Component
                     if ($referer->is_ef_marketer) {
 
                         if (Auth::user()->role == 'seller') {
-                        return redirect()->route('seller.dashboard');
+                            return redirect()->route('seller.dashboard');
                         } else if (Auth::user()->role == 'buyer') {
-                        return  Redirect::to(Session::get('url.intended'));
+                            return  Redirect::to(Session::get('url.intended'));
                         } else {
-                        return redirect()->route('admin.dashboard');
+                            return redirect()->route('admin.dashboard');
                         }
                     }
 
@@ -285,11 +285,11 @@ class Register extends Component
                     if ($referer2->is_ef_marketer) {
 
                         if (Auth::user()->role == 'seller') {
-                        return redirect()->route('seller.dashboard');
+                            return redirect()->route('seller.dashboard');
                         } else if (Auth::user()->role == 'buyer') {
-                        return  Redirect::to(Session::get('url.intended'));
+                            return  Redirect::to(Session::get('url.intended'));
                         } else {
-                        return redirect()->route('admin.dashboard');
+                            return redirect()->route('admin.dashboard');
                         }
                     }
                     $referer2->refererAmount = $referer2->refererAmount + 200;
@@ -546,22 +546,14 @@ if ($person_that_refered) {
             // end level 4 payment
 
 
-
-
-
-
-
-
-
-
-if (Auth::user()->role == 'seller') {
-    return redirect()->route('seller.dashboard');
-} else if (Auth::user()->role == 'buyer') {
-    return  Redirect::to(Session::get('url.intended'));
-} else {
-    return redirect()->route('admin.dashboard');
-}
-}
+        if (Auth::user()->role == 'seller') {
+            return redirect()->route('seller.dashboard');
+        } else if (Auth::user()->role == 'buyer') {
+            return  Redirect::to(Session::get('url.intended'));
+        } else {
+            return redirect()->route('admin.dashboard');
+        }
+    }
 }
 
 public function render()
@@ -576,46 +568,46 @@ public function render()
 
 public function save_buyer(){
      //save user
-        $user           = new User;
-        $user->name     = $this->name;
-        $user->email    = $this->email;
-        $user->password = Hash::make($this->password);
-        $user->role     = $this->role;
+    $user           = new User;
+    $user->name     = $this->name;
+    $user->email    = $this->email;
+    $user->password = Hash::make($this->password);
+    $user->role     = $this->role;
         //save id of referer if user was reffererd
-        $user->idOfReferer = $this->refererId;
+    $user->idOfReferer = $this->refererId;
         //save id of agent if user was brought by agent
-        $user->idOfAgent = $this->agent_Id;
+    $user->idOfAgent = $this->agent_Id;
         // $user->refererLink = $slug3;
         //send mail
 
-        if ($user->save()) {
+    if ($user->save()) {
 
 
-            $name         = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
-            $name         = $user->name;
-            $email        = $user->email;
-            $origPassword = $this->password;
-            $userRole     = $user->role;
+        $name         = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+        $name         = $user->name;
+        $email        = $user->email;
+        $origPassword = $this->password;
+        $userRole     = $user->role;
 
-            try {
-                Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
-                Auth::attempt(['email' => $this->email, 'password' => $this->password]);
-            } catch (\Exception $e) {
-                $failedtosendmail = 'Failed to Mail!';
-            }
+        try {
+            Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+            Auth::attempt(['email' => $this->email, 'password' => $this->password]);
+        } catch (\Exception $e) {
+            $failedtosendmail = 'Failed to Mail!';
         }
+    }
 
-        if (Auth::check()) {
-            $present_user = Auth::user();
+    if (Auth::check()) {
+        $present_user = Auth::user();
             // if referrer link is available, save it to referer table
-            $link              = new Refererlink();
-            $link->user_id     = $present_user->id;
-            $link->refererlink = $present_user->refererLink;
-            $link->save();
+        $link              = new Refererlink();
+        $link->user_id     = $present_user->id;
+        $link->refererlink = $present_user->refererLink;
+        $link->save();
 
-            if (Auth::user()->role == 'buyer') {
-                return  Redirect::to(session(url()->previous()));
-            }
-}
+        if (Auth::user()->role == 'buyer') {
+            return  Redirect::to(session(url()->previous()));
+        }
+    }
 }
 }

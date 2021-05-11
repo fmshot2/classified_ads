@@ -3,12 +3,17 @@
 @section('title', 'Request for Subscription | ')
 
 @section('content')
-
-<script type="text/javascript">
+@if($subscription_has_ended)                                 
+                      <script type="text/javascript">
     $(window).on('load', function() {
         $('#show_Subscription_end_Modal').modal('show');
     });
-</script>
+</script>              
+                @else
+                     <h3 class="text-center text-warning" id="sub_end"><strong></strong><span></span>
+                        </h3>
+                @endif
+
 
        <div>
         <div id="show_Subscription_end_Modal" class="modal fade postServiceModal" role="dialog">

@@ -243,6 +243,13 @@
           <i class="fa fa-credit-card"></i> <span> Featured Services </span>
         </a>
       </li>
+
+      <li class="" style="{{ url()->current() == route('admin.create_our_user') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href=" {{ route ('admin.create_our_user') }}">
+          <i class="fa fa-credit-card"></i> <span> Create User </span>
+        </a>
+      </li>
+
       
       <li class="" style="{{ url()->current() == route('admin.all.earnings') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
         <a href=" {{route ('admin.all.earnings') }}">
