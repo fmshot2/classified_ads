@@ -355,7 +355,7 @@ public function storeServiceUpdate(Request $request, $id)
 
                 if (Carbon::now() > Carbon::parse($user_sub_date)) {
             // return redirect()->route('seller.sub.create')->with($success_notification);
-                    return redirect()->route('seller.sub.create')->with($success_notification);
+                    return redirect()->route('seller.sub.create');
                 }
             }
         }
@@ -399,10 +399,10 @@ public function storeServiceUpdate(Request $request, $id)
       }else {
         $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
         if ($user_sub_date) {
-          
+
             if (Carbon::now() > Carbon::parse($user_sub_date)) {
             // return redirect()->route('seller.sub.create')->with($success_notification);
-                return redirect()->route('seller.sub.create')->with($success_notification);
+                return redirect()->route('seller.sub.create');
             }
         }
     }
@@ -437,10 +437,10 @@ public function allService()
   }else {
     $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
     if ($user_sub_date) {
-      
+
         if (Carbon::now() > Carbon::parse($user_sub_date)) {
             // return redirect()->route('seller.sub.create')->with($success_notification);
-            return redirect()->route('seller.sub.create')->with($success_notification);
+            return redirect()->route('seller.sub.create');
         }
     }
 }
