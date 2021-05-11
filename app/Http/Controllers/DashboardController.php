@@ -27,6 +27,7 @@ class DashboardController extends Controller
   { 
     if (!Auth::user()->subscriptions->first()) {
   $current_subscription_end_date = null;
+  $no_sub_var = 1;
 }else {
    $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
 
@@ -34,11 +35,16 @@ if ($user_sub_date) {
 
    if (Carbon::now() > Carbon::parse($user_sub_date)) {
     $current_subscription_end_date = "Your Subscription period has ended. Please renew your subcription to proceed to the page";
+      $no_sub_var = 0;
   }else{
     $current_subscription_end_date = null;
+      $no_sub_var = 1;
+
   }
 }else {
   $current_subscription_end_date = null;
+    $no_sub_var = 1;
+
 }
 }
 // dd($current_subscription_end_date);
@@ -102,6 +108,14 @@ if ($user_sub_date) {
 
   $accruedAmount = Auth::user()->refererAmount;
 
+  if ($no_sub_var == 0) {
+  $success_notification = array(
+    'message' => 'Please renew your subscription to view this page!',
+    'alert-type' => 'error'
+    );
+  return redirect()->route('seller.sub.create')->with($success_notification);
+}
+
   $linkcheck2 = Refererlink::where(['user_id'=>Auth::id()])->first();
   if ($linkcheck2) {
     $linkcheck = $linkcheck2;
@@ -118,7 +132,7 @@ if ($user_sub_date) {
     return view ('seller.dashboard', compact('service_count', 'pending_service_count', 'active_service_count', 'message_count',
       'unread_message', 'unread_message_count', 'all_service', 'active_service', 'unread_notification',
       'all_notification_count', 'active_service_count', 'all_service2', 'count_badge', 'status', 'linkcheck', 'accruedAmount',
-      'pending_service', 'categories', 'subcategories', 'states', 'servicesLikeCounter'));
+      'pending_service', 'categories', 'subcategories', 'states', 'servicesLikeCounter', 'current_subscription_end_date'));
   }
 
 }
