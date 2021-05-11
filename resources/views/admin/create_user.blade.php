@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Tourist Sites | ')
+@section('title', 'Create User from Admin  | ')
 
 @section('content')
 <style>
@@ -16,7 +16,7 @@
     </div>
 
     <section class="content-header">
-        <h3 class="page-title">All New Users</h3>
+        <h3 class="page-title">Create New Users</h3>
         <p class="page-description">This Page Is for creating new users EFContact platform.</p>
     </section>
 

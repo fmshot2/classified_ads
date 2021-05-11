@@ -254,7 +254,7 @@ class OldCodeController extends Controller
 
           // Get id of owner of $agent code if available
           if ($code_of_agent) {
-              $saveIdOfAgent = User::where('agent_code', $code_of_agent)->first();
+              $saveIdOfAgent = Agent::where('agent_code', $code_of_agent)->first();
               // dd($saveIdOfAgent);
               $agent_Id = $saveIdOfAgent->id;
           } else {
