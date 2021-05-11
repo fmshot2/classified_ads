@@ -41,6 +41,7 @@ if ($user_sub_date) {
   $current_subscription_end_date = null;
 }
 }
+// dd($current_subscription_end_date);
 
   $user = Auth::user();
   $service_count = Service::where('user_id', Auth::id() )->count();

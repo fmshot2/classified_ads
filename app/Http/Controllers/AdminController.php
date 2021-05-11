@@ -38,6 +38,13 @@ use Illuminate\Support\Facades\DB;
 use Geocoder;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+
+use App\Mail\SendMailable;
+use App\Mail\UserRegistered;
+use App\Refererlink;
+
+
 
 
 
@@ -1375,19 +1382,19 @@ public function save_faq(Request $request)
       // dd($second);
 
       $first =  Carbon::now();
-       foreach ($agents as $key => $user) {
+      foreach ($agents as $key => $user) {
       // this is assigning a new field called total_likes to allservices
       //note, the total_likes is coming from a function in the model
       // $agents[$key]->total_refers = $serv->total_refers;
         $agents[$key]->rtrt = $user->subscriptions->first();
-      foreach ($user->rtrt as $key => $user2) {
-        if(Carbon::parse($user2->subscription_end_date)->between($first, $second)){
-        $eee= 1;
-        array_push($names, $user);
-      }else{
-        $eee=2;
-      }
-    }
+        foreach ($user->rtrt as $key => $user2) {
+          if(Carbon::parse($user2->subscription_end_date)->between($first, $second)){
+            $eee= 1;
+            array_push($names, $user);
+          }else{
+            $eee=2;
+          }
+        }
       }
       dd($eee);
 
@@ -1429,19 +1436,19 @@ public function save_faq(Request $request)
       $first =  Carbon::now();
       $subb = Subscription::all();
       foreach($subb as $user) {
-      if(Carbon::parse($user->subscription_end_date)->between($first, $second)){
-        array_push($names, $user);
+        if(Carbon::parse($user->subscription_end_date)->between($first, $second)){
+          array_push($names, $user);
+        }
       }
-    }
-  
-    foreach ($names as $myuser) {
-      $myuser2 = User::where('id', $myuser->subscriptionable_id)->get();
-      array_push($names22, $myuser2);
-    }
 
-    $seller = $names22;
+      foreach ($names as $myuser) {
+        $myuser2 = User::where('id', $myuser->subscriptionable_id)->get();
+        array_push($names22, $myuser2);
+      }
+
+      $seller = $names22;
     // dd($seller);
-        return view('admin.user.ending_seller', compact('seller'));
+      return view('admin.user.ending_seller', compact('seller'));
     }
 
 
@@ -1490,4 +1497,511 @@ public function save_faq(Request $request)
     //     'efmarketers' => $efmarketers
     //   ]);
     // }
+
+
+  public function create_our_user(Request $request)
+  {
+
+    return view('admin.create_user');
+  }
+
+
+  public function save_user_from_admin(Request $request)
+  {
+
+    $link_from_url = $request->refer;
+    $code_of_agent = $request->agent_code;
+    $adminEmail =  Auth::user()->email;
+
+    $slug3 = Str::random(8);
+
+    $validatedData = $request->validate([
+      'refer'           => ['nullable', 'string', 'max:255'],
+      'name'            => ['required', 'string', 'max:255'],
+      'email'           => ['required', 'string', 'email', 'max:255', 'unique:users'],
+      'phone'           => ['required', 'numeric'],
+      'amount'          => ['required', 'numeric'],              
+      'password'        => ['required', 'string', 'min:6'],
+              // 'captcha'      => 'required|captcha',
+      'role'            => ['required', Rule::in(['seller', 'buyer'])],              
+      'agent_code'      => ['nullable', 'exists:agents,agent_code'],
+      'admin_password'  => ['nullable'], 
+    ]);
+
+    $slug3 = Str::random(8);
+    $random = Str::random(3);
+        // $userSlug = Str::of($this->name)->slug('-').''.$random;
+    $userSlug = Str::of($request->name)->slug('-').''.$random;
+
+        // Get id of owner of $link_from_url if available
+    if ($link_from_url) {
+      $saveIdOfRefree = User::where('refererLink', $link_from_url)->first();
+      if ($saveIdOfRefree) {
+        $refererId = $saveIdOfRefree->id;
+      } else {
+        $success_notification = array(
+          'message' => 'The referer link used is incorrect!',
+          'alert-type' => 'fail'
+        );
+        return redirect()->route('admin.create_our_user')->with($success_notification);
+      }
+    } else {
+      $refererId = null;
+    }
+
+
+        // Get id of owner of $agent code if available
+    if ($code_of_agent) {
+      $saveIdOfAgent = Agent::where('agent_code', $code_of_agent)->first();
+      if ($saveIdOfAgent) {
+        $agent_Id = $saveIdOfAgent->id;
+      } else {
+        $success_notification = array(
+          'message' => 'The Agent Code used is incorrect!',
+          'alert-type' => 'fail'
+        );
+        return redirect()->route('admin.create_our_user')->with($success_notification);
+      }
+    }else {
+      $agent_Id = null;
+    }
+
+        //save user
+    $user           = new User;
+    $user->name     = $request->name;
+    $user->email    = $request->email;
+    $user->phone    = $request->phone;
+    $user->password = Hash::make($request->password);
+    $user->role     = $request->role;
+    $user->slug     = $userSlug;
+        //save id of referer if user was reffererd
+    $user->idOfReferer = $refererId;
+        //save id of agent if user was brought by agent
+    $user->idOfAgent = $agent_Id;
+    $user->refererLink = $slug3;
+        //send mail
+
+    if ($user->save()) {
+      session()->forget('current_param');
+
+      $name         = "$user->name, Your registration was successfull! Have a great time enjoying our services!";
+      $name         = $user->name;
+      $email        = $user->email;
+      $origPassword = $request->password;
+      $userRole     = $user->role;
+
+      try {
+        Mail::to($user->email)->send(new UserRegistered($name, $email, $origPassword, $userRole));
+      } catch (\Exception $e) {
+        $failedtosendmail = 'Failed to Mail!';
+      }
+    }
+
+
+    Auth::attempt(['email' => $email, 'password' => $request->password]);
+
+    if (Auth::check()) {
+      $present_user = Auth::user();
+            // if referrer link is available, save it to referer table
+      $link              = new Refererlink();
+      $link->user_id     = $present_user->id;
+      $link->refererlink = $present_user->refererLink;
+      $link->save();
+
+      if (Auth::user()->role == 'buyer') {
+                // return  Redirect::to(session(url()->previous()));
+        $success_notification = array(
+          'message' => 'Done!',
+          'alert-type' => 'success'
+        );
+        return redirect()->route('admin.create_our_user')->with($success_notification);
+      }
+            // save user's subscription module
+
+      if ($request->amount == 200) {
+        $added_days = 31;
+        $sub_type = 'monthly';
+      }elseif ($request->amount == 600) {
+        $added_days = 93;
+        $sub_type = '3 months';
+      } elseif ($request->amount == 1200) {
+        $added_days = 186;
+        $sub_type = 'bi-annual';
+      } elseif ($request->amount == 2400) {
+        $added_days = 372;
+        $sub_type = 'yearly';
+      } else {
+        $added_days = 0;
+        $sub_type = null;
+      }
+
+      $current_date_time = Carbon::now()->toDateTimeString();
+
+            // $sub_check = new ProviderSubscription();
+            // $sub_check->user_id = Auth::id();
+            // $sub_check->sub_type = $sub_type;
+            // $sub_check->user_type = 'provider';
+            // $sub_check->last_amount_paid = $this->plan;
+            // $sub_check->subscription_end_date = Carbon::now()->addDays($added_days);
+            // $sub_check->last_subscription_starts = $current_date_time;
+            // $sub_check->save();
+
+
+      Auth::user()->subscriptions()->create(['sub_type' => $sub_type, 
+       'last_amount_paid' => $request->amount, 
+       'subscription_end_date' => Carbon::now()->addDays($added_days),
+         // 'last_subscription_starts' => $current_date_time,
+             // 'trans_ref' => $tranxRef,
+       'email' => Auth::user()->email ]);
+
+            // $reg_payments = new Payment();
+            // $reg_payments->user_id = Auth::id();
+            // $reg_payments->payment_type = 'registration';
+            // $reg_payments->amount = $this->plan;
+            // $reg_payments->tranx_ref = $tranxRef;
+            // $reg_payments->save();
+
+      Auth::user()->mypayments()->create(['payment_type' => 'registration', 'amount' => $request->amount, 'tranx_ref' => null ]);
+
+
+            //level 1 start
+      $person_that_refered = $present_user->idOfReferer;
+      if ($person_that_refered) {
+        $referer = User::where('id', $person_that_refered)->first();
+        if ($referer) {
+                    //if your refferer is an efmarketer staff, redirect user to dashboard
+          if ($referer->is_ef_marketer) {
+            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);  
+            if (Auth::check()) {
+             $success_notification = array(
+              'message' => 'Done!',
+              'alert-type' => 'success'
+            );
+             return redirect()->route('admin.create_our_user')->with($success_notification);;
+           }else {
+            return redirect()->route('home');
+          }
+        }
+
+
+        $referer->refererAmount = $referer->refererAmount + 200;
+                    //save my id  as level 1 on the table of the one that reffered me
+        $referer->level1 = Auth::id();
+        $referer->save();
+
+        $referer->referals()->create(['user_id' => Auth::id()]);
+      }
+    }
+
+    $agent_that_refered = $present_user->idOfAgent;
+    if ($agent_that_refered) {
+      $referer2 = Agent::where('id', $agent_that_refered)->first();
+      if ($referer2) {
+                    //if your agent is an efmarketer staff, redirect user to dashboard
+        if ($referer2->is_ef_marketer) {
+          Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);  
+          if (Auth::check()) {
+           $success_notification = array(
+            'message' => 'Done!',
+            'alert-type' => 'success'
+          );
+           return redirect()->route('admin.create_our_user')->with($success_notification);
+         }else {
+          return redirect()->route('home');
+        }
+      }
+      $referer2->refererAmount = $referer2->refererAmount + 200;
+
+                    //if my referee is an agent, save my id  as level 1 on the table of the Agent that reffered me
+      $referer2->level1 = Auth::id();
+      $referer2->save();
+
+      $referer2->referals()->create(['user_id' => Auth::id()]);
+    }
+  }
+
+            //end level 1 payment
+
+   //start level 2
+
+  $person_that_refered = $present_user->idOfReferer;
+  if ($person_that_refered) {
+    $referer = User::where('id', $person_that_refered)->first();
+    if ($referer) {
+                    //level 2 referer id
+      $person_that_refered2 = $referer->idOfReferer;
+                    //level 2 referer
+      if ($person_that_refered2) {
+        $referer2 = User::where('id', $person_that_refered2)->first();
+        if ($referer2) {
+          if ($referer2->level2) {
+            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);  
+            if (Auth::check()) {
+              $success_notification = array(
+                'message' => 'Done!',
+                'alert-type' => 'success'
+              );
+              return redirect()->route('admin.create_our_user')->with($success_notification);
+            }else {
+              return redirect()->route('home');
+            }        
+          }
+
+          $referer2->refererAmount = $referer2->refererAmount + 150;
+          $referer2->level2 = Auth::id();
+          $referer2->save();
+                            // $present_user->level2 = $referer3->id;                    }
+        }
+      }
+    }
+  }
+
+  $person_that_refered = $present_user->idOfReferer;
+  if ($person_that_refered) {
+    $referer = User::where('id', $person_that_refered)->first();
+    if ($referer) {
+      $person_that_refered2 = $referer->idOfAgent;
+      if ($person_that_refered2) {
+        $referer2 = Agent::where('id', $person_that_refered2)->first();
+        if ($referer2) {
+          if ($referer2->level2) {
+            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);          
+            if (Auth::check()) {
+             $success_notification = array(
+              'message' => 'Done!',
+              'alert-type' => 'success'
+            );
+             return redirect()->route('admin.create_our_user')->with($success_notification);
+           }else {
+            return redirect()->route('home');
+          }
+        }
+
+        $referer2->refererAmount = $referer2->refererAmount + 150;
+        $referer2->level2 = Auth::id();
+        $referer2->save();
+                            // $present_user->level2 = $referer3->id;                    }
+      }
+
+                            // $present_user->level2 = $referer3->id;
+    }
+  }
 }
+            //end level 2 payment
+
+
+            //start level 3
+            //level 1 referer id
+$person_that_refered = $present_user->idOfReferer;
+if ($person_that_refered) {
+                //level 1 referer
+  $referer = User::where('id', $person_that_refered)->first();
+  if ($referer) {
+                    //level 2 referer id
+    $person_that_refered2 = $referer->idOfReferer;
+                    //level 2 referer
+    if ($person_that_refered2) {
+      $referer3 = User::where('id', $person_that_refered2)->first();
+      if ($referer3) {
+                            //level 3 referer id
+        $person_that_refered3 = $referer3->idOfReferer;
+        if ($person_that_refered3) {
+                                //level 3 referer
+          $referer4 = User::where('id', $person_that_refered3)->first();
+          if ($referer4) {
+           if($referer4->level3) {
+            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);          
+            if (Auth::check()) {
+              $success_notification = array(
+                'message' => 'Done!',
+                'alert-type' => 'success'
+              );
+              return redirect()->route('admin.create_our_user')->with($success_notification);
+            }else {
+              return redirect()->route('home');
+            }
+          }
+
+                                    // add amount to level 3 referer amount
+          $referer4->refererAmount = $referer4->refererAmount + 100;
+          $referer4->level3 = Auth::id();
+          $referer4->save();
+                                    // $present_user->level2 = $referer3->id;
+        }
+      }
+    }
+  }
+}
+}
+
+            //level 1 referer id
+$person_that_refered = $present_user->idOfReferer;
+if ($person_that_refered) {
+                //level 1 referer
+  $referer = User::where('id', $person_that_refered)->first();
+  if ($referer) {
+                    //level 2 referer id
+    $person_that_refered2 = $referer->idOfReferer;
+                    //level 2 referer
+    if ($person_that_refered2) {
+      $referer3 = User::where('id', $person_that_refered2)->first();
+      if ($referer3) {
+                            //level 3 agent id
+        $person_that_refered3 = $referer3->idOfAgent;
+        if ($person_that_refered3) {
+                                //level 3 agent
+          $referer4 = Agent::where('id', $person_that_refered3)->first();
+          if ($referer4) {
+           if($referer4->level3) {
+            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);          
+            if (Auth::check()) {
+             $success_notification = array(
+              'message' => 'Done!',
+              'alert-type' => 'success'
+            );
+             return redirect()->route('admin.create_our_user')->with($success_notification);
+           }else {
+            return redirect()->route('home');
+          }
+        }
+
+                                    // add amount to level 3 referer amount
+        $referer4->refererAmount = $referer4->refererAmount + 100;
+        $referer4->level3 = Auth::id();
+        $referer4->save();
+                                    // $present_user->level2 = $referer3->id;
+      }
+    }
+  }
+}
+}
+}
+            //end level 3 payment
+
+
+            //start level 4 payment
+
+            //level 1 referer id
+$person_that_refered = $present_user->idOfReferer;
+if ($person_that_refered) {
+                //level 1 referer
+  $referer = User::where('id', $person_that_refered)->first();
+  if ($referer) {
+                    //level 2 referer id
+    $person_that_refered2 = $referer->idOfReferer;
+                    //level 2 referer
+    if ($person_that_refered2) {
+      $referer3 = User::where('id', $person_that_refered2)->first();
+      if ($referer3) {
+                            //level 3 referer id
+        $person_that_refered3 = $referer3->idOfReferer;
+        if ($person_that_refered3) {
+                                //level 3 referer
+          $referer4 = User::where('id', $person_that_refered3)->first();
+          if ($referer4) {
+
+            $person_that_refered4 = $referer4->idOfReferer;
+
+            if ($person_that_refered4) {
+              $referer5 = User::where('id', $person_that_refered4)->first();
+              if ($referer5) {
+
+                if ($referer5->level4) {
+                  Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);          
+                  if (Auth::check()) {
+                    $success_notification = array(
+                      'message' => 'Done!',
+                      'alert-type' => 'success'
+                    );
+                    return redirect()->route('admin.create_our_user')->with($success_notification);
+                  }else {
+                    return redirect()->route('home');
+                  }
+                }
+
+                                            // add amount to level 4 referer amount
+                $referer5->refererAmount = $referer5->refererAmount + 50;
+                $referer5->level4 = Auth::id();
+                $referer5->save();
+                                            // $present_user->level2 = $referer3->id;
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
+}
+
+            //level 1 referer id
+$person_that_refered = $present_user->idOfReferer;
+if ($person_that_refered) {
+                //level 1 referer
+  $referer = User::where('id', $person_that_refered)->first();
+  if ($referer) {
+                    //level 2 referer id
+    $person_that_refered2 = $referer->idOfReferer;
+                    //level 2 referer
+    if ($person_that_refered2) {
+      $referer3 = User::where('id', $person_that_refered2)->first();
+      if ($referer3) {
+                            //level 3 referer id
+        $person_that_refered3 = $referer3->idOfReferer;
+        if ($person_that_refered3) {
+                                //level 3 referer
+          $referer4 = User::where('id', $person_that_refered3)->first();
+          if ($referer4) {
+
+            $person_that_refered4 = $referer4->idOfAgent;
+
+            if ($person_that_refered4) {
+              $referer5 = Agent::where('id', $person_that_refered4)->first();
+
+              if ($referer5) {
+               if($referer5->level4) {
+                Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);          
+                if (Auth::check()) {
+                 $success_notification = array(
+                  'message' => 'Done!',
+                  'alert-type' => 'success'
+                );
+                 return redirect()->route('admin.create_our_user')->with($success_notification);
+               }else {
+                return redirect()->route('home');
+              }
+            }
+
+                                            // add amount to level 4 referer amount
+            $referer5->refererAmount = $referer5->refererAmount + 50;
+            $referer5->level4 = Auth::id();
+            $referer5->save();
+                                            // $present_user->level2 = $referer3->id;
+          }
+        }
+      }
+    }
+  }
+}
+}
+}
+            // end level 4 payment
+if (Auth::user()->role == 'seller') {
+ Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);          
+ if (Auth::check()) {
+   $success_notification = array(
+    'message' => 'Done!',
+    'alert-type' => 'success'
+  );
+   return redirect()->route('admin.create_our_user')->with($success_notification);
+ }else {
+  return redirect()->route('home');
+}
+}
+}
+
+
+}
+}
+
+

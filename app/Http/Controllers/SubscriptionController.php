@@ -36,19 +36,40 @@ class SubscriptionController extends Controller
 	public function createSub()
 	{		
 
-		// if ($current_subscription = ProviderSubscription::where('user_id', Auth::id())->first()) {
-		if ($current_subscription = Auth::user()->subscriptions->first()) {
-			$current_subscription_end_date = $current_subscription->subscription_end_date;
-		}else{
-			$current_subscription_end_date = null;
-		}
- // $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
+  if (!Auth::user()->subscriptions->first()) {
+  $current_subscription_end_date = null;
+    $subscription_has_ended = null;
 
-		if (Carbon::now() > Carbon::parse($current_subscription_end_date)) {
-			$subscription_has_ended = "Your Subscription has ended. Please renew your subcription to proceed";
-		}else{
-			$subscription_has_ended = null;
-		}
+}else {
+   $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
+
+if ($user_sub_date) {
+   if (Carbon::now() > Carbon::parse($user_sub_date)) {
+    $current_subscription_end_date = null;
+	$subscription_has_ended = "Your Subscription has ended. Please renew your subcription to proceed";    
+  }else{
+    $current_subscription_end_date =   $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
+  $subscription_has_ended = null;
+
+
+  }
+}else {
+  $subscription_has_ended = null;
+}
+}
+	// 	// if ($current_subscription = ProviderSubscription::where('user_id', Auth::id())->first()) {
+	// 	if ($current_subscription = Auth::user()->subscriptions->first()) {
+	// 		$current_subscription_end_date = $current_subscription->subscription_end_date;
+	// 	}else{
+	// 		$current_subscription_end_date = null;
+	// 	}
+ // // $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
+
+	// 	if (Carbon::now() > Carbon::parse($current_subscription_end_date)) {
+	// 		$subscription_has_ended = "Your Subscription has ended. Please renew your subcription to proceed";
+	// 	}else{
+	// 		$subscription_has_ended = null;
+	// 	}
 
 		
 		
