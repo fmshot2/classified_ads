@@ -52,6 +52,7 @@
 	<link rel="stylesheet" href="{{asset('dropzone/dist/dropzone.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('select2js/select2.min.css') }}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
@@ -94,6 +95,16 @@
     }
     .dropzone .dz-preview .dz-error-message {
         top: 144px;
+    }
+
+    .select2-container {
+        color: rgb(19, 19, 19) !important;
+    }
+    .select2-container--default .select2-selection--multiple .select-selection__choice{
+        color: rgb(24, 24, 24) !important;
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+        color: rgb(24, 24, 24) !important;
     }
 
 </style>

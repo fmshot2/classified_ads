@@ -658,9 +658,9 @@
     </div>
 
 
-            @if($current_subscription_end_date)                 
-               
-                    
+            @if($current_subscription_end_date)
+
+
                       <div>
         <div id="postServiceModal" class="modal fade postServiceModal" role="dialog">
             <div class="modal-dialog modal-lg">
@@ -673,7 +673,7 @@
                         <h5 class="text-center" id="sub_end"><strong>Your Subscription has ended. Please renew your subcription to proceed</strong><span></span>
                         </h5>
                     </div>
-                
+
                 </div>
             </div>
         </div>
@@ -746,7 +746,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Sub Category <small class="text-info">(You can select multiple sub categories)</small></label>
-                                                <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple>
+                                                <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555555;background-color: #ffffff;background-image: none;border: 1px solid #cccccc;border-radius: 0;-webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+                                                box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%); -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;">
                                                     <option value="">- Please select a category to populate this -</option>
                                                 </select>
                                             </div>
@@ -1105,7 +1106,7 @@
         </div>
     </div>
                 @endif
-   
+
 </div>
 
 <div>

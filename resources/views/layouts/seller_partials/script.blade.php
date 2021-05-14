@@ -42,6 +42,15 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+<script src="{{ asset('select2js/select2.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $("#sub_categories").select2({
+            placeholder: "Select a sub category (optional)",
+            allowClear: true
+        });
+    });
+</script>
 
 
 <script type="text/javascript">

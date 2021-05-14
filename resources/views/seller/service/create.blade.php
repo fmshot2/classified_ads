@@ -31,6 +31,15 @@
         top: 45%;
         color: #fff;
     }
+    .select2-container {
+        color: rgb(19, 19, 19) !important;
+    }
+    .select2-container--default .select2-selection--multiple .select-selection__choice{
+        color: rgb(24, 24, 24) !important;
+    }
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+        color: rgb(24, 24, 24) !important;
+    }
 </style>
 
 <div class="content-wrapper" style="min-height: 868px;">
@@ -153,11 +162,9 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Sub Category <small class="text-info">(You can select multiple sub category)</small></label>
-                                                <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple>
+                                                <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555555;background-color: #ffffff;background-image: none;border: 1px solid #cccccc;border-radius: 0;-webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+                                                    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%); -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;">
                                                     <option value="">- Please select a category to populate this -</option>
-                                                    @foreach($subcategory as $subcategories)
-                                                        <option id="category_id" value=" {{ $subcategories->id }} "> {{ $subcategories->name }} </option>
-                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -647,7 +654,7 @@
                     success:function(res){
                         if(res){
                         var res = JSON.parse(res);
-                            $("#sub_categories ").empty();
+                            $("#sub_categories").empty();
                             $.each(res, function(key,value){
                             var chosen_value = value;
                                 $("#sub_categories").append(
