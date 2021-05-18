@@ -150,4 +150,9 @@ class PageContentController extends Controller
             'alert-type' => 'error'
         ]);
     }
+
+    public function emailTemplates()
+    {
+        return view('admin.mailing.send_email');
+    }
 }

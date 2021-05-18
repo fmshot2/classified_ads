@@ -903,6 +903,10 @@ Route::prefix('cmo')->middleware(['cmo'])->group(function () { //CMO Middleware 
     Route::post('pages-contents/termofuse', 'PageContentController@saveTermOfUse')->name('cmo.pagescontents.save.termofuse');
 
 
+    // E-MAILS TEMPLATE
+    Route::get('email-template', 'PageContentController@emailTemplates')->name('cmo.emails.template');
+
+
 }); //CMO Middleware protection end here
 
 Route::prefix('data-officer')->middleware(['data'])->group(function () { //Data Entry Officer Middleware protection start here

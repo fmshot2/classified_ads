@@ -147,4 +147,7 @@ Route::prefix('v1')->group(function ()
 
     // CONTACT
     Route::post('/contact-us', [ServiceController::class, 'contactUsForm']);
+
+    // FAQ
+    Route::get('/faqs', [ServiceController::class, 'faqs']);
 });

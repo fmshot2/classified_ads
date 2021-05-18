@@ -281,6 +281,7 @@ class ServiceController extends Controller
         $service_category_id = $serviceDetail->category_id;
         $similarProducts = Service::where([['category_id', $service_category_id], ['state', $serviceDetail_state]])
             ->where('subscription_end_date', '>', now())
+            ->where('id', '!=', $serviceDetail_id)
             ->inRandomOrder()->limit(8)->get();
 
         $featuredServices2 = Service::where('is_featured', 1)
