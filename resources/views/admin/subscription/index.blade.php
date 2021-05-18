@@ -37,7 +37,7 @@ All Seller |
 									<th> Email </th>
 									<th> role </th>
 									<th> Applied for Approval?</th>
-									<th> Date </th>
+									<th> Status </th>
 									<th> Activate/Deactivate</th>
 								</tr>	
 
