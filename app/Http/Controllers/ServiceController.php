@@ -1622,25 +1622,22 @@ public function show($id)
     public function set_sub()
     {
     
-        $subs = Service::with('user')->get();
+        $services = Service::whereNull('subscription_end_date');
                             // dd($subs);
-        foreach ($subs as $sub) {
-                    // dd($sub->user);
+        foreach ($services as $service) {
+            $service->subscription_end_date = $service->user->created_at;
+        }
 
-            $userSub = $sub->user;
-            // dd($userSub);
-            if ($userSub->subscriptions) {
-                  foreach($userSub->subscriptions as $comment)
-  {
+    
         dd($comment->subscription_end_date);
-  }
+  
             $sub->subscription_end_date = $sub->user->subscription_end_date;
-         }
+         
   
          if ($sub->user->subscription_end_date) {
             $sub->subscription_end_date = $sub->user->subscription_end_date;
          }
          $sub->save();
-        }
+        
     }
 }

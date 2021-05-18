@@ -1453,6 +1453,34 @@ public function save_faq(Request $request)
 
 
 
+    public function ended_seller()
+    {        
+      $names = array();
+      $names22 = array();
+      $second = Carbon::now()->addDays(15);
+      $first =  Carbon::now();
+      $subb = Subscription::all();
+      foreach($subb as $user) {
+                   /* ->where('subscription_end_date', '>', now())
+\Carbon\Carbon::now()->lte($item->client->event_date_from*/
+        if(Carbon::parse($user->subscription_end_date)->lt($first)){
+          array_push($names, $user);
+        }
+      }
+      // dd($names);
+
+      foreach ($names as $myuser) {
+        $myuser2 = User::where('id', $myuser->subscriptionable_id)->get();
+        array_push($names22, $myuser2);
+      }
+
+      $seller = $names22;
+    // dd($seller);
+      return view('admin.user.ended_seller', compact('seller'));
+    }
+
+
+
 
     public function save_agent_id(){
       $users = User::whereNotNull('idOfAgent')->get();
