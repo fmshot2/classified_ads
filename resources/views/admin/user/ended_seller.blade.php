@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'All Service Providers | ')
+@section('title', 'Subscription Has Ended Users Table | ')
 
 @section('content')
 

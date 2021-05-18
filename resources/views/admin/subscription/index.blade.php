@@ -1,7 +1,8 @@
 
 @extends('layouts.admin')
 
-@section('title')
+@section('title', 'Subscription Users Table | ')
+
 All Seller | 
 @endsection
 
