@@ -42,6 +42,7 @@ Route::get('/addSlug', 'AuthController@addSlug')->name('addSlug');
 Route::get('/save_agent_id', 'AdminController@save_agent_id')->name('save_agent_id');
 Route::get('/set_sub', 'ServiceController@set_sub')->name('set_sub');
 Route::get('/users_sub_almost_ended', 'AdminController@ending_seller')->name('users_sub_almost_ended');
+Route::get('/users_sub_has_ended', 'AdminController@ended_seller')->name('users_sub_has_ended');
 
 //End Special URLS
 
@@ -213,7 +214,7 @@ Route::post('dropzone/store', 'DropzoneController@dropzoneStore')->name('dropzon
 
 Route::get('/', 'ServiceController@index2')->name('home');
 Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('serviceDetail');
-Route::get('job-applicant/details/{slug}', 'OperationalController@seekingWorkDetails')->name('job.applicant.detail');
+Route::get('job-applicant/details/{slug}', 'SeekingWorkController@seekingWorkDetails')->name('job.applicant.detail');
 Route::post('saveContacts', 'ServiceController@saveContacts')->name('saveContacts');
 Route::get('/contacts', 'ServiceController@showContacts')->name('contacts');
 Route::get('/allservices', 'ServiceController@allServices')->name('allServices');
@@ -341,7 +342,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
     {
         Route::get('/dashboard/make_withdrawal_request/{refer_id}', 'DashboardController@make_withdrawal_request')->name('seller.make_withdrawal_request');
         Route::get('/serviceDetail/{slug}', 'ServiceController@serviceDetail')->name('service_detail_4_provider');
-        Route::get('/job-applicant/preview/details/{slug}', 'OperationalController@seekingWorkPreviewDetails')->name('job.applicant.preview.detail');
+        Route::get('/job-applicant/preview/details/{slug}', 'SeekingWorkController@seekingWorkPreviewDetails')->name('job.applicant.preview.detail');
 
 
         Route::get('/dashboard', 'DashboardController@seller')->name('seller.dashboard');
@@ -362,11 +363,11 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/service/adverts', 'BadgeController@adverts')->name('seller.service.adverts');
 
         Route::get('/service/{slug}', [ServiceImageController::class, 'showService'])->name('seller.service.show.service');
-        Route::get('/seekingwork/{slug}', [OperationalController::class, 'showCV'])->name('seller.show.cv');
+        Route::get('/seekingwork/{slug}', [SeekingWorkController::class, 'showCV'])->name('seller.show.cv');
         Route::post('/service/images/store/{id}', [ServiceImageController::class, 'imagesStore'])->name('service.images.store');
-        Route::post('/seekingwork/images/store/{id}', [OperationalController::class, 'imagesSeekingWorkStore'])->name('seekingwork.images.store');
+        Route::post('/seekingwork/images/store/{id}', [SeekingWorkController::class, 'imagesSeekingWorkStore'])->name('seekingwork.images.store');
         Route::get('/service/images/delete/{id}/{service_id}', [ServiceImageController::class, 'imagesDelete'])->name('service.image.delete');
-        Route::get('/seekingwork/images/delete/{seekingworkid}/{id}', [OperationalController::class, 'imagesDelete'])->name('seekingwork.image.delete');
+        Route::get('/seekingwork/images/delete/{seekingworkid}/{id}', [SeekingWorkController::class, 'imagesDelete'])->name('seekingwork.image.delete');
         Route::get('/service/post_advert', 'SellerController@post_advert')->name('seller.post_advert');
 
         Route::get('/service/create_service_page', 'ServiceController@create_service_page')->name('create_service_page');
@@ -408,7 +409,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         // Route::post('submit-payment-request', 'PaymentRequestController@submitRequest')->name('seller.submit.payemnt.request');
         Route::get('payment-history', 'SellerController@PaymentHistory')->name('seller.payment.history');
 
-        Route::post('seeking-work/create', 'OperationalController@seekingWorkCreate')->name('provider.seeking.work.create');
+        Route::post('seeking-work/create', 'SeekingWorkController@seekingWorkCreate')->name('provider.seeking.work.create');
         // Route::get('payment-history', 'SellerController@PaymentHistory')->name('seller.payment.history');
 
 
@@ -468,8 +469,8 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
 
 
 Route::middleware(['admin'])->group(function () { //Admin Middleware protection start here
-    Route::get('/admin/create_our_user', 'AdminController@create_our_user')->name('admin.create_our_user');        
-    Route::post('/admin/create_user', 'AdminController@save_user_from_admin')->name('admin.create.user');    
+    Route::get('/admin/create_our_user', 'AdminController@create_our_user')->name('admin.create_our_user');
+    Route::post('/admin/create_user', 'AdminController@save_user_from_admin')->name('admin.create.user');
     Route::get('/admin/dashboard/approve_withdrawal_request/{id}', 'DashboardController@approve_withdrawal_request')->name('admin.approve_withdrawal_request');
     Route::get('/admin/dashboard/all-marketers-earnings', 'AdminController@all_marketer_earnings')->name('admin.all.earnings');
     Route::get('/admin/dashboard', 'DashboardController@admin')->name('admin.dashboard');
@@ -498,7 +499,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/dashboard/seekingwork/destroy/{id}', 'AdminController@seekingWorkDestroy')->name('admin.seekingwork.destroy');
     Route::get('admin/dashboard/service/view/{slug}', 'AdminController@viewService')->name('admin.view');
 
-    Route::get('/job-applicant/preview/details/{slug}', 'OperationalController@seekingWorkPreviewDetails')->name('job.applicant.preview.detail');
+    Route::get('/job-applicant/preview/details/{slug}', 'SeekingWorkController@seekingWorkPreviewDetails')->name('job.applicant.preview.detail');
 
 
     Route::get('admin/dashboard/service/update/{slug}', 'SellerController@viewServiceUpdate')->name('admin.service.update.view');

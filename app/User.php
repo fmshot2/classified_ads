@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+
 use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -16,14 +17,23 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     use Notifiable;
 
 
- // public function __construct()
- //    {
- //        $this->user = auth()->user();
- //    }
+    // public function __construct()
+    //    {
+    //        $this->user = auth()->user();
+    //    }
 
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucwords($value);
+    }
+    public function getNameAttribute($value)
+    {
+        return ucwords($value);
+    }
 
-   /**
+
+    /**
      * Get all of the user's payments.
      */
     public function mypayments()
@@ -70,19 +80,23 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function services(){
+    public function services()
+    {
         return $this->hasMany('\App\Service'); //Product Model Name
     }
 
-    public function payments(){
+    public function payments()
+    {
         return $this->hasMany('\App\Payment'); //Product Model Name
     }
 
-    public function seeking_works(){
+    public function seeking_works()
+    {
         return $this->hasMany('\App\SeekingWork'); //Product Model Name
     }
 
-    public function badges(){
+    public function badges()
+    {
         return $this->hasMany('\App\Badge'); //Product Model Name
     }
 
@@ -116,15 +130,17 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
         return $this->hasMany('App\PaymentRequest');
     }
 
-    public function likes(){
+    public function likes()
+    {
         return $this->hasMany('\App\Like'); //Product Model Name
     }
 
-     public function provider_subscriptions(){
+    public function provider_subscriptions()
+    {
         return $this->hasMany('\App\ProviderSubscription'); //ProviderSubscription Model Name
     }
 
-  public function getTotalRefersAttribute()
+    public function getTotalRefersAttribute()
     {
         $ref = $this->referals()->whereDate('created_at', Carbon::yesterday())->get();
 
@@ -132,27 +148,25 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 
         if ($ref) {
             return $ref;
-        }
-        else {
+        } else {
             return null;
         }
     }
 
-public function getTotalWeekAttribute()
+    public function getTotalWeekAttribute()
     {
 
-        $AgoDate=Carbon::now()->subWeek()->format('Y-m-d');  // returns 2016-02-03
-        $NowDate=Carbon::now()->format('Y-m-d');  // returns 2016-02-10
+        $AgoDate = Carbon::now()->subWeek()->format('Y-m-d');  // returns 2016-02-03
+        $NowDate = Carbon::now()->format('Y-m-d');  // returns 2016-02-10
         // $query->whereBetween('created_on', array($AgoDate,$NowDate));
 
-        $ref = $this->referals()->whereBetween('created_at', array($AgoDate,$NowDate))->get();
+        $ref = $this->referals()->whereBetween('created_at', array($AgoDate, $NowDate))->get();
 
         // $images = $this->images->first();
 
         if ($ref) {
             return $ref;
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -160,7 +174,7 @@ public function getTotalWeekAttribute()
     public function getTotalMonthAttribute()
     {
         $date = Carbon::today()->subDays(30);
-         // $users = User::where('created_at','>=',$date)->get();
+        // $users = User::where('created_at','>=',$date)->get();
 
         // $AgoDate=Carbon::now()->subWeek()->format('Y-m-d');
         // $NowDate=Carbon::now()->format('Y-m-d');
@@ -171,17 +185,16 @@ public function getTotalWeekAttribute()
 
         if ($ref) {
             return $ref;
-        }
-        else {
+        } else {
             return null;
         }
     }
 
 
- // public function getTotalLikesAttribute()
- //    {
- //       return $this->likes->count();
- //    }
+    // public function getTotalLikesAttribute()
+    //    {
+    //       return $this->likes->count();
+    //    }
 
 
     /**
@@ -193,7 +206,7 @@ public function getTotalWeekAttribute()
     }
 
 
-      public function referal()
+    public function referal()
     {
         return $this->belongsTo('App\Referal');
     }
@@ -202,7 +215,7 @@ public function getTotalWeekAttribute()
     {
         return $this->morphMany(Message::class, 'messageable')->whereNull('parent_id');
     }
-      public function agents()
+    public function agents()
     {
         return $this->belongsTo(Agent::class, 'agent_id');
     }
@@ -211,5 +224,4 @@ public function getTotalWeekAttribute()
     {
         return $this->belongsTo('App\Referal');
     }
-
 }
