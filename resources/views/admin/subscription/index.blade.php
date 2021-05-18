@@ -108,7 +108,7 @@ All Seller |
 // '/admin/delete/faqs/{id}'
 
     } else {
-              alert('failed');
+              alert('Attempt failed');
 
         console.log('Delete process cancelled');
 
