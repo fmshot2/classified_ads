@@ -22,7 +22,7 @@
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Subscription About To End Table </h3>
+						<h3 class="box-title"> Subscription Has Ended Table </h3>
 					</div>
 
 					<!-- /.box-header -->
