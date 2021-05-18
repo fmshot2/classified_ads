@@ -31,7 +31,7 @@
                             <table class="display table table-bordered data_table_main">
                                 <thead>
                                     <tr>
-                                        <th> # </th>
+                                        <!-- <th> # </th> -->
                                         <th> Name </th>
                                         <th> Email </th>
                                         <th> Phone </th>
@@ -40,9 +40,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach($seller as $key => $sellerss)
-                                     @foreach($sellerss as $key => $sellers)
+                                     @foreach($sellerss as $keys => $sellers)
                                         <tr>
-                                            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                                            <!-- <td><a href="javascript:void(0)"> {{ $keys + 1 }} </a></td> -->
                                             <td> {{ $sellers->name }} </td>
                                             <td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
                                             <td><span class="text-muted"> </i> {{ $sellers->phone }} </span> </td>                      
