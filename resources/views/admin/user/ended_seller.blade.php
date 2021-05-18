@@ -35,7 +35,7 @@
                                         <th> Name </th>
                                         <th> Email </th>
                                         <th> Phone </th>
-                                        <th> Date </th>
+                                        <!-- <th> Date </th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,7 +46,7 @@
                                             <td> {{ $sellers->name }} </td>
                                             <td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
                                             <td><span class="text-muted"> </i> {{ $sellers->phone }} </span> </td>
-                                            <td> {{ $sellers->created_at->format('d/m/Y') }} </span></td>                                           
+                                                                                     
                                         </tr>
                                     @endforeach
                                     @endforeach
