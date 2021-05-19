@@ -56,7 +56,7 @@ class ServiceController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'seekingWorkLists', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories', 'findNearestServices', 'servicesByCategory', 'allFeaturedServices', 'serviceCloseToYou', 'contactUsForm', 'faqs']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'seekingWorkLists', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories', 'findNearestServices', 'servicesByCategory', 'allFeaturedServices', 'serviceCloseToYou', 'contactUsForm', 'faqs', 'ajaxSearchResult']]);
         $this->user = $this->guard()->user();
     }
 
@@ -1252,7 +1252,7 @@ class ServiceController extends Controller
         $category_id = $the_category->id;
 
         if ($category_id == 1) {
-            $category_services = SeekingWork::where('category_id', $category_id)->where('status', 1) ->where('subscription_end_date', '>', now())->orderBy('badge_type', 'asc')->paginate(9);
+            $category_services = SeekingWork::where('category_id', $category_id)->where('status', 1)->where('subscription_end_date', '>', now())->orderBy('badge_type', 'asc')->paginate(9);
 
             return response()->json([
                 'category' => $the_category->name,
@@ -1260,7 +1260,7 @@ class ServiceController extends Controller
                 ], 200);
         }
         else{
-            $category_services = Service::where('category_id', $category_id)->where('status', 1) ->where('subscription_end_date', '>', now())->orderBy('badge_type', 'asc')->paginate(9);
+            $category_services = Service::where('category_id', $category_id)->where('status', 1)->where('subscription_end_date', '>', now())->orderBy('badge_type', 'asc')->paginate(9);
 
             return response()->json([
                 'category' => $the_category->name,
@@ -1543,6 +1543,27 @@ class ServiceController extends Controller
 
         return response()->json([
             'faqs' => $faqs,
+        ], 200);
+    }
+
+    public function ajaxSearchResult(Request $request)
+    {
+        $services = Service::query()
+        ->where('name', 'LIKE', "%{$request->keyword}%")
+        ->where('status', 1)->where('subscription_end_date', '>', now())
+        ->orWhere('description', 'LIKE', "%{$request->keyword}%");
+
+        $seekingworks = SeekingWork::query()
+        ->where('job_title', 'LIKE', "%{$request->keyword}%")
+        ->where('status', 1)->where('subscription_end_date', '>', now())
+        ->orWhere('fullname', 'LIKE', "%{$request->keyword}%");
+
+
+        $data = $services->get()->concat($seekingworks->get());
+
+
+        return response()->json([
+            'services' => new ServiceResourceCollection($data),
         ], 200);
     }
 
