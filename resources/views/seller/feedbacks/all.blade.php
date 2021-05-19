@@ -46,7 +46,7 @@
                                             <a href="#"
                                             onclick="event.preventDefault();document.getElementById('comment-delete-form-{{ $allcomment->id }}').submit();" class="btn btn-danger "><i class="fa fa-trash"></i></a>
                                             <form id="comment-delete-form-{{ $allcomment->id }}"
-                                                action="{{route('comments.delete', $allcomment->id)  }}" method="POST" style="display: none;">
+                                                action="{{route('comment.delete', $allcomment->id)  }}" method="POST" style="display: none;">
                                                 @method('DELETE')
                                                 @csrf
                                             </form>

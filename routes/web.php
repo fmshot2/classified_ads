@@ -1,5 +1,6 @@
 <?php
 
+use App\Category;
 use App\Http\Controllers\OperationalController;
 use App\Http\Controllers\ServiceImageController;
 use App\Jobs\TestQueue;
@@ -28,6 +29,10 @@ use Illuminate\Support\Facades\Mail;
 
 Route::get('/email/earn/{password}', 'OperationalController@earnExtraMoney');
 Route::get('/newsletter/send/{password}', 'OperationalController@Newsletter')->name('newsletter.send');
+Route::post('/email/popular-products-services/send', 'OperationalController@popularProductServices')->name('email.popular_products_services');
+Route::post('/email/start-to-earn/send', 'OperationalController@earnExtraMoneyUI')->name('email.start_to_earn');
+
+
 Route::view('/agentregistered', 'errors.agentregistered');
 Route::view('/subscriptionended', 'errors.subscriptionended');
 
@@ -65,7 +70,9 @@ Route::get('/tester', function ()
     return 'done';
 });
 Route::get('email', function () {
-    return new App\Mail\EarnMoney('Paul');
+    $category = Category::inRandomOrder()->first();
+    $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
+    return new App\Mail\EarnMoney('Tester');
 });
 // Route::get('newsletter/', 'OperationalController@Newsletter');
 
@@ -404,6 +411,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
 
         Route::get('my-referrals/', 'SellerController@myreferrals')->name('provider.myreferrals');
         Route::get('client-feedbacks/', 'OperationalController@clientfeedbacks')->name('provider.clientfeedbacks.all');
+        Route::delete('/comment/delete/{id}', 'CommentsController@feedbackDelete')->name('comment.delete');
         Route::get('totalservicelikes/', 'OperationalController@sellerLikesCount')->name('provider.totalservicelikes');
         Route::get('my-favourites/', 'OperationalController@myFavourites')->name('provider.myfavourites');
 
@@ -904,6 +912,10 @@ Route::prefix('cmo')->middleware(['cmo'])->group(function () { //CMO Middleware 
     Route::post('pages-contents/about-section-three', 'PageContentController@saveAboutUsSection3')->name('cmo.pagescontents.saveAboutUsSection3');
     Route::post('pages-contents/benefitsofefc', 'PageContentController@saveBenefitsofEfcontact')->name('cmo.pagescontents.save.benefitsofefc');
     Route::post('pages-contents/termofuse', 'PageContentController@saveTermOfUse')->name('cmo.pagescontents.save.termofuse');
+
+
+    // E-MAILS TEMPLATE
+    Route::get('email-template', 'PageContentController@emailTemplates')->name('cmo.emails.template');
 
 
 }); //CMO Middleware protection end here

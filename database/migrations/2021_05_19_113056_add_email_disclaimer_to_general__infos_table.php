@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPaidFeaturedToServicesTable extends Migration
+class AddEmailDisclaimerToGeneralInfosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddPaidFeaturedToServicesTable extends Migration
      */
     public function up()
     {
-        Schema::table('services', function (Blueprint $table) {
-            $table->integer('paid_featured')->after('is_featured')->default(0);
+        Schema::table('general__infos', function (Blueprint $table) {
+            $table->longText('email_disclaimer')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddPaidFeaturedToServicesTable extends Migration
      */
     public function down()
     {
-        Schema::table('services', function (Blueprint $table) {
-            $table->dropColumn('paid_featured');
+        Schema::table('general__infos', function (Blueprint $table) {
+            $table->dropColumn('email_disclaimer');
         });
     }
 }

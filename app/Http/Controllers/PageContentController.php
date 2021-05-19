@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\General_Info;
 use App\PageContent;
 use Illuminate\Http\Request;
@@ -149,5 +150,11 @@ class PageContentController extends Controller
             'message' => 'Term of Usecould not be updated!',
             'alert-type' => 'error'
         ]);
+    }
+
+    public function emailTemplates()
+    {
+        $categories = Category::orderBy('name')->get();
+        return view('admin.mailing.send_email', ['categories' => $categories]);
     }
 }

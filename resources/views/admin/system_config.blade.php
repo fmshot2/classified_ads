@@ -38,7 +38,7 @@
                                 @if(Auth::user()->role == 'superadmin')
                                 <div class="col-md-6 col-sm-12">
 
-                                    
+
                                     <form class="form-horizontal form-element" method="POST" action="{{route('super.system.config.store', $check_general_info == 0 ? $general_info->id : 0 )}} " enctype="multipart/form-data">
                                         {{ csrf_field() }}
 
@@ -176,18 +176,22 @@
                                     </div>
 
                                     <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="email_disclaimer" class="control-label">Email Disclaimer</label>
+                                            <textarea class="form-control" name="email_disclaimer"> {{ $check_general_info == 0 ? $general_info->email_disclaimer : ''}} </textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
                                         <button type="submit" class="btn btn-warning btn-sm"> Update Settings </button>
                                     </div>
 
                                 </form>
-
-
-
                             </div>
                             @elseif(Auth::user(Auth::user()->role == 'admin'))
                             <div class="col-md-6 col-sm-12">
 
-                                    
+
                                     <form class="form-horizontal form-element" method="POST" action="{{route('admin.system.config.store', $check_general_info == 0 ? $general_info->id : 0 )}} " enctype="multipart/form-data">
                                         {{ csrf_field() }}
 
@@ -325,6 +329,13 @@
                                     </div>
 
                                     <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="email_disclaimer" class="control-label">Email Disclaimer</label>
+                                            <textarea class="form-control" name="email_disclaimer"> {{ $check_general_info == 0 ? $general_info->email_disclaimer : ''}} </textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
                                         <button type="submit" class="btn btn-warning btn-sm"> Update Settings </button>
                                     </div>
 
@@ -336,7 +347,7 @@
                             @elseif(Auth::user()->role == 'cmo')
                             <div class="col-md-6 col-sm-12">
 
-                                    
+
                                     <form class="form-horizontal form-element" method="POST" action="{{route('cmo.system.config.store', $check_general_info == 0 ? $general_info->id : 0 )}} " enctype="multipart/form-data">
                                         {{ csrf_field() }}
 
@@ -465,11 +476,17 @@
                                         </div>
                                     </div>
 
-
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="site_name" class="control-label">Logo</label>
                                             <input type="file" name="file" id="logo" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="email_disclaimer" class="control-label">Email Disclaimer</label>
+                                            <textarea class="form-control" name="email_disclaimer"> {{ $check_general_info == 0 ? $general_info->email_disclaimer : ''}} </textarea>
                                         </div>
                                     </div>
 

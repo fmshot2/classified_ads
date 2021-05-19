@@ -778,6 +778,7 @@ public function save_event(Request $request)
     $general_info->register_section_1_title = $request->register_section_1_title;
     $general_info->register_section_2_title = $request->register_section_2_title;
     $general_info->register_section_3_title = $request->register_section_3_title;
+    $general_info->email_disclaimer = $request->email_disclaimer;
 
 
     if ( $request->hasFile('file') ) {

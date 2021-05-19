@@ -58,15 +58,15 @@
       <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             @if (Auth::guard('agent')->user()->image == null)
-                <i class="fa fa-user" style="color: #fff"; font-size: 50px !important;></i>
+                <i class="fa fa-user" style="color: #fff; font-size: 50px !important;"></i>
             @else
-                <img src="{{ '/images/'.Auth::guard('agent')->user()->image  }}" class="user-image" alt="User Image">
+                <img src="{{ '/uploads/users/'.Auth::guard('agent')->user()->image  }}" class="user-image" alt="User Image">
             @endif
         </a>
         <ul class="dropdown-menu scale-up">
           <!-- User image -->
           <li class="user-header" style="background-color: #f8d053;">
-            <img src="{{ Auth::guard('agent')->user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::guard('agent')->user()->image  }}" class="img-responsive" alt="User Image">
+            <img src="{{ Auth::guard('agent')->user()->image == null ? '/uploads/users/user-icon.png' : '/uploads/users/'.Auth::guard('agent')->user()->image  }}" class="img-responsive" alt="User Image">
 
             <p>
               {{ Auth::guard('agent')->user()->name }}

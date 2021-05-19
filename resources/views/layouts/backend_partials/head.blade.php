@@ -58,6 +58,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('select2js/select2.min.css') }}">
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/basic.css" rel="stylesheet" type="text/css" />
 {{-- <link href="{{ asset('css/ibiStyles.css') }}" rel="stylesheet" type="text/css" /> --}}
