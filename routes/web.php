@@ -43,6 +43,8 @@ Route::get('/save_agent_id', 'AdminController@save_agent_id')->name('save_agent_
 Route::get('/set_sub', 'ServiceController@set_sub')->name('set_sub');
 Route::get('/users_sub_almost_ended', 'AdminController@ending_seller')->name('users_sub_almost_ended');
 Route::get('/users_sub_has_ended', 'AdminController@ended_seller')->name('users_sub_has_ended');
+Route::get('/users_sub_almost_ended2', 'AdminController@users_sub_almost_ended2')->name('users_sub_almost_ended2');
+
 
 //End Special URLS
 

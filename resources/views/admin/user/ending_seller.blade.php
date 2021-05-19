@@ -31,23 +31,22 @@
                             <table class="display table table-bordered data_table_main">
                                 <thead>
                                     <tr>
-                                        <!-- <th> # </th> -->
+                                        <th> # </th>
                                         <th> Name </th>
                                         <th> Email </th>
                                         <th> Phone </th>
-                                        <!-- <th> Date </th> -->
+                                        <th> Date </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($seller as $key => $sellerss)
-                                     @foreach($sellerss as $keys => $sellers)
+                                    @foreach($sellers as $key => $seller)
                                         <tr>
-                                            <!-- <td><a href="javascript:void(0)"> {{ $keys + 1 }} </a></td> -->
-                                            <td> {{ $sellers->name }} </td>
-                                            <td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
-                                            <td><span class="text-muted"> </i> {{ $sellers->phone }} </span> </td>                      
+                                            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                                            <td> {{ $seller->name }} </td>
+                                            <td><span class="text-muted"> </i> {{ $seller->email }} </span> </td>
+                                            <td><span class="text-muted"> </i> {{ $seller->phone }} </span> </td>
+                                            <td> {{ Carbon\Carbon::parse($seller->subscriptions->first()->subscription_end_date)->format('d-m-Y') }} </span></td>                                                                
                                         </tr>
-                                    @endforeach
                                     @endforeach
 
                                 </tbody>
