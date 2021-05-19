@@ -10,16 +10,22 @@ use Illuminate\Queue\SerializesModels;
 class EarnMoney extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
-    public $username = 'earn';
+    public $username, $subject, $header_title, $intro, $body, $tagline, $link;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($username)
+    public function __construct($username, $subject, $header_title, $intro, $body, $tagline, $link)
     {
         $this->username = $username;
+        $this->subject = $subject;
+        $this->header_title = $header_title;
+        $this->intro = $intro;
+        $this->body = $body;
+        $this->tagline = $tagline;
+        $this->link = $link;
     }
 
     /**
@@ -29,6 +35,6 @@ class EarnMoney extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->from('noreply@efcontact.com', 'EFContact')->markdown('emails.users.earnmoney')->subject('Start to earn extra money!');
+        return $this->from('noreply@efcontact.com', 'EFContact')->markdown('emails.users.earnmoney')->subject($this->subject);
     }
 }

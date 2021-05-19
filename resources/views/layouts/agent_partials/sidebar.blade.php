@@ -6,7 +6,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="image">
-          <img src="{{ Auth::guard('agent')->user()->image == null ? '/uploads/users/user-icon.png' : '/uploads/users/'.''.Auth::guard('agent')->user()->image  }}" class="img-circle" alt="User Image">
+          <img src="{{ Auth::guard('agent')->user()->image == null ? '/uploads/users/user-icon.png' : '/uploads/users/'.Auth::guard('agent')->user()->image  }}" class="img-circle" alt="User Image">
         </div>
         <div class="info">
           <p> {{ Auth::guard('agent')->user()->name }} </p>

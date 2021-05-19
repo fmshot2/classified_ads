@@ -778,6 +778,7 @@ public function save_event(Request $request)
     $general_info->register_section_1_title = $request->register_section_1_title;
     $general_info->register_section_2_title = $request->register_section_2_title;
     $general_info->register_section_3_title = $request->register_section_3_title;
+    $general_info->email_disclaimer = $request->email_disclaimer;
 
 
     if ( $request->hasFile('file') ) {
@@ -1429,7 +1430,7 @@ public function save_faq(Request $request)
 
 
     public function ending_seller()
-    {        
+    {
       $names = array();
       $names22 = array();
       $second = Carbon::now()->addDays(15);
@@ -1459,7 +1460,7 @@ public function save_faq(Request $request)
       foreach ($users as $user) {
        $user->agent_id = $user->idOfAgent;
        $user->save();
-     }     
+     }
      return redirect('/admin/dashboard/all-agents-yesterday');
       // return redirect()->back();
    }
@@ -1520,12 +1521,12 @@ public function save_faq(Request $request)
       'name'            => ['required', 'string', 'max:255'],
       'email'           => ['required', 'string', 'email', 'max:255', 'unique:users'],
       'phone'           => ['required', 'numeric'],
-      'amount'          => ['required', 'numeric'],              
+      'amount'          => ['required', 'numeric'],
       'password'        => ['required', 'string', 'min:6'],
               // 'captcha'      => 'required|captcha',
-      'role'            => ['required', Rule::in(['seller', 'buyer'])],              
+      'role'            => ['required', Rule::in(['seller', 'buyer'])],
       'agent_code'      => ['nullable', 'exists:agents,agent_code'],
-      'admin_password'  => ['nullable'], 
+      'admin_password'  => ['nullable'],
     ]);
 
     $slug3 = Str::random(8);
@@ -1647,8 +1648,8 @@ public function save_faq(Request $request)
             // $sub_check->save();
 
 
-      Auth::user()->subscriptions()->create(['sub_type' => $sub_type, 
-       'last_amount_paid' => $request->amount, 
+      Auth::user()->subscriptions()->create(['sub_type' => $sub_type,
+       'last_amount_paid' => $request->amount,
        'subscription_end_date' => Carbon::now()->addDays($added_days),
          // 'last_subscription_starts' => $current_date_time,
              // 'trans_ref' => $tranxRef,
@@ -1671,7 +1672,7 @@ public function save_faq(Request $request)
         if ($referer) {
                     //if your refferer is an efmarketer staff, redirect user to dashboard
           if ($referer->is_ef_marketer) {
-            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);  
+            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);
             if (Auth::check()) {
              $success_notification = array(
               'message' => 'Done!',
@@ -1699,7 +1700,7 @@ public function save_faq(Request $request)
       if ($referer2) {
                     //if your agent is an efmarketer staff, redirect user to dashboard
         if ($referer2->is_ef_marketer) {
-          Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);  
+          Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);
           if (Auth::check()) {
            $success_notification = array(
             'message' => 'Done!',
@@ -1735,7 +1736,7 @@ public function save_faq(Request $request)
         $referer2 = User::where('id', $person_that_refered2)->first();
         if ($referer2) {
           if ($referer2->level2) {
-            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);  
+            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);
             if (Auth::check()) {
               $success_notification = array(
                 'message' => 'Done!',
@@ -1744,7 +1745,7 @@ public function save_faq(Request $request)
               return redirect()->route('admin.create_our_user')->with($success_notification);
             }else {
               return redirect()->route('home');
-            }        
+            }
           }
 
           $referer2->refererAmount = $referer2->refererAmount + 150;
@@ -1765,7 +1766,7 @@ public function save_faq(Request $request)
         $referer2 = Agent::where('id', $person_that_refered2)->first();
         if ($referer2) {
           if ($referer2->level2) {
-            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);          
+            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);
             if (Auth::check()) {
              $success_notification = array(
               'message' => 'Done!',
@@ -1810,7 +1811,7 @@ if ($person_that_refered) {
           $referer4 = User::where('id', $person_that_refered3)->first();
           if ($referer4) {
            if($referer4->level3) {
-            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);          
+            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);
             if (Auth::check()) {
               $success_notification = array(
                 'message' => 'Done!',
@@ -1853,7 +1854,7 @@ if ($person_that_refered) {
           $referer4 = Agent::where('id', $person_that_refered3)->first();
           if ($referer4) {
            if($referer4->level3) {
-            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);          
+            Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);
             if (Auth::check()) {
              $success_notification = array(
               'message' => 'Done!',
@@ -1907,7 +1908,7 @@ if ($person_that_refered) {
               if ($referer5) {
 
                 if ($referer5->level4) {
-                  Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);          
+                  Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);
                   if (Auth::check()) {
                     $success_notification = array(
                       'message' => 'Done!',
@@ -1960,7 +1961,7 @@ if ($person_that_refered) {
 
               if ($referer5) {
                if($referer5->level4) {
-                Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);          
+                Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);
                 if (Auth::check()) {
                  $success_notification = array(
                   'message' => 'Done!',
@@ -1987,7 +1988,7 @@ if ($person_that_refered) {
 }
             // end level 4 payment
 if (Auth::user()->role == 'seller') {
- Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);          
+ Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);
  if (Auth::check()) {
    $success_notification = array(
     'message' => 'Done!',
