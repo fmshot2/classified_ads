@@ -10,5 +10,9 @@ class State extends Model
     {
         return $this->hasMany(Tourism::class, 'state_id');
     }
+    public function local_governments()
+    {
+        return $this->hasMany(Local_government::class, 'state_id');
+    }
 
 }
