@@ -120,15 +120,6 @@
 <div class="sub-banner" style="background-image:url({{asset('uploads/headerBannerImages/servicedetail.jpg')}})">
     <div class="container">
         <div class="page-name">
-            @if(isset($ww2))
-                <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px; ">
-                    <div class="toast bg-warning" style="position: absolute; top: 0; right: 0; border-radius: 8px;">
-                        <div class="toast-body">
-                            Hello, world! This is a toast message.
-                        </div>
-                    </div>
-                </div>
-            @endif
 
             <div class="sub-banner-text-content">
                 <h1>Service Detail</h1>

@@ -19,12 +19,12 @@
           <!-- User Account -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ Auth::user()->image == null ? '<i class="fa fa-user"></i>' : '/images/'.''.Auth::user()->image  }}" class="user-image" alt="User Image">
+              <img src="{{ Auth::user()->image == null ? '/uploads/users/user-icon.png' : '/uploads/users/'.''.Auth::user()->image  }}" class="user-image" alt="User Image">
             </a>
             <ul class="dropdown-menu scale-up">
               <!-- User image -->
               <li class="user-header" style="background-color: #f8d053;">
-                <img src="{{ Auth::user()->image == null ? '<i class="fa fa-user"></i>' : '/images/'.''.Auth::user()->image  }}" class="img-responsive" alt="User Image">
+                <img src="{{ Auth::user()->image == null ? '/uploads/users/user-icon.png' : '/uploads/users/'.''.Auth::user()->image  }}" class="img-responsive" alt="User Image">
 
                 <p>
                   {{ Auth::user()->name }}

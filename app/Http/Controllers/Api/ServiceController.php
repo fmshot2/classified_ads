@@ -7,6 +7,7 @@ use App\Badge;
 use App\Category;
 use App\Comment;
 use App\Contact;
+use App\Faq;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AdvertisementResource;
 use App\Http\Resources\AdvertisementResourceCollection;
@@ -55,7 +56,7 @@ class ServiceController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'seekingWorkLists', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories', 'findNearestServices', 'servicesByCategory', 'allFeaturedServices', 'serviceCloseToYou', 'contactUsForm']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'seekingWorkLists', 'categories', 'showcategory', 'banner_slider', 'search', 'sub_categories', 'findNearestServices', 'servicesByCategory', 'allFeaturedServices', 'serviceCloseToYou', 'contactUsForm', 'faqs']]);
         $this->user = $this->guard()->user();
     }
 
@@ -73,7 +74,7 @@ class ServiceController extends Controller
     public function index()
     {
         // return ServiceResource::collection(Service::paginate(5));
-        return (new ServiceResourceCollection(Service::where('status', 1)->paginate(9)))
+        return (new ServiceResourceCollection(Service::where('status', 1)->where('subscription_end_date', '>', now())->paginate(9)))
             ->response()
             ->setStatusCode(200);
     }
@@ -719,10 +720,15 @@ class ServiceController extends Controller
     public function show($id)
     {
         $service = Service::findOrFail($id);
+        $similarProducts = Service::where([['category_id', $service->category_id], ['state', $service->state]])
+            ->where('subscription_end_date', '>', now())
+            ->where('id', '!=', $service->id)
+            ->inRandomOrder()->limit(8)->get();
 
-        return (new ServiceResource($service))
-            ->response()
-            ->setStatusCode(200);
+        return response()->json([
+            'service' => new ServiceResource($service),
+            'similar_services' => $similarProducts
+        ], 200);
     }
 
 
@@ -971,7 +977,7 @@ class ServiceController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->keyword ? $request->keyword : 'Nothing!';
-        $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->inRandomOrder()->limit(4)->get();
+        $featuredServices = Service::where('is_featured', 1)->where('status', 1)->with('user')->where('subscription_end_date', '>', now())->inRandomOrder()->limit(4)->get();
         $categories = Category::orderBy('name', 'asc')->get();
 
 
@@ -993,6 +999,7 @@ class ServiceController extends Controller
                             ->where('city', '=', "%{$request->city}%")
                             ->where('state', '=', "%{$request->state}%")
                             ->where('status', 1)
+                            ->where('subscription_end_date', '>', now())
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
                                 $query->where('id', $categoryId);
@@ -1010,6 +1017,7 @@ class ServiceController extends Controller
                             ->where('city', '=', "%{$request->city}%")
                             ->where('state', '=', "%{$request->state}%")
                             ->where('status', 1)
+                            ->where('subscription_end_date', '>', now())
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
                                 $query->where('id', $categoryId);
@@ -1025,6 +1033,7 @@ class ServiceController extends Controller
                 $services = Service::query()
                             ->where('name', 'LIKE', "%{$request->keyword}%")
                             ->where('status', 1)
+                            ->where('subscription_end_date', '>', now())
                             ->orWhere('description', 'LIKE', "%{$request->keyword}%")
                             ->with('category')
                             ->whereHas('category', function($query) use ($categoryId)  {
@@ -1045,6 +1054,7 @@ class ServiceController extends Controller
                             ->where('city', '=', "%{$request->city}%")
                             ->where('state', '=', "%{$request->state}%")
                             ->where('status', 1)
+                            ->where('subscription_end_date', '>', now())
                             ->with('category')
                             ->orWhereHas('category', function($query) use ($categoryId)  {
                                 $query->where('id', $categoryId);
@@ -1060,6 +1070,7 @@ class ServiceController extends Controller
                 $services = Service::query()
                             ->where('name', 'LIKE', "%{$request->keyword}%")
                             ->where('status', 1)
+                            ->where('subscription_end_date', '>', now())
                             ->orWhere('city', '=', "%{$request->city}%")
                             ->orWhere('state', '=', "%{$request->state}%")
                             ->with('category')
@@ -1077,6 +1088,7 @@ class ServiceController extends Controller
                 $services = Service::query()
                             ->where('name', 'LIKE', "%{$request->keyword}%")
                             ->where('status', 1)
+                            ->where('subscription_end_date', '>', now())
                             ->orWhere('city', '=', "%{$request->city}%")
                             ->orWhere('state', '=', "%{$request->state}%")
                             ->with('category')
@@ -1102,6 +1114,7 @@ class ServiceController extends Controller
                     ->where('name', 'LIKE', "%{$request->keyword}%")
                     ->where('state', '=', "%{$request->state}%")
                     ->where('status', 1)
+                    ->where('subscription_end_date', '>', now())
                     ->orderBy('badge_type', 'asc')
                     ->get();
             }
@@ -1109,6 +1122,7 @@ class ServiceController extends Controller
                 $services = Service::query()
                     ->where('city', 'like', "%{$request->city}%")
                     ->where('status', 1)
+                    ->where('subscription_end_date', '>', now())
                     ->orwhere('state', 'like', "%{$request->state}%")
                     ->orderBy('badge_type', 'asc')
                     ->get();
@@ -1117,6 +1131,7 @@ class ServiceController extends Controller
             $related_services = Service::query()
             ->where('name', 'LIKE', "%{$request->keyword}%")
             ->where('status', 1)
+            ->where('subscription_end_date', '>', now())
             ->orwhere('state', '=', "%{$request->state}%")
             ->orwhere('city', '=', "%{$request->city}%")
             ->get();
@@ -1131,6 +1146,7 @@ class ServiceController extends Controller
                 $services = Service::query()
                 ->where('name', 'LIKE', "%{$request->keyword}%")
                 ->where('status', 1)
+                ->where('subscription_end_date', '>', now())
                 ->orWhere('description', 'LIKE', "%{$request->keyword}%")
                 ->orderBy('badge_type', 'asc')
                 ->get();
@@ -1146,6 +1162,7 @@ class ServiceController extends Controller
             ->where('state', 'LIKE', "%{$request->state}%")
             ->where('name', 'LIKE', "%{$request->keyword}%")
             ->where('status', 1)
+            ->where('subscription_end_date', '>', now())
             ->orWhere('description', 'LIKE', "%{$request->keyword}%")
             ->orderBy('badge_type', 'asc')
             ->get();
@@ -1159,6 +1176,7 @@ class ServiceController extends Controller
                 $services = Service::query()
                 ->where('name', 'LIKE', "%{$request->keyword}%")
                 ->where('status', 1)
+                ->where('subscription_end_date', '>', now())
                 ->orWhere('description', 'LIKE', "%{$request->keyword}%")
                 ->orderBy('badge_type', 'asc')
                 ->get();
@@ -1174,6 +1192,7 @@ class ServiceController extends Controller
             $services = Service::query()
                         ->where('name', 'LIKE', "%{$request->keyword}%")
                         ->where('status', 1)
+                        ->where('subscription_end_date', '>', now())
                         ->orWhere('description', 'LIKE', "%{$request->keyword}%")
                         ->orderBy('badge_type', 'asc')
                         ->get();
@@ -1233,7 +1252,7 @@ class ServiceController extends Controller
         $category_id = $the_category->id;
 
         if ($category_id == 1) {
-            $category_services = SeekingWork::where('category_id', $category_id)->where('status', 1)->orderBy('badge_type', 'asc')->paginate(9);
+            $category_services = SeekingWork::where('category_id', $category_id)->where('status', 1) ->where('subscription_end_date', '>', now())->orderBy('badge_type', 'asc')->paginate(9);
 
             return response()->json([
                 'category' => $the_category->name,
@@ -1241,7 +1260,7 @@ class ServiceController extends Controller
                 ], 200);
         }
         else{
-            $category_services = Service::where('category_id', $category_id)->where('status', 1)->orderBy('badge_type', 'asc')->paginate(9);
+            $category_services = Service::where('category_id', $category_id)->where('status', 1) ->where('subscription_end_date', '>', now())->orderBy('badge_type', 'asc')->paginate(9);
 
             return response()->json([
                 'category' => $the_category->name,
@@ -1267,6 +1286,7 @@ class ServiceController extends Controller
             ->orderBy("distance",'asc')
             ->offset(0)
             ->where('status', 1)
+            ->where('subscription_end_date', '>', now())
             ->inRandomOrder()->limit(15)->get();
 
         return response()->json([
@@ -1514,6 +1534,15 @@ class ServiceController extends Controller
         }
         return response()->json([
             'message' => 'Your message has been sent!',
+        ], 200);
+    }
+
+    public function faqs()
+    {
+        $faqs = Faq::all();
+
+        return response()->json([
+            'faqs' => $faqs,
         ], 200);
     }
 
