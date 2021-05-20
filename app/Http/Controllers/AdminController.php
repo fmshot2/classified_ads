@@ -1420,6 +1420,25 @@ class AdminController extends Controller
         return view('admin.user.ending_seller', compact('sellers'));
     }
 
+
+    public function add_seller_sub()
+    {
+      $sellers = User::where(function($query) {
+        $query->doesnthave('subscriptions');
+      })->get();
+      foreach($sellers as $seller) {
+        $seller->subscriptions()->create
+        (['sub_type' => 'monthly',
+      'last_amount_paid' => 200,
+      'subscription_end_date' => Carbon::now()->addDays(30),
+      'subscriptionable_id' => $seller->id,
+      'email' => $seller->email ]);
+      };
+      dd($sellers);
+      return view('admin.user.ending_seller', compact('sellers'));
+    }
+
+
     public function add_seller_phone()
     {
 
@@ -1490,6 +1509,7 @@ class AdminController extends Controller
     public function all_agents_downline_yesterday()
     {
         $agents =  Agent::all();
+        $user =  User::first();
         // $agent_downlines = User::where('idOfAgent', $user->id)->where('created_at', '>', Carbon::now()->subMinutes(1440))->get();
         $agent_downlines = User::where('idOfAgent', $user->id)->whereDate('created_at', Carbon::yesterday())->get();
         // dd($agent_downlines);

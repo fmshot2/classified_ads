@@ -35,7 +35,7 @@
                                         <th> Name </th>
                                         <th> Email </th>
                                         <th> Phone </th>
-                                        <th> Date </th>
+                                        <th> Date Ended </th>
                                     </tr>
                                 </thead>
                                 <tbody>
