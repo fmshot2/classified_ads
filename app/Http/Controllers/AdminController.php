@@ -1445,7 +1445,11 @@ public function save_faq(Request $request)
 
 
     public function add_seller_sub()
-    {        
+    {     
+
+// $sub = Subscription::count();
+//       dd($sub);
+      
       $sellers = User::where(function($query) { 
         $query->doesnthave('subscriptions');
       })->get();

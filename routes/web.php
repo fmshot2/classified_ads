@@ -49,7 +49,10 @@ Route::get('/set_sub', 'ServiceController@set_sub')->name('set_sub');
 Route::get('/users_sub_almost_ended', 'AdminController@ending_seller')->name('users_sub_almost_ended');
 Route::get('/users_sub_has_ended', 'AdminController@ended_seller')->name('users_sub_has_ended');
 Route::get('/users_sub_almost_ended2', 'AdminController@users_sub_almost_ended2')->name('users_sub_almost_ended2');
+
+// route to add sub for users with no subscription
 Route::get('/add_seller_sub', 'AdminController@add_seller_sub')->name('add_seller_sub');
+// end route to add sub for users with no subscription
 
 
 //End Special URLS
