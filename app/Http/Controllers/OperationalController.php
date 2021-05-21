@@ -1068,11 +1068,6 @@ class OperationalController extends Controller
     {
         $users = User::all();
         $siteemaillists = Siteemaillist::all();
-        // $email = new EmailSubscription();
-        // $email->name = $siteemaillist->name;
-        // $email->siteemaillist_id = $siteemaillist->id;
-
-        // $checkEmailSubscription = EmailSubscription::where('user_id', $user->id)->where('siteemaillist_id', $siteemaillist->id)->first();
 
         foreach ($users as $user) {
             foreach ($siteemaillists as $siteemaillist) {
