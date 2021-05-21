@@ -35,7 +35,9 @@
                                         <th> Name </th>
                                         <th> Email </th>
                                         <th> Phone </th>
-                                        <th> Ending Date </th>
+                                        <th> User Registration Date </th>
+                                        <th> Last Subscription Paid</th>
+                                        <th> Subscription End Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,7 +47,9 @@
                                             <td> {{ $seller->name }} </td>
                                             <td><span class="text-muted"> </i> {{ $seller->email }} </span> </td>
                                             <td><span class="text-muted"> </i> {{ $seller->phone }} </span> </td>
-                                            <td> {{ Carbon\Carbon::parse($seller->subscriptions->first()->subscription_end_date)->format('d-m-Y') }} </span></td>                                                                
+                                            <td><span class="text-muted"> </i> {{ $seller->created_at }} </span> </td>
+                                            <td> {{ $seller->subscriptions->first()->last_amount_paid }} </span></td>
+                                            <td> {{ Carbon\Carbon::parse($seller->subscriptions->first()->subscription_end_date)->format('d-m-Y') }} </span></td>                                                            
                                         </tr>
                                     @endforeach
 
