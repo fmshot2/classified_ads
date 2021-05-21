@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Like;
 use App\Message;
-use App\Models\User;
+use App\User;
 use App\SeekingWork;
 use App\Service;
 use App\Image as ModelImage;

@@ -8,6 +8,7 @@ use App\AdvertLocation;
 use App\Agent;
 use App\Badge;
 use App\Category;
+use App\EmailSubscription;
 use App\SubCategory;
 use App\General_Info;
 use App\Image as ModelImage;
@@ -34,6 +35,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Image;
 use App\Payment;
+use App\Siteemaillist;
 use Carbon\Carbon;
 
 
@@ -1060,6 +1062,28 @@ class OperationalController extends Controller
             'message' => 'E-mail has been sent successfully!',
             'alert-type' => 'success'
         ]);
+    }
+
+    public function emailSub(Request $request)
+    {
+        $users = User::all();
+        $siteemaillists = Siteemaillist::all();
+
+        foreach ($users as $user) {
+            foreach ($siteemaillists as $siteemaillist) {
+                $checkEmailSubscription = EmailSubscription::where('user_id', $user->id)->where('siteemaillist_id', $siteemaillist->id)->first();
+                $email = new EmailSubscription();
+                $email->name = $siteemaillist->name;
+                $email->siteemaillist_id = $siteemaillist->id;
+
+                if (!$checkEmailSubscription) {
+                    $user->emailsubscriptions()->save($email);
+                }
+            }
+        }
+
+
+        return 'You\'ve Subscription was successful';
     }
 
 

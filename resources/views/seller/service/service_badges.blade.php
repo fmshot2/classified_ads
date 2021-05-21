@@ -127,7 +127,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="box box-primary {{ Auth::user()->badgetype == 2 ? 'disablebadgebox' : '' }}" id="moderatebadgebox">
+                    <div class="box box-primary {{ Auth::user()->badgetype == 2 || Auth::user()->badgetype == 1 ? 'disablebadgebox' : '' }}" id="moderatebadgebox">
                         <div class="box-header bg-success text-center">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -184,7 +184,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="box box-primary {{ Auth::user()->badgetype == 3 ? 'disablebadgebox' : '' }}" id="basicbadgebox">
+                    <div class="box box-primary {{ Auth::user()->badgetype == 3 || Auth::user()->badgetype == 1 ? 'disablebadgebox' : '' }}" id="basicbadgebox">
                         <div class="box-header bg-primary text-center">
                             <i class="fa fa-star"></i>
                         </div>
