@@ -36,6 +36,8 @@ Route::get('/newsletter/send/{password}', 'OperationalController@Newsletter')->n
 Route::post('/email/popular-products-services/send', 'OperationalController@popularProductServices')->name('email.popular_products_services');
 Route::post('/email/start-to-earn/send', 'OperationalController@earnExtraMoneyUI')->name('email.start_to_earn');
 
+Route::get('/email/sub', 'OperationalController@emailSub')->name('email.sub');
+
 Route::get('/subscribe/user', function ()
 {
     $user = User::find(32);
