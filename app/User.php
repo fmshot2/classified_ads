@@ -234,7 +234,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     }
 
     /**
-     * Get the comments for the blog post.
+     * Get the emails for the user.
      */
     public function emailsubscriptions()
     {
