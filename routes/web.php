@@ -5,6 +5,7 @@ use App\EmailSubscription;
 use App\Http\Controllers\OperationalController;
 use App\Http\Controllers\ServiceImageController;
 use App\Jobs\TestQueue;
+use App\Mail\EarnMoney;
 use App\Mail\TestMail;
 // use App\Http\Controllers\SubscriptionController;
 
@@ -36,7 +37,18 @@ Route::get('/newsletter/send/{password}', 'OperationalController@Newsletter')->n
 Route::post('/email/popular-products-services/send', 'OperationalController@popularProductServices')->name('email.popular_products_services');
 Route::post('/email/start-to-earn/send', 'OperationalController@earnExtraMoneyUI')->name('email.start_to_earn');
 
-Route::get('/email/sub', 'OperationalController@emailSub')->name('email.sub');
+Route::get('/email/subscribe/user/all', 'OperationalController@emailSubscribeAllUsers')->name('email.sub');
+Route::get('/email/subscribe', 'OperationalController@emailSubscription')->name('email.sub');
+
+Route::get('/subscribe/email', function ()
+{
+    $user = User::find(32);
+    try {
+        Mail::to($user->email)->send(new EarnMoney($user->name, 'dretsreeseer', 'tdhgfrdgdgd', 'dgfdgdfdfd', 'yrfytyt', 'yututytyty', 'gfdgfdfdgd', 'hnhdfrdiylk,udtdrdtssfxcl;.lo', 'dssadadssfcdxvfcbd'));
+    } catch (\Exception $e) {
+        $failedtosendmail = 'Failed to Mail!.';
+    }
+});
 
 Route::get('/subscribe/user', function ()
 {
@@ -55,22 +67,6 @@ Route::get('/subscribe/user', function ()
     else{
         return 'You\'ve Subscribed Already';
     }
-
-
-
-    // $siteemaillists = Siteemaillist::get()->toArray();
-    // $useremails = $user->siteemaillists->toArray();
-    // $emaillistid = [1, 2, 3];
-
-    // dd(in_array($emaillistid, $siteemaillists));
-
-    // if ($useremails->in_array($emaillistid, $siteemaillists)) {
-    //     $subscribed = $user->siteemaillists()->attach($emaillistid);
-    //     return $user->siteemaillists;
-    // }
-    // else{
-    //     return 'You\'ve Subscribed Already';
-    // }
 })->name('email.subscribe.user');
 
 

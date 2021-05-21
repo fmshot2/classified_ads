@@ -9,7 +9,7 @@ class EmailSubscription extends Model
     /**
      * Get the post that owns the comment.
      */
-    public function users()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
