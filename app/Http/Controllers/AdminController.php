@@ -1409,7 +1409,7 @@ class AdminController extends Controller
     public function ending_seller()
     {
 
-        $sellers = User::with('subscriptions')
+        $sellers = User::with('subscriptions')->where('role', 'seller')
             ->whereHas('subscriptions', function ($query) {
                 $to = Carbon::now()->addDays(14);
                 $from  = Carbon::now();
@@ -1423,19 +1423,24 @@ class AdminController extends Controller
 
     public function add_seller_sub()
     {
-      $sellers = User::where(function($query) {
-        $query->doesnthave('subscriptions');
-      })->get();
-      foreach($sellers as $seller) {
-        $seller->subscriptions()->create
-        (['sub_type' => 'monthly',
-      'last_amount_paid' => 200,
-      'subscription_end_date' => Carbon::now()->addDays(30),
-      'subscriptionable_id' => $seller->id,
-      'email' => $seller->email ]);
-      };
-      dd($sellers);
-      return view('admin.user.ending_seller', compact('sellers'));
+
+        // $sub = Subscription::count();
+        //       dd($sub);
+
+        $sellers = User::where(function ($query) {
+            $query->doesnthave('subscriptions');
+        })->get();
+        foreach ($sellers as $seller) {
+            $seller->subscriptions()->create([
+                    'sub_type' => 'monthly',
+                    'last_amount_paid' => 200,
+                    'subscription_end_date' => Carbon::now()->addDays(30),
+                    'subscriptionable_id' => $seller->id,
+                    'email' => $seller->email
+                ]);
+        };
+        dd($sellers);
+        return view('admin.user.ending_seller', compact('sellers'));
     }
 
 
@@ -1482,7 +1487,7 @@ class AdminController extends Controller
     public function ended_seller()
     {
 
-        $sellers = User::with('subscriptions')
+        $sellers = User::with('subscriptions')->where('role', 'seller')
             ->whereHas('subscriptions', function ($query) {
                 $query->where('subscription_end_date', '<', now());
             })
