@@ -1432,7 +1432,7 @@ public function save_faq(Request $request)
     public function ending_seller()
     {        
 
-      $sellers = User::with('subscriptions')
+      $sellers = User::with('subscriptions')->where('role', 'seller')
       ->whereHas('subscriptions', function($query) {
         $to = Carbon::now()->addDays(14);
         $from  = Carbon::now();
@@ -1449,7 +1449,7 @@ public function save_faq(Request $request)
 
 // $sub = Subscription::count();
 //       dd($sub);
-      
+
       $sellers = User::where(function($query) { 
         $query->doesnthave('subscriptions');
       })->get();
@@ -1509,7 +1509,7 @@ public function save_faq(Request $request)
                 public function ended_seller()
                 {
 
-                  $sellers = User::with('subscriptions')
+                  $sellers = User::with('subscriptions')->where('role', 'seller')
                   ->whereHas('subscriptions', function($query) {
                     $query->where('subscription_end_date', '<', now());
                   })
