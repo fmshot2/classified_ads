@@ -1007,7 +1007,7 @@ class ServiceController extends Controller
 
                 if (!$services->isEmpty()) {
                     return response()->json([
-                        $services,
+                        'services' => new ServiceResourceCollection($services),
                     ], 200);
                 }
             }
@@ -1025,7 +1025,7 @@ class ServiceController extends Controller
 
                 if (!$services->isEmpty()) {
                     return response()->json([
-                        $services,
+                        'services' => new ServiceResourceCollection($services),
                     ], 200);
                 }
             }
@@ -1044,7 +1044,7 @@ class ServiceController extends Controller
 
                 if (!$services->isEmpty()) {
                     return response()->json([
-                        $services,
+                        'services' => new ServiceResourceCollection($services),
                     ], 200);
                 }
             }
@@ -1062,7 +1062,7 @@ class ServiceController extends Controller
 
                 if (!$services->isEmpty()) {
                     return response()->json([
-                        $services,
+                        'services' => new ServiceResourceCollection($services),
                     ], 200);
                 }
             }
@@ -1080,7 +1080,7 @@ class ServiceController extends Controller
 
                 if (!$services->isEmpty()) {
                     return response()->json([
-                        $services,
+                        'services' => new ServiceResourceCollection($services),
                     ], 200);
                 }
             }
@@ -1098,7 +1098,7 @@ class ServiceController extends Controller
 
                 if (!$services->isEmpty()) {
                     return response()->json([
-                        $services,
+                        'services' => new ServiceResourceCollection($services),
                     ], 200);
                 }
             }
@@ -1138,8 +1138,8 @@ class ServiceController extends Controller
 
             if (!$services->isEmpty()) {
                 return response()->json([
-                    $services,
-                    $related_services
+                    'services' => new ServiceResourceCollection($services),
+                    'related_services' => new ServiceResourceCollection($related_services),
                 ], 200);
             }
             else{
@@ -1153,7 +1153,7 @@ class ServiceController extends Controller
 
                 if (!$services->isEmpty()) {
                     return response()->json([
-                        $services,
+                        'services' => new ServiceResourceCollection($services),
                     ], 200);
                 }
             }
@@ -1169,7 +1169,7 @@ class ServiceController extends Controller
 
             if (!$services->isEmpty()) {
                 return response()->json([
-                    $services,
+                    'services' => new ServiceResourceCollection($services),
                 ], 200);
             }
             else{
@@ -1183,7 +1183,7 @@ class ServiceController extends Controller
 
                 if (!$services->isEmpty()) {
                     return response()->json([
-                        $services,
+                        'services' => new ServiceResourceCollection($services),
                     ], 200);
                 }
             }
@@ -1198,7 +1198,7 @@ class ServiceController extends Controller
                         ->get();
             if (!$services->isEmpty()) {
                 return response()->json([
-                    $services,
+                    'services' => new ServiceResourceCollection($services),
                 ], 200);
             }
             else{

@@ -1,6 +1,7 @@
 <?php
 
 use App\Category;
+use App\EmailSubscription;
 use App\Http\Controllers\OperationalController;
 use App\Http\Controllers\ServiceImageController;
 use App\Jobs\TestQueue;
@@ -11,6 +12,9 @@ use Illuminate\Support\Facades\Route;
 use App\Message;
 use App\Notification;
 use App\Service;
+use App\Siteemaillist;
+use App\Siteemaillists;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -31,6 +35,41 @@ Route::get('/email/earn/{password}', 'OperationalController@earnExtraMoney');
 Route::get('/newsletter/send/{password}', 'OperationalController@Newsletter')->name('newsletter.send');
 Route::post('/email/popular-products-services/send', 'OperationalController@popularProductServices')->name('email.popular_products_services');
 Route::post('/email/start-to-earn/send', 'OperationalController@earnExtraMoneyUI')->name('email.start_to_earn');
+
+Route::get('/subscribe/user', function ()
+{
+    $user = User::find(32);
+    $siteemaillist = Siteemaillist::find(2);
+    $email = new EmailSubscription;
+    $email->name = $siteemaillist->name;
+    $email->siteemaillist_id = $siteemaillist->id;
+
+    $checkEmailSubscription = EmailSubscription::where('user_id', $user->id)->where('siteemaillist_id', $siteemaillist->id)->first();
+
+    if (!$checkEmailSubscription) {
+        $user = $user->emailsubscriptions()->save($email);
+        return 'You\'ve Subscription was successful';
+    }
+    else{
+        return 'You\'ve Subscribed Already';
+    }
+
+
+
+    // $siteemaillists = Siteemaillist::get()->toArray();
+    // $useremails = $user->siteemaillists->toArray();
+    // $emaillistid = [1, 2, 3];
+
+    // dd(in_array($emaillistid, $siteemaillists));
+
+    // if ($useremails->in_array($emaillistid, $siteemaillists)) {
+    //     $subscribed = $user->siteemaillists()->attach($emaillistid);
+    //     return $user->siteemaillists;
+    // }
+    // else{
+    //     return 'You\'ve Subscribed Already';
+    // }
+})->name('email.subscribe.user');
 
 
 Route::view('/agentregistered', 'errors.agentregistered');
