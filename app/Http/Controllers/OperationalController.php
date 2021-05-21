@@ -1064,28 +1064,6 @@ class OperationalController extends Controller
         ]);
     }
 
-    public function emailSub(Request $request)
-    {
-        $users = User::all();
-        $siteemaillists = Siteemaillist::all();
-
-        foreach ($users as $user) {
-            foreach ($siteemaillists as $siteemaillist) {
-                $checkEmailSubscription = EmailSubscription::where('user_id', $user->id)->where('siteemaillist_id', $siteemaillist->id)->first();
-                $email = new EmailSubscription();
-                $email->name = $siteemaillist->name;
-                $email->siteemaillist_id = $siteemaillist->id;
-
-                if (!$checkEmailSubscription) {
-                    $user->emailsubscriptions()->save($email);
-                }
-            }
-        }
-
-
-        return 'You\'ve Subscription was successful';
-    }
-
 
 
     // public function earnExtraMoney($password)
