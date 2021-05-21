@@ -218,6 +218,55 @@
                         <!-- /.content -->
                     </div>
                 </div>
+
+                <div class="col-lg-4">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Send Email (e.g Season Greetings)</h3>
+                        </div>
+                        <div class="box-body pad">
+                            <div class="card">
+                                <div class="form-layout">
+                                    <div class="row mg-b-25">
+                                        <div class="col-md-12">
+                                            <form class="form-horizontal form-element" method="POST" action="{{route('cmo.submit.email')}} " enctype="multipart/form-data">@csrf
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label for="site_name" class="control-label">Subject</label>
+                                                        <input type="text" name="subject" id="site_name" class="form-control" autofocus="" placeholder="Subject of message" value="{{ old('subject') }}">
+
+                                                    </div>
+                                                    @if ($errors->has('subject'))
+                                                    <span class="helper-text" data-error="wrong" data-success="right">
+                                                        <strong class="text-danger">{{ $errors->first('subject') }}</strong>
+                                                    </span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label for="site_name" class="control-label">Message</label>
+                                                        <textarea class="form-control summernote" name="message"></textarea>
+                                                    </div>
+                                                    @if ($errors->has('message'))
+                                                    <span class="helper-text" data-error="wrong" data-success="right">
+                                                        <strong class="text-danger">{{ $errors->first('message') }}</strong>
+                                                    </span>
+                                                    @endif
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-warning btn-sm"> Send Mail </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>

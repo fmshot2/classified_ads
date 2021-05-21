@@ -224,4 +224,20 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         return $this->belongsTo('App\Referal');
     }
+
+    /**
+     * The email list that belong to the user.
+     */
+    public function siteemaillists()
+    {
+        return $this->hasOne(Siteemaillist::class);
+    }
+
+    /**
+     * Get the comments for the blog post.
+     */
+    public function emailsubscriptions()
+    {
+        return $this->hasMany(EmailSubscription::class);
+    }
 }

@@ -150,4 +150,7 @@ Route::prefix('v1')->group(function ()
 
     // FAQ
     Route::get('/faqs', [ServiceController::class, 'faqs']);
+
+    // AJAX SEARCH
+    Route::get('/live/search', [ServiceController::class, 'ajaxSearchResult']);
 });
