@@ -40,14 +40,15 @@ Route::post('/email/start-to-earn/send', 'OperationalController@earnExtraMoneyUI
 Route::get('/email/subscribe/user/all', 'OperationalController@emailSubscribeAllUsers')->name('email.sub');
 Route::get('/email/subscribe', 'OperationalController@emailSubscription')->name('email.sub');
 
-Route::get('/subscribe/email', function ()
+Route::get('/subscribe/email/{email}/{subscription_id}', function ()
 {
     $user = User::find(32);
-    try {
-        Mail::to($user->email)->send(new EarnMoney($user->name, 'dretsreeseer', 'tdhgfrdgdgd', 'dgfdgdfdfd', 'yrfytyt', 'yututytyty', 'gfdgfdfdgd', 'hnhdfrdiylk,udtdrdtssfxcl;.lo', 'dssadadssfcdxvfcbd'));
-    } catch (\Exception $e) {
-        $failedtosendmail = 'Failed to Mail!.';
-    }
+    Mail::to($user->email)->send(new EarnMoney($user->name, 'dretsreeseer', 'tdhgfrdgdgd', 'dgfdgdfdfd', 'yrfytyt', 'yututytyty', 'gfdgfdfdgd', 'hnhdfrdiylkudtdrdtssfxcllo', 'dssadadssfcdxvfcbd'));
+    // try {
+    //     Mail::to($user->email)->send(new EarnMoney($user->name, 'dretsreeseer', 'tdhgfrdgdgd', 'dgfdgdfdfd', 'yrfytyt', 'yututytyty', 'gfdgfdfdgd', 'hnhdfrdiylkudtdrdtssfxcllo', 'dssadadssfcdxvfcbd'));
+    // } catch (\Exception $e) {
+    //     $failedtosendmail = 'Failed to Mail!.';
+    // }
 });
 
 Route::get('/subscribe/user', function ()

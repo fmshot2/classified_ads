@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class EarnMoney extends Mailable implements ShouldQueue
+class EarnMoney extends Mailable
 {
     use Queueable, SerializesModels;
     public $username, $subject, $header_title, $intro, $body, $tagline, $link, $unsublink,$subcopy;
