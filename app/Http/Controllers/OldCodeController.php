@@ -758,3 +758,58 @@ class OldCodeController extends Controller
         return view('gttPayView', $gtPay_Data);
     }
 }
+
+
+
+
+
+
+   /*
+   if ( $request->hasFile('files') ) {
+                $names = array();
+
+foreach($request->file('files') as $image)
+    {
+
+                $image_name = $image->getClientOriginalName();
+
+        $image->move(public_path('images'),$image_name);
+        array_push($names, $image_name);
+
+        }
+            $category->image = json_encode($names);
+}
+*/
+
+        // Image set up
+        // if ( $request->hasFile('thumbnail') ) {
+        //    $names = array();
+        // foreach($request->file('thumbnail') as $image)
+        // {
+        //     $thumbnailImage = Image::make($image);
+        //     $thumbnailImage->resize(300,300);
+        //     $thumbnailImage_name = $slug.'.'.time().'.'.$image->getClientOriginalExtension();
+        //     $destinationPath = 'images/';
+        //            /* $image_name = $image->getClientOriginalName();
+        //            $image->move(public_path('images'),$image_name);*/
+        //         //$thumbnailImage_name = $thumbnailImage->getClientOriginalName();
+        //            $thumbnailImage->save($destinationPath . $thumbnailImage_name);
+        //            array_push($names, $thumbnailImage_name);
+        //        }
+        //        $service->image = json_encode($names);
+        // }
+
+
+
+  // foreach ($allServices as $key => $serv) {
+  //           // this is assigning a new field called total_likes to allservices
+  //           //note, the total_likes is coming from a function in the model
+  //           $allServices[$key]->total_likes = $serv->total_likes;
+  //       }
+
+  //       // this will also do what the above code does
+
+  //       // $sortedServices = $allServices->(function($serve){
+  //       //   $serve->total_likes = $serve->total_likes;
+  //       //   return $serve->total_likes;
+  //       // });

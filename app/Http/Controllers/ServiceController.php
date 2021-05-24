@@ -1621,24 +1621,18 @@ public function show($id)
     }
 
     public function set_sub()
-    {
-    
-        $services = Service::whereNull('subscription_end_date');
-                            // dd($subs);
+    {    
+        $services = Service::whereNull('subscription_end_date')->get();
+        // $services = Service::all();
+        // dd($services);
+        $names = array();
         foreach ($services as $service) {
-            $service->subscription_end_date = $service->user->created_at;
+            if ($service->user->subscriptions->first()) {
+                $service->subscription_end_date = $service->user->subscriptions->first()->subscription_end_date;
+                $service->save();
+                array_push($names, $service->user->subscriptions->first());
+            }            
         }
-
-    
-        dd($comment->subscription_end_date);
-  
-            $sub->subscription_end_date = $sub->user->subscription_end_date;
-         
-  
-         if ($sub->user->subscription_end_date) {
-            $sub->subscription_end_date = $sub->user->subscription_end_date;
-         }
-         $sub->save();
-        
+    dd($names); 
     }
 }

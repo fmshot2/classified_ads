@@ -4,15 +4,20 @@
 
 @section('content')
 @if($subscription_has_ended)                                 
-                      <script type="text/javascript">
+<script type="text/javascript">
     $(window).on('load', function() {
         $('#show_Subscription_end_Modal').modal('show');
     });
-</script>              
-                @else
-                     <h3 class="text-center text-warning" id="sub_end"><strong></strong><span></span>
-                        </h3>
-                @endif
+</script>
+@endif
+
+@if($no_sub_var)                                 
+<script type="text/javascript">
+    $(window).on('load', function() {
+        $('#Show_No_Subscription_Modal').modal('show');
+    });
+</script>
+@endif
 
 
        <div>
@@ -25,6 +30,21 @@
                             <i class="fa fa-close"></i>
                         </button>
                         <h4 class="text-center" id="sub_end"><strong>Your Subscription has ended. Please renew your subcription to proceed</strong><span></span>
+                        </h4>
+                    </div>
+                 
+                </div>
+            </div>
+        </div>
+         <div id="Show_No_Subscription_Modal" class="modal fade postServiceModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #cc8a19; color: #fff">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: #fff">
+                            <i class="fa fa-close"></i>
+                        </button>
+                        <h4 class="text-center" id="sub_end"><strong>YOUR SUBSCRIPTION WAS NOT FOUND. PLEASE SUBSCRIBE TO PROCEED TO YOUR DASHBOARD!</strong><span></span>
                         </h4>
                     </div>
                 
@@ -115,6 +135,12 @@
 
         <section class="content">
             <div class="row">
+                 @if($no_sub_var)                                 
+                      <div>
+                        <h4 class="text-center text-danger" id="sub_end"><strong>YOUR SUBSCRIPTION WAS NOT FOUND. PLEASE SUBSCRIBE TO PROCEED TO YOUR DASHBOARD!</strong><span></span>
+                        </h4>
+                @endif
+
                   @if($subscription_has_ended)                                 
                       <div>
                         <h4 class="text-center text-danger" id="sub_end"><strong>YOUR SUBSCRIPTION HAS ENDED. PLEASE RENEW YOUR SUBSCRIPTION TO PROCEED</strong><span></span>

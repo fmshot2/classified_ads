@@ -1212,6 +1212,7 @@ class AdminController extends Controller
 
           foreach ($agents as $key => $serv) {
             // $agents[$key]->total_refers = $serv->total_refers;
+            // note: there is total month in the model
             $agents[$key]->total_month_count = $serv->total_month->count();
           }
           $approval_status = null;
@@ -1221,13 +1222,12 @@ class AdminController extends Controller
 
         public function users_sub_almost_ended2()
         {
-        // $agents = User::where( 'created_at', '>', Carbon::now()->subDays(30));
+        
           $agents = User::all();
         // dd($agents->subscriptions->first()->subscription_end_date);
           $names = array();
           $names2 = array();
           $second = Carbon::now()->subDays(18);
-        // dd($second);
 
           $first =  Carbon::now();
           foreach ($agents as $key => $user) {
@@ -1244,8 +1244,6 @@ class AdminController extends Controller
           }
           dd($eee);
 
-        // dd($agents);
-        // array_push($names, $agents);
 
           $second = Carbon::now()->addDays(14);
           $first =  Carbon::now();
@@ -1289,13 +1287,22 @@ class AdminController extends Controller
         }
 
 
+         public function ended_seller()
+          {
+
+            $sellers = User::where('role', 'seller')->with('subscriptions')
+            ->whereHas('subscriptions', function($query) {
+              $query->where('subscription_end_date', '<', now());
+            })
+            ->orderBy('created_at')
+            ->get(); 
+            return view('admin.user.ended_seller', compact('sellers'));
+          }
+
+
         public function add_seller_sub()
         {     
-
-// $sub = Subscription::count();
-//       dd($sub);
-
-          $sellers = User::where(function($query) { 
+          $sellers = User::where('role', 'seller')->where(function($query) { 
             $query->doesnthave('subscriptions');
           })->get();
           foreach($sellers as $seller) {
@@ -1333,13 +1340,10 @@ class AdminController extends Controller
           $first =  Carbon::now();
           $subb = Subscription::all();
           foreach ($subb as $user) {
-            /* ->where('subscription_end_date', '>', now())
-            \Carbon\Carbon::now()->lte($item->client->event_date_from*/
               if (Carbon::parse($user->subscription_end_date)->lt($first)) {
                 array_push($names, $user);
               }
             }
-        // dd($names);
 
             foreach ($names as $myuser) {
               $myuser2 = User::where('id', $myuser->subscriptionable_id)->get();
@@ -1347,27 +1351,10 @@ class AdminController extends Controller
             }
 
             $seller = $names22;
-        // dd($seller);
             return view('admin.user.ended_seller', compact('seller'));
           }
 
-          public function ended_seller()
-          {
-
-            $sellers = User::where('role', 'seller')->with('subscriptions')
-            ->whereHas('subscriptions', function($query) {
-              $query->where('subscription_end_date', '<', now());
-            })
-            ->orderBy('created_at')
-            ->get(); 
-            return view('admin.user.ended_seller', compact('sellers'));
-          }
-
-
-
-
-
-          public function save_agent_id()
+         public function save_agent_id()
           {
             $users = User::whereNotNull('idOfAgent')->get();
             foreach ($users as $user) {
@@ -1382,16 +1369,11 @@ class AdminController extends Controller
           {
             $agents =  Agent::all();
             $user =  User::first();
-        // $agent_downlines = User::where('idOfAgent', $user->id)->where('created_at', '>', Carbon::now()->subMinutes(1440))->get();
+       
             $agent_downlines = User::where('idOfAgent', $user->id)->whereDate('created_at', Carbon::yesterday())->get();
-        // dd($agent_downlines);
-        // $posts = Post::whereDate('created_at', Carbon::today())->get();
-        // Category::orderBy('id', 'asc')->paginate(35);
+        
             return view('admin.user.agent_yesterday', compact('agents'));
           }
-
-    // $getItemsOneDay = Deposit::where('steam_user_id',0)->where('status', Deposit::STATUS_ACTIVE)
-    // ->where('created_at', '>', Carbon::now()->subMinutes(1440))->get();
 
 
           public function all_marketer_earnings()

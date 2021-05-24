@@ -37,9 +37,10 @@
                                         <th> Phone </th>
                                         <th> role </th>
                                         <th> Applied for Approval? </th>
-                                        <th> Amount Earned </th>                                        
+                                        <th> Amount Earned </th>             
                                         <th> Date </th>
                                         <th> Activate/Deactivate </th>
+                                        <th> Total Referals </th>
                                         <th> Downlines </th>
                                     </tr>
                                 </thead>
@@ -60,11 +61,13 @@
                                             </td>
                                             <td> {{ $sellers->refererAmount ? $sellers->refererAmount : 0 }} </span></td>                                            
                                             <td> {{ $sellers->created_at->format('d/m/Y') }} </span></td>
-
                                             <td>
                                                 <button id="" class="activate-submit btn-success" onclick="activateUser({{$sellers->id}})" type="button" class="btn btn-success">
                                                     @if($sellers->status == 0)<span id="activate1">Activate User</span>@elseif($sellers->status == 1)<span id="activate2">Deactivate</span>
                                                 @endif</button>
+                                            </td>                            
+                                            <td>
+                                               {{ $sellers->subscriptions->count()}}
                                             </td>
                                             <td class="center">
                                             <a href="{{route('provider_downline', $sellers->slug)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
