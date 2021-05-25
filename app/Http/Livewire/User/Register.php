@@ -255,6 +255,11 @@ class Register extends Component
             if ($person_that_refered) {
                 $referer = User::where('id', $person_that_refered)->first();
                 if ($referer) {
+                $referer->referals()->create(['user_id' => Auth::id()]);
+                 //save my id  as level 1 on the table of the one that reffered me
+                $referer->level1 = Auth::id();
+                $referer->save();
+
                     //if your refferer is an efmarketer staff, redirect user to dashboard
                     if ($referer->is_ef_marketer) {
 
@@ -267,13 +272,9 @@ class Register extends Component
                         }
                     }
 
-
                     $referer->refererAmount = $referer->refererAmount + 200;
-                    //save my id  as level 1 on the table of the one that reffered me
-                    $referer->level1 = Auth::id();
                     $referer->save();
 
-                    $referer->referals()->create(['user_id' => Auth::id()]);
                 }
             }
 
@@ -281,6 +282,12 @@ class Register extends Component
             if ($agent_that_refered) {
                 $referer2 = Agent::where('id', $agent_that_refered)->first();
                 if ($referer2) {
+                    //if my referee is an agent, save my id  as level 1 on the table of the Agent that reffered me
+                    $referer2->level1 = Auth::id();
+                    $referer2->save();
+
+                    $referer2->referals()->create(['user_id' => Auth::id()]);
+
                     //if your agent is an efmarketer staff, redirect user to dashboard
                     if ($referer2->is_ef_marketer) {
 
@@ -293,12 +300,7 @@ class Register extends Component
                         }
                     }
                     $referer2->refererAmount = $referer2->refererAmount + 200;
-
-                    //if my referee is an agent, save my id  as level 1 on the table of the Agent that reffered me
-                    $referer2->level1 = Auth::id();
                     $referer2->save();
-
-                    $referer2->referals()->create(['user_id' => Auth::id()]);
                 }
             }
 
@@ -394,7 +396,7 @@ class Register extends Component
                                 }
                             }
 
-                                    // add amount to level 3 referer amount
+                            // add amount to level 3 referer amount
                             $referer4->refererAmount = $referer4->refererAmount + 100;
                             $referer4->level3 = Auth::id();
                             $referer4->save();
@@ -436,7 +438,7 @@ class Register extends Component
                     $referer4->refererAmount = $referer4->refererAmount + 100;
                     $referer4->level3 = Auth::id();
                     $referer4->save();
-                                    // $present_user->level2 = $referer3->id;
+                    // $present_user->level2 = $referer3->id;
                 }
             }
         }
