@@ -67,7 +67,7 @@
                                                 @endif</button>
                                             </td>                            
                                             <td>
-                                               {{ $sellers->subscriptions->count()}}
+                                               {{ $sellers->referals->count()}}
                                             </td>
                                             <td class="center">
                                             <a href="{{route('provider_downline', $sellers->slug)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
