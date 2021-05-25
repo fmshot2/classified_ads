@@ -126,7 +126,7 @@ $service->city = $data['city'];
 $service->address = $data['address'];
 $service->max_price = $data['category_id'];
 $service->video_link = $data['video_link'];
-        // $service->subscription_end_date = Auth::user()->subscription_end_date;
+// $service->subscription_end_date = Auth::user()->subscription_end_date;
 $service->subscription_end_date =  Auth::user()->subscriptions->first()->subscription_end_date;
 
 

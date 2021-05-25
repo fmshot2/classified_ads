@@ -26,27 +26,27 @@ class DashboardController extends Controller
   public function seller()
   { 
     if (!Auth::user()->subscriptions->first()) {
-  $current_subscription_end_date = null;
-  $no_sub_var = 1;
-}else {
-   $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
-
-if ($user_sub_date) {
-
-   if (Carbon::now() > Carbon::parse($user_sub_date)) {
-    $current_subscription_end_date = "Your Subscription period has ended. Please renew your subcription to proceed to the page";
+      $current_subscription_end_date = null;
       $no_sub_var = 0;
-  }else{
-    $current_subscription_end_date = null;
+    }else {
+     $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
+
+     if ($user_sub_date) {
+
+       if (Carbon::now() > Carbon::parse($user_sub_date)) {
+        $current_subscription_end_date = "Your Subscription period has ended. Please renew your subcription to proceed to the page";
+        $no_sub_var = 0;
+      }else{
+        $current_subscription_end_date = null;
+        $no_sub_var = 1;
+
+      }
+    }else {
+      $current_subscription_end_date = null;
       $no_sub_var = 1;
 
+    }
   }
-}else {
-  $current_subscription_end_date = null;
-    $no_sub_var = 1;
-
-}
-}
 // dd($current_subscription_end_date);
 
   $user = Auth::user();
@@ -109,12 +109,12 @@ if ($user_sub_date) {
   $accruedAmount = Auth::user()->refererAmount;
 
   if ($no_sub_var == 0) {
-  $success_notification = array(
-    'message' => 'Please renew your subscription to view this page!',
-    'alert-type' => 'error'
+    $success_notification = array(
+      'message' => '"Your Subscription was not found. Please Subscribe to proceed to your dashboard!',
+      'alert-type' => 'error'
     );
-  return redirect()->route('seller.sub.create')->with($success_notification);
-}
+    return redirect()->route('seller.sub.create')->with($success_notification);
+  }
 
   $linkcheck2 = Refererlink::where(['user_id'=>Auth::id()])->first();
   if ($linkcheck2) {
