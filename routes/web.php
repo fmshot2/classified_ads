@@ -31,25 +31,9 @@ use Illuminate\Support\Facades\Mail;
 */
 
 
-
-Route::get('/email/earn/{password}', 'OperationalController@earnExtraMoney');
-Route::get('/newsletter/send/{password}', 'OperationalController@Newsletter')->name('newsletter.send');
-Route::post('/email/popular-products-services/send', 'OperationalController@popularProductServices')->name('email.popular_products_services');
-Route::post('/email/start-to-earn/send', 'OperationalController@earnExtraMoneyUI')->name('email.start_to_earn');
-
-Route::get('/email/subscribe/user/all', 'OperationalController@emailSubscribeAllUsers')->name('email.sub');
-Route::get('/email/subscribe', 'OperationalController@emailSubscription')->name('email.sub');
-
-Route::get('/subscribe/email/{email}/{subscription_id}', function ()
-{
-    $user = User::find(32);
-    Mail::to($user->email)->send(new EarnMoney($user->name, 'dretsreeseer', 'tdhgfrdgdgd', 'dgfdgdfdfd', 'yrfytyt', 'yututytyty', 'gfdgfdfdgd', 'hnhdfrdiylkudtdrdtssfxcllo', 'dssadadssfcdxvfcbd'));
-    // try {
-    //     Mail::to($user->email)->send(new EarnMoney($user->name, 'dretsreeseer', 'tdhgfrdgdgd', 'dgfdgdfdfd', 'yrfytyt', 'yututytyty', 'gfdgfdfdgd', 'hnhdfrdiylkudtdrdtssfxcllo', 'dssadadssfcdxvfcbd'));
-    // } catch (\Exception $e) {
-    //     $failedtosendmail = 'Failed to Mail!.';
-    // }
-});
+// USER EMAIL UNSUBSCRIBED
+Route::get('/email/unsubscribe/{email}/{subcriptionid}', 'EmailSubscriptionsController@unsubscribe')->name('user.email.unsubscribe');
+Route::get('/email/subscribe/user/all', 'EmailSubscriptionsController@emailSubscribeAllUsersDef')->name('email.sub');
 
 Route::get('/subscribe/user', function ()
 {
@@ -946,6 +930,9 @@ Route::prefix('cmo')->middleware(['cmo'])->group(function () { //CMO Middleware 
     // E-MAILS TEMPLATE
     Route::get('email-template', 'PageContentController@emailTemplates')->name('cmo.emails.template');
     Route::post('/send-season-greating-email', 'AdminController@submitEmail')->name('cmo.submit.email');
+    Route::post('/email/howto/send', 'EmailSubscriptionsController@howto')->name('cmo.submit.email.howto');
+    Route::post('/email/popular-products-services/send', 'EmailSubscriptionsController@popularProductServices')->name('email.popular_products_services');
+    Route::post('/email/start-to-earn/send', 'EmailSubscriptionsController@earnExtraMoney')->name('email.start_to_earn');
 }); //CMO Middleware protection end here
 
 Route::prefix('data-officer')->middleware(['data'])->group(function () { //Data Entry Officer Middleware protection start here
