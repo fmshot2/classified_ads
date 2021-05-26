@@ -1333,7 +1333,7 @@ class AdminController extends Controller
             $Bringer = User::find($seller->idOfReferer);
             $Bringer->referals()->create(['user_id' => $seller->id]);
           }
-        dd('done');
+        dd('complete');
         }
 
 
