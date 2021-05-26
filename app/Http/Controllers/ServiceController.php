@@ -187,7 +187,7 @@ class ServiceController extends Controller
         //   return $serve->total_likes;
         // });
 
-        $hotServices = collect($allServices->where('status', 1)->where('subscription_end_date', '>', now())->sortByDesc('total_likes'))->sortBy('badge_type');;
+        $hotServices = collect($allServices->where('status', 1)->where('subscription_end_date', '>', now())->sortByDesc('total_likes'))->sortBy('badge_type');
         $approvedServices = Service::where('status', 1)->where('subscription_end_date', '>', now())->with('user')->get();
         $advertServices = Service::where('is_approved', 1)->where('subscription_end_date', '>', now())->where('status', 1)->with('user')->get();
         $recentServices = Service::where('is_approved', 1)->where('status', 1)->where('subscription_end_date', '>', now())->orderBy('created_at', 'asc')->paginate(16);
@@ -1621,24 +1621,18 @@ public function show($id)
     }
 
     public function set_sub()
-    {
-    
-        $services = Service::whereNull('subscription_end_date');
-                            // dd($subs);
+    {    
+        $services = Service::whereNull('subscription_end_date')->get();
+        // $services = Service::all();
+        // dd($services);
+        $names = array();
         foreach ($services as $service) {
-            $service->subscription_end_date = $service->user->created_at;
+            if ($service->user->subscriptions->first()) {
+                $service->subscription_end_date = $service->user->subscriptions->first()->subscription_end_date;
+                $service->save();
+                array_push($names, $service->user->subscriptions->first());
+            }            
         }
-
-    
-        dd($comment->subscription_end_date);
-  
-            $sub->subscription_end_date = $sub->user->subscription_end_date;
-         
-  
-         if ($sub->user->subscription_end_date) {
-            $sub->subscription_end_date = $sub->user->subscription_end_date;
-         }
-         $sub->save();
-        
+    dd($names); 
     }
 }

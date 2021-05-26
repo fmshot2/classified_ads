@@ -76,6 +76,10 @@ Route::get('/users_sub_almost_ended2', 'AdminController@users_sub_almost_ended2'
 Route::get('/add_seller_sub', 'AdminController@add_seller_sub')->name('add_seller_sub');
 // end route to add sub for users with no subscription
 
+// route to add referals for users with no referals
+Route::get('/add_seller_referals', 'AdminController@add_seller_referals')->name('add_seller_referals');
+// end route to add referals for users with no referals
+
 
 //End Special URLS
 
