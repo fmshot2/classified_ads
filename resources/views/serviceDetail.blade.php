@@ -526,7 +526,7 @@
 
                                     <div class="form-group">
                                         <label class="form-label">Phone</label>
-                                        <input type="text" id="sender_phone" name="sender_phone" class="text-dark form-control" placeholder="Your Phone Number">
+                                        <input type="text" id="sender_phone" name="sender_phone" class="text-dark form-control" placeholder="Your Phone Number" value="{{Auth::user()->phone ?? '' }}">
                                         @if ($errors->has('phone'))
                                             <span>
                                                 <strong class="text-danger">{{ $errors->first('phone') }}</strong>

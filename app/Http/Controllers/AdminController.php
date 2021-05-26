@@ -1331,7 +1331,9 @@ class AdminController extends Controller
           })->get();
           foreach($sellers as $seller) {
             $Bringer = User::find($seller->idOfReferer);
-            $Bringer->referals()->create(['user_id' => $seller->id]);
+            if ($Bringer) {
+              $Bringer->referals()->create(['user_id' => $seller->id]);
+            }            
           }
         dd('complete');
         }

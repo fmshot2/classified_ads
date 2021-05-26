@@ -139,11 +139,6 @@ class ServiceController extends Controller
         //    $longitude = session()->get('longitude');
 
         // return $latitude;
-
-
-
-
-
         //    $radius = 100;
         //    $nearestServices = Service::selectRaw("id, name, address,
         //                     ( 6371000 * acos( cos( radians(?) ) *
@@ -157,10 +152,6 @@ class ServiceController extends Controller
         //        ->offset(0)
         //        ->limit(20)
         //        ->get();
-
-
-
-
 
         $featuredServices = Service::where('is_featured', 1)
             ->where('status', 1)
