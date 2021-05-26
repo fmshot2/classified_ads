@@ -178,6 +178,8 @@ class ServiceController extends Controller
         }
 
     }
+
+
     public function messageReadStatus(Request $request)
     {
         try {

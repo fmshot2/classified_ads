@@ -55,7 +55,7 @@
                     <span class="helper-text" data-error="wrong" data-success="right">
                        <strong class="text-danger">{{ $errors->first('phone') }}</strong>
                    </span>
-               @endif                    
+               @endif
            </div>
            </div>
        </div>
@@ -180,7 +180,7 @@
  </div>
 </div>
 <div class="col-md-6">
-    <h5>Choose Passwords</h5>
+    <h5>Choose Password</h5>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
