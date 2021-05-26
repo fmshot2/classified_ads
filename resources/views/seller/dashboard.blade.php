@@ -579,7 +579,11 @@
                             <i class="fa fa-money text-white" aria-hidden="true"></i>
                         </span>
                         <div class="info-box-content">
+                            @if (Auth::user()->is_ef_marketer == 0)
                             <span class="info-box-text"> Referral Bonus: <br> &#8358;{{$accruedAmount ?? 0}}</span>
+                            @else
+                            <span class="info-box-text"> Total Referrals: <br>{{Auth::user()->referals->count() ?? 0}}</span>
+                            @endif
                             {{-- <span class="progress-description">
                                 <button class="btn btn-success btn-sm" style="cursor: pointer; display: block; margin-top: 5px;" data-toggle="modal" data-target="#exampleModal">Make Withdrawal</button>
                             </span> --}}
