@@ -187,7 +187,7 @@ class ServiceController extends Controller
         //   return $serve->total_likes;
         // });
 
-        $hotServices = collect($allServices->where('status', 1)->where('subscription_end_date', '>', now())->sortByDesc('total_likes'))->sortBy('badge_type');;
+        $hotServices = collect($allServices->where('status', 1)->where('subscription_end_date', '>', now())->sortByDesc('total_likes'))->sortBy('badge_type');
         $approvedServices = Service::where('status', 1)->where('subscription_end_date', '>', now())->with('user')->get();
         $advertServices = Service::where('is_approved', 1)->where('subscription_end_date', '>', now())->where('status', 1)->with('user')->get();
         $recentServices = Service::where('is_approved', 1)->where('status', 1)->where('subscription_end_date', '>', now())->orderBy('created_at', 'asc')->paginate(16);
