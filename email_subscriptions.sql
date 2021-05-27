@@ -49,7 +49,7 @@ INSERT INTO `siteemaillists` (`id`, `name`, `slug`,`created_at`, `updated_at`) V
 (5, 'Service Created', 'service-created', '2021-02-15 19:07:21', '2021-02-15 19:07:21'),
 (6, 'New Message (From Clients)', 'new-message-from-clients', '2021-02-15 19:07:21', '2021-02-15 19:07:21'),
 (7, 'Users Welcome Email', 'users-welcome-email', '2021-02-15 19:07:21', '2021-02-15 19:07:21'),
-(7, 'How To', 'how-to', '2021-02-15 19:07:21', '2021-02-15 19:07:21');
+(8, 'How To', 'how-to', '2021-02-15 19:07:21', '2021-02-15 19:07:21');
 
 --
 -- Indexes for dumped tables
