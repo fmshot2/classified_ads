@@ -775,7 +775,7 @@ class AuthController extends Controller
         //     'message' => 'Incorrect credentials! Try again.',
         //     'alert-type' => 'error'
         // );
-        session()->flash('fail', 'The password is incorrect');
+        session()->flash('fail', 'The password entered is incorrect');
 
         return redirect()->route('login');
     }
