@@ -15,9 +15,12 @@ class CreateEmailSubscriptionsTable extends Migration
     {
         Schema::create('email_subscriptions', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger("siteemaillist_id")->unsigned();
-            $table->string("name");
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->string('email')->nullable();
+            $table->string('unique_identifier')->unique();
+            $table->bigInteger("siteemaillist_id")->unsigned()->nullable();
+            $table->string("name")->nullable();
+            $table->string("role")->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('siteemaillist_id')->references('id')->on('siteemaillists')->onDelete('cascade');

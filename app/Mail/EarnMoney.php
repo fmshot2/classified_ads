@@ -10,14 +10,14 @@ use Illuminate\Queue\SerializesModels;
 class EarnMoney extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
-    public $username, $subject, $header_title, $intro, $body, $tagline, $link;
+    public $username, $subject, $header_title, $intro, $body, $tagline, $link, $email, $unique_identifier;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($username, $subject, $header_title, $intro, $body, $tagline, $link)
+    public function __construct($username, $subject, $header_title, $intro, $body, $tagline, $link, $email, $unique_identifier)
     {
         $this->username = $username;
         $this->subject = $subject;
@@ -26,6 +26,8 @@ class EarnMoney extends Mailable implements ShouldQueue
         $this->body = $body;
         $this->tagline = $tagline;
         $this->link = $link;
+        $this->email = $email;
+        $this->unique_identifier = $unique_identifier;
     }
 
     /**
