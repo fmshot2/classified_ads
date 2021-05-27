@@ -11,14 +11,14 @@ class Newsletter extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $username, $category, $subject, $header_title, $intro, $services;
+    public $username, $category, $subject, $header_title, $intro, $services, $email, $unique_identifier;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($username, $category, $subject, $header_title, $intro, $services)
+    public function __construct($username, $category, $subject, $header_title, $intro, $services, $email, $unique_identifier)
     // public function __construct()
     {
         $this->username = $username;
@@ -26,7 +26,9 @@ class Newsletter extends Mailable implements ShouldQueue
         $this->services = $services;
         $this->subject = $subject;
         $this->intro = $intro;
-        $this->$header_title = $header_title;
+        $this->header_title = $header_title;
+        $this->email = $email;
+        $this->unique_identifier = $unique_identifier;
     }
 
     /**

@@ -178,6 +178,8 @@ class ServiceController extends Controller
         }
 
     }
+
+
     public function messageReadStatus(Request $request)
     {
         try {
@@ -407,7 +409,7 @@ class ServiceController extends Controller
         $all_message = Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id)->get();
 
         return response()->json([
-            $all_message,
+            'my_messages' => $all_message,
         ], 200);
 
 

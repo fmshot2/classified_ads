@@ -26,10 +26,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `site_email_lists`
+-- Table structure for table `siteemaillists`
 --
 
-CREATE TABLE `site_email_lists` (
+CREATE TABLE `siteemaillists` (
   `id` int(11) NOT NULL,
   `name` int(11) DEFAULT NULL,
   `slug` varchar(255) COLLATE utf8_bin UNIQUE,
@@ -38,26 +38,27 @@ CREATE TABLE `site_email_lists` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `site_email_lists`
+-- Dumping data for table `siteemaillists`
 --
 
-INSERT INTO `site_email_lists` (`id`, `name`, `slug`,`created_at`, `updated_at`) VALUES
-(1, 'Earn Extra Money', 'earn-extra-money', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 'Season\'s Greeting', 'seasons-greeting', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 'Popular Products and Services', 'popular-products-and-services', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 'Newsletter', 'newsletter', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(5, 'Service Created', 'service-created', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(6, 'New Message (From Clients)', 'new-message-from-clients', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, 'Users Welcome Email', 'users-welcome-email', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `siteemaillists` (`id`, `name`, `slug`,`created_at`, `updated_at`) VALUES
+(1, 'Earn Extra Money', 'earn-extra-money', '2021-02-15 19:07:21', '2021-02-15 19:07:21'),
+(2, 'Season\'s Greeting', 'seasons-greeting', '2021-02-15 19:07:21', '2021-02-15 19:07:21'),
+(3, 'Popular Products and Services', 'popular-products-and-services', '2021-02-15 19:07:21', '2021-02-15 19:07:21'),
+(4, 'Newsletter', 'newsletter', '2021-02-15 19:07:21', '2021-02-15 19:07:21'),
+(5, 'Service Created', 'service-created', '2021-02-15 19:07:21', '2021-02-15 19:07:21'),
+(6, 'New Message (From Clients)', 'new-message-from-clients', '2021-02-15 19:07:21', '2021-02-15 19:07:21'),
+(7, 'Users Welcome Email', 'users-welcome-email', '2021-02-15 19:07:21', '2021-02-15 19:07:21'),
+(8, 'How To', 'how-to', '2021-02-15 19:07:21', '2021-02-15 19:07:21');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `site_email_lists`
+-- Indexes for table `siteemaillists`
 --
-ALTER TABLE `site_email_lists`
+ALTER TABLE `siteemaillists`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
@@ -65,9 +66,9 @@ ALTER TABLE `site_email_lists`
 --
 
 --
--- AUTO_INCREMENT for table `site_email_lists`
+-- AUTO_INCREMENT for table `siteemaillists`
 --
-ALTER TABLE `site_email_lists`
+ALTER TABLE `siteemaillists`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=872;
 COMMIT;
 

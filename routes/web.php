@@ -5,6 +5,7 @@ use App\EmailSubscription;
 use App\Http\Controllers\OperationalController;
 use App\Http\Controllers\ServiceImageController;
 use App\Jobs\TestQueue;
+use App\Mail\EarnMoney;
 use App\Mail\TestMail;
 // use App\Http\Controllers\SubscriptionController;
 
@@ -30,13 +31,9 @@ use Illuminate\Support\Facades\Mail;
 */
 
 
-
-Route::get('/email/earn/{password}', 'OperationalController@earnExtraMoney');
-Route::get('/newsletter/send/{password}', 'OperationalController@Newsletter')->name('newsletter.send');
-Route::post('/email/popular-products-services/send', 'OperationalController@popularProductServices')->name('email.popular_products_services');
-Route::post('/email/start-to-earn/send', 'OperationalController@earnExtraMoneyUI')->name('email.start_to_earn');
-
-Route::get('/email/sub', 'OperationalController@emailSub')->name('email.sub');
+// USER EMAIL UNSUBSCRIBED
+Route::get('/email/unsubscribe/{email}/{subcriptionid}', 'EmailSubscriptionsController@unsubscribe')->name('user.email.unsubscribe');
+Route::get('/email/subscribe/user/all', 'EmailSubscriptionsController@emailSubscribeAllUsersDef')->name('email.sub');
 
 Route::get('/subscribe/user', function ()
 {
@@ -55,22 +52,6 @@ Route::get('/subscribe/user', function ()
     else{
         return 'You\'ve Subscribed Already';
     }
-
-
-
-    // $siteemaillists = Siteemaillist::get()->toArray();
-    // $useremails = $user->siteemaillists->toArray();
-    // $emaillistid = [1, 2, 3];
-
-    // dd(in_array($emaillistid, $siteemaillists));
-
-    // if ($useremails->in_array($emaillistid, $siteemaillists)) {
-    //     $subscribed = $user->siteemaillists()->attach($emaillistid);
-    //     return $user->siteemaillists;
-    // }
-    // else{
-    //     return 'You\'ve Subscribed Already';
-    // }
 })->name('email.subscribe.user');
 
 
@@ -953,6 +934,9 @@ Route::prefix('cmo')->middleware(['cmo'])->group(function () { //CMO Middleware 
     // E-MAILS TEMPLATE
     Route::get('email-template', 'PageContentController@emailTemplates')->name('cmo.emails.template');
     Route::post('/send-season-greating-email', 'AdminController@submitEmail')->name('cmo.submit.email');
+    Route::post('/email/howto/send', 'EmailSubscriptionsController@howto')->name('cmo.submit.email.howto');
+    Route::post('/email/popular-products-services/send', 'EmailSubscriptionsController@popularProductServices')->name('email.popular_products_services');
+    Route::post('/email/start-to-earn/send', 'EmailSubscriptionsController@earnExtraMoney')->name('email.start_to_earn');
 }); //CMO Middleware protection end here
 
 Route::prefix('data-officer')->middleware(['data'])->group(function () { //Data Entry Officer Middleware protection start here

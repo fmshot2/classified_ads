@@ -9,6 +9,7 @@
     <div class="content-wrapper" style="min-height: 518px;">
         <section class="content">
             <div class="row">
+                {{-- START TO EARN  --}}
                 <div class="col-lg-4">
                     <div class="box">
                         <div class="box-header">
@@ -60,7 +61,8 @@
                                                             <option value="all" selected>All Users</option>
                                                             <option value="providers">Service Providers</option>
                                                             <option value="seekers">Service Seekers</option>
-                                                            <option value="agents">Agents</option>
+                                                            <option value="tests">Dev Tests</option>
+                                                            {{-- <option value="agents">Agents</option> --}}
                                                         </select>
                                                     </div>
                                                     @if ($errors->has('user_type'))
@@ -124,6 +126,8 @@
                         <!-- /.content -->
                     </div>
                 </div>
+
+                {{-- POPULAR PRODUCT AND SERVICES  --}}
                 <div class="col-lg-4">
                     <div class="box">
                         <div class="box-header">
@@ -164,7 +168,8 @@
                                                             <option value="all" selected>All Users</option>
                                                             <option value="providers">Service Providers</option>
                                                             <option value="seekers">Service Seekers</option>
-                                                            <option value="agents">Agents</option>
+                                                            <option value="tests">Dev Tests</option>
+                                                            {{-- <option value="agents">Agents</option> --}}
                                                         </select>
                                                     </div>
                                                     @if ($errors->has('user_type'))
@@ -219,6 +224,7 @@
                     </div>
                 </div>
 
+                {{-- SEND EMAIL (Season's Greeting)  --}}
                 <div class="col-lg-4">
                     <div class="box">
                         <div class="box-header">
@@ -246,6 +252,83 @@
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
                                                         <label for="site_name" class="control-label">Message</label>
+                                                        <textarea class="form-control summernote" name="message"></textarea>
+                                                    </div>
+                                                    @if ($errors->has('message'))
+                                                    <span class="helper-text" data-error="wrong" data-success="right">
+                                                        <strong class="text-danger">{{ $errors->first('message') }}</strong>
+                                                    </span>
+                                                    @endif
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-warning btn-sm"> Send Mail </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- // HOW TO --}}
+                <div class="col-lg-4">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">How-To</h3>
+                        </div>
+                        <div class="box-body pad">
+                            <div class="card">
+                                <div class="form-layout">
+                                    <div class="row mg-b-25">
+                                        <div class="col-md-12">
+                                            <form class="form-horizontal form-element" method="POST" action="{{route('cmo.submit.email.howto')}} " enctype="multipart/form-data">@csrf
+                                                <div class="col-lg-8">
+                                                    <div class="form-group">
+                                                        <label for="site_name" class="control-label">Subject<span class="text-danger">*</span></label>
+                                                        <input type="text" name="subject" id="site_name" class="form-control" autofocus="" placeholder="Subject of message" value="{{ old('subject') }}">
+                                                    </div>
+                                                    @if ($errors->has('subject'))
+                                                    <span class="helper-text" data-error="wrong" data-success="right">
+                                                        <strong class="text-danger">{{ $errors->first('subject') }}</strong>
+                                                    </span>
+                                                    @endif
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="user_type" class="control-label">Users<span class="text-danger">*</span></label>
+                                                        <select name="user_type" class="form-control">
+                                                            <option value="all">All Users</option>
+                                                            <option value="providers" selected>Service Providers</option>
+                                                            <option value="seekers">Service Seekers</option>
+                                                            <option value="tests">Dev Tests</option>
+                                                            {{-- <option value="agents">Agents</option> --}}
+                                                        </select>
+                                                    </div>
+                                                    @if ($errors->has('user_type'))
+                                                    <span class="helper-text" data-error="wrong" data-success="right">
+                                                        <strong class="text-danger">{{ $errors->first('user_type') }}</strong>
+                                                    </span>
+                                                    @endif
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label for="introduction" class="control-label">Introduction<span class="text-danger">*</span></label>
+                                                        <input type="text" name="introduction" id="introduction" class="form-control" placeholder="Give a brief introduction" value="{{ old('introduction') }}">
+                                                    </div>
+                                                    @if ($errors->has('introduction'))
+                                                    <span class="helper-text" data-error="wrong" data-success="right">
+                                                        <strong class="text-danger">{{ $errors->first('introduction') }}</strong>
+                                                    </span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label for="site_name" class="control-label">Message<span class="text-danger">*</span></label>
                                                         <textarea class="form-control summernote" name="message"></textarea>
                                                     </div>
                                                     @if ($errors->has('message'))
