@@ -121,8 +121,14 @@
                         <div class="form-group">
                             <label>Sub Category <small class="text-info">(You can select multiple sub category)</small></label>
                             <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple>
-                                @foreach($subcategory as $subcategories)
+                                {{-- @foreach($subcategory as $subcategories)
                                     <option value="{{ $subcategories->id }}" {{ $service->category_id == $subcategories->category_id  ? 'selected' : '' }}> {{ $subcategories->name }} </option>
+                                @endforeach --}}
+
+                                @foreach($subcategories as $sub_category)
+                                    @foreach($service->sub_categories as $subcategory)
+                                        <option value="{{ $sub_category->id }}" {{ $sub_category->id == $subcategory->id  ? 'selected' : '' }}> {{ $sub_category->name }} </option>
+                                    @endforeach
                                 @endforeach
                             </select>
                         </div>
