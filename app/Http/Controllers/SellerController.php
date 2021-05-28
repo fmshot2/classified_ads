@@ -116,7 +116,7 @@ $service->user_id = Auth::id();
 $service->category_id = $data['category_id'];
 $service->name = $data['name'];
 $service->description = $data['description'];
-        // $service->experience = $data['experience'];
+// $service->experience = $data['experience'];
 $service->phone = $data['phone'];
 $service->min_price = $data['min_price'];
 $service->state = $data['state'];
@@ -218,19 +218,19 @@ return redirect()->route('seller.service.show.service', ['slug' => $latest_servi
 }
 
 public function create_pay_featured(Request $request)
-      {
+{
 
-       $data = $request->all();
+ $data = $request->all();
 
-       $this->validate($request,[
-        'service_id' => 'required',
-        'email' => 'required',
-      ]);
-       if ($service_check = Service::where(['id'=>$data['service_id']])->first()){
-        $service_check->is_featured = 1;
-        $service_check->paid_featured = 1;
-        $service_check->featured_end_date = Carbon::now()->addDays(31);
-        $service_check->save();
+ $this->validate($request,[
+    'service_id' => 'required',
+    'email' => 'required',
+]);
+ if ($service_check = Service::where(['id'=>$data['service_id']])->first()){
+    $service_check->is_featured = 1;
+    $service_check->paid_featured = 1;
+    $service_check->featured_end_date = Carbon::now()->addDays(31);
+    $service_check->save();
             // $reg_payments = new Payment();
             // $reg_payments->user_id = Auth::id();
             // $reg_payments->payment_type = 'featured';
@@ -239,13 +239,13 @@ public function create_pay_featured(Request $request)
 
             // $reg_payments->save();
 
-            Auth::user()->mypayments()->create(['payment_type' => 'featured', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no'] ]);
+    Auth::user()->mypayments()->create(['payment_type' => 'featured', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no'] ]);
 
-        return response()->json(['success'=>'Your Service is now featured!'], 200);
-      }
+    return response()->json(['success'=>'Your Service is now featured!'], 200);
+}
 
-      return response()->json(['failed'=>'Service not available'], 200);
- }
+return response()->json(['failed'=>'Service not available'], 200);
+}
 
 public function saveReferLink($refererlink)
 {
