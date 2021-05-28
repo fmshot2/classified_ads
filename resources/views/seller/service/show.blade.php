@@ -92,7 +92,7 @@
                                     <input id="service_id" type="hidden" name="service_id" value="{{$service->id}}">
                                     <script src="https://js.paystack.co/v1/inline.js"></script>
 
-                                    <button type="button" class="btn btn-lg" style="cursor: pointer; display: block; margin-top: 5px; background-color: #cc8a19; color: #fff" onclick="payWithPaystack1(2000)">Make Payment</button>
+                                    <button id="featuredPay" type="button" class="btn btn-lg" style="cursor: pointer; display: block; margin-top: 5px; background-color: #cc8a19; color: #fff" onclick="payWithPaystack1(2000)">Make Payment</button>
                                 </form>
 
                             </li>
@@ -218,6 +218,9 @@
                 function payWithPaystack1() {
 
                     // return;
+                     const featuredButton = document.getElementById("featuredPay");
+                        // $("#featuredPay").attr("disabled", true);
+                        featuredButton.disabled  = true;
 
                     var handler = PaystackPop.setup({
                         key: paystack_pk,
@@ -232,7 +235,8 @@
                             }]
                         },
                         callback: function(response) {
-
+                            const featuredButton = document.getElementById("featuredPay");
+                            featuredButton.disabled  = true;
                             var email = document.getElementById("user_email").value;
                             var service_id = document.getElementById("service_id").value;
                             var amount = $("#featured_amount").val();
