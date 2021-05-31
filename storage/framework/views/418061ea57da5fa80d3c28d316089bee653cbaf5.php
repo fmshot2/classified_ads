@@ -121,7 +121,7 @@
                 <h2>Oops! Page Not Found!</h2>
                 <p>Sorry but the page you are looking for does not exist, or is temporarily unavailable</p>
                 <div class="mr-3 navbar-top-post-btn">
-                    <a class="btn btn-success" href="<?php echo e(route('home')); ?>"><i class="fa fa-arrow-left" style="color: #fff"></i> <span style="font-size: 15px !important;color:#fff">Go Back</span></a>
+                    <a class="btn btn-success" href="<?php echo e(url()->previous()); ?>"><i class="fa fa-arrow-left" style="color: #fff"></i> <span style="font-size: 15px !important;color:#fff">Go Back</span></a>
                 </div>
             </div>
         </div>
