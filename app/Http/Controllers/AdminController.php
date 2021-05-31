@@ -1339,6 +1339,35 @@ class AdminController extends Controller
         }
 
 
+public function set_sub_status() {
+  // $sellers = User::where('role', 'seller')->where(function($query) {
+  //   $query->has('sub')
+  // })
+          $sellers = User::where('role', 'seller')->whereHas('subscriptions', function($query) { 
+            $query->where('subscription_end_date', '<', now());
+          })->orderBy('created_at')
+          ->get(); 
+          foreach($sellers as $seller) {
+            $seller->sub_has_ended = 1;
+          }
+          dd($sellers);
+}
+
+public function add_old_payments() {
+  $sellers = User::where('role', 'seller')->with('mypayments')->doesnthave('mypayments')->orderBy('created_at')->get();
+  dd($sellers);
+  foreach($sellers as $seller) {
+    if($seller) {
+      $amount = $seller->subscriptions->first()->last_amount_paid;
+      if($amount) {
+      $seller->mypayments()->create(['payment_type' => 'registration', 'amount' => $amount]);
+      }
+        }
+
+  }
+  dd($sellers);
+  dd($seller->subscriptions->first()->last_amount_paid);
+}
 
         public function ended_seller2()
         {
