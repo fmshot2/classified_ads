@@ -166,7 +166,7 @@ class EmailSubscriptionsController extends Controller
             try {
                 Mail::to('juliana@eftechnology.net')->send(new EarnMoney('Juliana', $request->subject, $request->header_title, $request->intro, $request->body, $request->tagline, $request->link, $subscription->email, $subscription->unique_identifier));
                 Mail::to('paul@eftechnology.net')->send(new EarnMoney('Paul', $request->subject, $request->header_title, $request->intro, $request->body, $request->tagline, $request->link, $subscription->email, $subscription->unique_identifier));
-                Mail::to('femi@eftechnology.net')->send(new EarnMoney('Femo', $request->subject, $request->header_title, $request->intro, $request->body, $request->tagline, $request->link, $subscription->email, $subscription->unique_identifier));
+                Mail::to('femi@eftechnology.net')->send(new EarnMoney('Femi', $request->subject, $request->header_title, $request->intro, $request->body, $request->tagline, $request->link, $subscription->email, $subscription->unique_identifier));
                 Mail::to('adeoluibidapo@gmail.com')->send(new EarnMoney('Ibidapo', $request->subject, $request->header_title, $request->intro, $request->body, $request->tagline, $request->link, $subscription->email, $subscription->unique_identifier));
             } catch (\Exception $e) {
                 $failedtosendmail = 'Failed to Mail!.';
@@ -183,11 +183,23 @@ class EmailSubscriptionsController extends Controller
     {
         $siteemaillist = Siteemaillist::find(8);
 
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $fileInfo = $image->getClientOriginalName();
+            $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
+            $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
+            $file_name = $filename . '-' . time() . '.' . $extension;
+            $image->move(public_path('uploads/emails/howto'), $file_name);
+        }
+        else {
+            $file_name = 'noimage';
+        }
+
         if ($request->user_type == 'all') {
             $subscriptions = EmailSubscription::where('siteemaillist_id', $siteemaillist->id)->with('user')->get();
             foreach ($subscriptions as $subscription) {
                 try {
-                    Mail::to($subscription->user->email)->send(new HowTo($subscription->user->name, $subscription->user->email, $subscription->unique_identifier, $request->subject, $request->introduction, $request->message));
+                    Mail::to($subscription->user->email)->send(new HowTo($subscription->user->name, $subscription->user->email, $subscription->unique_identifier, $request->subject, $request->introduction, $request->message, $file_name));
                 } catch (\Exception $e) {
                     $failedtosendmail = 'Failed to Mail!.';
                 }
@@ -198,7 +210,7 @@ class EmailSubscriptionsController extends Controller
             foreach ($subscriptions as $subscription) {
                 $user = User::where('id', $subscription->user->id)->where('role', 'seller')->first();
                 try {
-                    Mail::to($user->email)->send(new HowTo($subscription->user->name, $subscription->user->email, $subscription->unique_identifier, $request->subject, $request->introduction, $request->message));
+                    Mail::to($user->email)->send(new HowTo($subscription->user->name, $subscription->user->email, $subscription->unique_identifier, $request->subject, $request->introduction, $request->message, $file_name));
                 } catch (\Exception $e) {
                     $failedtosendmail = 'Failed to Mail!.';
                 }
@@ -210,7 +222,7 @@ class EmailSubscriptionsController extends Controller
             foreach ($subscriptions as $subscription) {
                 $user = User::where('id', $subscription->user->id)->where('role', 'buyer')->first();
                 try {
-                    Mail::to($user->email)->send(new HowTo($subscription->user->name, $subscription->user->email, $subscription->unique_identifier, $request->subject, $request->introduction, $request->message));
+                    Mail::to($user->email)->send(new HowTo($subscription->user->name, $subscription->user->email, $subscription->unique_identifier, $request->subject, $request->introduction, $request->message, $file_name));
                 } catch (\Exception $e) {
                     $failedtosendmail = 'Failed to Mail!.';
                 }
@@ -231,10 +243,10 @@ class EmailSubscriptionsController extends Controller
             }
             $subscription = EmailSubscription::where('siteemaillist_id', $siteemaillist->id)->where('user_id', $user->id)->first();
             try {
-                Mail::to('juliana@eftechnology.net')->send(new HowTo('Juliana', $subscription->user->email, $subscription->unique_identifier, $request->subject, $request->introduction, $request->message));
-                Mail::to('paul@eftechnology.net')->send(new HowTo('Paul', $subscription->user->email, $subscription->unique_identifier, $request->subject, $request->introduction, $request->message));
-                Mail::to('femi@eftechnology.net')->send(new HowTo('Femo', $subscription->user->email, $subscription->unique_identifier, $request->subject, $request->introduction, $request->message));
-                Mail::to('adeoluibidapo@gmail.com')->send(new HowTo('Ibidapo', $subscription->user->email, $subscription->unique_identifier, $request->subject, $request->introduction, $request->message));
+                Mail::to('juliana@eftechnology.net')->send(new HowTo('Juliana', $subscription->user->email, $subscription->unique_identifier, $request->subject, $request->introduction, $request->message, $file_name));
+                Mail::to('paul@eftechnology.net')->send(new HowTo('Paul', $subscription->user->email, $subscription->unique_identifier, $request->subject, $request->introduction, $request->message, $file_name));
+                Mail::to('femi@eftechnology.net')->send(new HowTo('Fem1', $subscription->user->email, $subscription->unique_identifier, $request->subject, $request->introduction, $request->message, $file_name));
+                Mail::to('adeoluibidapo@gmail.com')->send(new HowTo('Ibidapo', $subscription->user->email, $subscription->unique_identifier, $request->subject, $request->introduction, $request->message, $file_name));
             } catch (\Exception $e) {
                 $failedtosendmail = 'Failed to Mail!.';
             }
