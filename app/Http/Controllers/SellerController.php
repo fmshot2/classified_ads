@@ -219,9 +219,7 @@ if (isset($request->is_featured)) {
 
 public function create_pay_featured(Request $request)
 {
-
  $data = $request->all();
-
  $this->validate($request,[
     'service_id' => 'required',
     'email' => 'required',
@@ -236,28 +234,17 @@ public function create_pay_featured(Request $request)
             // $reg_payments->payment_type = 'featured';
             // $reg_payments->amount = $data['amount'];
             // $reg_payments->tranx_ref =  $data['ref_no'];
-
             // $reg_payments->save();
-
     Auth::user()->mypayments()->create(['payment_type' => 'featured', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no'] ]);
-
     return response()->json(['success'=>'Your Service is now featured!'], 200);
 }
-
 return response()->json(['failed'=>'Service not available'], 200);
-}
 
-        if (Carbon::now() > Carbon::parse($user_sub_date)) {
-            // return redirect()->route('seller.sub.create')->with($success_notification);
-            return redirect()->route('seller.sub.create');
-        }
         $category = Category::orderBy('name', 'asc')->get();
         $subcategories = SubCategory::orderBy('name', 'asc')->get();
         $states = State::all();
         $service = Service::where('slug', $slug)->first();
-
-        return view('seller.service.update_service', compact('category', 'service', 'states', 'subcategories'));
-    }
+        return view('seller.service.update_service', compact('category', 'service', 'states', 'subcategories'));    }
 
 
     public function storeServiceUpdate(Request $request, $id)
