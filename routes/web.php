@@ -109,7 +109,7 @@ Route::get('/tester', function () {
 Route::get('email', function () {
     $category = Category::inRandomOrder()->first();
     $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
-    return new App\Mail\EarnMoney('Tester');
+    return new App\Mail\HowTo('hfhgfhfhgf', 'hghghg', 'gyhjghg', 'hfghfhghg', 'ygjygyguy', 'tfyfytft', 'noimage');
 });
 // Route::get('newsletter/', 'OperationalController@Newsletter');
 
@@ -440,7 +440,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/dashboard/service/all', 'SellerController@allService')->name('seller.service.all');
 
         Route::get('/dashboard/service/view/{slug}', 'SellerController@viewService')->name('service.view');
-        Route::get('/dashboard/service/update/{slug}', 'SellerController@viewServiceUpdate')->name('service.update.view');
+        Route::get('/dashboard/service/update/{slug}', 'SellerController@updateService')->name('service.update.view');
 
 
         Route::get('my-referrals/', 'SellerController@myreferrals')->name('provider.myreferrals');

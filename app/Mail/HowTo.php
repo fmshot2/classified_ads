@@ -10,14 +10,14 @@ use Illuminate\Queue\SerializesModels;
 class HowTo extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
-    public $username, $email, $unique_identifier, $subject, $introduction, $message;
+    public $username, $email, $unique_identifier, $subject, $introduction, $message, $file_name;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($username, $email, $unique_identifier, $subject, $introduction, $message)
+    public function __construct($username, $email, $unique_identifier, $subject, $introduction, $message, $file_name)
     {
         $this->username = $username;
         $this->email = $email;
@@ -25,6 +25,7 @@ class HowTo extends Mailable implements ShouldQueue
         $this->subject = $subject;
         $this->introduction = $introduction;
         $this->message = $message;
+        $this->file_name = $file_name;
     }
 
     /**
