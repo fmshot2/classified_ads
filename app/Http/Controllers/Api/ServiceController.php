@@ -1562,11 +1562,39 @@ class ServiceController extends Controller
 
 
         $data = $services->get()->concat($seekingworks->get());
-
-
         return response()->json([
             'services' => new ServiceResourceCollection($data),
         ], 200);
+    }
+
+
+     public function saveLike2($id)
+    {
+        $service = Service::find($id);
+        $likecheck = Like::where(['user_id' => Auth::id(), 'service_id' => $id])->first();
+        if ($likecheck) {
+            Like::where(['user_id' => Auth::id(), 'service_id' => $id])->delete();
+            $likecount = Like::where(['service_id' => $id])->count();
+
+           return response()->json([
+                'service' => new ServiceResource($service),
+                'message' => "You have un-liked this product!"
+            ], 200);
+
+            //return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
+            //return redirect('/home');
+        } else {
+            $like = new Like();
+            $like->user_id = Auth::id();
+            $like->service_id = $id;
+            $like->save();
+            $likecount = Like::where(['service_id' => $id])->count();
+            // return redirect()->to('serviceDetail/'.$service_slug);
+            return response()->json([
+                'service' => new ServiceResource($service),
+                'message' => "You have liked this product!"
+            ], 200);
+        }
     }
 
 }
