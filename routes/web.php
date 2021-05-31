@@ -101,7 +101,7 @@ Route::get('/tester', function () {
 Route::get('email', function () {
     $category = Category::inRandomOrder()->first();
     $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
-    return new App\Mail\EarnMoney('Tester');
+    return new App\Mail\HowTo('hfhgfhfhgf', 'hghghg', 'gyhjghg', 'hfghfhghg', 'ygjygyguy', 'tfyfytft', 'noimage');
 });
 // Route::get('newsletter/', 'OperationalController@Newsletter');
 

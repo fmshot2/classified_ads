@@ -289,7 +289,7 @@
                                                 <div class="col-lg-8">
                                                     <div class="form-group">
                                                         <label for="site_name" class="control-label">Subject<span class="text-danger">*</span></label>
-                                                        <input type="text" name="subject" id="site_name" class="form-control" autofocus="" placeholder="Subject of message" value="{{ old('subject') }}">
+                                                        <input type="text" name="subject" id="site_name" class="form-control" autofocus="" placeholder="Subject of message" value="{{ old('subject') }}" required>
                                                     </div>
                                                     @if ($errors->has('subject'))
                                                     <span class="helper-text" data-error="wrong" data-success="right">
@@ -300,7 +300,7 @@
                                                 <div class="col-lg-4">
                                                     <div class="form-group">
                                                         <label for="user_type" class="control-label">Users<span class="text-danger">*</span></label>
-                                                        <select name="user_type" class="form-control">
+                                                        <select name="user_type" class="form-control" required>
                                                             <option value="all">All Users</option>
                                                             <option value="providers" selected>Service Providers</option>
                                                             <option value="seekers">Service Seekers</option>
@@ -328,7 +328,19 @@
 
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
-                                                        <label for="site_name" class="control-label">Message<span class="text-danger">*</span></label>
+                                                        <label for="site_name" class="control-label">The Image<span class="text-danger">*</span></label>
+                                                        <input type="file" name="image" id="info" class="form-control" placeholder="Choose the image" value="{{ old('image') }}">
+                                                    </div>
+                                                    @if ($errors->has('image'))
+                                                    <span class="helper-text" data-error="wrong" data-success="right">
+                                                        <strong class="text-danger">{{ $errors->first('image') }}</strong>
+                                                    </span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label for="site_name" class="control-label">Message</label>
                                                         <textarea class="form-control summernote" name="message"></textarea>
                                                     </div>
                                                     @if ($errors->has('message'))
