@@ -27,10 +27,6 @@ Route::post('logintestPayment/{user_id}', 'AuthController@logintestPayment');
 
 Route::post('logintestPayment', 'AuthController@gt_response');
 
-Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
-Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
-
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -60,6 +56,7 @@ Route::group([
         Route::get('services', [ServiceController::class, 'myServices']);
         Route::post('service/create', [ServiceController::class, 'createService']);
         Route::delete('service/delete/{id}', [ServiceController::class, 'deleteService']);
+        Route::put('service/update', [ServiceController::class, 'updateService']);
 
         // SEEKING WORK
         Route::post('seeking-work/create', [ServiceController::class, 'seekingWorkCreate']);
@@ -140,5 +137,20 @@ Route::prefix('v1')->group(function ()
     // ADVERTS
     Route::get('sponsored/advertisements', [GeneralController::class, 'advertisement']);
 
+    // SYSTEM CONFIG
     Route::get('system-config/', [GeneralController::class, 'systemConfig']);
+
+    // PASSWORD
+    Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+    Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
+    Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+
+    // CONTACT
+    Route::post('/contact-us', [ServiceController::class, 'contactUsForm']);
+
+    // FAQ
+    Route::get('/faqs', [ServiceController::class, 'faqs']);
+
+    // AJAX SEARCH
+    Route::get('/live/search', [ServiceController::class, 'ajaxSearchResult']);
 });

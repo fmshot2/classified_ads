@@ -6,7 +6,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="image">
-          <img src="{{ Auth::user()->image == null ? '/uploads/users/user-icon.png' : '/uploads/users/'.''.Auth::user()->image  }}" class="img-circle" alt="User Image">
+          <img src="{{ Auth::user()->image == null ? '/uploads/users/user-icon.png' : '/uploads/users/'.Auth::user()->image  }}" class="img-circle" alt="User Image">
         </div>
         <div class="info">
           <p> {{ Auth::user()->name }} </p>
@@ -108,13 +108,13 @@
           </a>
         </li> --}}
 
-       <!--  <li class="{{ url()->current() == route('provider.myreferrals') ? 'active' : '' }}">
+        <li class="{{ url()->current() == route('provider.myreferrals') ? 'active' : '' }}">
             <a href=" {{ route ('provider.myreferrals') }} ">
               <i class="fa fa-group"></i> <span> My Referrals </span>
               <span class="pull-right-container">
               </span>
             </a>
-          </li> -->
+          </li>
 
 
         <li class="{{ url()->current() == route('seller.service.badges') ? 'active' : '' }}">

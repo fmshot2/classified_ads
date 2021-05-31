@@ -108,4 +108,20 @@ class CommentsController extends Controller
     {
         //
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function feedbackDelete($id)
+    {
+        $feedback = Comment::findOrFail($id);
+        $feedback->delete();
+        return redirect()->back()->with([
+            'message' => 'Feedback Deleted!',
+            'alert-type' => 'success'
+        ]);
+    }
 }

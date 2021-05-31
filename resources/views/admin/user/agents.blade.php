@@ -35,24 +35,24 @@
 
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table class="display table table-bordered data_table_main">
-							<thead>
-								<tr>
-									<th> # </th>
-									<th> Name </th>
-									<th> Email </th>
-									<th> Applied for Approval?</th>
-									<th> Status </th>
-                                    <th> Amount Earned </th>
-                                    <th> Total Downline </th>
-									<th> Activate/Deactivate</th>
-                                    <th> Downlines</th>
+						<div class="table-responsive">
+                            <table class="display table table-bordered data_table_main">
+                                <thead>
+                                    <tr>
+                                        <th> # </th>
+                                        <th> Name </th>
+                                        <th> Email </th>
+                                        <th> Applied for Approval?</th>
+                                        <th> Status </th>
+                                        <th> Amount Earned </th>
+                                        <th> Total Downline </th>
+                                        <th> Activate/Deactivate</th>
+                                        <th> Downlines</th>
 
-								</tr>
-                            </thead>
-                            <tbody>
-
-									@foreach($agents as $key => $agent)
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($agents as $key => $agent)
                                         <tr>
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                             <td> {{ $agent->name }} </td>
@@ -76,15 +76,16 @@
                                             </td>
                                             <td class="center">
                                             <a href="{{route('agent_downline', $agent->id)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
-                                            </td>   
+                                            </td>
                                             <td class="center">
                                             <a href="{{route('agents_downline_24hrs', $agent->id)}}" class="btn btn-warning "><i class="fa fa-eye"></i>Yesterday's Reg</a>
-                                            </td>                                          
-							            </tr>
+                                            </td>
+                                        </tr>
 
                                     @endforeach
-						    </tbody>
-					    </table>
+                                </tbody>
+                            </table>
+                        </div>
 				    </div>
 				<!-- /.box-body -->
 			</div>

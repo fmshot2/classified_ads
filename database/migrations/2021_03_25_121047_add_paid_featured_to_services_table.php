@@ -14,7 +14,7 @@ class AddPaidFeaturedToServicesTable extends Migration
     public function up()
     {
         Schema::table('services', function (Blueprint $table) {
-            $table->string('paid_featured')->after('is_featured')->default(0);
+            $table->integer('paid_featured')->after('is_featured')->default(0);
         });
     }
 

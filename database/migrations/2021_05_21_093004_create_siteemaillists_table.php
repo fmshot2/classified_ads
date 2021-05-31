@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSubscriptionEndDateToServicesTable extends Migration
+class CreateSiteemaillistsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddSubscriptionEndDateToServicesTable extends Migration
      */
     public function up()
     {
-        Schema::table('services', function (Blueprint $table) {
-        $table->string('subscription_end_date')->nullable();
+        Schema::create('siteemaillists', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('slug');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddSubscriptionEndDateToServicesTable extends Migration
      */
     public function down()
     {
-        Schema::table('services', function (Blueprint $table) {
-        $table->dropColumn('subscription_end_date');
-        });
+        Schema::dropIfExists('siteemaillists');
     }
 }

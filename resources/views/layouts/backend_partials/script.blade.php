@@ -34,6 +34,16 @@
 <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
+<script src="{{ asset('select2js/select2.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $("#all_email_category").select2({
+            placeholder: "Select a category (optional)",
+            allowClear: true
+        });
+    });
+</script>
+
 
 
 

@@ -243,15 +243,23 @@
           <i class="fa fa-credit-card"></i> <span> Featured Services </span>
         </a>
       </li>
-      
-      <li class="" style="{{ url()->current() == route('admin.all.earnings') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
-        <a href=" {{route ('admin.all.earnings') }}">
-          <i class="fa fa-credit-card"></i> <span> All Marketers Earnings </span>
+
+      <li class="" style="{{ url()->current() == route('admin.create_our_user') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href=" {{ route ('admin.create_our_user') }}">
+          <i class="fa fa-credit-card"></i> <span> Create User </span>
         </a>
       </li>
 
+      
+     <!--  <li class="" style="{{ url()->current() == route('admin.all.earnings') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href=" {{route ('admin.all.earnings') }}">
+          <i class="fa fa-credit-card"></i> <span> All Marketers Earnings </span>
+        </a>
+      </li> -->
+
       <li class="treeview" style="{{ url()->current() == route('admin.subscription.all') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} 
-      {{ url()->current() == route('users_sub_almost_ended') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+      {{ url()->current() == route('users_sub_almost_ended') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} 
+      {{ url()->current() == route('users_sub_has_ended') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
         <a href="#">
           <i class="fa fa-money"></i>
           <span> Subscriptions</span>
@@ -262,7 +270,9 @@
         <ul class="treeview-menu">
           <li><a href=" {{ route('admin.subscription.all') }} "><i class="fa fa-circle-o"></i> All Subscriptions</a></li>
 
-          <li><a href=" {{ route('users_sub_almost_ended') }} "><i class="fa fa-circle-o"></i> Subscription Ending</a></li>
+          <li><a href=" {{ route('users_sub_almost_ended') }} "><i class="fa fa-circle-o"></i> Subscription About To End</a></li>
+
+           <li><a href=" {{ route('users_sub_has_ended') }} "><i class="fa fa-circle-o"></i> Subscription Has Ended</a></li>
 
         </ul>
       </li>
@@ -312,7 +322,7 @@
           <li><a href=" {{ route('admin.all.cmos') }} "><i class="fa fa-circle-o"></i> CMOs </a></li>
           <li><a href="{{ route('admin.add.cmo') }}"><i class="fa fa-circle-o"></i> Add CMO </a></li>
           <li><a href="{{ route('admin.allagents') }}"><i class="fa fa-circle-o"></i> Agents </a></li>
-          <li><a href="{{ route('admin.agents_yesterday') }}"><i class="fa fa-circle-o"></i> Yesterday Agent Sales </a></li>          
+          <li><a href="{{ route('admin.agents_yesterday') }}"><i class="fa fa-circle-o"></i> Yesterday Agent Sales </a></li>
           <li><a href="{{ route('admin.all_ef_marketers') }}"><i class="fa fa-circle-o"></i> EF Marketers </a></li>
         </ul>
       </li>
@@ -459,7 +469,7 @@
 
         @elseif(Auth::user()->role == 'cmo')
 
-        <li class="{{ url()->current() == route('cmo.dashboard') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <li class="{{ url()->current() == route('cmo.dashboard') ? 'active' : '' }}">
         <a href=" {{route ('cmo.dashboard') }}">
           <i class="fa fa-dashboard"></i> <span> Dashboard </span>
           <span class="pull-right-container">
@@ -467,7 +477,7 @@
         </a>
       </li>
 
-      <li class="" style="{{ url()->current() == route('cmo.notification.all') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+      <li class="{{ url()->current() == route('cmo.notification.all') ? 'active' : '' }}">
         <a href=" {{route ('cmo.notification.all') }}">
           <i class="fa fa-bell"></i> <span> General Notice </span>
           @if (Auth::user()->unreadNotifications->count() > 0)
@@ -475,6 +485,13 @@
                 <small class="label pull-right bg-primary"> {{ Auth::user()->unreadNotifications->count() }}  </small>
             </span>
           @endif
+        </a>
+      </li>
+
+      <li class="{{ url()->current() == route('cmo.emails.template') ? 'active' : '' }}">
+        <a href=" {{ route ('cmo.emails.template') }} ">
+            <i class="fa fa-envelope"></i> <span> Email Template </span>
+            <span class="pull-right-container"></span>
         </a>
       </li>
 
@@ -519,7 +536,7 @@
       </li>
 
 
-        <li class="" style="{{ url()->current() == route('cmo.system.config') ? 'background-color: #cc8a19; color: #ffffff !important;' : ''}}">
+        <li class="{{ url()->current() == route('cmo.system.config') ? 'active' : ''}}">
             <a href=" {{ route ('cmo.system.config') }} ">
             <i class="fa fa-globe"></i> <span> System Config </span>
             <span class="pull-right-container">

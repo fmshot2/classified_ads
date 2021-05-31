@@ -36,23 +36,31 @@ class SubscriptionController extends Controller
 	public function createSub()
 	{		
 
-		// if ($current_subscription = ProviderSubscription::where('user_id', Auth::id())->first()) {
-		if ($current_subscription = Auth::user()->subscriptions->first()) {
-			$current_subscription_end_date = $current_subscription->subscription_end_date;
-		}else{
+		if (!Auth::user()->subscriptions->first()) {
 			$current_subscription_end_date = null;
-		}
- // $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
-
-		if (Carbon::now() > Carbon::parse($current_subscription_end_date)) {
-			$subscription_has_ended = "Your Subscription has ended. Please renew your subcription to proceed";
-		}else{
 			$subscription_has_ended = null;
-		}
+			$no_sub_var = 'Your Subscription was not found. Please Subscribe to proceed to your dashboard!';	
+		}else {
+			$user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
+			$no_sub_var  = null;
+			if ($user_sub_date) {
+				if (Carbon::now() > Carbon::parse($user_sub_date)) {
+					$current_subscription_end_date = null;
+					$subscription_has_ended = "Your Subscription has ended. Please renew your subcription to proceed";  
+					$no_sub_var  = null;
+				}else{
+					$current_subscription_end_date =   $user_sub_date = Auth::user()->subscriptions->first()->subscription_end_date;
+					$subscription_has_ended = null;
+					$no_sub_var  = null;
 
-		
-		
-		return view ('seller.subscription.create_sub', compact('current_subscription_end_date', 'subscription_has_ended') );
+
+				}
+			}else {
+				$subscription_has_ended = null;
+				$no_sub_var = 'Your Subscription was not found. Please Subscribe to proceed to your dashboard!';
+			}
+		}		
+		return view ('seller.subscription.create_sub', compact('current_subscription_end_date', 'subscription_has_ended', 'no_sub_var') );
 	}
 
 	public function allSub()

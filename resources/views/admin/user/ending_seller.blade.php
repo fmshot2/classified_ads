@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'All Service Providers | ')
+@section('title', 'Subscription About To End Users Table | ')
 
 @section('content')
 
@@ -35,20 +35,22 @@
                                         <th> Name </th>
                                         <th> Email </th>
                                         <th> Phone </th>
-                                        <th> Date </th>
+                                        <th> User Registration Date </th>
+                                        <th> Last Subscription Paid</th>
+                                        <th> Subscription End Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($seller as $key => $sellerss)
-                                     @foreach($sellerss as $key => $sellers)
+                                    @foreach($sellers as $key => $seller)
                                         <tr>
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                                            <td> {{ $sellers->name }} </td>
-                                            <td><span class="text-muted"> </i> {{ $sellers->email }} </span> </td>
-                                            <td><span class="text-muted"> </i> {{ $sellers->phone }} </span> </td>
-                                            <td> {{ $sellers->created_at->format('d/m/Y') }} </span></td>                                           
+                                            <td> {{ $seller->name }} </td>
+                                            <td><span class="text-muted"> </i> {{ $seller->email }} </span> </td>
+                                            <td><span class="text-muted"> </i> {{ $seller->phone }} </span> </td>
+                                            <td><span class="text-muted"> </i> {{ $seller->created_at->format('d-m-Y') }} </span> </td>
+                                            <td> {{ $seller->subscriptions->first()->last_amount_paid }} </span></td>
+                                            <td> {{ Carbon\Carbon::parse($seller->subscriptions->first()->subscription_end_date)->format('d-m-Y') }} </span></td>                                                            
                                         </tr>
-                                    @endforeach
                                     @endforeach
 
                                 </tbody>

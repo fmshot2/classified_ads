@@ -1,7 +1,7 @@
+@extends('layouts.app')
+@section('title', 'Unsubscribe | ')
 
-<?php $__env->startSection('title', 'Page Not Found | '); ?>
-
-<?php $__env->startSection('content'); ?>
+@section('content')
 
     <style>
         * {
@@ -31,7 +31,6 @@
         .notfound {
             max-width: 560px;
             width: 100%;
-            padding-left: 160px;
             line-height: 1.1;
         }
 
@@ -42,7 +41,7 @@
             display: inline-block;
             width: 140px;
             height: 140px;
-            background-image: url(<?php echo e(asset('/emoji.png')); ?>);
+            background-image: url({{ asset('/emoji.png') }});
             background-size: cover;
         }
 
@@ -79,9 +78,9 @@
         }
 
         .notfound p {
-        font-family: 'Nunito', sans-serif;
-        color: #999fa5;
-        font-weight: 400;
+            font-family: 'Nunito', sans-serif;
+            color: #999fa5;
+            font-weight: 400;
         }
 
         .notfound a {
@@ -93,7 +92,7 @@
             color: #388dbc;
         }
 
-        @media  only screen and (max-width: 767px) {
+        @media only screen and (max-width: 767px) {
             .notfound .notfound-404 {
                 width: 110px;
                 height: 110px;
@@ -102,10 +101,11 @@
                 padding-left: 15px;
                 padding-right: 15px;
                 padding-top: 110px;
-            }#notfound .notfound {
+            }
+            #notfound .notfound {
                 position: absolute;
                 left: 50%;
-                top: 50%;
+                top: 30%;
                 -webkit-transform: translate(-50%, -50%);
                 -ms-transform: translate(-50%, -50%);
                     transform: translate(-50%, -50%);
@@ -116,16 +116,12 @@
     <div style="background-color: rgba(255, 255, 255, 0.712);">
         <div id="notfound">
             <div class="notfound">
-                <div class="notfound-404"></div>
-                <h1>404</h1>
-                <h2>Oops! Page Not Found!</h2>
-                <p>Sorry but the page you are looking for does not exist, or is temporarily unavailable</p>
+                <h2>You've been successfully unsubscribed from our mailing list(s).</h2>
+                <p>{{ $email }} will no longer receive any emails on this topic.</p>
                 <div class="mr-3 navbar-top-post-btn">
-                    <a class="btn btn-success" href="<?php echo e(url()->previous()); ?>"><i class="fa fa-arrow-left" style="color: #fff"></i> <span style="font-size: 15px !important;color:#fff">Go Back</span></a>
+                    <a class="btn btn-success" href="{{ route('home')  }}"><i class="fa fa-arrow-left" style="color: #fff"></i> <span style="font-size: 15px !important;color:#fff">Visit Site</span></a>
                 </div>
             </div>
         </div>
     </div>
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\yellowpage\resources\views/errors/404.blade.php ENDPATH**/ ?>
+@endsection
