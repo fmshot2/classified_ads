@@ -729,7 +729,7 @@ class ServiceController extends Controller
 
         return response()->json([
             'service' => new ServiceResource($service),
-            'similar_services' => $similarProducts
+            'similar_services' => new ServiceResourceCollection($similarProducts)
         ], 200);
     }
 
