@@ -43,7 +43,7 @@
                                         <th> Status </th>
                                         <th> Featured </th>
                                         <th> Date </th>
-                                        <th> Action </th>
+                                        <th> Actions </th>
                                     </tr>
                                 </thead>
 
