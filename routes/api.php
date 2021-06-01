@@ -57,7 +57,7 @@ Route::group([
         Route::post('service/create', [ServiceController::class, 'createService']);
         Route::delete('service/delete/{id}', [ServiceController::class, 'deleteService']);
         Route::put('service/update', [ServiceController::class, 'updateService']);
-        Route::get('service/saveLike', [ServiceController::class, 'saveLike2']);
+        Route::get('service/saveLike/{id}', [ServiceController::class, 'saveLike2']);
 
 
         // SEEKING WORK
