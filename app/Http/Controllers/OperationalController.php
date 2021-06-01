@@ -946,7 +946,7 @@ class OperationalController extends Controller
                 views($service)->record();
             }
         }
-
+        return 'Done!';
     }
 
 }
