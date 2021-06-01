@@ -1277,7 +1277,7 @@ class ServiceController extends Controller
         $latitude = $request->latitude;
         $longitude = $request->longitude;
         $radius = 100000;
-        $services = Service::selectRaw("id, name, address, state, thumbnail, user_id, badge_type, slug,
+        $services = Service::selectRaw("id, name, description, city, phone, address, state, thumbnail, user_id, badge_type, slug,
         ( 6371000 * acos( cos( radians(?) ) *
         cos( radians( latitude ) )
                         * cos( radians( longitude ) - radians(?)
