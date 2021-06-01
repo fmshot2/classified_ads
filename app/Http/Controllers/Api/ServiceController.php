@@ -1573,6 +1573,14 @@ class ServiceController extends Controller
 
      public function saveLike2($id)
     {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
         $service = Service::find($id);
         $likecheck = Like::where(['user_id' => Auth::id(), 'service_id' => $id])->first();
         if ($likecheck) {
