@@ -26,6 +26,7 @@ class ServiceResource extends JsonResource
             'phone'       => $this->phone,
             'experience'  => $this->experience,
             'badge_type'  => $this->badge_type,
+            'total_likes' => $this->likes->count(),
             'likes'       => $this->likes,
             'video_link'  => $this->video_link,
             'is_featured' => $this->is_featured,
@@ -40,6 +41,7 @@ class ServiceResource extends JsonResource
             'category'    => new CategoryResource($this->category),
             'images'      => ImageResource::collection($this->images),
             'comments'    => $this->comments,
+            'views'    => $this->views->count(),
         ];
 
     }

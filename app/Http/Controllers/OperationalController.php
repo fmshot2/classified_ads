@@ -936,4 +936,17 @@ class OperationalController extends Controller
         ]);
     }
 
+
+    public function cheatViewsCode()
+    {
+        $services = Service::all();
+
+        for ($i=0; $i < 200; $i++) {
+            foreach ($services as $key => $service) {
+                views($service)->record();
+            }
+        }
+
+    }
+
 }

@@ -722,9 +722,6 @@ class ServiceController extends Controller
     public function show($id)
     {
         $service = Service::findOrFail($id);
-        foreach ($service as $key => $singleService) {
-            $service[$key]->total_likes = $singleService->total_likes;
-        }
         $similarProducts = Service::where([['category_id', $service->category_id], ['state', $service->state]])
             ->where('subscription_end_date', '>', now())
             ->where('id', '!=', $service->id)
