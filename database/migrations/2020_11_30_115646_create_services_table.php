@@ -40,7 +40,7 @@ class CreateServicesTable extends Migration
             $table->string('badge_type')->nullable()->default(0);
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
-
+            $table->string('subscription_end_date')->nullable();
         });
     }
 

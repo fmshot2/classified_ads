@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSubscriptionEndDateToServicesTable extends Migration
+class AddSubHasEndedToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddSubscriptionEndDateToServicesTable extends Migration
      */
     public function up()
     {
-        Schema::table('services', function (Blueprint $table) {
-        $table->string('subscription_end_date')->nullable();
+        Schema::table('users', function (Blueprint $table) {
+        $table->string('sub_has_ended')->default(0);
         });
     }
 
@@ -25,8 +25,8 @@ class AddSubscriptionEndDateToServicesTable extends Migration
      */
     public function down()
     {
-        Schema::table('services', function (Blueprint $table) {
-        $table->dropColumn('subscription_end_date');
+        Schema::table('users', function (Blueprint $table) {
+        $table->dropColumn('sub_has_ended');
         });
     }
 }

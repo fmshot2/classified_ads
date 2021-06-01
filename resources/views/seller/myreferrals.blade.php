@@ -76,11 +76,11 @@
                         <thead>
                             <tr>
                              <th> S/N </th>
-<!--                        <th> Referee Name </th>
--->                       
-<th> Referer Link </th>
+                        <th> Referee Name </th>
+                       
+<!-- <th> Referer Link </th> -->
 <!-- <th> Agent Code </th> -->
-<th> Bonus </th>
+<!-- <th> Bonus </th> -->
 <th> Date Created </th>
                                         <!-- <th> Status </th>
                                             <th> Action </th> -->
@@ -94,15 +94,15 @@
 
                                         <tr role="row" class="odd">
                                            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                                           <!-- <td> {{ $myreferral->user->name }} </td> -->
-                                           <td> {{ $myreferral->user->refererLink }} </td>
-                                           <td> {{ $myreferral->user->refererAmount }} </td>
+                                           <td> {{ $myreferral->user->name }} </td>
+                                           <!-- <td> {{ $myreferral->user->refererLink }} </td> -->
+                                           <!-- <td> {{ $myreferral->user->refererAmount }} </td> -->
                                            <td> {{ $myreferral->created_at->diffForHumans() }} </td>
                                            <!-- <td> {{ $myreferral->status == 1 ? 'read' : 'unread' }} </td> -->
 
-                                           <td class="center">
+                                          <!--  <td class="center">
                                             <a onclick="getDetails({{$myreferral->user->id}})" class="btn btn-warning "><i class="fa fa-eye"></i>View Downline</a>
-                                        </td>
+                                        </td> -->
                                     </tr>
 
                                     @endforeach

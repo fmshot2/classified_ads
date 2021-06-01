@@ -80,6 +80,14 @@ Route::get('/add_seller_sub', 'AdminController@add_seller_sub')->name('add_selle
 Route::get('/add_seller_referals', 'AdminController@add_seller_referals')->name('add_seller_referals');
 // end route to add referals for users with no referals
 
+// set sub_has_ended field to 1 on users table if subscription has ended
+Route::get('/set_sub_status', 'AdminController@set_sub_status')->name('set_sub_status');
+// End set sub_has_ended field to 1 on users table if subscription has ended
+
+// route to add payments for users with no payments
+Route::get('/add_old_payments', 'AdminController@add_old_payments')->name('add_old_payments');
+// end route to add payments for users with no payments
+
 
 //End Special URLS
 
@@ -390,7 +398,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/service/add', 'SellerController@createService')->name('seller.service.create');
         Route::get('/service/badges', 'BadgeController@badges')->name('seller.service.badges');
         Route::post('/service/createpay', 'BadgeController@createBadgepay')->name('createpaystack');
-        Route::post('/service/create_pay_featured', 'BadgeController@create_pay_featured')->name('create_pay_featured');
+        Route::post('/service/create_pay_featured', 'SellerController@create_pay_featured')->name('create_pay_featured');
 
         Route::post('/service/createPaystackpay', 'AuthController@createPaystackpay')->name('createpaypaystack2');
 
