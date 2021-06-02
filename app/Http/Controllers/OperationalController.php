@@ -939,12 +939,14 @@ class OperationalController extends Controller
 
     public function cheatViewsCode()
     {
-        $services = Service::all();
+        $services = Service::inRandomOrder()->get();
 
-        for ($i=0; $i < 200; $i++) {
-            foreach ($services as $key => $service) {
+        foreach ($services as $key => $service) {
+            $value = rand(80, 200);
+            for ($i=1; $i < $value; $i++) {
                 views($service)->record();
             }
+
         }
         return 'Done!';
     }
