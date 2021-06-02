@@ -1612,7 +1612,7 @@ public function show($id)
     }
 
     public function set_sub()
-    {    
+    {
         $services = Service::whereNull('subscription_end_date')->get();
         // $services = Service::all();
         // dd($services);
@@ -1622,8 +1622,8 @@ public function show($id)
                 $service->subscription_end_date = $service->user->subscriptions->first()->subscription_end_date;
                 $service->save();
                 array_push($names, $service->user->subscriptions->first());
-            }            
+            }
         }
-    dd($names); 
+    dd($names);
     }
 }

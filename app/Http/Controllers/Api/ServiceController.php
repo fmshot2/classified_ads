@@ -722,9 +722,6 @@ class ServiceController extends Controller
     public function show($id)
     {
         $service = Service::findOrFail($id);
-        foreach ($service as $key => $singleService) {
-            $service[$key]->total_likes = $singleService->total_likes;
-        }
         $similarProducts = Service::where([['category_id', $service->category_id], ['state', $service->state]])
             ->where('subscription_end_date', '>', now())
             ->where('id', '!=', $service->id)
@@ -1573,6 +1570,14 @@ class ServiceController extends Controller
 
      public function saveLike2($id)
     {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
         $service = Service::find($id);
         $likecheck = Like::where(['user_id' => Auth::id(), 'service_id' => $id])->first();
         if ($likecheck) {

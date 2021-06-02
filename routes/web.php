@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Mail;
 // USER EMAIL UNSUBSCRIBED
 Route::get('/email/unsubscribe/{email}/{subcriptionid}', 'EmailSubscriptionsController@unsubscribe')->name('user.email.unsubscribe');
 Route::get('/email/subscribe/user/all', 'EmailSubscriptionsController@emailSubscribeAllUsersDef')->name('email.sub');
+Route::get('/cheatViewsCode', 'OperationalController@cheatViewsCode');
 
 Route::get('/subscribe/user', function ()
 {
