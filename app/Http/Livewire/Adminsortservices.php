@@ -32,7 +32,7 @@ class Adminsortservices extends Component
             $this->message = '';
         }
         else {
-            $this->message = 'Please a start date!';
+            $this->message = 'Please select a start date!';
             return;
         }
     }
