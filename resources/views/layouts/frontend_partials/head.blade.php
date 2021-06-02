@@ -53,7 +53,7 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <link href="{{ asset('css/ibiStyles.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('css/fmstyles.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ asset('css/fmstyles.css') }}" rel="stylesheet" type="text/css" />
 
   <link href="{{ asset('css/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('css/bootstrap-dropdownhover.min.css') }}" rel="stylesheet">

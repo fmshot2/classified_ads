@@ -63,6 +63,9 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/basic.css" rel="stylesheet" type="text/css" />
 {{-- <link href="{{ asset('css/ibiStyles.css') }}" rel="stylesheet" type="text/css" /> --}}
 <link href="{{ asset('cms/css/ibiStyles_cms.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('css/fmstyles.css') }}" rel="stylesheet" type="text/css" />
+    @livewireStyles
+
 
 <style type="text/css">
     .dropzone {
@@ -116,6 +119,7 @@
             }
         </script>
     @endif
+@livewireScripts
 
 </head>
 
