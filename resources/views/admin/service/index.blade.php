@@ -31,12 +31,12 @@
 
 
 
-                       @livewire('adminsortservices', ['all_service' => $all_service])
+                       @livewire('adminsortservices')
 
 					<!-- /.box-header -->
 					<div class="box-body">
 						<div class="table-responsive">
-                            
+
                             </div>
                         </div>
 
