@@ -112,28 +112,28 @@ class SellerController extends Controller
         $state_details = State::where('name', $data['state'])->first();
 
 
-$service->user_id = Auth::id();
-$service->category_id = $data['category_id'];
-$service->name = $data['name'];
-$service->description = $data['description'];
-// $service->experience = $data['experience'];
-$service->phone = $data['phone'];
-$service->min_price = $data['min_price'];
-$service->state = $data['state'];
-$service->latitude = $state_details->latitude;
-$service->longitude = $state_details->longitude;
-$service->city = $data['city'];
-$service->address = $data['address'];
-$service->max_price = $data['category_id'];
-$service->video_link = $data['video_link'];
-// $service->subscription_end_date = Auth::user()->subscription_end_date;
-$service->subscription_end_date =  Auth::user()->subscriptions->first()->subscription_end_date;
+        $service->user_id = Auth::id();
+        $service->category_id = $data['category_id'];
+        $service->name = $data['name'];
+        $service->description = $data['description'];
+        // $service->experience = $data['experience'];
+        $service->phone = $data['phone'];
+        $service->min_price = $data['min_price'];
+        $service->state = $data['state'];
+        $service->latitude = $state_details->latitude;
+        $service->longitude = $state_details->longitude;
+        $service->city = $data['city'];
+        $service->address = $data['address'];
+        $service->max_price = $data['category_id'];
+        $service->video_link = $data['video_link'];
+        // $service->subscription_end_date = Auth::user()->subscription_end_date;
+        $service->subscription_end_date =  Auth::user()->subscriptions->first()->subscription_end_date;
 
 
 
-if (isset($request->is_featured)) {
-    $service->is_featured = $data['is_featured'];
-}
+        if (isset($request->is_featured)) {
+            $service->is_featured = $data['is_featured'];
+        }
 
         $service->slug = $slug;
         // $service->video_link = $request->video_link;$data['category_id'];
@@ -217,34 +217,35 @@ if (isset($request->is_featured)) {
         return redirect()->route('seller.service.show.service', ['slug' => $latest_service->slug]);
     }
 
-public function create_pay_featured(Request $request)
-{
- $data = $request->all();
- $this->validate($request,[
-    'service_id' => 'required',
-    'email' => 'required',
-]);
- if ($service_check = Service::where(['id'=>$data['service_id']])->first()){
-    $service_check->is_featured = 1;
-    $service_check->paid_featured = 1;
-    $service_check->featured_end_date = Carbon::now()->addDays(31);
-    $service_check->save();
+    public function create_pay_featured(Request $request)
+    {
+        $data = $request->all();
+        $this->validate($request, [
+            'service_id' => 'required',
+            'email' => 'required',
+        ]);
+        if ($service_check = Service::where(['id' => $data['service_id']])->first()) {
+            $service_check->is_featured = 1;
+            $service_check->paid_featured = 1;
+            $service_check->featured_end_date = Carbon::now()->addDays(31);
+            $service_check->save();
             // $reg_payments = new Payment();
             // $reg_payments->user_id = Auth::id();
             // $reg_payments->payment_type = 'featured';
             // $reg_payments->amount = $data['amount'];
             // $reg_payments->tranx_ref =  $data['ref_no'];
             // $reg_payments->save();
-    Auth::user()->mypayments()->create(['payment_type' => 'featured', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no'] ]);
-    return response()->json(['success'=>'Your Service is now featured!'], 200);
-}
-return response()->json(['failed'=>'Service not available'], 200);
+            Auth::user()->mypayments()->create(['payment_type' => 'featured', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no']]);
+            return response()->json(['success' => 'Your Service is now featured!'], 200);
+        }
+        return response()->json(['failed' => 'Service not available'], 200);
 
         $category = Category::orderBy('name', 'asc')->get();
         $subcategories = SubCategory::orderBy('name', 'asc')->get();
         $states = State::all();
         $service = Service::where('slug', $slug)->first();
-        return view('seller.service.update_service', compact('category', 'service', 'states', 'subcategories'));    }
+        return view('seller.service.update_service', compact('category', 'service', 'states', 'subcategories'));
+    }
 
 
     public function storeServiceUpdate(Request $request, $id)

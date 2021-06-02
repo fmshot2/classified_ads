@@ -441,7 +441,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/dashboard/service/all', 'SellerController@allService')->name('seller.service.all');
 
         Route::get('/dashboard/service/view/{slug}', 'SellerController@viewService')->name('service.view');
-        Route::get('/dashboard/service/update/{slug}', 'SellerController@updateService')->name('service.update.view');
+        Route::get('/dashboard/service/update/{slug}', 'SellerController@storeServiceUpdate')->name('service.update.view');
 
 
         Route::get('my-referrals/', 'SellerController@myreferrals')->name('provider.myreferrals');
