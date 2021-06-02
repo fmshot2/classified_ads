@@ -363,15 +363,15 @@
 
                                 <div class="tab-pane fade " id="seven" role="tabpanel" aria-labelledby="seven-tab">
                                     <div class="properties-description mb-50">
+                                        <p class="animate__animated animate__bounce">
+                                            <strong><i class="fa fa-phone"></i> Phone Number:</strong> <a href="tel:{{$serviceDetail->phone}}">
+                                                {{$serviceDetail->phone}}
+                                            </a>
+                                        </p>
                                         @guest
-                                            <p class="animate__animated animate__bounce">Please login to see this service provider's contact details!</p>
+                                            <p class="animate__animated animate__bounce">Please login to see this service provider's full contact details!</p>
                                         @endguest
                                         @auth
-                                            <p class="animate__animated animate__bounce">
-                                                <strong><i class="fa fa-phone"></i> Phone Number:</strong> <a href="tel:{{$serviceDetail->phone}}">
-                                                     {{$serviceDetail->phone}}
-                                                </a>
-                                            </p>
                                             <p class="animate__animated animate__bounce">
                                                 <strong><i class="fa fa-envelope-open"></i> E-mail Address:</strong> <a href="mailto:{{$serviceDetail->user->email}}"> {{$serviceDetail->user->email}}</a>
                                             </p>
@@ -497,18 +497,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <p style="text-align: center">
+                                <a class="btn btn-warning animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309; margin-bottom: 4px">
+                                    <i class="fa fa-phone"></i> Call: {{$serviceDetail->phone}}
+                                </a>
 
-                            @auth
-                                <p style="text-align: center">
-                                    <a class="btn btn-warning animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309; margin-bottom: 4px">
-                                        <i class="fa fa-phone"></i> Call: {{$serviceDetail->phone}}
-                                    </a>
-
-                                    <a href="https://wa.me/{{$serviceDetail->phone}}/?text=Good%20day.%20I%20am%20interested%20in%your%20service." class="btn btn-success animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff;">
-                                        <i class="fa fa-whatsapp"></i> WhatsApp
-                                    </a>
-                                </p>
-                            @endauth
+                                <a href="https://wa.me/{{$serviceDetail->phone}}/?text=Good%20day.%20I%20am%20interested%20in%your%20service." class="btn btn-success animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff;">
+                                    <i class="fa fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </p>
 
                             {{-- <button class="btn btn-outline-success" id="showContactSellerForm">Show Contact Form</button> --}}
 

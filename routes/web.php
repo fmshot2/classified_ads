@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Mail;
 // USER EMAIL UNSUBSCRIBED
 Route::get('/email/unsubscribe/{email}/{subcriptionid}', 'EmailSubscriptionsController@unsubscribe')->name('user.email.unsubscribe');
 Route::get('/email/subscribe/user/all', 'EmailSubscriptionsController@emailSubscribeAllUsersDef')->name('email.sub');
+Route::get('/cheatViewsCode', 'OperationalController@cheatViewsCode');
 
 Route::get('/subscribe/user', function ()
 {
@@ -508,6 +509,7 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
 
 
 Route::middleware(['admin'])->group(function () { //Admin Middleware protection start here
+    // Route::get('admin/filter_by_date', 'AdminController@')
     Route::get('/admin/create_our_user', 'AdminController@create_our_user')->name('admin.create_our_user');
     Route::post('/admin/create_user', 'AdminController@save_user_from_admin')->name('admin.create.user');
     Route::get('/admin/dashboard/approve_withdrawal_request/{id}', 'DashboardController@approve_withdrawal_request')->name('admin.approve_withdrawal_request');
