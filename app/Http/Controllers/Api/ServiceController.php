@@ -1344,6 +1344,88 @@ class ServiceController extends Controller
 
 
 
+
+public function createSubpay(Request $request)
+    {
+         try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        
+        $added_days = 0;
+        $mytime = Carbon::now();
+
+        $current_date_time = Carbon::now()->toDateTimeString();
+        $added_date_time = Carbon::now()->addDays(5)->toDateTimeString();
+
+        $data = $request->all();
+        $this->validate($request,[
+            'amount' => 'required',
+            'email' => 'required',
+        ]);
+
+        if ($data['amount'] == '200') {
+            $added_days = 31;
+            $sub_type = 'monthly';
+        }
+        if ($data['amount'] == '600') {
+            $added_days = 93;
+            $sub_type = '3-months';
+        }
+        if ($data['amount'] == '1200') {
+            $added_days = 186;
+            $sub_type = 'bi-annual';            
+        }
+        if ($data['amount'] == '2400') {
+            $added_days = 372;
+            $sub_type = 'annual';           
+        }
+
+        $sub_check = Auth::user()->subscriptions->first();
+
+        $initial_end_date = $sub_check->subscription_end_date;
+
+        $sub_check->sub_type = $sub_type;
+        $sub_check->last_amount_paid = $data['amount'];
+        $sub_check->subscription_end_date = Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s');
+        $sub_check->email = Auth::user()->email;
+        $sub_check->save();
+
+        $userServices = Service::where('user_id', Auth::id())->get();
+        if ($userServices) {
+            foreach ($userServices as $userService) {
+                $userService->subscription_end_date = $sub_check->subscription_end_date;
+            }
+            $userService->save();
+        }
+
+        $sub_check->subscription_end_date = Carbon::parse($sub_check->subscription_end_date)->toDayDateTimeString();
+
+        $reg_payments = new Payment();
+        Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no'] ]);
+        
+
+        return response()->json(['success'=>'Your Subscription payment was successfull', 'new_date'=>$sub_check->subscription_end_date], 200);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function userSubscription(Request $request)
     {
         try {

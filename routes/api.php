@@ -61,9 +61,16 @@ Route::group([
         //Likes
         Route::get('service/saveLike/{id}', [ServiceController::class, 'saveLike2']);
         
-        //Subscriptions
+        // Subscriptions
+        //Get User Subscriptions
         Route::get('service/mySubscriptions/', [ServiceController::class, 'mySubscriptions']);
+        //End Get User Subcriptions
 
+        //Renew User Subscription
+        Route::post('service/createSubpay/', [ServiceController::class, 'createSubpay']);
+        //End Renew User Subscription
+
+        //End Subscriptions
 
         // SEEKING WORK
         Route::post('seeking-work/create', [ServiceController::class, 'seekingWorkCreate']);

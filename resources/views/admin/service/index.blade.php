@@ -15,27 +15,27 @@
 
 <div class="content-wrapper" style="min-height: 518px;">
 
-	<div class="container">
-		@include('layouts.backend_partials.status')
-	</div>
+    <div class="container">
+        @include('layouts.backend_partials.status')
+    </div>
 
-	<section class="content">
+    <section class="content">
 
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="box" >
-					<div class="box-header">
-						<h3 class="box-title"> All Services </h3>
-						<h6 class="box-subtitle"> Sorting is from the most recent. </h6>
-					</div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box" >
+                    <div class="box-header">
+                        <h3 class="box-title"> All Services </h3>
+                        <h6 class="box-subtitle"> Sorting is from the most recent. </h6>
+                    </div>
 
 
 
                        @livewire('adminsortservices')
 
-					<!-- /.box-header -->
-					<div class="box-body">
-						<div class="table-responsive">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="table-responsive">
 
                             </div>
                         </div>
