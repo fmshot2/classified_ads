@@ -552,6 +552,37 @@ class ServiceController extends Controller
 
     }
 
+    public function storeMessage(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+        $service = Service::find($request->service_id);
+
+        $message = new Message();
+        $message->message = $request->message;
+        $message->receiver_id = $service->user->id;;
+        $message->sender_name = $request->sender_name;
+        $message->sender_phone = $request->sender_phone;
+        $message->sender_email = $request->sender_email;
+        $message->service_id = $request->service_id;
+        $message->slug = Str::random(6);
+        $message->user()->associate($request->user());
+
+        $user = User::find($request->user()->id);
+
+        if ($user->messages()->save($message)) {
+            return response()->json([
+                'message' => $message
+            ], 200);
+        }
+
+    }
+
     public function allNotifications()
     {
         try {
