@@ -61,9 +61,16 @@ Route::group([
         //Likes
         Route::get('service/saveLike/{id}', [ServiceController::class, 'saveLike2']);
         
-        //Subscriptions
+        // Subscriptions
+        //Get User Subscriptions
         Route::get('service/mySubscriptions/', [ServiceController::class, 'mySubscriptions']);
+        //End Get User Subcriptions
 
+        //Renew User Subscription
+        Route::post('service/createSubpay/', [ServiceController::class, 'createSubpay']);
+        //End Renew User Subscription
+
+        //End Subscriptions
 
         // SEEKING WORK
         Route::post('seeking-work/create', [ServiceController::class, 'seekingWorkCreate']);
@@ -85,6 +92,7 @@ Route::group([
         Route::get('/message/read-messages', [ServiceController::class, 'readMessages']);
         Route::get('/message/unread-messages', [ServiceController::class, 'unReadMessages']);
         Route::get('/message/reply', [ServiceController::class, 'replyMessage']);
+        Route::post('/message/store', [ServiceController::class, 'storeMessage']);
         Route::post('/message/replies', [ServiceController::class, 'messageReply']);
         Route::post('/message/markasread', [ServiceController::class, 'messageReadStatus']);
 

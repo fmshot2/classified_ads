@@ -109,20 +109,14 @@ class SubscriptionController extends Controller
 		$added_days = 0;
 		$mytime = Carbon::now();
 
-	 // Produces something like "2019-03-11 12:25:00"
 		$current_date_time = Carbon::now()->toDateTimeString();
-// 
 		$added_date_time = Carbon::now()->addDays(5)->toDateTimeString();
-
-
-
 
 		$data = $request->all();
 		// return response()->json(['success3'=>$current_date_time, 'success4'=>$added_date_time], 200);
 		// return response()->json(['success'=>$data, 'success3'=>$current_date_time], 200);
     //    return response()->json(['success'=>'Ajax request submitted successfully', 'success2'=>$data]);
        // $badge_service_id = $data['service_id'];
-
 
 
 		$this->validate($request,[
