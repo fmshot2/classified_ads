@@ -346,6 +346,26 @@ class ServiceController extends Controller
             ->setStatusCode(200);
     }
 
+
+     public function mySubscriptions()
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $mySub = auth::user()->subscriptions->first();
+
+         return response()->json([
+            'mySubs' => $mySub,
+            'res_code' => 200,
+            'res_message' => 'successfull',
+        ], 200);
+    }
+
     public function myFavourites(Request $request)
     {
         try {
