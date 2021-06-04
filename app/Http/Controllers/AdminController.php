@@ -1608,6 +1608,7 @@ public function add_old_payments() {
               if ($referer) {
                     //if your refferer is an efmarketer staff, redirect user to dashboard
                 if ($referer->is_ef_marketer) {
+                  $referer->referals()->create(['user_id' => Auth::id()]);
                   Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);
                   if (Auth::check()) {
                     $success_notification = array(
@@ -1626,7 +1627,7 @@ public function add_old_payments() {
                 $referer->level1 = Auth::id();
                 $referer->save();
 
-                $referer->referals()->create(['user_id' => Auth::id()]);
+                // $referer->referals()->create(['user_id' => Auth::id()]);
               }
             }
 
