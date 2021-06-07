@@ -379,6 +379,20 @@
         });
     </script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(Session::has('agent-reg-success'))
+    <script>
+        Swal.fire({
+            title: 'Thank you!',
+            html: "{!! Session::get('agent-reg-success') !!}",
+            icon: 'success',
+            confirmButtonText: 'Close'
+        })
+    </script>
+@endif
+
+
+
 
     @yield('script')
 

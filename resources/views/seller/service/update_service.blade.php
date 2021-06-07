@@ -22,7 +22,7 @@
 
         <div class="row clearfix">
 
-          <form class="" method="POST" action="{{route('service.update', $service->id )}}" enctype="multipart/form-data">
+          <form class="" method="POST" action="{{route('service.update', $service->slug )}}" enctype="multipart/form-data">
             {{ csrf_field() }}
 
             <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12">

@@ -97,22 +97,20 @@ class AuthController extends Controller
         $user = new Agent;
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->phone = $request->phone;
         if ($user->save()) {
             $messages = "$user->name, Your registration was successfull! Please click the link below to complete your registration!";
             $name = $user->name;
             $email = $user->email;
             $userRole = 'Agent';
 
-            // try {
+            try {
             Mail::to($user->email)->send(new AgentRegistration($messages, $name, $email, $userRole));
-            // } catch (\Exception $e) {
-            // $failedtosendmail = 'Failed to Mail!';
-            // }
-            $success_notification = array(
-                'message' => 'Please check your email for verification link',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($success_notification);
+            } catch (\Exception $e) {
+                $failedtosendmail = 'Failed to Mail!';
+            }
+
+            return back()->with('agent-reg-success', 'Please check your email for verification link! <br><b>'.$user->email.'</b>');
         }
     }
 
@@ -807,7 +805,7 @@ class AuthController extends Controller
         $buyer->slug = $slug;
         $buyer->save();
         }
-        
+
         // Category::orderBy('id', 'asc')->paginate(35);
         return redirect()->route('home');
     }
