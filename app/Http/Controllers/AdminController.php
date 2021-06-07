@@ -1369,28 +1369,27 @@ public function add_old_payments() {
   dd($seller->subscriptions->first()->last_amount_paid);
 }
 
-        public function ended_seller2()
-        {
+        // public function ended_seller2()
+        // {
+        //   $names = array();
+        //   $names22 = array();
+        //   $second = Carbon::now()->addDays(15);
+        //   $first =  Carbon::now();
+        //   $subb = Subscription::all();
+        //   foreach ($subb as $user) {
+        //     if (Carbon::parse($user->subscription_end_date)->lt($first)) {
+        //       array_push($names, $user);
+        //     }
+        //   }
 
-          $names = array();
-          $names22 = array();
-          $second = Carbon::now()->addDays(15);
-          $first =  Carbon::now();
-          $subb = Subscription::all();
-          foreach ($subb as $user) {
-            if (Carbon::parse($user->subscription_end_date)->lt($first)) {
-              array_push($names, $user);
-            }
-          }
+        //   foreach ($names as $myuser) {
+        //     $myuser2 = User::where('id', $myuser->subscriptionable_id)->get();
+        //     array_push($names22, $myuser2);
+        //   }
 
-          foreach ($names as $myuser) {
-            $myuser2 = User::where('id', $myuser->subscriptionable_id)->get();
-            array_push($names22, $myuser2);
-          }
-
-          $seller = $names22;
-          return view('admin.user.ended_seller', compact('seller'));
-        }
+        //   $seller = $names22;
+        //   return view('admin.user.ended_seller', compact('seller'));
+        // }
 
         public function save_agent_id()
         {
