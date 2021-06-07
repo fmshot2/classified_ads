@@ -1386,7 +1386,7 @@ public function createSubpay(Request $request)
             ]);
         }
 
-        
+
         $added_days = 0;
         $mytime = Carbon::now();
 
@@ -1409,11 +1409,11 @@ public function createSubpay(Request $request)
         }
         if ($data['amount'] == '1200') {
             $added_days = 186;
-            $sub_type = 'bi-annual';            
+            $sub_type = 'bi-annual';
         }
         if ($data['amount'] == '2400') {
             $added_days = 372;
-            $sub_type = 'annual';           
+            $sub_type = 'annual';
         }
 
         $sub_check = Auth::user()->subscriptions->first();
@@ -1438,7 +1438,7 @@ public function createSubpay(Request $request)
 
         $reg_payments = new Payment();
         Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no'] ]);
-        
+
 
         return response()->json(['success'=>'Your Subscription payment was successfull', 'new_date'=>$sub_check->subscription_end_date], 200);
 
@@ -1536,7 +1536,7 @@ public function createSubpay(Request $request)
         $service->comments()->save($comment);
 
         return response()->json([
-            'comment' => $comment,
+            'client_feedback' => $comment,
         ], 200);
     }
 
