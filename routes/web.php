@@ -110,7 +110,7 @@ Route::get('/tester', function () {
 Route::get('email', function () {
     $category = Category::inRandomOrder()->first();
     $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
-    return new App\Mail\HowTo('hfhgfhfhgf', 'hghghg', 'gyhjghg', 'hfghfhghg', 'ygjygyguy', 'tfyfytft', 'noimage');
+    return new App\Mail\ClientCallbackRequest('James Connor','Laswer Connor', '09056858588', 'servicename', 'ghjhguyuyguyk');
 });
 // Route::get('newsletter/', 'OperationalController@Newsletter');
 
@@ -441,7 +441,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
         Route::get('/dashboard/service/all', 'SellerController@allService')->name('seller.service.all');
 
         Route::get('/dashboard/service/view/{slug}', 'SellerController@viewService')->name('service.view');
-        Route::get('/dashboard/service/update/{slug}', 'SellerController@storeServiceUpdate')->name('service.update.view');
+        Route::get('/dashboard/service/update/{slug}', 'SellerController@updateService')->name('service.update.view');
 
 
         Route::get('my-referrals/', 'SellerController@myreferrals')->name('provider.myreferrals');
@@ -465,7 +465,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
 
     Route::post('/service/store/', 'SellerController@storeService')->name('service.save');
     Route::post('dropzone/store', 'SellerController@service_save_image');
-    Route::post('/service/{id}', 'SellerController@storeServiceUpdate')->name('service.update');
+    Route::post('/service/{slug}', 'SellerController@storeServiceUpdate')->name('service.update');
     Route::post('/service/{updateImage}', 'SellerController@updateImage')->name('service.updateImage');
 
 
@@ -504,6 +504,9 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
     Route::get('seeker/notifications/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('seeker.notification.markallasread');
     Route::post('seeker/notification/markasread', 'NotificationController@notificationMarkAsRead')->name('seeker.notification.markasread');
     Route::post('seeker/notification/delete', 'NotificationController@notificationDelete')->name('seeker.notification.delete');
+
+    // User Callback
+    Route::post('client/callback/request', 'OperationalController@clientCallbackRequest')->name('client.callback.request');
 });
 //Auth Middleware protection end here
 

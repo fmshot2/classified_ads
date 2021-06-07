@@ -16,6 +16,7 @@ use App\Like;
 use App\Mail\CredentialsReset;
 use App\Mail\EarnMoney;
 use App\Mail\Newsletter;
+use App\Mail\ClientCallbackRequest;
 use App\Mail\PaymentProcessAbandoned;
 use App\Mail\UsersFeedback;
 use App\Message;
@@ -357,11 +358,6 @@ class OperationalController extends Controller
         $privacy = $page_contents->privacy_policy;
 
         return view('frontend_section.privacy', compact('privacy'));
-    }
-
-    public function myreferrals()
-    {
-        return view('seller.myreferrals');
     }
 
     public function referralprogram(Request $request)
@@ -934,6 +930,22 @@ class OperationalController extends Controller
             'message' => 'Mail Sent Successfully!',
             'alert-type' => 'success'
         ]);
+    }
+
+    public function clientCallbackRequest(Request $request)
+    {
+        $username = $request->user_name;
+        $userphone = $request->user_phone;
+        $provider_email = $request->provider_email;
+        $service = Service::find($request->the_service_id);
+
+        try {
+            Mail::to($provider_email)->send(new ClientCallbackRequest($username, $service->user->name, $userphone, $service->name, $service->slug));
+        } catch (\Exception $e) {
+            $failedtosendmail = 'Failed to Mail!.';
+        }
+
+        return 'Request Sent Successfully!';
     }
 
 

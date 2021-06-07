@@ -5,11 +5,11 @@
             <form method="post" wire:submit.prevent="storeComment">
                 @csrf
                 <div class="form-group">
-                    <input type="text" name="newComment" wire:model.lazy="newComment" class="form-control" />
+                    <input type="text" name="newComment" wire:model.lazy="newComment" class="form-control" style="border-radius:0; height: 60px" />
                     <input type="hidden" name="service_id" value="{{ $service_id }}" />
                 </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-sm btn-warning" style="font-size: 0.8em;" value="Add Feedback" />
+                <div class="form-group" style="border:0">
+                    <input type="submit" class="btn btn-sm btn-warning" style="font-size: 0.8em; border-radius:25px;border:0;box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);" value="Post Feedback" />
                 </div>
             </form>
         @else

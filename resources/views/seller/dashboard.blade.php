@@ -493,7 +493,7 @@
                                 <i class="fa fa-commenting text-white" aria-hidden="true"></i>
                             </span>
                             <div class="info-box-content">
-                                <span class="info-box-text"> My Message{{ $message_count > 1 ? 's' : '' }} </span>
+                                <span class="info-box-text"> All Message{{ $message_count > 1 ? 's' : '' }} </span>
                                 <span class="info-box-number"> {{ $message_count }} </span>
                                 {{-- <div class="progress">
                                     <div class="progress-bar progress-bar-danger" style="width: {{ $message_count}}%"></div>

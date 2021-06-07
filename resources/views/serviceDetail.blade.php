@@ -100,6 +100,41 @@
         font-size: 17px;
         text-transform: uppercase;
     }
+    #loginToRequestLink{
+        display: block  !important;
+        color:#41af0f !important;
+        border-radius: 0;
+    }
+    #loginToRequestLink:hover{
+        background-color: #41af0f;
+        color:#fff !important;
+        transition: all .3s;
+    }
+    #loginToRequestLink span{
+        color:#cc8a19 !important
+    }
+    #loginToRequestLink:hover span{
+        color:#fff !important;
+        transition: all .3s;
+    }
+    #showCallRequestForm{
+        display: block  !important;
+        color:#41af0f !important;
+        border-radius: 0;
+    }
+    #showCallRequestForm:hover{
+        background-color: #41af0f;
+        color:#fff !important;
+        transition: all .3s;
+    }
+    #showCallRequestForm span{
+        color:#cc8a19 !important
+    }
+    #showCallRequestForm:hover span{
+        color:#fff !important;
+        transition: all .3s;
+    }
+
 
     @media (max-width: 768px){
         .lgtbxDiv{
@@ -471,7 +506,7 @@
                             <div class="ser-seller-note">
 
                                 @guest
-                                    <p style="margin-bottom: 5px; font-size: 16px;"><a href="{{route('login')}}"><strong style="color: #CA8309; font-size: 16px;">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #28a745">Register</strong></a> to view <strong class="tt-capitalize">{{ $the_provider_f_name }}</strong> contact details.</p>
+                                    <p style="margin-bottom: 5px; font-size: 16px;"><a href="{{route('login')}}"><strong style="color: #CA8309; font-size: 16px;">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #28a745">Register</strong></a> to message <strong class="tt-capitalize">{{ $the_provider_f_name }}</strong>.</p>
                                 @endguest
 
                                 <div class="s-border" style="margin-top: 10px"></div>
@@ -498,14 +533,43 @@
                                 </div>
                             </div>
                             <p style="text-align: center">
-                                <a class="btn btn-warning animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309; margin-bottom: 4px">
-                                    <i class="fa fa-phone"></i> Call: {{$serviceDetail->phone}}
-                                </a>
+                                <span class="btn btn-warning animate__animated animate__headshake animate__infinite show-number" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309; margin-bottom: 4px;box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);border:0">
+                                    Show Number
+                                </span>
 
-                                <a href="https://wa.me/{{$serviceDetail->phone}}/?text=Good%20day.%20I%20am%20interested%20in%your%20service." class="btn btn-success animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff;">
+                                <a href="https://wa.me/{{$serviceDetail->phone}}/?text=Good%20day.%20I%20am%20interested%20in%your%20service." class="btn btn-success animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff;box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);border:0">
                                     <i class="fa fa-whatsapp"></i> WhatsApp
                                 </a>
                             </p>
+
+                            <div class="b-provider-online-info">
+                                <div class="b-provider-online-info-block">
+                                    @auth
+                                        <button class="btn btn-outline-success" id="showCallRequestForm">Ask <span style="color: #cc8a19">{{ $the_provider_f_name }}</span> to call back</button>
+                                        <form id="myform" method="POST" style="margin-top: 20px">
+                                            <input type="hidden" name="_method" value="POST">
+                                            @csrf
+                                            <input type="hidden" name="provider_email" id="provider_email" value="{{ $serviceDetail->user->email }}">
+                                            <input type="hidden" name="the_service_id" id="the_service_id" value="{{ $serviceDetail->id }}">
+
+                                            <div class="form-group">
+                                                <input type="text" id="user_name" name="user_name" class="text-dark form-control" placeholder="Your Phone Number" value="{{ Auth::user()->name ?? '' }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" id="user_phone" name="user_phone" class="text-dark form-control" placeholder="Your Phone Number" value="{{Auth::user()->phone ?? '' }}">
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="send-btn">
+                                                    <button type="submit" class="btn btn-md requestBtn btn-warning" id="requestBtn" style="border-radius:25px;box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);">Send Request</button>
+                                                    <p class="text-success" style="font-size: 15px" id="requestSent"></p>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    @else
+                                        <a class="btn btn-outline-success" href="{{ route('login') }}" id="loginToRequestLink">Ask <span>{{ $the_provider_f_name }}</span> to call back</a>
+                                    @endauth
+                                </div>
+                            </div>
 
                             {{-- <button class="btn btn-outline-success" id="showContactSellerForm">Show Contact Form</button> --}}
 
@@ -522,7 +586,7 @@
                                     <input type="hidden" name="service_id" id="service_id" value="{{ $serviceDetail->id }}">
 
                                     <div class="form-group">
-                                        <label class="form-label">Phone</label>
+                                        <label class="form-label" style="text-transform: uppercase;font-weight:700 !important;">Send Message</label>
                                         <input type="text" id="sender_phone" name="sender_phone" class="text-dark form-control" placeholder="Your Phone Number" value="{{Auth::user()->phone ?? '' }}">
                                         @if ($errors->has('phone'))
                                             <span>
@@ -547,7 +611,7 @@
                                     @auth
                                         <div class="col-lg-12 col-md-12">
                                             <div class="send-btn">
-                                                <button type="submit" class="btn btn-md btn-submit2 btn-warning" id="btn-submit2">Send Message</button>
+                                                <button type="submit" class="btn btn-md btn-submit2 btn-warning" id="btn-submit2" style="border-radius:25px;box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);">Send Message</button>
                                                 <p class="text-success" style="font-size: 15px" id="successMessage"></p>
                                             </div>
                                         </div>
@@ -823,6 +887,51 @@
     });
 
     });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#myform").hide();
+        $(".show-number").click(function(e){
+            $(".show-number").html('<a href="tel:{{ $serviceDetail->phone }}" style="display:block;color:#fff"><i class="fa fa-phone"></i> Call: {{ $serviceDetail->phone }}</a>')
+        });
+        $("#showCallRequestForm").click(function(){
+            $("#myform").slideToggle();
+        });
+
+        $("#requestBtn").click(function(e){
+            e.preventDefault();
+
+            $("#requestBtn").text('Please wait, requesting!!!')
+            $("#requestBtn").css({"opacity": "0.5", "cursor":"default"});
+
+            var _token = $("input[name='_token']").val();
+            var user_name = $("#user_name").val();
+            var user_phone = $("#user_phone").val();
+            var provider_email = $("#provider_email").val();
+            var the_service_id = $("#the_service_id").val();
+
+            $.ajax({
+                url: '{{ route('client.callback.request') }}',
+                method:'POST',
+                data: {_token:_token, user_name:user_name, the_service_id:the_service_id, provider_email:provider_email, user_phone:user_phone},
+                success: function(data) {
+                    $("#requestSent").text('Request sent successfully!')
+                    $("#requestBtn").text('Send Request')
+                    $("#requestBtn").css({"opacity": "1", "cursor":"pointer"});
+
+                    toastr.success('Message sent successfully!')
+                    // alert(data.success2);
+                },
+                error: function(error){
+                    $("#requestSent").html('<span style="color:red;">Request not sent. Try again!</span>')
+                    $("#requestBtn").text('Send Request')
+                    $("#requestBtn").css({"opacity": "1", "cursor":"pointer"});
+                    toastr.error('Request not sent. Try again!')
+                    console.log(error)
+                }
+            });
+        });
+    })
 </script>
 <script type="text/javascript">
     var baseUrl = "{{url('/')}}"
