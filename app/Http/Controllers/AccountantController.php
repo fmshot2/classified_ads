@@ -420,6 +420,7 @@ class AccountantController extends Controller
     public function featured()
     {
         $featured = Payment::where('payment_type','=', 'featured')->get();
+        // dd($featured->paymentable->first());
         return view('accountant.payments.featured', [
             'featured' => $featured
         ]);
@@ -430,6 +431,7 @@ class AccountantController extends Controller
     {
         $registrations = Payment::where('payment_type', '=', 'registration')->get();
         // dd($registrations->paymentable->get());
+        // dd($registrations);
         return view('accountant.payments.registrations', [
             'registrations' => $registrations
         ]);
