@@ -15,6 +15,7 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Resources\ClientsFeedback;
 use App\Http\Resources\ClientsFeedbackCollection;
 use App\Http\Resources\CommentResource;
+use App\Http\Resources\MessageResource;
 use App\Http\Resources\SeekingWorkResource;
 use App\Http\Resources\SeekingWorkResourceCollection;
 use App\Http\Resources\ServiceResource;
@@ -145,7 +146,7 @@ class ServiceController extends Controller
 
         $accruedAmount = $user->refererAmount;
 
-        $linkcheck2 = Refererlink::where(['user_id'=>$user->id])->first();
+        $linkcheck2 = Refererlink::where(['user_id' => $user->id])->first();
         if ($linkcheck2) {
             $linkcheck = $linkcheck2;
             return response()->json([
@@ -161,8 +162,7 @@ class ServiceController extends Controller
                 'your_service_likes_count' => $servicesLikeCounter,
                 'your_referral_bonus' => $accruedAmount
             ], 200);
-
-        }else{
+        } else {
             $linkcheck = null;
             return response()->json([
                 'all_services' => $service_count,
@@ -177,7 +177,6 @@ class ServiceController extends Controller
                 'your_service_likes_count' => $servicesLikeCounter
             ], 200);
         }
-
     }
 
 
@@ -205,8 +204,7 @@ class ServiceController extends Controller
                 'message' => 'Message couldn\'t marked as read!',
                 'status' => 0
             ]);
-        }
-        else{
+        } else {
             return response()->json([
                 'message' => 'You are the message sender!',
                 'status' => 0
@@ -226,7 +224,7 @@ class ServiceController extends Controller
         }
 
         $data = $request->all();
-        $this->validate($request,[
+        $this->validate($request, [
             'description' => 'required',
             'category_id' => 'required',
             'min_price' => 'required|numeric',
@@ -239,23 +237,22 @@ class ServiceController extends Controller
         ]);
         $image = $request->file('image');
         $random = Str::random(3);
-        $slug = Str::of($request->name)->slug('-').''.$random;
+        $slug = Str::of($request->name)->slug('-') . '' . $random;
         $service = new Service();
         $slug = Str::random(5);
 
-                // Image set up
-        if ( $request->hasFile('files') ) {
-                $names = array();
-            foreach($request->file('files') as $image)
-            {
+        // Image set up
+        if ($request->hasFile('files')) {
+            $names = array();
+            foreach ($request->file('files') as $image) {
                 $thumbnailImage = Image::make($image);
-                $thumbnailImage->resize(300,300);
-                $thumbnailImage_name = $slug.'.'.time().'.'.$image->getClientOriginalExtension();
+                $thumbnailImage->resize(300, 300);
+                $thumbnailImage_name = $slug . '.' . time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = 'images/';
                 $thumbnailImage->save($destinationPath . $thumbnailImage_name);
                 array_push($names, $thumbnailImage_name);
             }
-                $service->image = json_encode($names);
+            $service->image = json_encode($names);
         }
 
         $state_details = State::where('name', $data['state'])->first();
@@ -292,10 +289,9 @@ class ServiceController extends Controller
             $state =  $service->state;
             $slug =  $service->slug;
 
-            try{
+            try {
                 Mail::to($service_owner->email)->send(new ServiceCreated($name, $category, $phone, $state, $slug));
-            }
-            catch(\Exception $e){
+            } catch (\Exception $e) {
                 $failedtosendmail = 'Failed to Mail!.';
             }
         }
@@ -306,7 +302,6 @@ class ServiceController extends Controller
             return response()->json([
                 'message' => 'Service created successfully!'
             ], 200);
-
         }
         $present_user->hasUploadedService = 1;
         $user_referer_id = $present_user->idOfReferer;
@@ -348,7 +343,7 @@ class ServiceController extends Controller
     }
 
 
-     public function mySubscriptions()
+    public function mySubscriptions()
     {
         try {
             $user = auth()->user();
@@ -360,7 +355,7 @@ class ServiceController extends Controller
 
         $mySub = auth::user()->subscriptions->first();
 
-         return response()->json([
+        return response()->json([
             'mySubs' => $mySub,
             'res_code' => 200,
             'res_message' => 'successfull',
@@ -377,11 +372,11 @@ class ServiceController extends Controller
             ]);
         }
 
-        $likecheck = Like::where(['user_id'=>$user->id])->get();
+        $likecheck = Like::where(['user_id' => $user->id])->get();
         $this->thefavourites = [];
 
         foreach ($likecheck as $key => $all_service) {
-            $this->thefavourites[] = Service::where('id', $all_service->service_id )->firstOrFail();
+            $this->thefavourites[] = Service::where('id', $all_service->service_id)->firstOrFail();
         }
 
         $allfavourites = array_reverse($this->thefavourites);
@@ -430,10 +425,8 @@ class ServiceController extends Controller
         $all_message = Message::where('receiver_id', Auth::user()->id)->orWhere('user_id', Auth::user()->id)->get();
 
         return response()->json([
-            'my_messages' => $all_message,
+            'my_messages' => MessageResource::collection($all_message),
         ], 200);
-
-
     }
 
     public function deleteMessage($id)
@@ -533,7 +526,7 @@ class ServiceController extends Controller
 
         $slug = Str::random(6);
 
-        $message = New Message();
+        $message = new Message();
         $message->subject = $request->subject;
         $message->description = $request->description;
         $message->service_id = $request->service_id;
@@ -550,7 +543,6 @@ class ServiceController extends Controller
                 'message' => $message
             ], 200);
         }
-
     }
 
     public function storeMessage(Request $request)
@@ -581,7 +573,6 @@ class ServiceController extends Controller
                 'message' => $message
             ], 200);
         }
-
     }
 
     public function allNotifications()
@@ -670,14 +661,12 @@ class ServiceController extends Controller
                 'badge_type' => 'Super',
                 'badge_cost' => 1500000
             ];
-        }
-        elseif ($id == 2) {
+        } elseif ($id == 2) {
             $badge = [
                 'badge_type' => 'Moderate',
                 'badge_cost' => 1000000
             ];
-        }
-        elseif ($id == 3) {
+        } elseif ($id == 3) {
             $badge = [
                 'badge_type' => 'Basic',
                 'badge_cost' => 500000
@@ -704,11 +693,9 @@ class ServiceController extends Controller
 
         if ($request->get('badge_type') == 1) {
             $badge->badge_type = 'Super User';
-        }
-        elseif ($request->get('badge_type') == 2) {
+        } elseif ($request->get('badge_type') == 2) {
             $badge->badge_type = 'Moderate User';
-        }
-        elseif ($request->get('badge_type') == 3) {
+        } elseif ($request->get('badge_type') == 3) {
             $badge->badge_type = 'Basic User';
         }
 
@@ -720,11 +707,9 @@ class ServiceController extends Controller
 
         if ($request->get('badge_type') == 1) {
             $badge_name = 'Super User';
-        }
-        elseif ($request->get('badge_type') == 2) {
+        } elseif ($request->get('badge_type') == 2) {
             $badge_name = 'Moderate User';
-        }
-        elseif ($request->get('badge_type') == 3) {
+        } elseif ($request->get('badge_type') == 3) {
             $badge_name = 'Basic User';
         }
 
@@ -739,8 +724,7 @@ class ServiceController extends Controller
             return response()->json([
                 'badge_type' => $badge_name
             ], 200);
-        }
-        else {
+        } else {
             return 'Something went wrong!';
         }
     }
@@ -840,18 +824,17 @@ class ServiceController extends Controller
             $fileInfo = $image->getClientOriginalName();
             $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
             $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
-            $file_name= $filename.'-'.time().'.'.$extension;
+            $file_name = $filename . '-' . time() . '.' . $extension;
 
             //Fullsize
-            $image->move(public_path('uploads/seekingworks/'),$file_name);
+            $image->move(public_path('uploads/seekingworks/'), $file_name);
 
-            $image_resize = Image::make(public_path('uploads/seekingworks/').$file_name);
+            $image_resize = Image::make(public_path('uploads/seekingworks/') . $file_name);
             $image_resize->resize(null, 400, function ($constraint) {
                 $constraint->aspectRatio();
             });
-            $image_resize->save(public_path('uploads/seekingworks/' .$file_name), 60);
-        }
-        else {
+            $image_resize->save(public_path('uploads/seekingworks/' . $file_name), 60);
+        } else {
             $file_name = 'noserviceimage.png';
         }
 
@@ -862,7 +845,7 @@ class ServiceController extends Controller
         $sWork->phone                 = $request->phone;
         $sWork->job_type              = $request->job_type;
         $sWork->job_title             = $request->job_title;
-        $sWork->slug                  = Str::of($request->job_title)->slug('-').'-'.time();
+        $sWork->slug                  = Str::of($request->job_title)->slug('-') . '-' . time();
         $sWork->job_experience        = $request->job_experience;
         $sWork->still_studying        = $request->still_studying;
         $sWork->gender                = $request->gender;
@@ -899,17 +882,17 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-     public function deleteSeekingWork($id)
-     {
-         $sw_service = SeekingWork::findOrFail($id);
+    public function deleteSeekingWork($id)
+    {
+        $sw_service = SeekingWork::findOrFail($id);
 
-         if ($sw_service->delete()) {
-             return response()->json([
-                 $sw_service,
-                 'message' => 'This CV was Deleted Successfully!',
-             ], 200);
-         }
-     }
+        if ($sw_service->delete()) {
+            return response()->json([
+                $sw_service,
+                'message' => 'This CV was Deleted Successfully!',
+            ], 200);
+        }
+    }
 
 
     public function showCV($slug)
@@ -927,16 +910,16 @@ class ServiceController extends Controller
         $fileInfo = $image->getClientOriginalName();
         $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
         $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
-        $file_name= $filename.'-'.time().'.'.$extension;
+        $file_name = $filename . '-' . time() . '.' . $extension;
 
         //Fullsize
-        $image->move(public_path('uploads/seekingworks/'),$file_name);
+        $image->move(public_path('uploads/seekingworks/'), $file_name);
 
-        $image_resize = Image::make(public_path('uploads/seekingworks/').$file_name);
+        $image_resize = Image::make(public_path('uploads/seekingworks/') . $file_name);
         $image_resize->resize(null, 400, function ($constraint) {
             $constraint->aspectRatio();
         });
-        $image_resize->save(public_path('uploads/seekingworks/' .$file_name));
+        $image_resize->save(public_path('uploads/seekingworks/' . $file_name));
 
         // Saving it with this service
         $service = SeekingWork::find($service_id);
@@ -949,7 +932,6 @@ class ServiceController extends Controller
             $service,
             'message' => 'Image(s) stored successfully!'
         ], 200);
-
     }
 
     public function imagesDelete($seekingworkid, $id)
@@ -958,7 +940,7 @@ class ServiceController extends Controller
         $filename = $image->image_path;
         $image->delete();
 
-        $path = public_path('uploads/seekingworks/').$filename;
+        $path = public_path('uploads/seekingworks/') . $filename;
         if (file_exists($path)) {
             unlink($path);
         }
@@ -977,14 +959,14 @@ class ServiceController extends Controller
         $approvedServices = Service::where('status', 1)->with('user')->get();
         $seekingWorkDetail_id = $seekingWorkDetail->id;
         $seekingWorkDetail_likes = Like::where('service_id', $seekingWorkDetail_id)->count();
-        $likecheck = Like::where(['user_id'=>Auth::id(), 'service_id'=>$seekingWorkDetail_id])->first();
+        $likecheck = Like::where(['user_id' => Auth::id(), 'service_id' => $seekingWorkDetail_id])->first();
         $service_category_id = $seekingWorkDetail->category_id;
         $seekingWorkDetail_state = $seekingWorkDetail->state;
         $images_4_service = $seekingWorkDetail->images;
-        $similarProducts = Service::where([['category_id', $service_category_id], ['state', $seekingWorkDetail_state] ])->inRandomOrder()->limit(8)->get();
+        $similarProducts = Service::where([['category_id', $service_category_id], ['state', $seekingWorkDetail_state]])->inRandomOrder()->limit(8)->get();
 
         $user_id = $seekingWorkDetail->user_id;
-        $userMessages = Message::where('service_id', $seekingWorkDetail_id)->orderBy('created_at','desc')->take(7)->get();
+        $userMessages = Message::where('service_id', $seekingWorkDetail_id)->orderBy('created_at', 'desc')->take(7)->get();
 
         $the_user = User::find($user_id);
         $the_user_name = $the_user->name;
@@ -1049,106 +1031,101 @@ class ServiceController extends Controller
 
             if ($request->category != null && $request->city != null && $request->keyword != null) {
                 $services = Service::query()
-                            ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('city', '=', "%{$request->city}%")
-                            ->where('state', '=', "%{$request->state}%")
-                            ->where('status', 1)
-                            ->where('subscription_end_date', '>', now())
-                            ->with('category')
-                            ->whereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
-                })->get();
+                    ->where('name', 'LIKE', "%{$request->keyword}%")
+                    ->where('city', '=', "%{$request->city}%")
+                    ->where('state', '=', "%{$request->state}%")
+                    ->where('status', 1)
+                    ->where('subscription_end_date', '>', now())
+                    ->with('category')
+                    ->whereHas('category', function ($query) use ($categoryId) {
+                        $query->where('id', $categoryId);
+                    })->get();
 
                 if (!$services->isEmpty()) {
                     return response()->json([
                         'services' => new ServiceResourceCollection($services),
                     ], 200);
                 }
-            }
-            elseif ($request->category != null && $request->city != null) {
+            } elseif ($request->category != null && $request->city != null) {
                 $services = Service::query()
-                            ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('city', '=', "%{$request->city}%")
-                            ->where('state', '=', "%{$request->state}%")
-                            ->where('status', 1)
-                            ->where('subscription_end_date', '>', now())
-                            ->with('category')
-                            ->whereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
-                })->get();
+                    ->where('name', 'LIKE', "%{$request->keyword}%")
+                    ->where('city', '=', "%{$request->city}%")
+                    ->where('state', '=', "%{$request->state}%")
+                    ->where('status', 1)
+                    ->where('subscription_end_date', '>', now())
+                    ->with('category')
+                    ->whereHas('category', function ($query) use ($categoryId) {
+                        $query->where('id', $categoryId);
+                    })->get();
 
                 if (!$services->isEmpty()) {
                     return response()->json([
                         'services' => new ServiceResourceCollection($services),
                     ], 200);
                 }
-            }
-            elseif ($request->keyword == null && $request->category != null) {
+            } elseif ($request->keyword == null && $request->category != null) {
                 $services = Service::query()
-                            ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('status', 1)
-                            ->where('subscription_end_date', '>', now())
-                            ->orWhere('description', 'LIKE', "%{$request->keyword}%")
-                            ->with('category')
-                            ->whereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
-                            })
-                            ->orderBy('badge_type', 'asc')
-                            ->get();
+                    ->where('name', 'LIKE', "%{$request->keyword}%")
+                    ->where('status', 1)
+                    ->where('subscription_end_date', '>', now())
+                    ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+                    ->with('category')
+                    ->whereHas('category', function ($query) use ($categoryId) {
+                        $query->where('id', $categoryId);
+                    })
+                    ->orderBy('badge_type', 'asc')
+                    ->get();
 
                 if (!$services->isEmpty()) {
                     return response()->json([
                         'services' => new ServiceResourceCollection($services),
                     ], 200);
                 }
-            }
-            elseif ($request->city != null && $request->keyword != null) {
+            } elseif ($request->city != null && $request->keyword != null) {
                 $services = Service::query()
-                            ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('city', '=', "%{$request->city}%")
-                            ->where('state', '=', "%{$request->state}%")
-                            ->where('status', 1)
-                            ->where('subscription_end_date', '>', now())
-                            ->with('category')
-                            ->orWhereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
-                            })->get();
+                    ->where('name', 'LIKE', "%{$request->keyword}%")
+                    ->where('city', '=', "%{$request->city}%")
+                    ->where('state', '=', "%{$request->state}%")
+                    ->where('status', 1)
+                    ->where('subscription_end_date', '>', now())
+                    ->with('category')
+                    ->orWhereHas('category', function ($query) use ($categoryId) {
+                        $query->where('id', $categoryId);
+                    })->get();
 
                 if (!$services->isEmpty()) {
                     return response()->json([
                         'services' => new ServiceResourceCollection($services),
                     ], 200);
                 }
-            }
-            elseif ($request->category != null) {
+            } elseif ($request->category != null) {
                 $services = Service::query()
-                            ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('status', 1)
-                            ->where('subscription_end_date', '>', now())
-                            ->orWhere('city', '=', "%{$request->city}%")
-                            ->orWhere('state', '=', "%{$request->state}%")
-                            ->with('category')
-                            ->whereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
-                            })->get();
+                    ->where('name', 'LIKE', "%{$request->keyword}%")
+                    ->where('status', 1)
+                    ->where('subscription_end_date', '>', now())
+                    ->orWhere('city', '=', "%{$request->city}%")
+                    ->orWhere('state', '=', "%{$request->state}%")
+                    ->with('category')
+                    ->whereHas('category', function ($query) use ($categoryId) {
+                        $query->where('id', $categoryId);
+                    })->get();
 
                 if (!$services->isEmpty()) {
                     return response()->json([
                         'services' => new ServiceResourceCollection($services),
                     ], 200);
                 }
-            }
-            else {
+            } else {
                 $services = Service::query()
-                            ->where('name', 'LIKE', "%{$request->keyword}%")
-                            ->where('status', 1)
-                            ->where('subscription_end_date', '>', now())
-                            ->orWhere('city', '=', "%{$request->city}%")
-                            ->orWhere('state', '=', "%{$request->state}%")
-                            ->with('category')
-                            ->prwhereHas('category', function($query) use ($categoryId)  {
-                                $query->where('id', $categoryId);
-                            })->get();
+                    ->where('name', 'LIKE', "%{$request->keyword}%")
+                    ->where('status', 1)
+                    ->where('subscription_end_date', '>', now())
+                    ->orWhere('city', '=', "%{$request->city}%")
+                    ->orWhere('state', '=', "%{$request->state}%")
+                    ->with('category')
+                    ->prwhereHas('category', function ($query) use ($categoryId) {
+                        $query->where('id', $categoryId);
+                    })->get();
 
                 if (!$services->isEmpty()) {
                     return response()->json([
@@ -1156,7 +1133,6 @@ class ServiceController extends Controller
                     ], 200);
                 }
             }
-
         }
 
 
@@ -1171,8 +1147,7 @@ class ServiceController extends Controller
                     ->where('subscription_end_date', '>', now())
                     ->orderBy('badge_type', 'asc')
                     ->get();
-            }
-            else {
+            } else {
                 $services = Service::query()
                     ->where('city', 'like', "%{$request->city}%")
                     ->where('status', 1)
@@ -1183,27 +1158,26 @@ class ServiceController extends Controller
             }
 
             $related_services = Service::query()
-            ->where('name', 'LIKE', "%{$request->keyword}%")
-            ->where('status', 1)
-            ->where('subscription_end_date', '>', now())
-            ->orwhere('state', '=', "%{$request->state}%")
-            ->orwhere('city', '=', "%{$request->city}%")
-            ->get();
+                ->where('name', 'LIKE', "%{$request->keyword}%")
+                ->where('status', 1)
+                ->where('subscription_end_date', '>', now())
+                ->orwhere('state', '=', "%{$request->state}%")
+                ->orwhere('city', '=', "%{$request->city}%")
+                ->get();
 
             if (!$services->isEmpty()) {
                 return response()->json([
                     'services' => new ServiceResourceCollection($services),
                     'related_services' => new ServiceResourceCollection($related_services),
                 ], 200);
-            }
-            else{
+            } else {
                 $services = Service::query()
-                ->where('name', 'LIKE', "%{$request->keyword}%")
-                ->where('status', 1)
-                ->where('subscription_end_date', '>', now())
-                ->orWhere('description', 'LIKE', "%{$request->keyword}%")
-                ->orderBy('badge_type', 'asc')
-                ->get();
+                    ->where('name', 'LIKE', "%{$request->keyword}%")
+                    ->where('status', 1)
+                    ->where('subscription_end_date', '>', now())
+                    ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+                    ->orderBy('badge_type', 'asc')
+                    ->get();
 
                 if (!$services->isEmpty()) {
                     return response()->json([
@@ -1211,23 +1185,9 @@ class ServiceController extends Controller
                     ], 200);
                 }
             }
-        }elseif ($request->state != null) {
+        } elseif ($request->state != null) {
             $services = Service::query()
-            ->where('state', 'LIKE', "%{$request->state}%")
-            ->where('name', 'LIKE', "%{$request->keyword}%")
-            ->where('status', 1)
-            ->where('subscription_end_date', '>', now())
-            ->orWhere('description', 'LIKE', "%{$request->keyword}%")
-            ->orderBy('badge_type', 'asc')
-            ->get();
-
-            if (!$services->isEmpty()) {
-                return response()->json([
-                    'services' => new ServiceResourceCollection($services),
-                ], 200);
-            }
-            else{
-                $services = Service::query()
+                ->where('state', 'LIKE', "%{$request->state}%")
                 ->where('name', 'LIKE', "%{$request->keyword}%")
                 ->where('status', 1)
                 ->where('subscription_end_date', '>', now())
@@ -1235,33 +1195,43 @@ class ServiceController extends Controller
                 ->orderBy('badge_type', 'asc')
                 ->get();
 
+            if (!$services->isEmpty()) {
+                return response()->json([
+                    'services' => new ServiceResourceCollection($services),
+                ], 200);
+            } else {
+                $services = Service::query()
+                    ->where('name', 'LIKE', "%{$request->keyword}%")
+                    ->where('status', 1)
+                    ->where('subscription_end_date', '>', now())
+                    ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+                    ->orderBy('badge_type', 'asc')
+                    ->get();
+
                 if (!$services->isEmpty()) {
                     return response()->json([
                         'services' => new ServiceResourceCollection($services),
                     ], 200);
                 }
             }
-        }
-        elseif ($request->keyword != null){
+        } elseif ($request->keyword != null) {
             $services = Service::query()
-                        ->where('name', 'LIKE', "%{$request->keyword}%")
-                        ->where('status', 1)
-                        ->where('subscription_end_date', '>', now())
-                        ->orWhere('description', 'LIKE', "%{$request->keyword}%")
-                        ->orderBy('badge_type', 'asc')
-                        ->get();
+                ->where('name', 'LIKE', "%{$request->keyword}%")
+                ->where('status', 1)
+                ->where('subscription_end_date', '>', now())
+                ->orWhere('description', 'LIKE', "%{$request->keyword}%")
+                ->orderBy('badge_type', 'asc')
+                ->get();
             if (!$services->isEmpty()) {
                 return response()->json([
                     'services' => new ServiceResourceCollection($services),
                 ], 200);
-            }
-            else{
+            } else {
                 return response()->json([
                     'message' => 'Unfortunately, we did not find anything that matches these criteria.',
                 ]);
             }
         }
-
     }
 
 
@@ -1311,17 +1281,15 @@ class ServiceController extends Controller
             return response()->json([
                 'category' => $the_category->name,
                 'job_applicants' => (new SeekingWorkResourceCollection($category_services))
-                ], 200);
-        }
-        else{
+            ], 200);
+        } else {
             $category_services = Service::where('category_id', $category_id)->where('status', 1)->where('subscription_end_date', '>', now())->orderBy('badge_type', 'asc')->paginate(9);
 
             return response()->json([
                 'category' => $the_category->name,
                 'services' => (new ServiceResourceCollection($category_services))
-                ], 200);
+            ], 200);
         }
-
     }
 
     public function serviceCloseToYou(Request $request)
@@ -1337,7 +1305,7 @@ class ServiceController extends Controller
         sin( radians( latitude ) ) )
         ) AS distance", [$latitude, $longitude, $latitude])
             ->having("distance", "<", $radius)->with('user')->with('images')
-            ->orderBy("distance",'asc')
+            ->orderBy("distance", 'asc')
             ->offset(0)
             ->where('status', 1)
             ->where('subscription_end_date', '>', now())
@@ -1348,14 +1316,13 @@ class ServiceController extends Controller
             'latitude' => $latitude,
             'longitude' => $longitude
         ], 200);
-
     }
 
 
     public function featuredServices($id)
     {
         $service = Service::find($id);
-         if (!$service) {
+        if (!$service) {
             return response()->json([
                 'data' => [],
                 'res_message' => 'fail',
@@ -1366,7 +1333,7 @@ class ServiceController extends Controller
         $service->is_featured = 1;
         // $service->save();
         if ($service->save()) {
-           return response()->json([
+            return response()->json([
                 'data' => $service,
                 'res_message' => 'success',
                 'res_code' => 200,
@@ -1377,9 +1344,9 @@ class ServiceController extends Controller
 
 
 
-public function createSubpay(Request $request)
+    public function createSubpay(Request $request)
     {
-         try {
+        try {
             $user = auth()->user();
         } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
             return response()->json([
@@ -1395,7 +1362,7 @@ public function createSubpay(Request $request)
         $added_date_time = Carbon::now()->addDays(5)->toDateTimeString();
 
         $data = $request->all();
-        $this->validate($request,[
+        $this->validate($request, [
             'amount' => 'required',
             'email' => 'required',
         ]);
@@ -1438,11 +1405,10 @@ public function createSubpay(Request $request)
         $sub_check->subscription_end_date = Carbon::parse($sub_check->subscription_end_date)->toDayDateTimeString();
 
         $reg_payments = new Payment();
-        Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no'] ]);
+        Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no']]);
 
 
-        return response()->json(['success'=>'Your Subscription payment was successfull', 'new_date'=>$sub_check->subscription_end_date], 200);
-
+        return response()->json(['success' => 'Your Subscription payment was successfull', 'new_date' => $sub_check->subscription_end_date], 200);
     }
 
 
@@ -1492,16 +1458,16 @@ public function createSubpay(Request $request)
             if ($request->amount == '200') {
                 $added_days = 31;
                 $sub_type = 'monthly';
-            }elseif ($request->amount == '600') {
+            } elseif ($request->amount == '600') {
                 $added_days = 93;
                 $sub_type = '3-months';
-            }elseif ($request->amount == '1200') {
+            } elseif ($request->amount == '1200') {
                 $added_days = 186;
                 $sub_type = 'bi-annual';
-            }elseif($request->amount == '2400') {
+            } elseif ($request->amount == '2400') {
                 $added_days = 372;
                 $sub_type = 'annual';
-            }else{
+            } else {
                 return response()->json(['res_message' => 'invalid amount provided', 'res_code' => 404], 200);
             }
 
@@ -1515,7 +1481,7 @@ public function createSubpay(Request $request)
             $sub_check->save();
 
             return response()->json(['res_message' => 'Success', 'res_code' => 200], 200);
-        }else{
+        } else {
             return response()->json(['res_message' => 'user not found', 'res_code' => 404], 200);
         }
     }
@@ -1639,7 +1605,7 @@ public function createSubpay(Request $request)
 
     public function contactUsForm(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
             'subject' => 'required',
@@ -1685,14 +1651,14 @@ public function createSubpay(Request $request)
     public function ajaxSearchResult(Request $request)
     {
         $services = Service::query()
-        ->where('name', 'LIKE', "%{$request->keyword}%")
-        ->where('status', 1)->where('subscription_end_date', '>', now())
-        ->orWhere('description', 'LIKE', "%{$request->keyword}%");
+            ->where('name', 'LIKE', "%{$request->keyword}%")
+            ->where('status', 1)->where('subscription_end_date', '>', now())
+            ->orWhere('description', 'LIKE', "%{$request->keyword}%");
 
         $seekingworks = SeekingWork::query()
-        ->where('job_title', 'LIKE', "%{$request->keyword}%")
-        ->where('status', 1)->where('subscription_end_date', '>', now())
-        ->orWhere('fullname', 'LIKE', "%{$request->keyword}%");
+            ->where('job_title', 'LIKE', "%{$request->keyword}%")
+            ->where('status', 1)->where('subscription_end_date', '>', now())
+            ->orWhere('fullname', 'LIKE', "%{$request->keyword}%");
 
 
         $data = $services->get()->concat($seekingworks->get());
@@ -1702,7 +1668,7 @@ public function createSubpay(Request $request)
     }
 
 
-     public function saveLike2($id)
+    public function saveLike2($id)
     {
         try {
             $user = auth()->user();
@@ -1718,7 +1684,7 @@ public function createSubpay(Request $request)
             Like::where(['user_id' => Auth::id(), 'service_id' => $id])->delete();
             $likecount = Like::where(['service_id' => $id])->count();
 
-           return response()->json([
+            return response()->json([
                 'service' => new ServiceResource($service),
                 'message' => "You have un-liked this product!"
             ], 200);
@@ -1738,5 +1704,4 @@ public function createSubpay(Request $request)
             ], 200);
         }
     }
-
 }
