@@ -19,13 +19,13 @@ class CommentResource extends JsonResource
             'user_id'          => $this->user_id,
             'service_id'       => $this->service_id,
             'parent_id'        => $this->parent_id,
-            'comment'          => $this->comment,
-            'commentable_id'   => $this->commentable_id,
-            'commentable_type' => $this->commentable_type,
+            'feedback'         => $this->comment,
+            'feedback_id'      => $this->commentable_id,
+            'feedback_type'    => $this->commentable_type,
             'created_at'       => $this->created_at,
             'updated_at'       => $this->updated_at,
             'user'             => new UserResource($this->user),
-            // 'image'          => route('home') . '/uploads/sliders/' . $this->image
+            'feedback_replies' => CommentResource::collection($this->replies),
         ];
     }
 }
