@@ -69,7 +69,7 @@ class SellerController extends Controller
             'name' => 'required',
             'state' => 'required',
             'video_link' => 'nullable',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif', //|max:2048
         ]);
         $image = $request->file('image');
         $random = Str::random(3);
