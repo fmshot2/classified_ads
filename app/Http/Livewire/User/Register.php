@@ -21,10 +21,14 @@ use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 use Config;
 use Illuminate\Http\Request;
+use App\Traits\ReusableCode;
+
 
 
 class Register extends Component
 {
+    use ReusableCode;
+
     public $referParam;
     public $name;
     public $email;
@@ -127,11 +131,6 @@ class Register extends Component
     }
 
 
-
-
-
-
-
     // public function store(Request $request)
     // {
     //     $product = new Product;
@@ -139,32 +138,32 @@ class Register extends Component
     //     $product->slug = $this->createSlug($request->title);
     //     $product->save();
     // }
-    public function createSlug($name, $id = 0)
-    {
-        // $slug = str_slug($this->name);
-        $slug = Str::of($this->name)->slug('-');
-        $allSlugs = $this->getRelatedSlugs($slug, $id);
-        if (! $allSlugs->contains('slug', $slug)){
-            return $slug;
-        }
+    // public function createSlug($name, $id = 0)
+    // {
+    //     // $slug = str_slug($this->name);
+    //     $slug = Str::of($this->name)->slug('-');
+    //     $allSlugs = $this->getRelatedSlugs($slug, $id);
+    //     if (! $allSlugs->contains('slug', $slug)){
+    //         return $slug;
+    //     }
 
-        $i = 1;
-        $is_contain = true;
-        do {
-            $newSlug = $slug . '-' . $i;
-            if (!$allSlugs->contains('slug', $newSlug)) {
-                $is_contain = false;
-                return $newSlug;
-            }
-            $i++;
-        } while ($is_contain);
-    }
-    protected function getRelatedSlugs($slug, $id = 0)
-    {
-        return User::select('slug')->where('slug', 'like', $slug.'%')
-        ->where('id', '<>', $id)
-        ->get();
-    }
+    //     $i = 1;
+    //     $is_contain = true;
+    //     do {
+    //         $newSlug = $slug . '-' . $i;
+    //         if (!$allSlugs->contains('slug', $newSlug)) {
+    //             $is_contain = false;
+    //             return $newSlug;
+    //         }
+    //         $i++;
+    //     } while ($is_contain);
+    // }
+    // protected function getRelatedSlugs($slug, $id = 0)
+    // {
+    //     return User::select('slug')->where('slug', 'like', $slug.'%')
+    //     ->where('id', '<>', $id)
+    //     ->get();
+    // }
 
     public function save_user($amount, $tranxRef)
     {
@@ -216,7 +215,7 @@ class Register extends Component
         //old slug creation
         // $user->slug     = $userSlug;
         //end old slug creation
-        $user->slug     = $this->createSlug($this->name);
+        $user->slug     = $this->createSlug($this->name, new User());
         //save id of referer if user was reffererd
         $user->idOfReferer = $this->refererId;
         //save id of agent if user was brought by agent
