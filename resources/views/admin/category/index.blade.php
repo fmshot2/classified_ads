@@ -233,7 +233,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary pd-x-20">Edit Category</button>
+                                <button type="submit" class="btn btn-primary pd-x-20">Update Category</button>
                                 <button type="button" class="btn btn-secondary pd-x-20" data-dismiss="modal">Close</button>
                             </div>
                         </form>
