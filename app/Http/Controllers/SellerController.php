@@ -26,11 +26,14 @@ use App\SubCategory;
 use App\PaymentRequest;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Traits\ReusableCode;
+
 
 
 class SellerController extends Controller
 {
-
+    //This is a trait for createSlug code
+    use ReusableCode;
 
     public function createService()
     {
@@ -66,7 +69,7 @@ class SellerController extends Controller
             'name' => 'required',
             'state' => 'required',
             'video_link' => 'nullable',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif', //|max:2048
         ]);
         $image = $request->file('image');
         $random = Str::random(3);
@@ -134,8 +137,8 @@ class SellerController extends Controller
         if (isset($request->is_featured)) {
             $service->is_featured = $data['is_featured'];
         }
-
-        $service->slug = $slug;
+        // $service->slug = $slug;
+        $service->slug     = $this->createSlug($data['name'], new Service());
         // $service->video_link = $request->video_link;$data['category_id'];
         $service->save();
 

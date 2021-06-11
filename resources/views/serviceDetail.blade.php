@@ -316,9 +316,10 @@
                                     </a> --}}
 
 
-                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }}
+                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Likes</a>
+                                    {{-- <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }}
                                         (<span id="likeTab">{{ $service_likes != 0 ? $service_likes : '0'}}</span>)
-                                    </a>
+                                    </a> --}}
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="six-tab" data-toggle="tab" href="#six" role="tab" aria-controls="six" aria-selected="true">Similar Services</a>
@@ -339,7 +340,29 @@
                                 </div>
                                 <div class="tab-pane fade " id="three" role="tabpanel" aria-labelledby="three-tab">
                                     <div class="property-details mb-40">
-                                        <h6 class="heading-2">This User has <span id="likeTab2">{{ $service_likes != 0 ? $service_likes : '0'}}</span> like{{$service_likes > 1 ? 's' : ''}}</h6>
+                                        {{-- <h6 class="heading-2">This User has <span id="likeTab2">{{ $service_likes != 0 ? $service_likes : '0'}}</span> like{{$service_likes > 1 ? 's' : ''}}</h6> --}}
+                                        @auth
+                                            <div class="container mb-5 mt-0">
+                                                <h5>
+                                                    <div id="likeBtn" class="{{ !$likecheck ? 'likeBtnShow' : '' }}">
+                                                        Do you like this service? Give it a <a onclick="likeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-up text-primary" style="font-size: 19px;"></i><span class="text-primary"> Like!</span></a>
+                                                        {{-- <span id="loader" class="loader"></span> --}}
+                                                    </div>
+                                                    <div id="dislikeBtn" class="{{ $likecheck ? 'disLikeBtnShow' : '' }}">
+                                                        You have liked this service already. <a onclick="disLikeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger"> Dislike!</span></a>
+                                                        {{-- <span id="loader" class="loader"></span> --}}
+                                                    </div>
+                                                </h5>
+                                            </div>
+                                        @else
+                                            <div class="container mb-5 mt-0">
+                                                <h5>
+                                                    <div>
+                                                        Do you like this service? <a style="color: #CA8309;" href="{{ route('login') }}">Login</a> or <a style="color: #28a745" href="{{ route('register') }}">Register</a> to give it a like.
+                                                    </div>
+                                                </h5>
+                                            </div>
+                                        @endauth
                                     </div>
                                 </div>
                                 <div class="tab-pane fade " id="four" role="tabpanel" aria-labelledby="four-tab">
@@ -465,22 +488,7 @@
                         {{-- @guest
                         <p>Please login to see your previous conversation with this service provider</p>
                         @endguest --}}
-                        @auth
-                            <div class="container mb-5 mt-0">
-                                <h5>
-                                    @auth
-                                        <div id="likeBtn" class="{{ !$likecheck ? 'likeBtnShow' : '' }}">
-                                            Do you like this service? Give it a <a onclick="likeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-up text-primary" style="font-size: 19px;"></i><span class="text-primary"> Like!</span></a>
-                                            {{-- <span id="loader" class="loader"></span> --}}
-                                        </div>
-                                        <div id="dislikeBtn" class="{{ $likecheck ? 'disLikeBtnShow' : '' }}">
-                                            You have liked this service already. <a onclick="disLikeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger"> Dislike!</span></a>
-                                            {{-- <span id="loader" class="loader"></span> --}}
-                                        </div>
-                                    @endauth
-                                </h5>
-                            </div>
-                        @endauth
+
 
                     </div>
                 </div>
