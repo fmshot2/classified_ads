@@ -14,8 +14,6 @@ class ServiceResource extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
-
         return [
             'id'          => $this->id,
             'name'        => $this->name,
@@ -37,11 +35,11 @@ class ServiceResource extends JsonResource
             'slug'        => $this->slug,
             'status'      => $this->status,
             'is_approved' => $this->is_approved,
-            'provider'    => $this->user,
+            'views'       => $this->views->count(),
+            'provider'    => new UserResource($this->user),
             'category'    => new CategoryResource($this->category),
             'images'      => ImageResource::collection($this->images),
-            'comments'    => $this->comments,
-            'views'    => $this->views->count(),
+            'comments'    => CommentResource::collection($this->comments),
         ];
 
     }

@@ -14,6 +14,7 @@ use App\Http\Resources\AdvertisementResourceCollection;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\ClientsFeedback;
 use App\Http\Resources\ClientsFeedbackCollection;
+use App\Http\Resources\CommentResource;
 use App\Http\Resources\SeekingWorkResource;
 use App\Http\Resources\SeekingWorkResourceCollection;
 use App\Http\Resources\ServiceResource;
@@ -1536,7 +1537,7 @@ public function createSubpay(Request $request)
         $service->comments()->save($comment);
 
         return response()->json([
-            'client_feedback' => $comment,
+            'client_feedback' => new CommentResource($comment),
         ], 200);
     }
 
@@ -1558,7 +1559,7 @@ public function createSubpay(Request $request)
         $service->comments()->save($reply);
 
         return response()->json([
-            'reply' => $reply,
+            'reply' => new CommentResource($reply),
         ], 200);
     }
 
