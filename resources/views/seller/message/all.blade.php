@@ -276,9 +276,6 @@
 
                                                 <td class="center">
                                                     <a data-toggle="modal" data-target="#viewMessageModal{{ $all_message->id }}" onclick="readStatus('{{ $all_message->slug }}')" href="#" class="btn btn-warning "><i class="fa fa-eye"></i></a>
-                                                    @if (Auth::user()->email != $all_message->sender_email)
-                                                        <a data-toggle="modal" data-target="#replyMessageModal{{ $all_message->id }}" href="#" class="btn btn-info "><i class="fa fa-reply"></i></a>
-                                                    @endif
                                                 </td>
                                             </tr>
 
