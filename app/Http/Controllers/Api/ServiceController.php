@@ -1498,7 +1498,7 @@ class ServiceController extends Controller
         $comment = new Comment();
         $comment->comment = $request->get('comment');
         $comment->user()->associate($user);
-        $service = Service::find($request->service_id);
+        $service = Service::findOrFail($request->service_id);
         $service->comments()->save($comment);
 
         return response()->json([
@@ -1520,8 +1520,9 @@ class ServiceController extends Controller
         $reply->comment = $request->get('comment');
         $reply->user()->associate($user);
         $reply->parent_id = $request->get('comment_id');
-        $service = Service::find($request->get('service_id'));
+        $service = Service::findOrFail($request->get('service_id'));
         $service->comments()->save($reply);
+
 
         return response()->json([
             'reply' => new ClientsFeedback($reply),

@@ -25,7 +25,7 @@ class CreateServicesTable extends Migration
             $table->string('category')->nullable();
             $table->string('thumbnail')->default('noserviceimage.png')->nullable();
             $table->string('address')->nullable();
-            $table->string('experience')->nullable();
+            $table->integer('experience')->nullable();
             $table->string('phone')->nullable();
             $table->string('video_link')->nullable();
             $table->string('min_price')->nullable();
@@ -38,7 +38,7 @@ class CreateServicesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('category_id');
             $table->integer('subcategory_id')->nullable();
-            $table->string('badge_type')->default(4);
+            $table->integer('badge_type')->default(4);
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
             $table->string('subscription_end_date')->nullable();

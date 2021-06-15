@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Agent;
 use App\Http\Controllers\Api\Controller;
+use App\Http\Resources\UserResource;
 use App\Mail\UserRegistered;
 use App\Payment;
 use App\ProviderSubscription;
@@ -49,7 +50,7 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $token_validity = (24 * 60);
+        $token_validity = (168 * 60);
 
         $this->guard()->factory()->setTTL($token_validity);
 
@@ -59,7 +60,13 @@ class AuthController extends Controller
             ], 401);
         }
 
-        return $this->respondWithToken($token);
+        // return $this->respondWithToken($token);
+        return response()->json([
+            'token' => $token,
+            'token_validity' => $token_validity,
+            'token_type' => 'bearer',
+            'user_role' => $this->guard()->user()->role,
+        ]);
     }
 
 
@@ -94,9 +101,6 @@ class AuthController extends Controller
     }
 
 
-
-
-
     /**
      * register
      *
@@ -105,17 +109,6 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        /*
-            $validator = Validator::make($request->all(), [
-                'name' => 'required|string|between:3,50',
-                'email' => 'required|email|unique:users',
-                'phone' => 'required|unique:users',
-                'role' => 'string',
-                'password' => 'required|min:6',
-
-                // 'password' => 'required|confirmed|min:6',
-            ]);
-        */
 
         $validator = Validator::make($request->all(), [
             'referParam'     => ['nullable', 'string', 'max:255'],
@@ -502,12 +495,6 @@ class AuthController extends Controller
     }
 
 
-
-
-
-
-
-
     public function checkEmailIfExist(Request $request)
     {
         $email = $request->email;
@@ -534,7 +521,7 @@ class AuthController extends Controller
      */
     public function profile()
     {
-        return response()->json($this->guard()->user(), 200);
+        return response()->json(new UserResource($this->guard()->user()), 200);
     }
 
     public function updateProfile(Request $request)
