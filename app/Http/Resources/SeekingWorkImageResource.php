@@ -15,7 +15,7 @@ class SeekingWorkImageResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'image_path' => route('home') . '/uploads/seekingworks/'.$this->image_path,
+            'image_path' => $this->image_path ? route('home') . '/uploads/seekingworks/'.$this->image_path : route('home') . '/uploads/seekingworks/noserviceimage.png'
         ];
     }
 }

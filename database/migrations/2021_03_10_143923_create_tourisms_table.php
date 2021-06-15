@@ -15,7 +15,9 @@ class CreateTourismsTable extends Migration
     {
         Schema::create('tourisms', function (Blueprint $table) {
             $table->id();
+            $table->integer('state_id');
             $table->string('name');
+            $table->string('states')->nullable();
             $table->string('region');
             $table->longText('description');
             $table->string('body');

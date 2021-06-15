@@ -18,6 +18,10 @@ class CreatePaymentRequestsTable extends Migration
             $table->integer('user_id');
             $table->string('amount_requested');
             $table->integer('is_paid')->nullable();
+            $table->string('user_type');
+            $table->string('account_name')->nullable();
+            $table->string('account_number')->nullable();
+            $table->string('bank_name')->nullable();
             $table->timestamps();
         });
     }

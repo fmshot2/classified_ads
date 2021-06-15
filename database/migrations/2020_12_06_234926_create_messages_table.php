@@ -25,10 +25,10 @@ class CreateMessagesTable extends Migration
             $table->string('sender_email')->nullable();
             $table->string('sender_phone')->nullable();
             $table->timestamp('read_at')->nullable();
-            $table->string('slug')->nullable();
+            $table->string('slug')->nullable()->unique();
             $table->integer('service_user_id')->nullable();
             $table->integer('service_id')->nullable();
-            $table->integer('status')->default(0)->nullable();
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

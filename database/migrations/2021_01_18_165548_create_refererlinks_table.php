@@ -19,6 +19,7 @@ class CreateRefererlinksTable extends Migration
             $table->string('refererlink')->nullable();
             $table->integer('user_id')->nullable();
             $table->integer('recipient_id')->nullable();
+            $table->string('agent_id')->nullable();
         });
     }
 

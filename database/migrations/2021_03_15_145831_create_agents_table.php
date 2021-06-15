@@ -24,7 +24,17 @@ class CreateAgentsTable extends Migration
             $table->string('identification_id')->nullable();
             $table->string('agent_code')->nullable();
             $table->string('referer_id')->nullable();
+            $table->text('refererAmount')->nullable();
+            $table->integer('is_paid')->default(0);
+            $table->double('total_paid')->default(0);
             $table->boolean('status')->default(true)->nullable();
+            $table->string('lga')->nullable();
+            $table->string('address')->nullable();
+            $table->string('bankname')->nullable();
+            $table->string('accountname')->nullable();
+            $table->string('accountno')->nullable();
+            $table->string('level3')->nullable();
+            $table->string('level4')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
