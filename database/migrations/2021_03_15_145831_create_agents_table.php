@@ -37,6 +37,7 @@ class CreateAgentsTable extends Migration
             $table->integer('level2')->nullable();
             $table->integer('level3')->nullable();
             $table->integer('level4')->nullable();
+            $table->string('slug')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

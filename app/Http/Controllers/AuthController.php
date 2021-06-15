@@ -815,6 +815,21 @@ class AuthController extends Controller
         return redirect()->route('home');
     }
 
+    public function addSlug4Agents()
+    {
+    $agents = Agent::where('slug', null)->get();
+    foreach ($agents as $agent) {
+    // $random = Str::random(3);
+    // $slug = Str::of($buyer->name)->slug('-').''.$random;
+    $buyer->slug = $this->createSlug($request->name, new Agent());
+    $buyer->save();
+    }
+
+    // Category::orderBy('id', 'asc')->paginate(35);
+    return redirect()->route('home');
+}
+
+
     public function seller()
     {
         $seller = User::where('role', 'seller')->orderBy('id', 'desc')->get();

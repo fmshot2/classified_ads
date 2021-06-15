@@ -67,6 +67,8 @@ Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
 //Special URLs
 //add slug to old users who have no slug
 Route::get('/addSlug', 'AuthController@addSlug')->name('addSlug');
+Route::get('/addSlug4Agents', 'AuthController@addSlug4Agents')->name('addSlug4Agents');
+
 Route::get('/save_agent_id', 'AdminController@save_agent_id')->name('save_agent_id');
 Route::get('/set_sub', 'ServiceController@set_sub')->name('set_sub');
 Route::get('/users_sub_almost_ended', 'AdminController@ending_seller')->name('users_sub_almost_ended');
