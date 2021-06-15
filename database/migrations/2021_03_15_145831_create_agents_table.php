@@ -33,8 +33,10 @@ class CreateAgentsTable extends Migration
             $table->string('bankname')->nullable();
             $table->string('accountname')->nullable();
             $table->string('accountno')->nullable();
-            $table->string('level3')->nullable();
-            $table->string('level4')->nullable();
+            $table->integer('level1')->nullable();
+            $table->integer('level2')->nullable();
+            $table->integer('level3')->nullable();
+            $table->integer('level4')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
