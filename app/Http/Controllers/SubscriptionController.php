@@ -160,14 +160,23 @@ class SubscriptionController extends Controller
 		$sub_check->trans_ref = $data['ref_no'];
 		$sub_check->email = Auth::user()->email;
 		$sub_check->save();
+		Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no'] ]);
+		$sub_check->subscription_end_date = Carbon::parse($sub_check->subscription_end_date)->toDayDateTimeString();
+
 
 		$userServices = Service::where('user_id', Auth::id())->get();
 		if ($userServices) {
 			foreach ($userServices as $userService) {
 				$userService->subscription_end_date = $sub_check->subscription_end_date;
+				$userService->save();
 			}
-			$userService->save();
+			
+			return response()->json(['success'=>'Your Subscription payment was successfull', 'new_date'=>$sub_check->subscription_end_date], 200);
+
+		}else{
+			return response()->json(['success'=>'Your Subscription payment was successfull', 'new_date'=>$sub_check->subscription_end_date], 200);
 		}
+
 // subscription_end_date
 		// $mysubscriptions = Auth::user()->subscriptions;
 		// Auth::user()->subscriptions()->create(['sub_type' => $sub_type, 
@@ -178,7 +187,6 @@ class SubscriptionController extends Controller
 		// 	'email' => Auth::user()->email ]);
 
 
-		$sub_check->subscription_end_date = Carbon::parse($sub_check->subscription_end_date)->toDayDateTimeString();
 
 
 
@@ -194,10 +202,8 @@ class SubscriptionController extends Controller
 
 		
 
-		Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no'] ]);
 		
 
-		return response()->json(['success'=>'Your Subscription payment was successfull', 'new_date'=>$sub_check->subscription_end_date], 200);
 
 	}
 	

@@ -15,13 +15,13 @@ class CreateGeneralInfosTable extends Migration
     {
         Schema::create('general__infos', function (Blueprint $table) {
             $table->id();
-
             $table->string('site_name')->nullable();
             $table->string('hot_line')->nullable();
             $table->string('hot_line_2')->nullable();
             $table->string('hot_line_3')->nullable();
             $table->string('address')->nullable();
             $table->string('logo')->nullable();
+            $table->text('about_site')->nullable();
             $table->string('header_email')->nullable();
             $table->string('header_phone')->nullable();
             $table->string('footer_phone2')->nullable();
@@ -38,7 +38,8 @@ class CreateGeneralInfosTable extends Migration
             $table->string('linkedin')->nullable();
             $table->string('twitter')->nullable();
             $table->string('support_email')->nullable();
-
+            $table->string('contact_email')->nullable();
+            $table->longText('email_disclaimer')->nullable();
             $table->timestamps();
         });
     }

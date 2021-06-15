@@ -17,7 +17,8 @@ class CreateFaqsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title');
-            $table->longText('details');            
+            $table->longText('details');
+            $table->text('benefits')->nullable();
         });
     }
 

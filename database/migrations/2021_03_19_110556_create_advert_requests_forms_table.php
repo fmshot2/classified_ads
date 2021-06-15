@@ -21,6 +21,7 @@ class CreateAdvertRequestsFormsTable extends Migration
             $table->string('advert_type');
             $table->string('subject');
             $table->text('message');
+            $table->string('advert_referral_name')->nullable();
             $table->timestamps();
         });
     }

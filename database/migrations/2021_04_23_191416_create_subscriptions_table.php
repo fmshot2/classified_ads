@@ -23,7 +23,8 @@ class CreateSubscriptionsTable extends Migration
             $table->string('sub_type')->nullable();
             $table->string('slug')->unique()->nullable();
             $table->integer('subscriptionable_id')->nullable();
-            $table->string('subscriptionable_type')->nullable();            
+            $table->string('subscriptionable_type')->nullable();
+            $table->string('trans_ref')->nullable();
             $table->timestamps();
         });
     }

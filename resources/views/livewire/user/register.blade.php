@@ -163,7 +163,7 @@ window.addEventListener('pay_with_paystack', event => {
         key: event.detail.data.key, // Replace with your public key
         email: event.detail.data.email,
         amount: event.detail.data.amount,
-        ref: ''+Math.floor((Math.random() * 1000000000) + 1),
+        ref: ''+'SUB-'+Math.floor((Math.random() * 1000000000) + 1),
         onClose: function(){
             alert('Window closed.');
         },

@@ -226,7 +226,7 @@
                         key: paystack_pk,
                         email: document.getElementById("user_email").value,
                         amount: 200000,
-                        ref: '' + Math.floor((Math.random() * 1000000000) + 1),
+                        ref: ''+'FEATURED-'+Math.floor((Math.random() * 1000000000) + 1),
                         metadata: {
                             custom_fields: [{
                                 display_name: "Mobile Number",
