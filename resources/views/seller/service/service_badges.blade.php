@@ -282,7 +282,7 @@
                         url: '/requestbadge/' + id,
                         method: 'GET',
                         success: function(data) {
-                            console.log(data.badge_cost)
+                            // console.log(data.badge_cost)
                             $('#badgeType').text(data.badge_type)
                             $('#badge_type').val(id)
                             $('#badgeCost').text(data.badge_cost)
@@ -306,7 +306,7 @@
 
                 function payWithPaystack1(badgecost, badgetype) {
                     $('#badgeRequestModal').modal('hide');
-                    console.log(badgetype);
+                    // console.log(badgetype);
 
                     var badge_amount = badgecost * 100;
                     var badge_type = badgetype;
@@ -315,7 +315,7 @@
                         key: paystack_pk,
                         email: document.getElementById("email-address3").value,
                         amount: badge_amount,
-                        ref: '' + Math.floor((Math.random() * 1000000000) + 1),
+                        ref: ''+'BDG-'+Math.floor((Math.random() * 1000000000) + 1),
                         metadata: {
                             custom_fields: [{
                                 display_name: "Mobile Number",
