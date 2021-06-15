@@ -54,7 +54,7 @@ class UserResource extends JsonResource
             "level3"             => $this->level3 == null ? '' : $this->level3,
             "level4"             => $this->level4 == null ? '' : $this->level4,
             "email_verified_at"  => $this->email_verified_at == null ? '' : $this->email_verified_at,
-            "sub_has_ended"      => $this->sub_has_ended == null ? 0 : $this->sub_has_ended,
+            "subscription_has_ended"      => $this->sub_has_ended == null ? 0 : $this->sub_has_ended,
             "created_at"         => $this->created_at,
             "updated_at"         => $this->updated_at,
         ];
