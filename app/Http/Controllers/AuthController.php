@@ -19,10 +19,14 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Symfony\Contracts\Service\Attribute\Required;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\ReusableCode;
+
 
 
 class AuthController extends Controller
 {
+    //This is a trait for createSlug code
+        use ReusableCode;
 
     public function show_agent_Login(Request $request)
     {
@@ -95,9 +99,10 @@ class AuthController extends Controller
 
         //save agent details
         $user = new Agent;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
+        $user->name     = $request->name;
+        $user->email    = $request->email;
+        $user->phone    = $request->phone;
+        $user->slug     = $this->createSlug($request->name, new Agent());
         if ($user->save()) {
             $messages = "$user->name, Your registration was successfull! Please click the link below to complete your registration!";
             $name = $user->name;

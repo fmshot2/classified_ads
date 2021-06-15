@@ -29,7 +29,6 @@ use Config;
 
 class Register extends Component
 {
-
     public $agent_name;
     public $agent_email;
     public $password;

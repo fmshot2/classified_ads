@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('about')->nullable();
             $table->string('address')->nullable();
             $table->string('state')->nullable();
-            $table->string('slug')->nullable();
+            $table->string('slug')->unique()->nullable();
             $table->string('refererLink')->nullable();
             $table->integer('idOfReferer')->nullable();
             $table->integer('refererAmount')->nullable();
