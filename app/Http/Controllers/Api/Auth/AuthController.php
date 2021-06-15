@@ -261,23 +261,28 @@ class AuthController extends Controller
             }
 
             $current_date_time = Carbon::now()->toDateTimeString();
+            Auth::user()->subscriptions()->create(['sub_type' => $sub_type, 
+            'subscription_end_date' => Carbon::now()->addDays($added_days),
+            'trans_ref' => $tranxRef,
+            'email' => Auth::user()->email ]);
 
-            $sub_check = new ProviderSubscription();
-            $sub_check->user_id = Auth::id();
-            $sub_check->sub_type = $sub_type;
-            $sub_check->user_type = 'provider';
-            $sub_check->last_amount_paid = $request->plan;
-            $sub_check->subscription_end_date = Carbon::now()->addDays($added_days);
-            $sub_check->last_subscription_starts = $current_date_time;
-            $sub_check->save();
+            // $sub_check = new ProviderSubscription();
+            // $sub_check->user_id = Auth::id();
+            // $sub_check->sub_type = $sub_type;
+            // $sub_check->user_type = 'provider';
+            // $sub_check->last_amount_paid = $request->plan;
+            // $sub_check->subscription_end_date = Carbon::now()->addDays($added_days);
+            // $sub_check->last_subscription_starts = $current_date_time;
+            // $sub_check->save();
+            Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $amount, 'tranx_ref' => $tranxRef ]);
 
 
-            $reg_payments = new Payment();
-            $reg_payments->user_id = Auth::id();
-            $reg_payments->payment_type = 'registration';
-            $reg_payments->amount = $request->plan;
-            $reg_payments->tranx_ref = $tranxRef;
-            $reg_payments->save();
+            // $reg_payments = new Payment();
+            // $reg_payments->user_id = Auth::id();
+            // $reg_payments->payment_type = 'registration';
+            // $reg_payments->amount = $request->plan;
+            // $reg_payments->tranx_ref = $tranxRef;
+            // $reg_payments->save();
 
 
             /* level 1 start */
