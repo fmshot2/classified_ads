@@ -14,7 +14,6 @@ use App\Http\Resources\AdvertisementResourceCollection;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\ClientsFeedback;
 use App\Http\Resources\ClientsFeedbackCollection;
-use App\Http\Resources\CommentResource;
 use App\Http\Resources\MessageResource;
 use App\Http\Resources\SeekingWorkResource;
 use App\Http\Resources\SeekingWorkResourceCollection;
@@ -1503,7 +1502,7 @@ class ServiceController extends Controller
         $service->comments()->save($comment);
 
         return response()->json([
-            'client_feedback' => new CommentResource($comment),
+            'client_feedback' => new ClientsFeedback($comment),
         ], 200);
     }
 
@@ -1525,7 +1524,7 @@ class ServiceController extends Controller
         $service->comments()->save($reply);
 
         return response()->json([
-            'reply' => new CommentResource($reply),
+            'reply' => new ClientsFeedback($reply),
         ], 200);
     }
 

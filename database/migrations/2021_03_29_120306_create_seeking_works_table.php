@@ -16,6 +16,7 @@ class CreateSeekingWorksTable extends Migration
         Schema::create('seeking_works', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->string('agent_id')->nullable();
             $table->string('fullname');
             $table->string('phone');
             $table->string('job_type');
@@ -39,9 +40,11 @@ class CreateSeekingWorksTable extends Migration
             $table->longText('skills');
             $table->string('picture');
             $table->integer('status')->default(0);
+            $table->integer('badge_type')->default(0);
             $table->integer('category_id');
-            $table->integer('is_featured')->default(0)->nullable();
+            $table->integer('is_featured')->default(0);
             $table->integer('paid_featured')->default(0);
+            $table->longText('subscription_end_date')->nullable();
             $table->timestamps();
         });
     }
