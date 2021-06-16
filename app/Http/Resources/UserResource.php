@@ -21,7 +21,7 @@ class UserResource extends JsonResource
             "is_ef_marketer"     => $this->is_ef_marketer,
             "email"              => $this->email,
             "image"              => $this->image ? route('home') . '/uploads/users/' . $this->image : route('home') . '/uploads/users/nouserimage.png',
-            "phone"              => $this->phone == null ? 0 : $this->phone,
+            "phone"              => $this->phone == null ? '' : $this->phone,
             "about"              => $this->about == null ? '' : $this->about,
             "address"            => $this->address == null ? '' : $this->address,
             "state"              => $this->state == null ? '' : $this->state,
