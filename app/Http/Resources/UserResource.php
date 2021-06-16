@@ -47,7 +47,7 @@ class UserResource extends JsonResource
             "idOfAgent"          => $this->idOfAgent == null ? 0 : $this->idOfAgent,
             "last_seen"          => $this->last_seen == null ? '' : $this->last_seen,
             "is_paid"            => $this->is_paid == null ? '' : $this->is_paid,
-            "total_paid"         => $this->total_paid == null ? '' : $this->total_paid,
+            "total_paid"         => $this->total_paid == null ? 0 : $this->total_paid,
             "group_code"         => $this->group_code == null ? '' : $this->group_code,
             "level1"             => $this->level1 == null ? 0 : $this->level1,
             "level2"             => $this->level2 == null ? 0 : $this->level2,
