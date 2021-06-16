@@ -47,8 +47,8 @@ class CreateUsersTable extends Migration
             $table->string('identification_type')->nullable();
             $table->string('identification_id')->unique()->nullable();
             $table->timestamp('last_seen')->nullable();
-            $table->integer('is_paid')->nullable();
-            $table->integer('total_paid')->nullable();
+            $table->string('is_paid')->nullable();
+            $table->string('total_paid')->nullable();
             $table->string('group_code')->nullable();
             $table->integer('level1')->nullable();
             $table->integer('level2')->nullable();
