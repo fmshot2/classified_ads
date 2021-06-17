@@ -1422,6 +1422,7 @@ class ServiceController extends Controller
 
         $validator = Validator::make($request->all(), [
             'amount' => 'required',
+            'tranx_ref' => 'required',
         ]);
 
         if ($validator->fails()) {
