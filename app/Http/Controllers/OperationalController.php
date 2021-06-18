@@ -968,7 +968,7 @@ class OperationalController extends Controller
         $services = Service::all();
 
         foreach ($services as $key => $service) {
-            if (views($service)->count() < 80) {
+            if (views($service)->count() < 50) {
                 $value = rand(80, 200);
                 for ($i=1; $i < $value; $i++) {
                     views($service)->record();
