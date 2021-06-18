@@ -1410,19 +1410,6 @@ class ServiceController extends Controller
         return response()->json(['success' => 'Your Subscription payment was successfull', 'new_date' => $sub_check->subscription_end_date], 200);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function userSubscription(Request $request)
     {
         try {
@@ -1435,6 +1422,7 @@ class ServiceController extends Controller
 
         $validator = Validator::make($request->all(), [
             'amount' => 'required',
+            'tranx_ref' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -1452,7 +1440,10 @@ class ServiceController extends Controller
         // $this->validate($request, [
         //     'amount' => 'required',
         // ]);
-        $sub_check = ProviderSubscription::where(['user_id' => Auth::id()])->first();
+
+        // $sub_check = ProviderSubscription::where(['user_id' => Auth::id()])->first();
+
+        $sub_check = Auth::user()->subscriptions->first();
         if ($sub_check) {
             if ($request->amount == '200') {
                 $added_days = 31;
@@ -1470,16 +1461,29 @@ class ServiceController extends Controller
                 return response()->json(['res_message' => 'invalid amount provided', 'res_code' => 404], 200);
             }
 
-            $initial_end_date = $sub_check->subscription_end_date;
-            $sub_check->user_id = Auth::id();
-            $sub_check->sub_type = $sub_type;
-            $sub_check->user_type = 'provider';
-            $sub_check->last_amount_paid = $request->amount;
-            $sub_check->subscription_end_date = Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s');
-            $sub_check->last_subscription_starts = $current_date_time;
-            $sub_check->save();
+            // $initial_end_date = $sub_check->subscription_end_date;
+            // $sub_check->user_id = Auth::id();
+            // $sub_check->sub_type = $sub_type;
+            // $sub_check->user_type = 'provider';
+            // $sub_check->last_amount_paid = $request->amount;
+            // $sub_check->subscription_end_date = Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s');
+            // $sub_check->last_subscription_starts = $current_date_time;
+            // $sub_check->trans_ref = $request->trans_ref;
+        $initial_end_date = $sub_check->subscription_end_date;
 
-            return response()->json(['res_message' => 'Success', 'res_code' => 200], 200);
+            $sub_save = 
+ Auth::user()->subscriptions()->first()->update(['sub_type' => $sub_type, 
+             'last_amount_paid' => $request->amount,
+             'subscription_end_date' => Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s'),
+             'trans_ref' => $request->tranx_ref,
+             'email' => Auth::user()->email ]);
+            if($sub_save) {
+                return response()->json(['res_message' => 'Success', 'res_code' => 200, 'sub_save' => $sub_save], 200);
+            } else {
+                return response()->json(['res_message' => 'Something went wrong', 'res_code' => 500], 500);
+            }
+
+            
         } else {
             return response()->json(['res_message' => 'user not found', 'res_code' => 404], 200);
         }

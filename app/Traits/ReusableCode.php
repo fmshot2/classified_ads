@@ -53,4 +53,34 @@ public function createSlug($name, $model, $id = 0)
         ->get();
     }
 
+
+    public function createRefererLink($model, $id = 0)
+    {
+        // $slug = str_slug($this->name);
+        $slug = Str::random(8);
+        // $slug = Str::of($name)->slug('-');
+        $allSlugs = $this->getRelatedrefererLinks($slug, $model, $id);
+        if (!$allSlugs->contains('refererlink', $slug)){
+            return $slug;
+        }
+
+        $i = 1;
+        $is_contain = true;
+        do {
+            $newSlug = $slug . '-' . $i;
+            if (!$allSlugs->contains('refererlink', $newSlug)) {
+                $is_contain = false;
+                return $newSlug;
+            }
+            $i++;
+        } while ($is_contain);
+    }
+
+    protected function getRelatedrefererLinks($slug, $model, $id = 0)
+    {
+        return $model::select('refererlink')->where('refererlink', 'like', $slug.'%')
+        ->where('id', '<>', $id)
+        ->get();
+    }
+
 }

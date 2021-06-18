@@ -220,7 +220,7 @@ class Register extends Component
         $user->idOfReferer = $this->refererId;
         //save id of agent if user was brought by agent
         $user->idOfAgent = $this->agent_Id;
-        $user->refererLink = $slug3;
+        $user->refererLink = $this->createRefererLink(new User());
         //send mail
 
         if ($user->save()) {
