@@ -965,6 +965,8 @@
                 success: function(data) {
                     $("#phone").val('')
                     $("#description").val('')
+                    $("#sender_phone").val('')
+                    $("#message").val('')
                     $("#successMessage").text('Message sent successfully!')
                     $(".btn-submit2").text('Send Message')
                     $("#btn-submit2").css({"opacity": "1", "cursor":"pointer"});
