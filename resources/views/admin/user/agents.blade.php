@@ -77,9 +77,9 @@
                                             <td class="center">
                                             <a href="{{route('agent_downline', $agent->id)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
                                             </td>
-                                            <td class="center">
+                                          <!--   <td class="center">
                                             <a href="{{route('agents_downline_24hrs', $agent->id)}}" class="btn btn-warning "><i class="fa fa-eye"></i>Yesterday's Reg</a>
-                                            </td>
+                                            </td> -->
                                         </tr>
 
                                     @endforeach
