@@ -42,6 +42,7 @@
                                         <th> # </th>
                                         <th> Name </th>
                                         <th> Email </th>
+                                        <th> Phone </th>
                                         <th> Applied for Approval?</th>
                                         <th> Status </th>
                                         <th> Amount Earned </th>
@@ -57,6 +58,7 @@
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                             <td> {{ $agent->name }} </td>
                                             <td><span class="text-muted"> </i> {{ $agent->email }} </span> </td>
+                                             <td><span class="text-muted"> </i> {{ $agent->phone }} </span> </td>
                                             <td> {{ $agent->created_at->format('d/m/Y') }} </span></td>
                                             <td>
                                                 @if($agent->status == 1)
