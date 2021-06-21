@@ -794,13 +794,6 @@ class AuthController extends Controller
         return view('auth/login');
     }
 
-    public function buyer()
-    {
-        $buyers = User::where('role', 'buyer')->orderBy('id', 'asc')->get();
-        // Category::orderBy('id', 'asc')->paginate(35);
-        return view('admin.user.buyer', compact('buyers'));
-    }
-
      public function addSlug()
         {
         $buyers = User::where('slug', null)->get();
@@ -828,23 +821,6 @@ class AuthController extends Controller
     // Category::orderBy('id', 'asc')->paginate(35);
     return redirect()->route('home');
 }
-
-
-    public function seller()
-    {
-        $seller = User::where('role', 'seller')->orderBy('id', 'desc')->get();
-        $approval_status = null;
-        return view('admin.user.seller', compact('seller', 'approval_status'));
-    }
-
-
-    public function allagents()
-    {
-        $agents = Agent::all();
-        $approval_status = null;
-        return view('admin.user.agents', compact('agents', 'approval_status'));
-    }
-
 
     public function updateProfile(Request $request, $id)
     {

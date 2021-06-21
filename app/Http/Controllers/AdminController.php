@@ -51,6 +51,29 @@ use App\Refererlink;
 class AdminController extends Controller
 {
 
+
+    public function allagents()
+    {
+        $agents = Agent::all();
+        $approval_status = null;
+        return view('admin.user.agents', compact('agents', 'approval_status'));
+    }
+
+
+    public function seller()
+    {
+        $seller = User::where('role', 'seller')->orderBy('id', 'desc')->get();
+        $approval_status = null;
+        return view('admin.user.seller', compact('seller', 'approval_status'));
+    }
+
+     public function buyer()
+    {
+        $buyers = User::where('role', 'buyer')->orderBy('id', 'asc')->get();
+        // Category::orderBy('id', 'asc')->paginate(35);
+        return view('admin.user.buyer', compact('buyers'));
+    }
+
   public function usersfeedback()
   {
     $feedbacks = UserFeedback::orderBy('created_at', 'desc')->get();
