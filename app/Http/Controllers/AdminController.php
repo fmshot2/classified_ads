@@ -1220,56 +1220,56 @@ class AdminController extends Controller
         }
 
 
-        public function users_sub_almost_ended2()
-        {
+        // public function users_sub_almost_ended2()
+        // {
 
-          $agents = User::all();
-        // dd($agents->subscriptions->first()->subscription_end_date);
-          $names = array();
-          $names2 = array();
-          $second = Carbon::now()->subDays(18);
+        //   $agents = User::all();
+        // // dd($agents->subscriptions->first()->subscription_end_date);
+        //   $names = array();
+        //   $names2 = array();
+        //   $second = Carbon::now()->subDays(18);
 
-          $first =  Carbon::now();
-          foreach ($agents as $key => $user) {
-            // $agents[$key]->total_refers = $serv->total_refers;
-            $agents[$key]->rtrt = $user->subscriptions->first();
-            foreach ($user->rtrt as $key => $user2) {
-              if (Carbon::parse($user2->subscription_end_date)->between($first, $second)) {
-                $eee = 1;
-                array_push($names, $user);
-              } else {
-                $eee = 2;
-              }
-            }
-          }
-          dd($eee);
+        //   $first =  Carbon::now();
+        //   foreach ($agents as $key => $user) {
+        //     // $agents[$key]->total_refers = $serv->total_refers;
+        //     $agents[$key]->rtrt = $user->subscriptions->first();
+        //     foreach ($user->rtrt as $key => $user2) {
+        //       if (Carbon::parse($user2->subscription_end_date)->between($first, $second)) {
+        //         $eee = 1;
+        //         array_push($names, $user);
+        //       } else {
+        //         $eee = 2;
+        //       }
+        //     }
+        //   }
+        //   dd($eee);
 
 
-          $second = Carbon::now()->addDays(14);
-          $first =  Carbon::now();
-        // dd($agents);
-          if (Carbon::parse($agents->subscriptions->subscription_end_date)->between($first, $second)) {
-            $eee = 1;
-            array_push($names, $agents);
-          } else {
-            $eee = 2;
-          }
-          dd($eee);
-          $bbb = [];
-          foreach ($agents as $user) {
-            if (($user->created_at - Carbon::now()->subDays(30)) >= 15) {
-              array_push($bbb, $user);
-            }
-            $service = Service::where('user_id', $user->id)->first();
+        //   $second = Carbon::now()->addDays(14);
+        //   $first =  Carbon::now();
+        // // dd($agents);
+        //   if (Carbon::parse($agents->subscriptions->subscription_end_date)->between($first, $second)) {
+        //     $eee = 1;
+        //     array_push($names, $agents);
+        //   } else {
+        //     $eee = 2;
+        //   }
+        //   dd($eee);
+        //   $bbb = [];
+        //   foreach ($agents as $user) {
+        //     if (($user->created_at - Carbon::now()->subDays(30)) >= 15) {
+        //       array_push($bbb, $user);
+        //     }
+        //     $service = Service::where('user_id', $user->id)->first();
 
-            $user->phone = $service->phone;
+        //     $user->phone = $service->phone;
 
-            $user->save();
-          }
-          $agents2 = User::all();
-          $agents = User::where($agents2->subscriptions->first()->subscription_end_date, '<', Carbon::now()->subDays(6));
-          return redirect('admin.dashboard');
-        }
+        //     $user->save();
+        //   }
+        //   $agents2 = User::all();
+        //   $agents = User::where($agents2->subscriptions->first()->subscription_end_date, '<', Carbon::now()->subDays(6));
+        //   return redirect('admin.dashboard');
+        // }
 
 
         public function ending_seller()

@@ -5,7 +5,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" type="image/x-icon" >
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	
 
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -40,7 +40,7 @@
 	<link rel="stylesheet" href="{{asset('OurBackend/assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css')}}">
 
 	<link rel="stylesheet" href="{{asset('dropzone/dist/dropzone.css')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+   
     {{-- <link rel="stylesheet" href="{{ asset('summernote/summernote.css') }}"/> --}}
 
 
@@ -51,16 +51,11 @@
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google font -->
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('select2js/select2.min.css') }}">
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/basic.css" rel="stylesheet" type="text/css" />
+
 {{-- <link href="{{ asset('css/ibiStyles.css') }}" rel="stylesheet" type="text/css" /> --}}
 <link href="{{ asset('cms/css/ibiStyles_cms.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('css/fmstyles.css') }}" rel="stylesheet" type="text/css" />
@@ -92,33 +87,7 @@
 
 </style>
 
-<script src="{{ asset('js/jquery-2.2.0.min.js') }}"></script>
-<script src="{{ asset('toastr/toastr.min.js') }}"></script>
-{{-- <script src="{{ asset('summernote/summernote.js') }}"></script> --}}
 
-
-    @if(Session::has('message'))
-        <script>
-            var type = "{{ Session::get('alert-type', 'info') }}";
-            switch(type){
-                case 'info':
-                    toastr.info("{{ Session::get('message') }}");
-                    break;
-
-                case 'warning':
-                    toastr.warning("{{ Session::get('message') }}");
-                    break;
-
-                case 'success':
-                    toastr.success("{{ Session::get('message') }}");
-                    break;
-
-                case 'error':
-                    toastr.error("{{ Session::get('message') }}");
-                    break;
-            }
-        </script>
-    @endif
 @livewireScripts
 
 </head>
