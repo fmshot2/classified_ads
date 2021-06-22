@@ -1,3 +1,4 @@
+<script src="{{ asset('js/jquery-2.2.0.min.js') }}"></script>
 
 <!-- jQuery 3 -->
 	<script src="{{asset('OurBackend/assets/vendor_components/jquery/dist/jquery.min.js')}}"></script>

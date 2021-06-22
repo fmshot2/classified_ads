@@ -1,3 +1,37 @@
+  <!-- Bootstrap css cdn -->
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<!-- End Bootstrap css cdn -->
+
+ <!--Datatable css cdn -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
+<!-- End Datatable css cdn -->
+
+
+ <!--Animate css cdn -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+ <!-- End Animate css cdn -->
+
+
+<!--Dropzone css cdn -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/basic.css" rel="stylesheet" type="text/css" />
+<!-- End Dropzone css cdn -->
+
+
+<!-- google font cdn -->
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+<!--End google font cdn -->
+
+<!--Jquery Datatable css cdn -->
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+<!-- End Jquery Datatable css cdn -->
+
+
+                            <!-- All Scripts -->
+
+
+
 
 <!-- jQuery 3 -->
 	<script src="{{asset('OurBackend/assets/vendor_components/jquery/dist/jquery.min.js')}}"></script>
@@ -13,7 +47,8 @@
 	<script src="{{asset('OurBackend/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
 
 	<!-- FastClick -->
-	<script src="{{asset('OurBackend/assets/vendor_components/fastclick/lib/fastclick.js')}}"></script>
+	
+    <script src="{{asset('OurBackend/assets/vendor_components/fastclick/lib/fastclick.js')}}"></script>
 
 	<!-- Cross Admin App -->
 	<script src="{{asset('OurBackend/js/template.js')}}"></script>

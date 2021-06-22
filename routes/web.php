@@ -497,7 +497,7 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
 
     Route::post('/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
 
-    Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
+    Route::post('/profile/buyer/update/{id}', 'AuthController@updatePassword')->name('buyer.profile.update.password');
     Route::post('/profile/update/{id}', 'AuthController@update_Password_4_Agent')->name('profile.updateAgent.password');
 
     Route::post('/profile/update/account/{id}', 'AuthController@updateAccount')->name('profile.update.account');
@@ -560,9 +560,9 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/dashboard/user/search', 'AdminController@userSearch')->name('admin.user.search');
 
 
-    Route::get('/admin/dashboard/service-providers', 'AuthController@seller')->name('admin.seller');
+    Route::get('/admin/dashboard/service-providers', 'AdminController@seller')->name('admin.seller');
     Route::get('/admin/dashboard/ending_seller', 'AdminController@ending_seller')->name('admin.ending_seller');
-    Route::get('/admin/dashboard/all-agents', 'AuthController@allagents')->name('admin.allagents');
+    Route::get('/admin/dashboard/all-agents', 'AdminController@allagents')->name('admin.allagents');
     Route::get('/admin/dashboard/all-agents-yesterday', 'AdminController@allagents_sales_yesterday')->name('admin.agents_yesterday');
     Route::get('/admin/dashboard/agents_last_week', 'AdminController@agents_last_week')->name('admin.agents_last_week');
     Route::get('/admin/dashboard/agents_last_month', 'AdminController@agents_last_month')->name('admin.agents_last_month');
@@ -575,7 +575,7 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
 
 
-    Route::get('/admin/dashboard/service-seekers', 'AuthController@buyer')->name('admin.buyer');
+    Route::get('/admin/dashboard/service-seekers', 'AdminController@buyer')->name('admin.buyer');
     Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');
     Route::get('/activate_agent/{id}', 'AdminController@activate_agent')->name('admin.activate.agent');
     Route::get('dashboard/ef-marketers', 'AdminController@all_ef_marketers')->name('admin.all_ef_marketers');
