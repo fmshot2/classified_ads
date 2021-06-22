@@ -130,7 +130,7 @@ Update Profile |
 
 
 						<div class="tab-pane" id="password">
-							<form class="form-horizontal form-element" method="POST" action="{{route('profile.update.password', Auth::id() )}}" enctype="multipart/form-data">
+							<form class="form-horizontal form-element" method="POST" action="{{route('buyer.profile.update.password', Auth::id() )}}" enctype="multipart/form-data">
 								{{ csrf_field() }}
 
 								<div class="form-group">
@@ -144,7 +144,7 @@ Update Profile |
 									<label for="inputEmail" class="col-sm-2 control-label">New Password</label>
 
 									<div class="col-sm-10">
-										<input class="form-control" name="password" type="password" required="">
+										<input class="form-control" name="new_password" type="password" required="">
 									</div>
 								</div>
 								<div class="form-group">
