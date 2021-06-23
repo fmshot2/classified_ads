@@ -1471,8 +1471,8 @@ class ServiceController extends Controller
             // $sub_check->trans_ref = $request->trans_ref;
         $initial_end_date = $sub_check->subscription_end_date;
 
-            $sub_save = 
- Auth::user()->subscriptions()->first()->update(['sub_type' => $sub_type, 
+            $sub_save =
+ Auth::user()->subscriptions()->first()->update(['sub_type' => $sub_type,
              'last_amount_paid' => $request->amount,
              'subscription_end_date' => Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s'),
              'trans_ref' => $request->tranx_ref,
@@ -1483,7 +1483,7 @@ class ServiceController extends Controller
                 return response()->json(['res_message' => 'Something went wrong', 'res_code' => 500], 500);
             }
 
-            
+
         } else {
             return response()->json(['res_message' => 'user not found', 'res_code' => 404], 200);
         }

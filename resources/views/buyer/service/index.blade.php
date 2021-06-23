@@ -60,7 +60,7 @@
 										<td> {{ $all_services->featured == 1 ? 'Yes' : 'No' }} </td>
 										<td> {{ $all_services->created_at->diffForHumans() }} </td>
 										<td class="center">
-											<a href="{{ route('serviceDetail', $all_services->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
+											<a href="{{ route('serviceDetail', $all_services->slug) }} " class="btn btn-warning" target="_blank"><i class="fa fa-eye"></i></a>
 										</td>
 									</tr>
 
