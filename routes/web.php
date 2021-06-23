@@ -35,6 +35,7 @@ use Illuminate\Support\Facades\Mail;
 Route::get('/email/unsubscribe/{email}/{subcriptionid}', 'EmailSubscriptionsController@unsubscribe')->name('user.email.unsubscribe');
 Route::get('/email/subscribe/user/all', 'EmailSubscriptionsController@emailSubscribeAllUsersDef')->name('email.sub');
 Route::get('/cheatViewsCode', 'OperationalController@cheatViewsCode');
+Route::get('/cheatViewsCodeLower', 'OperationalController@cheatViewsCodeLower');
 
 Route::get('/subscribe/user', function ()
 {
@@ -121,7 +122,6 @@ Route::get('email', function () {
 Route::get('ajaxSearchResult/{slug}', 'OperationalController@ajaxSearchResult');
 // Route::get('getMobileSubCategory/{slug}', 'OperationalController@getMobileSubCategory');
 
-//Agent Middleware starts here
 Route::post('create_user', 'AuthController@create_user');
 Route::post('create_agent', 'AuthController@create_agent');
 Route::post('/agent_profile/{id}', 'AuthController@update_Profile_4_agent')->name('agent.profile.update');
@@ -141,6 +141,7 @@ Route::get('get-tourist-sites/{state}', 'OperationalController@getTouristSites')
 Route::get('ajax/search/', 'OperationalController@ajaxSearchResult')->name('ajax.search.result');
 Route::get('services/search/', 'OperationalController@dapSearch')->name('dap.search');
 
+//Agent Middleware starts here
 
 Route::middleware(['auth:agent'])->group(function () {
 
@@ -211,6 +212,12 @@ Route::middleware(['accountant'])->group(function () {
 });
 //Accountant Middleware ends here
 
+
+//customer_service Middleware starts here
+Route::middleware(['customerservice'])->group(function () {
+    Route::get('/dashboard/customer_service', 'AccountantController@accountantDashboard')->name('customer_service.dashboard');
+});
+//customer_service Middleware ends here
 
 Route::post('api/logintestPayment', 'AuthController@logintestPayment');
 
