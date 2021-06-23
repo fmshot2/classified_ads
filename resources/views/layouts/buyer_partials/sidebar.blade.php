@@ -32,7 +32,7 @@
 
       <li class="{{ url()->current() == route('buyer.message.all') ? 'active' : '' }}">
         <a href=" {{route ('buyer.message.all') }}">
-          <i class="fa fa-briefcase"></i> <span> My Messages </span>
+          <i class="fa fa-envelope"></i> <span> My Messages </span>
             @if ($unread_message_count > 0)
                 <span class="pull-right-container">
                     <small class="label pull-right bg-danger"> {{ $unread_message_count }}  </small>
