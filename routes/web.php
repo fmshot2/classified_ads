@@ -214,6 +214,13 @@ Route::middleware(['accountant'])->group(function () {
 });
 //Accountant Middleware ends here
 
+
+//customer_service Middleware starts here
+Route::middleware(['customerservice'])->group(function () {
+    Route::get('/dashboard/customer_service', 'AccountantController@accountantDashboard')->name('customer_service.dashboard');
+});
+//customer_service Middleware ends here
+
 Route::post('api/logintestPayment', 'AuthController@logintestPayment');
 
 Route::post('advertisement/create', 'OperationalController@advertCreate')->name('advertisement.create');
