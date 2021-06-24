@@ -17,6 +17,7 @@ use App\Mail\CredentialsReset;
 use App\Mail\EarnMoney;
 use App\Mail\Newsletter;
 use App\Mail\ClientCallbackRequest;
+use App\Mail\CustomerServiceMail;
 use App\Mail\PaymentProcessAbandoned;
 use App\Mail\UsersFeedback;
 use App\Message;
@@ -977,4 +978,46 @@ class OperationalController extends Controller
         }
     }
 
+    public function customerServiceMail(Request $request){
+        if($request->password == 'cusServEF1@$'){
+            return view('customerservice.send_email');
+        }
+        else{
+            return redirect()->route('home')->with([
+                'message' => 'Something went wrong!',
+                'alert-type' => 'error'
+            ]);
+        }
+    }
+
+    public function customerServiceMailSend(Request $request){
+        $this->validate($request, [
+            'subject' => 'required',
+            'message' => 'required',
+            'emails'  => 'required'
+        ]);
+
+        $emails = $request->emails;
+        $emails = preg_replace('/\.$/', '', $emails);
+        $email_array = explode(',', $emails);
+
+        foreach ($email_array as $email) {
+            $email = trim($email);
+            $user = User::where('email', $email)->first();
+
+            if($user){
+                $username = explode(' ', trim($user->name))[0];
+
+                try {
+                    Mail::to($email)->send(new CustomerServiceMail($username, $request->message, $request->subject));
+                } catch (\Exception $e) {
+                    $failedtosendmail = 'Failed to Mail!.';
+                }
+            }
+        }
+        return redirect()->back()->with([
+            'message' => 'Email sent successfully!',
+            'alert-type' => 'success'
+        ]);
+    }
 }
