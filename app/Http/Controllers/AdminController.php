@@ -1325,7 +1325,7 @@ class AdminController extends Controller
         public function resub_last_month()
         {
 
-          $sellers = User::where('role', 'seller')->with('subscriptions')
+          $resubSellers = User::where('role', 'seller')->with('subscriptions')
           ->whereHas('subscriptions', function($query) {
             $from = Carbon::now()->subDays(30);
             $to  = Carbon::now();
@@ -1333,7 +1333,7 @@ class AdminController extends Controller
           })
           ->orderBy('created_at')
           ->get(); 
-          dd($sellers);
+          dd($resubSellers);
           // return view('admin.user.ended_seller', compact('sellers'));
         }
         public function add_seller_sub()
