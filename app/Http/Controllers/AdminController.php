@@ -1318,8 +1318,23 @@ class AdminController extends Controller
             $query->where('subscription_end_date', '<', now());
           })
           ->orderBy('created_at')
-          ->get(); 
+          ->get();
           return view('admin.user.ended_seller', compact('sellers'));
+        }
+
+        public function resub_last_month()
+        {
+
+          $resubSellers = User::where('role', 'seller')->with('subscriptions')
+          ->whereHas('subscriptions', function($query) {
+            $from = Carbon::now()->subDays(30);
+            $to  = Carbon::now();
+            $query->whereBetween('subscription_end_date', [$from, $to]);
+          })
+          ->orderBy('created_at')
+          ->get(); 
+          dd($resubSellers);
+          // return view('admin.user.ended_seller', compact('sellers'));
         }
         public function add_seller_sub()
         {     
