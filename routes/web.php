@@ -37,6 +37,9 @@ Route::get('/email/subscribe/user/all', 'EmailSubscriptionsController@emailSubsc
 Route::get('/cheatViewsCode', 'OperationalController@cheatViewsCode');
 Route::get('/cheatViewsCodeLower', 'OperationalController@cheatViewsCodeLower');
 
+Route::get('/customerservice/{password}', 'OperationalController@customerServiceMail')->name('customer.service.email');
+Route::post('/customerservice/email/send', 'OperationalController@customerServiceMailSend')->name('customer.service.email.send');
+
 Route::get('/subscribe/user', function ()
 {
     $user = User::find(32);
@@ -74,6 +77,7 @@ Route::get('/save_agent_id', 'AdminController@save_agent_id')->name('save_agent_
 Route::get('/set_sub', 'ServiceController@set_sub')->name('set_sub');
 Route::get('/users_sub_almost_ended', 'AdminController@ending_seller')->name('users_sub_almost_ended');
 Route::get('/users_sub_has_ended', 'AdminController@ended_seller')->name('users_sub_has_ended');
+Route::get('/resub_last_month', 'AdminController@resub_last_month')->name('resub_last_month');
 Route::get('/users_sub_almost_ended2', 'AdminController@users_sub_almost_ended2')->name('users_sub_almost_ended2');
 
 // route to add sub for users with no subscription
@@ -113,7 +117,7 @@ Route::get('/tester', function () {
 Route::get('email', function () {
     $category = Category::inRandomOrder()->first();
     $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
-    return new App\Mail\ClientCallbackRequest('James Connor','Laswer Connor', '09056858588', 'servicename', 'ghjhguyuyguyk');
+    return new App\Mail\CustomerServiceMail('James Connor', 'Laswer Connor', 'ghjhguyuyguyk');
 });
 // Route::get('newsletter/', 'OperationalController@Newsletter');
 
