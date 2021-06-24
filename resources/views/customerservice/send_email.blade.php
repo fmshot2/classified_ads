@@ -110,7 +110,7 @@
             .form-area{
                 background-color: #fff;
                 width: 95%;
-                top: 40%;
+                top: 70%;
                 left: 50%;
                 padding: 18px;
                 -ms-transform: translate(-50%, -50%);
