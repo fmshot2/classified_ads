@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
+Route::get('/hash', 'OperationalController@hashNewPassword')->name('hashNewPassword');
 
 // USER EMAIL UNSUBSCRIBED
 Route::get('/email/unsubscribe/{email}/{subcriptionid}', 'EmailSubscriptionsController@unsubscribe')->name('user.email.unsubscribe');
