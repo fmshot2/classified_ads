@@ -979,15 +979,7 @@ class OperationalController extends Controller
     }
 
     public function customerServiceMail(Request $request){
-        if($request->password == 'cusServEF1@$'){
-            return view('customerservice.send_email');
-        }
-        else{
-            return redirect()->route('home')->with([
-                'message' => 'Something went wrong!',
-                'alert-type' => 'error'
-            ]);
-        }
+        return view('customerservice.send_email');
     }
 
     public function customerServiceMailSend(Request $request){

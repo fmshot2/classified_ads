@@ -37,9 +37,6 @@ Route::get('/email/subscribe/user/all', 'EmailSubscriptionsController@emailSubsc
 Route::get('/cheatViewsCode', 'OperationalController@cheatViewsCode');
 Route::get('/cheatViewsCodeLower', 'OperationalController@cheatViewsCodeLower');
 
-Route::get('/customerservice/{password}', 'OperationalController@customerServiceMail')->name('customer.service.email');
-Route::post('/customerservice/email/send', 'OperationalController@customerServiceMailSend')->name('customer.service.email.send');
-
 Route::get('/subscribe/user', function ()
 {
     $user = User::find(32);
@@ -513,6 +510,9 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
 
     // User Callback
     Route::post('client/callback/request', 'OperationalController@clientCallbackRequest')->name('client.callback.request');
+
+    Route::get('/customerservice', 'OperationalController@customerServiceMail')->name('customer.service.email');
+    Route::post('/customerservice/email/send', 'OperationalController@customerServiceMailSend')->name('customer.service.email.send');
 });
 //Auth Middleware protection end here
 
