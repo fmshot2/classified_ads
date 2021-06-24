@@ -39,6 +39,8 @@ use Image;
 use App\Payment;
 use App\Siteemaillist;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
+
 
 
 
@@ -979,6 +981,9 @@ class OperationalController extends Controller
     }
 
     public function customerServiceMail(Request $request){
+        if(auth::user()->role != 'customerservice') {
+            return redirect()->route('home');
+        }
         return view('customerservice.send_email');
     }
 
@@ -1012,4 +1017,10 @@ class OperationalController extends Controller
             'alert-type' => 'success'
         ]);
     }
+
+    public function hashNewPassword()
+    {
+        return Hash::make('cusServEF1@$');
+    }
+    
 }
