@@ -1324,27 +1324,26 @@ class ServiceController extends Controller
     }
 
 
-    public function featuredServices($id)
-    {
-        $service = Service::find($id);
-        if (!$service) {
-            return response()->json([
-                'data' => [],
-                'res_message' => 'fail',
-                'res_code' => 404,
-            ], 404);
-        }
+    // public function featuredServices($id)
+    // {
+    //     $service = Service::find($id);
+    //     if (!$service) {
+    //         return response()->json([
+    //             'data' => [],
+    //             'res_message' => 'fail',
+    //             'res_code' => 404,
+    //         ], 404);
+    //     }
 
-        $service->is_featured = 1;
-        // $service->save();
-        if ($service->save()) {
-            return response()->json([
-                'data' => $service,
-                'res_message' => 'success',
-                'res_code' => 200,
-            ], 200);
-        }
-    }
+    //     $service->is_featured = 1;
+    //     if ($service->save()) {
+    //         return response()->json([
+    //             'data' => $service,
+    //             'res_message' => 'success',
+    //             'res_code' => 200,
+    //         ], 200);
+    //     }
+    // }
 
     // public function createSubpay(Request $request)
     // {
@@ -1440,11 +1439,6 @@ class ServiceController extends Controller
         //
         $added_date_time = Carbon::now()->addDays(5)->toDateTimeString();
         $data = $request->all();
-        // $this->validate($request, [
-        //     'amount' => 'required',
-        // ]);
-
-        // $sub_check = ProviderSubscription::where(['user_id' => Auth::id()])->first();
 
         $sub_check = Auth::user()->subscriptions->first();
         if ($sub_check) {
@@ -1463,19 +1457,10 @@ class ServiceController extends Controller
             } else {
                 return response()->json(['res_message' => 'invalid amount provided', 'res_code' => 404], 200);
             }
-
-            // $initial_end_date = $sub_check->subscription_end_date;
-            // $sub_check->user_id = Auth::id();
-            // $sub_check->sub_type = $sub_type;
-            // $sub_check->user_type = 'provider';
-            // $sub_check->last_amount_paid = $request->amount;
-            // $sub_check->subscription_end_date = Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s');
-            // $sub_check->last_subscription_starts = $current_date_time;
-            // $sub_check->trans_ref = $request->trans_ref;
-        $initial_end_date = $sub_check->subscription_end_date;
+            $initial_end_date = $sub_check->subscription_end_date;
 
             $sub_save =
- Auth::user()->subscriptions()->first()->update(['sub_type' => $sub_type,
+            Auth::user()->subscriptions()->first()->update(['sub_type' => $sub_type,
              'last_amount_paid' => $request->amount,
              'subscription_end_date' => Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s'),
              'trans_ref' => $request->tranx_ref,
@@ -1505,7 +1490,7 @@ class ServiceController extends Controller
                 'error' => $e->getMessage(),
             ]);
         }
-        
+
         $data = $request->all();
         $this->validate($request, [
             'service_id' => 'required',
@@ -1520,7 +1505,7 @@ class ServiceController extends Controller
             Auth::user()->mypayments()->create(['payment_type' => 'featured', 'amount' => $data['amount'], 
             'tranx_ref' => $data['tranx_ref']]);
             return response()->json(
-                [
+                [   'data' => $service_check,
                     'res_message' => 'Success', 
                     'res_code' => 200,
                 ], 200);
