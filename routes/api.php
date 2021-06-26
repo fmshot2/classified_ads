@@ -106,9 +106,11 @@ Route::group([
         // Apply For Badge
         Route::get( '/request-for-badge/{id}', [ServiceController::class, 'requestForBadge']);
         Route::post('/paid-for-badge', [ServiceController::class, 'paidForBadge']);
-
+        
         // Payment - Subscription/Featured
         Route::get('featured/{id}', [ServiceController::class, 'featuredServices']);
+        Route::get('pay_featured', [ServiceController::class, 'create_pay_featured']);
+
         Route::post('user-subscription', [ServiceController::class, 'userSubscription']);
 
         // Payment History
