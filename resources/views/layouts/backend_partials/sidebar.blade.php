@@ -273,6 +273,8 @@
           <li><a href=" {{ route('users_sub_almost_ended') }} "><i class="fa fa-circle-o"></i> Subscription About To End</a></li>
 
            <li><a href=" {{ route('users_sub_has_ended') }} "><i class="fa fa-circle-o"></i> Subscription Has Ended</a></li>
+           <li><a href=" {{ route('resub_last_month') }} "><i class="fa fa-circle-o"></i> Sub. Monthly Reports</a></li>
+
 
         </ul>
       </li>
@@ -328,6 +330,22 @@
       </li>
 
 
+      <li class="treeview"
+        style="{{ url()->current() == route('admin.agents_yesterday') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.agents_last_week') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.agents_last_month') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href="#">
+          <i class="fa fa-users"></i>
+          <span> Customer Service Reports </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+        <li><a href=" {{ route('admin.subscription.all') }} "><i class="fa fa-circle-o"></i> All Subscriptions</a></li>          
+        <li><a href=" {{ route('users_sub_almost_ended') }} "><i class="fa fa-circle-o"></i> Subscription About To End</a></li>
+        <li><a href=" {{ route('users_sub_has_ended') }} "><i class="fa fa-circle-o"></i> Subscription Has Ended</a></li>
+          <li><a href=" {{ route('resub_last_month') }} "><i class="fa fa-circle-o"></i> Sub. Monthly Reports</a></li>
+        </ul>
+      </li>
 
       <li class="treeview"
         style="{{ url()->current() == route('admin.agents_yesterday') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.agents_last_week') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.agents_last_month') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">

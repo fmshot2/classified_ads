@@ -513,6 +513,11 @@ class AdminController extends Controller
   public function allSubscription()
   {
     $all_subscriptions = Subscription::all();
+    // foreach($all_subscriptions as $all_subscription){
+    //   $all_subscriptions = $all_subscription->subscriptionable->services;
+
+    // }
+    // dd($all_subscriptions);
     return view('admin.subscription.index', compact('all_subscriptions'));
   }
 
@@ -1325,16 +1330,30 @@ class AdminController extends Controller
         public function resub_last_month()
         {
 
-          $resubSellers = User::where('role', 'seller')->with('subscriptions')
+          $sellers = User::where('role', 'seller')->with('subscriptions')
           ->whereHas('subscriptions', function($query) {
             $from = Carbon::now()->subDays(30);
             $to  = Carbon::now();
             $query->whereBetween('subscription_end_date', [$from, $to]);
           })
           ->orderBy('created_at')
-          ->get(); 
-          dd($resubSellers);
-          // return view('admin.user.ended_seller', compact('sellers'));
+          ->get();
+          // dd($sellers);
+
+
+          $Resub_sellers = User::where('role', 'seller')->with('subscriptions')
+          ->whereHas('subscriptions', function($query) {
+            $from = Carbon::now()->subDays(30);
+            $to  = Carbon::now();
+            $search = 'RESUB';
+            $query->whereBetween('updated_at', [$from, $to])
+            ->where('trans_ref', 'LIKE', '%'.$search.'%');
+          })
+          ->orderBy('created_at')
+          ->get();
+
+
+          return view('admin.user.resub_last_month', compact('sellers', 'Resub_sellers'));
         }
         public function add_seller_sub()
         {     
