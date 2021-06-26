@@ -1494,7 +1494,6 @@ class ServiceController extends Controller
         $data = $request->all();
         $this->validate($request, [
             'service_id' => 'required',
-            'amount' => 'required',
             'tranx_ref' => 'required'
         ]);
         if ($service_check = Service::where(['id' => $data['service_id']])->first()) {
