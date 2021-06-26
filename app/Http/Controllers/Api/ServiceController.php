@@ -1498,6 +1498,14 @@ class ServiceController extends Controller
 
     public function create_pay_featured(Request $request)
     {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+        
         $data = $request->all();
         $this->validate($request, [
             'service_id' => 'required',
