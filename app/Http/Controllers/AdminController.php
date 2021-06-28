@@ -1209,14 +1209,14 @@ class AdminController extends Controller
 
         public function allusers_sales_yesterday()
         {
-          $agents = User::all();
-          $users = Referal::where('referalable_type', 'App\Agent')->get();
-          foreach ($agents as $key => $serv) {
+          $users = User::all();
+          // $users = Referal::where('referalable_type', 'App\Agent')->get();
+          foreach ($users as $key => $user) {
             // $agents[$key]->total_refers = $serv->total_refers;
-            $agents[$key]->total_refers_count = $serv->total_refers->count();
+            $users[$key]->total_yesterday_count = $user->total_yesterday->count();
           }
           $approval_status = null;
-          return view('admin.user.all_users_yesterday', compact('agents', 'approval_status'));
+          return view('admin.user.all_users_yesterday', compact('users', 'approval_status'));
         }
 
         public function users_last_week()
@@ -1232,7 +1232,6 @@ class AdminController extends Controller
           return view('admin.user.all_users_week', compact('agents', 'approval_status'));
         }
 
-
         public function users_last_month()
         {
           $agents = User::all();
@@ -1247,6 +1246,39 @@ class AdminController extends Controller
           return view('admin.user.all_users_month', compact('agents', 'approval_status'));
         }
 
+        public function all_ef_marketers_sales_yesterday()
+        {
+          $users = User::all();
+          foreach ($users as $key => $user) {
+            $users[$key]->total_yesterday_count = $user->total_yesterday->count();
+          }
+          $approval_status = null;
+          return view('admin.user.all_users_yesterday', compact('agents', 'approval_status'));
+        }
+
+        public function all_ef_marketers_last_week()
+        {
+          $agents = User::all();
+          $users = Referal::where('referalable_type', 'App\Agent')->get();
+
+          foreach ($agents as $key => $serv) {
+            $agents[$key]->total_week_count = $serv->total_week->count();
+          }
+          $approval_status = null;
+          return view('admin.user.all_users_week', compact('agents', 'approval_status'));
+        }
+
+        public function all_ef_marketers_last_month()
+        {
+          $agents = User::all();
+          $users = Referal::where('referalable_type', 'App\Agent')->get();
+
+          foreach ($agents as $key => $serv) {
+            $agents[$key]->total_month_count = $serv->total_month->count();
+          }
+          $approval_status = null;
+          return view('admin.user.all_users_month', compact('agents', 'approval_status'));
+        }
 
         // public function users_sub_almost_ended2()
         // {
