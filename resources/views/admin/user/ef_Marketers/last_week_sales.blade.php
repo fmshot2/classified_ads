@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'All Users Last Week Sales | ')
+@section('title', 'EF-Marketers Last Week Sales| ')
 
 @section('content')
 
@@ -29,8 +29,8 @@
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Users last Week Sales</h3>
-                        <p>List of all last week's registrations by EFContact use</p>
+						<h3 class="box-title"> EF-Marketers Last Week Sales</h3>
+                        <p>List of all last week's registrations for each EF-Marketer on this platform</p>
 					</div>
 
 					<!-- /.box-header -->
@@ -46,7 +46,7 @@
                                         <th> Email </th>
                                         <th> Status </th>
                                         <th> Amount Earned </th>
-                                        <th> This Week's Total </th>
+                                        <th> Last Week's Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,8 +63,8 @@
                                                         <span id="active_text2">Deactivated</span>
                                                     @endif
                                                 </td>
-                                                <td>{{ $user->refererAmount ?? 0 }} </td>
-                                                <td>{{ $user->total_week_count ?? 0 }} </td>
+                                                <td>{{ $user->refererAmount ? $user->refererAmount : 0 }} </td>
+                                                <td>{{ $user->total_month_count ? $user->total_month_count : 0 }} </td>
                                             </tr>
 
                                         @endforeach

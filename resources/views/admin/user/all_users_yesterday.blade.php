@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'Users Yesterday Results | ')
+@section('title', 'All Users Yesterday Sales | ')
 
 @section('content')
 
@@ -29,8 +29,8 @@
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Users Table</h3>
-                        <p>List of all yesteday's registrations for each User on this platform</p>
+						<h3 class="box-title">All Users Yesterday Sales</h3>
+                        <p>List of all yesterday's registrations for each User on this platform</p>
 					</div>
 
 					<!-- /.box-header -->
