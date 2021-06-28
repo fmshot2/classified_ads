@@ -18,7 +18,7 @@ class SliderResource extends JsonResource
             'id'             => $this->id,
             'title'          => $this->title,
             'details'        => $this->details,
-            'links'          => $this->website_link == null ? '' : $this->website_link,
+            'website_link'          => $this->website_link == null ? '' : $this->website_link,
             'buttonlocation' => $this->buttonlocation,
             'buttontext'     => $this->buttontext,
             'image'          => route('home') . '/uploads/sliders/' . $this->image
