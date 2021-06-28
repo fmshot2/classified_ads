@@ -961,7 +961,6 @@ class OperationalController extends Controller
             for ($i=1; $i < $value; $i++) {
                 views($service)->record();
             }
-
         }
         return 'Done!';
     }
@@ -976,6 +975,20 @@ class OperationalController extends Controller
                 for ($i=1; $i < $value; $i++) {
                     views($service)->record();
                 }
+            }
+        }
+
+        return 'All Done, Views updated successfully!';
+    }
+
+    public function cheatViewsCodeDaily()
+    {
+        $services = Service::all();
+
+        foreach ($services as $key => $service) {
+            $value = rand(4, 10);
+            for ($i=1; $i < $value; $i++) {
+                views($service)->record();
             }
         }
 

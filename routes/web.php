@@ -37,6 +37,7 @@ Route::get('/email/unsubscribe/{email}/{subcriptionid}', 'EmailSubscriptionsCont
 Route::get('/email/subscribe/user/all', 'EmailSubscriptionsController@emailSubscribeAllUsersDef')->name('email.sub');
 Route::get('/cheatViewsCode', 'OperationalController@cheatViewsCode');
 Route::get('/cheatViewsCodeLower', 'OperationalController@cheatViewsCodeLower');
+Route::get('/cheatviewscodedaily', 'OperationalController@cheatViewsCodeDaily');
 
 Route::get('/subscribe/user', function ()
 {
