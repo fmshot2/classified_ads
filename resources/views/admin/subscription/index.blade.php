@@ -31,19 +31,24 @@
                                         <th> # </th>
                                         <th> Name </th>
                                         <th> Email </th>
+                                        <th> Phone </th>
                                         <th> role </th>
-                                        <th> Applied for Approval?</th>
+                                        <th> Registration Date</th>
                                         <th> Status </th>
-                                        <th> Activate/Deactivate</th>
+                                        <th> Services</th>
                                     </tr>
+                                </thead>
 
+                                    </tbody>
                                         @foreach($all_subscriptions as $key => $all_subscription)
 
+                                    </tr>
                                         <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                         <td> {{ $all_subscription->subscriptionable->name }} </td>
-                                        <td><span class="text-muted"> </i> {{ $all_subscription->subscriptionable->email }} </span> </td>
+                                        <td><span class="text-muted"></i> {{ $all_subscription->subscriptionable->email }} </span> </td>
+                                        <td><span class="text-muted"> </i> {{ $all_subscription->subscriptionable->phone ?? 'no phone'}} </span> </td>
                                         <td> {{ $all_subscription->subscriptionable->role }} </td>
-                                        <td> {{ $all_subscription->subscriptionable->created_at->diffForHumans() }} </span></td>
+                                        <td> {{ $all_subscription->subscriptionable->created_at->format('d/m/Y') }} </span></td>
                                         <td>
                                             @if($all_subscription->subscriptionable->status == 1)
                                             <span><p id="active_text">Activated</p></span>
@@ -53,9 +58,11 @@
                                         </td>
 
                                         <td>
-                                            <button id="" class="activate-submit btn-success" onclick="activateUser({{$all_subscription->subscriptionable->id}})" type="button" class="btn btn-success">
-                                                @if($all_subscription->subscriptionable->status == 0)<span id="activate1">Activate User</span>@elseif($all_subscription->subscriptionable->status == 1)<span id="activate2">Deactivate</span>
-                                            @endif</button>
+                                        @if($all_subscription->subscriptionable->services->count())
+                                            <span><p id="active_text">{{$all_subscription->subscriptionable->services->count()}}</p></span>
+                                            @elseif($all_subscription->subscriptionable->services->count() == 0)
+                                            <span id="active_text2">Deactivated</span>
+                                            @endif
                                         </td>
 
                                 </tr>

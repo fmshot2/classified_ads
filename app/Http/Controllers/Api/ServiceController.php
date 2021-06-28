@@ -1324,97 +1324,94 @@ class ServiceController extends Controller
     }
 
 
-    public function featuredServices($id)
-    {
-        $service = Service::find($id);
-        if (!$service) {
-            return response()->json([
-                'data' => [],
-                'res_message' => 'fail',
-                'res_code' => 404,
-            ], 404);
-        }
+    // public function featuredServices($id)
+    // {
+    //     $service = Service::find($id);
+    //     if (!$service) {
+    //         return response()->json([
+    //             'data' => [],
+    //             'res_message' => 'fail',
+    //             'res_code' => 404,
+    //         ], 404);
+    //     }
 
-        $service->is_featured = 1;
-        // $service->save();
-        if ($service->save()) {
-            return response()->json([
-                'data' => $service,
-                'res_message' => 'success',
-                'res_code' => 200,
-            ], 200);
-        }
-    }
+    //     $service->is_featured = 1;
+    //     if ($service->save()) {
+    //         return response()->json([
+    //             'data' => $service,
+    //             'res_message' => 'success',
+    //             'res_code' => 200,
+    //         ], 200);
+    //     }
+    // }
 
-
-
-
-    public function createSubpay(Request $request)
-    {
-        try {
-            $user = auth()->user();
-        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json([
-                'error' => $e->getMessage(),
-            ]);
-        }
+    // public function createSubpay(Request $request)
+    // {
+    //     try {
+    //         $user = auth()->user();
+    //     } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+    //         return response()->json([
+    //             'error' => $e->getMessage(),
+    //         ]);
+    //     }
 
 
-        $added_days = 0;
-        $mytime = Carbon::now();
+    //     $added_days = 0;
+    //     $mytime = Carbon::now();
 
-        $current_date_time = Carbon::now()->toDateTimeString();
-        $added_date_time = Carbon::now()->addDays(5)->toDateTimeString();
+    //     $current_date_time = Carbon::now()->toDateTimeString();
+    //     $added_date_time = Carbon::now()->addDays(5)->toDateTimeString();
 
-        $data = $request->all();
-        $this->validate($request, [
-            'amount' => 'required',
-            'email' => 'required',
-        ]);
+    //     $data = $request->all();
+    //     $this->validate($request, [
+    //         'amount' => 'required',
+    //         'email' => 'required',
+    //     ]);
 
-        if ($data['amount'] == '200') {
-            $added_days = 31;
-            $sub_type = 'monthly';
-        }
-        if ($data['amount'] == '600') {
-            $added_days = 93;
-            $sub_type = '3-months';
-        }
-        if ($data['amount'] == '1200') {
-            $added_days = 186;
-            $sub_type = 'bi-annual';
-        }
-        if ($data['amount'] == '2400') {
-            $added_days = 372;
-            $sub_type = 'annual';
-        }
+    //     if ($data['amount'] == '200') {
+    //         $added_days = 31;
+    //         $sub_type = 'monthly';
+    //     }
+    //     if ($data['amount'] == '600') {
+    //         $added_days = 93;
+    //         $sub_type = '3-months';
+    //     }
+    //     if ($data['amount'] == '1200') {
+    //         $added_days = 186;
+    //         $sub_type = 'bi-annual';
+    //     }
+    //     if ($data['amount'] == '2400') {
+    //         $added_days = 372;
+    //         $sub_type = 'annual';
+    //     }
 
-        $sub_check = Auth::user()->subscriptions->first();
+    //     $sub_check = Auth::user()->subscriptions->first();
 
-        $initial_end_date = $sub_check->subscription_end_date;
+    //     $initial_end_date = $sub_check->subscription_end_date;
 
-        $sub_check->sub_type = $sub_type;
-        $sub_check->last_amount_paid = $data['amount'];
-        $sub_check->subscription_end_date = Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s');
-        $sub_check->email = Auth::user()->email;
-        $sub_check->save();
+    //     $sub_check->sub_type = $sub_type;
+    //     $sub_check->last_amount_paid = $data['amount'];
+    //     $sub_check->subscription_end_date = Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s');
+    //     $sub_check->email = Auth::user()->email;
+    //     $sub_check->save();
 
-        $userServices = Service::where('user_id', Auth::id())->get();
-        if ($userServices) {
-            foreach ($userServices as $userService) {
-                $userService->subscription_end_date = $sub_check->subscription_end_date;
-            }
-            $userService->save();
-        }
+    //     $userServices = Service::where('user_id', Auth::id())->get();
+    //     if ($userServices) {
+    //         foreach ($userServices as $userService) {
+    //             $userService->subscription_end_date = $sub_check->subscription_end_date;
+    //         }
+    //         $userService->save();
+    //     }
 
-        $sub_check->subscription_end_date = Carbon::parse($sub_check->subscription_end_date)->toDayDateTimeString();
+    //     $sub_check->subscription_end_date = Carbon::parse($sub_check->subscription_end_date)->toDayDateTimeString();
 
-        $reg_payments = new Payment();
-        Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no']]);
+    //     $reg_payments = new Payment();
+    //     Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no']]);
 
 
-        return response()->json(['success' => 'Your Subscription payment was successfull', 'new_date' => $sub_check->subscription_end_date], 200);
-    }
+    //     return response()->json(['success' => 'Your Subscription payment was successfull', 
+    //     'new_date' => $sub_check->subscription_end_date], 200);
+    // }
 
     public function userSubscription(Request $request)
     {
@@ -1438,16 +1435,10 @@ class ServiceController extends Controller
         $added_days = 0;
         $mytime = Carbon::now();
 
-        // Produces something like "2019-03-11 12:25:00"
         $current_date_time = Carbon::now()->toDateTimeString();
         //
         $added_date_time = Carbon::now()->addDays(5)->toDateTimeString();
         $data = $request->all();
-        // $this->validate($request, [
-        //     'amount' => 'required',
-        // ]);
-
-        // $sub_check = ProviderSubscription::where(['user_id' => Auth::id()])->first();
 
         $sub_check = Auth::user()->subscriptions->first();
         if ($sub_check) {
@@ -1466,25 +1457,19 @@ class ServiceController extends Controller
             } else {
                 return response()->json(['res_message' => 'invalid amount provided', 'res_code' => 404], 200);
             }
-
-            // $initial_end_date = $sub_check->subscription_end_date;
-            // $sub_check->user_id = Auth::id();
-            // $sub_check->sub_type = $sub_type;
-            // $sub_check->user_type = 'provider';
-            // $sub_check->last_amount_paid = $request->amount;
-            // $sub_check->subscription_end_date = Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s');
-            // $sub_check->last_subscription_starts = $current_date_time;
-            // $sub_check->trans_ref = $request->trans_ref;
-        $initial_end_date = $sub_check->subscription_end_date;
+            $initial_end_date = $sub_check->subscription_end_date;
 
             $sub_save =
- Auth::user()->subscriptions()->first()->update(['sub_type' => $sub_type,
+            Auth::user()->subscriptions()->first()->update(['sub_type' => $sub_type,
              'last_amount_paid' => $request->amount,
              'subscription_end_date' => Carbon::parse($initial_end_date)->addDays($added_days)->format('Y-m-d H:i:s'),
              'trans_ref' => $request->tranx_ref,
              'email' => Auth::user()->email ]);
             if($sub_save) {
-                return response()->json(['res_message' => 'Success', 'res_code' => 200, 'sub_save' => $sub_save], 200);
+                return response()->json([
+                    'res_message' => 'Success', 
+                    'res_code' => 200, 
+                    'sub_save' => $sub_save], 200);
             } else {
                 return response()->json(['res_message' => 'Something went wrong', 'res_code' => 500], 500);
             }
@@ -1493,6 +1478,39 @@ class ServiceController extends Controller
         } else {
             return response()->json(['res_message' => 'user not found', 'res_code' => 404], 200);
         }
+    }
+
+
+    public function create_pay_featured(Request $request)
+    {
+        try {
+            $user = auth()->user();
+        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $data = $request->all();
+        $this->validate($request, [
+            'service_id' => 'required',
+            'amount' => 'required',
+            'tranx_ref' => 'required'
+        ]);
+        if ($service_check = Service::where(['id' => $data['service_id']])->first()) {
+            $service_check->is_featured = 1;
+            $service_check->paid_featured = 1;
+            $service_check->featured_end_date = Carbon::now()->addDays(31);
+            $service_check->save();
+            Auth::user()->mypayments()->create(['payment_type' => 'featured', 'amount' => $data['amount'], 
+            'tranx_ref' => $data['tranx_ref']]);
+            return response()->json(
+                [   'data' => $service_check,
+                    'res_message' => 'Success', 
+                    'res_code' => 200,
+                ], 200);
+        }
+        return response()->json(['failed' => 'Service not available'], 200);
     }
 
 
