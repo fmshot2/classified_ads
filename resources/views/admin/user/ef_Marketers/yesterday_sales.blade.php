@@ -1,7 +1,6 @@
-
 @extends('layouts.admin')
 
-@section('title', 'All Users Last Week Sales | ')
+@section('title', 'EF-Marketers Yesterday Results | ')
 
 @section('content')
 
@@ -29,8 +28,8 @@
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Users last Week Sales</h3>
-                        <p>List of all last week's registrations by EFContact use</p>
+						<h3 class="box-title"> EF-Marketers Yesterday Sales</h3>
+                        <p>List of all yesteday's registrations for each EF-Marketer on this platform</p>
 					</div>
 
 					<!-- /.box-header -->
@@ -40,13 +39,12 @@
                                 <thead>
                                     <tr>
                                         <th> # </th>
-                                        <!-- <th> Agent name </th> -->
-
-                                        <th> Referer Name </th>
+                                        <th> Name </th>
                                         <th> Email </th>
                                         <th> Status </th>
                                         <th> Amount Earned </th>
-                                        <th> This Week's Total </th>
+                                        <th> Yesterday's Total </th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,7 +52,7 @@
                                         @foreach($users as $key => $user)
                                             <tr>
                                                 <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                                                <td><span class="text-muted"> </i> {{ $user->name }} </span> </td>
+                                                <td> {{ $user->name }} </td>
                                                 <td><span class="text-muted"> </i> {{ $user->email }} </span> </td>
                                                 <td>
                                                     @if($user->status == 1)
@@ -64,7 +62,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $user->refererAmount ?? 0 }} </td>
-                                                <td>{{ $user->total_week_count ?? 0 }} </td>
+                                                <td>{{ $user->total_yesterday_count ?? 0 }} </td>
                                             </tr>
 
                                         @endforeach

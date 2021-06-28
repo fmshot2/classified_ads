@@ -74,10 +74,6 @@ Route::get('/addSlug4Agents', 'AuthController@addSlug4Agents')->name('addSlug4Ag
 
 Route::get('/save_agent_id', 'AdminController@save_agent_id')->name('save_agent_id');
 Route::get('/set_sub', 'ServiceController@set_sub')->name('set_sub');
-Route::get('/users_sub_almost_ended', 'AdminController@ending_seller')->name('users_sub_almost_ended');
-Route::get('/users_sub_has_ended', 'AdminController@ended_seller')->name('users_sub_has_ended');
-Route::get('/resub_last_month', 'AdminController@resub_last_month')->name('resub_last_month');
-Route::get('/users_sub_almost_ended2', 'AdminController@users_sub_almost_ended2')->name('users_sub_almost_ended2');
 
 // route to add sub for users with no subscription
 Route::get('/add_seller_sub', 'AdminController@add_seller_sub')->name('add_seller_sub');
@@ -218,7 +214,10 @@ Route::middleware(['accountant'])->group(function () {
 
 //customer_service Middleware starts here
 Route::middleware(['customerservice'])->group(function () {
-    Route::get('/dashboard/customer_service', 'AccountantController@accountantDashboard')->name('customer_service.dashboard');
+    Route::get('/admin/dashboard/subscription/all', 'AdminController@allSubscription')->name('admin.subscription.all');
+    Route::get('/users_sub_almost_ended', 'AdminController@ending_seller')->name('users_sub_almost_ended');
+    Route::get('/users_sub_has_ended', 'AdminController@ended_seller')->name('users_sub_has_ended');
+    Route::get('/resub_last_month', 'AdminController@resub_last_month')->name('resub_last_month');
 });
 //customer_service Middleware ends here
 
@@ -566,6 +565,11 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
     Route::get('/admin/dashboard/subscription/all', 'AdminController@allSubscription')->name('admin.subscription.all');
 
+    Route::get('/users_sub_almost_ended', 'AdminController@ending_seller')->name('users_sub_almost_ended');
+    Route::get('/users_sub_has_ended', 'AdminController@ended_seller')->name('users_sub_has_ended');
+    Route::get('/resub_last_month', 'AdminController@resub_last_month')->name('resub_last_month');
+    Route::get('/users_sub_almost_ended2', 'AdminController@users_sub_almost_ended2')->name('users_sub_almost_ended2');
+
 
 
     Route::get('/admin/dashboard/service/search', 'AdminController@serviceSearch')->name('admin.service.search');
@@ -584,7 +588,9 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/dashboard/users_last_week', 'AdminController@users_last_week')->name('admin.users_last_week');
     Route::get('/admin/dashboard/users_last_month', 'AdminController@users_last_month')->name('admin.users_last_month');
 
-
+    Route::get('/admin/dashboard/ef_marketers_yesterday', 'AdminController@ef_marketers_yesterday')->name('admin.ef_marketers_yesterday_sales');
+    Route::get('/admin/dashboard/ef_marketers_last_week', 'AdminController@ef_marketers_last_week')->name('admin.ef_marketers_last_week_sales');
+    Route::get('/admin/dashboard/ef_marketers_last_month', 'AdminController@ef_marketers_last_month')->name('admin.ef_marketers_last_month_sales');
 
 
     Route::get('/admin/dashboard/service-seekers', 'AdminController@buyer')->name('admin.buyer');
