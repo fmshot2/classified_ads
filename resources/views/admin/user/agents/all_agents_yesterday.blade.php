@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'All Agents | ')
+@section('title', 'All Agents Yesterday Sales | ')
 
 @section('content')
 
@@ -29,7 +29,7 @@
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Agents Table</h3>
+						<h3 class="box-title"> Agents Yesterday Sales</h3>
                         <p>List of all yesterday's registrations by EFContact agents</p>
 					</div>
 
@@ -47,7 +47,7 @@
                                         <th> Applied for Approval?</th>
                                         <th> Status </th>
                                         <th> Amount Earned </th>
-                                        <th> This Month's Total</th>
+                                        <th> Yesterday's Total </th>
 
                                     </tr>
                                 </thead>
@@ -66,7 +66,7 @@
                                                 @endif
                                             </td>
                                             <td>{{ $agent->refererAmount ? $agent->refererAmount : 0 }} </td>
-                                            <td>{{ $agent->total_month_count ? $agent->total_month_count : 0 }} </td>
+                                            <td>{{ $agent->total_refers_count ? $agent->total_refers_count : 0 }} </td>
                                         </tr>
 
                                     @endforeach

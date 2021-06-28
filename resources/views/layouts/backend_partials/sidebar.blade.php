@@ -331,7 +331,11 @@
 
 
       <li class="treeview"
-        style="{{ url()->current() == route('admin.agents_yesterday') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.agents_last_week') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.agents_last_month') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        style="{{ url()->current() == route('admin.subscription.all') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}
+        {{ url()->current() == route('users_sub_almost_ended') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}
+        {{ url()->current() == route('users_sub_has_ended') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}
+        {{ url()->current() == route('resub_last_month') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}
+">
         <a href="#">
           <i class="fa fa-users"></i>
           <span> Customer Service Reports </span>
@@ -347,7 +351,85 @@
         </ul>
       </li>
 
+      
       <li class="treeview"
+      style="{{ url()->current() == route('admin.users_yesterday') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} 
+      {{ url()->current() == route('admin.users_last_week') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} 
+      {{ url()->current() == route('admin.users_last_month') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}     
+      {{ url()->current() == route('admin.agents_yesterday') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} 
+      {{ url()->current() == route('admin.agents_last_week') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} 
+      {{ url()->current() == route('admin.agents_last_month') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}
+      {{ url()->current() == route('admin.ef_marketers_yesterday_sales') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} 
+      {{ url()->current() == route('admin.ef_marketers_last_week_sales') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} 
+      {{ url()->current() == route('admin.ef_marketers_last_month_sales') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href="#">
+          <i class="fa fa-users"></i>
+          <span> Sales Reports </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+        <li class="treeview">
+        <a href="#">
+          <i class="fa fa-users"></i>
+          <span> Agent Reports </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href=" {{ route('admin.agents_yesterday') }} "><i class="fa fa-circle-o"></i> Yesterday </a></li>
+          <li><a href=" {{ route('admin.agents_last_week') }} "><i class="fa fa-circle-o"></i> One Week  </a></li>
+          <li><a href=" {{ route('admin.agents_last_month') }} "><i class="fa fa-circle-o"></i> One Month </a></li>
+        </ul>
+      </li>
+
+
+      <li class="treeview"
+      style="{{ url()->current() == route('admin.users_yesterday') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} 
+      {{ url()->current() == route('admin.users_last_week') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} 
+      {{ url()->current() == route('admin.users_last_month') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href="#">
+          <i class="fa fa-users"></i>
+          <span> Users Reports </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href=" {{ route('admin.users_yesterday') }} "><i class="fa fa-circle-o"></i> Yesterday </a></li>
+          <li><a href=" {{ route('admin.users_last_week') }} "><i class="fa fa-circle-o"></i> One Week  </a></li>
+          <li><a href=" {{ route('admin.users_last_month') }} "><i class="fa fa-circle-o"></i> One Month </a></li>
+        </ul>
+      </li>
+
+
+      <li class="treeview"
+        style="{{ url()->current() == route('admin.ef_marketers_yesterday_sales') ?
+         'background-color: #cc8a19; color: #ffffff !important;' : '' }} 
+         {{ url()->current() == route('admin.ef_marketers_last_week_sales') ? 
+         'background-color: #cc8a19; color: #ffffff !important;' : '' }} 
+         {{ url()->current() == route('admin.ef_marketers_last_month_sales') ? 
+         'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href="#">
+          <i class="fa fa-users"></i>
+          <span> EF Marketers Reports </span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href=" {{ route('admin.ef_marketers_yesterday_sales') }} "><i class="fa fa-circle-o"></i> Yesterday </a></li>
+          <li><a href=" {{ route('admin.ef_marketers_last_week_sales') }} "><i class="fa fa-circle-o"></i> One Week  </a></li>
+          <li><a href=" {{ route('admin.ef_marketers_last_month_sales') }} "><i class="fa fa-circle-o"></i> One Month </a></li>
+        </ul>
+      </li>
+
+      </ul>
+      </li>
+
+      <!-- <li class="treeview"
         style="{{ url()->current() == route('admin.agents_yesterday') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.agents_last_week') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.agents_last_month') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
         <a href="#">
           <i class="fa fa-users"></i>
@@ -377,7 +459,7 @@
           <li><a href=" {{ route('admin.users_last_week') }} "><i class="fa fa-circle-o"></i> One Week  </a></li>
           <li><a href=" {{ route('admin.users_last_month') }} "><i class="fa fa-circle-o"></i> One Month </a></li>
         </ul>
-      </li>
+      </li> -->
 
       <li class="treeview" style="{{ url()->current() == route('admin.all.data') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} {{ url()->current() == route('admin.add.data') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }} ">
         <a href="#">

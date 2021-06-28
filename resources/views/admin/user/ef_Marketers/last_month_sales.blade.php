@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'All Agents | ')
+@section('title', 'EF-Marketers' Last Month Sales | ')
 
 @section('content')
 
@@ -29,8 +29,8 @@
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Agents Table</h3>
-                        <p>List of all yesterday's registrations by EFContact agents</p>
+						<h3 class="box-title"> EF-Marketers' Last Month Sales Table</h3>
+                        <p>List of all Last Month Sales EFContact Marketers</p>
 					</div>
 
 					<!-- /.box-header -->
@@ -44,37 +44,35 @@
 
                                         <th> Referer Name </th>
                                         <th> Email </th>
-                                        <th> Applied for Approval?</th>
                                         <th> Status </th>
                                         <th> Amount Earned </th>
-                                        <th> Yesterday's Total </th>
-
+                                        <th> This Month's Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($agents as $key => $agent)
-                                        <tr>
-                                            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                                            <td><span class="text-muted"> </i> {{ $agent->name }} </span> </td>
-                                            <td><span class="text-muted"> </i> {{ $agent->email }} </span> </td>
-                                            <td> {{ $agent->created_at->format('d/m/Y') }} </span></td>
-                                            <td>
-                                                @if($agent->status == 1)
-                                                    <span><p id="active_text">Activated</p></span>
-                                                @elseif($agent->status == 0)
-                                                    <span id="active_text2">Deactivated</span>
-                                                @endif
-                                            </td>
-                                            <td>{{ $agent->refererAmount ? $agent->refererAmount : 0 }} </td>
-                                            <td>{{ $agent->total_refers_count ? $agent->total_refers_count : 0 }} </td>
-                                        </tr>
 
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                        @foreach($users as $key => $user)
+                                            <tr>
+                                                <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                                                <td><span class="text-muted"> </i> {{ $user->name }} </span> </td>
+                                                <td><span class="text-muted"> </i> {{ $user->email }} </span> </td>
+                                                <td>
+                                                    @if($user->status == 1)
+                                                        <span><p id="active_text">Activated</p></span>
+                                                    @elseif($user->status == 0)
+                                                        <span id="active_text2">Deactivated</span>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $agent->refererAmount ?? 0 }} </td>
+                                                <td>{{ $agent->total_month_count ?? 0 }} </td>
+                                            </tr>
+
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-				</div>
+				    </div>
 				<!-- /.box-body -->
 			</div>
 
