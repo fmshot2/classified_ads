@@ -978,6 +978,8 @@ class OperationalController extends Controller
                 }
             }
         }
+
+        return 'All Done, Views updated successfully!';
     }
 
     public function customerServiceMail(Request $request){
@@ -1022,5 +1024,5 @@ class OperationalController extends Controller
     {
         return Hash::make('cusServEF1@$');
     }
-    
+
 }
