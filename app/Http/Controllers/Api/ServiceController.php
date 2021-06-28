@@ -336,15 +336,15 @@ class ServiceController extends Controller
             ]);
         }
         // return ServiceResource::collection(Service::paginate(5));
-        // return (new ServiceResourceCollection(Service::where('user_id', $user->id)->paginate(9)))
-        //     ->response()
-        //     ->setStatusCode(200);
+        return (new ServiceResourceCollection(Service::where('user_id', $user->id)->get()))
+            ->response()
+            ->setStatusCode(200);
 
-        $myservices = Service::where('user_id', $user->id)->paginate(9);
+        // $myservices = Service::where('user_id', $user->id)->get();
 
-        return response()->json([
-            $myservices
-        ]);
+        // return response()->json([
+        //     ServiceResource::collection(Service::paginate(5));
+        // ]);
     }
 
 
