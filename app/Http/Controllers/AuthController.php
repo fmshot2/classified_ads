@@ -753,7 +753,14 @@ class AuthController extends Controller
                     'alert-type' => 'success'
                 );
                 return redirect()->route('cmo.dashboard')->with($success_notification);
-            }  else if (Auth::user()->role == 'data') {
+            }  elseif (Auth::user()->role == 'customerservice') {
+                $success_notification = array(
+                    'message' => 'You are successfully logged in!',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('customer_service.dashboard')->with($success_notification);
+            }
+            else if (Auth::user()->role == 'data') {
                 $success_notification = array(
                     'message' => 'You are successfully logged in!',
                     'alert-type' => 'success'

@@ -214,10 +214,16 @@ Route::middleware(['accountant'])->group(function () {
 
 //customer_service Middleware starts here
 Route::middleware(['customerservice'])->group(function () {
-    Route::get('/admin/dashboard/subscription/all', 'AdminController@allSubscription')->name('admin.subscription.all');
-    Route::get('/users_sub_almost_ended', 'AdminController@ending_seller')->name('users_sub_almost_ended');
-    Route::get('/users_sub_has_ended', 'AdminController@ended_seller')->name('users_sub_has_ended');
-    Route::get('/resub_last_month', 'AdminController@resub_last_month')->name('resub_last_month');
+    Route::get('send-email', 'AdminController@send_email')->name('data.send_email');
+    Route::get('create-sms', 'AdminController@sendSms')->name('data.send_sms');
+
+    Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
+    Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
+    // Route::get('/dashboard/customer_service', 'customerServiceController@customerServiceDashboard')->name('customerServiceDashboard.subscription.all');
+    Route::get('/dashboard/customer_service', 'AdminController@allSubscription')->name('customer_service.dashboard');
+    Route::get('/user_sub_almost_ended', 'AdminController@ending_seller')->name('user_sub_almost_ended');
+    Route::get('/user_sub_has_ended', 'AdminController@ended_seller')->name('user_sub_has_ended');
+    Route::get('/resubs_last_month', 'AdminController@resub_last_month')->name('resubs_last_month');
 });
 //customer_service Middleware ends here
 
