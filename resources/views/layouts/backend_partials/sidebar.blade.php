@@ -568,7 +568,7 @@
 @elseif(Auth::user()->role == 'customerservice')
 
 <li class="treeview"
-        style="{{ url()->current() == route('admin.subscription.all') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}
+        style="{{ url()->current() == route('customer_service.dashboard') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}
         {{ url()->current() == route('users_sub_almost_ended') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}
         {{ url()->current() == route('users_sub_has_ended') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}
         {{ url()->current() == route('resub_last_month') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}
@@ -581,7 +581,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
-        <li><a href=" {{ route('subscription.all') }} "><i class="fa fa-circle-o"></i> All Subscriptions</a></li>          
+        <li><a href=" {{ route('customer_service.dashboard') }} "><i class="fa fa-circle-o"></i> All Subscriptions</a></li>          
         <li><a href=" {{ route('user_sub_almost_ended') }} "><i class="fa fa-circle-o"></i> Subscription About To End</a></li>
         <li><a href=" {{ route('user_sub_has_ended') }} "><i class="fa fa-circle-o"></i> Subscription Has Ended</a></li>
           <li><a href=" {{ route('resubs_last_month') }} "><i class="fa fa-circle-o"></i> Sub. Monthly Reports</a></li>

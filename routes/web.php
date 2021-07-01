@@ -219,11 +219,12 @@ Route::middleware(['customerservice'])->group(function () {
 
     Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
     Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
-    // Route::get('/dashboard/customer_service', 'customerServiceController@customerServiceDashboard')->name('customerServiceDashboard.subscription.all');
-    Route::get('/dashboard/customer_service', 'AdminController@allSubscription')->name('customer_service.dashboard');
-    Route::get('/user_sub_almost_ended', 'AdminController@ending_seller')->name('user_sub_almost_ended');
-    Route::get('/user_sub_has_ended', 'AdminController@ended_seller')->name('user_sub_has_ended');
+    Route::get('/dashboard/customer_service', 'customerServiceController@allSubscription')->name('customer_service.dashboard');
+    Route::get('/user_sub_almost_ended', 'customerServiceController@ending_seller')->name('user_sub_almost_ended');
+    Route::get('/user_sub_has_ended', 'customerServiceController@ended_seller')->name('user_sub_has_ended');
     Route::get('/resubs_last_month', 'AdminController@resub_last_month')->name('resubs_last_month');
+    Route::post('/save_report', 'customerServiceController@save_report')->name('save_report');
+
 });
 //customer_service Middleware ends here
 
