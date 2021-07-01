@@ -240,4 +240,12 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     {
         return $this->hasMany(EmailSubscription::class);
     }
+
+    /**
+     * The customerservice report that belongs to the user.
+     */
+    public function customerservice()
+    {
+        return $this->hasOne(CustomerService::class);
+    }
 }

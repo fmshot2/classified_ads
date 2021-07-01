@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'Subscription Has Ended Table | ')
+@section('title', 'Subscription About To End Users Table | ')
 
 @section('content')
 
@@ -16,30 +16,19 @@
 	<section class="content">
 
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-xs-12">
 
 
 
-			<div class="box" >
+				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Subscription Ended This Month </h3>
+						<h3 class="box-title"> Subscription About To End Table </h3>
 					</div>
 
-				<!-- /.box-body -->
+					<!-- /.box-header -->
 					<div class="box-body">
 						<div class="table-responsive">
-                            <table class="display table table-bordered data_table_main">
-                                <thead>
-                                    <tr>
-                                        <th> # </th>
-                                        <th> Name </th>
-                                        <th> Email </th>
-                                        <th> Phone </th>
-                                        <th> User Registration Date </th>
-                                        <th> Last Subscription Paid</th>
-                                        <th> Subscription End Date</th>
-                                    </tr>
-                                </thead>
+                        <table class="display table table-bordered data_table_main">
                                 <thead>
                                     <tr>
                                         <th> # </th>
@@ -58,7 +47,8 @@
                                         <th> Add Report </th>
                                     </tr>
                                 </thead>
-                                </tbody>
+
+                                    </tbody>
                                         @foreach($all_subscriptions as $key => $all_subscription)
 
                                     </tr>
@@ -177,8 +167,8 @@
                                         
                                         <div class="form-group">
                                             <label for="alternative">Handled By</label>
-                                            <input type="text" class="form-control" id="customer_service_personel_name" name="customer_service_personel_name" 
-                                             value="{{$all_subscription->customerservice->customer_service_personel_name ?? ''}}">
+                                            <input type="text" class="form-control" id="customer_service_personel_name"
+                                             name="customer_service_personel_name"  value="{{$all_subscription->customerservice->customer_service_personel_name ?? ''}}">
                                         </div>
                                         <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -196,61 +186,13 @@
 
 
                             </tbody>
-                            </table>
+
+
+                        </table>
                         </div>
-                    </div>
-				<!-- /.box-body -->
-			</div>
 
 
-			<!-- /.content -->
-		</div>
-
-
-
-
-
-        <div class="col-md-6">
-
-
-
-			<div class="box" >
-					<div class="box-header">
-						<h3 class="box-title">This Month's Re-Subscription </h3>
-					</div>
-
-				<!-- /.box-body -->
-					<div class="box-body">
-						<div class="table-responsive">
-                            <table class="display table table-bordered data_table_main">
-                                <thead>
-                                    <tr>
-                                        <th> # </th>
-                                        <th> Name </th>
-                                        <th> Email </th>
-                                        <th> Phone </th>
-                                        <th> User Registration Date </th>
-                                        <th> Last Subscription Paid</th>
-                                        <th> Subscription End Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($Resub_sellers as $key => $seller)
-                                        <tr>
-                                            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                                            <td> {{ $seller->name }} </td>
-                                            <td><span class="text-muted"> {{ $seller->email }} </span> </td>
-                                            <td><span class="text-muted"> {{ $seller->phone }} </span> </td>
-                                             <td><span class="text-muted"> </i> {{ $seller->created_at->format('d-m-Y') }} </span> </td>
-                                            <td> {{ $seller->subscriptions->first()->last_amount_paid }} </span></td>
-                                            <td><span class="text-muted"> {{ Carbon\Carbon::parse($seller->subscriptions->first()->subscription_end_date)->format('d-m-Y') }} </span></td>                       
-                                        </tr>
-                                    @endforeach
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+				</div>
 				<!-- /.box-body -->
 			</div>
 

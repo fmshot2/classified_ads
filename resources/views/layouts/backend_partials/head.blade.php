@@ -88,6 +88,11 @@
 </style>
 
 
+
+
+@yield('extra-styles')
+
+
 @livewireScripts
 
 </head>

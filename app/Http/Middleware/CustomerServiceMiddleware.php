@@ -3,8 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
-class CustomerService
+
+class CustomerServiceMiddleware
 {
     /**
      * Handle an incoming request.
