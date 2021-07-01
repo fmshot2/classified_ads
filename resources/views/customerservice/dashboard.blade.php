@@ -120,12 +120,12 @@
                                         </div>
                                         </td>
                                                                                 
-                                        <td> called </td>
-                                        <td><span class="text-muted"></i> 2mins </span> </td>
-                                        <td><span class="text-muted"> </i> none </span> </td>
-                                        <td> satisfied </td>
-                                        <td>completed </span></td>                                        
-                                        <td>{{$all_subscription->id}} </td>
+                                        <td> {{$all_subscription->customerservice->call_status ?? ''}} </td>
+                                        <td><span class="text-muted"></i> {{$all_subscription->customerservice->call_duration ?? ''}} </span> </td>
+                                        <td><span class="text-muted"> </i> {{$all_subscription->customerservice->call_status ?? 'none'}} </span> </td>
+                                        <td> {{$all_subscription->customerservice->client_comment ?? ''}} </td>
+                                        <td>{{$all_subscription->customerservice->customer_service_comment ?? ''}} </span></td>
+                                        <td>{{$all_subscription->customerservice->customer_service_personel_name ?? ''}} </td>                                        
                                         <td>
                                         <button type="button" class="btn btn-primary" 
                                         data-toggle="modal" data-target="#allUsers{{ $all_subscription->id }}">
@@ -145,26 +145,33 @@
                                             <div class="modal-body">
                                             <form action="{{ route('save_report') }}" method="POST" class="message-form">
                                                 @csrf
-                                            <input type="hidden" class="form-control" id="user_id" name="user_id" placeholder="{{$all_subscription->id}}" value="{{$all_subscription->id}}">
+                                            <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{$all_subscription->id}}">
                                         <div class="form-group">
                                             <label for="call_status">Call Status</label>
-                                            <input type="text" class="form-control" id="call_status" name="call_status" placeholder="{{$all_subscription->id}}">
+                                            <input type="text" class="form-control" id="call_status" name="call_status" value="{{$all_subscription->customerservice->call_status ?? ''}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="call_duration">Call Duration</label>
-                                            <input type="text" class="form-control" id="call_duration" name="call_duration" placeholder="{{$all_subscription->name}}">
+                                            <input type="text" class="form-control" id="call_duration" name="call_duration" value="{{$all_subscription->customerservice->call_duration ?? ''}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="alternative">Alternative Communication</label>
-                                            <input type="text" class="form-control" id="alternative" name="alternative" placeholder="name@example.com">
+                                            <input type="text" class="form-control" id="alternative" name="alternative" value="{{$all_subscription->customerservice->alternative ?? ''}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="customer_comment">Client's Comment</label>
-                                            <textarea class="form-control" id="client_comment" name="client_comment" rows="3"></textarea>
+                                            <textarea class="form-control" id="client_comment" name="client_comment" rows="3">{{$all_subscription->customerservice->client_comment ?? ''}}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="customer_service_comment">Customer Service Comments</label>
-                                            <textarea class="form-control" id="customer_service_comment" name="customer_service_comment" rows="3"></textarea>
+                                            <textarea class="form-control" id="customer_service_comment" name="customer_service_comment" rows="3" 
+                                            >{{$all_subscription->customerservice->customer_service_comment ?? ''}}</textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="alternative">Handled By</label>
+                                            <input type="text" class="form-control" id="customer_service_personel_name" name="customer_service_personel_name" 
+                                             value="{{$all_subscription->customerservice->customer_service_personel_name ?? ''}}">
                                         </div>
                                         <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

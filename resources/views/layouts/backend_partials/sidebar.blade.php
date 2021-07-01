@@ -584,7 +584,10 @@
         <li><a href=" {{ route('customer_service.dashboard') }} "><i class="fa fa-circle-o"></i> All Subscriptions</a></li>          
         <li><a href=" {{ route('user_sub_almost_ended') }} "><i class="fa fa-circle-o"></i> Subscription About To End</a></li>
         <li><a href=" {{ route('user_sub_has_ended') }} "><i class="fa fa-circle-o"></i> Subscription Has Ended</a></li>
-          <li><a href=" {{ route('resubs_last_month') }} "><i class="fa fa-circle-o"></i> Sub. Monthly Reports</a></li>
+        <li><a href=" {{ route('resubs_last_month') }} "><i class="fa fa-circle-o"></i> Sub. Monthly Reports</a></li>
+        <li><a href=" {{ route('cus.send_email') }} "><i class="fa fa-circle-o"></i> Send Email</a></li>
+        <li><a href=" {{ route('cus.send_sms') }} "><i class="fa fa-circle-o"></i> Send SMS</a></li>
+
         </ul>
       </li>
 

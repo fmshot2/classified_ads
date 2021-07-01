@@ -246,6 +246,6 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
      */
     public function customerservice()
     {
-        return $this->hasOne(Siteemaillist::class);
+        return $this->hasOne(CustomerService::class);
     }
 }

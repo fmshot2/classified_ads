@@ -483,7 +483,7 @@ class AdminController extends Controller
 
   public function allService()
   {
-    $all_service = Service::orderBy('created_at', 'desc')->get();
+    $all_service = Service::orderBy('id', 'asc')->get();
     return view('admin.service.index', compact('all_service'));
   }
   public function allSeekingwork()
@@ -1356,7 +1356,7 @@ class AdminController extends Controller
         public function resub_last_month()
         {
 
-          $sellers = User::where('role', 'seller')->with('subscriptions')
+          $all_subscriptions = User::where('role', 'seller')->with('subscriptions')
           ->whereHas('subscriptions', function($query) {
             $from = Carbon::now()->subDays(30);
             $to  = Carbon::now();
@@ -1379,7 +1379,7 @@ class AdminController extends Controller
           ->get();
 
 
-          return view('admin.user.resub_last_month', compact('sellers', 'Resub_sellers'));
+          return view('admin.user.resub_last_month', compact('all_subscriptions', 'Resub_sellers'));
         }
         public function add_seller_sub()
         {     

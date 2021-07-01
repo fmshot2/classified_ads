@@ -1212,29 +1212,17 @@ public function show($id)
 
     public function saveLike(request $request)
     {
-        //     $service = Service::find($id);
-
-        /*$serviceName = $request->id;
-          $serviceState =   $request->state;*/
-
+    
         $likecheck = Like::where(['user_id' => Auth::id(), 'service_id' => $request->id])->first();
-        if ($likecheck) {
-            return 'Heyyyyy';
-        } else {
-            return 'Heyyyyy22222';
-        }
         if ($likecheck) {
             Like::where(['user_id' => Auth::id(), 'service_id' => $request->id])->delete();
             $likecount = Like::where(['service_id' => $request->id])->count();
-            // return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
-            //                    return redirect('/home');
         } else {
             $like = new Like();
             $like->user_id = Auth::id();
             $like->service_id = $request->id;
             $like->save();
             $likecount = Like::where(['service_id' => $request->id])->count();
-            //return redirect('/home');
         }
     }
 

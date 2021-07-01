@@ -214,11 +214,13 @@ Route::middleware(['accountant'])->group(function () {
 
 //customer_service Middleware starts here
 Route::middleware(['customerservice'])->group(function () {
-    Route::get('send-email', 'AdminController@send_email')->name('data.send_email');
-    Route::get('create-sms', 'AdminController@sendSms')->name('data.send_sms');
+    
 
-    Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
-    Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
+    Route::get('customer_service/send-email', 'customerServiceController@send_email')->name('cus.send_email');
+    Route::get('customer_service/create-sms', 'customerServiceController@sendSms')->name('cus.send_sms');
+
+    Route::post('customer_service/send-sms', 'customerServiceController@submit_sms')->name('cus.submit.sms');
+    Route::post('customer_service/send-email', 'customerServiceController@submitEmail')->name('cus.submit.email');
     Route::get('/dashboard/customer_service', 'customerServiceController@allSubscription')->name('customer_service.dashboard');
     Route::get('/user_sub_almost_ended', 'customerServiceController@ending_seller')->name('user_sub_almost_ended');
     Route::get('/user_sub_has_ended', 'customerServiceController@ended_seller')->name('user_sub_has_ended');
@@ -995,7 +997,7 @@ Route::prefix('data-officer')->middleware(['data'])->group(function () { //Data 
 
     Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
     Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
-}); //Data Entry Officer Middleware protection end here
+}); //Data Entry Officer Middleware protection ends here
 
 Route::post('/searchonservices',  'ServiceController@searchonservices')->name('searchonservices');
 
