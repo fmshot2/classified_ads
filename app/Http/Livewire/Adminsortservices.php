@@ -20,7 +20,7 @@ class Adminsortservices extends Component
 
     public function mount()
     {
-        $this->mySortedServices = Service::all();
+        $this->mySortedServices = Service::orderBy('created_at','desc')->get();
     }
 
 // public function updatedStartDate()
@@ -31,7 +31,7 @@ class Adminsortservices extends Component
 //                             return $query->orderBy($this->start_date, 'desc');
 //                         })
 //                         ->get();
-   
+
 //         dd($services);
 //         }
 //     }
@@ -57,7 +57,7 @@ public function submit()
         }
     }
 
-    
+
     // public function updatedEndDate()
     // {
     // 	if ($this->start_date == null) {
