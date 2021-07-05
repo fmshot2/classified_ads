@@ -40,6 +40,7 @@
                                         <th> Phone </th>
                                         <th> role </th>
                                         <th> Registration Date</th>
+                                        <th> Sub End Date</th>
                                         <th> Services </th>
                                         <th> Call Status </th>
                                         <th> Call Duration </th>
@@ -61,6 +62,7 @@
                                         <td><span class="text-muted"> </i> {{ $all_subscription->phone ?? 'no phone'}} </span> </td>
                                         <td> {{ $all_subscription->role }} </td>
                                         <td> {{ $all_subscription->created_at->format('d/m/Y') }} </span></td>
+                                        <td> {{ $all_subscription->subscriptions->first()->created_at->format('d/m/Y') }} </span></td>
                                         <td>
                                         @if($all_subscription->services->count())
 
