@@ -37,6 +37,7 @@
                                         <th> Phone </th>
                                         <th> role </th>
                                         <th> Registration Date</th>
+                                        <th> Sub End Date</th>
                                         <th> Services </th>
                                         <th> Call Status </th>
                                         <th> Call Duration </th>
@@ -58,6 +59,11 @@
                                         <td><span class="text-muted"> </i> {{ $all_subscription->phone ?? 'no phone'}} </span> </td>
                                         <td> {{ $all_subscription->role }} </td>
                                         <td> {{ $all_subscription->created_at->format('d/m/Y') }} </span></td>
+                                        @foreach($all_subscription->subscriptions as $key => $subs)
+
+                                        <td>  {{ Carbon\Carbon::parse($subs->subscription_end_date)
+                                            ->format("Y/m/d") }}</td>
+                                        @endforeach
                                         <td>
                                         @if($all_subscription->services->count())
 
@@ -119,7 +125,7 @@
                                                                                 
                                         <td> {{$all_subscription->customerservice->call_status ?? ''}} </td>
                                         <td><span class="text-muted"></i> {{$all_subscription->customerservice->call_duration ?? ''}} </span> </td>
-                                        <td><span class="text-muted"> </i> {{$all_subscription->customerservice->call_status ?? 'none'}} </span> </td>
+                                        <td><span class="text-muted"> </i> {{$all_subscription->customerservice->call_status ?? ''}} </span> </td>
                                         <td> {{$all_subscription->customerservice->client_comment ?? ''}} </td>
                                         <td>{{$all_subscription->customerservice->customer_service_comment ?? ''}} </span></td>
                                         <td>{{$all_subscription->customerservice->customer_service_personel_name ?? ''}} </td>                                        

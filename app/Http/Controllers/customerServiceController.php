@@ -50,7 +50,10 @@ class customerServiceController extends Controller
 {
 	public function allSubscription()
 	{
-	  $all_subscriptions = User::all();
+	// 	$all_subscriptions = User::find(32);
+	//   dd($all_subscriptions->subscriptions);
+
+	  $all_subscriptions = User::with('subscriptions')->get();
 	  // foreach($all_subscriptions as $all_subscription){
 	  //   $all_subscriptions = $all_subscription->subscriptionable->services;
   
