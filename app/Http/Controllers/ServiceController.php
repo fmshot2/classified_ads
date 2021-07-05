@@ -1212,29 +1212,17 @@ public function show($id)
 
     public function saveLike(request $request)
     {
-        //     $service = Service::find($id);
-
-        /*$serviceName = $request->id;
-          $serviceState =   $request->state;*/
-
+    
         $likecheck = Like::where(['user_id' => Auth::id(), 'service_id' => $request->id])->first();
-        if ($likecheck) {
-            return 'Heyyyyy';
-        } else {
-            return 'Heyyyyy22222';
-        }
         if ($likecheck) {
             Like::where(['user_id' => Auth::id(), 'service_id' => $request->id])->delete();
             $likecount = Like::where(['service_id' => $request->id])->count();
-            // return response()->json(['success'=>$likecount, 'success2'=>'upvote' ]);
-            //                    return redirect('/home');
         } else {
             $like = new Like();
             $like->user_id = Auth::id();
             $like->service_id = $request->id;
             $like->save();
             $likecount = Like::where(['service_id' => $request->id])->count();
-            //return redirect('/home');
         }
     }
 
@@ -1612,7 +1600,7 @@ public function show($id)
     }
 
     public function set_sub()
-    {    
+    {
         $services = Service::whereNull('subscription_end_date')->get();
         // $services = Service::all();
         // dd($services);
@@ -1622,8 +1610,8 @@ public function show($id)
                 $service->subscription_end_date = $service->user->subscriptions->first()->subscription_end_date;
                 $service->save();
                 array_push($names, $service->user->subscriptions->first());
-            }            
+            }
         }
-    dd($names); 
+    dd($names);
     }
 }

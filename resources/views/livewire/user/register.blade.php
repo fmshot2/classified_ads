@@ -69,7 +69,7 @@
 
     </div>
     <div>
-    @if(!$referParam)
+    <!-- @if(!$referParam)
     <div class="form-group form-box">
     <h6 class="text-center">Were you referred by our agent?</h6>
         <input id="agent_code" type="text" placeholder="Enter Agent Code (Optional)" class="input-text" wire:model='agent_code'>
@@ -79,7 +79,17 @@
         </span>
         @endif
     </div>
-    @endif
+    @endif -->
+
+    <div class="form-group form-box">
+    <h6 class="text-center">Were you referred by our agent?</h6>
+        <input id="agent_code" type="text" placeholder="Enter Agent Code (Optional)" class="input-text" wire:model='agent_code'>
+        @if ($errors->has('agent_code'))
+        <span class="helper-text" data-error="wrong" data-success="right">
+            <strong class="text-danger">{{ $errors->first('agent_code') }}</strong>
+        </span>
+        @endif
+    </div>
     </div>
 @if($role != 'buyer' )
      <div>
@@ -153,7 +163,7 @@ window.addEventListener('pay_with_paystack', event => {
         key: event.detail.data.key, // Replace with your public key
         email: event.detail.data.email,
         amount: event.detail.data.amount,
-        ref: ''+Math.floor((Math.random() * 1000000000) + 1),
+        ref: ''+'SUB-'+Math.floor((Math.random() * 1000000000) + 1),
         onClose: function(){
             alert('Window closed.');
         },

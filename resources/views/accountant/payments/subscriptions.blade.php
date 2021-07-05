@@ -54,7 +54,7 @@ All Re - Subscriptions   |
 								@forelse($subscriptions as $key => $payment)
 								<tr>
 									<td><a href="javascript:void(0)"> {{ ++$key }} </a></td>
-									<td><span class="text-muted"> </i> {{ $payment->paymentable->name }}</span> </td>
+									<td><span class="text-muted"> </i> {{ $payment->paymentable->name ?? ''}}</span> </td>
 									<td> ₦{{ number_format($payment->amount) }} </td>
 									<td> {{ $payment->tranx_ref }} </td>
 									<td> {{ date('d-m-Y', strtotime($payment->created_at)) }} </td>

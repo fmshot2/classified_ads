@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'Users Yesterday Results | ')
+@section('title', 'All Users Yesterday Sales | ')
 
 @section('content')
 
@@ -29,8 +29,8 @@
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> Users Table</h3>
-                        <p>List of all yesteday's registrations for each User on this platform</p>
+						<h3 class="box-title">All Users Yesterday Sales</h3>
+                        <p>List of all yesterday's registrations for each User on this platform</p>
 					</div>
 
 					<!-- /.box-header -->
@@ -42,30 +42,28 @@
                                         <th> # </th>
                                         <th> Name </th>
                                         <th> Email </th>
-                                        <th> Applied for Approval?</th>
                                         <th> Status </th>
                                         <th> Amount Earned </th>
-                                        <th> Testerday's Total </th>
+                                        <th> Yesterday's Total </th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                        @foreach($agents as $key => $agent)
+                                        @foreach($users as $key => $user)
                                             <tr>
                                                 <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                                                <td> {{ $agent->name }} </td>
-                                                <td><span class="text-muted"> </i> {{ $agent->email }} </span> </td>
-                                                <td> {{ $agent->referals->count() }} </span></td>
+                                                <td> {{ $user->name }} </td>
+                                                <td><span class="text-muted"> </i> {{ $user->email }} </span> </td>
                                                 <td>
-                                                    @if($agent->status == 1)
+                                                    @if($user->status == 1)
                                                         <span><p id="active_text">Activated</p></span>
-                                                    @elseif($agent->status == 0)
+                                                    @elseif($user->status == 0)
                                                         <span id="active_text2">Deactivated</span>
                                                     @endif
                                                 </td>
-                                                <td>{{ $agent->refererAmount ? $agent->refererAmount : 0 }} </td>
-                                                <td>{{ $agent->referals->count() ? $agent->referals->count() : 0 }} </td>
+                                                <td>{{ $user->refererAmount ?? 0 }} </td>
+                                                <td>{{ $user->total_yesterday_count ?? 0 }} </td>
                                             </tr>
 
                                         @endforeach

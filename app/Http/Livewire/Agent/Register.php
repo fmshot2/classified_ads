@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Agent;
 use App\Agent;
 use App\Mail\UserRegistered;
 use App\Mail\AgentRegistration;
+use App\Mail\AgentRegistered;
 use App\Refererlink;
 use App\User;
 use Illuminate\Validation\Rule;
@@ -28,11 +29,10 @@ use Config;
 
 class Register extends Component
 {
-
     public $agent_name;
     public $agent_email;
     public $password;
-    public $password_confirmation;    
+    public $password_confirmation;
     public $phone;
     public $address;
     public $identification_type;
@@ -40,7 +40,7 @@ class Register extends Component
     public $state_id;
     public $city_id;
     public $accountname;
-    public $bankname; 
+    public $bankname;
     public $accountno;
     public $states = [];
     public $cities = [];
@@ -118,13 +118,13 @@ class Register extends Component
 
             // 'key'    => 'pk_live_8921deda409e1196f265fd3a7dcc4eff81d52cdb',
             // 'key'    => 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
-            
+
             //test variable from env
             // 'key'    => config('variable.paystack_pk_test'),
             // 'key'    => config('variable.paystack_pk_live'),
 
             // live variable
-            'key'    => env('paystack_pk'),      
+            'key'    => env('paystack_pk'),
             'amount' => 500 * 100,
             'email'  => $this->agent_email,
             'name'   => $this->agent_name,
@@ -165,7 +165,7 @@ class Register extends Component
     public function save_user()
     {
 
-        $slug3 = Str::random(8);  
+        $slug3 = Str::random(8);
 
         $state =  State::where('id', $this->state_id)->first();
         $result = $state->abbr;
@@ -181,9 +181,9 @@ class Register extends Component
         $user = Agent::where('email', $this->agent_email)->first();
 
         if (!$user) {
-           
+
             session()->flash('fail', ' Your email was not found. Please Re-register');
-            return redirect()->route('home');     
+            return redirect()->route('home');
         }
 
         if ($user) {
@@ -200,13 +200,12 @@ class Register extends Component
         $user->accountno                = $this->accountno;
         $user->agent_code               = $code;
 
-
-        //send mail
-        //                 Auth::attempt(['email' => $this->email, 'password' => $this->password]);
-        // if (Auth::check()) {
-
-
-        if ($user->save()) {  
+        if ($user->save()) {
+            try {
+                Mail::to($user->email)->send(new AgentRegistered($this->agent_name, $this->agent_email, $this->password, $code));
+            } catch (\Exception $e) {
+                $failedtosendmail = 'Failed to Mail!';
+            }
 
             Auth::guard('agent')->attempt(['email' => $this->agent_email, 'password' => $this->password]);
 
@@ -218,18 +217,18 @@ class Register extends Component
                 $link = new Refererlink();
                 $link->agent_id = $present_user->id;
                 $link->agent_code = $present_user->agent_code;
-                $link->save();   
+                $link->save();
 
 
 
 
 
 
-                            
+
 
                     //if login pass,redirect to agent dashboard page
                 session()->flash('success', 'Content Created Successfully.');
-                
+
                 return redirect()->route('agent.dashboard');
             } else {
                 session()->flash('fail', ' Credentials Incorect');

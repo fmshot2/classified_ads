@@ -1,23 +1,20 @@
-
-  <div class="box">
-
+<div class="box">
     <div class="box-header with-border">
       <h3 class="box-title">  All Message {{ $all_message->count() }} </h3>
 
-
       @if (url()->current() == route('seller.message.all') )
-      <div class="box-tools">
-        <form class="" method="GET" action="{{ route('admin.service.search') }}">
-        <div class="input-group input-group-sm" style="width: 150px;">
-          <input type="search" class="form-control pull-right" placeholder="Search" name="query"  value="{{ isset($query) ? $query : '' }}" required>
+        <div class="box-tools">
+            <form class="" method="GET" action="{{ route('admin.service.search') }}">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="search" class="form-control pull-right" placeholder="Search" name="query"  value="{{ isset($query) ? $query : '' }}" required>
 
-          <div class="input-group-btn">
-            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-          </div>
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+                </div>
+            </form>
         </div>
-      </form>
-      </div>
-      @endif 
+      @endif
 
     </div>
     <!-- /.box-header -->
@@ -37,7 +34,7 @@
           </tr>
 
           <tr>
-        @foreach($all_message as $key =>  $all_messages)
+        @foreach($all_user_messages as $key =>  $all_messages)
             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
             <td> {{ $all_messages->buyer_name }} </td>
             <td> {{ $all_messages->buyer_email }} </td>
@@ -79,13 +76,13 @@
 @if (url()->current() == !route('seller.dashboard') )
 <div class="box-footer clearfix">
 
-  {{ $all_message->links() }} 
+  {{ $all_message->links() }}
 
 </div>
 @endif
 
 </div>
 
-@include('seller/modal/create_service') 
+@include('seller/modal/create_service')
 
 

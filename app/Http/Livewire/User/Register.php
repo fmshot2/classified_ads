@@ -21,10 +21,14 @@ use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 use Config;
 use Illuminate\Http\Request;
+use App\Traits\ReusableCode;
+
 
 
 class Register extends Component
 {
+    use ReusableCode;
+
     public $referParam;
     public $name;
     public $email;
@@ -61,7 +65,8 @@ class Register extends Component
             'phone'                 => ['required', 'numeric'],
             'password'              => ['required', 'string', 'min:6'],
             'role'                  => ['required', Rule::in(['seller', 'buyer'])],
-            'agent_code'            => ['nullable', 'exists:agents,agent_code'],
+            // 'agent_code'            => ['nullable', 'exists:agents,agent_code'],
+            'agent_code'            => ['nullable', 'string'],
             'terms'                 => ['accepted'],
             'plan'                  => ['nullable', Rule::in([200, 600, 1200, 2400])],
 
@@ -125,14 +130,53 @@ class Register extends Component
         }
     }
 
+
+    // public function store(Request $request)
+    // {
+    //     $product = new Product;
+    //     $product->title = $request->title;
+    //     $product->slug = $this->createSlug($request->title);
+    //     $product->save();
+    // }
+    // public function createSlug($name, $id = 0)
+    // {
+    //     // $slug = str_slug($this->name);
+    //     $slug = Str::of($this->name)->slug('-');
+    //     $allSlugs = $this->getRelatedSlugs($slug, $id);
+    //     if (! $allSlugs->contains('slug', $slug)){
+    //         return $slug;
+    //     }
+
+    //     $i = 1;
+    //     $is_contain = true;
+    //     do {
+    //         $newSlug = $slug . '-' . $i;
+    //         if (!$allSlugs->contains('slug', $newSlug)) {
+    //             $is_contain = false;
+    //             return $newSlug;
+    //         }
+    //         $i++;
+    //     } while ($is_contain);
+    // }
+    // protected function getRelatedSlugs($slug, $id = 0)
+    // {
+    //     return User::select('slug')->where('slug', 'like', $slug.'%')
+    //     ->where('id', '<>', $id)
+    //     ->get();
+    // }
+
     public function save_user($amount, $tranxRef)
     {
         // $request->session()->forget('url.intended');
-        // dd((Session::get('url.intended')));
         $slug3 = Str::random(8);
         $random = Str::random(3);
         $userSlug = Str::of($this->name)->slug('-').''.$random;
-        // $userSlug = Str::of($request->name)->slug('-').''.$random;
+
+
+        // $length = strlen(utf8_decode($this->agent_code));
+        // if (strlen(utf8_decode($this->agent_code)) >= 8) {
+        //     $this->agent_code = $this->referParam;
+        // }
 
         // Get id of owner of $link_from_url if available
         if ($this->referParam) {
@@ -148,14 +192,18 @@ class Register extends Component
         // Get id of owner of $agent code if available
         if ($this->agent_code) {
             $saveIdOfAgent = Agent::where('agent_code', $this->agent_code)->first();
+            $saveIdOfRefree = User::where('refererLink', $this->agent_code)->first();
             if ($saveIdOfAgent) {
                 $this->agent_Id = $saveIdOfAgent->id;
-            } else {
-                session()->flash('fail', ' Your agent code is incorrect. Please Confirm the correct agent code or register without a code');
+            } elseif ($saveIdOfRefree) {
+                $this->refererId = $saveIdOfRefree->id;
+            }else {
+                session()->flash('fail', ' Your referer code is incorrect. Please Confirm the correct code or register without a code');
                 return redirect()->route('home');
                 // return   session()->flash('message', 'there was an error with your payment, please contact admin.');
             }
         }
+
 
         //save user
         $user           = new User;
@@ -164,12 +212,15 @@ class Register extends Component
         $user->phone    = $this->phone;
         $user->password = Hash::make($this->password);
         $user->role     = $this->role;
-        $user->slug     = $userSlug;
+        //old slug creation
+        // $user->slug     = $userSlug;
+        //end old slug creation
+        $user->slug     = $this->createSlug($this->name, new User());
         //save id of referer if user was reffererd
         $user->idOfReferer = $this->refererId;
         //save id of agent if user was brought by agent
         $user->idOfAgent = $this->agent_Id;
-        $user->refererLink = $slug3;
+        $user->refererLink = $this->createRefererLink(new User());
         //send mail
 
         if ($user->save()) {
@@ -234,11 +285,11 @@ class Register extends Component
 
 
             Auth::user()->subscriptions()->create(['sub_type' => $sub_type, 
-               'last_amount_paid' => $this->plan, 
-               'subscription_end_date' => Carbon::now()->addDays($added_days),
+             'last_amount_paid' => $this->plan, 
+             'subscription_end_date' => Carbon::now()->addDays($added_days),
          // 'last_subscription_starts' => $current_date_time,
-               'trans_ref' => $tranxRef,
-               'email' => Auth::user()->email ]);
+             'trans_ref' => $tranxRef,
+             'email' => Auth::user()->email ]);
 
             // $reg_payments = new Payment();
             // $reg_payments->user_id = Auth::id();
@@ -388,67 +439,25 @@ class Register extends Component
                                 //level 3 referer
                                 $referer4 = User::where('id', $person_that_refered3)->first();
                                 if ($referer4) {
-                                   if($referer4->level3) {
-                                     if (Auth::user()->role == 'seller') {
-                                        return redirect()->route('seller.dashboard');
-                                    } else if (Auth::user()->role == 'buyer') {
-                                        return  Redirect::to(Session::get('url.intended'));
-                                    }
-                                }
-
-                            // add amount to level 3 referer amount
-                                $referer4->refererAmount = $referer4->refererAmount + 100;
-                                $referer4->level3 = Auth::id();
-                                $referer4->save();
-                                    // $present_user->level2 = $referer3->id;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-            //level 1 referer id
-        $person_that_refered = $present_user->idOfReferer;
-        if ($person_that_refered) {
-                //level 1 referer
-            $referer = User::where('id', $person_that_refered)->first();
-            if ($referer) {
-                    //level 2 referer id
-                $person_that_refered2 = $referer->idOfReferer;
-                    //level 2 referer
-                if ($person_that_refered2) {
-                    $referer3 = User::where('id', $person_that_refered2)->first();
-                    if ($referer3) {
-                            //level 3 agent id
-                        $person_that_refered3 = $referer3->idOfAgent;
-                        if ($person_that_refered3) {
-                                //level 3 agent
-                            $referer4 = Agent::where('id', $person_that_refered3)->first();
-                            if ($referer4) {
-                               if($referer4->level3) {
-                                 if (Auth::user()->role == 'seller') {
+                                 if($referer4->level3) {
+                                   if (Auth::user()->role == 'seller') {
                                     return redirect()->route('seller.dashboard');
                                 } else if (Auth::user()->role == 'buyer') {
                                     return  Redirect::to(Session::get('url.intended'));
                                 }
                             }
 
-                                    // add amount to level 3 referer amount
+                            // add amount to level 3 referer amount
                             $referer4->refererAmount = $referer4->refererAmount + 100;
                             $referer4->level3 = Auth::id();
                             $referer4->save();
-                    // $present_user->level2 = $referer3->id;
+                                    // $present_user->level2 = $referer3->id;
                         }
                     }
                 }
             }
         }
     }
-            //end level 3 payment
-
-
-            //start level 4 payment
 
             //level 1 referer id
     $person_that_refered = $present_user->idOfReferer;
@@ -462,40 +471,82 @@ class Register extends Component
             if ($person_that_refered2) {
                 $referer3 = User::where('id', $person_that_refered2)->first();
                 if ($referer3) {
-                            //level 3 referer id
-                    $person_that_refered3 = $referer3->idOfReferer;
+                            //level 3 agent id
+                    $person_that_refered3 = $referer3->idOfAgent;
                     if ($person_that_refered3) {
-                                //level 3 referer
-                        $referer4 = User::where('id', $person_that_refered3)->first();
+                                //level 3 agent
+                        $referer4 = Agent::where('id', $person_that_refered3)->first();
                         if ($referer4) {
-
-                            $person_that_refered4 = $referer4->idOfReferer;
-
-                            if ($person_that_refered4) {
-                                $referer5 = User::where('id', $person_that_refered4)->first();
-                                if ($referer5) {
-
-                                    if ($referer5->level4) {
-                                     if (Auth::user()->role == 'seller') {
-                                        return redirect()->route('seller.dashboard');
-                                    } else if (Auth::user()->role == 'buyer') {
-                                        return  Redirect::to(Session::get('url.intended'));
-                                    }
-                                }
-
-                                            // add amount to level 4 referer amount
-                                $referer5->refererAmount = $referer5->refererAmount + 50;
-                                $referer5->level4 = Auth::id();
-                                $referer5->save();
-                                            // $present_user->level2 = $referer3->id;
-                            }
+                         if($referer4->level3) {
+                           if (Auth::user()->role == 'seller') {
+                            return redirect()->route('seller.dashboard');
+                        } else if (Auth::user()->role == 'buyer') {
+                            return  Redirect::to(Session::get('url.intended'));
                         }
-
                     }
+
+                                    // add amount to level 3 referer amount
+                    $referer4->refererAmount = $referer4->refererAmount + 100;
+                    $referer4->level3 = Auth::id();
+                    $referer4->save();
+                    // $present_user->level2 = $referer3->id;
                 }
             }
         }
     }
+}
+}
+            //end level 3 payment
+
+
+            //start level 4 payment
+
+            //level 1 referer id
+$person_that_refered = $present_user->idOfReferer;
+if ($person_that_refered) {
+                //level 1 referer
+    $referer = User::where('id', $person_that_refered)->first();
+    if ($referer) {
+                    //level 2 referer id
+        $person_that_refered2 = $referer->idOfReferer;
+                    //level 2 referer
+        if ($person_that_refered2) {
+            $referer3 = User::where('id', $person_that_refered2)->first();
+            if ($referer3) {
+                            //level 3 referer id
+                $person_that_refered3 = $referer3->idOfReferer;
+                if ($person_that_refered3) {
+                                //level 3 referer
+                    $referer4 = User::where('id', $person_that_refered3)->first();
+                    if ($referer4) {
+
+                        $person_that_refered4 = $referer4->idOfReferer;
+
+                        if ($person_that_refered4) {
+                            $referer5 = User::where('id', $person_that_refered4)->first();
+                            if ($referer5) {
+
+                                if ($referer5->level4) {
+                                   if (Auth::user()->role == 'seller') {
+                                    return redirect()->route('seller.dashboard');
+                                } else if (Auth::user()->role == 'buyer') {
+                                    return  Redirect::to(Session::get('url.intended'));
+                                }
+                            }
+
+                                            // add amount to level 4 referer amount
+                            $referer5->refererAmount = $referer5->refererAmount + 50;
+                            $referer5->level4 = Auth::id();
+                            $referer5->save();
+                                            // $present_user->level2 = $referer3->id;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}
 }
 
             //level 1 referer id
@@ -523,8 +574,8 @@ if ($person_that_refered) {
                             $referer5 = Agent::where('id', $person_that_refered4)->first();
 
                             if ($referer5) {
-                             if($referer5->level4) {
-                                 if (Auth::user()->role == 'seller') {
+                               if($referer5->level4) {
+                                   if (Auth::user()->role == 'seller') {
                                     return redirect()->route('seller.dashboard');
                                 } else if (Auth::user()->role == 'buyer') {
                                     return  Redirect::to(Session::get('url.intended'));
@@ -562,9 +613,6 @@ public function render()
 {
     return view($this->current_view);
 }
-
-
-
 
 
 
@@ -617,4 +665,5 @@ public function save_buyer(){
         }
     }
 }
+
 }

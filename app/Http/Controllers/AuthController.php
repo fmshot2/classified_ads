@@ -19,10 +19,14 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Symfony\Contracts\Service\Attribute\Required;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\ReusableCode;
+
 
 
 class AuthController extends Controller
 {
+    //This is a trait for createSlug code
+        use ReusableCode;
 
     public function show_agent_Login(Request $request)
     {
@@ -95,24 +99,23 @@ class AuthController extends Controller
 
         //save agent details
         $user = new Agent;
-        $user->name = $request->name;
-        $user->email = $request->email;
+        $user->name     = $request->name;
+        $user->email    = $request->email;
+        $user->phone    = $request->phone;
+        $user->slug     = $this->createSlug($request->name, new Agent());
         if ($user->save()) {
             $messages = "$user->name, Your registration was successfull! Please click the link below to complete your registration!";
             $name = $user->name;
             $email = $user->email;
             $userRole = 'Agent';
 
-            // try {
+            try {
             Mail::to($user->email)->send(new AgentRegistration($messages, $name, $email, $userRole));
-            // } catch (\Exception $e) {
-            // $failedtosendmail = 'Failed to Mail!';
-            // }
-            $success_notification = array(
-                'message' => 'Please check your email for verification link',
-                'alert-type' => 'success'
-            );
-            return redirect()->back()->with($success_notification);
+            } catch (\Exception $e) {
+                $failedtosendmail = 'Failed to Mail!';
+            }
+
+            return back()->with('agent-reg-success', 'Please check your email for verification link! <br><b>'.$user->email.'</b>');
         }
     }
 
@@ -750,7 +753,14 @@ class AuthController extends Controller
                     'alert-type' => 'success'
                 );
                 return redirect()->route('cmo.dashboard')->with($success_notification);
-            }  else if (Auth::user()->role == 'data') {
+            }  elseif (Auth::user()->role == 'customerservice') {
+                $success_notification = array(
+                    'message' => 'You are successfully logged in!',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('customer_service.dashboard')->with($success_notification);
+            }
+            else if (Auth::user()->role == 'data') {
                 $success_notification = array(
                     'message' => 'You are successfully logged in!',
                     'alert-type' => 'success'
@@ -791,13 +801,6 @@ class AuthController extends Controller
         return view('auth/login');
     }
 
-    public function buyer()
-    {
-        $buyers = User::where('role', 'buyer')->orderBy('id', 'asc')->get();
-        // Category::orderBy('id', 'asc')->paginate(35);
-        return view('admin.user.buyer', compact('buyers'));
-    }
-
      public function addSlug()
         {
         $buyers = User::where('slug', null)->get();
@@ -807,26 +810,24 @@ class AuthController extends Controller
         $buyer->slug = $slug;
         $buyer->save();
         }
-        
+
         // Category::orderBy('id', 'asc')->paginate(35);
         return redirect()->route('home');
     }
 
-    public function seller()
+    public function addSlug4Agents()
     {
-        $seller = User::where('role', 'seller')->orderBy('id', 'desc')->get();
-        $approval_status = null;
-        return view('admin.user.seller', compact('seller', 'approval_status'));
+    $agents = Agent::where('slug', null)->get();
+    foreach ($agents as $agent) {
+    // $random = Str::random(3);
+    // $slug = Str::of($buyer->name)->slug('-').''.$random;
+    $buyer->slug = $this->createSlug($request->name, new Agent());
+    $buyer->save();
     }
 
-
-    public function allagents()
-    {
-        $agents = Agent::all();
-        $approval_status = null;
-        return view('admin.user.agents', compact('agents', 'approval_status'));
-    }
-
+    // Category::orderBy('id', 'asc')->paginate(35);
+    return redirect()->route('home');
+}
 
     public function updateProfile(Request $request, $id)
     {

@@ -15,11 +15,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="{{asset('img/favicon.ico')}}" type="image/x-icon" >
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css" rel="stylesheet">
-
-
+	
 	<title> @yield('title') EFContact Provider</title>
 
 	<!-- bootstrap 3.3.7 -->
@@ -64,12 +60,7 @@
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google font -->
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
 <link href="{{ asset('cms/css/ibiStyles_cms.css') }}" rel="stylesheet" type="text/css" />
 
 <style type="text/css">
@@ -111,26 +102,6 @@
 
 <script src="{{ asset('js/jquery-2.2.0.min.js') }}"></script>
 <script src="{{ asset('toastr/toastr.min.js') }}"></script>
-
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-    if (document.documentElement.clientWidth > 900) {
-        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-        (function(){
-            var s1 = document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-            s1.async = true;
-            s1.src = 'https://embed.tawk.to/5ff49fb2c31c9117cb6bba8f/1er9ovkca';
-            s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin','*');
-            s0.parentNode.insertBefore(s1,s0);
-        })();
-    }
-</script>
-<!--End of Tawk.to Script-->
-
-
-
-
 
 <!-- Facebook Pixel Code -->
 <script>

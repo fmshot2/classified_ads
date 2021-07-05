@@ -493,7 +493,7 @@
                                 <i class="fa fa-commenting text-white" aria-hidden="true"></i>
                             </span>
                             <div class="info-box-content">
-                                <span class="info-box-text"> My Message{{ $message_count > 1 ? 's' : '' }} </span>
+                                <span class="info-box-text"> All Message{{ $message_count > 1 ? 's' : '' }} </span>
                                 <span class="info-box-number"> {{ $message_count }} </span>
                                 {{-- <div class="progress">
                                     <div class="progress-bar progress-bar-danger" style="width: {{ $message_count}}%"></div>
@@ -662,454 +662,452 @@
     </div>
 
 
-            @if($current_subscription_end_date)
+    @if($current_subscription_end_date)
+        <div>
+            <div id="postServiceModal" class="modal fade postServiceModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: #cc8a19; color: #fff">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: #fff">
+                                <i class="fa fa-close"></i>
+                            </button>
+                            <h5 class="text-center" id="sub_end"><strong>Your Subscription has ended. Please renew your subcription to proceed</strong><span></span>
+                            </h5>
+                        </div>
 
-
-                      <div>
-        <div id="postServiceModal" class="modal fade postServiceModal" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color: #cc8a19; color: #fff">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: #fff">
-                            <i class="fa fa-close"></i>
-                        </button>
-                        <h5 class="text-center" id="sub_end"><strong>Your Subscription has ended. Please renew your subcription to proceed</strong><span></span>
-                        </h5>
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
-                @else
-                      <div>
-        <div id="postServiceModal" class="modal fade postServiceModal" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header" style="background-color: #cc8a19; color: #fff">
-                        <h4 style="display: inline-block;" class="modal-title">Posts A Service</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: #fff">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </div>
-                    <form id="serviceForm" action="{{ route('service.save') }}" method="post" enctype="multipart/form-data" style="display: block">
-                        @csrf
-                        <div class="modal-body">
-                            <div style="padding: 20px">
-                                <!-- One "tab" for each step in the form: -->
-                                <div class="tab">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Select Category</label><small class="text-danger">*</small>
-                                                <small class="form-text text-muted">Select a category to continue.</small>
-                                                <select name="category_id" required class="form-control show-tick required" id="categories">
-                                                    <option value="">-- Please select --</option>
-                                                    @foreach($categories as $category)
-                                                        <option id="category_id" value=" {{ $category->id }} "> {{ $category->name }} </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="name">Service Name</label><small class="text-danger">*</small>
-                                                <small class="form-text text-muted">Enter the name of the service you want to offer. <input readonly type="text" name="countdown" size="1" value="50" style="border: 0; padding: 0;margin-right: -20px; display: inline; width:auto; font-size: inherit"> chars left</small>
-                                                <input type="text" class="form-control required" name="name" value="{{ old('name') }}" onkeydown="limitText(this.form.name,this.form.countdown,50);" onkeyup='limitText(this.form.name,this.form.countdown,50);' placeholder="e.g. Bag, Plumber, Phone, etc..." required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label">Location</label><small class="text-danger">*</small>
-                                                <select class="form-control required" required id="state"  name="state">
-                                                    <option value="">-- Select State --</option>
-                                                    @if(isset($states))
-                                                    @foreach($states as $state)
-                                                    <option id="state" value="{{$state->name}}"> {{ $state->name }}  </option>
-                                                    @endforeach
-                                                    @endif
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label">Local Government</label><small class="text-danger">*</small>
-                                                <select class="form-control required" id="city" name="city" required>
-                                                    <option disabled selected>- Select a State -</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="description">Description</label>
-                                                <textarea type="text" class="form-control required" name="description" placeholder="Tell us about your service." style="height: 220px" required></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Sub Category <small class="text-info">(You can select multiple sub categories)</small></label>
-                                                <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555555;background-color: #ffffff;background-image: none;border: 1px solid #cccccc;border-radius: 0;-webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
-                                                box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%); -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;">
-                                                    <option value="">- Please select a category to populate this -</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tab">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group file-upload" id="file-upload1">
-                                                <label>Upload Image</label>
-                                                <small class="text-danger">*</small> <br>
-                                                <small class="text-info">Choose a thumbnail for your service.</small>
-                                                <div class="image-box required text-center">
-                                                        <p>Select an Image</p>
-                                                        <img src="" alt="">
-                                                    </div>
-                                                <div class="controls" style="display: none;">
-                                                    <input type="file" name="thumbnail" class="form-control required show-tick" required />
-                                                </div>
-                                            </div>
-                                            <p class="text-danger">Uploading an image is compulsory.</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="exampleInputEmail1" id="servicePriceRange">How much do you want to charge for this service?</label>
-                                                        <small class="form-text text-muted" id="servicePriceRangeLabel">Enter the amount you want on this service.</small>
-                                                        <input type="number" name="min_price" class="form-control required" placeholder="e.g. 20000">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="form-label">Address</label>
-                                                        <small class="form-text text-muted">Enter your physical address.</small>
-                                                        <input id="address" type="text"  value="{{ old('address') }}" class="form-control" name="address" placeholder="Enter your address here.">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="">Phone</label><small class="text-danger">*</small>
-                                                        <small class="form-text text-muted">Enter your phone number.</small>
-                                                        <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="phone" required type="number" class="form-control required" value="{{ old('phone') }}" placeholder="e.g. 09023456789" minlength="11" maxlength="11" name="phone" value=" {{ Auth::user()->phone }}">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group form-float" id="youtubeLink">
-                                                        <label class="form-label">Video (Youtube)</label>
-                                                        <small class="form-text text-muted">Your youtube video link.</small>
-                                                        <input type="text" class="form-control" name="video_link">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <div class="form-check" id="negotiableChBox">
-                                                            <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable">
-                                                            <label class="form-check-label" for="negotiable"> Is this service negotiable?</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <div class="form-check">
-                                                            <input id="featured" class="form-check-input" type="checkbox" value="1" name="is_featured" onclick="featuredCheckbbox()">
-                                                            <label class="form-check-label" for="featured"> Do you want this service featured?  <small class="infoLinkNote">(<a data-toggle="modal" data-target="#featuredInfoModal">How it works?</a>)</small></label>
-                                                        </div>
-                                                        <p id="featuredText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Circles which indicates the steps of the form: -->
-                                <div style="text-align:center;margin-top:40px;">
-                                    <span class="step"></span>
-                                    <span class="step"></span>
-                                </div>
-                            </div>
+    @else
+        <div>
+            <div id="postServiceModal" class="modal fade postServiceModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color: #cc8a19; color: #fff">
+                            <h4 style="display: inline-block;" class="modal-title">Posts A Service</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: #fff">
+                                <i class="fa fa-close"></i>
+                            </button>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-lg btn-info" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                            <button type="button" class="btn btn-lg btn-warning"  id="nextBtn" onclick="nextPrev(1)">Next</button>
-                            <button type="submit" class="btn btn-lg btn-warning"  id="submitBtn">Submit</button>
-                        </div>
-                    </form>
-
-
-
-                    <form id="seekingworkForm" action="{{route('provider.seeking.work.create')}}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="modal-body">
-                            <div style="padding: 20px">
-                                <div style="margin-bottom: 20px">
-                                    <h2 style="font-size: 20px"><strong>Create Your CV's Page</strong></h2>
-                                    <small class="text-danger">* please fill all astericked fields</small>
-                                </div>
-
-                                <div class="swtab">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Change Category</label>
-                                                <small class="text-danger">*</small>
-                                                <select name="category_id" required class="form-control show-tick" id="sw_categories">
-                                                    <option value="1" selected>Job Applicant</option>
-                                                    @foreach($categories as $category)
-                                                        <option value="{{ $category->id }}" {{ $category->id == 1 ? 'selected' : '' }}> {{ $category->name }} </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                            <label class="form-label">Full Name </label><small class="text-danger">*</small>
-                                            <input id='name' type="text" required name="name" value="{{ Auth::user()->name }}" class="form-control required" placeholder="Enter your fullname here (e.g. James Tapo)">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="">Job Title</label><small class="text-danger">*</small>
-                                                <input id='name' type="text" name="job_title" value="{{ old('job_title') }}" class="form-control required" placeholder="What type of job are you looking for? (e.g. Accounting Finance)" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="">Job Type</label><small class="text-danger">*</small>
-                                                <select class="form-control required" name="job_type" value="{{ old('job_type') }}" required>
-                                                    <option value="Full Time" selected>Full Time</option>
-                                                    <option value="Part Time">Part Time</option>
-                                                    <option value="Temporary">Temporary</option>
-                                                    <option value="Contract">Contract</option>
-                                                    <option value="Internship">Internship</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="">Still Studying</label>
-                                                <select class="form-control required" name="still_studying" value="{{ old('still_studying') }}" required>
-                                                    <option value="No" selected>No</option>
-                                                    <option value="Yes">Yes</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="">Years of experience in this field?</label><small class="text-danger">*</small>
-                                                <input type="number" name="job_experience" value="{{ old('job_experience') }}" min="0" value="0" class="form-control required" placeholder="0" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="">Age</label><small class="text-danger">*</small>
-                                                <input type="number" name="age" class="form-control required" min="0" value="{{ old('age') }}" placeholder="Your age (e.g. 24)" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="">Marital Status</label>
-                                                <select class="form-control required" name="marital_status" value="{{ old('marital_status') }}" required>
-                                                    <option value="Single" selected>Single</option>
-                                                    <option value="Married">Married</option>
-                                                    <option value="Divorced">Divorced</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="">Highest Qualification</label><small class="text-danger">*</small>
-                                                <select class="form-control required" name="highest_qualification" value="{{ old('highest_qualification') }}" required>
-                                                    <option value="High School (S.S.C.E)">High School (S.S.C.E)</option>
-                                                    <option value="Degree">Degree</option>
-                                                    <option value="Diploma">Diploma</option>
-                                                    <option value="HND">HND</option>
-                                                    <option value="OND">OND</option>
-                                                    <option value="MBA/MSc">MBA/MSc</option>
-                                                    <option value="MBBS">MBBS</option>
-                                                    <option value="MPhil/PhD">MPhil/PhD</option>
-                                                    <option value="N.C.E">N.C.E</option>
-                                                    <option value="Others">Others</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="">Gender</label><small class="text-danger">*</small>
-                                                <select class="form-control required" name="gender" value="{{ old('gender') }}" required>
-                                                    <option value="">- Gender type -</option>
-                                                    <option value="Male">Male</option>
-                                                    <option value="Female">Female</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label for="">Employment Status</label><small class="text-danger">*</small>
-                                                <select class="form-control required" name="employment_status" value="{{ old('employment_status') }}" required>
-                                                    <option value="Unemployed">Unemployed</option>
-                                                    <option value="Employed">Employed</option>
-                                                    <option value="Self Employed">Self-employed</option>
-                                                    <option value="Retired Pensioner">Retired/Pensioner</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="">Expected Salary</label><small class="text-danger">*</small>
-                                                <select class="form-control required" name="expected_salary" value="{{ old('expected_salary') }}" required>
-                                                    <option value="&#8358;50,000">Below &#8358;50,000</option>
-                                                    <option value="&#8358;50,000 - &#8358;75,000<">&#8358;50,000 - &#8358;75,000</option>
-                                                    <option value="&#8358;75,000 - &#8358;100,000">&#8358;75,000 - &#8358;100,000</option>
-                                                    <option value="&#8358;100,000 - 125,000">&#8358;100,000 - 125,000</option>
-                                                    <option value="&#8358;125,000 - &#8358;150,000">&#8358;125,000 - &#8358;150,000</option>
-                                                    <option value="&#8358;150,000 - &#8358;200,000">&#8358;150,000 - &#8358;200,000</option>
-                                                    <option value="&#8358;200,000 - &#8358;300,000">&#8358;200,000 - &#8358;300,000</option>
-                                                    <option value="&#8358;300,000 - &#8358;500,000">&#8358;300,000 - &#8358;500,000</option>
-                                                    <option value="Above &#8358;500,000">Above &#8358;500,000</option>
-                                                    <option value="others">Others</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="swtab">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="">Work Experience</label>
-                                            <textarea id='workexperience' name="work_experience" class="form-control summernote" placeholder="Your work experience.">{{ old('work_experience') }}</textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="">Education</label><small class="text-danger">* compulsory</small>
-                                            <textarea id='education' name="education" class="form-control required summernote" placeholder="Educational Background." required>{{ old('education') }}</textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="">Certifications</label>
-                                            <textarea id='certifications' name="certifications" class="form-control summernote" placeholder="Any certifications?">{{ old('certifications') }}</textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="">Skills</label><small class="text-danger">* compulsory</small>
-                                            <textarea id='skills' name="skills" class="form-control required summernote" placeholder="List your skills.">{{ old('skills') }}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="swtab">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group file-upload" id="file-upload1">
-                                                <label>Upload Image</label>
-                                                <small class="text-danger">*</small> <br>
-                                                <small class="text-info">Choose a profile picture for your CV.</small>
-                                                <div class="image-box text-center">
-                                                        <p>Select an Image</p>
-                                                        <img src="" alt="">
-                                                </div>
-                                                <div class="controls" style="display: none;">
-                                                    <input type="file" name="user_image" class="form-control show-tick" required />
-                                                </div>
-                                            </div>
-                                            <p style="color: #ee3636">Uploading an image is compulsory.</p>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="col-md-12">
+                        <form id="serviceForm" action="{{ route('service.save') }}" method="post" enctype="multipart/form-data" style="display: block">
+                            @csrf
+                            <div class="modal-body">
+                                <div style="padding: 20px">
+                                    <!-- One "tab" for each step in the form: -->
+                                    <div class="tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">Phone</label><small class="text-danger">*</small>
-                                                    <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="phone" type="number" class="form-control" value="{{ Auth::user()->phone }}" placeholder="Your phone number (e.g. 09023456789)" name="phone"  minlength="11" maxlength="11" required>
+                                                    <label>Select Category</label><small class="text-danger">*</small>
+                                                    <small class="form-text text-muted">Select a category to continue.</small>
+                                                    <select name="category_id" required class="form-control show-tick required" id="categories">
+                                                        <option value="">-- Please select --</option>
+                                                        @foreach($categories as $category)
+                                                            <option id="category_id" value=" {{ $category->id }} "> {{ $category->name }} </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
-
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="name">Service Name</label><small class="text-danger">*</small>
+                                                    <small class="form-text text-muted">Enter the name of the service you want to offer. <input readonly type="text" name="countdown" size="1" value="50" style="border: 0; padding: 0;margin-right: -20px; display: inline; width:auto; font-size: inherit"> chars left</small>
+                                                    <input type="text" class="form-control required" name="name" value="{{ old('name') }}" onkeydown="limitText(this.form.name,this.form.countdown,50);" onkeyup='limitText(this.form.name,this.form.countdown,50);' placeholder="e.g. Bag, Plumber, Phone, etc..." required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Location</label><small class="text-danger">*</small>
-                                                    <select class="form-control required" required id="user_state"  name="user_state">
-                                                        <option value="">- Select State -</option>
+                                                    <select class="form-control required" required id="state"  name="state">
+                                                        <option value="">-- Select State --</option>
                                                         @if(isset($states))
-                                                            @foreach($states as $state)
-                                                                <option value="{{$state->name}}"> {{ $state->name }}  </option>
-                                                            @endforeach
+                                                        @foreach($states as $state)
+                                                        <option id="state" value="{{$state->name}}"> {{ $state->name }}  </option>
+                                                        @endforeach
                                                         @endif
                                                     </select>
                                                 </div>
                                             </div>
-
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">Local Government</label><small class="text-danger">*</small>
-                                                    <select class="form-control" id="user_lga" name="user_lga" required>
-                                                        <option disabled selected>- 👈 Select a State -</option>
+                                                    <select class="form-control required" id="city" name="city" required>
+                                                        <option disabled selected>- Select a State -</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="description">Description</label>
+                                                    <textarea type="text" class="form-control required" name="description" placeholder="Tell us about your service." style="height: 220px" required></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Sub Category <small class="text-info">(You can select multiple sub categories)</small></label>
+                                                    <select name="sub_category[]" class="form-control show-tick" id="sub_categories" multiple style="display: block;width: 100%;height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.42857143;color: #555555;background-color: #ffffff;background-image: none;border: 1px solid #cccccc;border-radius: 0;-webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+                                                    box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%); -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;">
+                                                        <option value="">- Please select a category to populate this -</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group file-upload" id="file-upload1">
+                                                    <label>Upload Image</label>
+                                                    <small class="text-danger">*</small> <br>
+                                                    <small class="text-info">Choose a thumbnail for your service.</small>
+                                                    <div class="image-box required text-center">
+                                                            <p>Select an Image</p>
+                                                            <img src="" alt="">
+                                                        </div>
+                                                    <div class="controls" style="display: none;">
+                                                        <input type="file" name="thumbnail" class="form-control required show-tick" required />
+                                                    </div>
+                                                </div>
+                                                <p class="text-danger">Uploading an image is compulsory.</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1" id="servicePriceRange">How much do you want to charge for this service?</label>
+                                                            <small class="form-text text-muted" id="servicePriceRangeLabel">Enter the amount you want on this service.</small>
+                                                            <input type="number" name="min_price" class="form-control required" placeholder="e.g. 20000">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="form-label">Address</label>
+                                                            <small class="form-text text-muted">Enter your physical address.</small>
+                                                            <input id="address" type="text"  value="{{ old('address') }}" class="form-control" name="address" placeholder="Enter your address here.">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="">Phone</label><small class="text-danger">*</small>
+                                                            <small class="form-text text-muted">Enter your phone number.</small>
+                                                            <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="phone" required type="number" class="form-control required" value="{{ old('phone') }}" placeholder="e.g. 09023456789" minlength="11" maxlength="11" name="phone" value=" {{ Auth::user()->phone }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group form-float" id="youtubeLink">
+                                                            <label class="form-label">Video (Youtube)</label>
+                                                            <small class="form-text text-muted">Your youtube video link.</small>
+                                                            <input type="text" class="form-control" name="video_link">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="form-check" id="negotiableChBox">
+                                                                <input id="negotiable" class="form-check-input" type="checkbox" value="{{ old('negotiable') }}" name="negotiable">
+                                                                <label class="form-check-label" for="negotiable"> Is this service negotiable?</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div class="form-check">
+                                                                <input id="featured" class="form-check-input" type="checkbox" value="1" name="is_featured" onclick="featuredCheckbbox()">
+                                                                <label class="form-check-label" for="featured"> Do you want this service featured?  <small class="infoLinkNote">(<a data-toggle="modal" data-target="#featuredInfoModal">How it works?</a>)</small></label>
+                                                            </div>
+                                                            <p id="featuredText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Circles which indicates the steps of the form: -->
+                                    <div style="text-align:center;margin-top:40px;">
+                                        <span class="step"></span>
+                                        <span class="step"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-lg btn-info" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                <button type="button" class="btn btn-lg btn-warning"  id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                <button type="submit" class="btn btn-lg btn-warning"  id="submitBtn">Submit</button>
+                            </div>
+                        </form>
+
+
+
+                        <form id="seekingworkForm" action="{{route('provider.seeking.work.create')}}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal-body">
+                                <div style="padding: 20px">
+                                    <div style="margin-bottom: 20px">
+                                        <h2 style="font-size: 20px"><strong>Create Your CV's Page</strong></h2>
+                                        <small class="text-danger">* please fill all astericked fields</small>
+                                    </div>
+
+                                    <div class="swtab">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Change Category</label>
+                                                    <small class="text-danger">*</small>
+                                                    <select name="category_id" required class="form-control show-tick" id="sw_categories">
+                                                        <option value="1" selected>Job Applicant</option>
+                                                        @foreach($categories as $category)
+                                                            <option value="{{ $category->id }}" {{ $category->id == 1 ? 'selected' : '' }}> {{ $category->name }} </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-12">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Address</label>
-                                                    <input id="address" type="text"  value="{{ old('address') }}" class="form-control" name="address" placeholder="Enter your address here.">
+                                                <label class="form-label">Full Name </label><small class="text-danger">*</small>
+                                                <input id='name' type="text" required name="name" value="{{ Auth::user()->name }}" class="form-control required" placeholder="Enter your fullname here (e.g. James Tapo)">
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-12">
-                                                <div class="form-check">
-                                                    <input id="swfeatured" class="form-check-input" type="checkbox" value="1" name="is_featured" onclick="swfeaturedCheckbox()">
-                                                    <label class="form-check-label" for="swfeatured"> Do you want this CV featured?  <small class="infoLinkNote">(<a data-toggle="modal" data-target="#featuredInfoModal">How it works?</a>)</small></label>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="">Job Title</label><small class="text-danger">*</small>
+                                                    <input id='name' type="text" name="job_title" value="{{ old('job_title') }}" class="form-control required" placeholder="What type of job are you looking for? (e.g. Accounting Finance)" required>
                                                 </div>
-                                                <p id="swfeaturedText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="">Job Type</label><small class="text-danger">*</small>
+                                                    <select class="form-control required" name="job_type" value="{{ old('job_type') }}" required>
+                                                        <option value="Full Time" selected>Full Time</option>
+                                                        <option value="Part Time">Part Time</option>
+                                                        <option value="Temporary">Temporary</option>
+                                                        <option value="Contract">Contract</option>
+                                                        <option value="Internship">Internship</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="">Still Studying</label>
+                                                    <select class="form-control required" name="still_studying" value="{{ old('still_studying') }}" required>
+                                                        <option value="No" selected>No</option>
+                                                        <option value="Yes">Yes</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="">Years of experience in this field?</label><small class="text-danger">*</small>
+                                                    <input type="number" name="job_experience" value="{{ old('job_experience') }}" min="0" value="0" class="form-control required" placeholder="0" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="">Age</label><small class="text-danger">*</small>
+                                                    <input type="number" name="age" class="form-control required" min="0" value="{{ old('age') }}" placeholder="Your age (e.g. 24)" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="">Marital Status</label>
+                                                    <select class="form-control required" name="marital_status" value="{{ old('marital_status') }}" required>
+                                                        <option value="Single" selected>Single</option>
+                                                        <option value="Married">Married</option>
+                                                        <option value="Divorced">Divorced</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="">Highest Qualification</label><small class="text-danger">*</small>
+                                                    <select class="form-control required" name="highest_qualification" value="{{ old('highest_qualification') }}" required>
+                                                        <option value="High School (S.S.C.E)">High School (S.S.C.E)</option>
+                                                        <option value="Degree">Degree</option>
+                                                        <option value="Diploma">Diploma</option>
+                                                        <option value="HND">HND</option>
+                                                        <option value="OND">OND</option>
+                                                        <option value="MBA/MSc">MBA/MSc</option>
+                                                        <option value="MBBS">MBBS</option>
+                                                        <option value="MPhil/PhD">MPhil/PhD</option>
+                                                        <option value="N.C.E">N.C.E</option>
+                                                        <option value="Others">Others</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="">Gender</label><small class="text-danger">*</small>
+                                                    <select class="form-control required" name="gender" value="{{ old('gender') }}" required>
+                                                        <option value="">- Gender type -</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="">Employment Status</label><small class="text-danger">*</small>
+                                                    <select class="form-control required" name="employment_status" value="{{ old('employment_status') }}" required>
+                                                        <option value="Unemployed">Unemployed</option>
+                                                        <option value="Employed">Employed</option>
+                                                        <option value="Self Employed">Self-employed</option>
+                                                        <option value="Retired Pensioner">Retired/Pensioner</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="">Expected Salary</label><small class="text-danger">*</small>
+                                                    <select class="form-control required" name="expected_salary" value="{{ old('expected_salary') }}" required>
+                                                        <option value="&#8358;50,000">Below &#8358;50,000</option>
+                                                        <option value="&#8358;50,000 - &#8358;75,000<">&#8358;50,000 - &#8358;75,000</option>
+                                                        <option value="&#8358;75,000 - &#8358;100,000">&#8358;75,000 - &#8358;100,000</option>
+                                                        <option value="&#8358;100,000 - 125,000">&#8358;100,000 - 125,000</option>
+                                                        <option value="&#8358;125,000 - &#8358;150,000">&#8358;125,000 - &#8358;150,000</option>
+                                                        <option value="&#8358;150,000 - &#8358;200,000">&#8358;150,000 - &#8358;200,000</option>
+                                                        <option value="&#8358;200,000 - &#8358;300,000">&#8358;200,000 - &#8358;300,000</option>
+                                                        <option value="&#8358;300,000 - &#8358;500,000">&#8358;300,000 - &#8358;500,000</option>
+                                                        <option value="Above &#8358;500,000">Above &#8358;500,000</option>
+                                                        <option value="others">Others</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- Circles which indicates the steps of the form: -->
-                                <div style="text-align:center;margin-top:40px;">
-                                    <span class="swstep"></span>
-                                    <span class="swstep"></span>
-                                    <span class="swstep"></span>
+
+                                    <div class="swtab">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Work Experience</label>
+                                                <textarea id='workexperience' name="work_experience" class="form-control summernote" placeholder="Your work experience.">{{ old('work_experience') }}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Education</label><small class="text-danger">* compulsory</small>
+                                                <textarea id='education' name="education" class="form-control required summernote" placeholder="Educational Background." required>{{ old('education') }}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Certifications</label>
+                                                <textarea id='certifications' name="certifications" class="form-control summernote" placeholder="Any certifications?">{{ old('certifications') }}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Skills</label><small class="text-danger">* compulsory</small>
+                                                <textarea id='skills' name="skills" class="form-control required summernote" placeholder="List your skills.">{{ old('skills') }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="swtab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group file-upload" id="file-upload1">
+                                                    <label>Upload Image</label>
+                                                    <small class="text-danger">*</small> <br>
+                                                    <small class="text-info">Choose a profile picture for your CV.</small>
+                                                    <div class="image-box text-center">
+                                                            <p>Select an Image</p>
+                                                            <img src="" alt="">
+                                                    </div>
+                                                    <div class="controls" style="display: none;">
+                                                        <input type="file" name="user_image" class="form-control show-tick" required />
+                                                    </div>
+                                                </div>
+                                                <p style="color: #ee3636">Uploading an image is compulsory.</p>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="">Phone</label><small class="text-danger">*</small>
+                                                        <input oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" id="phone" type="number" class="form-control" value="{{ Auth::user()->phone }}" placeholder="Your phone number (e.g. 09023456789)" name="phone"  minlength="11" maxlength="11" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Location</label><small class="text-danger">*</small>
+                                                        <select class="form-control required" required id="user_state"  name="user_state">
+                                                            <option value="">- Select State -</option>
+                                                            @if(isset($states))
+                                                                @foreach($states as $state)
+                                                                    <option value="{{$state->name}}"> {{ $state->name }}  </option>
+                                                                @endforeach
+                                                            @endif
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Local Government</label><small class="text-danger">*</small>
+                                                        <select class="form-control" id="user_lga" name="user_lga" required>
+                                                            <option disabled selected>- 👈 Select a State -</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Address</label>
+                                                        <input id="address" type="text"  value="{{ old('address') }}" class="form-control" name="address" placeholder="Enter your address here.">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="form-check">
+                                                        <input id="swfeatured" class="form-check-input" type="checkbox" value="1" name="is_featured" onclick="swfeaturedCheckbox()">
+                                                        <label class="form-check-label" for="swfeatured"> Do you want this CV featured?  <small class="infoLinkNote">(<a data-toggle="modal" data-target="#featuredInfoModal">How it works?</a>)</small></label>
+                                                    </div>
+                                                    <p id="swfeaturedText" class="text-info">This will attract a fee of &#8358;2000 which will be paid before the service is displayed.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Circles which indicates the steps of the form: -->
+                                    <div style="text-align:center;margin-top:40px;">
+                                        <span class="swstep"></span>
+                                        <span class="swstep"></span>
+                                        <span class="swstep"></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-lg btn-info" id="swPrevBtn" onclick="swNextPrev(-1)">Previous</button>
-                            <button type="button" class="btn btn-lg btn-warning"  id="swNextBtn" onclick="swNextPrev(1)">Next</button>
-                            <button type="submit" class="btn btn-lg btn-warning"  id="swSubmitBtn">Submit</button>
-                        </div>
-                    </form>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-lg btn-info" id="swPrevBtn" onclick="swNextPrev(-1)">Previous</button>
+                                <button type="button" class="btn btn-lg btn-warning"  id="swNextBtn" onclick="swNextPrev(1)">Next</button>
+                                <button type="submit" class="btn btn-lg btn-warning"  id="swSubmitBtn">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-                @endif
+    @endif
 
 </div>
 

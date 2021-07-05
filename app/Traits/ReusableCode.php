@@ -1,51 +1,86 @@
 <?php
 
 namespace App\Traits;
+use App\Agent;
+use App\Mail\UserRegistered;
+use App\Refererlink;
+use App\User;
+use App\Subscription;
+use App\ProviderSubscription;
+use App\Payment;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Livewire\Component;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
+use Config;
+use Illuminate\Http\Request;
+
 
 trait ReusableCode
 {
-    public function printThis()
+
+public function createSlug($name, $model, $id = 0)
     {
-        echo "Trait executed";
-        dd($this);
+        // $slug = str_slug($this->name);
+        $slug = Str::of($name)->slug('-');
+        $allSlugs = $this->getRelatedSlugs($slug, $model, $id);
+        if (! $allSlugs->contains('slug', $slug)){
+            return $slug;
+        }
+
+        $i = 1;
+        $is_contain = true;
+        do {
+            $newSlug = $slug . '-' . $i;
+            if (!$allSlugs->contains('slug', $newSlug)) {
+                $is_contain = false;
+                return $newSlug;
+            }
+            $i++;
+        } while ($is_contain);
     }
-    public function anotherMethod()
+
+    protected function getRelatedSlugs($slug, $model, $id = 0)
     {
-        echo "Trait - anotherMethod() executed";
+        return $model::select('slug')->where('slug', 'like', $slug.'%')
+        ->where('id', '<>', $id)
+        ->get();
     }
 
 
-
-    public function findNearestRestaurants(Request $request)
+    public function createRefererLink($model, $id = 0)
     {
-        // return $request->radius;
-        $latitude = $request->latitude;
-        $longitude = $request->longitude;
-        $radius = 100;
-        // $keyword = $request->radius,
-        // $categories = $request->categories,
-        // $sub_category = $request->sub_category,
-        // $myRange = $request->myRange,
-        // $state =  $request->state,
-        // $city = $request->city
-        // $latitude = Auth::user()->latitude;
-        // $longitude = Auth::user()->longitude;
-        // Auth::user()->save();
-        // return $latitude . $longitude;
-        // $latitude =
-        $services = Service::selectRaw("id, name, address,
-                     ( 6371000 * acos( cos( radians(?) ) *
-                       cos( radians( latitude ) )
-                       * cos( radians( longitude ) - radians(?)
-                       ) + sin( radians(?) ) *
-                       sin( radians( latitude ) ) )
-                     ) AS distance", [$latitude, $longitude, $latitude])
-            ->having("distance", "<", $radius)
-            ->orderBy("distance", 'asc')
-            ->offset(0)
-            ->limit(20)
-            ->get();
+        // $slug = str_slug($this->name);
+        $slug = Str::random(8);
+        // $slug = Str::of($name)->slug('-');
+        $allSlugs = $this->getRelatedrefererLinks($slug, $model, $id);
+        if (!$allSlugs->contains('refererlink', $slug)){
+            return $slug;
+        }
 
-        return $services;
+        $i = 1;
+        $is_contain = true;
+        do {
+            $newSlug = $slug . '-' . $i;
+            if (!$allSlugs->contains('refererlink', $newSlug)) {
+                $is_contain = false;
+                return $newSlug;
+            }
+            $i++;
+        } while ($is_contain);
     }
+
+    protected function getRelatedrefererLinks($slug, $model, $id = 0)
+    {
+        return $model::select('refererlink')->where('refererlink', 'like', $slug.'%')
+        ->where('id', '<>', $id)
+        ->get();
+    }
+
 }

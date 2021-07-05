@@ -17,6 +17,7 @@ class CreateLikesTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('service_id');
+            $table->string('seekingwork_id')->nullable();
             $table->timestamps();
         });
     }

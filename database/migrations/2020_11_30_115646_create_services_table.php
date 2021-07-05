@@ -25,22 +25,26 @@ class CreateServicesTable extends Migration
             $table->string('category')->nullable();
             $table->string('thumbnail')->default('noserviceimage.png')->nullable();
             $table->string('address')->nullable();
-            $table->string('experience')->nullable();
+            $table->integer('experience')->nullable();
             $table->string('phone')->nullable();
             $table->string('video_link')->nullable();
             $table->string('min_price')->nullable();
             $table->string('max_price')->nullable();
-            $table->boolean('is_featured')->nullable()->default(0);
-            $table->boolean('is_approved')->nullable()->default(0);
-            $table->string('slug')->unique()->nullable();
+            $table->boolean('is_featured')->default(0);
+            $table->integer('paid_featured')->default(0);
+            $table->boolean('is_approved')->default(0);
+            $table->string('slug')->unique();
             $table->boolean('status')->default(0);
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('category_id')->nullable();
-            $table->timestamps();
-            $table->string('badge_type')->nullable()->default(0);
+            $table->unsignedInteger('category_id');
+            $table->integer('subcategory_id')->nullable();
+            $table->integer('badge_type')->default(4);
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
             $table->string('subscription_end_date')->nullable();
+            $table->string('featured_end_date')->default(0);
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

@@ -29,7 +29,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: #fff">
                             <i class="fa fa-close"></i>
                         </button>
-                        <h4 class="text-center" id="sub_end"><strong>Your Subscription has ended. Please renew your subcription to proceed</strong><span></span>
+                        <h4 class="text-center" id="sub_end_first"><strong>Your Subscription has ended. Please renew your subcription to proceed</strong><span></span>
                         </h4>
                     </div>
                  
@@ -44,7 +44,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: inline-block; color: #fff">
                             <i class="fa fa-close"></i>
                         </button>
-                        <h4 class="text-center" id="sub_end"><strong>YOUR SUBSCRIPTION WAS NOT FOUND. PLEASE SUBSCRIBE TO PROCEED TO YOUR DASHBOARD!</strong><span></span>
+                        <h4 class="text-center" id="sub_end_2nd"><strong>YOUR SUBSCRIPTION WAS NOT FOUND. PLEASE SUBSCRIBE TO PROCEED TO YOUR DASHBOARD!</strong><span></span>
                         </h4>
                     </div>
                 
@@ -126,10 +126,10 @@
         		data-target="#theinfoModal">How it works?</a>)</small></h3>
                 @if($current_subscription_end_date)
         			<!-- <p id="sub_end">Your Subscription ends:<span><h1>{{  Carbon\Carbon::parse($current_subscription_end_date)->format('d-m-Y')  }}</h1></span></p> -->
-                    <p id="sub_end">Your Subscription ends: <strong>{{  Carbon\Carbon::parse($current_subscription_end_date)->toDayDateTimeString()  }}</strong><span></span></p>
-                    <!-- <p>Your Subscription ends:<span><h1 id="sub_end2"></h1></span></p> -->
+                    <p id="sub_end_js">Your Subscription ends: <strong>{{  Carbon\Carbon::parse($current_subscription_end_date)->toDayDateTimeString()  }}</strong></p>
+                    <p id="sub_end2"></p>
                 @else
-                <p id="sub_end"></p>
+                <p id="sub_end_check"></p>
                 @endif
         </section>
 
@@ -137,16 +137,16 @@
             <div class="row">
                  @if($no_sub_var)                                 
                       <div>
-                        <h4 class="text-center text-danger" id="sub_end"><strong>YOUR SUBSCRIPTION WAS NOT FOUND. PLEASE SUBSCRIBE TO PROCEED TO YOUR DASHBOARD!</strong><span></span>
+                        <h4 class="text-center text-danger" id="sub_end_noSub"><strong>YOUR SUBSCRIPTION WAS NOT FOUND. PLEASE SUBSCRIBE TO PROCEED TO YOUR DASHBOARD!</strong><span></span>
                         </h4>
                 @endif
 
                   @if($subscription_has_ended)                                 
                       <div>
-                        <h4 class="text-center text-danger" id="sub_end"><strong>YOUR SUBSCRIPTION HAS ENDED. PLEASE RENEW YOUR SUBSCRIPTION TO PROCEED</strong><span></span>
+                        <h4 class="text-center text-danger" id="sub_ended"><strong>YOUR SUBSCRIPTION HAS ENDED. PLEASE RENEW YOUR SUBSCRIPTION TO PROCEED</strong><span></span>
                         </h4>              
                 @else
-                     <h3 class="text-center text-warning" id="sub_end"><strong></strong><span></span>
+                     <h3 class="text-center text-warning" id="sub_end_show"><strong></strong><span></span>
                         </h3>
                 @endif
                 <div class="col-md-3">
@@ -349,18 +349,14 @@
                 var sub_type = $("#sub_type").val();
 
                 function payWithPaystack1() {
-//                                                 var amount = $("#sub_cost").val();
-// console.log(amount);
-// alert(amount);
-// return
                     $('#badgeRequestModal').modal('hide');
-                    console.log(base_Url);
+                    // console.log(base_Url);
 
                     var handler = PaystackPop.setup({
                         key: paystack_pk,
                         email: document.getElementById("email-address3").value,
                         amount: $("#sub_cost").val()*100,
-                        ref: '' + Math.floor((Math.random() * 1000000000) + 1),
+                        ref: ''+'RESUB-'+Math.floor((Math.random() * 1000000000) + 1),
                         metadata: {
                             custom_fields: [{
                                 display_name: "Mobile Number",
@@ -374,7 +370,7 @@
                             var amount = $("#sub_cost").val();
                             var ref_no =  response.reference;
                             var sub_type = $("#sub_type").val();
-                            console.log(email, amount, ref_no, sub_type)
+                            // console.log(email, amount, ref_no, sub_type)
 
                             $.ajax({
                               method: "POST",
@@ -388,11 +384,12 @@
                                 sub_type: sub_type
                               },
                               success: function (data) {
-                                console.log(data);
+                                // console.log(data);
                                 toastr.success('You have purchased a new subscription!')
-                                // $("#sub_end2").innerHTML = data.new_date;
-                                 $("#sub_end2").html(data.new_date);
+                                //  $("#sub_end2").html('Your Subscription Ends:'+data.new_date); //this will also work
                                  // $('#sub_message').css("display", "block");
+                                $('#sub_end_js').css("display", "none");
+                                $("#sub_end2").append("<p>" + 'Your Subscription Ends: '+'<strong>'+data.new_date+'</strong>'+"</p>");
                               },
                               error: function(error) {
                                   console.log(error)

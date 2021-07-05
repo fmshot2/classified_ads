@@ -3,7 +3,7 @@
 
 	<div class="box-header with-border">
 		<h3 class="box-title">  Active Service </h3>
-		<code>  {{ url()->current() == route('seller.dashboard') ? 'showing active services ' : '' }} </code>
+		{{-- <code>  {{ url()->current() == route('seller.dashboard') ? 'showing active services ' : '' }} </code> --}}
 
 	</div>
 	<!-- /.box-header -->

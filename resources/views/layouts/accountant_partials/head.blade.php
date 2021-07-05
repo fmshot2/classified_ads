@@ -85,7 +85,6 @@
 
 </style>
 
-<script src="{{ asset('js/jquery-2.2.0.min.js') }}"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
 
 </head>

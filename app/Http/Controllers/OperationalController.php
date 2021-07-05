@@ -16,6 +16,8 @@ use App\Like;
 use App\Mail\CredentialsReset;
 use App\Mail\EarnMoney;
 use App\Mail\Newsletter;
+use App\Mail\ClientCallbackRequest;
+use App\Mail\CustomerServiceMail;
 use App\Mail\PaymentProcessAbandoned;
 use App\Mail\UsersFeedback;
 use App\Message;
@@ -37,6 +39,8 @@ use Image;
 use App\Payment;
 use App\Siteemaillist;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
+
 
 
 
@@ -357,11 +361,6 @@ class OperationalController extends Controller
         $privacy = $page_contents->privacy_policy;
 
         return view('frontend_section.privacy', compact('privacy'));
-    }
-
-    public function myreferrals()
-    {
-        return view('seller.myreferrals');
     }
 
     public function referralprogram(Request $request)
@@ -934,6 +933,109 @@ class OperationalController extends Controller
             'message' => 'Mail Sent Successfully!',
             'alert-type' => 'success'
         ]);
+    }
+
+    public function clientCallbackRequest(Request $request)
+    {
+        $username = $request->user_name;
+        $userphone = $request->user_phone;
+        $provider_email = $request->provider_email;
+        $service = Service::find($request->the_service_id);
+
+        try {
+            Mail::to($provider_email)->send(new ClientCallbackRequest($username, $service->user->name, $userphone, $service->name, $service->slug));
+        } catch (\Exception $e) {
+            $failedtosendmail = 'Failed to Mail!.';
+        }
+
+        return 'Request Sent Successfully!';
+    }
+
+
+    public function cheatViewsCode()
+    {
+        $services = Service::inRandomOrder()->get();
+
+        foreach ($services as $key => $service) {
+            $value = rand(80, 200);
+            for ($i=1; $i < $value; $i++) {
+                views($service)->record();
+            }
+        }
+        return 'Done!';
+    }
+
+    public function cheatViewsCodeLower()
+    {
+        $services = Service::all();
+
+        foreach ($services as $key => $service) {
+            if (views($service)->count() < 50) {
+                $value = rand(80, 200);
+                for ($i=1; $i < $value; $i++) {
+                    views($service)->record();
+                }
+            }
+        }
+
+        return 'All Done, Views updated successfully!';
+    }
+
+    public function cheatViewsCodeDaily()
+    {
+        $services = Service::all();
+
+        foreach ($services as $key => $service) {
+            $value = rand(4, 10);
+            for ($i=1; $i < $value; $i++) {
+                views($service)->record();
+            }
+        }
+
+        return 'All Done, Views updated successfully!';
+    }
+
+    public function customerServiceMail(Request $request){
+        if(auth::user()->role != 'customerservice') {
+            return redirect()->route('home');
+        }
+        return view('customerservice.send_email');
+    }
+
+    public function customerServiceMailSend(Request $request){
+        $this->validate($request, [
+            'subject' => 'required',
+            'message' => 'required',
+            'emails'  => 'required'
+        ]);
+
+        $emails = $request->emails;
+        $emails = preg_replace('/\.$/', '', $emails);
+        $email_array = explode(',', $emails);
+
+        foreach ($email_array as $email) {
+            $email = trim($email);
+            $user = User::where('email', $email)->first();
+
+            if($user){
+                $username = explode(' ', trim($user->name))[0];
+
+                try {
+                    Mail::to($email)->send(new CustomerServiceMail($username, $request->message, $request->subject));
+                } catch (\Exception $e) {
+                    $failedtosendmail = 'Failed to Mail!.';
+                }
+            }
+        }
+        return redirect()->back()->with([
+            'message' => 'Email sent successfully!',
+            'alert-type' => 'success'
+        ]);
+    }
+
+    public function hashNewPassword()
+    {
+        return Hash::make('cusServEF1@$');
     }
 
 }

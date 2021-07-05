@@ -51,6 +51,29 @@ use App\Refererlink;
 class AdminController extends Controller
 {
 
+
+    public function allagents()
+    {
+        $agents = Agent::all();
+        $approval_status = null;
+        return view('admin.user.agents', compact('agents', 'approval_status'));
+    }
+
+
+    public function seller()
+    {
+        $seller = User::where('role', 'seller')->orderBy('id', 'desc')->get();
+        $approval_status = null;
+        return view('admin.user.seller', compact('seller', 'approval_status'));
+    }
+
+     public function buyer()
+    {
+        $buyers = User::where('role', 'buyer')->orderBy('id', 'asc')->get();
+        // Category::orderBy('id', 'asc')->paginate(35);
+        return view('admin.user.buyer', compact('buyers'));
+    }
+
   public function usersfeedback()
   {
     $feedbacks = UserFeedback::orderBy('created_at', 'desc')->get();
@@ -460,7 +483,7 @@ class AdminController extends Controller
 
   public function allService()
   {
-    $all_service = Service::orderBy('created_at', 'desc')->get();
+    $all_service = Service::orderBy('id', 'asc')->get();
     return view('admin.service.index', compact('all_service'));
   }
   public function allSeekingwork()
@@ -490,6 +513,11 @@ class AdminController extends Controller
   public function allSubscription()
   {
     $all_subscriptions = Subscription::all();
+    // foreach($all_subscriptions as $all_subscription){
+    //   $all_subscriptions = $all_subscription->subscriptionable->services;
+
+    // }
+    // dd($all_subscriptions);
     return view('admin.subscription.index', compact('all_subscriptions'));
   }
 
@@ -1149,7 +1177,7 @@ class AdminController extends Controller
             $agents[$key]->total_refers_count = $serv->total_refers->count();
           }
           $approval_status = null;
-          return view('admin.user.all_agents_yesterday', compact('agents', 'approval_status'));
+          return view('admin.user.agents.all_agents_yesterday', compact('agents', 'approval_status'));
         }
 
         public function agents_last_week()
@@ -1160,7 +1188,7 @@ class AdminController extends Controller
             $agents[$key]->total_week_count = $serv->total_week->count();
           }
           $approval_status = null;
-          return view('admin.user.all_agents_week', compact('agents', 'approval_status'));
+          return view('admin.user.agents.all_agents_week', compact('agents', 'approval_status'));
         }
 
 
@@ -1174,102 +1202,128 @@ class AdminController extends Controller
             $agents[$key]->total_month_count = $serv->total_month->count();
           }
           $approval_status = null;
-          return view('admin.user.all_agents_month', compact('agents', 'approval_status'));
+          return view('admin.user.agents.all_agents_month', compact('agents', 'approval_status'));
         }
 
 
 
         public function allusers_sales_yesterday()
         {
-          $agents = User::all();
-          $users = Referal::where('referalable_type', 'App\Agent')->get();
-          foreach ($agents as $key => $serv) {
+          $users = User::all();
+          // $users = Referal::where('referalable_type', 'App\Agent')->get();
+          foreach ($users as $key => $user) {
             // $agents[$key]->total_refers = $serv->total_refers;
-            $agents[$key]->total_refers_count = $serv->total_refers->count();
+            $users[$key]->total_yesterday_count = $user->total_yesterday->count();
           }
           $approval_status = null;
-          return view('admin.user.all_users_yesterday', compact('agents', 'approval_status'));
+          return view('admin.user.all_users_yesterday', compact('users', 'approval_status'));
         }
 
         public function users_last_week()
         {
-          $agents = User::all();
-          $users = Referal::where('referalable_type', 'App\Agent')->get();
+          $users = User::all();
 
-          foreach ($agents as $key => $serv) {
-            // $agents[$key]->total_refers = $serv->total_refers;
-            $agents[$key]->total_week_count = $serv->total_week->count();
+          foreach ($users as $key => $user) {
+            $users[$key]->total_week_count = $user->total_week->count();
           }
           $approval_status = null;
-          return view('admin.user.all_users_week', compact('agents', 'approval_status'));
+          return view('admin.user.all_users_week', compact('users', 'approval_status'));
         }
-
 
         public function users_last_month()
         {
-          $agents = User::all();
+          $users = User::all();
           $users = Referal::where('referalable_type', 'App\Agent')->get();
 
-          foreach ($agents as $key => $serv) {
+          foreach ($users as $key => $user) {
             // $agents[$key]->total_refers = $serv->total_refers;
             // note: there is total month in the model
+            $users[$key]->total_month_count = $user->total_month->count();
+          }
+          $approval_status = null;
+          return view('admin.user.all_users_month', compact('users', 'approval_status'));
+        }
+
+        public function ef_marketers_yesterday()
+        {
+          $users = User::all();
+          foreach ($users as $key => $user) {
+            $users[$key]->total_yesterday_count = $user->total_yesterday->count();
+          }
+          $approval_status = null;
+          return view('admin.user.ef_marketers.yesterday_sales', compact('users', 'approval_status'));
+        }
+
+        public function ef_marketers_last_week()
+        {
+          $users = User::all();
+          foreach ($users as $key => $user) {
+            $users[$key]->total_week_count = $user->total_week->count();
+          }
+          $approval_status = null;
+          return view('admin.user.ef_marketers.last_week_sales', compact('users', 'approval_status'));
+        }
+
+        public function ef_marketers_last_month()
+        {
+          $agents = User::all();
+          foreach ($agents as $key => $serv) {
             $agents[$key]->total_month_count = $serv->total_month->count();
           }
           $approval_status = null;
-          return view('admin.user.all_users_month', compact('agents', 'approval_status'));
+          return view('admin.user.ef_marketers.last_month_sales', compact('agents', 'approval_status'));
         }
 
+        // public function users_sub_almost_ended2()
+        // {
 
-        public function users_sub_almost_ended2()
-        {
+        //   $agents = User::all();
+        // // dd($agents->subscriptions->first()->subscription_end_date);
+        //   $names = array();
+        //   $names2 = array();
+        //   $second = Carbon::now()->subDays(18);
 
-          $agents = User::all();
-        // dd($agents->subscriptions->first()->subscription_end_date);
-          $names = array();
-          $names2 = array();
-          $second = Carbon::now()->subDays(18);
-
-          $first =  Carbon::now();
-          foreach ($agents as $key => $user) {
-            // $agents[$key]->total_refers = $serv->total_refers;
-            $agents[$key]->rtrt = $user->subscriptions->first();
-            foreach ($user->rtrt as $key => $user2) {
-              if (Carbon::parse($user2->subscription_end_date)->between($first, $second)) {
-                $eee = 1;
-                array_push($names, $user);
-              } else {
-                $eee = 2;
-              }
-            }
-          }
-          dd($eee);
+        //   $first =  Carbon::now();
+        //   foreach ($agents as $key => $user) {
+        //     // $agents[$key]->total_refers = $serv->total_refers;
+        //     $agents[$key]->rtrt = $user->subscriptions->first();
+        //     foreach ($user->rtrt as $key => $user2) {
+        //       if (Carbon::parse($user2->subscription_end_date)->between($first, $second)) {
+        //         $eee = 1;
+        //         array_push($names, $user);
+        //       } else {
+        //         $eee = 2;
+        //       }
+        //     }
+        //   }
+        //   dd($eee);
 
 
-          $second = Carbon::now()->addDays(14);
-          $first =  Carbon::now();
-        // dd($agents);
-          if (Carbon::parse($agents->subscriptions->subscription_end_date)->between($first, $second)) {
-            $eee = 1;
-            array_push($names, $agents);
-          } else {
-            $eee = 2;
-          }
-          dd($eee);
-          $bbb = [];
-          foreach ($agents as $user) {
-            if (($user->created_at - Carbon::now()->subDays(30)) >= 15) {
-              array_push($bbb, $user);
-            }
-            $service = Service::where('user_id', $user->id)->first();
+        //   $second = Carbon::now()->addDays(14);
+        //   $first =  Carbon::now();
+        // // dd($agents);
+        //   if (Carbon::parse($agents->subscriptions->subscription_end_date)->between($first, $second)) {
+        //     $eee = 1;
+        //     array_push($names, $agents);
+        //   } else {
+        //     $eee = 2;
+        //   }
+        //   dd($eee);
+        //   $bbb = [];
+        //   foreach ($agents as $user) {
+        //     if (($user->created_at - Carbon::now()->subDays(30)) >= 15) {
+        //       array_push($bbb, $user);
+        //     }
+        //     $service = Service::where('user_id', $user->id)->first();
 
-            $user->phone = $service->phone;
+        //     $user->phone = $service->phone;
 
-            $user->save();
-          }
-          $agents2 = User::all();
-          $agents = User::where($agents2->subscriptions->first()->subscription_end_date, '<', Carbon::now()->subDays(6));
-          return redirect('admin.dashboard');
-        }
+        //     $user->save();
+        //   }
+        //   $agents2 = User::all();
+        //   $agents = User::where($agents2->subscriptions->first()->subscription_end_date, '<', Carbon::now()->subDays(6));
+        //   return redirect('admin.dashboard');
+        // }
 
 
         public function ending_seller()
@@ -1295,8 +1349,37 @@ class AdminController extends Controller
             $query->where('subscription_end_date', '<', now());
           })
           ->orderBy('created_at')
-          ->get(); 
+          ->get();
           return view('admin.user.ended_seller', compact('sellers'));
+        }
+
+        public function resub_last_month()
+        {
+
+          $all_subscriptions = User::where('role', 'seller')->with('subscriptions')
+          ->whereHas('subscriptions', function($query) {
+            $from = Carbon::now()->subDays(30);
+            $to  = Carbon::now();
+            $query->whereBetween('subscription_end_date', [$from, $to]);
+          })
+          ->orderBy('created_at')
+          ->get();
+          // dd($sellers);
+
+
+          $Resub_sellers = User::where('role', 'seller')->with('subscriptions')
+          ->whereHas('subscriptions', function($query) {
+            $from = Carbon::now()->subDays(30);
+            $to  = Carbon::now();
+            $search = 'RESUB';
+            $query->whereBetween('updated_at', [$from, $to])
+            ->where('trans_ref', 'LIKE', '%'.$search.'%');
+          })
+          ->orderBy('created_at')
+          ->get();
+
+
+          return view('admin.user.resub_last_month', compact('all_subscriptions', 'Resub_sellers'));
         }
         public function add_seller_sub()
         {     
@@ -1369,28 +1452,27 @@ public function add_old_payments() {
   dd($seller->subscriptions->first()->last_amount_paid);
 }
 
-        public function ended_seller2()
-        {
+        // public function ended_seller2()
+        // {
+        //   $names = array();
+        //   $names22 = array();
+        //   $second = Carbon::now()->addDays(15);
+        //   $first =  Carbon::now();
+        //   $subb = Subscription::all();
+        //   foreach ($subb as $user) {
+        //     if (Carbon::parse($user->subscription_end_date)->lt($first)) {
+        //       array_push($names, $user);
+        //     }
+        //   }
 
-          $names = array();
-          $names22 = array();
-          $second = Carbon::now()->addDays(15);
-          $first =  Carbon::now();
-          $subb = Subscription::all();
-          foreach ($subb as $user) {
-            if (Carbon::parse($user->subscription_end_date)->lt($first)) {
-              array_push($names, $user);
-            }
-          }
+        //   foreach ($names as $myuser) {
+        //     $myuser2 = User::where('id', $myuser->subscriptionable_id)->get();
+        //     array_push($names22, $myuser2);
+        //   }
 
-          foreach ($names as $myuser) {
-            $myuser2 = User::where('id', $myuser->subscriptionable_id)->get();
-            array_push($names22, $myuser2);
-          }
-
-          $seller = $names22;
-          return view('admin.user.ended_seller', compact('seller'));
-        }
+        //   $seller = $names22;
+        //   return view('admin.user.ended_seller', compact('seller'));
+        // }
 
         public function save_agent_id()
         {
@@ -1608,6 +1690,7 @@ public function add_old_payments() {
               if ($referer) {
                     //if your refferer is an efmarketer staff, redirect user to dashboard
                 if ($referer->is_ef_marketer) {
+                  $referer->referals()->create(['user_id' => Auth::id()]);
                   Auth::attempt(['email' => $adminEmail, 'password' => $request->admin_password]);
                   if (Auth::check()) {
                     $success_notification = array(
@@ -1626,7 +1709,7 @@ public function add_old_payments() {
                 $referer->level1 = Auth::id();
                 $referer->save();
 
-                $referer->referals()->create(['user_id' => Auth::id()]);
+                // $referer->referals()->create(['user_id' => Auth::id()]);
               }
             }
 

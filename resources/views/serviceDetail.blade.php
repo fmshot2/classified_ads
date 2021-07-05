@@ -100,6 +100,41 @@
         font-size: 17px;
         text-transform: uppercase;
     }
+    #loginToRequestLink{
+        display: block  !important;
+        color:#41af0f !important;
+        border-radius: 0;
+    }
+    #loginToRequestLink:hover{
+        background-color: #41af0f;
+        color:#fff !important;
+        transition: all .3s;
+    }
+    #loginToRequestLink span{
+        color:#cc8a19 !important
+    }
+    #loginToRequestLink:hover span{
+        color:#fff !important;
+        transition: all .3s;
+    }
+    #showCallRequestForm{
+        display: block  !important;
+        color:#41af0f !important;
+        border-radius: 0;
+    }
+    #showCallRequestForm:hover{
+        background-color: #41af0f;
+        color:#fff !important;
+        transition: all .3s;
+    }
+    #showCallRequestForm span{
+        color:#cc8a19 !important
+    }
+    #showCallRequestForm:hover span{
+        color:#fff !important;
+        transition: all .3s;
+    }
+
 
     @media (max-width: 768px){
         .lgtbxDiv{
@@ -281,9 +316,10 @@
                                     </a> --}}
 
 
-                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }}
+                                    <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Likes</a>
+                                    {{-- <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="three" aria-selected="true">Like{{  $service_likes > 1 ? 's' : '' }}
                                         (<span id="likeTab">{{ $service_likes != 0 ? $service_likes : '0'}}</span>)
-                                    </a>
+                                    </a> --}}
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="six-tab" data-toggle="tab" href="#six" role="tab" aria-controls="six" aria-selected="true">Similar Services</a>
@@ -304,7 +340,29 @@
                                 </div>
                                 <div class="tab-pane fade " id="three" role="tabpanel" aria-labelledby="three-tab">
                                     <div class="property-details mb-40">
-                                        <h6 class="heading-2">This User has <span id="likeTab2">{{ $service_likes != 0 ? $service_likes : '0'}}</span> like{{$service_likes > 1 ? 's' : ''}}</h6>
+                                        {{-- <h6 class="heading-2">This User has <span id="likeTab2">{{ $service_likes != 0 ? $service_likes : '0'}}</span> like{{$service_likes > 1 ? 's' : ''}}</h6> --}}
+                                        @auth
+                                            <div class="container mb-5 mt-0">
+                                                <h5>
+                                                    <div id="likeBtn" class="{{ !$likecheck ? 'likeBtnShow' : '' }}">
+                                                        Do you like this service? Give it a <a onclick="likeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-up text-primary" style="font-size: 19px;"></i><span class="text-primary"> Like!</span></a>
+                                                        {{-- <span id="loader" class="loader"></span> --}}
+                                                    </div>
+                                                    <div id="dislikeBtn" class="{{ $likecheck ? 'disLikeBtnShow' : '' }}">
+                                                        You have liked this service already. <a onclick="disLikeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger"> Dislike!</span></a>
+                                                        {{-- <span id="loader" class="loader"></span> --}}
+                                                    </div>
+                                                </h5>
+                                            </div>
+                                        @else
+                                            <div class="container mb-5 mt-0">
+                                                <h5>
+                                                    <div>
+                                                        Do you like this service? <a style="color: #CA8309;" href="{{ route('login') }}">Login</a> or <a style="color: #28a745" href="{{ route('register') }}">Register</a> to give it a like.
+                                                    </div>
+                                                </h5>
+                                            </div>
+                                        @endauth
                                     </div>
                                 </div>
                                 <div class="tab-pane fade " id="four" role="tabpanel" aria-labelledby="four-tab">
@@ -363,15 +421,15 @@
 
                                 <div class="tab-pane fade " id="seven" role="tabpanel" aria-labelledby="seven-tab">
                                     <div class="properties-description mb-50">
+                                        <p class="animate__animated animate__bounce">
+                                            <strong><i class="fa fa-phone"></i> Phone Number:</strong> <a href="tel:{{$serviceDetail->phone}}">
+                                                {{$serviceDetail->phone}}
+                                            </a>
+                                        </p>
                                         @guest
-                                            <p class="animate__animated animate__bounce">Please login to see this service provider's contact details!</p>
+                                            <p class="animate__animated animate__bounce">Please login to see this service provider's full contact details!</p>
                                         @endguest
                                         @auth
-                                            <p class="animate__animated animate__bounce">
-                                                <strong><i class="fa fa-phone"></i> Phone Number:</strong> <a href="tel:{{$serviceDetail->phone}}">
-                                                     {{$serviceDetail->phone}}
-                                                </a>
-                                            </p>
                                             <p class="animate__animated animate__bounce">
                                                 <strong><i class="fa fa-envelope-open"></i> E-mail Address:</strong> <a href="mailto:{{$serviceDetail->user->email}}"> {{$serviceDetail->user->email}}</a>
                                             </p>
@@ -430,22 +488,7 @@
                         {{-- @guest
                         <p>Please login to see your previous conversation with this service provider</p>
                         @endguest --}}
-                        @auth
-                            <div class="container mb-5 mt-0">
-                                <h5>
-                                    @auth
-                                        <div id="likeBtn" class="{{ !$likecheck ? 'likeBtnShow' : '' }}">
-                                            Do you like this service? Give it a <a onclick="likeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-up text-primary" style="font-size: 19px;"></i><span class="text-primary"> Like!</span></a>
-                                            {{-- <span id="loader" class="loader"></span> --}}
-                                        </div>
-                                        <div id="dislikeBtn" class="{{ $likecheck ? 'disLikeBtnShow' : '' }}">
-                                            You have liked this service already. <a onclick="disLikeService({{ $serviceDetail->id }})" href="#"><i class="fa fa-thumbs-down text-danger" style="font-size: 19px;"></i><span class="text-danger"> Dislike!</span></a>
-                                            {{-- <span id="loader" class="loader"></span> --}}
-                                        </div>
-                                    @endauth
-                                </h5>
-                            </div>
-                        @endauth
+
 
                     </div>
                 </div>
@@ -471,7 +514,7 @@
                             <div class="ser-seller-note">
 
                                 @guest
-                                    <p style="margin-bottom: 5px; font-size: 16px;"><a href="{{route('login')}}"><strong style="color: #CA8309; font-size: 16px;">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #28a745">Register</strong></a> to view <strong class="tt-capitalize">{{ $the_provider_f_name }}</strong> contact details.</p>
+                                    <p style="margin-bottom: 5px; font-size: 16px;"><a href="{{route('login')}}"><strong style="color: #CA8309; font-size: 16px;">Login</strong></a> or <a href="{{route('register')}}"><strong style="color: #28a745">Register</strong></a> to message <strong class="tt-capitalize">{{ $the_provider_f_name }}</strong>.</p>
                                 @endguest
 
                                 <div class="s-border" style="margin-top: 10px"></div>
@@ -497,18 +540,44 @@
                                     </div>
                                 </div>
                             </div>
+                            <p style="text-align: center">
+                                <span class="btn btn-warning animate__animated animate__headshake animate__infinite show-number" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309; margin-bottom: 4px;box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);border:0">
+                                    Show Number
+                                </span>
 
-                            @auth
-                                <p style="text-align: center">
-                                    <a class="btn btn-warning animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff; background-color: #ca8309; margin-bottom: 4px">
-                                        <i class="fa fa-phone"></i> Call: {{$serviceDetail->phone}}
-                                    </a>
+                                <a href="https://wa.me/{{$serviceDetail->phone}}/?text=Good%20day.%20I%20am%20interested%20in%your%20service." class="btn btn-success animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff;box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);border:0">
+                                    <i class="fa fa-whatsapp"></i> WhatsApp
+                                </a>
+                            </p>
 
-                                    <a href="https://wa.me/{{$serviceDetail->phone}}/?text=Good%20day.%20I%20am%20interested%20in%your%20service." class="btn btn-success animate__animated animate__headshake animate__infinite" href="tel:{{$serviceDetail->phone}}" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #fff;">
-                                        <i class="fa fa-whatsapp"></i> WhatsApp
-                                    </a>
-                                </p>
-                            @endauth
+                            <div class="b-provider-online-info">
+                                <div class="b-provider-online-info-block">
+                                    @auth
+                                        <button class="btn btn-outline-success" id="showCallRequestForm">Ask <span style="color: #cc8a19">{{ $the_provider_f_name }}</span> to call back</button>
+                                        <form id="myform" method="POST" style="margin-top: 20px">
+                                            <input type="hidden" name="_method" value="POST">
+                                            @csrf
+                                            <input type="hidden" name="provider_email" id="provider_email" value="{{ $serviceDetail->user->email }}">
+                                            <input type="hidden" name="the_service_id" id="the_service_id" value="{{ $serviceDetail->id }}">
+
+                                            <div class="form-group">
+                                                <input type="text" id="user_name" name="user_name" class="text-dark form-control" placeholder="Your Phone Number" value="{{ Auth::user()->name ?? '' }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" id="user_phone" name="user_phone" class="text-dark form-control" placeholder="Your Phone Number" value="{{Auth::user()->phone ?? '' }}">
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="send-btn">
+                                                    <button type="submit" class="btn btn-md requestBtn btn-warning" id="requestBtn" style="border-radius:25px;box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);">Send Request</button>
+                                                    <p class="text-success" style="font-size: 15px" id="requestSent"></p>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    @else
+                                        <a class="btn btn-outline-success" href="{{ route('login') }}" id="loginToRequestLink">Ask <span>{{ $the_provider_f_name }}</span> to call back</a>
+                                    @endauth
+                                </div>
+                            </div>
 
                             {{-- <button class="btn btn-outline-success" id="showContactSellerForm">Show Contact Form</button> --}}
 
@@ -525,7 +594,7 @@
                                     <input type="hidden" name="service_id" id="service_id" value="{{ $serviceDetail->id }}">
 
                                     <div class="form-group">
-                                        <label class="form-label">Phone</label>
+                                        <label class="form-label" style="text-transform: uppercase;font-weight:700 !important;">Send Message</label>
                                         <input type="text" id="sender_phone" name="sender_phone" class="text-dark form-control" placeholder="Your Phone Number" value="{{Auth::user()->phone ?? '' }}">
                                         @if ($errors->has('phone'))
                                             <span>
@@ -550,7 +619,7 @@
                                     @auth
                                         <div class="col-lg-12 col-md-12">
                                             <div class="send-btn">
-                                                <button type="submit" class="btn btn-md btn-submit2 btn-warning" id="btn-submit2">Send Message</button>
+                                                <button type="submit" class="btn btn-md btn-submit2 btn-warning" id="btn-submit2" style="border-radius:25px;box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);">Send Message</button>
                                                 <p class="text-success" style="font-size: 15px" id="successMessage"></p>
                                             </div>
                                         </div>
@@ -827,6 +896,51 @@
 
     });
 </script>
+<script>
+    $(document).ready(function () {
+        $("#myform").hide();
+        $(".show-number").click(function(e){
+            $(".show-number").html('<a href="tel:{{ $serviceDetail->phone }}" style="display:block;color:#fff"><i class="fa fa-phone"></i> Call: {{ $serviceDetail->phone }}</a>')
+        });
+        $("#showCallRequestForm").click(function(){
+            $("#myform").slideToggle();
+        });
+
+        $("#requestBtn").click(function(e){
+            e.preventDefault();
+
+            $("#requestBtn").text('Please wait, requesting!!!')
+            $("#requestBtn").css({"opacity": "0.5", "cursor":"default"});
+
+            var _token = $("input[name='_token']").val();
+            var user_name = $("#user_name").val();
+            var user_phone = $("#user_phone").val();
+            var provider_email = $("#provider_email").val();
+            var the_service_id = $("#the_service_id").val();
+
+            $.ajax({
+                url: '{{ route('client.callback.request') }}',
+                method:'POST',
+                data: {_token:_token, user_name:user_name, the_service_id:the_service_id, provider_email:provider_email, user_phone:user_phone},
+                success: function(data) {
+                    $("#requestSent").text('Request sent successfully!')
+                    $("#requestBtn").text('Send Request')
+                    $("#requestBtn").css({"opacity": "1", "cursor":"pointer"});
+
+                    toastr.success('Message sent successfully!')
+                    // alert(data.success2);
+                },
+                error: function(error){
+                    $("#requestSent").html('<span style="color:red;">Request not sent. Try again!</span>')
+                    $("#requestBtn").text('Send Request')
+                    $("#requestBtn").css({"opacity": "1", "cursor":"pointer"});
+                    toastr.error('Request not sent. Try again!')
+                    console.log(error)
+                }
+            });
+        });
+    })
+</script>
 <script type="text/javascript">
     var baseUrl = "{{url('/')}}"
     $(document).ready(function() {
@@ -851,6 +965,8 @@
                 success: function(data) {
                     $("#phone").val('')
                     $("#description").val('')
+                    $("#sender_phone").val('')
+                    $("#message").val('')
                     $("#successMessage").text('Message sent successfully!')
                     $(".btn-submit2").text('Send Message')
                     $("#btn-submit2").css({"opacity": "1", "cursor":"pointer"});

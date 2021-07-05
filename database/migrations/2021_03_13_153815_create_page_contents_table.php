@@ -17,6 +17,9 @@ class CreatePageContentsTable extends Migration
             $table->id();
             $table->text('agent_modal');
             $table->text('privacy_policy');
+            $table->text('about_site_section_1')->nullable();
+            $table->text('about_site_section_2')->nullable();
+            $table->text('about_site_section_3')->nullable();
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Agent;
 use App\Http\Controllers\Api\Controller;
+use App\Http\Resources\UserResource;
 use App\Mail\UserRegistered;
 use App\Payment;
 use App\ProviderSubscription;
@@ -19,9 +20,13 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use App\Traits\ReusableCode;
+
 
 class AuthController extends Controller
 {
+        use ReusableCode;
+
     /**
      * __construct
      *
@@ -49,7 +54,7 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $token_validity = (24 * 60);
+        $token_validity = (168 * 60);
 
         $this->guard()->factory()->setTTL($token_validity);
 
@@ -59,43 +64,14 @@ class AuthController extends Controller
             ], 401);
         }
 
-        return $this->respondWithToken($token);
-    }
-
-
-
-    public function register2(Request $request)
-    {
-         return response()->json([
-            'message' => 'User created successfully!',
-            'user' => $user
-        ], 200);
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:3,50',
-            'email' => 'required|email|unique:users',
-            'role' => 'string',
-            'password' => 'required|min:6',
-            // 'password' => 'required|confirmed|min:6',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([$validator->errors()], 422);
-        }
-
-        $user = User::create(array_merge(
-            $validator->validated(),
-            ['password' => bcrypt($request->password)]
-        ));
-
+        // return $this->respondWithToken($token);
         return response()->json([
-            'message' => 'User created successfully!',
-            'user' => $user
-        ], 200);
+            'token' => $token,
+            'token_validity' => $token_validity,
+            'token_type' => 'bearer',
+            'user_role' => $this->guard()->user()->role,
+        ]);
     }
-
-
-
-
 
     /**
      * register
@@ -105,17 +81,6 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        /*
-            $validator = Validator::make($request->all(), [
-                'name' => 'required|string|between:3,50',
-                'email' => 'required|email|unique:users',
-                'phone' => 'required|unique:users',
-                'role' => 'string',
-                'password' => 'required|min:6',
-
-                // 'password' => 'required|confirmed|min:6',
-            ]);
-        */
 
         $validator = Validator::make($request->all(), [
             'referParam'     => ['nullable', 'string', 'max:255'],
@@ -202,11 +167,12 @@ class AuthController extends Controller
         $user->phone    = $request->phone;
         $user->password = Hash::make($request->password);
         $user->role     = $request->role;
+        $user->slug = $this->createSlug($request->name, new User());
         //save id of referer if user was reffererd
         $user->idOfReferer = $request->refererId;
         //save id of agent if user was brought by agent
         $user->idOfAgent = $request->agent_Id;
-        $user->refererLink = $slug3;
+        $user->refererLink = $this->createRefererLink(new User());
         //send mail
 
         if ($user->save()) {
@@ -221,27 +187,18 @@ class AuthController extends Controller
             } catch (\Exception $e) {
                 $failedtosendmail = 'Failed to Mail!';
             }
-
-
-            if (Auth::attempt(['email' => $user->email, 'password' => $user->password])) {
-                $token_validity = (24 * 60);
+        $token_validity = (1680 * 60);
 
                 $this->guard()->factory()->setTTL($token_validity);
+                $credentials = $request->only(['email', 'password']);
 
-                if (!$token = $this->guard()->attempt($validator->validated())) {
+                if (!$token = $this->guard()->attempt($credentials)) {
                     return response()->json([
                         'error' => 'Unauthorized!'
                     ], 401);
                 }
-
-                return $this->respondWithToken($token);
-            }
-        }
-
-
-
-        if (Auth::check()) {
-            $present_user = Auth::user();
+                // return $this->respondWithToken($token);
+                  $present_user = $this->guard()->user();
             // if referrer link is available, save it to referer table
             $link              = new Refererlink();
             $link->user_id     = $present_user->id;
@@ -268,24 +225,12 @@ class AuthController extends Controller
             }
 
             $current_date_time = Carbon::now()->toDateTimeString();
+            $this->guard()->user()->subscriptions()->create(['sub_type' => $sub_type, 
+            'subscription_end_date' => Carbon::now()->addDays($added_days),
+            'trans_ref' => $tranxRef,
+            'email' => $this->guard()->user()->email ]);
 
-            $sub_check = new ProviderSubscription();
-            $sub_check->user_id = Auth::id();
-            $sub_check->sub_type = $sub_type;
-            $sub_check->user_type = 'provider';
-            $sub_check->last_amount_paid = $request->plan;
-            $sub_check->subscription_end_date = Carbon::now()->addDays($added_days);
-            $sub_check->last_subscription_starts = $current_date_time;
-            $sub_check->save();
-
-
-            $reg_payments = new Payment();
-            $reg_payments->user_id = Auth::id();
-            $reg_payments->payment_type = 'registration';
-            $reg_payments->amount = $request->plan;
-            $reg_payments->tranx_ref = $tranxRef;
-            $reg_payments->save();
-
+            $this->guard()->user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $amount, 'tranx_ref' => $tranxRef ]);
 
             /* level 1 start */
                 $person_that_refered = $present_user->idOfReferer;
@@ -294,10 +239,10 @@ class AuthController extends Controller
                     if ($referer) {
                         $referer->refererAmount = $referer->refererAmount + 200;
                         //save my id  as level 1 on the table of the one that reffered me
-                        $referer->level1 = Auth::id();
+                        $referer->level1 = $this->guard()->user()->id;
                         $referer->save();
 
-                        $referer->referals()->create(['user_id' => Auth::id()]);
+                        $referer->referals()->create(['user_id' => $this->guard()->user()->id]);
                     }
                 }
 
@@ -308,10 +253,10 @@ class AuthController extends Controller
                         $referer2->refererAmount = $referer2->refererAmount + 200;
 
                         //if my referee is an agent, save my id  as level 1 on the table of the Agent that reffered me
-                        $referer2->level1 = Auth::id();
+                        $referer2->level1 = $this->guard()->user()->id;
                         $referer2->save();
 
-                        $referer2->referals()->create(['user_id' => Auth::id()]);
+                        $referer2->referals()->create(['user_id' => $this->guard()->user()->id]);
                     }
                 }
 
@@ -329,7 +274,7 @@ class AuthController extends Controller
                             $referer2 = User::where('id', $person_that_refered2)->first();
                             if ($referer2) {
                                 $referer2->refererAmount = $referer2->refererAmount + 150;
-                                $referer2->level2 = Auth::id();
+                                $referer2->level2 = $this->guard()->user()->id;
                                 $referer2->save();
                                 // $present_user->level2 = $referer3->id;                    }
                             }
@@ -346,7 +291,7 @@ class AuthController extends Controller
                             $referer2 = Agent::where('id', $person_that_refered2)->first();
                             if ($referer2) {
                                 $referer2->refererAmount = $referer2->refererAmount + 150;
-                                $referer2->level2 = Auth::id();
+                                $referer2->level2 = $this->guard()->user()->id;
                                 $referer2->save();
                                 // $present_user->level2 = $referer3->id;                    }
                             }
@@ -378,7 +323,7 @@ class AuthController extends Controller
                                     if ($referer4) {
                                         // add amount to level 3 referer amount
                                         $referer4->refererAmount = $referer4->refererAmount + 100;
-                                        $referer4->level3 = Auth::id();
+                                        $referer4->level3 = $this->guard()->user()->id;
                                         $referer4->save();
                                         // $present_user->level2 = $referer3->id;
                                     }
@@ -408,7 +353,7 @@ class AuthController extends Controller
                                     if ($referer4) {
                                         // add amount to level 3 referer amount
                                         $referer4->refererAmount = $referer4->refererAmount + 100;
-                                        $referer4->level3 = Auth::id();
+                                        $referer4->level3 = $this->guard()->user()->id;
                                         $referer4->save();
                                         // $present_user->level2 = $referer3->id;
                                     }
@@ -446,7 +391,7 @@ class AuthController extends Controller
                                             if ($referer5) {
                                                 // add amount to level 4 referer amount
                                                 $referer5->refererAmount = $referer5->refererAmount + 50;
-                                                $referer5->level4 = Auth::id();
+                                                $referer5->level4 = $this->guard()->user()->id;
                                                 $referer5->save();
                                                 // $present_user->level2 = $referer3->id;
                                             }
@@ -485,7 +430,7 @@ class AuthController extends Controller
                                             if ($referer5) {
                                                 // add amount to level 4 referer amount
                                                 $referer5->refererAmount = $referer5->refererAmount + 50;
-                                                $referer5->level4 = Auth::id();
+                                                $referer5->level4 = $this->guard()->user()->id;
                                                 $referer5->save();
                                             }
                                         }
@@ -498,14 +443,17 @@ class AuthController extends Controller
 
             /* End level 4 payment */
 
+                // return $this->respondWithToken($token);
+
+                return response()->json([
+            'token' => $token,
+            'token_validity' => $token_validity,
+            'token_type' => 'bearer',
+            'user_role' => $this->guard()->user()->role,
+        ]);
         }
+
     }
-
-
-
-
-
-
 
 
     public function checkEmailIfExist(Request $request)
@@ -534,7 +482,7 @@ class AuthController extends Controller
      */
     public function profile()
     {
-        return response()->json($this->guard()->user(), 200);
+        return response()->json(new UserResource($this->guard()->user()), 200);
     }
 
     public function updateProfile(Request $request)

@@ -30,10 +30,14 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
+Route::get('/hash', 'OperationalController@hashNewPassword')->name('hashNewPassword');
 
 // USER EMAIL UNSUBSCRIBED
 Route::get('/email/unsubscribe/{email}/{subcriptionid}', 'EmailSubscriptionsController@unsubscribe')->name('user.email.unsubscribe');
 Route::get('/email/subscribe/user/all', 'EmailSubscriptionsController@emailSubscribeAllUsersDef')->name('email.sub');
+Route::get('/cheatViewsCode', 'OperationalController@cheatViewsCode');
+Route::get('/cheatViewsCodeLower', 'OperationalController@cheatViewsCodeLower');
+Route::get('/cheatviewscodedaily', 'OperationalController@cheatViewsCodeDaily');
 
 Route::get('/subscribe/user', function ()
 {
@@ -66,11 +70,10 @@ Route::post('/reply/store', 'CommentsController@replyStore')->name('reply.add');
 //Special URLs
 //add slug to old users who have no slug
 Route::get('/addSlug', 'AuthController@addSlug')->name('addSlug');
+Route::get('/addSlug4Agents', 'AuthController@addSlug4Agents')->name('addSlug4Agents');
+
 Route::get('/save_agent_id', 'AdminController@save_agent_id')->name('save_agent_id');
 Route::get('/set_sub', 'ServiceController@set_sub')->name('set_sub');
-Route::get('/users_sub_almost_ended', 'AdminController@ending_seller')->name('users_sub_almost_ended');
-Route::get('/users_sub_has_ended', 'AdminController@ended_seller')->name('users_sub_has_ended');
-Route::get('/users_sub_almost_ended2', 'AdminController@users_sub_almost_ended2')->name('users_sub_almost_ended2');
 
 // route to add sub for users with no subscription
 Route::get('/add_seller_sub', 'AdminController@add_seller_sub')->name('add_seller_sub');
@@ -109,7 +112,7 @@ Route::get('/tester', function () {
 Route::get('email', function () {
     $category = Category::inRandomOrder()->first();
     $services = Service::where('status', 1)->inRandomOrder()->limit(6)->get();
-    return new App\Mail\HowTo('hfhgfhfhgf', 'hghghg', 'gyhjghg', 'hfghfhghg', 'ygjygyguy', 'tfyfytft', 'noimage');
+    return new App\Mail\CustomerServiceMail('James Connor', 'Laswer Connor', 'ghjhguyuyguyk');
 });
 // Route::get('newsletter/', 'OperationalController@Newsletter');
 
@@ -118,7 +121,6 @@ Route::get('email', function () {
 Route::get('ajaxSearchResult/{slug}', 'OperationalController@ajaxSearchResult');
 // Route::get('getMobileSubCategory/{slug}', 'OperationalController@getMobileSubCategory');
 
-//Agent Middleware starts here
 Route::post('create_user', 'AuthController@create_user');
 Route::post('create_agent', 'AuthController@create_agent');
 Route::post('/agent_profile/{id}', 'AuthController@update_Profile_4_agent')->name('agent.profile.update');
@@ -138,6 +140,7 @@ Route::get('get-tourist-sites/{state}', 'OperationalController@getTouristSites')
 Route::get('ajax/search/', 'OperationalController@ajaxSearchResult')->name('ajax.search.result');
 Route::get('services/search/', 'OperationalController@dapSearch')->name('dap.search');
 
+//Agent Middleware starts here
 
 Route::middleware(['auth:agent'])->group(function () {
 
@@ -208,6 +211,24 @@ Route::middleware(['accountant'])->group(function () {
 });
 //Accountant Middleware ends here
 
+
+//customer_service Middleware starts here
+Route::middleware(['customerservice'])->group(function () {
+    
+
+    Route::get('customer_service/send-email', 'customerServiceController@send_email')->name('cus.send_email');
+    Route::get('customer_service/create-sms', 'customerServiceController@sendSms')->name('cus.send_sms');
+
+    Route::post('customer_service/send-sms', 'customerServiceController@submit_sms')->name('cus.submit.sms');
+    Route::post('customer_service/send-email', 'customerServiceController@submitEmail')->name('cus.submit.email');
+    Route::get('/dashboard/customer_service', 'customerServiceController@allSubscription')->name('customer_service.dashboard');
+    Route::get('/user_sub_almost_ended', 'customerServiceController@ending_seller')->name('user_sub_almost_ended');
+    Route::get('/user_sub_has_ended', 'customerServiceController@ended_seller')->name('user_sub_has_ended');
+    Route::get('/resubs_last_month', 'AdminController@resub_last_month')->name('resubs_last_month');
+    Route::post('/save_report', 'customerServiceController@save_report')->name('save_report');
+
+});
+//customer_service Middleware ends here
 
 Route::post('api/logintestPayment', 'AuthController@logintestPayment');
 
@@ -464,7 +485,7 @@ Route::middleware(['seller'])->group(function () { //Seller Middleware protectio
 
     Route::post('/service/store/', 'SellerController@storeService')->name('service.save');
     Route::post('dropzone/store', 'SellerController@service_save_image');
-    Route::post('/service/{id}', 'SellerController@storeServiceUpdate')->name('service.update');
+    Route::post('/service/{slug}', 'SellerController@storeServiceUpdate')->name('service.update');
     Route::post('/service/{updateImage}', 'SellerController@updateImage')->name('service.updateImage');
 
 
@@ -493,7 +514,7 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
 
     Route::post('/profile/{id}', 'AuthController@updateProfile')->name('profile.update');
 
-    Route::post('/profile/update/{id}', 'AuthController@updatePassword')->name('profile.update.password');
+    Route::post('/profile/buyer/update/{id}', 'AuthController@updatePassword')->name('buyer.profile.update.password');
     Route::post('/profile/update/{id}', 'AuthController@update_Password_4_Agent')->name('profile.updateAgent.password');
 
     Route::post('/profile/update/account/{id}', 'AuthController@updateAccount')->name('profile.update.account');
@@ -503,11 +524,18 @@ Route::middleware(['auth'])->group(function () { //Auth Middleware protection st
     Route::get('seeker/notifications/markallasread', 'NotificationController@notificationMarkAsAllRead')->name('seeker.notification.markallasread');
     Route::post('seeker/notification/markasread', 'NotificationController@notificationMarkAsRead')->name('seeker.notification.markasread');
     Route::post('seeker/notification/delete', 'NotificationController@notificationDelete')->name('seeker.notification.delete');
+
+    // User Callback
+    Route::post('client/callback/request', 'OperationalController@clientCallbackRequest')->name('client.callback.request');
+
+    Route::get('/customerservice', 'OperationalController@customerServiceMail')->name('customer.service.email');
+    Route::post('/customerservice/email/send', 'OperationalController@customerServiceMailSend')->name('customer.service.email.send');
 });
 //Auth Middleware protection end here
 
 
 Route::middleware(['admin'])->group(function () { //Admin Middleware protection start here
+    // Route::get('admin/filter_by_date', 'AdminController@')
     Route::get('/admin/create_our_user', 'AdminController@create_our_user')->name('admin.create_our_user');
     Route::post('/admin/create_user', 'AdminController@save_user_from_admin')->name('admin.create.user');
     Route::get('/admin/dashboard/approve_withdrawal_request/{id}', 'DashboardController@approve_withdrawal_request')->name('admin.approve_withdrawal_request');
@@ -546,15 +574,20 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
 
     Route::get('/admin/dashboard/subscription/all', 'AdminController@allSubscription')->name('admin.subscription.all');
 
+    Route::get('/users_sub_almost_ended', 'AdminController@ending_seller')->name('users_sub_almost_ended');
+    Route::get('/users_sub_has_ended', 'AdminController@ended_seller')->name('users_sub_has_ended');
+    Route::get('/resub_last_month', 'AdminController@resub_last_month')->name('resub_last_month');
+    Route::get('/users_sub_almost_ended2', 'AdminController@users_sub_almost_ended2')->name('users_sub_almost_ended2');
+
 
 
     Route::get('/admin/dashboard/service/search', 'AdminController@serviceSearch')->name('admin.service.search');
     Route::get('/admin/dashboard/user/search', 'AdminController@userSearch')->name('admin.user.search');
 
 
-    Route::get('/admin/dashboard/service-providers', 'AuthController@seller')->name('admin.seller');
+    Route::get('/admin/dashboard/service-providers', 'AdminController@seller')->name('admin.seller');
     Route::get('/admin/dashboard/ending_seller', 'AdminController@ending_seller')->name('admin.ending_seller');
-    Route::get('/admin/dashboard/all-agents', 'AuthController@allagents')->name('admin.allagents');
+    Route::get('/admin/dashboard/all-agents', 'AdminController@allagents')->name('admin.allagents');
     Route::get('/admin/dashboard/all-agents-yesterday', 'AdminController@allagents_sales_yesterday')->name('admin.agents_yesterday');
     Route::get('/admin/dashboard/agents_last_week', 'AdminController@agents_last_week')->name('admin.agents_last_week');
     Route::get('/admin/dashboard/agents_last_month', 'AdminController@agents_last_month')->name('admin.agents_last_month');
@@ -564,10 +597,12 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/admin/dashboard/users_last_week', 'AdminController@users_last_week')->name('admin.users_last_week');
     Route::get('/admin/dashboard/users_last_month', 'AdminController@users_last_month')->name('admin.users_last_month');
 
+    Route::get('/admin/dashboard/ef_marketers_yesterday', 'AdminController@ef_marketers_yesterday')->name('admin.ef_marketers_yesterday_sales');
+    Route::get('/admin/dashboard/ef_marketers_last_week', 'AdminController@ef_marketers_last_week')->name('admin.ef_marketers_last_week_sales');
+    Route::get('/admin/dashboard/ef_marketers_last_month', 'AdminController@ef_marketers_last_month')->name('admin.ef_marketers_last_month_sales');
 
 
-
-    Route::get('/admin/dashboard/service-seekers', 'AuthController@buyer')->name('admin.buyer');
+    Route::get('/admin/dashboard/service-seekers', 'AdminController@buyer')->name('admin.buyer');
     Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');
     Route::get('/activate_agent/{id}', 'AdminController@activate_agent')->name('admin.activate.agent');
     Route::get('dashboard/ef-marketers', 'AdminController@all_ef_marketers')->name('admin.all_ef_marketers');
@@ -962,7 +997,7 @@ Route::prefix('data-officer')->middleware(['data'])->group(function () { //Data 
 
     Route::post('send-sms', 'AdminController@submit_sms')->name('data.submit.sms');
     Route::post('send-email', 'AdminController@submitEmail')->name('data.submit.email');
-}); //Data Entry Officer Middleware protection end here
+}); //Data Entry Officer Middleware protection ends here
 
 Route::post('/searchonservices',  'ServiceController@searchonservices')->name('searchonservices');
 

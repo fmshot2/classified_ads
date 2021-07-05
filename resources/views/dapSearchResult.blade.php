@@ -102,7 +102,7 @@
 
                                                     <ul class="d-flex flex-row justify-content-between info">
                                                         <li>
-                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$service->likes->count()}} Like{{$service->likes->count() > 1 ? 's' : ''}}
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$service->views->count()}} View{{$service->views->count() > 1 ? 's' : ''}}
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('serviceDetail', $service->slug)}}">
@@ -138,7 +138,7 @@
 
                                                     <ul class="d-flex flex-row justify-content-between info">
                                                         <li>
-                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$service->likes->count()}} Like{{$service->likes->count() > 1 ? 's' : ''}}
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$service->views->count()}} View{{$service->views->count() > 1 ? 's' : ''}}
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('serviceDetail', $service->slug)}}">
@@ -174,7 +174,7 @@
 
                                                     <ul class="d-flex flex-row justify-content-between info">
                                                         <li>
-                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$service->likes->count()}} Like{{$service->likes->count() > 1 ? 's' : ''}}
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$service->views->count()}} View{{$service->views->count() > 1 ? 's' : ''}}
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('serviceDetail', $service->slug)}}">
@@ -207,7 +207,7 @@
 
                                                     <ul class="d-flex flex-row justify-content-between info">
                                                         <li>
-                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$service->likes->count()}} Like{{$service->likes->count() > 1 ? 's' : ''}}
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$service->views->count()}} View{{$service->views->count() > 1 ? 's' : ''}}
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('serviceDetail', $service->slug)}}">
@@ -253,7 +253,7 @@
 
                                                     <ul class="d-flex flex-row justify-content-between info">
                                                         <li>
-                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$sw_work->likes->count()}} Like{{$sw_work->likes->count() > 1 ? 's' : ''}}
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$sw_work->views->count()}} View{{$sw_work->views->count() > 1 ? 's' : ''}}
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('job.applicant.detail', $sw_work->slug)}}">
@@ -289,7 +289,7 @@
 
                                                     <ul class="d-flex flex-row justify-content-between info">
                                                         <li>
-                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$sw_work->likes->count()}} Like{{$sw_work->likes->count() > 1 ? 's' : ''}}
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$sw_work->views->count()}} View{{$sw_work->views->count() > 1 ? 's' : ''}}
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('job.applicant.detail', $sw_work->slug)}}">
@@ -325,7 +325,7 @@
 
                                                     <ul class="d-flex flex-row justify-content-between info">
                                                         <li>
-                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$sw_work->likes->count()}} Like{{$sw_work->likes->count() > 1 ? 's' : ''}}
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$sw_work->views->count()}} View{{$sw_work->views->count() > 1 ? 's' : ''}}
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('job.applicant.detail', $sw_work->slug)}}">
@@ -358,7 +358,7 @@
 
                                                     <ul class="d-flex flex-row justify-content-between info">
                                                         <li>
-                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$sw_work->likes->count()}} Like{{$sw_work->likes->count() > 1 ? 's' : ''}}
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$sw_work->views->count()}} View{{$sw_work->views->count() > 1 ? 's' : ''}}
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('job.applicant.detail', $sw_work->slug)}}">
@@ -410,7 +410,7 @@
 
                                                     <ul class="d-flex flex-row justify-content-between info">
                                                         <li>
-                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$service->likes->count()}} Like{{$related_service->likes->count() > 1 ? 's' : ''}}
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$service->views->count()}} View{{$related_service->likes->count() > 1 ? 's' : ''}}
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('serviceDetail', $related_service->slug)}}">
@@ -446,7 +446,7 @@
 
                                                     <ul class="d-flex flex-row justify-content-between info">
                                                         <li>
-                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$related_service->likes->count()}} Like{{$related_service->likes->count() > 1 ? 's' : ''}}
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$related_service->likes->count()}} View{{$related_service->likes->count() > 1 ? 's' : ''}}
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('serviceDetail', $related_service->slug)}}">
@@ -482,7 +482,7 @@
 
                                                     <ul class="d-flex flex-row justify-content-between info">
                                                         <li>
-                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$related_service->likes->count()}} Like{{$related_service->likes->count() > 1 ? 's' : ''}}
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$related_service->likes->count()}} View{{$related_service->likes->count() > 1 ? 's' : ''}}
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('serviceDetail', $related_service->slug)}}">
@@ -515,7 +515,7 @@
 
                                                     <ul class="d-flex flex-row justify-content-between info">
                                                         <li>
-                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$related_service->likes->count()}} Like{{$related_service->likes->count() > 1 ? 's' : ''}}
+                                                            <i class="fa fa-thumbs-up text-warning" aria-hidden="true" style="font-size: 11px;"></i> {{$related_service->likes->count()}} View{{$related_service->likes->count() > 1 ? 's' : ''}}
                                                         </li>
                                                         <li>
                                                             <a class="pull-right" href="{{route('serviceDetail', $related_service->slug)}}">

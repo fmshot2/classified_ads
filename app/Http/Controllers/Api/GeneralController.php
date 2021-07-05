@@ -52,7 +52,7 @@ class GeneralController extends Controller
     public function banner_slider()
     {
         return new SliderResourceCollection(Slider::all());
-    }
+    } 
 
     public function advertisement()
     {

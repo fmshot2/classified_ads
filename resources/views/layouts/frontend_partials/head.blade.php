@@ -1,3 +1,4 @@
+<head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0N9KEJ9ZZ9"></script>
 <script>
@@ -53,181 +54,13 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <link href="{{ asset('css/ibiStyles.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('css/fmstyles.css') }}" rel="stylesheet" type="text/css" />
+  <link href="{{ asset('css/fmstyles.css') }}" rel="stylesheet" type="text/css" />
 
   <link href="{{ asset('css/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('css/bootstrap-dropdownhover.min.css') }}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
 
-{{--
-<script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
-  type="text/javascript" charset="utf-8"></script>
-  <script src="https://js.api.here.com/v3/3.1/mapsjs-core-legacy.js"
-        type="text/javascript" charset="utf-8"></script>
-<script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
-  type="text/javascript" charset="utf-8"></script>
-  <script src="https://js.api.here.com/v3/3.1/mapsjs-service-legacy.js"
-        type="text/javascript" charset="utf-8"></script> --}}
-
 @livewireStyles
-
-
-
-
-<script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
- <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
- <!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
- <script src="{{asset('js/ie-emulation-modes-warning.js')}}"></script>
-
- <script src="{{ asset('js/app.js') }}"></script>
- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
- <script src="{{ asset('js/slick.min.js') }}"></script>
-
-
-
-
-
- <script src="{{ asset('js/jquery-2.2.0.min.js') }}"></script>
-<script src="{{ asset('js/popper.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap-submenu.js') }}"></script>
-<script src="{{ asset('js/rangeslider.js') }}"></script>
-<script src="{{ asset('js/jquery.mb.YTPlayer.js') }}"></script>
-<script src="{{ asset('js/wow.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap-select.min.js') }}"></script>
-<script src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
-<script src="{{ asset('js/jquery.scrollUp.js') }}"></script>
-<script src="{{ asset('js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-<script src="{{ asset('js/leaflet.js') }}"></script>
-<script src="{{ asset('js/leaflet-providers.js') }}"></script>
-<script src="{{ asset('js/leaflet.markercluster.js') }}"></script>
-<script src="{{ asset('js/dropzone.js') }}"></script>
-<script src="{{ asset('js/slick.min.js') }}"></script>
-<script src="{{ asset('js/jquery.filterizr.js') }}"></script>
-<script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
-<script src="{{ asset('js/jquery.countdown.js') }}"></script>
-<script src="{{ asset('js/maps.js') }}"></script>
-<script src="{{ asset('glide/glide.min.js') }}"></script>
-<script src="{{ asset('lightbox/lightbox-plus-jquery.min.js') }}"></script>
-{{-- <script src="{{ asset('js/efScript.js') }}"></script> --}}
-<script src="{{ asset('toastr/toastr.min.js') }}"></script>
-
-
-
-
-
-
-<script>
-
-    $(document).ready(function(){
-        /* Get iframe src attribute value i.e. YouTube video url
-        and store it in a variable */
-        var url = $("#liveChatModalFrame").attr('src');
-
-        /* Assign empty url value to the iframe src attribute when
-        modal hide, which stop the video playing */
-        $("#myModal").on('hide.bs.modal', function(){
-            $("#liveChatModalFrame").attr('src', url);
-        });
-
-        /* Assign the initially stored url back to the iframe src
-        attribute when modal is displayed again */
-        $("#myModal").on('show.bs.modal', function(){
-            $("#liveChatModalFrame").attr('src', url);
-        });
-
-        $("#moreLinkBtn").on('click', function(){
-            $('#moreLinkModal').modal('toggle');
-        });
-
-        var glide = new Glide('.glide', {
-            type: 'carousel',
-            perView: 3,
-            gap: 5,
-            focusAt: 'center',
-            autoplay: 2000,
-            hoverpause: true,
-            animationDuration: 3000,
-            breakpoints: {
-                800: {
-                perView: 4
-                },
-                480: {
-                perView: 3
-                }
-            }
-        })
-
-        glide.mount()
-
-    });
-</script>
-
-
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="{{ asset('js/ie10-viewport-bug-workaround.js') }}"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-    if (document.documentElement.clientWidth > 900) {
-	    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-        (function(){
-            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-            s1.async=true;
-            s1.src='https://embed.tawk.to/5ff49fb2c31c9117cb6bba8f/1er9ovkca';
-            s1.charset='UTF-8';
-            s1.setAttribute('crossorigin','*');
-            s0.parentNode.insertBefore(s1,s0);
-        })();
-    }
-
-</script>
-<!--End of Tawk.to Script-->
-
-    <script src="{{ asset('js/ibiScripts.js') }}"></script>
-
-    <script>
-
-    </script>
-
-
- <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.min.js"></script>
-    <script src="js/respond.min.js"></script>
-  <![endif]-->
-      <script src="js/bootstrap-dropdownhover.min.js"></script>
-      {{-- <canvas width="1280" height="960" style="position: absolute; top: 0px; left: 0px; width: 640px; height: 480px; background-color: rgb(245, 248, 250);"></canvas> --}}
-
-      <style type="text/css">
-          #mapContainer {
-            width: 100% !important;
-          }
-      </style>
-
-       @if(Session::has('message'))
-        <script>
-            var type = "{{ Session::get('alert-type', 'info') }}";
-            switch(type){
-                case 'info':
-                    toastr.info("{{ Session::get('message') }}");
-                    break;
-
-                case 'warning':
-                    toastr.warning("{{ Session::get('message') }}");
-                    break;
-
-                case 'success':
-                    toastr.success("{{ Session::get('message') }}");
-                    break;
-
-                case 'error':
-                    toastr.error("{{ Session::get('message') }}");
-                    break;
-            }
-        </script>
-    @endif
 
 
 

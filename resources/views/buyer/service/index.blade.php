@@ -19,12 +19,8 @@
 	</div>
 
 	<section class="content">
-
 		<div class="row">
 			<div class="col-xs-12">
-
-
-
 				<div class="box" >
 					<div class="box-header">
 						<h3 class="box-title"> All Services </h3>
@@ -33,56 +29,48 @@
 
 					<!-- /.box-header -->
 					<div class="box-body">
-						<table class="display table table-bordered data_table_main">
-							<thead>
-								<tr>
-									<th> SL </th>
-									<th> Image </th>
-									<th> Title </th>
-									<th> State </th>
-									<th> Featured </th>
-									<th> Date </th>
-									<th> Action </th>
-								</tr>
-							</thead>
+						<div class="table-responsive">
+                            <table class="display table table-bordered data_table_main">
+                                <thead>
+                                    <tr>
+                                        <th> SL </th>
+                                        <th> Image </th>
+                                        <th> Title </th>
+                                        <th> State </th>
+                                        <th> Featured </th>
+                                        <th> Date </th>
+                                        <th> Action </th>
+                                    </tr>
+                                </thead>
 
-							<tbody>
-								@foreach($all_service as $key => $all_services)
-									<tr>
-										<td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-										<td>
-											<a href="https://www.efcontact.com/admin/properties/classic-crib">
-												<img src="{{asset('uploads/services')}}/{{$all_services->thumbnail}}" alt="{{ $all_services->name }}" width="60" class="img-responsive img-rounded">
-											</a>
-										</td>
-										<td> {{ $all_services->name }} </td>
-										<td> {{ $all_services->state }} </td>
-										<td> {{ $all_services->featured == 1 ? 'Yes' : 'No' }} </td>
-										<td> {{ $all_services->created_at->diffForHumans() }} </td>
-										<td class="center">
-											<a href="{{ route('serviceDetail', $all_services->slug) }} " class="btn btn-warning "><i class="fa fa-eye"></i></a>
-										</td>
-									</tr>
+                                <tbody>
+                                    @foreach($all_service as $key => $all_services)
+                                        <tr>
+                                            <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
+                                            <td>
+                                                <a href="https://www.efcontact.com/admin/properties/classic-crib">
+                                                    <img src="{{asset('uploads/services')}}/{{$all_services->thumbnail}}" alt="{{ $all_services->name }}" width="60" class="img-responsive img-rounded">
+                                                </a>
+                                            </td>
+                                            <td> {{ $all_services->name }} </td>
+                                            <td> {{ $all_services->state }} </td>
+                                            <td> {{ $all_services->featured == 1 ? 'Yes' : 'No' }} </td>
+                                            <td> {{ $all_services->created_at->diffForHumans() }} </td>
+                                            <td class="center">
+                                                <a href="{{ route('serviceDetail', $all_services->slug) }} " class="btn btn-warning" target="_blank"><i class="fa fa-eye"></i></a>
+                                            </td>
+                                        </tr>
 
-								@endforeach
-							</tbody>
-
-
-						</table>
-
-
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
 					</div>
 					<!-- /.box-body -->
 				</div>
-
-
 				<!-- /.content -->
 			</div>
-
-
-
 		</div>
-
 	</div>
 </section>
 

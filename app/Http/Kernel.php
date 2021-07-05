@@ -70,5 +70,6 @@ class Kernel extends HttpKernel
         'superadmin' => \App\Http\Middleware\SuperAdminMiddleware::class,
         'cmo' => \App\Http\Middleware\CMOMiddleware::class,
         'data' => \App\Http\Middleware\DataEntryMiddleware::class,
+        'customerservice' => \App\Http\Middleware\CustomerServiceMiddleware::class,
     ];
 }

@@ -15,7 +15,7 @@ class BuyerController extends Controller
 
   public function allService()
   {
-    $all_service = Service::paginate(10);
+    $all_service = Service::where('status', 1)->where('subscription_end_date', '>', now())->get();
     return view ('buyer.service.index', compact('all_service') );
   }
 
@@ -38,8 +38,9 @@ class BuyerController extends Controller
 
  public function allMessage()
  {
-  $all_message = Message::where('user_id', Auth::id())->orWhere('receiver_id', Auth::id())->orderBy('created_at', 'desc')->get();
-  return view ('buyer.message.all', compact('all_message') );
+    $all_received_messages = Message::where('receiver_id', Auth::id())->orderBy('created_at', 'desc')->get();
+    $all_sent_messages = Message::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+  return view ('buyer.message.all', compact('all_received_messages', 'all_sent_messages'));
 }
 
 public function allNotification()

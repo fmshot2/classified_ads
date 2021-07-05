@@ -277,7 +277,7 @@ return $this->index();
 
         $one_category = Category::where('slug', $slug)->first();
         $category_id = $one_category->id;
-        $category_services = Service::where('category_id', $category_id)->orderBy('badge_type', 'asc')->inRandomOrder()->paginate(100);
+        $category_services = Service::where('category_id', $category_id)->where('subscription_end_date', '>', now())->orderBy('badge_type', 'asc')->inRandomOrder()->paginate(100);
 
         $sub_categories = SubCategory::where("category_id",$category_id)->orderBy('name', 'asc')->get();
 
@@ -288,7 +288,7 @@ return $this->index();
         // dd($all_states);
         $toShowOtherSearch = null;
         $all_categories = Category::all();
-        $featuredServices = Service::where('is_featured', 1)->with('user')->inRandomOrder()->limit(4)->get();
+        $featuredServices = Service::where('is_featured', 1)->where('subscription_end_date', '>', now())->with('user')->inRandomOrder()->limit(4)->get();
         //$category_id = $id;
         //return $category_city;
 
@@ -299,8 +299,7 @@ return $this->index();
     public function subcategory($slug)
     {
         $one_category = SubCategory::where('slug', $slug)->first();
-        $category_services = $one_category->services;
-        $category_services = $one_category->services;
+        $category_services = $one_category->services->where('subscription_end_date', '>', now());
         $category_id = $one_category->category->id;
         $sub_categories = SubCategory::where("category_id",$category_id)->orderBy('name', 'asc')->get();
         $search_form_categories = Category::orderBy('name')->get();
