@@ -26,13 +26,13 @@
             @if (Auth::user()->image == null)
                 <i class="fa fa-user" style="color: #fff"; font-size: 50px !important;></i>
             @else
-                <img src="{{ '/images/'.Auth::user()->image  }}" class="user-image" alt="User Image">
+                <img src="{{ '/uploads/users/'.Auth::user()->image  }}" class="user-image" alt="User Image">
             @endif
           </a>
           <ul class="dropdown-menu scale-up">
             <!-- User image -->
             <li class="user-header" style="background-color: #f8d053;">
-              <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" class="img-responsive" alt="User Image">
+              <img src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/uploads/users/'.''.Auth::user()->image  }}" class="img-responsive" alt="User Image">
 
               <p>
                 {{ Auth::user()->name }}
