@@ -68,6 +68,17 @@
       'Html' => 'Collective\\Html\\HtmlFacade',
     ),
   ),
+  'livewire/livewire' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Livewire\\LivewireServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Livewire' => 'Livewire\\Livewire',
+    ),
+  ),
   'mews/captcha' => 
   array (
     'providers' => 
@@ -77,17 +88,6 @@
     'aliases' => 
     array (
       'Captcha' => 'Mews\\Captcha\\Facades\\Captcha',
-    ),
-  ),
-  'mews/purifier' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Mews\\Purifier\\PurifierServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Purifier' => 'Mews\\Purifier\\Facades\\Purifier',
     ),
   ),
   'nesbot/carbon' => 
@@ -113,14 +113,6 @@
     'aliases' => 
     array (
       'Geocoder' => 'Spatie\\Geocoder\\Facades\\Geocoder',
-    ),
-  ),
-  'tizis/lara-comments' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'tizis\\laraComments\\Providers\\ServiceProvider',
-      1 => 'tizis\\laraComments\\Providers\\AuthServiceProvider',
     ),
   ),
   'tymon/jwt-auth' => 
