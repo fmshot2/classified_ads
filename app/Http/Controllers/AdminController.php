@@ -1339,7 +1339,7 @@ class AdminController extends Controller
 
 
         public function ending_seller()
-        {        
+        {
 
           $sellers = User::where('role', 'seller')->with('subscriptions')
           ->whereHas('subscriptions', function($query) {
@@ -1348,7 +1348,7 @@ class AdminController extends Controller
             $query->whereBetween('subscription_end_date', [$from, $to]);
           })
           ->orderBy('created_at')
-          ->get(); 
+          ->get();
           return view('admin.user.ending_seller', compact('sellers'));
         }
 
@@ -1394,8 +1394,8 @@ class AdminController extends Controller
           return view('admin.user.resub_last_month', compact('all_subscriptions', 'Resub_sellers'));
         }
         public function add_seller_sub()
-        {     
-          $sellers = User::where('role', 'seller')->where(function($query) { 
+        {
+          $sellers = User::where('role', 'seller')->where(function($query) {
             $query->doesnthave('subscriptions');
           })->get();
           foreach($sellers as $seller) {
@@ -1420,15 +1420,15 @@ class AdminController extends Controller
         //   return view('admin.user.ending_seller', compact('sellers'));
         // }
        public function add_seller_referals()
-        {    
-         $sellers = User::where('role', 'seller')->whereNotNull('idOfReferer')->where(function($query) { 
+        {
+         $sellers = User::where('role', 'seller')->whereNotNull('idOfReferer')->where(function($query) {
             $query->doesnthave('referals');
           })->get();
           foreach($sellers as $seller) {
             $Bringer = User::find($seller->idOfReferer);
             if ($Bringer) {
               $Bringer->referals()->create(['user_id' => $seller->id]);
-            }            
+            }
           }
         dd('complete');
         }
@@ -1438,10 +1438,10 @@ public function set_sub_status() {
   // $sellers = User::where('role', 'seller')->where(function($query) {
   //   $query->has('sub')
   // })
-          $sellers = User::where('role', 'seller')->whereHas('subscriptions', function($query) { 
+          $sellers = User::where('role', 'seller')->whereHas('subscriptions', function($query) {
             $query->where('subscription_end_date', '<', now());
           })->orderBy('created_at')
-          ->get(); 
+          ->get();
           foreach($sellers as $seller) {
             $seller->sub_has_ended = 1;
           }

@@ -788,7 +788,7 @@
 </div>
 
 
-
+<script src="{{asset('OurBackend/assets/vendor_components/jquery/dist/jquery.min.js')}}"></script>
 <script>
     $(document).ready(function(){
         $('#jxservice').keyup(function(){
