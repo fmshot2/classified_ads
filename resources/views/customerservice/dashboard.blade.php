@@ -40,6 +40,8 @@
                                         <th> Phone </th>
                                         <th> role </th>
                                         <th> Registration Date</th>
+                                        <th> Sub End Date</th>
+                                        <th> Last Plan type</th>
                                         <th> Services </th>
                                         <th> Call Status </th>
                                         <th> Call Duration </th>
@@ -60,7 +62,13 @@
                                         <td><span id="11" class="text-muted"></i> {{ $all_subscription->email }} </span> </td>
                                         <td><span class="text-muted"> </i> {{ $all_subscription->phone ?? 'no phone'}} </span> </td>
                                         <td> {{ $all_subscription->role }} </td>
-                                        <td> {{ $all_subscription->created_at->format('d/m/Y') }} </span></td>
+                                        <td> {{ $all_subscription->created_at->format('d/m/Y') }} </td>
+                                        @foreach($all_subscription->subscriptions as $key => $subs)
+
+                                        <td>  {{ Carbon\Carbon::parse($subs->subscription_end_date)
+                                            ->format("Y/m/d") }}</td>
+                                            <td>  {{$subs->sub_type}}</td>
+                                        @endforeach
                                         <td>
                                         @if($all_subscription->services->count())
 
@@ -97,16 +105,15 @@
                                                 <tbody>
                                                 @if($all_subscription->services->count())
                                                 <p id="active_text">{{$all_subscription->services->count()}} &nbsp; services</p>
+                                                
                                                 @foreach($all_subscription->services as $key => $services)
-
-                                                    <tr>
-                                                    <th scope="row">{{ $key + 1 }}</th>
-                                                    <td>{{$services->name}}</td>
+                                                 <tr>
+                                                   <th scope="row">{{ $key + 1 }}</th>
+                                                    <td><a href="{{ route('serviceDetail', $services->slug) }}">{{$services->name}}</a></td>
                                                     <td>{{$services->created_at}}</td>
                                                     <td>{{$services->is_approved ? 'Approved' : 'Not Yet Approved'}}</td>
                                                     </tr>
                                                     @endforeach
-
                                                     @endif
 
                                                 </tbody>
