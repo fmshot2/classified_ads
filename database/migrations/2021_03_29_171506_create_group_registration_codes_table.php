@@ -20,6 +20,7 @@ class CreateGroupRegistrationCodesTable extends Migration
             $table->longText('description')->nullable();
             $table->integer('max_usable');
             $table->integer('total_used')->default(0);
+            $table->string('amount');
             $table->timestamps();
         });
     }

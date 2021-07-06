@@ -24,7 +24,7 @@
                     <!-- Profile Image -->
                     <div class="box box-warning">
                         <div class="box-body box-profile">
-                            <img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/images/'.''.Auth::user()->image  }}" alt="User profile picture">
+                            <img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->image == null ? '/images/user-icon.png' : '/uploads/users/'.''.Auth::user()->image  }}" alt="User profile picture">
 
                             <h3 class="profile-username text-center"> {{ Auth::user()->name }} </h3>
 

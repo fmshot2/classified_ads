@@ -31,10 +31,17 @@
     </div>
 
     <div class="form-group">
-        <div class="input-group mb-3">
+        {{-- <div class="input-group mb-3">
             <input type="password" id="password" name="password" id="passwordField" class="form-control" placeholder="Password (min: 6 chars)" aria-label="Password" aria-describedby="Password" wire:model='password'>
             <div class="input-group-append" id="showpasswordtoggle" name="showpasswordtoggle" onclick="showPassword()">
-            <span class="input-group-text" id="basic-addon1"><i class="fa fa-eye"></i></span>
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-eye"></i></span>
+            </div>
+        </div> --}}
+
+        <div class="input-group mb-3">
+            <input type="{{ $passwordType }}" id="password" name="password" id="passwordField" class="form-control" placeholder="Password (min: 6 chars)" aria-label="Password" aria-describedby="Password" wire:model='password'>
+            <div class="input-group-append" id="showpasswordtoggle" name="showpasswordtoggle" wire:click="showPassword">
+                <span class="input-group-text" id="basic-addon1"><i class="fa fa-eye"></i></span>
             </div>
         </div>
         @if ($errors->has('password'))
@@ -176,6 +183,14 @@ window.addEventListener('pay_with_paystack', event => {
     });
     handler.openIframe();
 })
+    function showPassword() {
+        var passField = document.getElementById("passwordField");
+        if (passField.type === "password") {
+            passField.type = "text";
+        } else {
+            passField.type = "password";
+        }
+    }
 </script>
 
 <style>

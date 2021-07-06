@@ -42,6 +42,7 @@ class Register extends Component
     public $agent_Id;
     public $current_view;
     public $plan;
+    public $passwordType = 'password';
 
 
     public function mount()
@@ -54,6 +55,16 @@ class Register extends Component
     public function reset_view()
     {
         $this->current_view = 'livewire.user.register';
+    }
+
+    public function showPassword()
+    {
+        if ($this->passwordType == 'password') {
+            $this->passwordType = 'text';
+        }
+        else{
+            $this->passwordType = 'password';
+        }
     }
 
     public function validate_form()
@@ -87,7 +98,7 @@ class Register extends Component
             // live variable
             // 'key'    => config('variable.paystack_pk_live'),
             // 'key'    => 'pk_test_b951412d1d07c535c90afd8a9636227f54ce1c43',
-            'key'    => env('paystack_pk'),            
+            'key'    => env('paystack_pk'),
             'amount' => $this->plan * 100,
             'email'  => $this->email,
             'name'   => $this->name,
@@ -104,7 +115,7 @@ class Register extends Component
     {
         // $paystack_sk    = 'sk_test_11395d522a279cf6fb0f8c6cf0fd7f41b2c15200';
         $paystack_sk    = env('paystack_sk');
-        
+
 
         $response = Http::withHeaders([
             'content-type' => 'application/json',
@@ -284,8 +295,8 @@ class Register extends Component
             // $sub_check->save();
 
 
-            Auth::user()->subscriptions()->create(['sub_type' => $sub_type, 
-             'last_amount_paid' => $this->plan, 
+            Auth::user()->subscriptions()->create(['sub_type' => $sub_type,
+             'last_amount_paid' => $this->plan,
              'subscription_end_date' => Carbon::now()->addDays($added_days),
          // 'last_subscription_starts' => $current_date_time,
              'trans_ref' => $tranxRef,
@@ -629,7 +640,7 @@ public function save_buyer(){
     $user->email    = $this->email;
     $user->password = Hash::make($this->password);
     $user->role     = $this->role;
-    $user->slug     = $userSlug;    
+    $user->slug     = $userSlug;
     //save id of referer if user was reffererd
     $user->idOfReferer = $this->refererId;
     //save id of agent if user was brought by agent
