@@ -36,7 +36,7 @@ All E.F Maketers |
                                         <th> # </th>
                                         <th> Name </th>
                                         <th> Email </th>
-                                        <th> role </th>
+                                        <th>Total Sales</th>
                                         <th> reg date</th>
                                         <th> status </th>
                                         <th> Downline </th>
@@ -48,11 +48,13 @@ All E.F Maketers |
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                             <td> {{ $efmarketer->name }} </td>
                                             <td><span class="text-muted"> </i> {{ $efmarketer->email }} </span> </td>
-                                            @if ($efmarketer->role == 'seller')
+                                            <!-- @if ($efmarketer->role == 'seller')
                                                 <td> Service Provider </td>
                                             @elseif($efmarketer->role == 'buyer')
                                                 <td> Service Seeker </td>
-                                            @endif
+                                            @endif -->
+                                            <td> {{ $efmarketer->referals->count() }} </span></td>
+
                                             <td> {{ $efmarketer->created_at->format('d/m/Y') }} </span></td>
                                             <td>
                                                 @if($efmarketer->status == 1)
@@ -71,6 +73,47 @@ All E.F Maketers |
                             </table>
                         </div>
 					</div>
+
+        <div class="form-stretch">
+           
+            <div class="row">
+                <div class="col-md-3">
+                    <h3 class="box-title"> Sort By Date </h3>
+                </div>
+                <!-- form start -->
+                <form class="form-horizontal form-element" 
+                action="{{ route('admin.sort_ef_marketers_sales') }}" method="POST">
+                @csrf
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">From</label>
+                            <input type="date" name="start_date" class="form-control">
+                            @error('start_date')
+                            <span class="error">
+                                <strong class="text-danger">{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">To</label>
+                            <input type="date" name="end_date" class="form-control">
+                            @error('end_date')
+                            <span class="error">
+                                <strong class="text-danger">{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="">
+                            <button type="submit" class="btn btn-warning"> Submit </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 					<!-- /.box-body -->
 				</div>
 

@@ -53,7 +53,7 @@ class customerServiceController extends Controller
 	// 	$all_subscriptions = User::find(32);
 	//   dd($all_subscriptions->subscriptions);
 
-	  $all_subscriptions = User::with('subscriptions')->get();
+	  $all_subscriptions = User::with('subscriptions')->orderBy('id', 'desc')->get();
 	  // foreach($all_subscriptions as $all_subscription){
 	  //   $all_subscriptions = $all_subscription->subscriptionable->services;
   
@@ -113,6 +113,17 @@ class customerServiceController extends Controller
 
 	
 
+		public function allServices_4_Cus_service()
+		{
+		  $mySortedServices = Service::orderBy('id', 'desc')->get();
+		  // foreach($all_subscriptions as $all_subscription){
+		  //   $all_subscriptions = $all_subscription->subscriptionable->services;
+	  
+		  // }
+		  // dd($all_subscriptions);
+		  return view('customerservice.allServices', compact('mySortedServices'));
+		}
+
     public function customerServiceDashboard()
 	{
 		return redirect('admin.subscription.all');
@@ -128,7 +139,7 @@ class customerServiceController extends Controller
 		$from  = Carbon::now();
 		$query->whereBetween('subscription_end_date', [$from, $to]);
 	  })
-	  ->orderBy('created_at')
+	  ->orderBy('created_at', 'desc')
 	  ->get(); 
 	  return view('customerservice.sub_about_to_end', compact('all_subscriptions'));
 	}
@@ -141,7 +152,7 @@ class customerServiceController extends Controller
           ->whereHas('subscriptions', function($query) {
             $query->where('subscription_end_date', '<', now());
           })
-          ->orderBy('created_at')
+          ->orderBy('created_at', 'desc')
           ->get();
           return view('customerservice.sub_ended', compact('all_subscriptions'));
         }
