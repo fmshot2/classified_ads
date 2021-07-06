@@ -1130,6 +1130,17 @@ class AdminController extends Controller
         // Category::orderBy('id', 'asc')->paginate(35);
           return view('admin.user.ef_marketers', compact('efmarketers'));
         }
+        public function sort_ef_marketers_sales(Request $request)
+        {
+          $validatedData = $request->validate([
+            'start_date' => ['required'],
+            'end_date' => ['required'],
+        ]);
+
+          $services = Service::whereBetween('created_at', [$request->start_date, $request->end_date])->get();
+          dd($services);
+
+        }
 
 
         public function ef_marketers_downline($slug)
