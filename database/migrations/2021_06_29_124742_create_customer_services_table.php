@@ -15,13 +15,13 @@ class CreateCustomerServicesTable extends Migration
     {
         Schema::create('customer_services', function (Blueprint $table) {
             $table->id();
-            $table->string('call_status');
-            $table->string('call_duration');
+            $table->string('call_status')->nullable();
+            $table->string('call_duration')->nullable();
             $table->string('alternative')->nullable();
-            $table->string('client_comment');
-            $table->string('customer_service_comment');
-            $table->string('customer_service_personel_name');
-            $table->string('user_id');
+            $table->string('client_comment')->nullable();
+            $table->string('customer_service_comment')->nullable();
+            $table->string('customer_service_personel_name')->nullable();
+            $table->string('user_id')->nullable();
             $table->timestamps();
         });
     }
