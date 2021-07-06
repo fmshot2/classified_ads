@@ -1130,6 +1130,7 @@ class AdminController extends Controller
         // Category::orderBy('id', 'asc')->paginate(35);
           return view('admin.user.ef_marketers', compact('efmarketers'));
         }
+
         public function sort_ef_marketers_sales(Request $request)
         {
           $validatedData = $request->validate([

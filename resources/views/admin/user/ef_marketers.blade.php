@@ -81,7 +81,9 @@ All E.F Maketers |
                     <h3 class="box-title"> Sort By Date </h3>
                 </div>
                 <!-- form start -->
-                <form class="form-horizontal form-element"wire:submit.prevent="submit">
+                <form class="form-horizontal form-element" 
+                action="{{ route('admin.sort_ef_marketers_sales') }}" method="POST">
+                @csrf
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="">From</label>

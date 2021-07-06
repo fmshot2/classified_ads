@@ -606,6 +606,9 @@ Route::middleware(['admin'])->group(function () { //Admin Middleware protection 
     Route::get('/activate_user/{id}', 'AdminController@activate_user')->name('admin.activate');
     Route::get('/activate_agent/{id}', 'AdminController@activate_agent')->name('admin.activate.agent');
     Route::get('dashboard/ef-marketers', 'AdminController@all_ef_marketers')->name('admin.all_ef_marketers');
+    Route::post('dashboard/sort_ef-marketers', 'AdminController@sort_ef_marketers_sales')
+    ->name('admin.sort_ef_marketers_sales');
+
 
 
 
