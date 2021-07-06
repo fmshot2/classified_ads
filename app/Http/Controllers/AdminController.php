@@ -512,7 +512,7 @@ class AdminController extends Controller
 
   public function allSubscription()
   {
-    $all_subscriptions = Subscription::all();
+    $all_subscriptions = Subscription::orderBy('id', 'desc')->get();
     // foreach($all_subscriptions as $all_subscription){
     //   $all_subscriptions = $all_subscription->subscriptionable->services;
 
@@ -520,6 +520,8 @@ class AdminController extends Controller
     // dd($all_subscriptions);
     return view('admin.subscription.index', compact('all_subscriptions'));
   }
+
+
 
   public function pending_advert_requests()
   {
@@ -1360,7 +1362,7 @@ class AdminController extends Controller
           ->whereHas('subscriptions', function($query) {
             $query->where('subscription_end_date', '<', now());
           })
-          ->orderBy('created_at')
+          ->orderBy('created_at', 'desc')
           ->get();
           return view('admin.user.ended_seller', compact('sellers'));
         }
@@ -1374,7 +1376,7 @@ class AdminController extends Controller
             $to  = Carbon::now();
             $query->whereBetween('subscription_end_date', [$from, $to]);
           })
-          ->orderBy('created_at')
+          ->orderBy('created_at', 'desc')
           ->get();
           // dd($sellers);
 

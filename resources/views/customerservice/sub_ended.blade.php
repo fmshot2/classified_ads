@@ -60,12 +60,16 @@
                                         <td><span class="text-muted"> </i> {{ $all_subscription->phone ?? 'no phone'}} </span> </td>
                                         <td> {{ $all_subscription->role }} </td>
                                         <td> {{ $all_subscription->created_at->format('d/m/Y') }} </span></td>
-                                        @foreach($all_subscription->subscriptions as $key => $subs)
+                                        <td> {{ Carbon\Carbon::parse($all_subscription->subscriptions
+                                        ->first()->subscription_end_date)->format('d/m/y') }} </span></td>
+                                        <td>  {{ $all_subscription->subscriptions
+                                        ->first()->sub_type }}</td>
+                                        <!-- @foreach($all_subscription->subscriptions as $key => $subs)
 
                                         <td>  {{ Carbon\Carbon::parse($subs->subscription_end_date)
                                             ->format("Y/m/d") }}</td>
                                             <td>  {{$subs->sub_type}}</td>
-                                        @endforeach
+                                        @endforeach -->
                                         <td>
                                         @if($all_subscription->services->count())
 

@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'Subscription Users Table | ')
+@section('title', 'All Users/Subscriptions | ')
 
 @section('content')
 
@@ -34,6 +34,7 @@
                                         <th> Phone </th>
                                         <th> role </th>
                                         <th> Registration Date</th>
+                                        <th> Sub. End Date</th>
                                         <th> Status </th>
                                         <th> Services</th>
                                     </tr>
@@ -49,6 +50,7 @@
                                         <td><span class="text-muted"> </i> {{ $all_subscription->subscriptionable->phone ?? 'no phone'}} </span> </td>
                                         <td> {{ $all_subscription->subscriptionable->role }} </td>
                                         <td> {{ $all_subscription->subscriptionable->created_at->format('d/m/Y') }} </span></td>
+                                        <td> {{ $all_subscription->subscription_end_date }} </span></td>
                                         <td>
                                             @if($all_subscription->subscriptionable->status == 1)
                                             <span><p id="active_text">Activated</p></span>

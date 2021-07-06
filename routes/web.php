@@ -222,6 +222,8 @@ Route::middleware(['customerservice'])->group(function () {
     Route::post('customer_service/send-sms', 'customerServiceController@submit_sms')->name('cus.submit.sms');
     Route::post('customer_service/send-email', 'customerServiceController@submitEmail')->name('cus.submit.email');
     Route::get('/dashboard/customer_service', 'customerServiceController@allSubscription')->name('customer_service.dashboard');
+    Route::get('/dashboard/customer_service/all_services', 'customerServiceController@allServices_4_Cus_service')
+    ->name('customer_service.all_services');
     Route::get('/user_sub_almost_ended', 'customerServiceController@ending_seller')->name('user_sub_almost_ended');
     Route::get('/user_sub_has_ended', 'customerServiceController@ended_seller')->name('user_sub_has_ended');
     Route::get('/resubs_last_month', 'AdminController@resub_last_month')->name('resubs_last_month');
