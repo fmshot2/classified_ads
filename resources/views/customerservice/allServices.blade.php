@@ -122,13 +122,12 @@
        </div>
 
         <div>
-        <div class="form-stretch">
+        <!-- <div class="form-stretch">
            
            <div class="row">
                <div class="col-md-3">
                    <h3 class="box-title"> Sort By Date </h3>
                </div>
-               <!-- form start -->
                <form class="form-horizontal form-element" 
                action="{{ route('admin.sort_ef_marketers_sales') }}" method="POST">
                @csrf
@@ -161,7 +160,7 @@
                    </div>
                </form>
            </div>
-       </div>
+       </div> -->
    </div>
    </div>
 
