@@ -38,6 +38,7 @@
                                         <th> role </th>
                                         <th> Registration Date</th>
                                         <th> Sub End Date</th>
+                                        <th> Last Plan type</th>
                                         <th> Services </th>
                                         <th> Call Status </th>
                                         <th> Call Duration </th>
@@ -63,6 +64,7 @@
 
                                         <td>  {{ Carbon\Carbon::parse($subs->subscription_end_date)
                                             ->format("Y/m/d") }}</td>
+                                            <td>  {{$subs->sub_type}}</td>
                                         @endforeach
                                         <td>
                                         @if($all_subscription->services->count())
