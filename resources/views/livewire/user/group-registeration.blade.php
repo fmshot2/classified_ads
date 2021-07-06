@@ -11,7 +11,17 @@
     </div>
 
     <div class="form-group form-box col-md-6">
-        <label>Agent Code (optional)</label>
+        <label>Referal <small>(optional)</small> </label>
+        <input type="text" class="input-text" name="refer" autofocus placeholder="Referal" wire:model='refer'>
+        @error('refer')
+        <span class="helper-text text-danger" data-error="wrong" data-success="right">
+            <strong class="text-danger">{{ $message }}</strong>
+        </span>
+        @enderror
+    </div>
+
+    <div class="form-group form-box col-md-6">
+        <label>Agent Code <small>(optional)</small> </label>
         <input type="text" class="input-text" name="agent_code" autofocus placeholder="Agent Code" wire:model='agent_code'>
         @error('agent_code')
         <span class="helper-text text-danger" data-error="wrong" data-success="right">
@@ -38,6 +48,16 @@
         <label>Email</label>
         <input type="text" class="input-text" name="email" placeholder="Email" wire:model='email'>
         @error('email')
+        <span class="helper-text text-danger" data-error="wrong" data-success="right">
+            <strong class="text-danger">{{ $message }}</strong>
+        </span>
+        @enderror
+    </div>
+
+    <div class="form-group form-box col-md-6">
+        <label>Phone Number</label>
+        <input type="text" class="input-text" name="phone" placeholder="Phone Number" wire:model='phone'>
+        @error('phone')
         <span class="helper-text text-danger" data-error="wrong" data-success="right">
             <strong class="text-danger">{{ $message }}</strong>
         </span>
