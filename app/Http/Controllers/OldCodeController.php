@@ -757,7 +757,7 @@ class OldCodeController extends Controller
 
         return view('gttPayView', $gtPay_Data);
     }
-}
+
 
 
 
@@ -813,3 +813,32 @@ foreach($request->file('files') as $image)
   //       //   $serve->total_likes = $serve->total_likes;
   //       //   return $serve->total_likes;
   //       // });
+  
+  public function sort_ef_marketers_sales(Request $request)
+  {
+    $validatedData = $request->validate([
+      'start_date' => ['required'],
+      'end_date' => ['required'],
+  ]);
+ 
+  $to = $request->end_date;
+  $from  = $request->start_date;
+  $efmarketers = User::where('is_ef_marketer', '1')->with(['referals'])->get();
+
+  foreach($efmarketers as $key => $efmarketer) {
+    $ref_count = User::where('is_ef_marketer', '1')
+    ->whereHas('referals', function($query) use($to,$from) {
+      $query->whereBetween(DB::raw('date(created_at)'), [$from, $to]);
+    })
+    ->count();
+// The DB::raw above is to make the date inclusive of today, remove it and it'll not include today
+
+    $efmarketers[$key]->ref = $ref_count;
+
+  }
+
+  // dd($efmarketers);
+  return view('admin.user.ef_marketers', compact('efmarketers'));
+}
+
+}

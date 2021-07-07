@@ -48,12 +48,15 @@ All E.F Maketers |
                                             <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
                                             <td> {{ $efmarketer->name }} </td>
                                             <td><span class="text-muted"> </i> {{ $efmarketer->email }} </span> </td>
-                                            <!-- @if ($efmarketer->role == 'seller')
-                                                <td> Service Provider </td>
-                                            @elseif($efmarketer->role == 'buyer')
-                                                <td> Service Seeker </td>
-                                            @endif -->
-                                            <td> {{ $efmarketer->referals->count() }} </span></td>
+
+                                            @if(isset($efmarketer->ref)) {
+                                                <td> {{ $efmarketer->ref }} </span></td>
+                                            }
+                                            @else
+                                            {
+                                                <td> {{ $efmarketer->referals->count() }} </span></td>
+                                            }
+                                            @endif
 
                                             <td> {{ $efmarketer->created_at->format('d/m/Y') }} </span></td>
                                             <td>
