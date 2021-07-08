@@ -485,7 +485,11 @@
       'aliases' => 
       array (
       ),
+<<<<<<< HEAD
+      'reference' => '1c9899b6526863bd9c2b74ce440f47b19665649c',
+=======
       'reference' => '349d2faefda08b84a59e3c133262c2a143d099a5',
+>>>>>>> 0a28f5447f54e0a067974d8073dfeaad6a6facf7
     ),
     'laravel/tinker' => 
     array (
@@ -551,6 +555,18 @@
       'reference' => '3b9dff8aaf7323590c1d2e443db701eb1f9aa0d3',
     ),
     'livewire/livewire' => 
+<<<<<<< HEAD
+=======
+    array (
+      'pretty_version' => 'v2.5.1',
+      'version' => '2.5.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a4ffb135693e7982e5b982ca203f5dc7a7ae1126',
+    ),
+    'malhal/laravel-geographical' => 
+>>>>>>> 0a28f5447f54e0a067974d8073dfeaad6a6facf7
     array (
       'pretty_version' => 'v2.5.1',
       'version' => '2.5.1.0',
@@ -561,6 +577,7 @@
     ),
     'malhal/laravel-geographical' => 
     array (
+<<<<<<< HEAD
       'pretty_version' => '1.0.4',
       'version' => '1.0.4.0',
       'aliases' => 
@@ -575,6 +592,13 @@
       'aliases' => 
       array (
       ),
+=======
+      'pretty_version' => '3.2.6',
+      'version' => '3.2.6.0',
+      'aliases' => 
+      array (
+      ),
+>>>>>>> 0a28f5447f54e0a067974d8073dfeaad6a6facf7
       'reference' => '42c1b320e4cad1f6ec9a395da36d7eda5b67d122',
     ),
     'mockery/mockery' => 
@@ -854,8 +878,8 @@
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache' => 

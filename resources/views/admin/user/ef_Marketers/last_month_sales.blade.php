@@ -1,7 +1,7 @@
 
 @extends('layouts.admin')
 
-@section('title', 'EF-Marketers' Last Month Sales | ')
+@section('title', 'EF-Marketers Last Month Sales')
 
 @section('content')
 
@@ -51,15 +51,15 @@
                                 </thead>
                                 <tbody>
 
-                                        @foreach($users as $key => $user)
+                                        @foreach($agents as $key => $agent)
                                             <tr>
                                                 <td><a href="javascript:void(0)"> {{ $key + 1 }} </a></td>
-                                                <td><span class="text-muted"> </i> {{ $user->name }} </span> </td>
-                                                <td><span class="text-muted"> </i> {{ $user->email }} </span> </td>
+                                                <td><span class="text-muted"> </i> {{ $agent->name }} </span> </td>
+                                                <td><span class="text-muted"> </i> {{ $agent->email }} </span> </td>
                                                 <td>
-                                                    @if($user->status == 1)
+                                                    @if($agent->status == 1)
                                                         <span><p id="active_text">Activated</p></span>
-                                                    @elseif($user->status == 0)
+                                                    @elseif($agent->status == 0)
                                                         <span id="active_text2">Deactivated</span>
                                                     @endif
                                                 </td>

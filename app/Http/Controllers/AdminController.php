@@ -512,7 +512,7 @@ class AdminController extends Controller
 
   public function allSubscription()
   {
-    $all_subscriptions = Subscription::all();
+    $all_subscriptions = Subscription::orderBy('id', 'desc')->get();
     // foreach($all_subscriptions as $all_subscription){
     //   $all_subscriptions = $all_subscription->subscriptionable->services;
 
@@ -520,6 +520,8 @@ class AdminController extends Controller
     // dd($all_subscriptions);
     return view('admin.subscription.index', compact('all_subscriptions'));
   }
+
+
 
   public function pending_advert_requests()
   {
@@ -1128,7 +1130,134 @@ class AdminController extends Controller
         {
           $efmarketers = User::where('is_ef_marketer', '1')->get();
         // Category::orderBy('id', 'asc')->paginate(35);
+        // foreach($efmarketers as $key => $efmarketer) {
+        //   $efmarketers[$key]->sorted = $efmarketer->sourted_out->count()
+        // }
+        // foreach ($agents as $key => $serv) {
+        //   $agents[$key]->total_refers_count = $serv->total_refers->count();
+        // }
           return view('admin.user.ef_marketers', compact('efmarketers'));
+        }
+
+        public function sort_ef_marketers_sales(Request $request)
+        {
+          $validatedData = $request->validate([
+            'start_date' => ['required'],
+            'end_date' => ['required'],
+        ]);
+        $to = Carbon::parse($request->end_date)->format('d/m/Y');
+        $from  = Carbon::parse($request->start_date)->format('d/m/Y');
+        $to = $request->end_date;
+        $from  = $request->start_date;
+        // dd($to, $from);
+        $efmarketers = User::where('is_ef_marketer', '1')->with(['referals'])->get();
+
+        foreach($efmarketers as $key => $efmarketer) {
+          $ref_count = Referal::where('referalable_id', $efmarketer->id)
+        ->whereBetween(DB::raw('date(created_at)'), [$from, $to])->count();
+// The DB::raw above is to make the date inclusive of today, remove it and it'll not include today
+
+        // $ref_count = User::where('is_ef_marketer', '1')
+        //   ->whereHas('referals', function($query) use($to,$from) {
+        //     $query->whereBetween('created_at', [$from, $to]);
+        //   })
+        //   ->count();
+          $efmarketers[$key]->ref = $ref_count;
+          // if( $efmarketers[$key]->ref == 0) {
+          //   dd(0);
+          // }
+        
+
+        }
+
+        // dd($efmarketers);
+        return view('admin.user.ef_marketers', compact('efmarketers'));
+
+
+          // $sellers = User::where('is_ef_marketer', '1')->with('referals')
+        //   ->whereHas('referals', function($query) {
+        //     $to = $request->end_date;
+        //     $from  = $request->start_date;
+        //     $query->whereBetween('created_at', [$from, $to]);
+        //   })
+        //   ->get();
+        $to = $request->end_date;
+        $from  = $request->start_date;
+          $efmarketers = Referal::whereBetween('created_at', [$from, $to])
+          ->whereHas('user', function($query)  {
+            $query->where('is_ef_marketer', '1');
+          })
+          ->get();
+
+          // $efmarketers = Referal::where('is_ef_marketer', '1')->with('referals')
+          // ->whereHas('referals', function($query) use($to,$from)  {
+          //   $query->whereBetween('created_at', [$from, $to]);
+          // })
+          // ->get();
+
+
+      foreach($efmarketers as $key => $efmarketer) {
+        $ref_count = Referal::where('referalable_id', $efmarketer->id)
+      ->whereBetween('created_at', [$from, $to])->count();
+      $efmarketers[$key]->ref = $efmarketer->ref_count;
+      }
+
+      //   $efmarketers = User::where('is_ef_marketer', '1')->with(['referals'])->get();
+      // foreach($efmarketers as $key => $efmarketer) {
+      //   $efmarketers = User::where('is_ef_marketer', '1')->with(['referals' => function($q) use($to,$from) {
+      //     $q->whereBetween('created_at', [$from, $to])->count();
+      // }])
+      // ->get();
+      // }
+      // dd($efmarketers);
+
+        // foreach($efmarketers as $key => $efmarketer) {
+        //   $ref = $efmarketer->referals()->get();
+        // $efmarketers[$key]->ref = $efmarketer->ref;
+      
+        // } 
+        
+        
+        // ->with('referals')->get();
+        // foreach($efmarketers as $key => $efmarketer) {
+        //   $ref = $efmarketer->referals()->get();
+        // $efmarketers[$key]->ref = $efmarketer->ref;
+      
+        // }
+
+        // $userList = User::query()              
+        //      ->with(['userAttendance' => function($q) use($attDate,$type) {
+        //          $q->where('present_date', $attDate);
+        //          $q->wherePresentType($type);
+        //      }])
+        //      ->get();
+        
+
+        // $sellers = User::where('is_ef_marketer', '1')->with('referals')
+        //   ->whereHas('referals', function($query) {
+        //     $to = $request->end_date;
+        //     $from  = $request->start_date;
+        //     $query->whereBetween('created_at', [$from, $to]);
+        //   })
+        //   ->get();
+        // dd($efmarketers);
+
+        // $efmarketers = User::where('is_ef_marketer', '1')->with('referals')->get();
+        // foreach($efmarketers as $key => $efmarketer) {
+        //   $ref = $efmarketer->referals()->get();
+        // $efmarketers[$key]->ref = $efmarketer->ref;
+
+        return view('admin.user.ef_marketers', compact('efmarketers'));
+
+        // return back()->with('efmarketers', $efmarketers);
+                //  return back()->with('success', 'Task was successful!');
+
+
+        
+                  // $services = Service::
+          // whereBetween('created_at', 
+          // [$request->start_date, $request->end_date])->get();
+
         }
 
 
@@ -1348,7 +1477,7 @@ class AdminController extends Controller
           ->whereHas('subscriptions', function($query) {
             $query->where('subscription_end_date', '<', now());
           })
-          ->orderBy('created_at')
+          ->orderBy('created_at', 'desc')
           ->get();
           return view('admin.user.ended_seller', compact('sellers'));
         }
@@ -1362,7 +1491,7 @@ class AdminController extends Controller
             $to  = Carbon::now();
             $query->whereBetween('subscription_end_date', [$from, $to]);
           })
-          ->orderBy('created_at')
+          ->orderBy('created_at', 'desc')
           ->get();
           // dd($sellers);
 
