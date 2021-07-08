@@ -53,7 +53,7 @@ class customerServiceController extends Controller
 	// 	$all_subscriptions = User::find(32);
 	//   dd($all_subscriptions->subscriptions);
 
-	  $all_subscriptions = User::with('subscriptions')->orderBy('id', 'desc')->get();
+	  $all_subscriptions = User::where('role', 'seller')->with('subscriptions')->get();
 	  // foreach($all_subscriptions as $all_subscription){
 	  //   $all_subscriptions = $all_subscription->subscriptionable->services;
   
@@ -115,7 +115,7 @@ class customerServiceController extends Controller
 
 		public function allServices_4_Cus_service()
 		{
-		  $mySortedServices = Service::orderBy('id', 'desc')->get();
+		  $mySortedServices = Service::all();
 		  // foreach($all_subscriptions as $all_subscription){
 		  //   $all_subscriptions = $all_subscription->subscriptionable->services;
 	  

@@ -41,15 +41,21 @@
                    <tr>
                        <th> SL </th>
                        <th> Image </th>
-                       <th> Title </th>
+                       <th> Service Name </th>
                        <th> Phone </th>
                        <th> State </th>
                        <th> User name </th>
                        <th> Sub End Date </th>
-                       <th> Status </th>
                        <th> Featured </th>
-                       <th> Date </th>
-                       <th> Actions </th>
+                       <th> Date Created </th>
+                       <th> Call Status </th>
+                       <th> Call Duration </th>
+                       <th> Alternative Communication </th>
+                       <th> Client's Comment </th>
+                       <th> Customer Service Comments </th>
+                       <th> Customer Service Personel Name</th>
+                       <th> Add Report </th>                       
+                       <th> View Service </th>
                    </tr>
                </thead>
 <tbody>
@@ -69,28 +75,79 @@
 
                                        <td> {{ Carbon\Carbon::parse($all_services->user->subscriptions
                                        ->first()->subscription_end_date)->format('d/m/y') }} </td>
-
-
-                                       <td>
-                                           <a data-toggle="modal" data-target="#disapprovalReason{{ $all_services->id }}" id="disapproveBtn{{ $all_services->id }}" class="btn btn-warning {{ $all_services->status == 1 ? 'showApprovingBtn' : 'hideApprovingBtn' }}"> Deactive</a>
-
-                                           <a onclick="approveService({{ $all_services->id }})" id="approveBtn{{ $all_services->id }}" class="btn btn-primary {{ $all_services->status == 0 ? 'showApprovingBtn' : 'hideApprovingBtn' }}"> Activate </a>
-
-
-                                           {{-- @if($all_services->status == 1)
-                                               <a href="{{ route('admin.service.status', $all_services->id) }} " class="btn btn-warning"> Deactive</a>
-                                               @else
-                                               <a href="{{ route('admin.service.status', $all_services->id) }} " class="btn btn-primary"> Activate </a>
-                                               @endif --}}
-                                           </td>
-
                                            <td> {{ $all_services->featured == 1 ? 'Yes' : 'No' }} </td>
                                            <td> {{ $all_services->created_at->format('d/m/Y') }} </td>
 
 
+
+                                           <td> {{$all_services->user->customerservice->call_status ?? ''}} </td>
+                                        <td><span class="text-muted"></i> {{$all_services->user->customerservice->call_duration ?? ''}} </span> </td>
+                                        <td><span class="text-muted"> </i> {{$all_services->user->customerservice->call_status ?? ''}} </span> </td>
+                                        <td> {{$all_services->user->customerservice->client_comment ?? ''}} </td>
+                                        <td>{{$all_services->user->customerservice->customer_service_comment ?? ''}} </span></td>
+                                        <td>{{$all_services->user->customerservice->customer_service_personel_name ?? ''}} </td>                                        
+                                        <td>
+                                        <button type="button" class="btn btn-primary" 
+                                        data-toggle="modal" data-target="#allUsers{{ $all_services->user->id }}">
+                                        Write Report
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="allUsers{{ $all_services->user->id }}" tabindex="-1" role="dialog" 
+                                        aria-labelledby="allUsers{{ $all_services->user->id }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="allUsers{{ $all_services->user->id }}Label">Modal title</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                            <form action="{{ route('save_report') }}" method="POST" class="message-form">
+                                                @csrf
+                                            <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{$all_services->user->id}}">
+                                        <div class="form-group">
+                                            <label for="call_status">Call Status</label>
+                                            <input type="text" class="form-control" id="call_status" name="call_status" value="{{$all_services->user->customerservice->call_status ?? ''}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="call_duration">Call Duration</label>
+                                            <input type="text" class="form-control" id="call_duration" name="call_duration" value="{{$all_services->user->customerservice->call_duration ?? ''}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alternative">Alternative Communication</label>
+                                            <input type="text" class="form-control" id="alternative" name="alternative" value="{{$all_services->user->customerservice->alternative ?? ''}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="customer_comment">Client's Comment</label>
+                                            <textarea class="form-control" id="client_comment" name="client_comment" rows="3">{{$all_services->user->customerservice->client_comment ?? ''}}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="customer_service_comment">Customer Service Comments</label>
+                                            <textarea class="form-control" id="customer_service_comment" name="customer_service_comment" rows="3" 
+                                            >{{$all_services->user->customerservice->customer_service_comment ?? ''}}</textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="alternative">Handled By</label>
+                                            <input type="text" class="form-control" id="customer_service_personel_name" name="customer_service_personel_name" 
+                                             value="{{$all_services->user->customerservice->customer_service_personel_name ?? ''}}">
+                                        </div>
+                                        <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </form>
+                                            </div>
+                                           
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </td>
+
                                            <td class="center">
                                                <a href="{{ route('admin.view', $all_services->slug) }} " class="btn btn-warning " target="_blank"><i class="fa fa-eye"></i></a>
-                                               <button onclick="deleteService({{ $all_services->id }})" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                               <!-- <button onclick="deleteService({{ $all_services->id }})" class="btn btn-danger"><i class="fa fa-trash"></i></button> -->
                                            </td>
                                        </tr>
 
