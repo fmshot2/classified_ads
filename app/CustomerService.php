@@ -11,4 +11,9 @@ class CustomerService extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function service()
+    {
+        return $this->belongsTo('App\Service');
+    }
+
 }

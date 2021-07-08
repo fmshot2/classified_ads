@@ -22,6 +22,7 @@ class CreateCustomerServicesTable extends Migration
             $table->string('customer_service_comment')->nullable();
             $table->string('customer_service_personel_name')->nullable();
             $table->string('user_id')->nullable();
+            $table->string('service_id')->nullable();
             $table->timestamps();
         });
     }

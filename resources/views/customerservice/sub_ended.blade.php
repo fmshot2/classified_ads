@@ -45,7 +45,7 @@
                                         <th> Alternative Communication </th>
                                         <th> Client's Comment </th>
                                         <th> Customer Service Comments </th>
-                                        <th> Customer Service Personel Name</th>
+                                        <!-- <th> Customer Service Personel Name</th> -->
                                         <th> Add Report </th>
                                     </tr>
                                 </thead>
@@ -134,7 +134,7 @@
                                         <td><span class="text-muted"> </i> {{$all_subscription->customerservice->call_status ?? ''}} </span> </td>
                                         <td> {{$all_subscription->customerservice->client_comment ?? ''}} </td>
                                         <td>{{$all_subscription->customerservice->customer_service_comment ?? ''}} </span></td>
-                                        <td>{{$all_subscription->customerservice->customer_service_personel_name ?? ''}} </td>                                        
+                                        <!-- <td>{{$all_subscription->customerservice->customer_service_personel_name ?? ''}} </td>                                         -->
                                         <td>
                                         <button type="button" class="btn btn-primary" 
                                         data-toggle="modal" data-target="#allUsers{{ $all_subscription->id }}">
@@ -177,11 +177,11 @@
                                             >{{$all_subscription->customerservice->customer_service_comment ?? ''}}</textarea>
                                         </div>
                                         
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="alternative">Handled By</label>
                                             <input type="text" class="form-control" id="customer_service_personel_name" 
                                             name="customer_service_personel_name"  value="{{$all_subscription->customerservice->customer_service_personel_name ?? ''}}">
-                                        </div>
+                                        </div> -->
                                         <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-primary">Save changes</button>

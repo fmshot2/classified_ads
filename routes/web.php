@@ -228,6 +228,8 @@ Route::middleware(['customerservice'])->group(function () {
     Route::get('/user_sub_has_ended', 'customerServiceController@ended_seller')->name('user_sub_has_ended');
     Route::get('/resubs_last_month', 'AdminController@resub_last_month')->name('resubs_last_month');
     Route::post('/save_report', 'customerServiceController@save_report')->name('save_report');
+    Route::post('/save_user_Report', 'customerServiceController@save_user_Report')->name('save_user_Report');
+
 
 });
 //customer_service Middleware ends here
