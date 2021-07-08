@@ -146,7 +146,7 @@
                                         </td>
 
                                            <td class="center">
-                                               <a href="{{ route('admin.view', $all_services->slug) }} " class="btn btn-warning " target="_blank"><i class="fa fa-eye"></i></a>
+                                               <a href="{{ route('serviceDetail', $all_services->slug) }} " class="btn btn-warning " target="_blank"><i class="fa fa-eye"></i></a>
                                                <!-- <button onclick="deleteService({{ $all_services->id }})" class="btn btn-danger"><i class="fa fa-trash"></i></button> -->
                                            </td>
                                        </tr>
