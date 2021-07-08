@@ -46,7 +46,7 @@
                        <th> State </th>
                        <th> User name </th>
                        <th> Sub End Date </th>
-                       <th> Featured </th>
+                       <!-- <th> Featured </th> -->
                        <th> Date Created </th>
                        <th> Call Status </th>
                        <th> Call Duration </th>
@@ -75,63 +75,72 @@
 
                                        <td> {{ Carbon\Carbon::parse($all_services->user->subscriptions
                                        ->first()->subscription_end_date)->format('d/m/y') }} </td>
-                                           <td> {{ $all_services->featured == 1 ? 'Yes' : 'No' }} </td>
+                                           <!-- <td> {{ $all_services->featured == 1 ? 'Yes' : 'No' }} </td> -->
                                            <td> {{ $all_services->created_at->format('d/m/Y') }} </td>
 
 
 
-                                           <td> {{$all_services->user->customerservice->call_status ?? ''}} </td>
-                                        <td><span class="text-muted"></i> {{$all_services->user->customerservice->call_duration ?? ''}} </span> </td>
-                                        <td><span class="text-muted"> </i> {{$all_services->user->customerservice->call_status ?? ''}} </span> </td>
-                                        <td> {{$all_services->user->customerservice->client_comment ?? ''}} </td>
-                                        <td>{{$all_services->user->customerservice->customer_service_comment ?? ''}} </span></td>
-                                        <td>{{$all_services->user->customerservice->customer_service_personel_name ?? ''}} </td>                                        
+                                           <td> {{$all_services->customerservice->call_status ?? ''}} </td>
+                                        <td><span class="text-muted"></i> {{$all_services->customerservice->call_duration ?? ''}} </span> </td>
+                                        <td><span class="text-muted"> </i> {{$all_services->customerservice->call_status ?? ''}} </span> </td>
+                                        <td> {{$all_services->customerservice->client_comment ?? ''}} </td>
+                                        <td>{{$all_services->customerservice->customer_service_comment ?? ''}} </td>
+                                        <td>{{$all_services->customerservice->customer_service_personel_name ?? ''}} </td>                                        
+
                                         <td>
                                         <button type="button" class="btn btn-primary" 
-                                        data-toggle="modal" data-target="#allUsers{{ $all_services->user->id }}">
+                                        data-toggle="modal" data-target="#allUsers{{ $all_services->id }}">
                                         Write Report
                                         </button>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="allUsers{{ $all_services->user->id }}" tabindex="-1" role="dialog" 
-                                        aria-labelledby="allUsers{{ $all_services->user->id }}" aria-hidden="true">
+                                        <div class="modal fade" id="allUsers{{ $all_services->id }}" tabindex="-1" role="dialog" 
+                                        aria-labelledby="allUsers{{ $all_services->id }}" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="allUsers{{ $all_services->user->id }}Label">Modal title</h5>
+                                                <h5 class="modal-title" id="allUsers{{ $all_services->id }}Label">Add</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                            <form action="{{ route('save_report') }}" method="POST" class="message-form">
+                                            <form action="{{ route('save_user_Report') }}" method="POST" class="message-form">
                                                 @csrf
-                                            <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{$all_services->user->id}}">
+                                            <input type="hidden" class="form-control" id="user_id" name="service_id" 
+                                            value="{{$all_services->id}}">
                                         <div class="form-group">
                                             <label for="call_status">Call Status</label>
-                                            <input type="text" class="form-control" id="call_status" name="call_status" value="{{$all_services->user->customerservice->call_status ?? ''}}">
+                                            <input type="text" class="form-control" id="call_status" 
+                                            name="call_status" value="{{$all_services->customerservice->call_status ?? ''}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="call_duration">Call Duration</label>
-                                            <input type="text" class="form-control" id="call_duration" name="call_duration" value="{{$all_services->user->customerservice->call_duration ?? ''}}">
+                                            <input type="text" class="form-control" id="call_duration" name="call_duration" 
+                                            value="{{$all_services->customerservice->call_duration ?? ''}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="alternative">Alternative Communication</label>
-                                            <input type="text" class="form-control" id="alternative" name="alternative" value="{{$all_services->user->customerservice->alternative ?? ''}}">
+                                            <input type="text" class="form-control" 
+                                            id="alternative" name="alternative" 
+                                            value="{{$all_services->customerservice->alternative ?? ''}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="customer_comment">Client's Comment</label>
-                                            <textarea class="form-control" id="client_comment" name="client_comment" rows="3">{{$all_services->user->customerservice->client_comment ?? ''}}</textarea>
+                                            <textarea class="form-control" id="client_comment" name="client_comment" 
+                                            rows="3">{{$all_services->customerservice->client_comment ?? ''}}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="customer_service_comment">Customer Service Comments</label>
                                             <textarea class="form-control" id="customer_service_comment" name="customer_service_comment" rows="3" 
-                                            >{{$all_services->user->customerservice->customer_service_comment ?? ''}}</textarea>
+                                            >{{$all_services->customerservice->customer_service_comment ?? ''}}</textarea>
                                         </div>
                                         
                                         <div class="form-group">
                                             <label for="alternative">Handled By</label>
-                                            <input type="text" class="form-control" id="customer_service_personel_name" name="customer_service_personel_name" 
-                                             value="{{$all_services->user->customerservice->customer_service_personel_name ?? ''}}">
+                                            <input type="text" class="form-control" id="customer_service_personel_name" 
+                                            name="customer_service_personel_name" 
+                                             value="{{$all_services->customerservice->
+                                             customer_service_personel_name ?? ''}}">
                                         </div>
                                         <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

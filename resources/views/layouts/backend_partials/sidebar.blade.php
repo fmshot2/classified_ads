@@ -592,7 +592,7 @@
         'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
         <a href=" {{ route('customer_service.all_services') }} "><i class="fa fa-circle-o"></i> Services</a>
         </li>          
-        <li style="{{ url()->current() == route('users_sub_almost_ended') ? 
+        <li style="{{ url()->current() == route('user_sub_almost_ended') ? 
         'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
         <a href=" {{ route('user_sub_almost_ended') }} "><i class="fa fa-circle-o"></i> Subscription About To End
         </a>

@@ -53,7 +53,7 @@ class customerServiceController extends Controller
 	// 	$all_subscriptions = User::find(32);
 	//   dd($all_subscriptions->subscriptions);
 
-	  $all_subscriptions = User::where('role', 'seller')->with('subscriptions')->get();
+	  $all_subscriptions = User::all();
 	  // foreach($all_subscriptions as $all_subscription){
 	  //   $all_subscriptions = $all_subscription->subscriptionable->services;
   
@@ -110,6 +110,58 @@ class customerServiceController extends Controller
 				  return redirect()->back()->with($success_notification);
 				}
 		}
+
+
+
+		public function save_user_Report(Request $request)
+    {
+        // $request->validate([
+        //     'email'    => ['required', 'string', 'email', 'max:255', 'exists:users,email'],
+        //     'password' => ['required', 'string', 'min:6']
+
+        // ]);
+
+		$reportCheck = CustomerService::where(['service_id' => $request->service_id])->first();
+        if ($reportCheck) {
+			$reportCheck->call_status = $request->call_status;
+			$reportCheck->call_duration = $request->call_duration;
+			$reportCheck->alternative = $request->alternative;
+			$reportCheck->client_comment = $request->client_comment;
+			$reportCheck->customer_service_comment = $request->customer_service_comment;
+			$reportCheck->customer_service_personel_name = $request->customer_service_personel_name;
+			$reportCheck->service_id = $reportCheck->service_id;
+			if ($reportCheck->update()) {
+				$success_notification = array(
+				'message' => 'Report Updated successfully!',
+				'alert-type' => 'success'
+				);
+				return redirect()->back()->with($success_notification);
+			}
+        } else {
+        $new_report = New CustomerService;
+		$new_report->call_status = $request->call_status;
+		$new_report->call_duration = $request->call_duration;
+		$new_report->alternative = $request->alternative;
+		$new_report->client_comment = $request->client_comment;
+		$new_report->customer_service_comment = $request->customer_service_comment;
+		$new_report->customer_service_personel_name = $request->customer_service_personel_name;
+		$new_report->service_id = $request->service_id;
+        }
+		if ($new_report->save()) {
+			$success_notification = array(
+				'message' => 'Report Added successfully!',
+				'alert-type' => 'success'
+			  );
+			  return redirect()->back()->with($success_notification);
+			} else {
+				$success_notification = array(
+					'message' => 'The Agent Code used is incorrect!',
+					'alert-type' => 'fail'
+				  );
+				  return redirect()->back()->with($success_notification);
+				}
+		}
+
 
 	
 
