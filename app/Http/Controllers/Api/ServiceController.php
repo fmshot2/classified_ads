@@ -525,27 +525,29 @@ class ServiceController extends Controller
             ]);
         }
 
-        $validatedData = $request->validate([
-            'description' => 'required|max:255',
+        $request->validate([
+            'message' => 'required|max:255',
+            'sender_phone' => 'required',
         ]);
 
-        $slug = Str::random(6);
+        $service = Service::find($request->service_id);
 
-        $message = new Message();
-        $message->subject = $request->subject;
-        $message->description = $request->description;
-        $message->service_id = $request->service_id;
-        $message->service_user_id = $request->service_user_id;
-        $message->buyer_name = $user->name;
-        $message->buyer_email = $user->email;
-        $message->buyer_id = $request->buyer_id;
-        $message->reply = 'yes';
-        $message->phone = $request->phone;
-        $message->slug = $slug;
+        $reply = new Message();
+        $reply->message = $request->message;
+        $reply->receiver_id = $request->receiver_id;
+        $reply->sender_name = $user->name;
+        $reply->sender_phone = $request->sender_phone;
+        $reply->sender_email = $user->email;
+        $reply->service_id = $request->service_id;
+        $reply->parent_id = $request->parent_id;
+        $reply->slug = Str::random(6);
+        $reply->user()->associate($user);
 
-        if ($message->save()) {
+        $user = User::find($user->id);
+
+        if ($user->messages()->save($reply)) {
             return response()->json([
-                'message' => $message
+                'message' => $reply
             ], 200);
         }
     }
@@ -559,19 +561,25 @@ class ServiceController extends Controller
                 'error' => $e->getMessage(),
             ]);
         }
+
+        $request->validate([
+            'message' => 'required|max:255',
+            'sender_phone' => 'required',
+        ]);
+
         $service = Service::find($request->service_id);
 
         $message = new Message();
         $message->message = $request->message;
         $message->receiver_id = $service->user->id;;
-        $message->sender_name = $request->sender_name;
+        $message->sender_name = $user->name;
         $message->sender_phone = $request->sender_phone;
-        $message->sender_email = $request->sender_email;
+        $message->sender_email = $user->email;
         $message->service_id = $request->service_id;
         $message->slug = Str::random(6);
-        $message->user()->associate($request->user());
+        $message->user()->associate($user);
 
-        $user = User::find($request->user()->id);
+        $user = User::find($user->id);
 
         if ($user->messages()->save($message)) {
             return response()->json([
@@ -1409,7 +1417,7 @@ class ServiceController extends Controller
     //     Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no']]);
 
 
-    //     return response()->json(['success' => 'Your Subscription payment was successfull', 
+    //     return response()->json(['success' => 'Your Subscription payment was successfull',
     //     'new_date' => $sub_check->subscription_end_date], 200);
     // }
 
@@ -1467,8 +1475,8 @@ class ServiceController extends Controller
              'email' => Auth::user()->email ]);
             if($sub_save) {
                 return response()->json([
-                    'res_message' => 'Success', 
-                    'res_code' => 200, 
+                    'res_message' => 'Success',
+                    'res_code' => 200,
                     'sub_save' => $sub_save], 200);
             } else {
                 return response()->json(['res_message' => 'Something went wrong', 'res_code' => 500], 500);
@@ -1502,11 +1510,11 @@ class ServiceController extends Controller
             $service_check->paid_featured = 1;
             $service_check->featured_end_date = Carbon::now()->addDays(31);
             $service_check->save();
-            Auth::user()->mypayments()->create(['payment_type' => 'featured', 'amount' => $data['amount'], 
+            Auth::user()->mypayments()->create(['payment_type' => 'featured', 'amount' => $data['amount'],
             'tranx_ref' => $data['tranx_ref']]);
             return response()->json(
                 [   'data' => $service_check,
-                    'res_message' => 'Success', 
+                    'res_message' => 'Success',
                     'res_code' => 200,
                 ], 200);
         }
