@@ -1579,6 +1579,7 @@ class ServiceController extends Controller
     public function updateService(Request $request)
     {
         $service = Service::findOrFail($request->id);
+
         $this->validate($request, [
             'description' => 'nullable',
             'address'     => 'nullable',
