@@ -191,7 +191,6 @@ class customerServiceController extends Controller
 		$from  = Carbon::now();
 		$query->whereBetween('subscription_end_date', [$from, $to]);
 	  })
-	  ->orderBy('created_at', 'desc')
 	  ->get(); 
 	  return view('customerservice.sub_about_to_end', compact('all_subscriptions'));
 	}
@@ -204,7 +203,6 @@ class customerServiceController extends Controller
           ->whereHas('subscriptions', function($query) {
             $query->where('subscription_end_date', '<', now());
           })
-          ->orderBy('created_at', 'desc')
           ->get();
           return view('customerservice.sub_ended', compact('all_subscriptions'));
         }
