@@ -207,6 +207,24 @@ class customerServiceController extends Controller
           return view('customerservice.sub_ended', compact('all_subscriptions'));
         }
 		
+
+
+	// 	public function  sort_Sub_ending(Request $request)
+    //     {
+    //       $validatedData = $request->validate([
+    //         'start_date' => ['required'],
+    //         'end_date' => ['required'],
+    //     ]);
+    //     $to = Carbon::parse($request->end_date)->format('d/m/Y');
+    //     $from  = Carbon::parse($request->start_date)->format('d/m/Y');
+    //     $to = $request->end_date;
+    //     $from  = $request->start_date;
+    //     // dd($to, $from);
+    //     $efmarketers = User::whereBetween(DB::raw('date(created_at)'), [$from, $to])->get();
+	// 	return view('customerservice.sub_about_to_end', compact('all_subscriptions'));
+	// }
+
+
 		public function send_email()
 		{
 		  $agents_phone = Agent::all();

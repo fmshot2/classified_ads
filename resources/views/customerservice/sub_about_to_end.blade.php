@@ -45,7 +45,7 @@
                                         <th> Alternative Communication </th>
                                         <th> Client's Comment </th>
                                         <th> Customer Service Comments </th>
-                                        <!-- <th> Customer Service Personel Name</th> -->
+                                        <th> Customer Service Personel Name</th>
                                         <th> Add Report </th>
                                     </tr>
                                 </thead>
@@ -126,7 +126,7 @@
                                                                                 
                                         <td> {{$all_subscription->customerservice->call_status ?? ''}} </td>
                                         <td><span class="text-muted"></i> {{$all_subscription->customerservice->call_duration ?? ''}} </span> </td>
-                                        <td><span class="text-muted"> </i> {{$all_subscription->customerservice->call_status ?? ''}} </span> </td>
+                                        <td><span class="text-muted"> </i> {{$all_subscription->customerservice->alternative ?? ''}} </span> </td>
                                         <td> {{$all_subscription->customerservice->client_comment ?? ''}} </td>
                                         <td>{{$all_subscription->customerservice->customer_service_comment ?? ''}} </span></td>
                                         <td>{{$all_subscription->customerservice->customer_service_personel_name ?? ''}} </td>                                        
@@ -153,7 +153,8 @@
                                             value="{{$all_subscription->id}}">
                                         <div class="form-group">
                                             <label for="call_status">Call Status</label>
-                                            <input type="text" class="form-control" id="call_status" name="call_status" value="{{$all_subscription->customerservice->call_status ?? ''}}">
+                                            <input type="text" class="form-control" id="call_status" name="call_status" 
+                                            value="{{$all_subscription->customerservice->call_status ?? ''}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="call_duration">Call Duration</label>
@@ -161,7 +162,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="alternative">Alternative Communication</label>
-                                            <input type="text" class="form-control" id="alternative" name="alternative" value="{{$all_subscription->customerservice->alternative ?? ''}}">
+                                            <input type="text" class="form-control" id="alternative" name="alternative" 
+                                            value="{{$all_subscription->customerservice->alternative ?? ''}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="customer_comment">Client's Comment</label>
@@ -201,6 +203,46 @@
 
 
 				</div>
+<!-- 
+                <div class="form-stretch">
+           
+           <div class="row">
+               <div class="col-md-3">
+                   <h3 class="box-title"> Sort By Date </h3>
+               </div>
+               <form class="form-horizontal form-element" 
+               action="{{ route('admin.sort_ef_marketers_sales') }}" method="POST">
+               @csrf
+                   <div class="col-md-4">
+                       <div class="form-group">
+                           <label for="">From</label>
+                           <input type="date" name="start_date" class="form-control">
+                           @error('start_date')
+                           <span class="error">
+                               <strong class="text-danger">{{ $message }}</strong>
+                           </span>
+                           @enderror
+                       </div>
+                   </div>
+                   <div class="col-md-4">
+                       <div class="form-group">
+                           <label for="">To</label>
+                           <input type="date" name="end_date" class="form-control">
+                           @error('end_date')
+                           <span class="error">
+                               <strong class="text-danger">{{ $message }}</strong>
+                           </span>
+                           @enderror
+                       </div>
+                   </div>
+                   <div class="col-md-1">
+                       <div class="">
+                           <button type="submit" class="btn btn-warning"> Submit </button>
+                       </div>
+                   </div>
+               </form>
+           </div>
+       </div> -->
 				<!-- /.box-body -->
 			</div>
 
