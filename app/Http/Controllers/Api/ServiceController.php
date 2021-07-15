@@ -222,7 +222,6 @@ class ServiceController extends Controller
             ]);
         }
 
-        $data = $request->all();
         $this->validate($request, [
             'description' => 'required',
             'category_id' => 'required',
@@ -234,40 +233,23 @@ class ServiceController extends Controller
             'state' => 'required',
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
         ]);
-        $image = $request->file('image');
         $random = Str::random(3);
         $slug = Str::of($request->name)->slug('-') . '' . $random;
         $service = new Service();
-        $slug = Str::random(5);
-
-        // Image set up
-        if ($request->hasFile('files')) {
-            $names = array();
-            foreach ($request->file('files') as $image) {
-                $thumbnailImage = Image::make($image);
-                $thumbnailImage->resize(300, 300);
-                $thumbnailImage_name = $slug . '.' . time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = 'images/';
-                $thumbnailImage->save($destinationPath . $thumbnailImage_name);
-                array_push($names, $thumbnailImage_name);
-            }
-            $service->image = json_encode($names);
-        }
-
-        $state_details = State::where('name', $data['state'])->first();
+        $state_details = State::where('name', $request->state)->first();
 
         $service->user_id = Auth::id();
-        $service->category_id = $data['category_id'];
-        $service->name = $data['name'];
-        $service->description = $data['description'];
-        $service->phone = $data['phone'];
-        $service->min_price = $data['min_price'];
-        $service->state = $data['state'];
+        $service->category_id =  $request->category_id;
+        $service->name =  $request->name;
+        $service->description =  $request->description;
+        $service->phone =  $request->phone;
+        $service->min_price =  $request->min_price;
+        $service->state =  $request->state;
         $service->latitude = $state_details->latitude;
         $service->longitude = $state_details->longitude;
-        $service->city = $data['city'];
-        $service->address = $data['address'];
-        $service->max_price = $data['category_id'];
+        $service->city =  $request->city;
+        $service->address =  $request->address;
+        $service->max_price =  $request->category_id;
         $service->slug = $slug;
         // $service->video_link = $request->video_link;$data['category_id'];
         $service->save();
@@ -282,6 +264,26 @@ class ServiceController extends Controller
 
 
         if ($service->save()) {
+            if ($request->hasFile('thumbnail')) {
+                $image       = $request->file('thumbnail');
+                $fileInfo = $image->getClientOriginalName();
+                $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
+                $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
+                $file_name = $filename . '-' . time() . '.' . $extension;
+
+                //Fullsize
+                $image->move(public_path('uploads/services/'), $file_name);
+
+                $image_resize = Image::make(public_path('uploads/services/') . $file_name);
+                $image_resize->resize(null, 300, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $image_resize->save(public_path('uploads/services/' . $file_name));
+
+                $service->images()->create(['image_path' => $file_name]);
+                $service->thumbnail = $service->images()->first()->image_path;
+                $service->save();
+            }
             $name =  $service->name;
             $category =  $service->category->name;
             $phone =  $service->phone;
@@ -319,6 +321,39 @@ class ServiceController extends Controller
         return (new ServiceResource($service))
             ->response()
             ->setStatusCode(200);
+    }
+
+    public function storeServiceImages(Request $request)
+    {
+        $image = $request->file('images');
+
+        $fileInfo  = $image->getClientOriginalName();
+        $filename  = pathinfo($fileInfo, PATHINFO_FILENAME);
+        $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
+        $file_name = $filename.'-'.time().'.'.$extension;
+
+        //Fullsize
+        $image->move(public_path('uploads/services/'),$file_name);
+
+        $image_resize = Image::make(public_path('uploads/services/').$file_name);
+        $image_resize->resize(null, 400, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $image_resize->save(public_path('uploads/services/' .$file_name));
+
+        // Saving it with this service
+        $service = Service::find($request->service_id);
+        $service->images()->create(['image_path' => $file_name]);
+        if($service->thumbnail != 'noserviceimage.png'){
+            $service->thumbnail = $service->images()->first()->image_path;
+        }
+
+        if($service->save()){
+            return (new ServiceResource($service))
+            ->response()
+            ->setStatusCode(200);
+        }
+
     }
 
     /**
@@ -780,30 +815,6 @@ class ServiceController extends Controller
             'service' => new ServiceResource($service),
             'similar_services' => new ServiceResourceCollection($similarProducts)
         ], 200);
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $service = Service::findOrFail($id);
-        $service->name = $request->name;
-        $service->description = $request->description;
-        $service->city = $request->city;
-        $service->state = $request->state;
-
-        if ($service->save()) {
-            return response()->json([
-                $service,
-                'message' => 'Service updated successfully!'
-            ], 200);
-        }
     }
 
     public function seekingWorkCreate(Request $request)

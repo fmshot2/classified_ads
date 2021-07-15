@@ -813,14 +813,14 @@ foreach($request->file('files') as $image)
   //       //   $serve->total_likes = $serve->total_likes;
   //       //   return $serve->total_likes;
   //       // });
-  
+
   public function sort_ef_marketers_sales(Request $request)
   {
     $validatedData = $request->validate([
       'start_date' => ['required'],
       'end_date' => ['required'],
   ]);
- 
+
   $to = $request->end_date;
   $from  = $request->start_date;
   $efmarketers = User::where('is_ef_marketer', '1')->with(['referals'])->get();
@@ -842,3 +842,19 @@ foreach($request->file('files') as $image)
 }
 
 }
+
+
+
+        // Image set up
+        // if ($request->hasFile('files')) {
+        //     $names = array();
+        //     foreach ($request->file('files') as $image) {
+        //         $thumbnailImage = Image::make($image);
+        //         $thumbnailImage->resize(300, 300);
+        //         $thumbnailImage_name = $slug . '.' . time() . '.' . $image->getClientOriginalExtension();
+        //         $destinationPath = 'images/';
+        //         $thumbnailImage->save($destinationPath . $thumbnailImage_name);
+        //         array_push($names, $thumbnailImage_name);
+        //     }
+        //     $service->thumbnai; = json_encode($names);
+        // }
