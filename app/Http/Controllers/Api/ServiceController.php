@@ -222,7 +222,6 @@ class ServiceController extends Controller
             ]);
         }
 
-        $data = $request->all();
         $this->validate($request, [
             'description' => 'required',
             'category_id' => 'required',
@@ -234,40 +233,23 @@ class ServiceController extends Controller
             'state' => 'required',
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
         ]);
-        $image = $request->file('image');
         $random = Str::random(3);
         $slug = Str::of($request->name)->slug('-') . '' . $random;
         $service = new Service();
-        $slug = Str::random(5);
-
-        // Image set up
-        if ($request->hasFile('files')) {
-            $names = array();
-            foreach ($request->file('files') as $image) {
-                $thumbnailImage = Image::make($image);
-                $thumbnailImage->resize(300, 300);
-                $thumbnailImage_name = $slug . '.' . time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = 'images/';
-                $thumbnailImage->save($destinationPath . $thumbnailImage_name);
-                array_push($names, $thumbnailImage_name);
-            }
-            $service->image = json_encode($names);
-        }
-
-        $state_details = State::where('name', $data['state'])->first();
+        $state_details = State::where('name', $request->state)->first();
 
         $service->user_id = Auth::id();
-        $service->category_id = $data['category_id'];
-        $service->name = $data['name'];
-        $service->description = $data['description'];
-        $service->phone = $data['phone'];
-        $service->min_price = $data['min_price'];
-        $service->state = $data['state'];
+        $service->category_id =  $request->category_id;
+        $service->name =  $request->name;
+        $service->description =  $request->description;
+        $service->phone =  $request->phone;
+        $service->min_price =  $request->min_price;
+        $service->state =  $request->state;
         $service->latitude = $state_details->latitude;
         $service->longitude = $state_details->longitude;
-        $service->city = $data['city'];
-        $service->address = $data['address'];
-        $service->max_price = $data['category_id'];
+        $service->city =  $request->city;
+        $service->address =  $request->address;
+        $service->max_price =  $request->category_id;
         $service->slug = $slug;
         // $service->video_link = $request->video_link;$data['category_id'];
         $service->save();
@@ -282,6 +264,26 @@ class ServiceController extends Controller
 
 
         if ($service->save()) {
+            if ($request->hasFile('thumbnail')) {
+                $image       = $request->file('thumbnail');
+                $fileInfo = $image->getClientOriginalName();
+                $filename = pathinfo($fileInfo, PATHINFO_FILENAME);
+                $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
+                $file_name = $filename . '-' . time() . '.' . $extension;
+
+                //Fullsize
+                $image->move(public_path('uploads/services/'), $file_name);
+
+                $image_resize = Image::make(public_path('uploads/services/') . $file_name);
+                $image_resize->resize(null, 300, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $image_resize->save(public_path('uploads/services/' . $file_name));
+
+                $service->images()->create(['image_path' => $file_name]);
+                $service->thumbnail = $service->images()->first()->image_path;
+                $service->save();
+            }
             $name =  $service->name;
             $category =  $service->category->name;
             $phone =  $service->phone;
@@ -319,6 +321,39 @@ class ServiceController extends Controller
         return (new ServiceResource($service))
             ->response()
             ->setStatusCode(200);
+    }
+
+    public function storeServiceImages(Request $request)
+    {
+        $image = $request->file('images');
+
+        $fileInfo  = $image->getClientOriginalName();
+        $filename  = pathinfo($fileInfo, PATHINFO_FILENAME);
+        $extension = pathinfo($fileInfo, PATHINFO_EXTENSION);
+        $file_name = $filename.'-'.time().'.'.$extension;
+
+        //Fullsize
+        $image->move(public_path('uploads/services/'),$file_name);
+
+        $image_resize = Image::make(public_path('uploads/services/').$file_name);
+        $image_resize->resize(null, 400, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $image_resize->save(public_path('uploads/services/' .$file_name));
+
+        // Saving it with this service
+        $service = Service::find($request->service_id);
+        $service->images()->create(['image_path' => $file_name]);
+        if($service->thumbnail != 'noserviceimage.png'){
+            $service->thumbnail = $service->images()->first()->image_path;
+        }
+
+        if($service->save()){
+            return (new ServiceResource($service))
+            ->response()
+            ->setStatusCode(200);
+        }
+
     }
 
     /**
@@ -525,27 +560,29 @@ class ServiceController extends Controller
             ]);
         }
 
-        $validatedData = $request->validate([
-            'description' => 'required|max:255',
+        $request->validate([
+            'message' => 'required|max:255',
+            'sender_phone' => 'required',
         ]);
 
-        $slug = Str::random(6);
+        $service = Service::find($request->service_id);
 
-        $message = new Message();
-        $message->subject = $request->subject;
-        $message->description = $request->description;
-        $message->service_id = $request->service_id;
-        $message->service_user_id = $request->service_user_id;
-        $message->buyer_name = $user->name;
-        $message->buyer_email = $user->email;
-        $message->buyer_id = $request->buyer_id;
-        $message->reply = 'yes';
-        $message->phone = $request->phone;
-        $message->slug = $slug;
+        $reply = new Message();
+        $reply->message = $request->message;
+        $reply->receiver_id = $request->receiver_id;
+        $reply->sender_name = $user->name;
+        $reply->sender_phone = $request->sender_phone;
+        $reply->sender_email = $user->email;
+        $reply->service_id = $request->service_id;
+        $reply->parent_id = $request->parent_id;
+        $reply->slug = Str::random(6);
+        $reply->user()->associate($user);
 
-        if ($message->save()) {
+        $user = User::find($user->id);
+
+        if ($user->messages()->save($reply)) {
             return response()->json([
-                'message' => $message
+                'message' => $reply
             ], 200);
         }
     }
@@ -559,19 +596,25 @@ class ServiceController extends Controller
                 'error' => $e->getMessage(),
             ]);
         }
+
+        $request->validate([
+            'message' => 'required|max:255',
+            'sender_phone' => 'required',
+        ]);
+
         $service = Service::find($request->service_id);
 
         $message = new Message();
         $message->message = $request->message;
         $message->receiver_id = $service->user->id;;
-        $message->sender_name = $request->sender_name;
+        $message->sender_name = $user->name;
         $message->sender_phone = $request->sender_phone;
-        $message->sender_email = $request->sender_email;
+        $message->sender_email = $user->email;
         $message->service_id = $request->service_id;
         $message->slug = Str::random(6);
-        $message->user()->associate($request->user());
+        $message->user()->associate($user);
 
-        $user = User::find($request->user()->id);
+        $user = User::find($user->id);
 
         if ($user->messages()->save($message)) {
             return response()->json([
@@ -772,30 +815,6 @@ class ServiceController extends Controller
             'service' => new ServiceResource($service),
             'similar_services' => new ServiceResourceCollection($similarProducts)
         ], 200);
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $service = Service::findOrFail($id);
-        $service->name = $request->name;
-        $service->description = $request->description;
-        $service->city = $request->city;
-        $service->state = $request->state;
-
-        if ($service->save()) {
-            return response()->json([
-                $service,
-                'message' => 'Service updated successfully!'
-            ], 200);
-        }
     }
 
     public function seekingWorkCreate(Request $request)
@@ -1409,7 +1428,7 @@ class ServiceController extends Controller
     //     Auth::user()->mypayments()->create(['payment_type' => 'subscription', 'amount' => $data['amount'], 'tranx_ref' => $data['ref_no']]);
 
 
-    //     return response()->json(['success' => 'Your Subscription payment was successfull', 
+    //     return response()->json(['success' => 'Your Subscription payment was successfull',
     //     'new_date' => $sub_check->subscription_end_date], 200);
     // }
 
@@ -1467,8 +1486,8 @@ class ServiceController extends Controller
              'email' => Auth::user()->email ]);
             if($sub_save) {
                 return response()->json([
-                    'res_message' => 'Success', 
-                    'res_code' => 200, 
+                    'res_message' => 'Success',
+                    'res_code' => 200,
                     'sub_save' => $sub_save], 200);
             } else {
                 return response()->json(['res_message' => 'Something went wrong', 'res_code' => 500], 500);
@@ -1502,11 +1521,11 @@ class ServiceController extends Controller
             $service_check->paid_featured = 1;
             $service_check->featured_end_date = Carbon::now()->addDays(31);
             $service_check->save();
-            Auth::user()->mypayments()->create(['payment_type' => 'featured', 'amount' => $data['amount'], 
+            Auth::user()->mypayments()->create(['payment_type' => 'featured', 'amount' => $data['amount'],
             'tranx_ref' => $data['tranx_ref']]);
             return response()->json(
                 [   'data' => $service_check,
-                    'res_message' => 'Success', 
+                    'res_message' => 'Success',
                     'res_code' => 200,
                 ], 200);
         }
@@ -1571,6 +1590,7 @@ class ServiceController extends Controller
     public function updateService(Request $request)
     {
         $service = Service::findOrFail($request->id);
+
         $this->validate($request, [
             'description' => 'nullable',
             'address'     => 'nullable',
