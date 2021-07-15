@@ -57,10 +57,11 @@ Route::group([
         Route::post('service/create', [ServiceController::class, 'createService']);
         Route::delete('service/delete/{id}', [ServiceController::class, 'deleteService']);
         Route::put('service/update', [ServiceController::class, 'updateService']);
-        
+        Route::post('service/images/update', [ServiceController::class, 'storeServiceImages']);
+
         //Likes
         Route::get('service/saveLike/{id}', [ServiceController::class, 'saveLike2']);
-        
+
         // Subscriptions
         //Get User Subscriptions
         Route::get('service/mySubscriptions/', [ServiceController::class, 'mySubscriptions']);
@@ -92,9 +93,10 @@ Route::group([
         Route::get('/message/read-messages', [ServiceController::class, 'readMessages']);
         Route::get('/message/unread-messages', [ServiceController::class, 'unReadMessages']);
         Route::get('/message/reply', [ServiceController::class, 'replyMessage']);
-        Route::post('/message/store', [ServiceController::class, 'storeMessage']);
         Route::post('/message/replies', [ServiceController::class, 'messageReply']);
         Route::post('/message/markasread', [ServiceController::class, 'messageReadStatus']);
+        Route::post('/message/store/reply', [ServiceController::class, 'messageReply']);
+        Route::post('/message/store', [ServiceController::class, 'storeMessage']);
 
         // Notifications
         Route::get('/notification/all', [ServiceController::class, 'allNotifications']);
@@ -106,7 +108,7 @@ Route::group([
         // Apply For Badge
         Route::get( '/request-for-badge/{id}', [ServiceController::class, 'requestForBadge']);
         Route::post('/paid-for-badge', [ServiceController::class, 'paidForBadge']);
-        
+
         // Payment - Subscription/Featured
         // Route::get('featured/{id}', [ServiceController::class, 'featuredServices']);
         Route::post('pay_featured', [ServiceController::class, 'create_pay_featured']);

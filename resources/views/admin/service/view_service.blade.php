@@ -23,6 +23,11 @@
             .act-btns{
                 margin-top: 20px;
             }
+            .col-xs-offset-3{
+                width: 100%;
+                margin-left: 0;
+            }
+
         }
     </style>
 

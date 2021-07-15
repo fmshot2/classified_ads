@@ -550,6 +550,78 @@
                                 </a>
                             </p>
 
+                            <p style="text-align: center; display:block">
+                                <a data-toggle="modal" data-target="#deliverwtDHL" class="btn btn-success animate__animated animate__headshake animate__infinite" style="border-radius: 50px; text-align: center; padding: 10px 15px; color: #D40511;box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);border:0; background-color:#FFCC00 !important;font-weight:900 !important">
+                                    Delivery with DHL
+                                </a>
+                            </p>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="deliverwtDHL" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel" style="text-transform: uppercase">Deliver With DHL</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-12">
+                                                    <label for="inputEmail4">Fullname</label>
+                                                    <input type="email" class="form-control" id="inputEmail4">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="inputEmail4">Email <small>(optional)</small></label>
+                                                    <input type="email" class="form-control" id="inputEmail4">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="inputPassword4">Phone</label>
+                                                    <input type="password" class="form-control" id="inputPassword4">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputAddress">Billing Address</label>
+                                                <input type="text" class="form-control" id="inputAddress">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputAddress2">Address 2</label>
+                                                <input type="text" class="form-control" id="inputAddress2">
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3">
+                                                    <label for="inputCity">Country</label>
+                                                    <input type="text" class="form-control" id="inputCity">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="inputCity">City</label>
+                                                    <input type="text" class="form-control" id="inputCity">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="inputState">State</label>
+                                                    <input type="text" class="form-control" id="inputCity">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="inputZip">Zip</label>
+                                                    <input type="text" class="form-control" id="inputZip">
+                                                </div>
+                                                <div class="form-group col-md-12" style="text-align: right; margin-bottom:0 !important">
+                                                    <label for="inputZip">Price</label>
+                                                    <p style="font-size: 17px;font-weight:800; margin-bottom:0 !important">₦55,000</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-warning" style="background-color:#FFCC00 !important;color: #D40511;">Make Payment</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="b-provider-online-info">
                                 <div class="b-provider-online-info-block">
                                     @auth
