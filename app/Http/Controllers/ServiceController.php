@@ -252,7 +252,7 @@ class ServiceController extends Controller
     public function serviceDetail($slug)
     {
 
-        $serviceDetail = Service::where('slug', $slug)->firstOrFail();
+        $serviceDetail = Service::where('slug', $slug)->where('subscription_end_date', '>', now())->firstOrFail();
         // dd($serviceDetail);
 
         $featuredServices = Service::where('is_featured', 1)->where('subscription_end_date', '>', now())->with('user')->inRandomOrder()->limit(4)->get();
