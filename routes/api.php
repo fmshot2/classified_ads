@@ -171,4 +171,7 @@ Route::prefix('v1')->group(function ()
 
     // AJAX SEARCH
     Route::get('/live/search', [ServiceController::class, 'ajaxSearchResult']);
+
+    // MOBILE AGENT MODAL
+    Route::get('/become-an-efcontact-agent', [GeneralController::class, 'becomeAnEfcontactAgent']);
 });

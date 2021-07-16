@@ -231,7 +231,7 @@ class ServiceController extends Controller
             'city' => 'required',
             'name' => 'required',
             'state' => 'required',
-            'file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', //|max:2048
         ]);
         $random = Str::random(3);
         $slug = Str::of($request->name)->slug('-') . '' . $random;
@@ -300,9 +300,9 @@ class ServiceController extends Controller
         $present_user = Auth::user();
         $user_hasUploadedService = $present_user->hasUploadedService;
         if ($user_hasUploadedService == 1) {
-            return response()->json([
-                'message' => 'Service created successfully!'
-            ], 200);
+            return (new ServiceResource($service))
+            ->response()
+            ->setStatusCode(200);
         }
         $present_user->hasUploadedService = 1;
         $user_referer_id = $present_user->idOfReferer;

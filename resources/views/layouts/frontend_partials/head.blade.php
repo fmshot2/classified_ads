@@ -60,6 +60,8 @@
 <link href="{{ asset('css/bootstrap-dropdownhover.min.css') }}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{ asset('toastr/toastr.min.css') }}">
 
+@yield('extra-styles')
+
 @livewireStyles
 
 
