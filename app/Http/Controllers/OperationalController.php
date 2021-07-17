@@ -1057,4 +1057,9 @@ class OperationalController extends Controller
         return Hash::make('cusServEF1@$');
     }
 
+
+    public function becomeAnEfcontactAgent(){
+        return view('mobile_agent_modal');
+    }
+
 }
