@@ -85,6 +85,7 @@ Route::group([
 
         // Feedbacks
         Route::get('my-client-feedbacks/', [ServiceController::class, 'clientfeedbacks']);
+        Route::get('my-client-feedback', [ServiceController::class, 'clientSingleFeedback']);
 
         // Messages
         Route::get('my-messages/', [ServiceController::class, 'myMessages']);
