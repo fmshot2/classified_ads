@@ -19,7 +19,7 @@ class ClientsFeedback extends JsonResource
             'user_id'           => $this->user_id,
             'parent_id'         => $this->parent_id == null ? '' : $this->parent_id  + 0,
             'comment'           => $this->comment,
-            'service_id'        => $this->commentable_id,
+            'commentable_id'    => $this->commentable_id,
             'commentable_type'  => $this->commentable_type,
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at,
