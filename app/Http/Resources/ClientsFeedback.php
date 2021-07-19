@@ -17,14 +17,13 @@ class ClientsFeedback extends JsonResource
         return [
             'id'                => $this->id,
             'user_id'           => $this->user_id,
-            'parent_id'         => $this->parent_id == null ? '' : $this->parent_id  + 0,
+            'parent_id'         => $this->parent_id == null ? '' : $this->parent_id,
             'comment'           => $this->comment,
             'commentable_id'    => $this->commentable_id,
             'commentable_type'  => $this->commentable_type,
             'created_at'        => $this->created_at,
             'updated_at'        => $this->updated_at,
             'user'              => new UserResource($this->user),
-            'service'           => new ServiceResource($this->service),
             'replies'           => ClientsFeedback::collection($this->replies)
         ];
     }
