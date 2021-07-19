@@ -1,4 +1,3 @@
-
 @extends('layouts.admin')
 
 @section('title')
@@ -24,8 +23,12 @@ All E.F Maketers |
 
 				<div class="box" >
 					<div class="box-header">
-						<h3 class="box-title"> All E.F Marketers</h3>
+						<h3 class="box-title"> {{ url()->current() == route('admin.all_ef_marketers') ? 
+        'All' : 'Sorted' }} E.F Marketers</h3>
 					</div>
+                    @if( url()->current() == route('admin.sort_ef_marketers_sales') )
+                        <a class="btn btn-primary" href="{{route('admin.all_ef_marketers')}}"> Back To All E.F MArketers</a>
+                    @endif
 
 					<!-- /.box-header -->
 					<div class="box-body">
@@ -38,7 +41,6 @@ All E.F Maketers |
                                         <th> Email </th>
                                         <th>Total Sales</th>
                                         <th> reg date</th>
-                                        <th> status </th>
                                         <th> Downline </th>
                                     </tr>
                                 </thead>
@@ -49,25 +51,12 @@ All E.F Maketers |
                                             <td> {{ $efmarketer->name }} </td>
                                             <td><span class="text-muted"> </i> {{ $efmarketer->email }} </span> </td>
 
-                                            @if(isset($efmarketer->ref)) {
-                                                <td> {{ $efmarketer->ref }} </span></td>
-                                            }
-                                            @else
-                                            {
-                                                <td> {{ $efmarketer->referals->count() }} </span></td>
-                                            }
-                                            @endif
+                                            <td> {{ $efmarketer->ref ??  $efmarketer->referals->count() }} </td>
 
-                                            <td> {{ $efmarketer->created_at->format('d/m/Y') }} </span></td>
-                                            <td>
-                                                @if($efmarketer->status == 1)
-                                                <span><p id="active_text">Activated</p></span>
-                                                @elseif($efmarketer->status == 0)
-                                                <span id="active_text2">Deactivated</span>
-                                                @endif
-                                            </td>
+                                            <td> {{ $efmarketer->created_at->format('d/m/Y') }} </td>
                                             <td class="center">
-                                                    <a href="{{route('efMarketerDownline', $efmarketer->slug)}}" class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
+                                                    <a href="{{route('efMarketerDownline', $efmarketer->slug)}}" 
+                                                        class="btn btn-warning "><i class="fa fa-eye"></i>View Downlines</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -129,88 +118,6 @@ All E.F Maketers |
 
 	</section>
 </div>
-
-
-
-<script>
-        function activateUser22(id) {
-
-    event.preventDefault();
-    if (confirm("Are you sure you want to change this user's status?")) {
-
-        $.ajax({
-            url: '/activate_user/' + id,
-            method: 'get',
-            success: function(result){
-              alert('successfull');
-                window.location.assign(window.location.href);
-            }
-        });
-// '/admin/delete/faqs/{id}'
-
-    } else {
-              alert('failed');
-
-        console.log('Delete process cancelled');
-
-    }
-
-    }
-    </script>
-
-
-
-    <script type="text/javascript">
-function activateUser(id) {
-swal({
-title: "Change this user's status?",
-text: "Please be sure and then confirm!",
-type: "warning",
-showCancelButton: !0,
-confirmButtonText: "Yes, change it!",
-cancelButtonText: "No, dont bother!",
-cancelButtonColor: '#dc3545',
-reverseButtons: !0
-}).then(function (e) {
-if (e.value === true) {
-
-$.ajax({
-            url: '/activate_user/' + id,
-            method: 'get',
-            success: function(results){
-            	// alert(results);
-            	console.log(results);
-            	if (results.success == true)  {
-swal("Done!", results.message, "success");
-document.getElementById("activate1").innerHTML = results.message;
-document.getElementById("activate2").innerHTML = results.status_message;
-if (results.message === 'Activate') {
-	document.getElementById("active_text").style.color='#dc3545';
-
-} else {
-		document.getElementById("active_text2").style.color='blue';
-
-}
-
-
-window.location.assign(window.location.href);
-
-
-} else {
-swal("Error!", results.message, "error");
-}
-
-            }
-        });
-
-} else {
-e.dismiss;
-}
-}, function (dismiss) {
-return false;
-})
-}
-</script>
 
 @endsection
 

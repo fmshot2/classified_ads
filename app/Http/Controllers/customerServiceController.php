@@ -53,7 +53,7 @@ class customerServiceController extends Controller
 	// 	$all_subscriptions = User::find(32);
 	//   dd($all_subscriptions->subscriptions);
 
-	  $all_subscriptions = User::with('subscriptions')->orderBy('id', 'desc')->get();
+	  $all_subscriptions = User::all();
 	  // foreach($all_subscriptions as $all_subscription){
 	  //   $all_subscriptions = $all_subscription->subscriptionable->services;
   
@@ -111,11 +111,63 @@ class customerServiceController extends Controller
 				}
 		}
 
+
+
+		public function save_user_Report(Request $request)
+    {
+        // $request->validate([
+        //     'email'    => ['required', 'string', 'email', 'max:255', 'exists:users,email'],
+        //     'password' => ['required', 'string', 'min:6']
+
+        // ]);
+
+		$reportCheck = CustomerService::where(['service_id' => $request->service_id])->first();
+        if ($reportCheck) {
+			$reportCheck->call_status = $request->call_status;
+			$reportCheck->call_duration = $request->call_duration;
+			$reportCheck->alternative = $request->alternative;
+			$reportCheck->client_comment = $request->client_comment;
+			$reportCheck->customer_service_comment = $request->customer_service_comment;
+			$reportCheck->customer_service_personel_name = $request->customer_service_personel_name;
+			$reportCheck->service_id = $reportCheck->service_id;
+			if ($reportCheck->update()) {
+				$success_notification = array(
+				'message' => 'Report Updated successfully!',
+				'alert-type' => 'success'
+				);
+				return redirect()->back()->with($success_notification);
+			}
+        } else {
+        $new_report = New CustomerService;
+		$new_report->call_status = $request->call_status;
+		$new_report->call_duration = $request->call_duration;
+		$new_report->alternative = $request->alternative;
+		$new_report->client_comment = $request->client_comment;
+		$new_report->customer_service_comment = $request->customer_service_comment;
+		$new_report->customer_service_personel_name = $request->customer_service_personel_name;
+		$new_report->service_id = $request->service_id;
+        }
+		if ($new_report->save()) {
+			$success_notification = array(
+				'message' => 'Report Added successfully!',
+				'alert-type' => 'success'
+			  );
+			  return redirect()->back()->with($success_notification);
+			} else {
+				$success_notification = array(
+					'message' => 'The Agent Code used is incorrect!',
+					'alert-type' => 'fail'
+				  );
+				  return redirect()->back()->with($success_notification);
+				}
+		}
+
+
 	
 
 		public function allServices_4_Cus_service()
 		{
-		  $mySortedServices = Service::orderBy('id', 'desc')->get();
+		  $mySortedServices = Service::all();
 		  // foreach($all_subscriptions as $all_subscription){
 		  //   $all_subscriptions = $all_subscription->subscriptionable->services;
 	  
@@ -139,7 +191,6 @@ class customerServiceController extends Controller
 		$from  = Carbon::now();
 		$query->whereBetween('subscription_end_date', [$from, $to]);
 	  })
-	  ->orderBy('created_at', 'desc')
 	  ->get(); 
 	  return view('customerservice.sub_about_to_end', compact('all_subscriptions'));
 	}
@@ -152,11 +203,28 @@ class customerServiceController extends Controller
           ->whereHas('subscriptions', function($query) {
             $query->where('subscription_end_date', '<', now());
           })
-          ->orderBy('created_at', 'desc')
           ->get();
           return view('customerservice.sub_ended', compact('all_subscriptions'));
         }
 		
+
+
+	// 	public function  sort_Sub_ending(Request $request)
+    //     {
+    //       $validatedData = $request->validate([
+    //         'start_date' => ['required'],
+    //         'end_date' => ['required'],
+    //     ]);
+    //     $to = Carbon::parse($request->end_date)->format('d/m/Y');
+    //     $from  = Carbon::parse($request->start_date)->format('d/m/Y');
+    //     $to = $request->end_date;
+    //     $from  = $request->start_date;
+    //     // dd($to, $from);
+    //     $efmarketers = User::whereBetween(DB::raw('date(created_at)'), [$from, $to])->get();
+	// 	return view('customerservice.sub_about_to_end', compact('all_subscriptions'));
+	// }
+
+
 		public function send_email()
 		{
 		  $agents_phone = Agent::all();

@@ -40,15 +40,15 @@
                                         <th> Phone </th>
                                         <th> role </th>
                                         <th> Registration Date</th>
-                                        <th> Sub End Date</th>
-                                        <th> Last Plan type</th>
+                                        <!-- <th> Sub End Date</th> -->
+                                        <!-- <th> Last Plan type</th> -->
                                         <th> Services </th>
                                         <th> Call Status </th>
                                         <th> Call Duration </th>
                                         <th> Alternative Communication </th>
                                         <th> Client's Comment </th>
                                         <th> Customer Service Comments </th>
-                                        <th> Customer Service Personel Name</th>
+                                        <!-- <th> Customer Service Personel Name</th> -->
                                         <th> Add Report </th>
                                     </tr>
                                 </thead>
@@ -63,12 +63,7 @@
                                         <td><span class="text-muted"> </i> {{ $all_subscription->phone ?? 'no phone'}} </span> </td>
                                         <td> {{ $all_subscription->role }} </td>
                                         <td> {{ $all_subscription->created_at->format('d/m/Y') }} </td>
-                                        @foreach($all_subscription->subscriptions as $key => $subs)
-
-                                        <td>  {{ Carbon\Carbon::parse($subs->subscription_end_date)
-                                            ->format("Y/m/d") }}</td>
-                                            <td>  {{$subs->sub_type}}</td>
-                                        @endforeach
+                                       
                                         <td>
                                         @if($all_subscription->services->count())
 
@@ -129,10 +124,10 @@
                                                                                 
                                         <td> {{$all_subscription->customerservice->call_status ?? ''}} </td>
                                         <td><span class="text-muted"></i> {{$all_subscription->customerservice->call_duration ?? ''}} </span> </td>
-                                        <td><span class="text-muted"> </i> {{$all_subscription->customerservice->call_status ?? 'none'}} </span> </td>
+                                        <td><span class="text-muted"> </i> {{$all_subscription->customerservice->call_status ?? ''}} </span> </td>
                                         <td> {{$all_subscription->customerservice->client_comment ?? ''}} </td>
                                         <td>{{$all_subscription->customerservice->customer_service_comment ?? ''}} </span></td>
-                                        <td>{{$all_subscription->customerservice->customer_service_personel_name ?? ''}} </td>                                        
+                                        <!-- <td>{{$all_subscription->customerservice->customer_service_personel_name ?? ''}} </td>                                         -->
                                         <td>
                                         <button type="button" class="btn btn-primary" 
                                         data-toggle="modal" data-target="#allUsers{{ $all_subscription->id }}">
@@ -152,7 +147,8 @@
                                             <div class="modal-body">
                                             <form action="{{ route('save_report') }}" method="POST" class="message-form">
                                                 @csrf
-                                            <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{$all_subscription->id}}">
+                                            <input type="hidden" class="form-control" id="user_id" name="user_id" 
+                                            value="{{$all_subscription->id}}">
                                         <div class="form-group">
                                             <label for="call_status">Call Status</label>
                                             <input type="text" class="form-control" id="call_status" name="call_status" value="{{$all_subscription->customerservice->call_status ?? ''}}">
@@ -175,11 +171,11 @@
                                             >{{$all_subscription->customerservice->customer_service_comment ?? ''}}</textarea>
                                         </div>
                                         
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="alternative">Handled By</label>
                                             <input type="text" class="form-control" id="customer_service_personel_name" name="customer_service_personel_name" 
                                              value="{{$all_subscription->customerservice->customer_service_personel_name ?? ''}}">
-                                        </div>
+                                        </div> -->
                                         <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-primary">Save changes</button>

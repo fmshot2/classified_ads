@@ -345,8 +345,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-        <li><a href=" {{ route('admin.subscription.all') }} "><i class="fa fa-circle-o"></i> All Subscriptions</a></li>          
-        <li><a href=" {{ route('customer_service.all_services') }} "><i class="fa fa-circle-o"></i> All Services</a></li>          
+        <li><a href=" {{ route('admin.subscription.all') }} "><i class="fa fa-circle-o"></i> Users</a></li>          
+        <li><a href=" {{ route('customer_service.all_services') }} "><i class="fa fa-circle-o"></i> Services</a></li>          
         <li><a href=" {{ route('users_sub_almost_ended') }} "><i class="fa fa-circle-o"></i> Subscription About To End</a></li>
         <li><a href=" {{ route('users_sub_has_ended') }} "><i class="fa fa-circle-o"></i> Subscription Has Ended</a></li>
           <li><a href=" {{ route('resub_last_month') }} "><i class="fa fa-circle-o"></i> Sub. Monthly Reports</a></li>
@@ -569,8 +569,9 @@
         </li>
 @elseif(Auth::user()->role == 'customerservice')
 
-<li class="treeview"
-        style="{{ url()->current() == route('customer_service.dashboard') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}
+<li class=""
+        style="{{ url()->current() == route('customer_service.dashboard') ? 
+        'background-color: #cc8a19; color: #ffffff !important;' : '' }}
         {{ url()->current() == route('customer_service.all_services') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}
         {{ url()->current() == route('users_sub_almost_ended') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}
         {{ url()->current() == route('users_sub_has_ended') ? 'background-color: #cc8a19; color: #ffffff !important;' : '' }}
@@ -578,21 +579,46 @@
 ">
         <a href="#">
           <i class="fa fa-users"></i>
-          <span> Customer Service Reports </span>
+          <span> Customer Service  </span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
-        <ul class="treeview-menu">
-        <li><a href=" {{ route('customer_service.dashboard') }} "><i class="fa fa-circle-o"></i> All Subscriptions</a></li>          
-        <li><a href=" {{ route('customer_service.all_services') }} "><i class="fa fa-circle-o"></i> All Services</a></li>          
-        <li><a href=" {{ route('user_sub_almost_ended') }} "><i class="fa fa-circle-o"></i> Subscription About To End</a></li>
-        <li><a href=" {{ route('user_sub_has_ended') }} "><i class="fa fa-circle-o"></i> Subscription Has Ended</a></li>
-        <li><a href=" {{ route('resubs_last_month') }} "><i class="fa fa-circle-o"></i> Sub. Monthly Reports</a></li>
-        <li><a href=" {{ route('cus.send_email') }} "><i class="fa fa-circle-o"></i> Send Email</a></li>
-        <li><a href=" {{ route('cus.send_sms') }} "><i class="fa fa-circle-o"></i> Send SMS</a></li>
+        <li style="{{ url()->current() == route('customer_service.dashboard') ? 
+        'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href=" {{ route('customer_service.dashboard') }} "><i class="fa fa-circle-o"></i> Users</a>
+        </li>          
+        <li style="{{ url()->current() == route('customer_service.all_services') ? 
+        'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href=" {{ route('customer_service.all_services') }} "><i class="fa fa-circle-o"></i> Services</a>
+        </li>          
+        <li style="{{ url()->current() == route('user_sub_almost_ended') ? 
+        'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href=" {{ route('user_sub_almost_ended') }} "><i class="fa fa-circle-o"></i> Subscription About To End
+        </a>
+        </li>
+        <li style="{{ url()->current() == route('user_sub_has_ended') ? 
+        'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href=" {{ route('user_sub_has_ended') }} "><i class="fa fa-circle-o"></i> Subscription Has Ended
+        </a>
+        </li>
+        <li style="{{ url()->current() == route('resubs_last_month') ? 
+        'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href=" {{ route('resubs_last_month') }} "><i class="fa fa-circle-o"></i> Sub. Monthly Reports
+        </a>
+        </li>
+        <li style="{{ url()->current() == route('cus.send_email') ? 
+        'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href=" {{ route('cus.send_email') }} "><i class="fa fa-circle-o"></i> Send Email
+        </a>
+        </li>
+        <li style="{{ url()->current() == route('cus.send_sms') ? 
+        'background-color: #cc8a19; color: #ffffff !important;' : '' }}">
+        <a href=" {{ route('cus.send_sms') }} "><i class="fa fa-circle-o"></i> Send SMS
+        </a>
+        </li>
 
-        </ul>
+       
       </li>
 
 

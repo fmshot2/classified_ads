@@ -249,4 +249,13 @@ public function scopeSearchCategory($query, $category)
  //        });
  //    }
 
+
+ /**
+     * The customerservice report that belongs to the user.
+     */
+    public function customerservice()
+    {
+        return $this->hasOne(CustomerService::class);
+    }
+
 }

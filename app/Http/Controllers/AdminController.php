@@ -1491,7 +1491,6 @@ class AdminController extends Controller
             $to  = Carbon::now();
             $query->whereBetween('subscription_end_date', [$from, $to]);
           })
-          ->orderBy('created_at', 'desc')
           ->get();
           // dd($sellers);
 
@@ -1504,9 +1503,7 @@ class AdminController extends Controller
             $query->whereBetween('updated_at', [$from, $to])
             ->where('trans_ref', 'LIKE', '%'.$search.'%');
           })
-          ->orderBy('created_at')
           ->get();
-
 
           return view('admin.user.resub_last_month', compact('all_subscriptions', 'Resub_sellers'));
         }
