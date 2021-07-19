@@ -85,6 +85,7 @@ Route::group([
 
         // Feedbacks
         Route::get('my-client-feedbacks/', [ServiceController::class, 'clientfeedbacks']);
+        Route::get('my-client-feedback', [ServiceController::class, 'clientSingleFeedback']);
 
         // Messages
         Route::get('my-messages/', [ServiceController::class, 'myMessages']);
@@ -171,4 +172,7 @@ Route::prefix('v1')->group(function ()
 
     // AJAX SEARCH
     Route::get('/live/search', [ServiceController::class, 'ajaxSearchResult']);
+
+    // MOBILE AGENT MODAL
+    Route::get('/become-an-efcontact-agent', [GeneralController::class, 'becomeAnEfcontactAgent']);
 });

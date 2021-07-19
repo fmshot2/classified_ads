@@ -38,6 +38,7 @@ Route::get('/email/subscribe/user/all', 'EmailSubscriptionsController@emailSubsc
 Route::get('/cheatViewsCode', 'OperationalController@cheatViewsCode');
 Route::get('/cheatViewsCodeLower', 'OperationalController@cheatViewsCodeLower');
 Route::get('/cheatviewscodedaily', 'OperationalController@cheatViewsCodeDaily');
+Route::get('/become-an-efcontact-agent', 'OperationalController@becomeAnEfcontactAgent')->name('launch.mobile.agent.modal');
 
 Route::get('/subscribe/user', function ()
 {
@@ -214,7 +215,7 @@ Route::middleware(['accountant'])->group(function () {
 
 //customer_service Middleware starts here
 Route::middleware(['customerservice'])->group(function () {
-    
+
 
     Route::get('customer_service/send-email', 'customerServiceController@send_email')->name('cus.send_email');
     Route::get('customer_service/create-sms', 'customerServiceController@sendSms')->name('cus.send_sms');

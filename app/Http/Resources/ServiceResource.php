@@ -35,6 +35,7 @@ class ServiceResource extends JsonResource
             'updated_at'          => $this->updated_at,
             'slug'                => $this->slug,
             'status'              => $this->status,
+            'thumbnail'           => $this->thumbnail ? route('home') . '/uploads/services/' . $this->thumbnail : route('home') . '/uploads/services/noserviceimage.png',
             'is_approved'         => $this->is_approved,
             'subscription_end_date' => $this->subscription_end_date == null ? '' : $this->subscription_end_date,
             'views'               => $this->views->count(),
