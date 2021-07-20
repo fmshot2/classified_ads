@@ -27,7 +27,7 @@ class MessageResource extends JsonResource
             'service_user_id'  => $this->service_user_id == null ? '' : $this->service_user_id,
             'status'           => $this->status,
             'service_id'       => $this->service_id == null ? '' : $this->service_id,
-            'parent_id'        => $this->parent_id == null ? '' : $this->parent_id,
+            'parent_id'        => $this->parent_id == null ? 0 : $this->parent_id,
             'message_id'       => $this->messageable_id,
             'message_type'     => $this->messageable_type,
             'created_at'       => $this->created_at,
