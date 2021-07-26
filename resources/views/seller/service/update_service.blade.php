@@ -194,8 +194,8 @@
                         @endforelse
                     </div>
 
-                    @if (Auth::User()->badgetype == 1 && $service->images->count() < 8)
-                        <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 8 - $service->images->count() }} image{{ 8 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
+                    @if (Auth::User()->badgetype == 1 && $service->images->count() < 10)
+                        <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 10 - $service->images->count() }} image{{ 10 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
                         <p> {{ 8 - $service->images->count() }} remaining.</p>
                         <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
                             @csrf
@@ -209,7 +209,21 @@
                             <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
                             <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
                         </center>
-                    @elseif (Auth::User()->badgetype == 2 && $service->images->count() < 6)
+                    @elseif (Auth::User()->badgetype == 2 && $service->images->count() < 8)
+                        <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 8 - $service->images->count() }} image{{ 8 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
+                        <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
+                            @csrf
+                            <div class="dz-default dz-message">
+                                Click here to add your images <br>
+                                <small style="color: rgb(182, 66, 66) !important">When you are done click the upload button down below!</small>
+                            </div>
+                        </form>
+                        <br>
+                        <center>
+                            <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
+                            <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
+                        </center>
+                    @elseif (Auth::User()->badgetype == 3 && $service->images->count() < 6)
                         <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 6 - $service->images->count() }} image{{ 6 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
                         <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
                             @csrf
@@ -223,22 +237,8 @@
                             <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
                             <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
                         </center>
-                    @elseif (Auth::User()->badgetype == 3 && $service->images->count() < 4)
+                    @elseif (Auth::User()->badgetype == 4 && $service->images->count() < 4)
                         <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 4 - $service->images->count() }} image{{ 4 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
-                        <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
-                            @csrf
-                            <div class="dz-default dz-message">
-                                Click here to add your images <br>
-                                <small style="color: rgb(182, 66, 66) !important">When you are done click the upload button down below!</small>
-                            </div>
-                        </form>
-                        <br>
-                        <center>
-                            <button id="submit-all" class="btn btn-success" style="height: 40px;"> Click to upload</button>
-                            <a href="{{ route('serviceDetail', ['slug' => $service->slug]) }}" class="btn btn-danger show-page-vs-btn" style="height: 40px; line-height: 29px;" target="_blank"> View Service</a>
-                        </center>
-                    @elseif (Auth::User()->badgetype == 4 && $service->images->count() < 2)
-                        <p style="color: rgb(252, 85, 85); font-size: 16px"> {{ 2 - $service->images->count() }} image{{ 2 - $service->images->count() > 1 ? 's' : '' }} remaining.</p>
                         <form action="{{ route('service.images.store', ['id' => $service->id]) }}" method="POST" class="dropzone" id="dropzone" enctype="multipart/form-data">
                             @csrf
                             <div class="dz-default dz-message">
